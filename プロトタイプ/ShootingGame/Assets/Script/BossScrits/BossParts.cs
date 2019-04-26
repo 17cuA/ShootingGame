@@ -12,22 +12,51 @@ using UnityEngine;
 public class BossParts : MonoBehaviour
 {
 	[SerializeField]
-	public bool shouldAttack { get; private set; }		// 攻撃するかしないか
-	private int attackInterval { get; set; }
+	public bool ShouldAttack { get; private set; }		        // 攻撃するかしないか
+	private int AttackInterval { get; set; }                    // 攻撃のインターバル
+    public int HP { get; private set; }                         // パーツ自身のHP
+    public GameObject EffectExplosion { get; private set; }     // エフェクトのプレハブ格納
 
-	void Start()
+    public GameObject bullet;                                  // 攻撃用の弾
+
+    //public bool invincible;                // 無敵確認
+    [SerializeField]
+    private bool invincible;                 // 無敵確認
+
+    void Start()
     {
+
     }
 
     void Update()
     {
-        if(shouldAttack)
+        if(ShouldAttack)
+		{
+            
+		}
+		else if(!ShouldAttack)
 		{
 
 		}
-		else if(!shouldAttack)
-		{
 
-		}
+        if(HP == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(invincible)
+        {
+            if(other.name == "Player_Bullet")
+            {
+                Destroy(other.gameObject);
+            }
+        }
+        else
+        {
+            HP -= (int)other.GetComponent<bullet_status>().attack_damage;
+        }
     }
 }
