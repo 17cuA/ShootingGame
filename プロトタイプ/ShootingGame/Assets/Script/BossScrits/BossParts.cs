@@ -17,7 +17,7 @@ public class BossParts : MonoBehaviour
 
     public GameObject bullet;                                  // 攻撃用の弾
     [SerializeField]
-    private bool invincible;                 // 無敵確認
+    public bool invincible;                 // 無敵確認
     [SerializeField]
     private int HP;
 
@@ -49,7 +49,6 @@ public class BossParts : MonoBehaviour
     {
         if (other.tag == "Player_Bullet")
         {
-
             if (invincible)
             {
                 Destroy(other.gameObject);

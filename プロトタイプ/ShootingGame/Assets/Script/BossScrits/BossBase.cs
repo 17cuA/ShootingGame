@@ -16,14 +16,14 @@ public class BossBase : MonoBehaviour
 	/// <summary>
 	/// 自分のパーツ（子供）
 	/// </summary>
-	private List<GameObject> ownParts { set; get; }
+	private List<BossParts> ownParts { set; get; }
 
 	void Start()
     {
-		ownParts = new List<GameObject>();
+		ownParts = new List<BossParts>();
 		for(int i = 0; i < transform.childCount; i++)
 		{
-			ownParts.Add(transform.GetChild(i).gameObject);
+			ownParts.Add(transform.GetChild(i).GetComponent<BossParts>());
 		}
 	}
 
@@ -58,17 +58,26 @@ public class BossBase : MonoBehaviour
 	/// <summary>
 	/// パーツの生存確認
 	/// </summary>
-	/// <returns>パーツがないとき true</returns>
+	/// <returns>パーツがないとき true </returns>
 	private bool Is_PartsAlive()
 	{
-		if(ownParts.Count == 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+        for(int i = 0; i < ownParts.Count;i++)
+        {
+            if(!ownParts[i].invincible)
+            {
+                return false;
+            }
+        }
+
+        return true;
+		//if(ownParts.Count == 0)
+		//{
+		//	return true;
+		//}
+		//else
+		//{
+		//	return false;
+		//}
 	}
 
 	/// <summary>
