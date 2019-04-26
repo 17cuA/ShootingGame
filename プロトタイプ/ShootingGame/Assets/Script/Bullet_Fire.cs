@@ -8,10 +8,12 @@ public class Bullet_Fire : MonoBehaviour
     private GameObject Bullet;      //弾のPrefab情報
 
     private Transform Player_transform;
+    private Player1 Player;
     // Use this for initialization
     void Start () 
     {
         Bullet = Resources.Load("Player_Bullet") as GameObject;
+        Player = gameObject.GetComponentInParent<Player1>();
         Player_transform = transform.parent;
     }
 
@@ -25,6 +27,7 @@ public class Bullet_Fire : MonoBehaviour
 				gameObject.transform.position,
 				Player_transform.rotation
 			);
+            Player.Shot_Delay = 0;
 		}
 	}
 }

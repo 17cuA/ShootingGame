@@ -18,8 +18,8 @@ public class bullet_status : MonoBehaviour
 	private float DTime;		//デストロイまでの時間のカウント
 	private int Destroy_Time;   //デストロイする時間
 	private Vector3 progressVector_F;       //　自身の進行ベクトル
-	public Vector3 ProgressVector_F
-	{
+	public Vector3 ProgressVector_F //　自身の進行ベクトル
+    {
 		get { return progressVector_F; }
 	}
 	void Start()
