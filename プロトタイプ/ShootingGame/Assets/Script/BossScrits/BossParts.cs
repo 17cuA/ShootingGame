@@ -31,7 +31,7 @@ public class BossParts : MonoBehaviour
     {
         look = GetComponent<MeshRenderer>();
         Bullet = Resources.Load("Enemy_Bullet") as GameObject;
-        AttackInterval = 2;
+        AttackInterval = 2 * 60;
     }
 
     void Update()
@@ -40,8 +40,7 @@ public class BossParts : MonoBehaviour
 		{
             if((Game_Master.MY.Frame_Count % AttackInterval) == 0)
             {
-                Instantiate(Bullet, transform.position, Quaternion.Euler(transform.right));
-                print("aaaaa");
+                Instantiate(Bullet, transform.position, Quaternion.LookRotation(transform.right));
             }
 		}
 		else if(!ShouldAttack)

@@ -51,6 +51,13 @@ public class bullet_status : MonoBehaviour
 	}
     private void OnTriggerEnter(Collider col)
     {
-        Destroy(gameObject);
+        if (col.tag == "Enemy" || col.tag == "Boss")
+        {
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

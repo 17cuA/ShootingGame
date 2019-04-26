@@ -42,9 +42,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  materials:
+  - {fileID: 2100002, guid: 9ed3221894c4ca64fa2e819f8446e440, type: 3}
+  - {fileID: 2100000, guid: 8d9aaa4884869514c9355ce84e2a3670, type: 2}
+  look: {fileID: 0}
   invincible: 0
   HP: 5
+  ShouldAttack: 1
 --- !u!54 &5406935665748943781
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -87,9 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  materials:
+  - {fileID: 2100002, guid: 9ed3221894c4ca64fa2e819f8446e440, type: 3}
+  - {fileID: 2100000, guid: 8d9aaa4884869514c9355ce84e2a3670, type: 2}
+  look: {fileID: 0}
   invincible: 0
   HP: 5
+  ShouldAttack: 1
 --- !u!1 &5448659788558669745
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,9 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  materials: []
+  look: {fileID: 0}
   invincible: 1
   HP: 1
+  ShouldAttack: 0
 --- !u!54 &2274861450998676996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -366,9 +376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  materials: []
+  look: {fileID: 0}
   invincible: 0
   HP: 5
+  ShouldAttack: 0
 --- !u!64 &3555097298481303740
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -425,9 +437,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  materials:
+  - {fileID: 2100002, guid: 9ed3221894c4ca64fa2e819f8446e440, type: 3}
+  - {fileID: 2100000, guid: 8d9aaa4884869514c9355ce84e2a3670, type: 2}
+  look: {fileID: 0}
   invincible: 0
   HP: 5
+  ShouldAttack: 1
 --- !u!1001 &1049036990189655837
 PrefabInstance:
   m_ObjectHideFlags: 0
