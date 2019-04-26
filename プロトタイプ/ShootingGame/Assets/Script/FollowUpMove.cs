@@ -23,7 +23,7 @@ public class FollowUpMove : character_status
 
     void Start()
     {
-		E_Type = Type_Determining();
+        E_Type = Type_Determining();
 		Type = Chara_Type.Enemy;
 		Rig = GetComponent<Rigidbody>();				//rigidbodyの情報取得
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
@@ -86,11 +86,12 @@ public class FollowUpMove : character_status
 		{
 			case Enemy_Type.Front:
 				direction = new Vector3(-1, 0, 0);                   //進む方向を決めるための変数を初期化(プレイヤーより後ろに向かって
-				transform.eulerAngles = new Vector3(0, 180, 0);
+				transform.eulerAngles = new Vector3(0, -90, 0);
 				break;
 			case Enemy_Type.Back:
 				direction = new Vector3(1, 0, 0);                   //進む方向を決めるための変数を初期化（プレイヤーより前に向かって）
-				break;
+                transform.eulerAngles = new Vector3(0, 90, 0);
+                break;
 			case Enemy_Type.None:
 				direction = new Vector3(0, 0, 0);                   //進む方向を決めるための変数を初期化（動かない）
 				break;

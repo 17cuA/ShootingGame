@@ -438,7 +438,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &2114535904978442812
 CapsuleCollider:
@@ -468,9 +468,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   hp: 5
-  rigidbody: {fileID: 0}
+  Rig: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
+  E_Type: 0
 --- !u!1 &5916437772943013697
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5916437772943013697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.47, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2114535904710440511}

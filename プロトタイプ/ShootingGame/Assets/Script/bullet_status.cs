@@ -27,7 +27,7 @@ public class bullet_status : MonoBehaviour
 		rb = this.GetComponent<Rigidbody>();//このオブジェクトのrigidbodyを取得
 		DTime = 0;
 		Destroy_Time = 2;
-		MovementDirectionSpecification(transform.right);
+		MovementDirectionSpecification(transform.forward);
 	}
 
 	void Update()
@@ -48,7 +48,7 @@ public class bullet_status : MonoBehaviour
 		//　方進行方向に力を加える
 		rb.velocity = progressVector_F.normalized * shot_speed;
 		//　進行方向に向きを合わせる
-		transform.right = progressVector_F;
+		transform.forward = progressVector_F;
 	}
 	private void OnCollisionEnter(Collision col)
 	{
