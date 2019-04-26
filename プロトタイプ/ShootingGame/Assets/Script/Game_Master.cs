@@ -5,8 +5,9 @@ using System;
 
 public class Game_Master : MonoBehaviour
 {
-    private uint frame_Count;   //  ゲームが開始してからの時間をカウント
+    public uint Frame_Count { private set; get; }   //  ゲームが開始してからの時間をカウント
     
+
     void Start()
     {
         
@@ -15,6 +16,7 @@ public class Game_Master : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        frame_Count++;
+        Frame_Count++;
     }
+    
 }
