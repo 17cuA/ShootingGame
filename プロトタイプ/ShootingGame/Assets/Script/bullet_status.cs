@@ -44,14 +44,13 @@ public class bullet_status : MonoBehaviour
 	{
 		//　進行ベクトルの変更
 		progressVector_F = vector;
-
 		//　方進行方向に力を加える
 		rb.velocity = progressVector_F.normalized * shot_speed;
 		//　進行方向に向きを合わせる
 		transform.forward = progressVector_F;
 	}
-	private void OnCollisionEnter(Collision col)
-	{
-		Destroy(gameObject);
-	}
+    private void OnTriggerEnter(Collider col)
+    {
+        Destroy(gameObject);
+    }
 }

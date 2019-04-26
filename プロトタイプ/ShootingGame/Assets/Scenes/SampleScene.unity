@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &56055347
 Transform:
   m_ObjectHideFlags: 0
@@ -551,6 +551,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Is_ModeChange.Array.data[1]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2959294126185931109, guid: 8f769dadc769e0c438be4d36b83989b4,
+        type: 3}
+      propertyPath: Shot_DelayMax
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2959294126185931108, guid: 8f769dadc769e0c438be4d36b83989b4,
         type: 3}

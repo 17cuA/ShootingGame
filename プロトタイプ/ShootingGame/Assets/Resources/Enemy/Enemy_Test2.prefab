@@ -448,7 +448,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140639951572318862}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
@@ -471,6 +471,8 @@ MonoBehaviour:
   Rig: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
   E_Type: 0
 --- !u!1 &9002217143364887252
 GameObject:

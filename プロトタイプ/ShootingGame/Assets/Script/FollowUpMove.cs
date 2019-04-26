@@ -56,16 +56,17 @@ public class FollowUpMove : character_status
         }
 		Died_Process(hp);
     }
-	private void OnCollisionEnter(Collision col)
-	{
-		if (col.gameObject.transform.name == "Player_Bullet(Clone)")
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.transform.name == "Player_Bullet(Clone)")
 		{
 			//弾のダメージを取得するための弾のステータスの情報取得
 			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
 			//弾のダメージの値だけ体力を減らす
 			hp -= Bs.attack_damage;
 		}
-	}
+
+    }
 	void Died_Process(float hp)
 	{
 		//体力が1未満だったらオブジェクトの消去

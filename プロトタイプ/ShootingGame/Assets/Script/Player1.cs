@@ -10,13 +10,16 @@ public class Player1 : character_status
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
-
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
+    public GameObject shot_Mazle;
+    private Bullet_Fire BF;
 	void Start()
 	{
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
 		Rig = GetComponent<Rigidbody>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
+        shot_Mazle = gameObject.transform.FindChild("Bullet_Fire").gameObject;
+        BF = shot_Mazle.GetComponent<Bullet_Fire>();
 		transform.eulerAngles = new Vector3(0, 90, -30);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
@@ -36,19 +39,26 @@ public class Player1 : character_status
 		Player_Move();
 		//体力が０になると死ぬ処理
 		if (hp < 1) Destroy(gameObject);
+        //弾の発射（Fire2かSpaceキーで撃てる）
+        if (Shot_Delay > Shot_DelayMax)
+        {
+            BF.Bullet_Create();
+            Shot_Delay = 0;
+        }
+        Shot_Delay++;
 	}
-	//collisionの時はisTriggerにチェックを入れないこと
-	//コライダーが当たった時の処理
-	public void OnCollisionEnter(Collision col)
-	{
-		//敵の弾に当たった時に使う処理
-		if (col.gameObject.tag == "Enemy_Bullet")
-		{
-			//敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
-			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
-			hp -= Bs.attack_damage;
-		}
-	}
+    //collisionの時はisTriggerにチェックを入れないこと
+    //コライダーが当たった時の処理
+    private void OnTriggerEnter(Collider col)
+    {
+        //敵の弾に当たった時に使う処理
+        if (col.gameObject.tag == "Enemy_Bullet")
+        {
+            //敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
+            bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
+            hp -= Bs.attack_damage;
+        }
+    }
 	//コントローラーの操作
 	private void Player_Move()
 	{

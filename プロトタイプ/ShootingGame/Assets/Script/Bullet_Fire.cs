@@ -14,14 +14,10 @@ public class Bullet_Fire : MonoBehaviour
         Bullet = Resources.Load("Player_Bullet") as GameObject;
         Player_transform = transform.parent;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        Bullet_Create();
-    }
-	private void Bullet_Create()
+
+	public void Bullet_Create()
 	{
-		if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetButton("Fire2") || Input.GetKeyDown(KeyCode.Space))
 		{
 			Instantiate
 			(
@@ -30,7 +26,5 @@ public class Bullet_Fire : MonoBehaviour
 				Player_transform.rotation
 			);
 		}
-
-
 	}
 }

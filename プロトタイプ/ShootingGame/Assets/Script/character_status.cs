@@ -9,12 +9,13 @@ public class character_status : MonoBehaviour
 		None
 	}
 	protected Chara_Type Type;
-	public float speed;                                             // スピード
-	public float hp;                                                 // 体力
-	public Rigidbody Rig;                               // Rigidbody
+	public float speed;                                         // スピード
+	public float hp;                                            // 体力
+	public Rigidbody Rig;                                       // Rigidbody
 	public Vector3 direction;                                   // 向き
-	public CapsuleCollider capsuleCollider;               // cillider
-
+	public CapsuleCollider capsuleCollider;                     // cillider
+    public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
+    public int Shot_Delay;                                 // 弾を撃つ時の間隔
 	//public Chara_Type Get_Type(Chara_Type type) { return type; }
 	//// Start is called before the first frame update
 	//void Start()
