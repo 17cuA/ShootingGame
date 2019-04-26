@@ -18,7 +18,7 @@ public class Player1 : character_status
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
 		Rig = GetComponent<Rigidbody>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
-        shot_Mazle = gameObject.transform.FindChild("Bullet_Fire").gameObject;
+        shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
         BF = shot_Mazle.GetComponent<Bullet_Fire>();
 		transform.eulerAngles = new Vector3(0, 90, -30);
 		vector3 = Vector3.zero;

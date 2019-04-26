@@ -24,7 +24,11 @@ public class BossBase : MonoBehaviour
 		for(int i = 0; i < transform.childCount; i++)
 		{
 			ownParts.Add(transform.GetChild(i).GetComponent<BossParts>());
-		}
+            for(int j = 0; j < transform.GetChild(i).childCount; j++)
+            {
+                ownParts.Add(transform.GetChild(i).GetChild(j).GetComponent<BossParts>());
+            }
+        }
 	}
 
     void Update()

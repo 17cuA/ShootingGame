@@ -10,7 +10,7 @@ public class Game_Master : MonoBehaviour
 
     void Start()
     {
-        
+        MY = GetComponent<Game_Master>();
     }
 
     // Update is called once per frame
