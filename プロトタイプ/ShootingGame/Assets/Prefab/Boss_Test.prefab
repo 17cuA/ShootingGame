@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
-  invincible: 1
+  bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  HP: 1
 --- !u!54 &2274861450998676996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7af7410e0964f47b87c9cced156bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
-  invincible: 0
+  bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  HP: 10
 --- !u!64 &3555097298481303740
 MeshCollider:
   m_ObjectHideFlags: 0
