@@ -21,7 +21,7 @@ public class Player1 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		Rig.velocity = vector3;
-		hp = 10;
+		hp = 999;
 		Type = Chara_Type.Player;
 	}
 
