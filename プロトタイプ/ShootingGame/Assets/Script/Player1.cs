@@ -43,7 +43,6 @@ public class Player1 : character_status
         if (Shot_Delay > Shot_DelayMax)
         {
             BF.Bullet_Create();
-            Shot_Delay = 0;
         }
         Shot_Delay++;
 	}
