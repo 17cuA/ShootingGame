@@ -18,5 +18,4 @@ public class Game_Master : MonoBehaviour
     {
         Frame_Count++;
     }
-    
 }
