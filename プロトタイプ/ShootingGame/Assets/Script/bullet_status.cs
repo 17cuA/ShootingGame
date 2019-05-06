@@ -26,14 +26,20 @@ public class bullet_status : MonoBehaviour
 	{
 		rb = this.GetComponent<Rigidbody>();//このオブジェクトのrigidbodyを取得
 		DTime = 0;
-		Destroy_Time = 2;
-		MovementDirectionSpecification(transform.forward);
+		Destroy_Time = 1;
+		MovementDirectionSpecification(transform.right);
 	}
 
 	void Update()
 	{
-		DTime += Time.deltaTime;
-		if (DTime > Destroy_Time) Destroy(gameObject);
+		//DTime += Time.deltaTime;
+		//if (DTime > Destroy_Time) Destroy(gameObject);
+
+		if (transform.position.x > 8.8f || transform.position.x < -8)
+		{
+			Destroy(gameObject);
+		}
+
 	}
 	/// <summary>
 	/// 移動向きの指定
@@ -47,17 +53,17 @@ public class bullet_status : MonoBehaviour
 		//　方進行方向に力を加える
 		rb.velocity = progressVector_F.normalized * shot_speed;
 		//　進行方向に向きを合わせる
-		transform.forward = progressVector_F;
+		transform.right = progressVector_F;
 	}
     private void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Enemy" || col.tag == "Boss")
-        {
-
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+		if(gameObject.name == "Enemy_Bullet" && gameObject.tag == "Player")
+		{
+			Destroy(gameObject);
+		}
+		else if(gameObject.name == "Player_Bullet" && gameObject.tag == "Enemy")
+		{
+			Destroy(gameObject);
+		}
+	}
 }

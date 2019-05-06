@@ -23,16 +23,16 @@ public class FollowUpMove : character_status
 
     void Start()
     {
-        E_Type = Type_Determining();
-		Type = Chara_Type.Enemy;
 		Rig = GetComponent<Rigidbody>();				//rigidbodyの情報取得
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 
 		Travelling_Direction();
-		Player = GameObject.Find("Player_Test");			//プレイヤーを名前で検索
-    }
+		Player = GameObject.Find("Player_Demo 1(Clone)");           //プレイヤーを名前で検索
+		E_Type = Type_Determining();
+		Type = Chara_Type.Enemy;
+	}
 
-    void Update()
+	void Update()
     {
         //プレイヤーの座標がエネミーの座標より大きいとき
         if (Player.transform.position.y > transform.position.y)
@@ -65,7 +65,6 @@ public class FollowUpMove : character_status
 			//弾のダメージの値だけ体力を減らす
 			hp -= Bs.attack_damage;
 		}
-
     }
 	void Died_Process(float hp)
 	{

@@ -22,7 +22,7 @@ public class Enemy_Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Shot_Delay > Shot_Delay_Max)
+        if(Shot_Delay > Shot_Delay_Max && transform.position.x < 9)
         {
             Instantiate(Bullet, gameObject.transform.position,Enemy_transform.rotation);
             Shot_Delay = 0;
