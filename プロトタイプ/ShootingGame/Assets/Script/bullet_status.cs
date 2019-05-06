@@ -57,11 +57,12 @@ public class bullet_status : MonoBehaviour
 	}
     private void OnTriggerEnter(Collider col)
     {
-		if(gameObject.name == "Enemy_Bullet" && gameObject.tag == "Player")
+		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
+		if(gameObject.name == "Enemy_Bullet(Clone)" && col.gameObject.tag == "Player")
 		{
 			Destroy(gameObject);
 		}
-		else if(gameObject.name == "Player_Bullet" && gameObject.tag == "Enemy")
+		if(gameObject.name == "Player_Bullet(Clone)" && col.gameObject.tag == "Enemy")
 		{
 			Destroy(gameObject);
 		}
