@@ -17,8 +17,8 @@ public class BossParts : MonoBehaviour
     public GameObject EffectExplosion { get; private set; }     // エフェクトのプレハブ格納
     public GameObject Bullet { get; private set; }                                  // 攻撃用の弾
 
-    public Material[] materials;
-    public MeshRenderer look;
+    //public Material[] materials;
+    //public MeshRenderer look;
 
     [SerializeField]
     public bool invincible;                 // 無敵確認
@@ -27,11 +27,16 @@ public class BossParts : MonoBehaviour
     [SerializeField]
     private bool ShouldAttack;        // 攻撃するかしないか
 
+	public Renderer my;
+	public Color myColor;
+
     void Start()
     {
-        look = GetComponent<MeshRenderer>();
+        //look = GetComponent<MeshRenderer>();
         Bullet = Resources.Load("Enemy_Bullet") as GameObject;
         AttackInterval = 2 * 60;
+		my = GetComponent<Renderer>();
+		myColor = my.material.color;
     }
 
     void Update()
@@ -73,10 +78,12 @@ public class BossParts : MonoBehaviour
     IEnumerator Effect()
     {
         Debug.Log("A");
-        look.materials[0] = materials[1];
-        // ディレイの時間
-        yield return new WaitForSeconds(1.0f);
+		my.material.color = Color.white;
+		//look.materials[0] = materials[1];
+		// ディレイの時間
+		yield return new WaitForSeconds(0.5f);
         Debug.Log("B");
-        look.materials[0] = materials[0];
-    }
+		//look.materials[0] = materials[0];
+		my.material.color = myColor;
+	}
 }
