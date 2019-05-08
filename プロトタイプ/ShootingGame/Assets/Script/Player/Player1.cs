@@ -38,7 +38,7 @@ public class Player1 : character_status
 		}
 		Player_Move();
 		//体力が０になると死ぬ処理
-		if (hp < 1) Destroy(gameObject);
+		//Died_Judgment();
         //弾の発射（Fire2かSpaceキーで撃てる）
         if (Shot_Delay > Shot_DelayMax)
         {
@@ -57,6 +57,7 @@ public class Player1 : character_status
             bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
             hp -= Bs.attack_damage;
         }
+		if (col.gameObject.tag == "Enemy") hp--;
     }
 	//コントローラーの操作
 	private void Player_Move()
@@ -73,5 +74,11 @@ public class Player1 : character_status
 		//方向に−１をかけて反転した物を入れる
 		Direction *= new Quaternion(0, 0, -1, 0);
 		transform.rotation = Direction;
+	}
+	public bool Died_Judgment()
+	{
+		bool is_died = false;
+		if (hp == 0) is_died = true;
+		return is_died;
 	}
 }

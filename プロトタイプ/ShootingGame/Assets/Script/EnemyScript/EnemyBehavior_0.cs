@@ -9,7 +9,7 @@ public class EnemyBehavior_0 : character_status
     public GameObject startingPointGameObject;      //移動の始点
     public GameObject endingPointGameObject;        //移動の終点
 
-    public Rigidbody enemyRigidbody;                //Rigidbodyコンポーネント
+	public Rigidbody enemyRigidbody;                //Rigidbodyコンポーネント
 
     public bool movingProcessingTrigger;            //移動処理開始トリガー
     public bool isMoveProcessing;                   //移動処理中

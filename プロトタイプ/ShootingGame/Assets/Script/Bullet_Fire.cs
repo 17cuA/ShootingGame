@@ -19,7 +19,7 @@ public class Bullet_Fire : MonoBehaviour
 
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire2") || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
 		{
 			Instantiate
 			(
