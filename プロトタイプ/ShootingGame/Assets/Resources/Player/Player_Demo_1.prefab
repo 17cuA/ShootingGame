@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 715936948}
-  - component: {fileID: 715936949}
   m_Layer: 0
   m_Name: Bullet_Fire
   m_TagString: Untagged
@@ -31,19 +30,6 @@ Transform:
   m_Father: {fileID: 8980319411110346728}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &715936949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715936947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c726fe8aef59aa34ca6efa04eb0f0f8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 0}
 --- !u!1 &8980319411109979080
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +43,7 @@ GameObject:
   - component: {fileID: 1880910959}
   - component: {fileID: 1880910963}
   m_Layer: 0
-  m_Name: Player_Demo 1
+  m_Name: Player_Demo_1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

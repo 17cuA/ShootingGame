@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Player1 : character_status
 {
+	private GameObject Bullet;      //弾のPrefab情報
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
-
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;
-    private Bullet_Fire BF;
 	void Start()
 	{
+		Bullet = Resources.Load("Player_Bullet") as GameObject;
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
 		Rig = GetComponent<Rigidbody>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
-        BF = shot_Mazle.GetComponent<Bullet_Fire>();
 		transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		Rig.velocity = vector3;
 		hp = 10;
 		Type = Chara_Type.Player;
+		//-----------------------------------------------------------------
 	}
 
 	void Update()
@@ -42,7 +42,7 @@ public class Player1 : character_status
         //弾の発射（Fire2かSpaceキーで撃てる）
         if (Shot_Delay > Shot_DelayMax)
         {
-            BF.Bullet_Create();
+            Bullet_Create();
         }
         Shot_Delay++;
 	}
@@ -81,4 +81,18 @@ public class Player1 : character_status
 		if (hp == 0) is_died = true;
 		return is_died;
 	}
+		public void Bullet_Create()
+	{
+		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+		{
+			Instantiate
+			(
+				Bullet,
+				shot_Mazle.transform.position,
+				transform.rotation
+			);
+            Shot_Delay = 0;
+		}
+	}
+
 }

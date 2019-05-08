@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
-
 public class MapCreate : MonoBehaviour
 {
 	//ワールド座標でのマップの左下の部分
@@ -20,24 +20,27 @@ public class MapCreate : MonoBehaviour
 	private GameObject Player;
 	void Start()
     {
-		Player = Resources.Load("Player/Player_Demo 1") as GameObject;
-		Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
-		TextAsset Word = Resources.Load(File_name) as TextAsset;             //csvファイルを入れる変数
-		StringReader csv = new StringReader(Word.text);
-		while (csv.Peek() > -1)
+		if(SceneManager.GetActiveScene().name == "Stage")
 		{
-			string line = csv.ReadLine();
-			CsvData.Add(line.Split(','));
-		}
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 30; j++)
+			Player = Resources.Load("Player/Player_Demo_1") as GameObject;
+			Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
+			TextAsset Word = Resources.Load(File_name) as TextAsset;             //csvファイルを入れる変数
+			StringReader csv = new StringReader(Word.text);
+			while (csv.Peek() > -1)
 			{
-				Debug.Log(CsvData[i][j] + " " + i + " " + j);
+				string line = csv.ReadLine();
+				CsvData.Add(line.Split(','));
 			}
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < 30; j++)
+				{
+					Debug.Log(CsvData[i][j] + " " + i + " " + j);
+				}
+			}
+			CreateMap();
+			//List<int[]> iList = CsvData.ConvertAll(x => int.Parse(x));
 		}
-		CreateMap();
-		//List<int[]> iList = CsvData.ConvertAll(x => int.Parse(x));
 	}
 	void CreateMap()
 	{
@@ -51,7 +54,7 @@ public class MapCreate : MonoBehaviour
 					case "0":
 						break;
 					case "1":
-						Instantiate(Player, pos, Quaternion.identity);
+						Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
 						Instantiate(Enemy, pos, Quaternion.identity);
@@ -61,5 +64,9 @@ public class MapCreate : MonoBehaviour
 				}
 			}
 		}
+	}
+	public GameObject GetPlayer()
+	{
+		return Player;
 	}
 }

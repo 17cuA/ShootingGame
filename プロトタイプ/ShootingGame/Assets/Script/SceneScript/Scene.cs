@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Scene : MonoBehaviour
 {
-	private GameObject Player;
-	private Player1 P1;
+	public GameObject Player;
+	public Player1 P1;
+	public MapCreate Map;
     void Start()
     {
-		if(SceneManager.GetActiveScene().name == "Stage1")
+		if(SceneManager.GetActiveScene().name == "Stage")
 		{
-			Player = GameObject.Find("Player_Demo 1(Clone)");           //プレイヤーを名前で検索
+			Map =gameObject.GetComponent<MapCreate>();
+			Player = Map.GetPlayer();           //プレイヤーを名前で検索
 			P1 = Player.GetComponent<Player1>();
 		}
     }
@@ -18,19 +20,19 @@ public class Scene : MonoBehaviour
     void Update()
     {
 		SceneControl();
-
     }
 	public void SceneControl()
 	{
 		switch(SceneManager.GetActiveScene().name)
 		{
-			case "Titel":
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Stage1");
+			case "Title":
+				Debug.Log("hollo");
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Stage");
 				break;
-			case "Stage1":
+			case "Stage":
 				if(P1.Died_Judgment())
 				{
-					//SceneManager.LoadScene("GameOver");
+					SceneManager.LoadScene("GameOver");
 					//if (Input.GetButtonDown("Fire1")|| Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("GameOver");
 				}
 				break;
