@@ -20,11 +20,11 @@ public class Player1 : character_status
 		capsuleCollider = GetComponent<CapsuleCollider>();
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
         BF = shot_Mazle.GetComponent<Bullet_Fire>();
-		transform.eulerAngles = new Vector3(0, 90, -30);
+		transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		Rig.velocity = vector3;
-		hp = 999;
+		hp = 10;
 		Type = Chara_Type.Player;
 	}
 
@@ -71,7 +71,7 @@ public class Player1 : character_status
 	private void Change_In_Direction()
 	{
 		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1, 0, 0);
+		Direction *= new Quaternion(0, 0, -1, 0);
 		transform.rotation = Direction;
 	}
 }

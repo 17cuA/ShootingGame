@@ -8,7 +8,7 @@ public class character_status : MonoBehaviour
 		Enemy,
 		None
 	}
-	protected Chara_Type Type;
+	protected Chara_Type Type; 
 	public float speed;                                         // スピード
 	public float hp;                                            // 体力
 	public Rigidbody Rig;                                       // Rigidbody
