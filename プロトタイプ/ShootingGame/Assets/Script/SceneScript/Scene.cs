@@ -30,7 +30,7 @@ public class Scene : MonoBehaviour
 			case "Stage1":
 				if(P1.Died_Judgment())
 				{
-					SceneManager.LoadScene("GameOver");
+					//SceneManager.LoadScene("GameOver");
 					//if (Input.GetButtonDown("Fire1")|| Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("GameOver");
 				}
 				break;

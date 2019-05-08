@@ -72,7 +72,7 @@ public class Player1 : character_status
 	private void Change_In_Direction()
 	{
 		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, 0, -1, 0);
+		Direction *= new Quaternion(0, -1,0, 0);
 		transform.rotation = Direction;
 	}
 	public bool Died_Judgment()
