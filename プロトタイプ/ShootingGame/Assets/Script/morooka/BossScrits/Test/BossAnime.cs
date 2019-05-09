@@ -11,9 +11,9 @@ public class BossAnime : MonoBehaviour
     void Start()
     {
 		myAnimator = GetComponent<Animator>();
-		animeName[0] = "kurukuru";
-		animeName[1] = "pakapaka";
-		animeName[2] = "yoko";
+		//animeName[0] = "kurukuru";
+		//animeName[1] = "pakapaka";
+		//animeName[2] = "yoko";
 		i = 0;
     }
 
