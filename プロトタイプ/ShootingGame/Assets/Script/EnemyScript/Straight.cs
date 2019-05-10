@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Straight : character_status
 {
+    public bool Item_Flag;
+    public GameObject Item;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,6 @@ public class Straight : character_status
 		Rig = GetComponent<Rigidbody>();					//rigidbodyの情報取得
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 		transform.eulerAngles = new Vector3(0, -180, 0);
-
 	}
 
 	// Update is called once per frame
@@ -26,7 +27,14 @@ public class Straight : character_status
 	void Died_Process(float hp)
 	{
 		//体力が1未満だったらオブジェクトの消去
-		if (hp < 1) Destroy(gameObject);
+		if (hp < 1)
+        { 
+          Destroy(gameObject);
+            if (Item_Flag==true)
+            {
+            Instantiate(Item, transform.position, transform.rotation);
+            }
+        }
 	}
 	private void OnTriggerEnter(Collider col)
 	{

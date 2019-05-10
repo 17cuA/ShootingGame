@@ -22,12 +22,14 @@ public class bullet_status : MonoBehaviour
     {
 		get { return progressVector_F; }
 	}
+    private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
 	void Start()
 	{
 		rb = this.GetComponent<Rigidbody>();//このオブジェクトのrigidbodyを取得
 		DTime = 0;
 		Destroy_Time = 1;
 		MovementDirectionSpecification(transform.right);
+        Bullet_Renderer = GetComponent<Renderer>();
 	}
 
 	void Update()
@@ -35,7 +37,11 @@ public class bullet_status : MonoBehaviour
 		//DTime += Time.deltaTime;
 		//if (DTime > Destroy_Time) Destroy(gameObject);
 
-		if (transform.position.x > 8.8f || transform.position.x < -8)
+		//if (transform.position.x > 8.8f || transform.position.x < -8)
+		//{
+		//	Destroy(gameObject);
+		//}
+        if (!Bullet_Renderer.isVisible)
 		{
 			Destroy(gameObject);
 		}

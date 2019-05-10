@@ -12,6 +12,13 @@ public class Player1 : character_status
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;
+    	public enum Bullet_Type　　//弾の種類
+	{
+		Single,
+		Diffusion,
+		Three_Point_Burst
+	}
+	public Bullet_Type bullet_Type;　//弾の種類を変更
 	void Start()
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
@@ -26,6 +33,7 @@ public class Player1 : character_status
 		hp = 10;
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
+        bullet_Type = Bullet_Type.Single;　　//初期状態をsingleに
 	}
 
 	void Update()
@@ -58,6 +66,7 @@ public class Player1 : character_status
             hp -= Bs.attack_damage;
         }
 		if (col.gameObject.tag == "Enemy") hp--;
+        if (col.gameObject.tag == "Item") bullet_Type = Bullet_Type.Diffusion;
     }
 	//コントローラーの操作
 	private void Player_Move()
@@ -85,14 +94,40 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
 		{
-			Instantiate
-			(
-				Bullet,
-				shot_Mazle.transform.position,
-				transform.rotation
-			);
+          switch (bullet_Type)
+            {
+                case Bullet_Type.Single:
+                    Single_Fire();
+                    break;
+                case Bullet_Type.Diffusion:
+                    Diffusion_Fire();
+                    break;
+                case Bullet_Type.Three_Point_Burst:
+                    Triple_Fire();
+                    break;
+                default:
+                    break;
+            }
             Shot_Delay = 0;
 		}
 	}
-
+    	private void Single_Fire()
+	{
+		Instantiate
+		(
+			Bullet,
+			shot_Mazle.transform.position,
+			transform.rotation
+		);
+	}
+	private void Diffusion_Fire()
+	{
+		Instantiate(Bullet,shot_Mazle.transform.position,transform.rotation);
+		Instantiate(Bullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 30.0f) * Direction);
+		Instantiate(Bullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -30.0f) * Direction);
+	}
+	private void Triple_Fire()
+	{
+		Instantiate(Bullet, shot_Mazle.transform.position, transform.rotation);
+	}
 }
