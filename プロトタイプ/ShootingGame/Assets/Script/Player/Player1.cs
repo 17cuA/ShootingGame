@@ -87,7 +87,7 @@ public class Player1 : character_status
 	public bool Died_Judgment()
 	{
 		bool is_died = false;
-		if (hp == 0) is_died = true;
+		if (hp < 1) is_died = true;
 		return is_died;
 	}
 		public void Bullet_Create()

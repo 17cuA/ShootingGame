@@ -25,7 +25,7 @@ public class BossParts : MonoBehaviour
 
     void Update()
     {
-        if(HP == 0)
+        if(HP < 1)
         {
             Destroy(gameObject);
         }
