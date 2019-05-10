@@ -18,8 +18,15 @@ public class BossAll : MonoBehaviour
 	private List<BossParts> OwnParts { set; get; }						// 自分のパーツの管理
 	private List<MeshRenderer> PartsRenderer { set; get; }		// 自分のパーツのレンダー
 
-	void Start()
+    private void Awake()
     {
+        gameObject.AddComponent<SpriteRenderer>();
+        gameObject.AddComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        GetComponent<Rigidbody>().useGravity = false;
 		animationControl = GetComponent<Animator>();
 		ownRenderer = GetComponent<Renderer>();
         ownRenderer.enabled = true;
