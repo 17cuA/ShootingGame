@@ -10,6 +10,12 @@ using UnityEngine;
 public class Screw_Enemy : MonoBehaviour
 {
 	public float speed;
+	Vector3 startpos;
+
+	private void Start()
+	{
+		Startpos
+	}
 	void Update()
 	{
 		//float f = 1.0f / speed;
@@ -19,9 +25,9 @@ public class Screw_Enemy : MonoBehaviour
 
 		//範囲を指定してあげると大きな円、小さな円を実装できます。
 		//pos.y += Mathf.Sin(Time.time * speed) * 2f;
-		pos.x += Mathf.Sin(Time.time * speed) * 2f;
+		//pos.x += Mathf.Sin(Time.time * speed) * 2f;
 		pos.y += Mathf.Cos(Time.time * speed) * 2f;
-		pos.z += 0.1f;
-		transform.position += pos;
+		//pos.z += 0.1f;
+		transform.position = pos;
 	}
 }
