@@ -25,10 +25,13 @@ public class BossParts : MonoBehaviour
 
     void Update()
     {
-        if(HP < 1)
+        // 表示中
+        if(my.isVisible)
         {
-            Destroy(gameObject);
+            DisplayingProcess();
         }
+        else
+        { }
     }
 
 	/// <summary>
@@ -37,18 +40,15 @@ public class BossParts : MonoBehaviour
 	/// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player_Bullet")
+        // 表示中
+        if(my.isVisible)
         {
-            Destroy(other.gameObject);
-			//　自分が無敵でないとき
-            if(!invincible)
-            {
-                StartCoroutine(Effect());
-                HP -= (int)other.GetComponent<bullet_status>().attack_damage;
-            }
+            ColliderDisplayingProcess(other);
         }
-    }
+        else
+        { }
 
+    }
 	/// <summary>
 	/// ダメージ表現のコルーチン
 	/// </summary>
@@ -60,4 +60,33 @@ public class BossParts : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 		my.material.color = originalColor;
 	}
+
+    /// <summary>
+    /// 表示中の処理
+    /// </summary>
+    private void DisplayingProcess()
+    {
+        if (HP < 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// コライダー用の表示中の処理
+    /// </summary>
+    /// <param name="other">衝突した相手</param>
+    private void ColliderDisplayingProcess(Collider other)
+    {
+        if (other.tag == "Player_Bullet")
+        {
+            Destroy(other.gameObject);
+            //　自分が無敵でないとき
+            if (!invincible)
+            {
+                StartCoroutine(Effect());
+                HP -= (int)other.GetComponent<bullet_status>().attack_damage;
+            }
+        }
+    }
 }
