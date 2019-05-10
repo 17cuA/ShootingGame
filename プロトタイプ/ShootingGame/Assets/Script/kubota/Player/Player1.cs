@@ -104,6 +104,8 @@ public class Player1 : character_status
                     break;
                 case Bullet_Type.Three_Point_Burst:
                     Triple_Fire();
+                    Invoke("Triple_Fire", 0.1f);
+                    Invoke("Triple_Fire", 0.2f);
                     break;
                 default:
                     break;
