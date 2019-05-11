@@ -1,0 +1,21 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Game_Master : MonoBehaviour
+{
+    public uint Frame_Count { private set; get; }   //  ゲームが開始してからの時間をカウント
+    public static Game_Master MY { get; private set; }
+    public static int Score{set;get;}       // スコア
+
+    void Start()
+    {
+        MY = GetComponent<Game_Master>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Frame_Count++;
+    }
+}
