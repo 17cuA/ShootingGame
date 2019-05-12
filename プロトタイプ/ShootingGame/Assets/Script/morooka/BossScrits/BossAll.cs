@@ -49,7 +49,7 @@ public class BossAll : MonoBehaviour
 		// パーツがなくなったとき
 		if (Is_PartsAlive())
 		{
-			OwnDeletion();
+			//OwnDeletion();
 		}
 
         // 自分がカメラ内に入ったとき
