@@ -1,23 +1,29 @@
 fileFormatVersion: 2
-guid: 5578ffec9edca3d4ba571431b9cb7243
+guid: f9951c3552f84244796b67bcda03b6ed
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Con_All
-    100004: Sphere002
-    400000: //RootNode
-    400002: Con_All
-    400004: Sphere002
+    100000: Bone002
+    100002: Bone005
+    100004: Bone006
+    100006: //RootNode
+    100008: hontai
+    100010: kiso
+    100012: koa
+    100014: Sphere002
+    400000: Bone002
+    400002: Bone005
+    400004: Bone006
+    400006: //RootNode
+    400008: hontai
+    400010: kiso
+    400012: koa
+    400014: Sphere002
     2100000: 01 - Default
-    2300000: //RootNode
-    2300002: Sphere002
-    3300000: //RootNode
-    3300002: Sphere002
     4300000: Sphere002
-    7400000: defo
-    7400002: Take 001
+    7400000: loop
     9500000: //RootNode
+    13700000: Sphere002
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -45,7 +51,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: loop
+      takeName: loop
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
