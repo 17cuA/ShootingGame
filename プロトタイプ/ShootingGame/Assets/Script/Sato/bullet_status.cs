@@ -14,22 +14,25 @@ public class bullet_status : MonoBehaviour
 	public Bullet_Type Type;
 	private Rigidbody rb;//rigidbody、物理系
 	public float shot_speed;//弾の速度
-    public float attack_damage;//ダメージの変数
-	private float DTime;		//デストロイまでの時間のカウント
+	public float attack_damage;//ダメージの変数
+	private float DTime;        //デストロイまでの時間のカウント
 	private int Destroy_Time;   //デストロイする時間
 	private Vector3 progressVector_F;       //　自身の進行ベクトル
 	public Vector3 ProgressVector_F //　自身の進行ベクトル
-    {
-		get { return progressVector_F; }
+	{
+		get
+		{
+			return progressVector_F;
+		}
 	}
-    private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
+	private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
 	void Start()
 	{
 		rb = this.GetComponent<Rigidbody>();//このオブジェクトのrigidbodyを取得
 		DTime = 0;
 		Destroy_Time = 1;
 		MovementDirectionSpecification(transform.right);
-        Bullet_Renderer = GetComponent<Renderer>();
+		Bullet_Renderer = GetComponent<Renderer>();
 	}
 
 	void Update()
@@ -41,7 +44,7 @@ public class bullet_status : MonoBehaviour
 		//{
 		//	Destroy(gameObject);
 		//}
-        if (!Bullet_Renderer.isVisible)
+		if (!Bullet_Renderer.isVisible)
 		{
 			Destroy(gameObject);
 		}
@@ -61,16 +64,29 @@ public class bullet_status : MonoBehaviour
 		//　進行方向に向きを合わせる
 		transform.right = progressVector_F;
 	}
-    private void OnTriggerEnter(Collider col)
-    {
+	private void OnTriggerEnter(Collider col)
+	{
 		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-		if(gameObject.name == "Enemy_Bullet(Clone)" && col.gameObject.tag == "Player")
+		if (gameObject.name == "Enemy_Bullet(Clone)" && col.gameObject.tag == "Player")
 		{
 			Destroy(gameObject);
+
+			//add:0513_takada 爆発エフェクトのテスト
+			AddExplosionProcess();
 		}
-		if(gameObject.name == "Player_Bullet(Clone)" && col.gameObject.tag == "Enemy")
+		if (gameObject.name == "Player_Bullet(Clone)" && col.gameObject.tag == "Enemy")
 		{
 			Destroy(gameObject);
+
+			//add:0513_takada 爆発エフェクトのテスト
+			AddExplosionProcess();
 		}
+	}
+
+	private void AddExplosionProcess()
+	{
+		ParticleManagement particleManagementCS;
+		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
+		particleManagementCS.ParticleCreation(0, transform.position);
 	}
 }
