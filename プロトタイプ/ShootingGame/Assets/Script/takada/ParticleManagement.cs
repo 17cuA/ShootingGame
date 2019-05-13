@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleManagement : MonoBehaviour
 {
 	/*
-	 public ParticleManagement particleManagementCS;
+	 ParticleManagement particleManagementCS;
 	 particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
 	 particleManagementCS.ParticleCreation(0,transform.position);
 	 */
