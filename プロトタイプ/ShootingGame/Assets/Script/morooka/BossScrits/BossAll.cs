@@ -15,8 +15,10 @@ public class BossAll : MonoBehaviour
 	public int score;									// 自分のスコア
 	public Renderer ownRenderer;				// 自分のレンダー
 
-	private List<BossParts> OwnParts { set; get; }						// 自分のパーツの管理
+	public List<BossParts> OwnParts { private set; get; }						// 自分のパーツの管理
 	private List<MeshRenderer> PartsRenderer { set; get; }		// 自分のパーツのレンダー
+
+    public string ID;
 
     private void Awake()
     {

@@ -5,6 +5,7 @@
 // Bossのパーツの挙動
 //----------------------------------------------------------------------------------------------
 // 2019/04/25：体パーツの情報の格納
+// 2019/05/04：ダメージを受けた時の発光表現
 //----------------------------------------------------------------------------------------------
 
 using UnityEngine;
@@ -47,7 +48,6 @@ public class BossParts : MonoBehaviour
         }
         else
         { }
-
     }
 	/// <summary>
 	/// ダメージ表現のコルーチン
@@ -55,9 +55,11 @@ public class BossParts : MonoBehaviour
 	/// <returns></returns>
     IEnumerator Effect()
     {
+        // マテリアルのカラーを白くする
 		my.material.color = Color.white;
 		// ディレイの時間
 		yield return new WaitForSeconds(0.1f);
+        // マテリアルのカラーを元に戻す
 		my.material.color = originalColor;
 	}
 
@@ -78,8 +80,10 @@ public class BossParts : MonoBehaviour
     /// <param name="other">衝突した相手</param>
     private void ColliderDisplayingProcess(Collider other)
     {
+        // 当たった相手がプレイヤーの攻撃のとき
         if (other.tag == "Player_Bullet")
         {
+            // 相手の削除
             Destroy(other.gameObject);
             //　自分が無敵でないとき
             if (!invincible)
