@@ -7,6 +7,8 @@ public class Scene : MonoBehaviour
 	public GameObject Player;
 	public Player1 P1;
 	public MapCreate Map;
+	public GameObject Boss;
+	public BossAll BA;
     void Start()
     {
 		if(SceneManager.GetActiveScene().name == "Stage")
@@ -14,6 +16,8 @@ public class Scene : MonoBehaviour
 			Map =gameObject.GetComponent<MapCreate>();
 			Player = Map.GetPlayer();           //プレイヤーを名前で検索
 			P1 = Player.GetComponent<Player1>();
+			Boss = Map.GetBoss();
+			BA = Boss.GetComponent<BossAll>();
 		}
     }
 
@@ -35,8 +39,15 @@ public class Scene : MonoBehaviour
 					SceneManager.LoadScene("GameOver");
 					//if (Input.GetButtonDown("Fire1")|| Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("GameOver");
 				}
+				if(BA.Is_PartsAlive())
+				{
+					SceneManager.LoadScene("GameClear");
+				}
 				break;
 			case "GameOver":
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
+				break;
+			case "GameClear":
 				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
 				break;
 		}
