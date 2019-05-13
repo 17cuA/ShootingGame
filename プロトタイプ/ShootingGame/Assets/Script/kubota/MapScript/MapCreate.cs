@@ -63,7 +63,7 @@ public class MapCreate : MonoBehaviour
 						Instantiate(Enemy, pos, Quaternion.identity);
 						break;
 					case "3":
-						Instantiate(Boss, pos, Quaternion.identity);
+						Boss = Instantiate(Boss, pos, Quaternion.identity);
 						break;
 					default:
 						break;
@@ -74,5 +74,9 @@ public class MapCreate : MonoBehaviour
 	public GameObject GetPlayer()
 	{
 		return Player;
+	}
+	public GameObject GetBoss()
+	{
+		return Boss;
 	}
 }
