@@ -108,7 +108,7 @@ public class BossAll : MonoBehaviour
 	/// 各パーツの生存確認
 	/// </summary>
 	/// <returns> 無敵でないパーツが生存しないとき true </returns>
-	private bool Is_PartsAlive()
+	public bool Is_PartsAlive()
 	{
 		for (int i = 0; i < OwnParts.Count; i++)
 		{
