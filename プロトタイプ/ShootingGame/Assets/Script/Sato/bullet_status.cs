@@ -2,6 +2,7 @@
 //弾の移動管理
 //作成者:佐藤翼
 using UnityEngine;
+using Load_CSV;
 
 public class bullet_status : MonoBehaviour
 {
@@ -88,5 +89,6 @@ public class bullet_status : MonoBehaviour
 		ParticleManagement particleManagementCS;
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
 		particleManagementCS.ParticleCreation(0, transform.position);
+
 	}
 }
