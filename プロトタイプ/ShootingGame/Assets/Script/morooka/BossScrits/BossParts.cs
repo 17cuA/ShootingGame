@@ -32,7 +32,8 @@ public class BossParts : MonoBehaviour
             DisplayingProcess();
         }
         else
-        { }
+        {
+        }
     }
 
 	/// <summary>
