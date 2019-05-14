@@ -6,7 +6,7 @@ public class Three_D_Background : MonoBehaviour
 {
     private Transform[] backs = new Transform[3];
     private float speed = 0.3f;
-    private Vector3 reset = new Vector3(60.0f, 0.0f, 0.0f);
+    private Vector3 reset = new Vector3(80.0f, 0.0f, 0.0f);
 
     public Material ma;
 
@@ -34,7 +34,7 @@ public class Three_D_Background : MonoBehaviour
             temptrans.x -= speed;
             t.localPosition = temptrans;
 
-            if(t.localPosition.x <= -120)
+            if(t.localPosition.x <= -100)
             {
                 t.localPosition = reset;
             }
