@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 1952299587}
   m_Layer: 0
   m_Name: Boss_Test
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,9 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationControl: {fileID: 0}
-  score: 0
   ownRenderer: {fileID: 0}
-  ID: 001
 --- !u!114 &8554394988961862219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,9 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationControl: {fileID: 0}
-  score: 0
   ownRenderer: {fileID: 0}
-  ID: 
 --- !u!1 &5448659788558669749
 GameObject:
   m_ObjectHideFlags: 0

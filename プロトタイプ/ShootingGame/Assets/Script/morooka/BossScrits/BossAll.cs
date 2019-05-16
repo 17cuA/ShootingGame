@@ -5,21 +5,22 @@
 // Bossの全体管理をする
 //----------------------------------------------------------------------------------------------
 // 2019/04/25：体パーツの格納、各パーツの生存確認
+// 2019/05/16：でーたべーす
 //----------------------------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
+using CSV_Management;
 
 public class BossAll : MonoBehaviour
 {
-	public Animator animationControl;		// アニメーションの管理
-	public int score;									// 自分のスコア
-	public Renderer ownRenderer;				// 自分のレンダー
+	public Animator animationControl;       // アニメーションの管理
+	public Renderer ownRenderer;            // 自分のレンダー
 
-	public List<BossParts> OwnParts { private set; get; }						// 自分のパーツの管理
-	private List<MeshRenderer> PartsRenderer { set; get; }		// 自分のパーツのレンダー
-
-    public string ID;
-
+	public List<BossParts> OwnParts { private set; get; }           // 自分のパーツの管理
+	private List<MeshRenderer> PartsRenderer { set; get; }          // 自分のパーツのレンダー
+	public Record_Container status_data { private set; get; }       // データベースからのデータ
+	public int HP { private set; get; }                             // 自分のヒットポイント
+	public int My_Score { private set; get; }						// 自分の持ちスコア
     private void Awake()
     {
         gameObject.AddComponent<SpriteRenderer>();
@@ -28,7 +29,12 @@ public class BossAll : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Rigidbody>().useGravity = false;
+		status_data = new Record_Container();
+		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(1));
+		HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eTOTAL_HP);
+		My_Score = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eSCORE);
+
+		GetComponent<Rigidbody>().useGravity = false;
 		animationControl = GetComponent<Animator>();
 		ownRenderer = GetComponent<Renderer>();
         ownRenderer.enabled = true;
@@ -131,5 +137,15 @@ public class BossAll : MonoBehaviour
 	{
 
 		Destroy(gameObject);
+	}
+
+	/// <summary>
+	/// データベースからの読み込み
+	/// </summary>
+	/// <param name="id"> ID番号 </param>
+	public void Extracting_From_BD(int id)
+	{
+		status_data = new Record_Container();
+		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(id));
 	}
 }
