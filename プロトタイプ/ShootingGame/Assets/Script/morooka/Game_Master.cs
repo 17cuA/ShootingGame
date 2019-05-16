@@ -22,7 +22,7 @@ public class Game_Master : MonoBehaviour
 		eSCRIPT,				// 各 Boss 個別のスクリプト
 		eATTACK_INTERVAL,		// 攻撃と攻撃のインターバル
 		eACT_CHANGE,			// 攻撃種類の切り替えインターバル
-		eTOTAL_HP,				// Boos 全体のHP
+		ePARTS_HP,				// Boos のパーツのHP
 		eSCORE,					// Boss の持つHP
 		eBULLET_NAME_1,			// 攻撃パターン1
 		eBULLET_NAME_2,			// 攻撃パターン2
@@ -34,7 +34,7 @@ public class Game_Master : MonoBehaviour
 
 	public uint Frame_Count { private set; get; }				// ゲームが開始してからの時間をカウント
     public static Game_Master MY { get; private set; }			// 自分の情報
-    public static int Score{set;get;}							// スコア
+    public static int Score{ set; get; }						// スコア
 	public Database_Manager Boss_Data { private set; get; }		// ボスのデータベース
 
     void Start()

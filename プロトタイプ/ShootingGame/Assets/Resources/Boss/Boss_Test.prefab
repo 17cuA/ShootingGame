@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 8434574219325725453}
   m_Layer: 0
   m_Name: Boss_Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 3555097298481303740}
   m_Layer: 0
   m_Name: Weak_Point
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,6 +475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_test_tate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0300007
@@ -552,6 +556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_test_tate
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0300007
@@ -624,6 +632,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_Name
       value: Boss_test_tate (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x

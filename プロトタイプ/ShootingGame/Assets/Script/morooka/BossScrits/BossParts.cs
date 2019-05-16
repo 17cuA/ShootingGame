@@ -14,11 +14,12 @@ using System.Collections;
 public class BossParts : MonoBehaviour
 {
     public bool invincible;				// 無敵確認
-    public int HP;							// HP
 	public Renderer my;				// 自分のレンダー
-	public Color originalColor;		// 自分の元の色の格納
+	public Color originalColor;     // 自分の元の色の格納
 
-    void Start()
+	public int HP { set; get; }                         // HP
+
+	void Start()
     {
 		my = GetComponent<Renderer>();
 		originalColor = my.material.color;

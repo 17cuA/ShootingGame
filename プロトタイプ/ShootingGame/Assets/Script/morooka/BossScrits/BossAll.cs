@@ -19,9 +19,13 @@ public class BossAll : MonoBehaviour
 	public List<BossParts> OwnParts { private set; get; }           // 自分のパーツの管理
 	private List<MeshRenderer> PartsRenderer { set; get; }          // 自分のパーツのレンダー
 	public Record_Container status_data { private set; get; }       // データベースからのデータ
-	public int HP { private set; get; }                             // 自分のヒットポイント
-	public int My_Score { private set; get; }						// 自分の持ちスコア
-    private void Awake()
+	//public int HP { private set; get; }                             // 自分のヒットポイント
+	public int My_Score { private set; get; }                       // 自分の持ちスコア
+	public float attack_interval { private set; get; }				// 攻撃インターバル
+	public float attack_change { private set; get; }				// 攻撃種類の切り替えインターバル
+	public bool move_switch { private set; get; }					// 移動方法の切り替え
+
+	private void Awake()
     {
         gameObject.AddComponent<SpriteRenderer>();
         gameObject.AddComponent<Rigidbody>();
@@ -29,10 +33,14 @@ public class BossAll : MonoBehaviour
 
     void Start()
     {
+		// データベースからデータ出力
 		status_data = new Record_Container();
 		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(1));
-		HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eTOTAL_HP);
+
+		//HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
 		My_Score = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eSCORE);
+		attack_interval = (float)status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
+		attack_change = (float)status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
 
 		GetComponent<Rigidbody>().useGravity = false;
 		animationControl = GetComponent<Animator>();
@@ -40,13 +48,14 @@ public class BossAll : MonoBehaviour
         ownRenderer.enabled = true;
 		OwnParts = new List<BossParts>();
 		Part_Acquisition(transform);
-
 		PartsRenderer = new List<MeshRenderer>();
 		for(int i = 0; i < OwnParts.Count; i++)
 		{
+			OwnParts[i].HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
 			PartsRenderer.Add(OwnParts[i].GetComponent<MeshRenderer>());
 			PartsRenderer[i].enabled = false;
 		}
+		move_switch = false;
 	}
 
 	// Update is called once per frame
@@ -60,18 +69,22 @@ public class BossAll : MonoBehaviour
 			//OwnDeletion();
 		}
 
-        // 自分がカメラ内に入ったとき
-		if(ownRenderer.isVisible)
-		{
-            // 格納したパーツの表示
-			for (int i = 0; i < PartsRenderer.Count;i++)
+		//if (!move_switch)
+		//{
+			// 自分がカメラ内に入ったとき
+			if (ownRenderer.isVisible)
 			{
-				PartsRenderer[i].enabled = true;
+				// 格納したパーツの表示
+				for (int i = 0; i < PartsRenderer.Count; i++)
+				{
+					PartsRenderer[i].enabled = true;
+				}
+				// 自身のレンダーの使用をやめる
+				ownRenderer.enabled = false;
+				PartsRenderer.Clear();
+				move_switch = true;
 			}
-            // 自身のレンダーの使用をやめる
-            ownRenderer.enabled = false;
-			PartsRenderer.Clear();
-		}
+		//}
 	}
 
 	/// <summary>
