@@ -4,31 +4,39 @@ using UnityEngine;
 
 public class Round_Trip_Enemy : MonoBehaviour
 {
-	public float X_speed;		//Ｘ軸の行動の時のスピード
-	public float Y_speed;		//Ｙ軸の行動の時のスピード
-	public float Z_speed;       //Ｚ軸の行動の時のスピード
-	public int a;
+	private float X_speed;		//Ｘ軸の行動の時のスピード
+	private float Y_speed;		//Ｙ軸の行動の時のスピード
+	private float Z_speed;       //Ｚ軸の行動の時のスピード
+	private float a;
+	private float movetime;
 	Vector3 pos;				//複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
 	private float start_pos_x;
     void Start()
     {
-		start_pos_x = transform.position.x;
+		start_pos_x = -15;
 		pos = Vector3.zero;
-        X_speed = 1.5f;
-        Y_speed = 4f;
-        Z_speed = -2;
-        a = 5;
+        X_speed = 6f;
+        Y_speed = 5.5f;
+        Z_speed = 1;
+        a = 1.5f;
+		movetime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+		movetime += Time.deltaTime;
 		//pos = Vector3.zero;
 		pos = new Vector3(start_pos_x,0,0); //中心を決めます。今回は(0,0,0)
-		float x1 = (Mathf.Pow(Time.time - a, 3) * X_speed) / 1;
-		float x2 = Mathf.Pow(Time.time - a, 2) * Y_speed;
-		float x3 = (Time.time - a) * Z_speed;
+		float x1 = (Mathf.Pow(movetime - a, 3) * X_speed) / 5;
+		float x2 = Mathf.Pow(movetime - a, 2) * Y_speed;
+		float x3 = (movetime - a) * Z_speed;
 		pos.x += x1 - x2 + x3;
+		if(transform.position.z < 0)
+		{
+			pos.z += transform.position.z + 3 * Time.deltaTime ;
+		}
+
 		transform.position = pos;
     }
 }

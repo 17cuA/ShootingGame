@@ -52,7 +52,7 @@ public class Player1 : character_status
         {
             Bullet_Create();
         }
-        Shot_Delay++;
+		Shot_Delay++;
 	}
     //collisionの時はisTriggerにチェックを入れないこと
     //コライダーが当たった時の処理
