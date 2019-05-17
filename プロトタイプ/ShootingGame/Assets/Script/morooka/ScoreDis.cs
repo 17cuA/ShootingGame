@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class ScoreDis : MonoBehaviour
 { 
-    private Sprite[] sprites;                            // スプライトの保存
-    private SpriteRenderer[] renderers;                  // レンダー情報の保存
-    private GameObject[] digit_numbers;                  // 各桁の数の変数
-
-    public int digits{ private set; get;}       // 桁数
-    public byte[] Display_Score{private set; get;}      // スコア
+    private Sprite[] Character_Picture{set;get; }               // スプライトの保存
+    private SpriteRenderer[] Character_Render{ set; get;}       // レンダー情報の保存
+    private GameObject[] Digit_Numbers{set;get; }               // 各桁の数の変数
+    public int Digits{ private set; get;}                       // 桁数
+    public byte[] Display_Score{private set; get;}              // スコア
 
     // Start is called before the first frame update
     void Start()
     {
-        Display_Score = new byte[digits];
-        renderers = new SpriteRenderer[digits];
-        digit_numbers = new GameObject[digits];
+        Digits = 10;
+        Display_Score = new byte[Digits];
+        Character_Render = new SpriteRenderer[Digits];
+        Digit_Numbers = new GameObject[Digits];
 
-        for(byte i = 0; i < digits;i++)
-        {
-            
-            renderers[i] = transform.GetChild(i).GetComponent<SpriteRenderer>();
-            renderers[i].sprite = sprites[0];
-        }
+        Character_Picture = Resources.LoadAll<Sprite>("morooka/Score_Number");
+
+        Character_Generation();
     }
 
     // Update is called once per frame
@@ -32,9 +29,9 @@ public class ScoreDis : MonoBehaviour
         var jjjj = 1;
         Score_Addition((uint)jjjj);
 
-        for(byte i = 0;i < renderers.Length; i++)
+        for(byte i = 0;i < Character_Render.Length; i++)
         {
-            renderers[i].sprite =  sprites[Display_Score[i]];
+            Character_Render[i].sprite =  Character_Picture[Display_Score[i]];
         }
     }
 
@@ -62,4 +59,22 @@ public class ScoreDis : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 文字の生成
+    /// </summary>
+    private void Character_Generation()
+    {
+        Vector3 temp = transform.position;
+
+        for (byte i = 0; i < Digits; i++)
+        {
+            Digit_Numbers[i] = new GameObject();
+            Digit_Numbers[i].AddComponent<SpriteRenderer>();
+            Character_Render[i] = Digit_Numbers[i].GetComponent<SpriteRenderer>();
+            Character_Render[i].sprite = Character_Picture[9];
+            Digit_Numbers[i].transform.position = temp;
+            temp.x -= 2.5f;
+            Digit_Numbers[i].transform.parent = transform;
+        }
+    }
 }
