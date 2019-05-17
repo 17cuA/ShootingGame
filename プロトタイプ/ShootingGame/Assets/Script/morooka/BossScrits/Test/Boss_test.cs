@@ -118,10 +118,9 @@ public class Boss_test : MonoBehaviour
 		    }
 		    else if(num == 1)
 		    {
-			    print("GGGGGGGGGG");
 			    hand[0].transform.position = hand[0].transform.position + hand[0].transform.right.normalized * 0.1f;
 
-			    if(hand[0].transform.position.y <= -7.0f)
+			    if(hand[0].transform.position.y <= -7.0f || hand[0].transform.position.y >= -7.0f)
 			    {
 				    num++;
 				    hand[0].transform.localPosition = resetLocal;
