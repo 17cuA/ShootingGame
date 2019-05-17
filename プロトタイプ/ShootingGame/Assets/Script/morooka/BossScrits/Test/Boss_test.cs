@@ -108,30 +108,34 @@ public class Boss_test : MonoBehaviour
 
 	private void Tosshin()
 	{
-		Vector3 vector = (hand[0].transform.position - playerData.transform.position) * -1.0f;
-		if (num == 0)
-		{
-			hand[0].transform.right = vector;
-			num++;
-		}
-		else if(num == 1)
-		{
-			print("GGGGGGGGGG");
-			hand[0].transform.position = hand[0].transform.position + hand[0].transform.right.normalized * 0.1f;
+        if(hand[0] != null)
+        {
+		    Vector3 vector = (hand[0].transform.position - playerData.transform.position) * -1.0f;
+		    if (num == 0)
+		    {
+			    hand[0].transform.right = vector;
+			    num++;
+		    }
+		    else if(num == 1)
+		    {
+			    print("GGGGGGGGGG");
+			    hand[0].transform.position = hand[0].transform.position + hand[0].transform.right.normalized * 0.1f;
 
-			if(hand[0].transform.position.y <= -7.0f)
-			{
-				num++;
-				hand[0].transform.localPosition = resetLocal;
-				hand[0].transform.right = new Vector3(-1.0f, 0.0f, 0.0f);
-			}
-		}
-		else if(num == 2)
-		{
-			shurui = attackshurui.bullet;
-			num = 0;
-		}
-	}
+			    if(hand[0].transform.position.y <= -7.0f)
+			    {
+				    num++;
+				    hand[0].transform.localPosition = resetLocal;
+				    hand[0].transform.right = new Vector3(-1.0f, 0.0f, 0.0f);
+                    shurui = attackshurui.bullet;
+                    num = 0;
+                }
+            }
+        }
+        else
+        {
+            shurui = attackshurui.bullet;
+        }
+    }
 
 	IEnumerator Effect()
 	{
