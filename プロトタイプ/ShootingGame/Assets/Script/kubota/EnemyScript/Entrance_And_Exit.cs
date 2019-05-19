@@ -67,7 +67,7 @@ public class Entrance_And_Exit : MonoBehaviour
 				break;
 			case Move_Type.Back:
 				pos.x += transform.position.x + Mathf.Sin(movetime * X_speed) * 0.5f;
-				if (count >= 1)
+				if (count >= 2)
 				{
 					type = Move_Type.Front;
 				}
