@@ -44,6 +44,7 @@ public class Straight : character_status
 			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
 			//弾のダメージの値だけ体力を減らす
 			hp -= Bs.attack_damage;
+			//------------------------------
 		}
 	}
 }
