@@ -43,4 +43,6 @@ public class Beam_Hit: MonoBehaviour {
     private void disableEffect(){
         beamParticle.Stop ();
     }
+
+
 }

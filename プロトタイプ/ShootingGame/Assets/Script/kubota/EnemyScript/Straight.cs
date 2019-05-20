@@ -51,18 +51,16 @@ public class Straight : character_status
          //----------------------------------------------------------
 
 	}
- //	void OnParticleCollision(GameObject obj)
- //   {
-	//	Destroy(gameObject);
-	//}
- //    void OnParticleTrigger ()
- //   {
-	//	Destroy(gameObject);
-	//}
-
-
- 
-
-
-
+ 	void OnParticleCollision(GameObject obj)
+    {
+		
+        if(obj.gameObject.tag==("Beam"))
+        { 
+            hp--;
+        }
+        else if(obj.gameObject.tag==("wall"))
+        { 
+           
+        }
+	}
 }
