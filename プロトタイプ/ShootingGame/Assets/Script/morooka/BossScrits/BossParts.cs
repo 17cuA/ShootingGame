@@ -73,7 +73,8 @@ public class BossParts : MonoBehaviour
         if (HP < 1)
         {
             Game_Master.MY.Score_Addition(1500);
-            Destroy(gameObject);
+            my.enabled = false;
+            //Destroy(gameObject);
         }
     }
 

@@ -93,8 +93,7 @@ public class Game_Master : MonoBehaviour
 
         if (Boss_Data == null)
         {
-            Boss_Data = new Database_Manager();
-            Boss_Data.CSVArrangement("Boss/Boss_Data");
+            Boss_Data = new Database_Manager("Boss/Boss_Data");
         }
         MY = GetComponent<Game_Master>();
 
