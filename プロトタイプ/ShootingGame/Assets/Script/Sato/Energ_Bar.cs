@@ -10,6 +10,7 @@ public class Energ_Bar: MonoBehaviour {
   public float Max_Energy;
   void Start ()
   {
+    Max_Energy=100.0f;
     // スライダーを取得する
     _slider = GameObject.Find("Slider").GetComponent<Slider>();
     energy = playerScript.Energy;
@@ -19,6 +20,7 @@ public class Energ_Bar: MonoBehaviour {
 
   void Update ()
   {
+    energy = playerScript.Energy;
     _slider.maxValue = Max_Energy;
     _slider.value = energy;
   }

@@ -112,6 +112,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &45572593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2111982399200182098, guid: 2994a29b55d9aab4b91fdb90fae728e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 152029354}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920cf7e5b7469ba49a3b045d329fea65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &152029354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -398,7 +410,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 232967473}
   m_FillRect: {fileID: 526184766}
   m_HandleRect: {fileID: 232967472}
@@ -908,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846cd6ee9ecbe8f4b89ff6411a9fced3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScript: {fileID: 0}
+  playerScript: {fileID: 45572593}
   energy: 0
   Max_Energy: 0
 --- !u!1 &1023389374

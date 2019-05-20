@@ -40,6 +40,11 @@ public class Player1 : character_status
 
 	void Update()
 	{
+        if (Input.GetMouseButton (1))
+        {
+            if(Energy>=0.0f)Energy-=0.7f;
+        }
+        if(Energy<=100.0f)Energy+=0.3f;
 		//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
 		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
 		{
@@ -55,7 +60,7 @@ public class Player1 : character_status
             Bullet_Create();
         }
         Shot_Delay++;
-        Energy+=0.1f;
+        
 	}
     //collisionの時はisTriggerにチェックを入れないこと
     //コライダーが当たった時の処理
