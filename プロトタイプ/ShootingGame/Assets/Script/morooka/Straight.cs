@@ -30,9 +30,10 @@ public class Straight : character_status
 		if (hp < 1)
         { 
           Destroy(gameObject);
+            Game_Master.MY.Score_Addition(100);
             if (Item_Flag==true)
             {
-            Instantiate(Item, transform.position, transform.rotation);
+                Instantiate(Item, transform.position, transform.rotation);
             }
         }
 	}

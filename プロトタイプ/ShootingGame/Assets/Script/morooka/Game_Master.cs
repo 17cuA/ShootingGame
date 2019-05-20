@@ -51,6 +51,7 @@ public class Game_Master : MonoBehaviour
     public byte[] accumulate_score{private set; get;}           // 溜めスコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
+    public CanvasManager CanMane{private set; get;}             // キャンバスの情報
 
     void Start()
     {
@@ -62,6 +63,8 @@ public class Game_Master : MonoBehaviour
             Boss_Data.CSVArrangement("Boss/Boss_Data");
         }
         MY = GetComponent<Game_Master>();
+
+        CanMane = GameObject.Find("Canvas").GetComponent<CanvasManager>();
     }
 
     void Update()
@@ -70,26 +73,11 @@ public class Game_Master : MonoBehaviour
     }
 
     /// <summary>
-    /// 取得スコアの加算
+    /// 取得スコア
     /// </summary>
     /// <param name="addition"> 加算数 </param>
     public void Score_Addition(uint addition)
     {
-        uint confirmation_digits = 10;      // 確認桁数
-
-        // 各桁確認の繰り返し
-        for (byte b = 0; b < accumulate_score.Length; b++)
-        {
-            accumulate_score[b] += (byte)(addition % confirmation_digits);
-            addition/=confirmation_digits;
-            if (accumulate_score[b] > 10)
-            {
-                accumulate_score[b] -= 10;
-                if (b != accumulate_score.Length - 1)
-                {
-                    accumulate_score[b + 1] += 1;
-                }
-            }
-        }
+        CanMane.Score_Display.Score_Addition(addition);
     }
 }
