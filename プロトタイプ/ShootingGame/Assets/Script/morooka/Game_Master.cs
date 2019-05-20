@@ -36,8 +36,11 @@ public class Game_Master : MonoBehaviour
     public static Game_Master MY { get; private set; }			// 自分の情報
     public static int Score{ set; get; }						// スコア
 	public Database_Manager Boss_Data { private set; get; }		// ボスのデータベース
-
-    void Start()
+	private void Awake()
+	{
+		Application.targetFrameRate = 60;
+	}
+	void Start()
     {
 		if(Boss_Data == null)
 		{
