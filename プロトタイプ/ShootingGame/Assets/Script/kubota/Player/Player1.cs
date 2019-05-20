@@ -19,6 +19,7 @@ public class Player1 : character_status
 		Three_Point_Burst
 	}
 	public Bullet_Type bullet_Type;　//弾の種類を変更
+    public float Energy; 
 	void Start()
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
@@ -34,6 +35,7 @@ public class Player1 : character_status
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
         bullet_Type = Bullet_Type.Single;　　//初期状態をsingleに
+        Energy=0.0f;
 	}
 
 	void Update()
@@ -53,6 +55,7 @@ public class Player1 : character_status
             Bullet_Create();
         }
         Shot_Delay++;
+        Energy+=0.1f;
 	}
     //collisionの時はisTriggerにチェックを入れないこと
     //コライダーが当たった時の処理
