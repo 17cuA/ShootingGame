@@ -55,7 +55,7 @@ public class Numeric_Display : MonoBehaviour
     public void Digits_Preference(uint get_digits)
     {
         // 数字の絵のロード
-        character_look = Resources.LoadAll<Sprite>("morooka/Score_Number");
+        character_look = Resources.LoadAll<Sprite>("morooka/isyuuwohanatikuru");
 
         Digits = get_digits;
         Each_Save = new byte[Digits];

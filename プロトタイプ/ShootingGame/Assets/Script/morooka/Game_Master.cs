@@ -8,6 +8,7 @@
 // 2019/05/16：ボスのデータベース全ての格納
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using CSV_Management;
 
 public class Game_Master : MonoBehaviour
@@ -55,16 +56,18 @@ public class Game_Master : MonoBehaviour
 
     void Start()
     {
-        accumulate_score = new byte[10];
-
-        if (Boss_Data == null)
+        switch (SceneManager.GetActiveScene().name)
         {
-            Boss_Data = new Database_Manager();
-            Boss_Data.CSVArrangement("Boss/Boss_Data");
+            case "Title":
+                break;
+            case "Stage":
+                Stage_Start();
+                break;
+            case "GameOver":
+                break;
+            case "GameClear":
+                break;
         }
-        MY = GetComponent<Game_Master>();
-
-        CanMane = GameObject.Find("Canvas").GetComponent<CanvasManager>();
     }
 
     void Update()
@@ -79,5 +82,22 @@ public class Game_Master : MonoBehaviour
     public void Score_Addition(uint addition)
     {
         CanMane.Score_Display.Score_Addition(addition);
+    }
+
+    /// <summary>
+    /// ステージシーンのスタート
+    /// </summary>
+    private void Stage_Start()
+    {
+        accumulate_score = new byte[10];
+
+        if (Boss_Data == null)
+        {
+            Boss_Data = new Database_Manager();
+            Boss_Data.CSVArrangement("Boss/Boss_Data");
+        }
+        MY = GetComponent<Game_Master>();
+
+        CanMane = GameObject.Find("Canvas").GetComponent<CanvasManager>();
     }
 }
