@@ -48,9 +48,13 @@ public class LineCreater : MonoBehaviour
 	[SerializeField] private Anker[] ankers;
 	[SerializeField] private LineRenderer lineRenderer;
 	private int prevChildCount;						//作りだしたアンカーの数
-	private EventType prevEventType;
+	private EventType prevEventType;				//マウスの検知用変数
 	private const int debugDivision = 20;			// 分割数
 	//────────────────────────────────────────────
+	public LineRenderer LineRenderer
+	{
+		get { return lineRenderer; }
+	}
 
 	//初期化─────────────────────────────────────────
 	private void Awake()
@@ -96,7 +100,9 @@ public class LineCreater : MonoBehaviour
 	/// <returns></returns>
 	Vector3[] GetLinePositions()
 	{
-		//!< Center>>Next>>Prev>>Center>>Next>>Prev>>Center
+		//!< |Center>>Next>>Prev>>Center>   >Next>>Prev>>Center
+		//NextとPrevの分配列を増やす処理
+		//最後の判定で、先頭と最後のみNextとPrevが一つずつ減っているため、-1をしている
 		Vector3[] positions = new Vector3[ankers.Length + 2 * (ankers.Length - 1)];
 
 		//!< 座標の追加
@@ -220,7 +226,8 @@ public class LineCreater : MonoBehaviour
 		for (int d = 1; d < division; ++d)
 		{
 			float t = 1.0f / division * d;
-
+			//----------------------------------------
+			//
 			Vector3 v1 = (1 - t) * p1 + t * p2;
 			Vector3 v2 = (1 - t) * p2 + t * p3;
 
@@ -246,7 +253,7 @@ public class LineCreater : MonoBehaviour
 		for (int d = 1; d < division; ++d)
 		{
 			float t = 1.0f / division * d;
-
+			//3次元ベジェ曲線の計算↓（t = 時間,division = 分割数,)
 			positions[d] =
 				t * endBeje[d] + (1 - (1.0f / division * d)) * startBeje[d];
 		}
@@ -266,7 +273,7 @@ public class LineCreater : MonoBehaviour
 		// 曲線の座標数（点の数 + 点と点を分割する点の数）
 		Vector3[] positions = new Vector3[0];
 
-		int d = 0;
+		int d = 0;	//分割数の要素数を表す変数
 		// 点と点の間を曲線にしていく(三次元ベジェ曲線で作成を行うため点４つでひとつの線)
 		for (int i = 0; i < linePositions.Length - 3; i += 3)
 		{
@@ -280,8 +287,11 @@ public class LineCreater : MonoBehaviour
 
 			//!< 次の座標の情報を挿入
 			print(BezierCurve3(beje1, beje2, divisions[d]).Length);
+			//ここで挿入
 			list.AddRange(BezierCurve3(beje1, beje2,divisions[d]));
+			//カウントを加算
 			lineRenderer.positionCount = list.Count;
+			//配列に変換
 			positions = list.ToArray();
 
 			++d;
@@ -312,20 +322,25 @@ public class LineCreater : MonoBehaviour
 			prevEventType = Event.current.type;
 			return;
 		}
-
+		//マウスの位置情報の取得
 		Vector3 mousePos = Event.current.mousePosition;
-
+		//Y軸方向の補間
 		mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
-
+		//Ray..伸びる線のこと
+		//シーンビューでマウスをクリックすると伸びる線を作成（画面には見えない）
 		Ray ray = SceneView.currentDrawingSceneView.camera.ScreenPointToRay(mousePos);
+		//当たり判定用の変数作成
 		RaycastHit hit = new RaycastHit();
-
+		//当たり判定の処理
+		//シーンビューから見てオブジェクトに当たったら処理を開始する
 		if (Physics.Raycast(ray, out hit))
 		{
+			//オブジェクトを作成
 			GameObject obj = Instantiate(AnkerPrefab,hit.point,Quaternion.identity);
+			//自分の子供にする
 			obj.transform.parent = transform;
 		}
-
+		//現在のイベントのタイプの更新
 		prevEventType = Event.current.type;
 	}
 	#endif
