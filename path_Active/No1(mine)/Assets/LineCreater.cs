@@ -47,7 +47,7 @@ public class LineCreater : MonoBehaviour
 	[SerializeField] private float interval;		// 配置間隔
 	[SerializeField] private Anker[] ankers;
 	[SerializeField] private LineRenderer lineRenderer;
-	private int prevChildCount;
+	private int prevChildCount;						//作りだしたアンカーの数
 	private EventType prevEventType;
 	private const int debugDivision = 20;			// 分割数
 	//────────────────────────────────────────────
