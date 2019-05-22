@@ -33,10 +33,12 @@ public class Screw_Enemy : MonoBehaviour
 	void Update()
 	{
 		pos = new Vector3(0,start_pos_y,0); //中心を決めます。今回は(0,0,0)
-        pos.z += Mathf.Sin(Time.time * X_speed + transform.localPosition.x ) * distance_Z;
-        pos.y += Mathf.Cos(Time.time * X_speed + transform.localPosition.x) * distance_Y;
-        pos.x += transform.position.x + 1 * Time.deltaTime * -1;
-        transform.position = pos;
+		pos.z += Mathf.Sin(Time.time * X_speed + transform.localPosition.x ) * distance_Z;
+		pos.y += Mathf.Cos(Time.time * X_speed + transform.localPosition.x) * distance_Y;
+		//pos.x += Mathf.Sin(Time.time * X_speed) * distance_Z;
+
+		pos.x += transform.position.x + 1 * Time.deltaTime * -1;
+		transform.position = pos;
 	}
 
 	float power_3()
