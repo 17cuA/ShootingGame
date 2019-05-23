@@ -5,50 +5,71 @@
 // 文字の表示
 //----------------------------------------------------------------------------------------------
 // 2019/05/20：0～9,A～Zのフォントを使わない字の表示
+// 2019/05/23：文字数の固定、固定された文字数以上、未満はエラー
 //----------------------------------------------------------------------------------------------
 //
-// この形に並べろ
-// ┏━┳━┳━┳━┳━┳━┳━┳━┳━┳━┓
-// ┃０┃１┃２┃３┃４┃５┃６┃７┃８┃９┃
-// ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
-// ┃Ａ┃Ｂ┃Ｃ┃Ｄ┃Ｅ┃Ｆ┃Ｇ┃Ｈ┃Ｉ┃Ｊ┃
-// ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
-// ┃Ｋ┃Ｌ┃Ｍ┃Ｎ┃Ｏ┃Ｐ┃Ｑ┃Ｒ┃Ｓ┃Ｔ┃
-// ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
-// ┃Ｕ┃Ｖ┃Ｗ┃Ｘ┃Ｙ┃Ｚ┃  ┃  ┃  ┃  ┃
-// ┗━┻━━━┻━┻━┻━┻━┻━┻━┻━┛
+// 私を読んで
+//
+// 画像準備　編
+// 1.デザイナーにこの形で画像データを並べて作ってもらって！
+//	 ┏━┳━┳━┳━┳━┳━┳━┳━┳━┳━┓
+//	 ┃０┃１┃２┃３┃４┃５┃６┃７┃８┃９┃
+//	 ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
+//	 ┃Ａ┃Ｂ┃Ｃ┃Ｄ┃Ｅ┃Ｆ┃Ｇ┃Ｈ┃Ｉ┃Ｊ┃
+//	 ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
+//	 ┃Ｋ┃Ｌ┃Ｍ┃Ｎ┃Ｏ┃Ｐ┃Ｑ┃Ｒ┃Ｓ┃Ｔ┃
+//	 ┣━╋━╋━╋━╋━╋━╋━╋━╋━╋━┫
+//	 ┃Ｕ┃Ｖ┃Ｗ┃Ｘ┃Ｙ┃Ｚ┃  ┃  ┃  ┃  ┃
+//	 ┗━┻━━━┻━┻━┻━┻━┻━┻━┻━┛
 // 
+// 2.読み込みたい画像の Inspector にある Texture Type を Sprite(2D and UI)に変更
+// 
+// 3.いつも通り Sprite Editor で任意の大きさに画像を切る
+//
+// 3.5.画像データは Asset の中の Resource の中に保存
+//
+// プログラム　編
+// 4.Characters_Count に文字数指定
+//
+// 5.
 
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Character_Display : MonoBehaviour
 {
-    //public string Chara_Data { get;private set;}     // 文字入れ
-    private Sprite[] Look { set; get;}
-    public GameObject[] obj {set;get;}
-    public Image[] Display_Characters {private set; get;}
+	public int Characters_Count { set; get; }						// 文字数の保存場所
+	public string Resource_Path { private set; get; }				// 画像のパス
+	private Sprite[] Look { set; get;}								// PNGでできたフォントデータの保存場所
+    public List<GameObject> obj {private set; get; }				// 表示用の一文字分の object
+	public List<Image> Display_Characters {private set; get;}		// 表示用の一文字分の Image コンポーネント
 
-    int n;
+	/// <summary>
+	/// コンストラクタコンストラクタ
+	/// </summary>
+	/// <param name="n"> 文字数 </param>
+	/// <param name="s"> 文字用画像の保存場所 </param>
+	Character_Display(int n = 0, string s = "")
+	{
+		Characters_Count = n;
+		obj = new List<GameObject>();
+		Display_Characters = new List<Image>();
 
-    private void Start()
+		if (s != "")
+		{
+			Look_Load(s);
+		}
+	}
+
+	/// <summary>
+	/// 見た目のロード
+	/// </summary>
+	/// <param name="resource_path"> リソース内の Sprite のパス </param>
+	public void Look_Load(string path)
     {
-        Look_Load("morooka/SS");
-    }
-
-    private void Update()
-    {
-        Character_Preference("02135430K");
-    }
-
-
-    /// <summary>
-    /// 見た目のロード
-    /// </summary>
-    /// <param name="resource_path"> リソース内の Sprite のパス </param>
-    public void Look_Load(string resource_path)
-    {
-        Look = Resources.LoadAll<Sprite>(resource_path);
+		Resource_Path = path;
+        Look = Resources.LoadAll<Sprite>(Resource_Path);
     }
 
     /// <summary>
@@ -57,39 +78,47 @@ public class Character_Display : MonoBehaviour
     /// <param name="s"> 表示する文字列 </param>
     public void Character_Preference(string s )
     {
-        // 初期のとき、文字数が違うとき
-        if (obj == null || obj.Length != s.Length)
-        {
-            obj = new GameObject[s.Length];
-            Display_Characters = new Image[s.Length];
-            Vector2 posTemp = transform.position;
-            for (int i = 0; i < s.Length; i++)
-            {
-                obj[i] = new GameObject();
-                obj[i].transform.parent = transform;
-                Display_Characters[i] = obj[i].AddComponent<Image>();
-                Display_Characters[i].sprite = Look[character_search(s[i])];
+		if (s.Length == Characters_Count)
+		{
+			// 初期のとき、文字数が違うとき
+			if (obj.Count == 0)
+			{
+				Vector2 posTemp = transform.position;
+				for (int i = 0; i < Characters_Count; i++)
+				{
+					obj.Add(new GameObject());
+					obj[i].transform.parent = transform;
+					obj[i].AddComponent<Image>();
+					Display_Characters.Add(obj[i].GetComponent<Image>());
+					obj[i].transform.position = posTemp;
+					posTemp.x += 100.0f;
+				}
+			}
+			else if (obj.Count > 0)
+			{
+				for (int i = 0; i < s.Length; i++)
+				{
+					Display_Characters[i].sprite = Look[character_search(s[i])];
+				}
+			}
 
-                obj[i].transform.position = posTemp;
-                posTemp.x -= 80.0f;
-            }
-        }
-        else if(obj != null || obj.Length == s.Length)
-        {
-            for (int i = 0; i < s.Length; i++)
-            {
-                Display_Characters[i].sprite = Look[character_search(s[i])];
-            }
+		}
+		else if(s.Length > Characters_Count)
+		{
+			Debug.LogError("設定文字数以上");
+		}
+		else if(s.Length < Characters_Count)
+		{
+			Debug.LogError("設定文字数未満");
+		}
+	}
 
-        }
-    }
-
-    /// <summary>
-    /// 文字検索
-    /// </summary>
-    /// <param name="search_c"> 1文字 </param>
-    /// <returns></returns>
-    public byte character_search(char search_c)
+	/// <summary>
+	/// 文字検索
+	/// </summary>
+	/// <param name="search_c"> 1文字 </param>
+	/// <returns></returns>
+	public byte character_search(char search_c)
     {
         switch(search_c)
         {
@@ -190,4 +219,17 @@ public class Character_Display : MonoBehaviour
                 return 39;
         }
     }
+
+	private void Reset()
+	{
+		// Image コンポーネントの情報削除
+		Display_Characters.Clear();
+
+		// object の削除
+		foreach (GameObject obj1 in obj)
+		{
+			Destroy(obj1);
+		}
+		obj.Clear();
+	}
 }
