@@ -81,7 +81,9 @@ public class Game_Master : MonoBehaviour
     /// <param name="addition"> 加算数 </param>
     public void Score_Addition(uint addition)
     {
-        CanMane.Score_Display.Score_Addition(addition);
+		display_score += addition;
+
+		CanMane.Score_Display.Character_Preference(display_score.ToString("D10"));
     }
 
     /// <summary>
