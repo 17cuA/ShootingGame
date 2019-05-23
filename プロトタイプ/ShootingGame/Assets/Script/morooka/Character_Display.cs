@@ -237,7 +237,6 @@ namespace TextDisplay
 			Character_Object.Clear();
 		}
 
-
 		/// <summary>
 		/// 表示したいキャンバスの設定
 		/// </summary>
