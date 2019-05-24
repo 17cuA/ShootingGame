@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+ * 製作者：久保田達己
+ * LineRendererからベジェ曲線の位置情報を取得
+ * このデータをEnemyの動きに連動させる
+ * デバックモードをするとこのスクリプトが動きだす
+ * 読み込みは別のスクリプトにて動かす
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
@@ -23,7 +30,7 @@ public class Export_Csv : MonoBehaviour
 		// データ出力
 		for (int i = 0; i < LC.LineRenderer.positionCount; i++)
 		{
-			sw.WriteLine(LC.LineRenderer.GetPosition(i));
+			sw.WriteLine(LC.LineRenderer.GetPosition(i).ToString().Replace("(","").Replace(")",""));
 		}
 		// StreamWriterを閉じる
 		sw.Close();
@@ -43,9 +50,4 @@ public class Export_Csv : MonoBehaviour
 		sr.Close();
 		/-----------------------------------------------------------------------------------------------------------*/
 	}
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
 }
