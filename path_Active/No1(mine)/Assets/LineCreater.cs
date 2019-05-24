@@ -286,7 +286,7 @@ public class LineCreater : MonoBehaviour
 			Vector3[] beje2 = BezierCurve2(linePositions[i + 1], linePositions[i + 2], linePositions[i + 3],divisions[d]);
 
 			//!< 次の座標の情報を挿入
-			print(BezierCurve3(beje1, beje2, divisions[d]).Length);
+			//print(BezierCurve3(beje1, beje2, divisions[d]).Length);
 			//ここで挿入
 			list.AddRange(BezierCurve3(beje1, beje2,divisions[d]));
 			//カウントを加算
