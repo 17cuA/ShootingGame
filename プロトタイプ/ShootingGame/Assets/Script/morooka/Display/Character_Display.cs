@@ -9,6 +9,7 @@
 // 2019/05/24：文字の大きさ変更可能
 // 2019/05/24：文字の色変え
 // 2019/05/24：文字の完全削除
+// 2019/05/24：オブジェクトの親子関係の修正
 //----------------------------------------------------------------------------------------------
 //
 // 私を読んで
@@ -49,9 +50,9 @@ namespace TextDisplay
 {
 	public class Character_Display : MonoBehaviour
 	{
-		private GameObject conclusion_object;		// まとめようオブジェクト
+        private GameObject controler_obj;		// まとめようオブジェクト
 
-		public int Word_Count { set; get; }									// 文字数の保存場所
+        public int Word_Count { set; get; }									// 文字数の保存場所
 		public string Resource_Path { private set; get; }					// 画像のパス
         public Color Font_Color {private set; get;}                         // 文字の色
 		public List<GameObject> Character_Object { private set; get; }		// 表示用の一文字分の object
@@ -65,13 +66,12 @@ namespace TextDisplay
 		/// <param name="n"> 文字数 </param>
 		/// <param name="s"> 文字用画像の保存場所 </param>
 		/// <param name="v"> 文字の表示場所 </param>
-		public Character_Display(int n = 0, string s = "",Transform t = null, Vector3 v = new Vector3())
+		public Character_Display(int n = 0, string s = "",GameObject t = null, Vector3 v = new Vector3())
 		{
 			Word_Count = n;
-			conclusion_object = new GameObject();
-			SetCanvas(t);
-			conclusion_object.transform.localPosition = v;
-			Character_Object = new List<GameObject>();
+			SetControler(t);
+            controler_obj.transform.localPosition = v;
+            Character_Object = new List<GameObject>();
 			Display_Characters = new List<Image>();
             Font_Color = new Color(1.0f,1.0f,1.0f);
 
@@ -102,16 +102,17 @@ namespace TextDisplay
 				// 初期のとき、文字数が違うとき
 				if (Character_Object.Count == 0)
 				{
-					Vector2 posTemp = conclusion_object.transform.position;
-					for (int i = 0; i < Word_Count; i++)
+                    Vector2 posTemp = controler_obj.transform.position;
+
+                    for (int i = 0; i < Word_Count; i++)
 					{
 						Character_Object.Add(new GameObject());
-						Character_Object[i].transform.parent = conclusion_object.transform;
-						Character_Object[i].AddComponent<Image>();
+                        Character_Object[i].transform.parent = controler_obj.transform;
+                        Character_Object[i].AddComponent<Image>();
 						Display_Characters.Add(Character_Object[i].GetComponent<Image>());
-						Character_Object[i].transform.position = posTemp;
-						posTemp.x += 100.0f;
-					}
+                        Character_Object[i].transform.position = posTemp;
+                        posTemp.x += 100.0f;
+                    }
 				}
 
 				for (int i = 0; i < s.Length; i++)
@@ -247,10 +248,10 @@ namespace TextDisplay
 		/// 表示したいキャンバスの設定
 		/// </summary>
 		/// <param name="t"> キャンバスのアタッチされた object の </param>
-		public void SetCanvas(Transform t)
+		public void SetControler(GameObject t)
 		{
-			conclusion_object.transform.parent = t;
-		}
+            controler_obj = t;
+        }
 
         /// <summary>
         /// 文字の大きさ替え
@@ -258,7 +259,7 @@ namespace TextDisplay
         /// <param name="size"> 各軸のサイズ </param>
         public void Size_Change(Vector3 size)
         {
-            conclusion_object.transform.localScale = size;
+            //conclusion_object.transform.localScale = size;
         }
 
         /// <summary>
@@ -276,7 +277,7 @@ namespace TextDisplay
 
         public void AllDestroy()
         {
-            Destroy(conclusion_object);
+            //Destroy(conclusion_object);
         }
     }
 }

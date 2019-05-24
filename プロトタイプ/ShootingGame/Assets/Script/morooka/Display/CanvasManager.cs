@@ -6,23 +6,23 @@ using System.Collections.Generic;
 public class CanvasManager : MonoBehaviour
 {
     //public Numeric_Display Score_Display{private set; get;}
-	public Character_Display Score_Display { private set; get; }
     public GameObject warningObj{ private set; get;}
-    public List<GameObject> Canvas_Children {private set;get; }
+    public Character_Display Score_Display{private set; get;}
+    public List<GameObject> Default_UI {private set;get; }
 
     // Start is called before the first frame update
     void Start()
     {
-		//Score_Display = transform.GetChild(0).GetComponent<Numeric_Display>();
-		//Score_Display.Digits_Preference(10);
-		Score_Display = new Character_Display(10, "morooka/SS",transform,new Vector3(0.0f,480.0f,0.0f));
-		Score_Display.Character_Preference("0000000000");
-        Score_Display.Size_Change(new Vector3(0.5f,0.5f,0.5f));
-        Canvas_Children = new List<GameObject>();
-        for(int i = 0; i < transform.childCount; i++)
+        //Score_Display = transform.GetChild(0).GetComponent<Numeric_Display>();
+        //Score_Display.Digits_Preference(10);
+        Default_UI = new List<GameObject>();
+
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Canvas_Children.Add(transform.GetChild(i).gameObject);
+            Default_UI.Add(transform.GetChild(i).gameObject);
         }
+
+        Score_Display = transform.GetChild(0).GetComponent<Character_Display>();
     }
 
     // Update is called once per frame
