@@ -7,6 +7,7 @@
 // 2019/05/14：CSV を string型 の二次配列化して読み込み
 // 2019/05/14：レコード、カラムの配列を検索して読み込み
 // 2019/05/16：レコード保管用のクラス作成
+// 2019/05/20：コンストラクタの作成
 //----------------------------------------------------------------------------------------------
 //
 // 理想のデータベースの形（例）
@@ -36,11 +37,26 @@ namespace CSV_Management
 	{
 		public string[,] Database_Array { private set; get; }		// CSV の入る二次元配列
 
-		/// <summary>
-		/// CSVデータの読み込み
-		/// </summary>
-		/// <param name="resourcesName"> リソース内のファイル名（パス） </param>
-		public void CSVArrangement(string resourcesName)
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="resourcesName"> CSVの名前か空白でOK </param>
+        public Database_Manager(string resourcesName = "")
+        {
+            if (resourcesName == "")
+            {
+            }
+            else
+            {
+                CSVArrangement(resourcesName);
+            }
+        }
+
+        /// <summary>
+        /// CSVデータの読み込み
+        /// </summary>
+        /// <param name="resourcesName"> リソース内のファイル名（パス） </param>
+        public void CSVArrangement(string resourcesName)
         {
 			Reset();
 

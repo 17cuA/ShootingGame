@@ -5,7 +5,7 @@
 // Bossの全体管理をする
 //----------------------------------------------------------------------------------------------
 // 2019/04/25：体パーツの格納、各パーツの生存確認
-// 2019/05/16：でーたべーす
+// 2019/05/16：データベースの読み込み
 //----------------------------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,9 +68,6 @@ public class BossAll : MonoBehaviour
 		{
 			//OwnDeletion();
 		}
-
-		//if (!move_switch)
-		//{
 			// 自分がカメラ内に入ったとき
 			if (ownRenderer.isVisible)
 			{
@@ -84,7 +81,6 @@ public class BossAll : MonoBehaviour
 				PartsRenderer.Clear();
 				move_switch = true;
 			}
-		//}
 	}
 
 	/// <summary>
@@ -117,7 +113,7 @@ public class BossAll : MonoBehaviour
 		for (int i = 0; i < OwnParts.Count; i++)
 		{
 			// null のとき
-			if (OwnParts[i] == null)
+			if (OwnParts[i].HP <= 0)
 			{
 				// 要素削除
 				OwnParts.RemoveAt(i);
@@ -139,7 +135,6 @@ public class BossAll : MonoBehaviour
 				return false;
 			}
 		}
-
 		return true;
 	}
 
