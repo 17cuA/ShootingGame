@@ -6,6 +6,7 @@
 //----------------------------------------------------------------------------------------------
 // 2019/04/20：フレーム数の格納、計算
 // 2019/05/16：ボスのデータベース全ての格納
+// 2019/05/24：ゲーム中の切り替え
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,6 +47,14 @@ public class Game_Master : MonoBehaviour
         eEFFECT					// エフェクト
     }
 
+    public enum CONFIGURATION_IN_STAGE
+    {
+        eNORMAL,
+        eBOSS_CUT_IN,
+        eBOSS_BUTLE,
+        eCLEAR,
+    }
+
     public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
     public uint display_score{private set; get;}                // 表示スコア
@@ -53,6 +62,7 @@ public class Game_Master : MonoBehaviour
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     public CanvasManager CanMane{private set; get;}             // キャンバスの情報
+    public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
 
     void Start()
     {
@@ -92,6 +102,7 @@ public class Game_Master : MonoBehaviour
     private void Stage_Start()
     {
         accumulate_score = new byte[10];
+        Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
 
         if (Boss_Data == null)
         {
