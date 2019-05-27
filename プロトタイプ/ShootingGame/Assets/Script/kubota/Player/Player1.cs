@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+ * プレイヤーの挙動作成
+ * 久保田 達己
+ * 
+ * 
+ * 
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
