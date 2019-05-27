@@ -10,6 +10,7 @@
 // 2019/05/24：文字の色変え
 // 2019/05/24：文字の完全削除
 // 2019/05/24：オブジェクトの親子関係の修正
+// 2019/05/27：表示非表示の選択追加
 //----------------------------------------------------------------------------------------------
 //
 // 私を読んで
@@ -48,7 +49,7 @@ using System.Collections.Generic;
 
 namespace TextDisplay
 {
-	public class Character_Display : MonoBehaviour
+	public class Character_Display:Behaviour
 	{
         private GameObject controler_obj;		// まとめようオブジェクト
 
@@ -57,8 +58,8 @@ namespace TextDisplay
         public Color Font_Color {private set; get;}                         // 文字の色
 		public List<GameObject> Character_Object { private set; get; }		// 表示用の一文字分の object
 		public List<Image> Display_Characters { private set; get; }			// 表示用の一文字分の Image コンポーネント
+        public bool Enable {private set; get;}                              // 表示するかしないか
 		private Sprite[] Look { set; get; }                                 // PNGでできたフォントデータの保存場所
-
 
 		/// <summary>
 		/// コンストラクタコンストラクタ
@@ -66,7 +67,7 @@ namespace TextDisplay
 		/// <param name="n"> 文字数 </param>
 		/// <param name="s"> 文字用画像の保存場所 </param>
 		/// <param name="v"> 文字の表示場所 </param>
-		public Character_Display(int n = 0, string s = "",GameObject t = null, Vector3 v = new Vector3())
+		public Character_Display(int n, string s, GameObject t, Vector3 v)
 		{
 			Word_Count = n;
 			SetControler(t);
@@ -74,7 +75,6 @@ namespace TextDisplay
             Character_Object = new List<GameObject>();
 			Display_Characters = new List<Image>();
             Font_Color = new Color(1.0f,1.0f,1.0f);
-
 			if (s != "")
 			{
 				Look_Load(s);
@@ -107,13 +107,13 @@ namespace TextDisplay
                     for (int i = 0; i < Word_Count; i++)
 					{
 						Character_Object.Add(new GameObject());
-                        Character_Object[i].transform.parent = controler_obj.transform;
                         Character_Object[i].AddComponent<Image>();
 						Display_Characters.Add(Character_Object[i].GetComponent<Image>());
                         Character_Object[i].transform.position = posTemp;
                         posTemp.x += 100.0f;
+                        Character_Object[i].transform.SetParent(controler_obj.transform);
                     }
-				}
+                }
 
 				for (int i = 0; i < s.Length; i++)
 				{
@@ -239,7 +239,7 @@ namespace TextDisplay
 			// object の削除
 			foreach (GameObject obj1 in Character_Object)
 			{
-				Destroy(obj1);
+                MonoBehaviour.Destroy(obj1);
 			}
 			Character_Object.Clear();
 		}
@@ -248,9 +248,9 @@ namespace TextDisplay
 		/// 表示したいキャンバスの設定
 		/// </summary>
 		/// <param name="t"> キャンバスのアタッチされた object の </param>
-		public void SetControler(GameObject t)
+		public void SetControler(object t)
 		{
-            controler_obj = t;
+            controler_obj = (GameObject)t;
         }
 
         /// <summary>
@@ -275,9 +275,17 @@ namespace TextDisplay
             }
         }
 
-        public void AllDestroy()
+        /// <summary>
+        /// 文字の表示、非表示の設定
+        /// </summary>
+        /// <param name="_enable"> コンポーネントの SetActive と同じ使い方 </param>
+        public void Set_Enable(bool _enable)
         {
-            Destroy(controler_obj);
+            Enable = _enable;
+            foreach(Image image in Display_Characters)
+            {
+                image.enabled = _enable;
+            }
         }
     }
 }
