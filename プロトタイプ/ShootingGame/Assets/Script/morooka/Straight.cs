@@ -11,9 +11,7 @@ public class Straight : character_status
     {
 		direction = new Vector3(-1, 0, 0);
 		Type = Chara_Type.Enemy;
-		speed = 1;
 		hp = 1;
-		Rig = GetComponent<Rigidbody>();					//rigidbodyの情報取得
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 		transform.eulerAngles = new Vector3(0, -180, 0);
 	}
@@ -21,8 +19,8 @@ public class Straight : character_status
 	// Update is called once per frame
 	void Update()
     {
-		Rig.velocity = direction * speed;
 		Died_Process(hp);
+        transform.position = transform.position + new Vector3(-1, 0, 0) * speed;
     }
 	void Died_Process(float hp)
 	{

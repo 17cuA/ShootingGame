@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/*
+ * 2019/05/27   Rigidbodyの削除
+ */
+using UnityEngine;
 
 public class character_status : MonoBehaviour
 {
@@ -11,7 +14,6 @@ public class character_status : MonoBehaviour
 	protected Chara_Type Type; 
 	public float speed;                                         // スピード
 	public float hp;                                            // 体力
-	public Rigidbody Rig;                                       // Rigidbody
 	public Vector3 direction;                                   // 向き
 	public CapsuleCollider capsuleCollider;                     // cillider
     public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）

@@ -23,7 +23,6 @@ public class FollowUpMove : character_status
 
     void Start()
     {
-		Rig = GetComponent<Rigidbody>();				//rigidbodyの情報取得
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 
 		Travelling_Direction();
@@ -39,20 +38,17 @@ public class FollowUpMove : character_status
         {
 			//エネミーを上に移動させる
 			direction.y = 1;
-			Rig.velocity = direction * speed;
         }
         //プレイヤーの座標がエネミーの座標より小さいとき
         else if (Player.transform.position.y < transform.position.y)
         {
 			//エネミーを下に移動させる
 			direction.y = -1;
-			Rig.velocity = direction * speed;
         }
         else
         {
 			//プレイヤーとｙ座標が同じときはまっすぐ進んでくる
 			direction.y = 0;
-			Rig.velocity = direction * speed;
         }
 		Died_Process(hp);
     }

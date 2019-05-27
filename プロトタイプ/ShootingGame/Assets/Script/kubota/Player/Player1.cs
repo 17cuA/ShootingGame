@@ -18,7 +18,7 @@ public class Player1 : character_status
 	private float y;    //y座標の移動する時に使う変数
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
-    public GameObject shot_Mazle;
+    public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
     	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -30,13 +30,11 @@ public class Player1 : character_status
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
-		Rig = GetComponent<Rigidbody>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
-		Rig.velocity = vector3;
 		hp = 10;
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
@@ -81,7 +79,7 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");
 		y = Input.GetAxis("Vertical");
 		vector3 = new Vector3(x, y, 0);
-		Rig.velocity = vector3 * speed;
+        transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
 	
 	//プレイヤーの方向転換
@@ -91,6 +89,7 @@ public class Player1 : character_status
 		Direction *= new Quaternion(0, -1,0, 0);
 		transform.rotation = Direction;
 	}
+    //プレイヤーが死んだかどうかの判定用関数
 	public bool Died_Judgment()
 	{
 		bool is_died = false;
