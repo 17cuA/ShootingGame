@@ -6,6 +6,7 @@
 //----------------------------------------------------------------------------------------------
 // 2019/04/25：体パーツの格納、各パーツの生存確認
 // 2019/05/16：データベースの読み込み
+// 2019/05/24：パーツ戦闘不能時の挙動変更
 //----------------------------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,14 @@ public class BossAll : MonoBehaviour
 	public float attack_interval { private set; get; }				// 攻撃インターバル
 	public float attack_change { private set; get; }				// 攻撃種類の切り替えインターバル
 	public bool move_switch { private set; get; }					// 移動方法の切り替え
+
+
+
+
+    //　テストPOP専用
+    public GameObject poper;
+
+
 
 	private void Awake()
     {
@@ -56,10 +65,17 @@ public class BossAll : MonoBehaviour
 			PartsRenderer[i].enabled = false;
 		}
 		move_switch = false;
-	}
 
-	// Update is called once per frame
-	void Update()
+
+
+        //　テストPOP専用
+        GameObject obj = Instantiate(poper, transform.position, Quaternion.identity) as GameObject;
+        obj.GetComponent<Boss_Pop_Switch>().boss = gameObject;
+        gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
     {
 		PartFactorDeletion();
 
@@ -70,7 +86,7 @@ public class BossAll : MonoBehaviour
 		}
 			// 自分がカメラ内に入ったとき
 			if (ownRenderer.isVisible)
-			{
+			{                
 				// 格納したパーツの表示
 				for (int i = 0; i < PartsRenderer.Count; i++)
 				{
@@ -104,16 +120,16 @@ public class BossAll : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// パーツのリストの中が null のとき要素の削除
-	/// </summary>
-	private void PartFactorDeletion()
+    /// <summary>
+    /// パーツが動いていないとき要素の削除
+    /// </summary>
+    private void PartFactorDeletion()
 	{
 		//各パーツの確認
 		for (int i = 0; i < OwnParts.Count; i++)
 		{
-			// null のとき
-			if (OwnParts[i].HP <= 0)
+			// 動いていないとき
+			if (!OwnParts[i].gameObject.active)
 			{
 				// 要素削除
 				OwnParts.RemoveAt(i);

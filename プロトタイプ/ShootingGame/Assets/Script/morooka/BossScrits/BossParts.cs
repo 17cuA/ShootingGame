@@ -6,29 +6,33 @@
 //----------------------------------------------------------------------------------------------
 // 2019/04/25：体パーツの情報の格納
 // 2019/05/04：ダメージを受けた時の発光表現
+// 2019/05/24：画面外時当たり判定をなくす
+// 2019/05/24：HP 0 時の挙動変更
 //----------------------------------------------------------------------------------------------
-
 using UnityEngine;
 using System.Collections;
 
 public class BossParts : MonoBehaviour
 {
     public bool invincible;				// 無敵確認
-	public Renderer my;				// 自分のレンダー
-	public Color originalColor;     // 自分の元の色の格納
 
-	public int HP { set; get; }                         // HP
+	public Renderer My { private set; get;}				        // 自分のレンダー
+	public Color OriginalColor {private set; get; }             // 自分の元の色の格納
+    public Collider Collider_Storing { private set; get;}       // 自分のコライダーの格納
+	public int HP { set; get; }                                 // HP
 
 	void Start()
     {
-		my = GetComponent<Renderer>();
-		originalColor = my.material.color;
+		My = GetComponent<Renderer>();
+		OriginalColor = My.material.color;
+        Collider_Storing = GetComponent<Collider>();
+        Collider_Storing.enabled = false;
     }
 
     void Update()
     {
         // 表示中
-        if(my.isVisible)
+        if(My.isVisible)
         {
             DisplayingProcess();
         }
@@ -43,13 +47,7 @@ public class BossParts : MonoBehaviour
 	/// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        // 表示中
-        if(my.isVisible)
-        {
-            ColliderDisplayingProcess(other);
-        }
-        else
-        { }
+        ColliderDisplayingProcess(other);
     }
 	/// <summary>
 	/// ダメージ表現のコルーチン
@@ -58,11 +56,11 @@ public class BossParts : MonoBehaviour
     IEnumerator Effect()
     {
         // マテリアルのカラーを白くする
-		my.material.color = Color.white;
+		My.material.color = Color.white;
 		// ディレイの時間
 		yield return new WaitForSeconds(0.1f);
         // マテリアルのカラーを元に戻す
-		my.material.color = originalColor;
+		My.material.color = OriginalColor;
 	}
 
     /// <summary>
@@ -70,11 +68,17 @@ public class BossParts : MonoBehaviour
     /// </summary>
     private void DisplayingProcess()
     {
+        // コライダーが動いていないとき
+        if (!Collider_Storing.enabled)
+        {
+            Collider_Storing.enabled = true;        // コライダー起動
+        }
+
+        // HPが1以下の時
         if (HP < 1)
         {
             Game_Master.MY.Score_Addition(1500);
-            my.enabled = false;
-            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
