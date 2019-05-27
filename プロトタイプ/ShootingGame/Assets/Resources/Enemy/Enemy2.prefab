@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1687921258785439961}
   - component: {fileID: 1687921258785439962}
   - component: {fileID: 472758016315930812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687921260126056697}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84010487344536865}
   - component: {fileID: 8824068915831224537}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,22 @@ PrefabInstance:
     - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -201,6 +217,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 39209bc5c605a114387f64bd9eea7ea6, type: 2}
+    - target: {fileID: 100008, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
 --- !u!4 &4174636478397850521 stripped
