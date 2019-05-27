@@ -20,7 +20,7 @@ public class Straight : character_status
 	void Update()
     {
 		Died_Process(hp);
-        transform.position = transform.position + new Vector3(-1, 0, 0) * speed;
+        transform.position = transform.position + new Vector3(-0.1f, 0, 0) * speed;
     }
 	void Died_Process(float hp)
 	{
