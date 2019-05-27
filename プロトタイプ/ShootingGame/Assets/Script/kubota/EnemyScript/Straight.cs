@@ -45,22 +45,7 @@ public class Straight : character_status
 			//弾のダメージの値だけ体力を減らす
 			hp -= Bs.attack_damage;
 		}
-        //----------------------------------------------------------
-        if (col.gameObject.tag == "Beam") hp--;
-        if (col.gameObject.transform.name == "Beam_Particle") hp--;
-         //----------------------------------------------------------
 
 	}
- 	void OnParticleCollision(GameObject obj)
-    {
-		
-        if(obj.gameObject.tag==("Beam"))
-        { 
-            hp--;
-        }
-        else if(obj.gameObject.tag==("wall"))
-        { 
-           
-        }
-	}
+
 }

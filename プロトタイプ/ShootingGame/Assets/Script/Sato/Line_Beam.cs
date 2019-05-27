@@ -30,11 +30,6 @@ public class Line_Beam : MonoBehaviour {
         {
             disableEffect();
         }
-  //      if (Target_Renderer.isVisible)
-		//{
-		//	Destroy(gameObject);
-		//}
-
     }
 
     private void shot(){
@@ -50,7 +45,8 @@ public class Line_Beam : MonoBehaviour {
         int layerMask = LayerMask.GetMask("Enemy");
         if(Physics.Raycast(shotRay , out shotHit , range , layerMask))
         {
-             Destroy(shotHit.transform.gameObject);
+             //Destroy(shotHit.transform.gameObject);
+
         }
         lineRenderer.SetPosition(1 , shotRay.origin + shotRay.direction * range);
 
