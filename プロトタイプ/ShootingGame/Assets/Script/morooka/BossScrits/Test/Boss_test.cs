@@ -10,7 +10,7 @@ public class Boss_test : MonoBehaviour
 	}
 
 	private Rigidbody rb2;
-	private float speed = 1.0f;
+	private float speed = 2.0f;
     private BossAll ba;
     private float attack_interval = 20.0f;
     private GameObject bullet;
@@ -59,7 +59,7 @@ public class Boss_test : MonoBehaviour
     {
 		if (rb2.velocity != Vector3.zero)
 		{
-			if (transform.position.x <= 8.5f)
+			if (transform.position.x <= 9.0f)
 			{
 				rb2.velocity = Vector3.zero;
 			}
@@ -91,7 +91,7 @@ public class Boss_test : MonoBehaviour
 		{
 			foreach (BossParts bp in ba.OwnParts)
 			{
-				if (bp.my.isVisible)
+				if (bp.My.isVisible)
 				{
 					if (!bp.invincible)
 					{
