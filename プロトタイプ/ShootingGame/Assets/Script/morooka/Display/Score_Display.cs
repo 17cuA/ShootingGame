@@ -12,6 +12,9 @@ using TextDisplay;
 
 public class Score_Display : MonoBehaviour
 {
+    //---------------------------------------------------------------------------
+    // Unity 側調節よう変数
+    //---------------------------------------------------------------------------
     [SerializeField]
     [Header("読み込みたいフォントの場所")]
     private string font_path;
@@ -21,14 +24,15 @@ public class Score_Display : MonoBehaviour
     [SerializeField]
     [Header("表示位置")]
     private Vector3 position;
+    //---------------------------------------------------------------------------
 
-    public Character_Display Display{private set; get;}
+    public Character_Display Object_To_Display{private set; get;}
 
     void Start()
     {
-        Display = new Character_Display(10, font_path, gameObject,position);
-        Display.Character_Preference("0000000000");
-        Display.Size_Change(new Vector3(font_size, font_size, font_size));
+        Object_To_Display = new Character_Display(10, font_path, gameObject, position);
+        Object_To_Display.Character_Preference("0000000000");
+        Object_To_Display.Size_Change(new Vector3(font_size, font_size, font_size));
     }
 
     void Update()
@@ -46,5 +50,10 @@ public class Score_Display : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void Score_Addition(uint add)
+    {
+        Object_To_Display.Character_Preference(add.ToString("D10"));
     }
 }

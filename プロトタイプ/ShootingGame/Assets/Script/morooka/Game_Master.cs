@@ -61,8 +61,8 @@ public class Game_Master : MonoBehaviour
     public byte[] accumulate_score{private set; get;}           // 溜めスコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
-    public CanvasManager CanMane{private set; get;}             // キャンバスの情報
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
+    public Score_Display _Display{private set; get;}
 
     void Start()
     {
@@ -83,6 +83,11 @@ public class Game_Master : MonoBehaviour
     void Update()
     {
         Frame_Count++;
+
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            Management_In_Stage = CONFIGURATION_IN_STAGE.eBOSS_CUT_IN;
+        }
     }
 
     /// <summary>
@@ -93,7 +98,7 @@ public class Game_Master : MonoBehaviour
     {
 		display_score += addition;
 
-		CanMane.Score.Character_Preference(display_score.ToString("D10"));
+		_Display.Object_To_Display.Character_Preference(display_score.ToString("D10"));
     }
 
     /// <summary>
@@ -110,6 +115,6 @@ public class Game_Master : MonoBehaviour
         }
         MY = GetComponent<Game_Master>();
 
-        CanMane = GameObject.Find("Canvas").GetComponent<CanvasManager>();
+        _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
     }
 }
