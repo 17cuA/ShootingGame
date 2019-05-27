@@ -7,7 +7,7 @@ public class CanvasManager : MonoBehaviour
 {
     //public Numeric_Display Score_Display{private set; get;}
     public GameObject warningObj{ private set; get;}
-    public Character_Display Score_Display{private set; get;}
+    public Character_Display Score{private set; get;}
     public List<GameObject> Default_UI {private set;get; }
 
     // Start is called before the first frame update
@@ -22,7 +22,8 @@ public class CanvasManager : MonoBehaviour
             Default_UI.Add(transform.GetChild(i).gameObject);
         }
 
-        Score_Display = transform.GetChild(0).GetComponent<Character_Display>();
+        //Score_Display = transform.GetChild(0).GetComponent<Scoer_Display>().Score_Display;
+        Score = transform.Find("Score_Display").GetComponent<Score_Display>().Display;
     }
 
     // Update is called once per frame

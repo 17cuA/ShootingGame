@@ -99,7 +99,7 @@ namespace TextDisplay
 		{
 			if (s.Length == Word_Count)
 			{
-				// 初期のとき、文字数が違うとき
+				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
                     Vector2 posTemp = controler_obj.transform.position;
@@ -277,7 +277,7 @@ namespace TextDisplay
 
         public void AllDestroy()
         {
-            //Destroy(conclusion_object);
+            Destroy(controler_obj);
         }
     }
 }

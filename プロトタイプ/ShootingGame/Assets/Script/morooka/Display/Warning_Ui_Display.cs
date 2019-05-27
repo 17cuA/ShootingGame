@@ -12,6 +12,9 @@ using TextDisplay;
 
 public class Warning_Ui_Display : MonoBehaviour
 {
+    //---------------------------------------------------------------------------
+    // Unity 側調節よう変数
+    //---------------------------------------------------------------------------
     [SerializeField]
     [Header("フォントの色")]
     private Color Font_Color;       // フォントカラー
@@ -23,9 +26,10 @@ public class Warning_Ui_Display : MonoBehaviour
     private Vector3 font_size;      // フォントサイズ
     [SerializeField]
     [Header("フォントの位置")]
-    private Vector3 font_pos;       // フォント位置
-    private int fade_count;         // フェード処理時のカウンター
+    private Vector3 position;       // フォント位置
+    //---------------------------------------------------------------------------
 
+    private int fade_count{set;get;}         // フェード処理時のカウンター
     private Character_Display _Display {set;get;}       // 表示する文字
 
     void Start()
@@ -34,7 +38,7 @@ public class Warning_Ui_Display : MonoBehaviour
         fade_speed = (1.0f / 255.0f) / 2.0F;
         fade_count = 0;
 
-        _Display = new Character_Display(7, "morooka/SS", gameObject, font_pos);
+        _Display = new Character_Display(7, "morooka/SS", gameObject, position);
         _Display.Character_Preference("WARNING");
         _Display.Size_Change(font_size);
         Font_Color = _Display.Font_Color;

@@ -93,7 +93,7 @@ public class Game_Master : MonoBehaviour
     {
 		display_score += addition;
 
-		CanMane.Score_Display.Character_Preference(display_score.ToString("D10"));
+		CanMane.Score.Character_Preference(display_score.ToString("D10"));
     }
 
     /// <summary>
