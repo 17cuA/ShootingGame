@@ -11,6 +11,7 @@ using UnityEngine;
 public class BlackFlame : MonoBehaviour
 {
     [SerializeField]
+    [Header("レターボックスの移動速度")]
     private float move_speed;       // 移動速度
 
     private Vector3[] cut_in_position;      // カットイン中のポジション

@@ -6,6 +6,7 @@
 // Score の文字の制御
 //----------------------------------------------------------------------------------------------
 // 2019/05/24：スコアを表示するだけの挙動
+// 2019/05/27：表示する数値を受け取る関数追加
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
 using TextDisplay;
@@ -52,8 +53,12 @@ public class Score_Display : MonoBehaviour
         }
     }
 
-    public void Score_Addition(uint add)
+    /// <summary>
+    /// 表示数値の設定
+    /// </summary>
+    /// <param name="number_to_display"> 数値 </param>
+    public void Display_Number_Preference(uint number_to_display)
     {
-        Object_To_Display.Character_Preference(add.ToString("D10"));
+        Object_To_Display.Character_Preference(number_to_display.ToString("D10"));
     }
 }
