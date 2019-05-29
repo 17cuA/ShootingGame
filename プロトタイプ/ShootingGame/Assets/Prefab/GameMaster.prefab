@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3069264954416727105}
   - component: {fileID: 3106418982908883525}
+  - component: {fileID: 541882103}
+  - component: {fileID: 541882102}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -43,3 +45,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e0d8f9740c1a34887be2352db5b120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &541882103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417715682554785829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14046b0d031114d46a5d507663b939e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  P1: {fileID: 0}
+  Map: {fileID: 0}
+  Boss: {fileID: 0}
+  BA: {fileID: 0}
+--- !u!114 &541882102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417715682554785829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896e1ece35273804a9e14cfb5386364a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 0}
+  Player: {fileID: 0}
+  Boss: {fileID: 0}

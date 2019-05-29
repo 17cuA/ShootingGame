@@ -64,6 +64,20 @@ public class Player1 : character_status
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+				//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
+				if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
+				{
+					//方向転換させる関数の呼び出し
+					Change_In_Direction();
+				}
+				Player_Move();
+				//体力が０になると死ぬ処理
+				//Died_Judgment();
+				//弾の発射（Fire2かSpaceキーで撃てる）
+				if (Shot_Delay > Shot_DelayMax)
+				{
+					Bullet_Create();
+				}
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
 				break;

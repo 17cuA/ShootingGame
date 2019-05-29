@@ -18,9 +18,10 @@ public class MapCreate : MonoBehaviour
 	private int column;											//配列の列を入れる変数
 	//マップ作製に使うオブジェクト
 	//リソースフォルダから取得するため、インスペクターは使わない
-	private GameObject Enemy;
-	private GameObject Player;
-	private GameObject Boss;
+	public GameObject Enemy;
+	public GameObject Player;
+	public GameObject Boss;
+	SceneChanger SC;
 	void Start()
     {
 		if(SceneManager.GetActiveScene().name == "Stage")
@@ -30,6 +31,7 @@ public class MapCreate : MonoBehaviour
 			Boss = Resources.Load("Boss/Boss_Test") as GameObject;
 			TextAsset Word = Resources.Load(File_name) as TextAsset;             //csvファイルを入れる変数
 			StringReader csv = new StringReader(Word.text);
+			SC = GetComponent<SceneChanger>();
 			while (csv.Peek() > -1)
 			{
 				string line = csv.ReadLine();
@@ -43,6 +45,7 @@ public class MapCreate : MonoBehaviour
 				}
 			}
 			CreateMap();
+			SC.Chara_Get();
 			//List<int[]> iList = CsvData.ConvertAll(x => int.Parse(x));
 		}
 	}

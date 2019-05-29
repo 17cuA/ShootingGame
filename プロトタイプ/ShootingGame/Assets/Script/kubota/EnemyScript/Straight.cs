@@ -19,8 +19,24 @@ public class Straight : character_status
 	// Update is called once per frame
 	void Update()
     {
-		Died_Process(hp);
-        transform.position = transform.position + new Vector3(-0.1f, 0, 0) * speed;
+		switch (Game_Master.MY.Management_In_Stage)
+		{
+			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
+				Died_Process(hp);
+				transform.position = transform.position + new Vector3(-0.1f, 0, 0) * speed;
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+				Died_Process(hp);
+				transform.position = transform.position + new Vector3(-0.1f, 0, 0) * speed;
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
+				break;
+			default:
+				break;
+		}
+
     }
 	void Died_Process(float hp)
 	{
