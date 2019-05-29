@@ -365,6 +365,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4265652133158501372, guid: 2daf726d8419af24daf6622437f9913f,
+        type: 3}
+      propertyPath: particle.Array.data[0]
+      value: 
+      objectReference: {fileID: 2271613898261364232, guid: 621c94cd59a17c847873db77bb6f2944,
+        type: 3}
+    - target: {fileID: 4265652133158501372, guid: 2daf726d8419af24daf6622437f9913f,
+        type: 3}
+      propertyPath: particle.Array.data[1]
+      value: 
+      objectReference: {fileID: 3789193742753567475, guid: c2d24364b5d1a1e4694a8faada08f50b,
+        type: 3}
+    - target: {fileID: 4265652133158501372, guid: 2daf726d8419af24daf6622437f9913f,
+        type: 3}
+      propertyPath: particle.Array.data[2]
+      value: 
+      objectReference: {fileID: 8578680650159779656, guid: 4341fe2cf89f525489294a1751385997,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2daf726d8419af24daf6622437f9913f, type: 3}
 --- !u!1001 &1095914455
@@ -674,6 +692,21 @@ PrefabInstance:
         type: 3}
       propertyPath: fade_speed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963851326079669391, guid: f3b78c410f153774abfde65e7e836e22,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082753079716491214, guid: f3b78c410f153774abfde65e7e836e22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640579044284045317, guid: f3b78c410f153774abfde65e7e836e22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3b78c410f153774abfde65e7e836e22, type: 3}

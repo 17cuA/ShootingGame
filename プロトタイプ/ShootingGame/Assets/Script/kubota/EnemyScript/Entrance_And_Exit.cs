@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ * 久保田達己
+ * 敵キャラの挙動、途中でバックを行う挙動
+ * 途中で、使用により没となった
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

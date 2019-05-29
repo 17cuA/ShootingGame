@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ * 久保田達己
+ * 敵キャラの動きを三次関数のグラフを使って動かす
+ * 敵キャラの動きが加速と減速を行うため没となった。
+ * 結局何かほかのエネミーの動きに使えるかもしれないため残しておく	
+ * 
+ * 
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
