@@ -4,16 +4,16 @@ using System.Collections;
 
 public class Line_Beam : MonoBehaviour {
 
-    float timer = 0.0f;
-    float effectDisplayTime = 0.2f;
-    float range = 100.0f;
+
+    float range = 57.0f;
     Ray shotRay;
     RaycastHit shotHit;  
     ParticleSystem beamParticle;
     LineRenderer lineRenderer;
     private Renderer Target_Renderer;
-    // Use this for initialization
-    void Awake () {
+
+	// Use this for initialization
+	void Awake () {
         beamParticle = GetComponent<ParticleSystem> ();
         lineRenderer = GetComponent<LineRenderer> ();
         Target_Renderer = GetComponent<Renderer>();
@@ -21,19 +21,13 @@ public class Line_Beam : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        timer += Time.deltaTime;
-
         if (Input.GetMouseButton (1)) {
             shot ();
         }
-        if (timer >= effectDisplayTime)
-        {
-            disableEffect();
-        }
-    }
+		else disableEffect();
+	}
 
     private void shot(){
-        timer = 0f;
         beamParticle.Stop ();
         beamParticle.Play ();
         lineRenderer.enabled = true;
@@ -43,22 +37,17 @@ public class Line_Beam : MonoBehaviour {
 
         //int layerMask = 0;
         int layerMask = LayerMask.GetMask("Enemy");
+
         if(Physics.Raycast(shotRay , out shotHit , range , layerMask))
         {
-             //Destroy(shotHit.transform.gameObject);
-
-        }
+			Destroy(shotHit.transform.gameObject);
+		}
         lineRenderer.SetPosition(1 , shotRay.origin + shotRay.direction * range);
-
-
     }
 
-    private void disableEffect()
+	private void disableEffect()
     {
         beamParticle.Stop();
         lineRenderer.enabled = false;
     }
-
-
-
 }
