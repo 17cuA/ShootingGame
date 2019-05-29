@@ -51,7 +51,7 @@ public class Game_Master : MonoBehaviour
     {
         eNORMAL,
         eBOSS_CUT_IN,
-        eBOSS_BUTLE,
+        eBOSS_BUTTLE,
         eCLEAR,
     }
 

@@ -259,8 +259,8 @@ namespace TextDisplay
         /// <param name="size"> 各軸のサイズ </param>
         public void Size_Change(Vector3 size)
         {
-            //conclusion_object.transform.localScale = size;
-        }
+			controler_obj.transform.localScale = size;
+		}
 
         /// <summary>
         /// 文字の色替え

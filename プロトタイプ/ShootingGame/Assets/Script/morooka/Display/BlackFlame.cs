@@ -45,7 +45,7 @@ public class BlackFlame : MonoBehaviour
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
                 Moving_Position_Cut_In();
                 break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
                 Moving_Position_Default();
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:

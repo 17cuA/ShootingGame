@@ -22,7 +22,7 @@ public class Boss_Pop_Switch : MonoBehaviour
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
                 break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
                 boss.SetActive(true);
                 boss.transform.position = transform.position;
                 Destroy(gameObject);
