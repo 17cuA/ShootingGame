@@ -2,7 +2,7 @@
  * プレイヤーの挙動作成
  * 久保田 達己
  * 
- * 
+ * 2019/05/28	カットイン時は操作できないようにした
  * 
  */
 using System.Collections;
@@ -43,21 +43,34 @@ public class Player1 : character_status
 
 	void Update()
 	{
-		//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
-		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
+		switch (Game_Master.MY.Management_In_Stage)
 		{
-			//方向転換させる関数の呼び出し
-			Change_In_Direction();
+			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
+				//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
+				if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
+				{
+					//方向転換させる関数の呼び出し
+					Change_In_Direction();
+				}
+				Player_Move();
+				//体力が０になると死ぬ処理
+				//Died_Judgment();
+				//弾の発射（Fire2かSpaceキーで撃てる）
+				if (Shot_Delay > Shot_DelayMax)
+				{
+					Bullet_Create();
+				}
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
+				break;
+			default:
+				break;
 		}
-		Player_Move();
-		//体力が０になると死ぬ処理
-		//Died_Judgment();
-        //弾の発射（Fire2かSpaceキーで撃てる）
-        if (Shot_Delay > Shot_DelayMax)
-        {
-            Bullet_Create();
-        }
-		Shot_Delay++;
+						Shot_Delay++;
 	}
     //collisionの時はisTriggerにチェックを入れないこと
     //コライダーが当たった時の処理

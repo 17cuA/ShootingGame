@@ -49,7 +49,7 @@ public class Game_Master : MonoBehaviour
 
     public enum CONFIGURATION_IN_STAGE
     {
-        eNORMAL,
+        eNORMAL,	
         eBOSS_CUT_IN,
         eBOSS_BUTLE,
         eCLEAR,
