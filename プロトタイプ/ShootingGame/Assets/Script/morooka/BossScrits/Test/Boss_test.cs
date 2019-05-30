@@ -27,7 +27,8 @@ public class Boss_test : MonoBehaviour
     {
 		Vector3 vector3 = transform.right.normalized * speed * -1;
 		ba = GetComponent<BossAll>();
-        bullet = Resources.Load("Enemy_Bullet") as GameObject ;
+		ba.BossAll_Start(1);
+		bullet = Resources.Load("Enemy_Bullet") as GameObject ;
 		foreach (BossParts bp in ba.OwnParts)
 		{
 			if(bp.name == "Boss_test_tate (2)")
