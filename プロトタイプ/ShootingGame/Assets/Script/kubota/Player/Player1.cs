@@ -66,7 +66,7 @@ public class Player1 : character_status
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
-			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
 				//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
 				if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
 				{

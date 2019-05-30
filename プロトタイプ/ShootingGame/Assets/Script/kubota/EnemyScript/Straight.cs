@@ -27,7 +27,7 @@ public class Straight : character_status
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
-			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
 				Died_Process(hp);
 				transform.position = transform.position + new Vector3(-0.1f, 0, 0) * speed;
 				break;
