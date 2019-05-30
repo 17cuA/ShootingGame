@@ -29,7 +29,7 @@ public class MapCreate : MonoBehaviour
 			Player = Resources.Load("Player/Player_Demo_1") as GameObject;
 			Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
 			Boss = Resources.Load("Boss/Boss_Test") as GameObject;
-			TextAsset Word = Resources.Load(File_name) as TextAsset;             //csvファイルを入れる変数
+			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 			StringReader csv = new StringReader(Word.text);
 			SC = GetComponent<SceneChanger>();
 			while (csv.Peek() > -1)

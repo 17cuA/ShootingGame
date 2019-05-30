@@ -11,12 +11,9 @@ public class SceneChanger : MonoBehaviour
 	public BossAll BA;
 	void Update()
 	{
-		SceneControl();
-		if (SceneManager.GetActiveScene().name == "Stage")
-		{
-			//if (Player == null)
+		if(Player != null) SceneControl();
 
-		}
+
 	}
 	public void SceneControl()
 	{
