@@ -26,7 +26,7 @@ public class Direction : MonoBehaviour
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
 	}
 
-	void Update()
+	public void Create_Particle()
 	{
 		//パーティクル生成の呼び出し(要トリガー)
 		particleManagementCS.ParticleCreation(this.gameObject, (int)particleType, transform.position + new Vector3(0, 0, -1));

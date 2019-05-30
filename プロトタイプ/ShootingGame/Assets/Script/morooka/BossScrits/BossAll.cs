@@ -36,8 +36,8 @@ public class BossAll : MonoBehaviour
 
 	private void Awake()
     {
-        gameObject.AddComponent<SpriteRenderer>();
-        gameObject.AddComponent<Rigidbody>();
+        //gameObject.AddComponent<SpriteRenderer>();
+        //gameObject.AddComponent<Rigidbody>();
     }
 
     void Start()
