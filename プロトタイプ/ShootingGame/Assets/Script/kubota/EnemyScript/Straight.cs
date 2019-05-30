@@ -61,5 +61,7 @@ public class Straight : character_status
 			hp -= Bs.attack_damage;
 			//------------------------------
 		}
+
 	}
+
 }
