@@ -100,26 +100,26 @@ public class Player1 : character_status
 	}
 		public void Bullet_Create()
 	{
-        if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
-        {
-            switch (bullet_Type)
-            {
-                case Bullet_Type.Single:
-                    Single_Fire();
-                    break;
-                case Bullet_Type.Diffusion:
-                    Diffusion_Fire();
-                    break;
-                case Bullet_Type.Three_Point_Burst:
-                    Triple_Fire();
-                    Invoke("Triple_Fire", 0.1f);
-                    Invoke("Triple_Fire", 0.2f);
-                    break;
-                default:
-                    break;
-            }
-            Shot_Delay = 0;
-        }
+        //if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+        //{
+        //    switch (bullet_Type)
+        //    {
+        //        case Bullet_Type.Single:
+        //            Single_Fire();
+        //            break;
+        //        case Bullet_Type.Diffusion:
+        //            Diffusion_Fire();
+        //            break;
+        //        case Bullet_Type.Three_Point_Burst:
+        //            Triple_Fire();
+        //            Invoke("Triple_Fire", 0.1f);
+        //            Invoke("Triple_Fire", 0.2f);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    Shot_Delay = 0;
+        //}
     }
     	private void Single_Fire()
 	{
