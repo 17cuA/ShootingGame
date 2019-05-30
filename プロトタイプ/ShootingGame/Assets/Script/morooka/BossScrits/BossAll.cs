@@ -7,6 +7,7 @@
 // 2019/04/25：体パーツの格納、各パーツの生存確認
 // 2019/05/16：データベースの読み込み
 // 2019/05/24：パーツ戦闘不能時の挙動変更
+// 2019/05/30：攻撃切り替えタイミング用ボス専用のフレーム管理変数の追加
 //----------------------------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,22 +23,21 @@ public class BossAll : MonoBehaviour
 	public Record_Container status_data { private set; get; }       // データベースからのデータ
 	//public int HP { private set; get; }                             // 自分のヒットポイント
 	public int My_Score { private set; get; }                       // 自分の持ちスコア
-	public float attack_interval { private set; get; }				// 攻撃インターバル
-	public float attack_change { private set; get; }				// 攻撃種類の切り替えインターバル
+	public int attack_interval { private set; get; }				// 攻撃インターバル
+	public int attack_change { private set; get; }				// 攻撃種類の切り替えインターバル
 	public bool move_switch { private set; get; }					// 移動方法の切り替え
+	public int Attack_Change_Frame_Cnt { private set; get; }			// 攻撃切り替え用フレームカウンター
+	public bool Attack_Change_Flag { private set; get; }			// フラグによる攻撃の切り替え
 
 
-
-
-    //　テストPOP専用
-    public GameObject poper;
+	//　テストPOP専用
+	public GameObject poper;
 
 
 
 	private void Awake()
     {
         gameObject.AddComponent<SpriteRenderer>();
-        gameObject.AddComponent<Rigidbody>();
     }
 
     void Start()
@@ -48,10 +48,10 @@ public class BossAll : MonoBehaviour
 
 		//HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
 		My_Score = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eSCORE);
-		attack_interval = (float)status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
-		attack_change = (float)status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
+		attack_interval = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
+		attack_change = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
 
-		GetComponent<Rigidbody>().useGravity = false;
+		//GetComponent<Rigidbody>().useGravity = false;
 		animationControl = GetComponent<Animator>();
 		ownRenderer = GetComponent<Renderer>();
         ownRenderer.enabled = true;
@@ -65,11 +65,12 @@ public class BossAll : MonoBehaviour
 			PartsRenderer[i].enabled = false;
 		}
 		move_switch = false;
+		Attack_Change_Frame_Cnt = new int();
+		Attack_Change_Frame_Cnt = 0;
 
 
-
-        //　テストPOP専用
-        GameObject obj = Instantiate(poper, transform.position, Quaternion.identity) as GameObject;
+		//　テストPOP専用
+		GameObject obj = Instantiate(poper, transform.position, Quaternion.identity) as GameObject;
         obj.GetComponent<Boss_Pop_Switch>().boss = gameObject;
         gameObject.SetActive(false);
     }
@@ -97,6 +98,8 @@ public class BossAll : MonoBehaviour
 				PartsRenderer.Clear();
 				move_switch = true;
 			}
+
+		Attack_Change_Frame_Cnt++;
 	}
 
 	/// <summary>
@@ -171,5 +174,28 @@ public class BossAll : MonoBehaviour
 	{
 		status_data = new Record_Container();
 		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(id));
+	}
+
+	/// <summary>
+	/// 攻撃を切り替える時間来たら
+	/// </summary>
+	/// <returns> 攻撃を切り替える時間が来たら true </returns>
+	public bool Attack_Switching_Time()
+	{
+		if(Attack_Change_Frame_Cnt >= attack_change)
+		{
+			Debug.Log(attack_change);
+			Debug.Log(Attack_Change_Frame_Cnt);
+			Attack_Change_Frame_Cnt = 0;
+			return true;
+		}
+
+		return false;
+	}
+
+	public void Attack_kougeki()
+	{
+		Attack_Change_Frame_Cnt = 0;
+
 	}
 }

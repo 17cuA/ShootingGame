@@ -44,7 +44,7 @@ public class Score_Display : MonoBehaviour
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
                 break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTLE:
+            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
                 break;
