@@ -4,65 +4,31 @@ using UnityEngine;
 
 public class Direction : MonoBehaviour
 {
-	public ParticleManagement particleManagementCS;
-	public Vector3 destination;
-	public Vector3 mousePostion;
+	private ParticleManagement particleManagementCS;
+
+	//使用するパーティクルの列挙
+	public enum ParticleType
+	{
+		Particle_1 = 0,
+		Particle_2 = 1,
+		Particle_3 = 2,
+		Particle_4 = 3,
+		Particle_5 = 4,
+		Particle_6 = 5,
+		Particle_7 = 6,
+	}
+	//パーティクル選択用
+	[SerializeField] ParticleType particleType = ParticleType.Particle_5;
+
 	void Start()
 	{
+		//管理しているスクリプトを取得
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
-	/*
-		//マウス追従
-		mousePostion = Input.mousePosition;
-		mousePostion.z = 10f;
-		destination = Camera.main.ScreenToWorldPoint(mousePostion);
-		transform.position = destination;
-
-		*/
-		//爆発パターン
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			particleManagementCS.ParticleCreation(0, transform.position + new Vector3(0,0,-1));
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			particleManagementCS.ParticleCreation(1, transform.position + new Vector3(0, 0, -1));
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			particleManagementCS.ParticleCreation(2, transform.position + new Vector3(0, 0, -1));
-		}
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            particleManagementCS.ParticleCreation(3, transform.position + new Vector3(0, 0, -1));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            particleManagementCS.ParticleCreation(4, transform.position + new Vector3(0, 0, -1));
-        }
-		else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            particleManagementCS.ParticleCreation(5, transform.position + new Vector3(0, 0, -1));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            particleManagementCS.ParticleCreation(6, transform.position + new Vector3(0, 0, -1));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            particleManagementCS.ParticleCreation(7, transform.position + new Vector3(0, 0, -1));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            particleManagementCS.ParticleCreation(8, transform.position + new Vector3(0, 0, -1));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            particleManagementCS.ParticleCreation(9, transform.position + new Vector3(0, 0, -1));
-        }
-    }
+		//パーティクル生成の呼び出し(要トリガー)
+		particleManagementCS.ParticleCreation(this.gameObject, (int)particleType, transform.position + new Vector3(0, 0, -1));
+	}
 }

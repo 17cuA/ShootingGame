@@ -87,7 +87,7 @@ public class bullet_status : MonoBehaviour
 	{
 		ParticleManagement particleManagementCS;
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
-		particleManagementCS.ParticleCreation(0, transform.position);
+		//particleManagementCS.ParticleCreation(0, transform.position);
 
 	}
 }

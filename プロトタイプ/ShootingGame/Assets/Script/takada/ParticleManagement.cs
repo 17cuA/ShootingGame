@@ -1,35 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using UnityEngine.Networking;
 
 public class ParticleManagement : MonoBehaviour
 {
-	/*
-	 public ParticleManagement particleManagementCS;
-	 particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
-	 particleManagementCS.ParticleCreation(0,transform.position);
-	 */
-	[SerializeField]
-	public GameObject[] particle = new GameObject[3];
+	//Particleprefablist
+	private GameObject[] particle = new GameObject[7];
 
-	//test
-	GameObject particleDirection;
-
-	//void Start(){}
+	void Start()
+	{
+		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
+		particle[1] = Resources.Load<GameObject>("Effects/Particle_2黒煙");
+		particle[2] = Resources.Load<GameObject>("Effects/Particle_3エネルギー弾");
+		particle[3] = Resources.Load<GameObject>("Effects/Particle_4衝撃波");
+		particle[4] = Resources.Load<GameObject>("Effects/Particle_5箱爆発");
+		particle[5] = Resources.Load<GameObject>("Effects/Particle_6通路");
+		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
+	}
 
 	void Update()
 	{
-		particleDirection = GameObject.Find("ParticleDirection");
 	}
 
-	public void ParticleCreation(int particleID, Vector3 objectPosition)
+	//Particleの生成
+	//1:自身のオブジェクト
+	//2:エフェクトのID
+	//3:自身のオブジェクトの座標
+	public void ParticleCreation(GameObject gameObject,int particleID, Vector3 objectPosition)
 	{
+		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
 		GameObject particleGameObject = Instantiate(particle[particleID], objectPosition, particle[particleID].transform.rotation);
-        if(particleID == 3)
-        {
-            Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f),0);
-            particleGameObject.transform.position += position;
-        }
-		particleGameObject.transform.parent = particleDirection.transform;
+        //呼び出し元をパーティクルの親に設定
+		particleGameObject.transform.parent = gameObject.transform;
 	}
 }

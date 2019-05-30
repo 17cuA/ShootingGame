@@ -19,7 +19,10 @@ public class Player1 : character_status
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
-    	public enum Bullet_Type　　//弾の種類
+	public float energy;                //レーザー打つためのエネルギー
+	public float energy_Max;			//エネルギーの最大値;
+
+		public enum Bullet_Type　　//弾の種類
 	{
 		Single,
 		Diffusion,
