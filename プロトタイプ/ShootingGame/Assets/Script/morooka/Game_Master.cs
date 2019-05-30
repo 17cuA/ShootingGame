@@ -7,6 +7,7 @@
 // 2019/04/20：フレーム数の格納、計算
 // 2019/05/16：ボスのデータベース全ての格納
 // 2019/05/24：ゲーム中の切り替え
+// 2019/05/30：ボスのアニメーション許可
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -62,7 +63,8 @@ public class Game_Master : MonoBehaviour
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
-    public Score_Display _Display{private set; get;}
+    public Score_Display _Display{private set; get;}			// 
+	public bool animeOK { set; get; }
 
     void Start()
     {
@@ -116,5 +118,6 @@ public class Game_Master : MonoBehaviour
         MY = GetComponent<Game_Master>();
 
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
+		animeOK = false;
     }
 }

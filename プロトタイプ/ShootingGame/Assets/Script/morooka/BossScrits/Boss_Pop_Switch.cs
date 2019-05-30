@@ -21,11 +21,15 @@ public class Boss_Pop_Switch : MonoBehaviour
                 Normal_Update();
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-                break;
+				if (Game_Master.MY.animeOK)
+				{
+					boss.SetActive(true);
+					Vector3 vector = new Vector3(40.0f, 0.0f, 0.0f);
+					boss.transform.position = vector;
+					Destroy(gameObject);
+				}
+					break;
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-                boss.SetActive(true);
-                boss.transform.position = transform.position;
-                Destroy(gameObject);
 
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:

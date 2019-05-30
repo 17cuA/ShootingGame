@@ -2,7 +2,7 @@
 // 制作者：諸岡勇樹
 // 制作日：2019/05/24
 //----------------------------------------------------------------------------------------------
-// 「WARNING」の文字の制御
+// 「WARNING」の文字周りの制御
 //----------------------------------------------------------------------------------------------
 // 2019/05/24：カットイン中の挙動
 // 2019/05/27：Unity でフェード回数を決められるようにする
@@ -148,14 +148,15 @@ public class Warning_Ui_Display : MonoBehaviour
 		{
 			Font_Color.a = 0.0f;
 			Display.Set_Enable(false);
-			Game_Master.MY.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE;
+			fade_count++;
+			Game_Master.MY.animeOK = true;
+			//Game_Master.MY.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE;
 		}
-
 		Moving_Letter_Cut_In_Position();
 	}
 
 	/// <summary>
-	/// カットイン時のアップデート
+	/// バトル中のアップデート
 	/// </summary>
 	private void Update_Boss_Buttle()
 	{

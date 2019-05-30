@@ -9,7 +9,6 @@ public class Boss_test : MonoBehaviour
 		tosshin,
 	}
 
-	private Rigidbody rb2;
 	private float speed = 2.0f;
     private BossAll ba;
     private float attack_interval = 20.0f;
@@ -26,10 +25,8 @@ public class Boss_test : MonoBehaviour
 	int num;
     void Start()
     {
-		rb2 = GetComponent<Rigidbody>();
 		Vector3 vector3 = transform.right.normalized * speed * -1;
-		rb2.velocity = vector3;
-        ba = GetComponent<BossAll>();
+		ba = GetComponent<BossAll>();
         bullet = Resources.Load("Enemy_Bullet") as GameObject ;
 		foreach (BossParts bp in ba.OwnParts)
 		{
@@ -55,36 +52,78 @@ public class Boss_test : MonoBehaviour
 		ata = false;
 	}
 
-    void Update()
-    {
-		if (rb2.velocity != Vector3.zero)
+	void Update()
+	{
+		//if (rb2.velocity != Vector3.zero)
+		//{
+		//	if (transform.position.x <= 9.0f)
+		//	{
+		//		rb2.velocity = Vector3.zero;
+		//	}
+		//}
+		//else
+		//{
+
+		switch (Game_Master.MY.Management_In_Stage)
 		{
-			if (transform.position.x <= 9.0f)
-			{
-				rb2.velocity = Vector3.zero;
-			}
+			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
+				if (transform.position.x >= -40.0f && num == 0)
+				{
+					Vector3 vector = transform.position;
+					vector.x -= speed;
+					transform.position = vector;
+					if(transform.position.x <= -40.0f)
+					{ num++; }
+				}
+				else if (transform.position.x <= -40.0f && num == 1)
+				{
+					Vector3 vector = transform.position;
+					vector.x = 0.0f;
+					vector.y = 10.0f;
+					transform.position = vector;
+					num++;
+				}
+				else if (transform.position.y >= 0.0f && num == 2)
+				{
+					Vector3 vector = transform.position;
+					vector.y -= speed;
+					transform.position = vector;
+					if (transform.position.y <= 0.0f)
+					{ num++; }
+				}
+				else if (transform.position.x == 0.0f && transform.position.y <= 0.0f && num == 3)
+				{
+					Game_Master.MY.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE;
+					num = 0;
+				}
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
+				switch (shurui)
+				{
+					case attackshurui.bullet:
+						BulletAttack();
+						break;
+					case attackshurui.tosshin:
+						Tosshin();
+						break;
+					default:
+						break;
+				}
+				break;
+			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
+				break;
+			default:
+				break;
 		}
-		else
-		{
-			switch (shurui)
-			{
-				case attackshurui.bullet:
-					BulletAttack();
-					break;
-				case attackshurui.tosshin:
-					Tosshin();
-					break;
-				default:
-					break;
-			}
-
-		}
-    }
+	}
+		//}
 
 
-	/// <summary>
-	/// 通常の弾の攻撃
-	/// </summary>
+		/// <summary>
+		/// 通常の弾の攻撃
+		/// </summary>
 	private void BulletAttack()
 	{
 		if ((Game_Master.MY.Frame_Count % attack_interval) == 0)
@@ -99,11 +138,15 @@ public class Boss_test : MonoBehaviour
 					}
 				}
 			}
+			if(ba.Attack_Switching_Time())
+			{
+				shurui = attackshurui.tosshin;
+			}
 		}
-		if (!ata)
-		{
-			StartCoroutine(Effect());
-		}
+		//if (!ata)
+		//{
+			//StartCoroutine(Effect());
+		//}
 	}
 
 	private void Tosshin()
@@ -118,32 +161,32 @@ public class Boss_test : MonoBehaviour
 		    }
 		    else if(num == 1)
 		    {
-			    hand[0].transform.position = hand[0].transform.position + hand[0].transform.right.normalized * 0.1f;
+				hand[0].transform.position = hand[0].transform.position + hand[0].transform.right.normalized * 0.1f;
 
-			    if(hand[0].transform.position.y <= -7.0f || hand[0].transform.position.y >= -7.0f)
-			    {
-				    num++;
-				    hand[0].transform.localPosition = resetLocal;
-				    hand[0].transform.right = new Vector3(-1.0f, 0.0f, 0.0f);
-                    shurui = attackshurui.bullet;
-                    num = 0;
-                }
-            }
-        }
-        else
+				if (hand[0].transform.position.y <= -7.0f || hand[0].transform.position.y >= 7.0f)
+				{
+					hand[0].transform.localPosition = resetLocal;
+					//hand[0].transform.right = new Vector3(-1.0f, 0.0f, 0.0f);
+					ba.Attack_kougeki();
+					shurui = attackshurui.bullet;
+					num = 0;
+				}
+			}
+		}
+        else if(hand[0] == null)
         {
             shurui = attackshurui.bullet;
         }
     }
 
-	IEnumerator Effect()
-	{
-		if(!ata)
-		{
-			ata = true;
-		}
-		yield return new WaitForSeconds(1.1f);
-		ata = false;
-		shurui = attackshurui.tosshin;
-	}
+	//IEnumerator Effect()
+	//{
+	//	if(!ata)
+	//	{
+	//		ata = true;
+	//	}
+	//	yield return new WaitForSeconds(1.1f);
+	//	ata = false;
+	//	shurui = attackshurui.tosshin;
+	//}
 }
