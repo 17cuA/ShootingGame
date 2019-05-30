@@ -19,7 +19,6 @@ public class Player1 : character_status
 		Three_Point_Burst
 	}
 	public Bullet_Type bullet_Type;　//弾の種類を変更
-    public float Energy; 
 	void Start()
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
@@ -35,16 +34,10 @@ public class Player1 : character_status
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
         bullet_Type = Bullet_Type.Single;　　//初期状態をsingleに
-        Energy=0.0f;
 	}
 
 	void Update()
 	{
-        if (Input.GetMouseButton (1))
-        {
-            if(Energy>=0.0f)Energy-=0.7f;
-        }
-        if(Energy<=100.0f)Energy+=0.3f;
 		//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
 		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
 		{
@@ -100,27 +93,27 @@ public class Player1 : character_status
 	}
 		public void Bullet_Create()
 	{
-        //if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
-        //{
-        //    switch (bullet_Type)
-        //    {
-        //        case Bullet_Type.Single:
-        //            Single_Fire();
-        //            break;
-        //        case Bullet_Type.Diffusion:
-        //            Diffusion_Fire();
-        //            break;
-        //        case Bullet_Type.Three_Point_Burst:
-        //            Triple_Fire();
-        //            Invoke("Triple_Fire", 0.1f);
-        //            Invoke("Triple_Fire", 0.2f);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    Shot_Delay = 0;
-        //}
-    }
+		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+		{
+			switch (bullet_Type)
+			{
+				case Bullet_Type.Single:
+					Single_Fire();
+					break;
+				case Bullet_Type.Diffusion:
+					Diffusion_Fire();
+					break;
+				case Bullet_Type.Three_Point_Burst:
+					Triple_Fire();
+					Invoke("Triple_Fire", 0.1f);
+					Invoke("Triple_Fire", 0.2f);
+					break;
+				default:
+					break;
+			}
+			Shot_Delay = 0;
+		}
+	}
     	private void Single_Fire()
 	{
 		Instantiate
