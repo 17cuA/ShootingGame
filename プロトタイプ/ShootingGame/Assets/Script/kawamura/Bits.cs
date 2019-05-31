@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//4つビットを管理している親をプレイヤーの子にするスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

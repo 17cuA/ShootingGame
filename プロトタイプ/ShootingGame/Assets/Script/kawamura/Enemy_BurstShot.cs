@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//エネミーのバーストショットのスクリプト
+//バースト出発射する数、バーストの間隔、バースト中の弾の間隔を指定可能
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

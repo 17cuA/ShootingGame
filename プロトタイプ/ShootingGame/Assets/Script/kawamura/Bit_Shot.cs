@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//ビットの攻撃スクリプト
+//プレイヤーのShot_DelayMaxを参照してプレイヤーの2発おきに攻撃する
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

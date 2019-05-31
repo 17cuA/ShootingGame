@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//ビットの円運動をするスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
