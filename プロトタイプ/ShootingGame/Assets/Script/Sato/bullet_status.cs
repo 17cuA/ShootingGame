@@ -48,7 +48,6 @@ public class bullet_status : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-
 	}
 	/// <summary>
 	/// 移動向きの指定
@@ -88,6 +87,5 @@ public class bullet_status : MonoBehaviour
 		ParticleManagement particleManagementCS;
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
 		//particleManagementCS.ParticleCreation(0, transform.position);
-
 	}
 }
