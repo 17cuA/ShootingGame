@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1687921260125957337}
   - component: {fileID: 1687921258785439962}
   - component: {fileID: 472758016315930812}
-  m_Layer: 9
+  - component: {fileID: 1774729591576693552}
+  m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -68,6 +69,19 @@ MonoBehaviour:
   Shot_Delay: 0
   Item_Flag: 0
   Item: {fileID: 0}
+--- !u!114 &1774729591576693552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687921260126056697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc3a1fef50d326418d52cc9fca2c979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleType: 0
 --- !u!1 &6354452132573785511
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84010487344536865}
   - component: {fileID: 8824068915831224537}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Bullet_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,22 +136,6 @@ PrefabInstance:
     - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100010, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100014, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -199,22 +197,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 39209bc5c605a114387f64bd9eea7ea6, type: 2}
-    - target: {fileID: 100008, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
 --- !u!4 &4174636478397850521 stripped
