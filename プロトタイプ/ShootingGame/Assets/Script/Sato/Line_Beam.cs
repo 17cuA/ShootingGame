@@ -11,23 +11,20 @@ public class Line_Beam : MonoBehaviour {
     LineRenderer lineRenderer;
     private Renderer Target_Renderer;
 
-
 	// Use this for initialization
 	void Awake () {
         beamParticle = GetComponent<ParticleSystem> ();
         lineRenderer = GetComponent<LineRenderer> ();
         Target_Renderer = GetComponent<Renderer>();
-		beamParticle.Stop();
 	}
 
     // Update is called once per frame
-    void Update () {
-
+    void Update ()
+	{
 		if (Input.GetMouseButton (1))
 		{
             shot ();
         }
-
 		else disableEffect();
 	}
 
@@ -45,9 +42,9 @@ public class Line_Beam : MonoBehaviour {
 		int Wall_layerMask = LayerMask.GetMask("Wall");
 
 		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
+
 		if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
 		{
-			lineRenderer.SetPosition(0, shotHit.point + shotRay.direction);
 			Destroy(shotHit.transform.gameObject);
 		}
 		if (Physics.Raycast(shotRay, out shotHit, range, Wall_layerMask))
