@@ -63,10 +63,19 @@ public class Game_Master : MonoBehaviour
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
-    public Score_Display _Display{private set; get;}			// 
-	public bool animeOK { set; get; }
+    public Score_Display _Display{private set; get;}			// スコア表示をするため用
+	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 
-    void Start()
+	private void Awake()
+	{
+		if (Boss_Data == null)
+		{
+			Boss_Data = new Database_Manager("Boss/Boss_Data");
+		}
+		MY = GetComponent<Game_Master>();
+	}
+
+	void Start()
     {
         switch (SceneManager.GetActiveScene().name)
         {
@@ -111,13 +120,7 @@ public class Game_Master : MonoBehaviour
         accumulate_score = new byte[10];
         Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
 
-        if (Boss_Data == null)
-        {
-            Boss_Data = new Database_Manager("Boss/Boss_Data");
-        }
-        MY = GetComponent<Game_Master>();
-
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
-		animeOK = false;
+		Is_Completed_For_Warning_Animation = false;
     }
 }

@@ -8,6 +8,7 @@
 // 2019/05/16：データベースの読み込み
 // 2019/05/24：パーツ戦闘不能時の挙動変更
 // 2019/05/30：攻撃切り替えタイミング用ボス専用のフレーム管理変数の追加
+// 2019/05/30：初期化の処理の発動を他スクリプトに任せる
 //----------------------------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,12 @@ public class BossAll : MonoBehaviour
 {
 	public Animator animationControl;       // アニメーションの管理
 	public Renderer ownRenderer;            // 自分のレンダー
+	[SerializeField]
+	private bool is_last_boss;				// ラスボスかどうか
 
 	public List<BossParts> OwnParts { private set; get; }           // 自分のパーツの管理
 	private List<MeshRenderer> PartsRenderer { set; get; }          // 自分のパーツのレンダー
-	public Record_Container status_data { private set; get; }       // データベースからのデータ
+	public Record_Container Status_Data { private set; get; }       // データベースからのデータ
 	//public int HP { private set; get; }                             // 自分のヒットポイント
 	public int My_Score { private set; get; }                       // 自分の持ちスコア
 	public int attack_interval { private set; get; }				// 攻撃インターバル
@@ -38,41 +41,6 @@ public class BossAll : MonoBehaviour
 	private void Awake()
     {
         gameObject.AddComponent<SpriteRenderer>();
-    }
-
-    void Start()
-    {
-		// データベースからデータ出力
-		status_data = new Record_Container();
-		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(1));
-
-		//HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
-		My_Score = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eSCORE);
-		attack_interval = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
-		attack_change = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
-
-		//GetComponent<Rigidbody>().useGravity = false;
-		animationControl = GetComponent<Animator>();
-		ownRenderer = GetComponent<Renderer>();
-        ownRenderer.enabled = true;
-		OwnParts = new List<BossParts>();
-		Part_Acquisition(transform);
-		PartsRenderer = new List<MeshRenderer>();
-		for(int i = 0; i < OwnParts.Count; i++)
-		{
-			OwnParts[i].HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
-			PartsRenderer.Add(OwnParts[i].GetComponent<MeshRenderer>());
-			PartsRenderer[i].enabled = false;
-		}
-		move_switch = false;
-		Attack_Change_Frame_Cnt = new int();
-		Attack_Change_Frame_Cnt = 0;
-
-
-		//　テストPOP専用
-		GameObject obj = Instantiate(poper, transform.position, Quaternion.identity) as GameObject;
-        obj.GetComponent<Boss_Pop_Switch>().boss = gameObject;
-        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -172,30 +140,69 @@ public class BossAll : MonoBehaviour
 	/// <param name="id"> ID番号 </param>
 	public void Extracting_From_BD(int id)
 	{
-		status_data = new Record_Container();
-		status_data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(id));
+		Status_Data = new Record_Container();
+		Status_Data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(id));
 	}
 
 	/// <summary>
-	/// 攻撃を切り替える時間来たら
+	/// 攻撃を切り替える時間来たら教える
 	/// </summary>
 	/// <returns> 攻撃を切り替える時間が来たら true </returns>
 	public bool Attack_Switching_Time()
 	{
 		if(Attack_Change_Frame_Cnt >= attack_change)
 		{
-			Debug.Log(attack_change);
-			Debug.Log(Attack_Change_Frame_Cnt);
 			Attack_Change_Frame_Cnt = 0;
 			return true;
 		}
-
 		return false;
 	}
 
-	public void Attack_kougeki()
+	/// <summary>
+	/// 時間を使わない攻撃の終了を教える
+	/// </summary>
+	public void Attack_Termination()
 	{
 		Attack_Change_Frame_Cnt = 0;
+	}
 
+	/// <summary>
+	/// 初期化をほかのscriptから呼び出し
+	/// </summary>
+	/// <param name="boss_id"> データベース用のID </param>
+	public void BossAll_Start( int boss_id)
+	{
+		// データベースからデータ出力
+		Status_Data = new Record_Container();
+		Status_Data.Set_Data(Game_Master.MY.Boss_Data.SearchAt_ID(boss_id));
+
+		//HP = status_data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
+		My_Score = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eSCORE);
+		attack_interval = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
+		attack_change = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
+
+		animationControl = GetComponent<Animator>();
+		ownRenderer = GetComponent<Renderer>();
+		ownRenderer.enabled = true;
+		OwnParts = new List<BossParts>();
+		Part_Acquisition(transform);
+		PartsRenderer = new List<MeshRenderer>();
+		for (int i = 0; i < OwnParts.Count; i++)
+		{
+			OwnParts[i].HP = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.ePARTS_HP);
+			PartsRenderer.Add(OwnParts[i].GetComponent<MeshRenderer>());
+			PartsRenderer[i].enabled = false;
+		}
+		move_switch = false;
+		Attack_Change_Frame_Cnt = new int();
+		Attack_Change_Frame_Cnt = 0;
+
+		if (is_last_boss)
+		{
+			//　テストPOP専用
+			GameObject obj = Instantiate(poper, transform.position, Quaternion.identity) as GameObject;
+			obj.GetComponent<Boss_Pop_Switch>().boss = gameObject;
+			gameObject.SetActive(false);
+		}
 	}
 }

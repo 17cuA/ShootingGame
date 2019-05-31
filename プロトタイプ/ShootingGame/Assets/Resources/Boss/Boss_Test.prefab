@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 0}
   ownRenderer: {fileID: 0}
+  is_last_boss: 1
   poper: {fileID: 6950140246806104101, guid: e0588efdc71a9144999c330552abbcfb, type: 3}
 --- !u!1 &5448659788558669749
 GameObject:
@@ -412,6 +413,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5448659788558306195}
     m_Modifications:
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_Name
+      value: Boss_test_tate (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0300007
@@ -460,14 +469,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.25312
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_Name
-      value: Boss_test_tate (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -493,6 +494,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5448659788558306195}
     m_Modifications:
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_Name
+      value: Boss_test_tate
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0300007
@@ -537,14 +546,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_Name
-      value: Boss_test_tate
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -570,6 +571,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5448659788558306195}
     m_Modifications:
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_Name
+      value: Boss_test_tate (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.0300007
@@ -617,14 +626,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25312
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_Name
-      value: Boss_test_tate (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 15c502c89beb10a48b7673b3b41c5b06, type: 3}
       propertyPath: m_Materials.Array.data[0]

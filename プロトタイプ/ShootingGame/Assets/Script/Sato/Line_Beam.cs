@@ -21,11 +21,11 @@ public class Line_Beam : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetMouseButton (1))
-		{
+        //if (Input.GetMouseButton (1))
+		//{
             shot ();
-        }
-		else disableEffect();
+        //}
+		/*else*/ disableEffect();
 	}
 
 	private void shot()
