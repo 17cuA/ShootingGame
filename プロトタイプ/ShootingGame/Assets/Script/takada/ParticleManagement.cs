@@ -30,6 +30,7 @@ public class ParticleManagement : MonoBehaviour
 	//3:自身のオブジェクトの座標
 	public void ParticleCreation(GameObject gameObject,int particleID, Vector3 objectPosition)
 	{
+
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
 		GameObject particleGameObject = Instantiate(particle[particleID], objectPosition, particle[particleID].transform.rotation);
         //呼び出し元をパーティクルの親に設定
