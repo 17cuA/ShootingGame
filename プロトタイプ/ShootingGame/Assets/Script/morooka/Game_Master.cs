@@ -66,7 +66,16 @@ public class Game_Master : MonoBehaviour
     public Score_Display _Display{private set; get;}			// 
 	public bool animeOK { set; get; }
 
-    void Start()
+	private void Awake()
+	{
+		if (Boss_Data == null)
+		{
+			Boss_Data = new Database_Manager("Boss/Boss_Data");
+		}
+		MY = GetComponent<Game_Master>();
+	}
+
+	void Start()
     {
         switch (SceneManager.GetActiveScene().name)
         {
@@ -110,12 +119,6 @@ public class Game_Master : MonoBehaviour
     {
         accumulate_score = new byte[10];
         Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
-
-        if (Boss_Data == null)
-        {
-            Boss_Data = new Database_Manager("Boss/Boss_Data");
-        }
-        MY = GetComponent<Game_Master>();
 
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		animeOK = false;

@@ -152,8 +152,6 @@ public class BossAll : MonoBehaviour
 	{
 		if(Attack_Change_Frame_Cnt >= attack_change)
 		{
-			Debug.Log(attack_change);
-			Debug.Log(Attack_Change_Frame_Cnt);
 			Attack_Change_Frame_Cnt = 0;
 			return true;
 		}
@@ -178,7 +176,6 @@ public class BossAll : MonoBehaviour
 		attack_interval = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eATTACK_INTERVAL);
 		attack_change = Status_Data.ToInt((int)Game_Master.BOSS_DATA_ELEMENTS.eACT_CHANGE);
 
-		//GetComponent<Rigidbody>().useGravity = false;
 		animationControl = GetComponent<Animator>();
 		ownRenderer = GetComponent<Renderer>();
 		ownRenderer.enabled = true;
