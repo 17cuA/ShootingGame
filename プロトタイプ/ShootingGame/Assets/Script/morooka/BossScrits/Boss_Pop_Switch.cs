@@ -21,7 +21,7 @@ public class Boss_Pop_Switch : MonoBehaviour
                 Normal_Update();
                 break;
             case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-				if (Game_Master.MY.animeOK)
+				if (Game_Master.MY.Is_Completed_For_Warning_Animation)
 				{
 					boss.SetActive(true);
 					Vector3 vector = new Vector3(40.0f, 0.0f, 0.0f);

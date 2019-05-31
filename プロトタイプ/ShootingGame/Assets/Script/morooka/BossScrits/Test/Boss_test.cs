@@ -168,7 +168,7 @@ public class Boss_test : MonoBehaviour
 				{
 					hand[0].transform.localPosition = resetLocal;
 					//hand[0].transform.right = new Vector3(-1.0f, 0.0f, 0.0f);
-					ba.Attack_kougeki();
+					ba.Attack_Termination();
 					shurui = attackshurui.bullet;
 					num = 0;
 				}

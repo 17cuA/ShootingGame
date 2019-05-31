@@ -145,7 +145,7 @@ public class BossAll : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 攻撃を切り替える時間来たら
+	/// 攻撃を切り替える時間来たら教える
 	/// </summary>
 	/// <returns> 攻撃を切り替える時間が来たら true </returns>
 	public bool Attack_Switching_Time()
@@ -155,16 +155,21 @@ public class BossAll : MonoBehaviour
 			Attack_Change_Frame_Cnt = 0;
 			return true;
 		}
-
 		return false;
 	}
 
-	public void Attack_kougeki()
+	/// <summary>
+	/// 時間を使わない攻撃の終了を教える
+	/// </summary>
+	public void Attack_Termination()
 	{
 		Attack_Change_Frame_Cnt = 0;
-
 	}
 
+	/// <summary>
+	/// 初期化をほかのscriptから呼び出し
+	/// </summary>
+	/// <param name="boss_id"> データベース用のID </param>
 	public void BossAll_Start( int boss_id)
 	{
 		// データベースからデータ出力

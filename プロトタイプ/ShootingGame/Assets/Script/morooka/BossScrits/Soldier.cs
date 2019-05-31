@@ -18,7 +18,7 @@ public class Soldier : MonoBehaviour
 	[Header("スコア")]
 	private uint my_score;
 
-	private Vector2 Position_After_Death { set; get; }
+	private Vector2 Position_After_Death { set; get; }		// 死亡判定後の位置
 
 	private void Start()
 	{
@@ -47,6 +47,7 @@ public class Soldier : MonoBehaviour
 		{
 			Game_Master.MY.Score_Addition(my_score);
 			Make_Incapacitated();
+			Destroy(other.gameObject);
 		}
 		else if(other.tag == "Player")
 		{

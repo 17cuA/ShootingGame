@@ -149,7 +149,7 @@ public class Warning_Ui_Display : MonoBehaviour
 			Font_Color.a = 0.0f;
 			Display.Set_Enable(false);
 			fade_count++;
-			Game_Master.MY.animeOK = true;
+			Game_Master.MY.Is_Completed_For_Warning_Animation = true;
 			//Game_Master.MY.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE;
 		}
 		Moving_Letter_Cut_In_Position();
