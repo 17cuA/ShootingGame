@@ -13,11 +13,12 @@ public class Enemy_Test : MonoBehaviour
 	[SerializeField]public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
 	float[,] Float_Data;
 	int first = 0;
+	public string name;		//使用したいcsvデータの名前
 	void Start()
 	{
 		if (Enemy_Data == null)
 		{
-			Enemy_Data = new Database_Manager("Enemy_Active_Path");
+			Enemy_Data = new Database_Manager(name);
 			Float_Data = new float[Enemy_Data.Database_Array.GetLength(0), Enemy_Data.Database_Array.GetLength(1)];
 		}
 		for (int i = 0; i < Enemy_Data.Database_Array.GetLength(0); i++)

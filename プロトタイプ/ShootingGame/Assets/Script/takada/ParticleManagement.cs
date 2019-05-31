@@ -7,8 +7,8 @@ using UnityEngine.Networking;
 public class ParticleManagement : MonoBehaviour
 {
 	//Particleprefablist
-	private GameObject[] particle = new GameObject[7];
-
+	public GameObject[] particle = new GameObject[7];
+	public GameObject particleGameObject;
 	void Start()
 	{
 		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
@@ -32,8 +32,10 @@ public class ParticleManagement : MonoBehaviour
 	{
 
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-		GameObject particleGameObject = Instantiate(particle[particleID], objectPosition, particle[particleID].transform.rotation);
+		particleGameObject = Instantiate(particle[particleID], objectPosition, particle[particleID].transform.rotation);
         //呼び出し元をパーティクルの親に設定
-		particleGameObject.transform.parent = gameObject.transform;
+		//particleGameObject.transform.parent = gameObject.transform;
+		Debug.Log("hollo");
+
 	}
 }

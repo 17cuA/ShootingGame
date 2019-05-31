@@ -29,10 +29,10 @@ public class Export_Csv : MonoBehaviour
 		// 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
 		StreamWriter sw = new StreamWriter(@"Assets/CSV/" + save_name + Extension, false, Encoding.GetEncoding("Shift_JIS"));
 		// データ出力
-		for (int i = 0; i < LC.LineRenderer.positionCount; i++)
+		for (int i = 0; i < LC.lineRenderer.positionCount; i++)
 		{
 			//LineRendererをもとに各情報を取得、さらに鍵括弧が入ってしまうためその括弧をなくす処理
-			sw.WriteLine(LC.LineRenderer.GetPosition(i).ToString().Replace("(","").Replace(")",""));
+			sw.WriteLine(LC.lineRenderer.GetPosition(i).ToString().Replace("(","").Replace(")",""));
 		}
 		// StreamWriterを閉じる
 		sw.Close();

@@ -22,7 +22,6 @@ public class Straight : character_status
 	// Update is called once per frame
 	void Update()
     {
-		Debug.Log(Game_Master.MY.Management_In_Stage);
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
@@ -53,6 +52,8 @@ public class Straight : character_status
                 Instantiate(Item, transform.position, transform.rotation);
             }
 			Dn.Create_Particle();
+
+			Debug.Log("hei");
 			Destroy(gameObject);
 
 		}

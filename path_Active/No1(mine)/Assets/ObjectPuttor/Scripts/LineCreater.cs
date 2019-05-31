@@ -23,6 +23,10 @@
 // 2019/05/13 [杉山 雅哉] エディタ上のみで更新処理を行い、それ以外では処理を行わないようにする
 // 2019/05/13 [杉山 雅哉] 角度調整機能を一部調整
 // 2019/05/13 [杉山 雅哉] 長さに応じて間隔を自動調整する(失敗した)
+// 2019/05/22 [杉山 雅哉] 使い勝手の改善を行う（角度をいい感じに調整する）
+// 2019/05/23 [杉山 雅哉] 特定のオブジェクトのみに配置できるように修正
+// 2019/05/24 [杉山 雅哉] Ctrlキーを押しながらクリックをした場合、点を置かなくする(失敗)
+// 2019/05/29 [杉山 雅哉] 新しくアンカーを生成したとき、そのアンカーのハンドルの長さをいい感じにする
 // 
 // TODO：
 //
@@ -46,15 +50,11 @@ public class LineCreater : MonoBehaviour
 	[SerializeField] private GameObject AnkerPrefab;
 	[SerializeField] private float interval;		// 配置間隔
 	[SerializeField] private Anker[] ankers;
-	[SerializeField] private LineRenderer lineRenderer;
-	private int prevChildCount;						//作りだしたアンカーの数
-	private EventType prevEventType;				//マウスの検知用変数
+	[SerializeField] public LineRenderer lineRenderer;
+	private int prevChildCount;
+	private EventType prevEventType;
 	private const int debugDivision = 20;			// 分割数
 	//────────────────────────────────────────────
-	public LineRenderer LineRenderer
-	{
-		get { return lineRenderer; }
-	}
 
 	//初期化─────────────────────────────────────────
 	private void Awake()
@@ -100,9 +100,7 @@ public class LineCreater : MonoBehaviour
 	/// <returns></returns>
 	Vector3[] GetLinePositions()
 	{
-		//!< |Center>>Next>>Prev>>Center>   >Next>>Prev>>Center
-		//NextとPrevの分配列を増やす処理
-		//最後の判定で、先頭と最後のみNextとPrevが一つずつ減っているため、-1をしている
+		//!< Center>>Next>>Prev>>Center>>Next>>Prev>>Center
 		Vector3[] positions = new Vector3[ankers.Length + 2 * (ankers.Length - 1)];
 
 		//!< 座標の追加
@@ -144,10 +142,25 @@ public class LineCreater : MonoBehaviour
 		//!< 2019/05/13 実行終了後にこの処理が原因で不具合が出るため、一回目はこの処理を行わない。
 		if (prevChildCount != 0 && prevChildCount < transform.childCount)
 		{
+			AdjustAnkersHandleRange();
 			AdjustAnkersAngle();
 		}
 		prevChildCount = transform.childCount;
 	}
+	//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+	/// <summary>
+	/// アンカーのハンドルの長さを調整する
+	/// </summary>
+	/// <returns></returns>
+	void AdjustAnkersHandleRange()
+	{
+		if(ankers.Length > 1)
+		{
+			ankers[ankers.Length - 1].AdjustPrevHandleRange(ankers[ankers.Length - 2]);
+			ankers[ankers.Length - 2].AdjustNextHandleRange(ankers[ankers.Length - 1]);
+		}
+	}
+
 	//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 	/// <summary>
 	/// アンカーの角度をいい感じにする
@@ -155,19 +168,29 @@ public class LineCreater : MonoBehaviour
 	/// <returns></returns>
 	void AdjustAnkersAngle()
 	{
-		if (ankers.Length > 1)
+		switch (ankers.Length)
 		{
-			//!< 末端のアンカーの角度をいい感じにする。
-			ankers[ankers.Length - 1].AdjustPrevAnkerAngle(ankers[ankers.Length - 2]);
-		}
-		if (ankers.Length > 2)
-		{
-			//!< 末端の一つ前のアンカーの角度をいい感じにする。
-			ankers[ankers.Length - 2].AdjustAnkerAngle(ankers[ankers.Length - 3], ankers[ankers.Length - 1]);
-		}
-		else if (ankers.Length == 2)
-		{
-			ankers[ankers.Length - 2].AdjustNextAnkerAngle(ankers[ankers.Length - 1]);
+			//!< 直線を描画
+			case 2:
+				//!< 末端のアンカーの角度をいい感じにする。
+				ankers[0].AdjustFirstAnkerAngle(ankers[1]);
+				ankers[1].AdjustSecondAnkerAngle(ankers[0]);
+				break;
+			//!< 曲線を描画
+			case 3:
+				//!< 終わりから2番目のアンカー角度をいい感じにする
+				ankers[ankers.Length - 2].AdjustCenterAnkerAngle(ankers[ankers.Length - 3], ankers[ankers.Length - 1]);
+
+				//!< 終わりから2番目のアンカーの前後のアンカーの角度をいい感じにする
+				ankers[ankers.Length - 1].AdjustPrevAnkerAngle(ankers[ankers.Length - 2]);
+				ankers[ankers.Length - 3].AdjustNextAnkerAngle(ankers[ankers.Length - 2]);
+				break;
+			default:
+				//!< 終わりから2番目のアンカー角度をいい感じにする
+				ankers[ankers.Length - 2].AdjustCenterAnkerAngle(ankers[ankers.Length - 3], ankers[ankers.Length - 1]);
+				//!< 終わりから2番目のアンカーの次のアンカーの角度をいい感じにする
+				ankers[ankers.Length - 1].AdjustPrevAnkerAngle(ankers[ankers.Length - 2]);
+				break;
 		}
 	}
 	//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -226,8 +249,7 @@ public class LineCreater : MonoBehaviour
 		for (int d = 1; d < division; ++d)
 		{
 			float t = 1.0f / division * d;
-			//----------------------------------------
-			//
+
 			Vector3 v1 = (1 - t) * p1 + t * p2;
 			Vector3 v2 = (1 - t) * p2 + t * p3;
 
@@ -246,7 +268,7 @@ public class LineCreater : MonoBehaviour
 	/// <param name="division">分割数</param>
 	/// <returns>三次元ベジェ曲線の座標配列</returns>
 	/// <returns></returns>
-	Vector3[] BezierCurve3(Vector3[] startBeje, Vector3[] endBeje,int division)
+	Vector3[] BezierCurve3(Vector3[] startBeje, Vector3[] endBeje, int division)
 	{
 		Vector3[] positions = new Vector3[division + 1];
 		positions[0] = startBeje[0];
@@ -273,8 +295,8 @@ public class LineCreater : MonoBehaviour
 		// 曲線の座標数（点の数 + 点と点を分割する点の数）
 		Vector3[] positions = new Vector3[0];
 
-		int d = 0;	//分割数の要素数を表す変数
-		// 点と点の間を曲線にしていく(三次元ベジェ曲線で作成を行うため点４つでひとつの線)
+		int d = 0;  //分割数の要素数を表す変数
+					// 点と点の間を曲線にしていく(三次元ベジェ曲線で作成を行うため点４つでひとつの線)
 		for (int i = 0; i < linePositions.Length - 3; i += 3)
 		{
 			int temp = positions.Length;
@@ -282,13 +304,11 @@ public class LineCreater : MonoBehaviour
 			List<Vector3> list = new List<Vector3>(positions);
 
 			//!< 2線の二次元ベジェ曲線を取得
-			Vector3[] beje1 = BezierCurve2(linePositions[i], linePositions[i + 1], linePositions[i + 2],divisions[d]);
-			Vector3[] beje2 = BezierCurve2(linePositions[i + 1], linePositions[i + 2], linePositions[i + 3],divisions[d]);
+			Vector3[] beje1 = BezierCurve2(linePositions[i], linePositions[i + 1], linePositions[i + 2], divisions[d]);
+			Vector3[] beje2 = BezierCurve2(linePositions[i + 1], linePositions[i + 2], linePositions[i + 3], divisions[d]);
 
 			//!< 次の座標の情報を挿入
-			//print(BezierCurve3(beje1, beje2, divisions[d]).Length);
-			//ここで挿入
-			list.AddRange(BezierCurve3(beje1, beje2,divisions[d]));
+			list.AddRange(BezierCurve3(beje1, beje2, divisions[d]));
 			//カウントを加算
 			lineRenderer.positionCount = list.Count;
 			//配列に変換
@@ -296,7 +316,6 @@ public class LineCreater : MonoBehaviour
 
 			++d;
 		}
-
 		return positions;
 	}
 	//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -312,16 +331,19 @@ public class LineCreater : MonoBehaviour
 		else { return true; }
 	}
 	//マウスクリック判定処理─────────────────────────────────
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
+		//Debug.Log(Event.current.keyCode);
 		//マウスのクリックがあったら処理
 		if (!createLine || !clickPut) return;
+
 		if (Event.current == null || Event.current.type != EventType.MouseUp || Event.current.type == prevEventType)
 		{
 			prevEventType = Event.current.type;
 			return;
 		}
+
 		//マウスの位置情報の取得
 		Vector3 mousePos = Event.current.mousePosition;
 		//Y軸方向の補間
@@ -336,9 +358,18 @@ public class LineCreater : MonoBehaviour
 		if (Physics.Raycast(ray, out hit))
 		{
 			//オブジェクトを作成
-			GameObject obj = Instantiate(AnkerPrefab,hit.point,Quaternion.identity);
+			GameObject obj = Instantiate(AnkerPrefab, hit.point, Quaternion.identity);
 			//自分の子供にする
 			obj.transform.parent = transform;
+
+			Anker temp = obj.GetComponent<Anker>();
+			temp.Normal = hit.normal;
+
+			//でばっぐよー
+			//Debug.DrawRay(hit.point,hit.normal * 10000.0f, Color.blue, 100.0f, false);
+
+			//オブジェクトの法線の向きをそろえる
+			obj.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 		}
 		//現在のイベントのタイプの更新
 		prevEventType = Event.current.type;
