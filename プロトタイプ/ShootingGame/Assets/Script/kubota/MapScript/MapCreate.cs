@@ -15,38 +15,36 @@ public class MapCreate : MonoBehaviour
 	private Vector3 pos;										//マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";						//csvファイルの名前
 	private List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
-	private int column;											//配列の列を入れる変数
+	private int column;                                         //配列の列を入れる変数
+	private int enemy_cnt;										//移動する敵キャラの数をカウントするための変数
 	//マップ作製に使うオブジェクト
 	//リソースフォルダから取得するため、インスペクターは使わない
-	public GameObject Enemy;
+	//public GameObject Enemy;
 	public GameObject Player;
 	public GameObject Boss;
-	SceneChanger SC;
+	//シーンを切り替えるときにプレイヤーの死亡情報などを取得するための変数
+	private SceneChanger SC;
+	//生成したオブジェクトを取得するための変数
+	private Object_Creation OC;
 	void Start()
     {
 		if(SceneManager.GetActiveScene().name == "Stage")
 		{
 			Player = Resources.Load("Player/Player_Item") as GameObject;
-			Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
+			//Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
 			Boss = Resources.Load("Boss/Boss_Test") as GameObject;
 			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 			StringReader csv = new StringReader(Word.text);
 			SC = GetComponent<SceneChanger>();
+			OC = GetComponent<Object_Creation>();
 			while (csv.Peek() > -1)
 			{
 				string line = csv.ReadLine();
 				CsvData.Add(line.Split(','));
 			}
-			for (int i = 0; i < 10; i++)
-			{
-				for (int j = 0; j < 30; j++)
-				{
-					Debug.Log(CsvData[i][j] + " " + i + " " + j);
-				}
-			}
 			CreateMap();
 			SC.Chara_Get();
-			//List<int[]> iList = CsvData.ConvertAll(x => int.Parse(x));
+			enemy_cnt = 0;
 		}
 	}
 	void CreateMap()
@@ -64,7 +62,9 @@ public class MapCreate : MonoBehaviour
 						Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
-						Instantiate(Enemy, pos, Quaternion.identity);
+						enemy_cnt++;
+						OC.EnemyPos_Conversion(enemy_cnt,pos);
+						//Instantiate(Enemy, pos, Quaternion.identity);
 						break;
 					case "3":
 						Boss = Instantiate(Boss, pos, Quaternion.identity);
