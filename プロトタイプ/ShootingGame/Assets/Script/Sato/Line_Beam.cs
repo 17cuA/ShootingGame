@@ -9,18 +9,43 @@ public class Line_Beam : MonoBehaviour {
     RaycastHit shotHit;  
     ParticleSystem beamParticle;
     LineRenderer lineRenderer;
-    private Renderer Target_Renderer;
+	private Renderer Target_Renderer;
+	Transform Laser_Size;
 
 	// Use this for initialization
 	void Awake () {
         beamParticle = GetComponent<ParticleSystem> ();
         lineRenderer = GetComponent<LineRenderer> ();
         Target_Renderer = GetComponent<Renderer>();
+		
 	}
 
     // Update is called once per frame
     void Update ()
 	{
+		Laser_Size = this.transform;
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			// ローカル座標を基準にした、サイズを取得
+			Vector3 localScale = Laser_Size.localScale;
+			localScale.x = 2.0f; // ローカル座標を基準にした、x軸方向へ2倍のサイズ変更
+			localScale.y = 2.0f; // ローカル座標を基準にした、y軸方向へ2倍のサイズ変更
+			localScale.z = 2.0f; // ローカル座標を基準にした、z軸方向へ2倍のサイズ変更
+			Laser_Size.localScale = localScale;
+			lineRenderer.startWidth = 2f;
+			lineRenderer.endWidth = 2f;
+		}
+		if (Input.GetKeyDown(KeyCode.U))
+		{
+			// ローカル座標を基準にした、サイズを取得
+			Vector3 localScale = Laser_Size.localScale;
+			localScale.x = 1.0f; // ローカル座標を基準にした、x軸方向へ2倍のサイズ変更
+			localScale.y = 1.0f; // ローカル座標を基準にした、y軸方向へ2倍のサイズ変更
+			localScale.z = 1.0f; // ローカル座標を基準にした、z軸方向へ2倍のサイズ変更
+			Laser_Size.localScale = localScale;
+			lineRenderer.startWidth = 1f;
+			lineRenderer.endWidth = 1f;
+		}
 		if (Input.GetMouseButton (1))
 		{
             shot ();
@@ -41,17 +66,24 @@ public class Line_Beam : MonoBehaviour {
 		int layerMask = LayerMask.GetMask("Enemy");
 		int Wall_layerMask = LayerMask.GetMask("Wall");
 
-		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
+		
 
-		if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
-		{
-			Destroy(shotHit.transform.gameObject);
-		}
+		//if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
+		//{
+		//	Destroy(shotHit.transform.gameObject);
+		//}
 		if (Physics.Raycast(shotRay, out shotHit, range, Wall_layerMask))
 		{
 			lineRenderer.SetPosition(1, shotHit.point + shotRay.direction);
 		}
+		if (Physics.SphereCast(transform.position, 1, transform.forward, out shotHit, layerMask))
+		{
+			Destroy(shotHit.transform.gameObject);
+		}
+		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
+		Debug.DrawLine(transform.position, shotHit.point, Color.red);
 	}
+
 	private void disableEffect()
     {
         beamParticle.Stop();
