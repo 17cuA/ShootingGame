@@ -19,24 +19,25 @@ public class MapCreate : MonoBehaviour
 	private int enemy_cnt;										//移動する敵キャラの数をカウントするための変数
 	//マップ作製に使うオブジェクト
 	//リソースフォルダから取得するため、インスペクターは使わない
-	//public GameObject Enemy;
+	public GameObject Enemy;
 	public GameObject Player;
 	public GameObject Boss;
 	//シーンを切り替えるときにプレイヤーの死亡情報などを取得するための変数
 	private SceneChanger SC;
 	//生成したオブジェクトを取得するための変数
-	private Object_Creation OC;
+	//private Object_Creation OC;
+	private Object_Pooling OP;
 	void Start()
     {
 		if(SceneManager.GetActiveScene().name == "Stage")
 		{
 			Player = Resources.Load("Player/Player_Item") as GameObject;
-			//Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
+			Enemy = Resources.Load("Enemy/Enemy2") as GameObject;
 			Boss = Resources.Load("Boss/Boss_Test") as GameObject;
 			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 			StringReader csv = new StringReader(Word.text);
 			SC = GetComponent<SceneChanger>();
-			OC = GetComponent<Object_Creation>();
+			//OC = GetComponent<Object_Creation>();
 			while (csv.Peek() > -1)
 			{
 				string line = csv.ReadLine();
@@ -45,6 +46,7 @@ public class MapCreate : MonoBehaviour
 			CreateMap();
 			SC.Chara_Get();
 			enemy_cnt = 0;
+			OP = new Object_Pooling(Enemy, 10, "敵キャラ");
 		}
 	}
 	void CreateMap()
@@ -59,12 +61,12 @@ public class MapCreate : MonoBehaviour
 					case "0":
 						break;
 					case "1":
-						OC.PlayrePos_Conversion(pos);
+						//OC.PlayrePos_Conversion(pos);
 						//Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
 						enemy_cnt++;
-						OC.EnemyPos_Conversion(enemy_cnt,pos);
+						//OC.EnemyPos_Conversion(enemy_cnt,pos);
 						//Instantiate(Enemy, pos, Quaternion.identity);
 						break;
 					case "3":
