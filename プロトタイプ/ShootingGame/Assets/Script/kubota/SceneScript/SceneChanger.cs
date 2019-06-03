@@ -12,8 +12,6 @@ public class SceneChanger : MonoBehaviour
 	void Update()
 	{
 		if(Player != null) SceneControl();
-
-
 	}
 	public void SceneControl()
 	{

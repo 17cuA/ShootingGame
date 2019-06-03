@@ -59,7 +59,8 @@ public class MapCreate : MonoBehaviour
 					case "0":
 						break;
 					case "1":
-						Player =Instantiate(Player, pos, Quaternion.identity);
+						OC.PlayrePos_Conversion(pos);
+						//Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
 						enemy_cnt++;
