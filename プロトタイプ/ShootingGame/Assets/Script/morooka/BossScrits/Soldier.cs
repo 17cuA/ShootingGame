@@ -61,7 +61,7 @@ public class Soldier : MonoBehaviour
 	/// <param name="startPos"> 移動の開始位置 </param>
 	public void Attack_Start(Vector2 startPos)
 	{
-		transform.position = startPos;
+		transform.localPosition = startPos;
 	}
 
 	/// <summary>
