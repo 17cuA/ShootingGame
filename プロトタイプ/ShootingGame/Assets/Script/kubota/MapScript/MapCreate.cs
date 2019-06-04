@@ -26,7 +26,7 @@ public class MapCreate : MonoBehaviour
 	private SceneChanger SC;
 	//生成したオブジェクトを取得するための変数
 	//private Object_Creation OC;
-	private Object_Pooling OP;
+	private Object_Pooling Enemy1;
 	void Start()
     {
 		if(SceneManager.GetActiveScene().name == "Stage")
@@ -38,15 +38,17 @@ public class MapCreate : MonoBehaviour
 			StringReader csv = new StringReader(Word.text);
 			SC = GetComponent<SceneChanger>();
 			//OC = GetComponent<Object_Creation>();
+			Enemy1 = new Object_Pooling(Enemy, 10, "敵キャラ");					//Enemy(直線のみ)の生成
+			//csvフォルダからマップ情報を取得
+			//１列ごとに取得
 			while (csv.Peek() > -1)
 			{
 				string line = csv.ReadLine();
-				CsvData.Add(line.Split(','));
+				CsvData.Add(line.Split(','));				//カンマごとに割り振る
 			}
-			CreateMap();
+			CreateMap();			//マップの作成（各オブジェクトの移動）
 			SC.Chara_Get();
-			enemy_cnt = 0;
-			OP = new Object_Pooling(Enemy, 10, "敵キャラ");
+			enemy_cnt = 1;
 		}
 	}
 	void CreateMap()
@@ -65,7 +67,9 @@ public class MapCreate : MonoBehaviour
 						//Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
+						Enemy1.Active_Obj(1);
 						enemy_cnt++;
+
 						//OC.EnemyPos_Conversion(enemy_cnt,pos);
 						//Instantiate(Enemy, pos, Quaternion.identity);
 						break;

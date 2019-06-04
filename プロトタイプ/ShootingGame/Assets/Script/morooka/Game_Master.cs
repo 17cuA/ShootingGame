@@ -65,7 +65,6 @@ public class Game_Master : MonoBehaviour
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
     public Score_Display _Display{private set; get;}			// 
 	public bool animeOK { set; get; }
-
     void Start()
     {
         switch (SceneManager.GetActiveScene().name)
