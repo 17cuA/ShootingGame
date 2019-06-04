@@ -32,7 +32,6 @@ public class Queen_Bee : MonoBehaviour
 	private GameObject Laser { set; get; }						// レーザー(攻撃パターン３情報)
 	private BEE_ATTACK Now_Attack { set; get; }					// 現在の攻撃種類の情報
 	private int Bullet_Cnt { set; get; }                        // バレットの発射した回数を数える
-	private GameObject head;
 	private Vector3[] Bullet_Direction { set; get; }			// バレットの向き
 	private GameObject Player_Data { set; get; }				// プレイヤーの情報格納用
 
@@ -70,8 +69,6 @@ public class Queen_Bee : MonoBehaviour
 		Now_Attack = new BEE_ATTACK();
 		Now_Attack = BEE_ATTACK.eSOLDIER_BEE;
 		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
-		head = new GameObject();
-		head.AddComponent<Transform>();
 	}
 
 	void Update()
@@ -123,25 +120,17 @@ private bool Is_Soldier_Alive()
 			// ライン用の繰り返し
 			for (int i = 0; i < soldier_Line; i++)
 			{
-				// X軸の数値獲得
-				float x_pos = Random.Range(0.0f, 10.0f) + 40.0f;
+				// X軸の数値獲得、vector2にX軸Y軸格納
+				Vector2 temp_pos = new Vector2( Random.Range(0.0f, 10.0f) + 40.0f,y_pos[i]);
 				// メンバー用の繰り返し
 				for (int j = 0; j < soldier_menber; j++)
 				{
-					if (j == 0)
-					{
-						head.transform.position = new Vector3(x_pos, y_pos[i], 0.0f);
-						Vector3 temp = head.transform.position - Player_Data.transform.position;
-						head.transform.right = temp.normalized;
-					}
-
 					Soldier_Bees_G[i, j].gameObject.SetActive(true);
-
-					Soldier_Bees_G[i, j].transform.parent = head.transform;
-					Soldier_Bees_S[i, j].Attack_Start(new Vector3(x_pos, y_pos[i], 0.0f));
-					Soldier_Bees_G[i, j].transform.parent = null;
+					Soldier_Bees_S[i, j].Attack_Start(temp_pos);
+					Vector2 temp = Soldier_Bees_G[i, j].transform.position - Player_Data.transform.position;
+					Soldier_Bees_G[i, j].transform.right = temp;
 					// 次のメンバーは今のメンバーの後ろに配置
-					x_pos += 2.0f;
+					temp_pos += temp.normalized * 2.0f;
 				}
 			}
 			Is_Soldier_Attack_Finished = false;
