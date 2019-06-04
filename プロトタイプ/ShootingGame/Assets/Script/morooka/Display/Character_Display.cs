@@ -49,7 +49,7 @@ using System.Collections.Generic;
 
 namespace TextDisplay
 {
-	public class Character_Display:Behaviour
+	public class Character_Display
 	{
         private GameObject controler_obj;		// まとめようオブジェクト
 
