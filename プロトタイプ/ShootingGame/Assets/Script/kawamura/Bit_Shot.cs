@@ -24,6 +24,7 @@ public class Bit_Shot : MonoBehaviour
 
 	void Update()
 	{
+        
 		if (shot_Delay > pl1.Shot_DelayMax * 2)
 		{
 			Bullet_Create();

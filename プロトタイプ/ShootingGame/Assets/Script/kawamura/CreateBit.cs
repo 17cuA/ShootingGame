@@ -18,7 +18,7 @@ public class CreateBit : MonoBehaviour
 	//public GameObject bit_Under;
 	//public GameObject bit_Right;
 
-	public int num;
+	//public int num;
 
 	Bit_Move bm1;
 	Bit_Move bm2;
@@ -29,7 +29,7 @@ public class CreateBit : MonoBehaviour
 		//bit_Left = Resources.Load("Bit_Left") as GameObject;
 		//bit_Under = Resources.Load("Bit_Under") as GameObject;
 		//bit_Right = Resources.Load("Bit_Right") as GameObject;
-		bits = Resources.Load("Bits") as GameObject;
+		bits = Resources.Load("Bits2") as GameObject;
 
 	}
 
@@ -41,7 +41,7 @@ public class CreateBit : MonoBehaviour
 		//}
 		if (Input.GetKeyDown(KeyCode.B))
 		{
-			Instantiate(bits, this.transform.position, this.transform.rotation);
+			Instantiate(bits, transform.position, transform.rotation);
 			//Create();
 		}
 	}
