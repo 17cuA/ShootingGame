@@ -138,19 +138,23 @@ private bool Is_Soldier_Alive()
 				//	}
 			}
 
-			if(!Soldier_Bees_G[0,Index].activeInHierarchy 
-				&& !Soldier_Bees_G[1, Index].activeInHierarchy 
-				&& !Soldier_Bees_G[2, Index].activeInHierarchy
+			if (!Soldier_Bees_S[0, Index].accccc
+				&& !Soldier_Bees_S[1, Index].accccc
+				&& !Soldier_Bees_S[2, Index].accccc
 				&& Index < soldier_menber - 1)
 			{
 				Index++;
 			}
-			else if(!Soldier_Bees_G[0, Index].activeInHierarchy
-				&& !Soldier_Bees_G[1, Index].activeInHierarchy
-				&& !Soldier_Bees_G[2, Index].activeInHierarchy
+			else if (!Soldier_Bees_S[0, Index].accccc
+				&& !Soldier_Bees_S[1, Index].accccc
+				&& !Soldier_Bees_S[2, Index].accccc
 				&& Index == soldier_menber - 1)
 			{
-				Is_Soldier_Attack_Finished = false;
+				foreach (GameObject obj in Soldier_Bees_G)
+				{
+					obj.SetActive(false);
+				}
+					Is_Soldier_Attack_Finished = false;
 			}
 		}
 		// 兵隊機の攻撃が続いているとき

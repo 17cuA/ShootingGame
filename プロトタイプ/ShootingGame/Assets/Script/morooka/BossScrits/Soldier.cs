@@ -22,6 +22,7 @@ public class Soldier : MonoBehaviour
 	private Vector2 Position_After_Death { set; get; }		// 死亡判定後の位置
 	private Vector3 direction { set; get; }					// 自分の向き
 	private GameObject Player_Data { set; get; }            // プレイヤーの情報格納用
+	public bool accccc { private set; get; }
 	private uint dhirey = 0;
 	private int num = 0;
 
@@ -58,7 +59,8 @@ public class Soldier : MonoBehaviour
 			}
 			if (transform.position.x <= -40.0f)
 			{
-				Make_Incapacitated();
+				//Make_Incapacitated();
+				accccc = false;
 			}
 		}
 	}
@@ -86,6 +88,7 @@ public class Soldier : MonoBehaviour
 	{
 		transform.position = startPos;
 		transform.right = Vector3.zero;
+		accccc = true;
 	}
 
 	/// <summary>
