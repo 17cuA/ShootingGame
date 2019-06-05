@@ -33,7 +33,7 @@ public class Queen_Bee : MonoBehaviour
 	private BEE_ATTACK Now_Attack { set; get; }					// 現在の攻撃種類の情報
 	private int Bullet_Cnt { set; get; }                        // バレットの発射した回数を数える
 	private Vector3[] Bullet_Direction { set; get; }			// バレットの向き
-	private GameObject Player_Data { set; get; }				// プレイヤーの情報格納用
+	//private GameObject Player_Data { set; get; }				// プレイヤーの情報格納用
 
 	void Start()
     {
@@ -68,7 +68,7 @@ public class Queen_Bee : MonoBehaviour
 		//Laser = Resources.Load("morooka/" + BA.Status_Data.Own_Record[(int)Game_Master.BOSS_DATA_ELEMENTS.eBULLET_NAME_3]) as GameObject;
 		Now_Attack = new BEE_ATTACK();
 		Now_Attack = BEE_ATTACK.eSOLDIER_BEE;
-		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
+		//Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
 	}
 
 	void Update()
@@ -127,10 +127,8 @@ private bool Is_Soldier_Alive()
 				{
 					Soldier_Bees_G[i, j].gameObject.SetActive(true);
 					Soldier_Bees_S[i, j].Attack_Start(temp_pos);
-					Vector2 temp = Soldier_Bees_G[i, j].transform.position - Player_Data.transform.position;
-					Soldier_Bees_G[i, j].transform.right = temp;
 					// 次のメンバーは今のメンバーの後ろに配置
-					temp_pos += temp.normalized * 2.0f;
+					temp_pos.x += 2.0f;
 				}
 			}
 			Is_Soldier_Attack_Finished = false;
