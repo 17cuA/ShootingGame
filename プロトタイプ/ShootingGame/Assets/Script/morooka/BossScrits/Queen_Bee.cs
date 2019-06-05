@@ -28,6 +28,7 @@ public class Queen_Bee : MonoBehaviour
 	private bool Is_Soldier_Attack_Finished { set; get; }		// 兵隊攻撃が終わっているか
 	public Soldier[,] Soldier_Bees_S { set; get; }				// 兵隊の script 情報(攻撃パターン１情報)
 	public GameObject[,] Soldier_Bees_G { set; get; }			// 兵隊の object 情報(攻撃パターン１情報)
+	public int Index { set; get; }
 	private GameObject[] Bullet { set; get; }					// 弾(攻撃パターン２情報)
 	private GameObject Laser { set; get; }						// レーザー(攻撃パターン３情報)
 	private BEE_ATTACK Now_Attack { set; get; }					// 現在の攻撃種類の情報
@@ -120,18 +121,37 @@ private bool Is_Soldier_Alive()
 			// ライン用の繰り返し
 			for (int i = 0; i < soldier_Line; i++)
 			{
-				// X軸の数値獲得、vector2にX軸Y軸格納
-				Vector2 temp_pos = new Vector2( Random.Range(0.0f, 10.0f) + 40.0f,y_pos[i]);
-				// メンバー用の繰り返し
-				for (int j = 0; j < soldier_menber; j++)
+				if (!Soldier_Bees_G[i, Index].activeInHierarchy)
 				{
-					Soldier_Bees_G[i, j].gameObject.SetActive(true);
-					Soldier_Bees_S[i, j].Attack_Start(temp_pos);
-					// 次のメンバーは今のメンバーの後ろに配置
-					temp_pos.x += 2.0f;
+					Soldier_Bees_G[i, Index].gameObject.SetActive(true);
+					Soldier_Bees_S[i, Index].Attack_Start(new Vector2(40.0f, y_pos[i]));
 				}
+				//	// X軸の数値獲得、vector2にX軸Y軸格納
+				//	Vector2 temp_pos = new Vector2( Random.Range(0.0f, 10.0f) + 40.0f,y_pos[i]);
+				//	// メンバー用の繰り返し
+				//	for (int j = 0; j < soldier_menber; j++)
+				//	{
+				//		Soldier_Bees_G[i, j].gameObject.SetActive(true);
+				//		Soldier_Bees_S[i, j].Attack_Start(temp_pos);
+				//		// 次のメンバーは今のメンバーの後ろに配置
+				//		temp_pos.x += 40.0f;
+				//	}
 			}
-			Is_Soldier_Attack_Finished = false;
+
+			if(!Soldier_Bees_G[0,Index].activeInHierarchy 
+				&& !Soldier_Bees_G[1, Index].activeInHierarchy 
+				&& !Soldier_Bees_G[2, Index].activeInHierarchy
+				&& Index < soldier_menber - 1)
+			{
+				Index++;
+			}
+			else if(!Soldier_Bees_G[0, Index].activeInHierarchy
+				&& !Soldier_Bees_G[1, Index].activeInHierarchy
+				&& !Soldier_Bees_G[2, Index].activeInHierarchy
+				&& Index == soldier_menber - 1)
+			{
+				Is_Soldier_Attack_Finished = false;
+			}
 		}
 		// 兵隊機の攻撃が続いているとき
 		if (!Is_Soldier_Attack_Finished)
@@ -143,6 +163,7 @@ private bool Is_Soldier_Alive()
 				Is_Soldier_Attack_Finished = true;
 				// 攻撃切り替え
 				Now_Attack = BEE_ATTACK.eBULLET;
+				Index = 0;
 				// インターバルを数え始めさせる
 				BA.Attack_Termination();
 			}

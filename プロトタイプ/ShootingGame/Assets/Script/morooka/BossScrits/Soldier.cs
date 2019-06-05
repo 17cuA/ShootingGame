@@ -21,7 +21,9 @@ public class Soldier : MonoBehaviour
 	private Renderer My_Renderer { set; get; }				// 自分のレンダー
 	private Vector2 Position_After_Death { set; get; }		// 死亡判定後の位置
 	private Vector3 direction { set; get; }					// 自分の向き
-	private GameObject Player_Data { set; get; }			// プレイヤーの情報格納用
+	private GameObject Player_Data { set; get; }            // プレイヤーの情報格納用
+	private uint dhirey = 0;
+	private int num = 0;
 
 	private void Start()
 	{
@@ -33,17 +35,22 @@ public class Soldier : MonoBehaviour
 
 	void Update()
 	{
-		if (transform.position.x > 28.0f)
+		if (transform.position.x > 24.0f)
 		{
 			Vector3 vector = transform.position;
 			vector.x -= speed;
 			transform.position = vector;
+			dhirey = Game_Master.MY.Frame_Count + 61;
 		}
-		else if(transform.position.x <= 28.0f && transform.right == Vector3.zero)
+		else if (transform.position.x <= 24.0f && num == 0)
 		{
-			transform.right = transform.position - Player_Data.transform.position;
+			if (Game_Master.MY.Frame_Count == dhirey)
+			{
+				transform.right = transform.position - Player_Data.transform.position;
+				num++;
+			}
 		}
-		else if (transform.position.x <= 28.0f && transform.right != Vector3.zero)
+		else if (transform.position.x <= 24.0f && num == 1)
 		{
 			if (transform.position.x >= -40.0f)
 			{
@@ -86,6 +93,7 @@ public class Soldier : MonoBehaviour
 	/// </summary>
 	public void Make_Incapacitated()
 	{
+		num = 0;
 		transform.position = Position_After_Death;
 		gameObject.SetActive(false);
 	}
