@@ -6,9 +6,8 @@
 //----------------------------------------------------------------------------------------------
 // 2019/05/30：変数宣言とイナム作成
 // 2019/05/31：兵隊機の生成
+// 2019/06/03：兵隊機をプレイヤーの位置に突進させる
 //----------------------------------------------------------------------------------------------
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Queen_Bee : MonoBehaviour
@@ -32,6 +31,9 @@ public class Queen_Bee : MonoBehaviour
 	private GameObject[] Bullet { set; get; }					// 弾(攻撃パターン２情報)
 	private GameObject Laser { set; get; }						// レーザー(攻撃パターン３情報)
 	private BEE_ATTACK Now_Attack { set; get; }					// 現在の攻撃種類の情報
+	private int Bullet_Cnt { set; get; }                        // バレットの発射した回数を数える
+	private Vector3[] Bullet_Direction { set; get; }			// バレットの向き
+	private GameObject Player_Data { set; get; }				// プレイヤーの情報格納用
 
 	void Start()
     {
@@ -50,65 +52,49 @@ public class Queen_Bee : MonoBehaviour
 			}
 		}
 		Bullet = new GameObject[20];
+		Vector3 temp = new Vector3(0.0f, 0.0f, 30.0f+180.0f);
+		Bullet_Direction = new Vector3[4];
+		for(int i = 0; i < Bullet_Direction.Length; i++)
+		{
+			Bullet_Direction[i] = temp;
+			temp.z -= 15.0f;
+		}
 		for (int i = 0; i < Bullet.Length; i++)
 		{
-			GameObject obj = Resources.Load(BA.Status_Data.Own_Record[(int)Game_Master.BOSS_DATA_ELEMENTS.eBULLET_NAME_2]) as GameObject;
-			Bullet[i] = Instantiate(obj, transform.position, Quaternion.identity);
+			Bullet[i] = Resources.Load(BA.Status_Data.Own_Record[(int)Game_Master.BOSS_DATA_ELEMENTS.eBULLET_NAME_2]) as GameObject;
 		}
+		Bullet_Cnt = 0;
 		//Laser = new GameObject();
 		//Laser = Resources.Load("morooka/" + BA.Status_Data.Own_Record[(int)Game_Master.BOSS_DATA_ELEMENTS.eBULLET_NAME_3]) as GameObject;
+		Now_Attack = new BEE_ATTACK();
+		Now_Attack = BEE_ATTACK.eSOLDIER_BEE;
+		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
 	}
 
-    void Update()
-    {
-		// 兵隊機の攻撃が終わっているとき
-		if (Is_Soldier_Attack_Finished)
+	void Update()
+	{
+		// 攻撃インターバル超えたとき
+		if (BA.attack_interval <= BA.Attack_Change_Frame_Cnt)
 		{
-			// 攻撃インターバル超えたとき
-			if (BA.attack_interval <= BA.Attack_Change_Frame_Cnt)
+			switch (Now_Attack)
 			{
-				// 各ラインのY軸の数値獲得
-				float[] y_pos = new float[soldier_Line] { (Random.Range(-2.5f, -0.5f)), (Random.Range(0.5f, 1.5f)), (Random.Range(2.5f, 4.5f)) };
-
-				// ライン用の繰り返し
-				for (int i = 0; i < soldier_Line; i++)
-				{
-					// X軸の数値獲得
-					float x_pos = Random.Range(0.0f, 10.0f) + 40.0f;
-
-					// メンバー用の繰り返し
-					for (int j = 0; j < soldier_menber; j++)
-					{
-						Soldier_Bees_G[i, j].gameObject.SetActive(true);
-						Soldier_Bees_S[i, j].Attack_Start(new Vector3(x_pos, y_pos[i], 0.0f));
-
-						// 次のメンバーは今のメンバーの後ろに配置
-						x_pos += 2.0f;
-					}
-				}
-				Is_Soldier_Attack_Finished = false;
+				case BEE_ATTACK.eSOLDIER_BEE:
+					Soldier_Machine_Generation_Attack();
+					break;
+				case BEE_ATTACK.eBULLET:
+					Attack_Shoot_In_Bullet();
+					break;
+				default:
+					break;
 			}
 		}
+	}
 
-		// 兵隊機の攻撃が続いているとき
-		if(!Is_Soldier_Attack_Finished)
-		{
-			// 兵隊機の生存を確認
-			if(Is_Soldier_Alive())
-			{
-				// 兵隊機がすべて死んでいるので攻撃終わり
-				Is_Soldier_Attack_Finished = true;
-				// インターバルを数え始めさせる
-				BA.Attack_Termination();
-			}
-		}
-    }
-
-	/// <summary>
-	/// 兵隊機が動いているかの確認
-	/// </summary>
-	/// <returns> 動いていれば false　動いていなければ true </returns>
-	private bool Is_Soldier_Alive()
+/// <summary>
+/// 兵隊機が動いているかの確認
+/// </summary>
+/// <returns> 動いていれば false　動いていなければ true </returns>
+private bool Is_Soldier_Alive()
 	{
 		// すべての兵隊機の確認
 		foreach (GameObject obj in Soldier_Bees_G)
@@ -119,5 +105,73 @@ public class Queen_Bee : MonoBehaviour
 			}
 		}
 		return true;
+	}
+
+	/// <summary>
+	/// 兵隊機の生成攻撃
+	/// </summary>
+	private void Soldier_Machine_Generation_Attack()
+	{
+		// 兵隊機の攻撃が終わっているとき
+		if (Is_Soldier_Attack_Finished)
+		{
+			// 各ラインのY軸の数値獲得
+			float[] y_pos = new float[soldier_Line] { (Random.Range(-2.5f, -0.5f)), (Random.Range(0.5f, 1.5f)), (Random.Range(2.5f, 4.5f)) };
+			// ライン用の繰り返し
+			for (int i = 0; i < soldier_Line; i++)
+			{
+				// X軸の数値獲得、vector2にX軸Y軸格納
+				Vector2 temp_pos = new Vector2( Random.Range(0.0f, 10.0f) + 40.0f,y_pos[i]);
+				// メンバー用の繰り返し
+				for (int j = 0; j < soldier_menber; j++)
+				{
+					Soldier_Bees_G[i, j].gameObject.SetActive(true);
+					Soldier_Bees_S[i, j].Attack_Start(temp_pos);
+					Vector2 temp = Soldier_Bees_G[i, j].transform.position - Player_Data.transform.position;
+					Soldier_Bees_G[i, j].transform.right = temp;
+					// 次のメンバーは今のメンバーの後ろに配置
+					temp_pos += temp.normalized * 2.0f;
+				}
+			}
+			Is_Soldier_Attack_Finished = false;
+		}
+		// 兵隊機の攻撃が続いているとき
+		if (!Is_Soldier_Attack_Finished)
+		{
+			// 兵隊機の生存を確認
+			if (Is_Soldier_Alive())
+			{
+				// 兵隊機がすべて死んでいるので攻撃終わり
+				Is_Soldier_Attack_Finished = true;
+				// 攻撃切り替え
+				Now_Attack = BEE_ATTACK.eBULLET;
+				// インターバルを数え始めさせる
+				BA.Attack_Termination();
+			}
+		}
+	}
+
+	/// <summary>
+	/// 弾で撃つ攻撃
+	/// </summary>
+	private void Attack_Shoot_In_Bullet()
+	{
+		if (Game_Master.MY.Frame_Count % 20 == 0 && Bullet_Cnt < 5)
+		{
+			// 四方向分の生成
+			Instantiate(Bullet[Bullet_Cnt], transform.position, Quaternion.Euler(Bullet_Direction[0]));
+			Instantiate(Bullet[Bullet_Cnt + 1], transform.position, Quaternion.Euler(Bullet_Direction[1]));
+			Instantiate(Bullet[Bullet_Cnt + 2], transform.position, Quaternion.Euler(Bullet_Direction[2]));
+			Instantiate(Bullet[Bullet_Cnt + 3], transform.position, Quaternion.Euler(Bullet_Direction[3]));
+			Bullet_Cnt++;
+		}
+		// 各発生成が終わったら、次の行動に移る
+		if (Bullet_Cnt == 5)
+		{
+			Bullet_Cnt = 0;
+			Now_Attack = BEE_ATTACK.eSOLDIER_BEE;
+			// インターバルを数え始めさせる
+			BA.Attack_Termination();
+		}
 	}
 }

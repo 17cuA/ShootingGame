@@ -30,9 +30,7 @@ public class Soldier : MonoBehaviour
     {
 			if(transform.position.x >= -40.0f)
 			{
-				Vector2 tmp = transform.position;
-				tmp.x -= speed;
-				transform.position = tmp;
+				transform.position = transform.position - transform.right.normalized * speed;
 			}
 			if(transform.position.x <= -40.0f)
 			{
