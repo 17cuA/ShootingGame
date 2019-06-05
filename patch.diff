@@ -1,0 +1,92 @@
+From cfc0f6f44214c6f081fc702a9761c4a41f8f5194 Mon Sep 17 00:00:00 2001
+From: "741PC-37\\student" <cu.common@gmail.com>
+Date: Wed, 5 Jun 2019 13:45:25 +0900
+Subject: [PATCH] no message
+
+---
+ .../ShootingGame/Assets/Scenes/Stage.unity         | 69 ++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+
+diff --git a/プロトタイプ/ShootingGame/Assets/Scenes/Stage.unity b/プロトタイプ/ShootingGame/Assets/Scenes/Stage.unity
+index eac1916..da3593a 100644
+--- a/プロトタイプ/ShootingGame/Assets/Scenes/Stage.unity
++++ b/プロトタイプ/ShootingGame/Assets/Scenes/Stage.unity
+@@ -953,6 +953,75 @@ PrefabInstance:
+       objectReference: {fileID: 0}
+     m_RemovedComponents: []
+   m_SourcePrefab: {fileID: 100100000, guid: f3b78c410f153774abfde65e7e836e22, type: 3}
++--- !u!1001 &1927377246
++PrefabInstance:
++  m_ObjectHideFlags: 0
++  serializedVersion: 2
++  m_Modification:
++    m_TransformParent: {fileID: 0}
++    m_Modifications:
++    - target: {fileID: 3903288051588822611, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_Name
++      value: Four_FollowPos
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalPosition.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalPosition.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalPosition.z
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalRotation.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalRotation.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalRotation.z
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalRotation.w
++      value: 1
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_RootOrder
++      value: 12
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalEulerAnglesHint.x
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalEulerAnglesHint.y
++      value: 0
++      objectReference: {fileID: 0}
++    - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
++        type: 3}
++      propertyPath: m_LocalEulerAnglesHint.z
++      value: 0
++      objectReference: {fileID: 0}
++    m_RemovedComponents: []
++  m_SourcePrefab: {fileID: 100100000, guid: bd329a69d068ffe47b4a80615b678a6a, type: 3}
+ --- !u!1001 &2096652497
+ PrefabInstance:
+   m_ObjectHideFlags: 0
+-- 
+2.16.2.windows.1
+
