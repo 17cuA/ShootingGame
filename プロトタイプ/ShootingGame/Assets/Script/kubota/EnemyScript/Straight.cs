@@ -53,8 +53,12 @@ public class Straight : character_status
             }
 			Dn.Create_Particle();
 
-			Debug.Log("hei");
-			Destroy(gameObject);
+			//Debug.Log("hei");
+
+
+			gameObject.hide();
+			RemoteSettings();
+			gameObject.SetActive(false);
 
 		}
 	}
