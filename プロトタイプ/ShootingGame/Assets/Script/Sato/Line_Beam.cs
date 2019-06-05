@@ -66,7 +66,7 @@ public class Line_Beam : MonoBehaviour {
 		int layerMask = LayerMask.GetMask("Enemy");
 		int Wall_layerMask = LayerMask.GetMask("Wall");
 
-		
+		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
 
 		//if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
 		//{
@@ -76,11 +76,14 @@ public class Line_Beam : MonoBehaviour {
 		{
 			lineRenderer.SetPosition(1, shotHit.point + shotRay.direction);
 		}
-		if (Physics.SphereCast(transform.position, 1, transform.forward, out shotHit, layerMask))
+		//if (Physics.SphereCast(transform.position, 1, transform.forward, out shotHit, layerMask))
+		//{
+		//	Destroy(shotHit.transform.gameObject);
+		//}
+		if (Physics.BoxCast(transform.position, Vector3.one, transform.forward, out shotHit, Quaternion.identity, 100f, layerMask))
 		{
 			Destroy(shotHit.transform.gameObject);
 		}
-		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
 		Debug.DrawLine(transform.position, shotHit.point, Color.red);
 	}
 
