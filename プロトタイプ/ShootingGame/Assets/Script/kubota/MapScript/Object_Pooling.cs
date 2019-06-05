@@ -17,6 +17,7 @@ public class Object_Pooling
 	List<GameObject> obj = new List<GameObject>();
 	GameObject z = new GameObject();        //親オブジェクトの作成
 	string obj_name;
+	private  GameObject prefab;
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -30,30 +31,28 @@ public class Object_Pooling
 		//生成したい数だけ処理を回す
 		for (int i = 0; i < Create_num; i++)
 		{
-			GameObject gameObject = Object.Instantiate(Create_obj);
-			gameObject.name = name;		//名前を変更	
-			gameObject.transform.parent = z.transform;			//生成してある親オブジェクトの子供にする
-			gameObject.SetActive(false);									//SetActiveをfalseにして、動かなく、表示されないようにした。
-			obj.Add(gameObject);												// 生成をした値を配列に入れる
+			Create_newObj(name, Create_obj, z, false);
 		}
+		obj_name = name;
+		prefab = Create_obj;
 	}
 
 	public List<GameObject> Get_Obj()
 	{
 		return obj;
 	}
-	public void Active_Obj(int element)
+	public void Active_Obj()
 	{
-		obj[element].SetActive(true);
-
-		if(element >obj.Count())
+		int i = 0;
+		while(i < obj.Count)
 		{
-			int num = element - obj.Count();
-			for(int i = 0; i < num;i++)
+			if(obj[i].activeSelf == false)
 			{
-				//Create_newObj(obj_name, obj[0], z);
+				obj[i].SetActive(true);
+				return;
 			}
 		}
+		Create_newObj(obj_name, prefab, z, true);
 	}
 
 	public void Delete_Obj(int element)
@@ -69,10 +68,10 @@ public class Object_Pooling
 	/// <param name="Is_Active">SetActiveをtrueにするのかfalseにするのかを変更する</param>
 	private void Create_newObj(string name ,GameObject Create_Obj,GameObject Parent_Obj,bool Is_Active)
 	{
-		GameObject gameObject = Object.Instantiate(Create_Obj);
-		gameObject.name = name;
+		GameObject gameObject = Object.Instantiate(Create_Obj);//オブジェクトの作成
+		gameObject.name = name;			//名前の変更
 		gameObject.transform.parent = Parent_Obj.transform;//生成してある親オブジェクトの子供にする
-		gameObject.SetActive(Is_Active);
+		gameObject.SetActive(Is_Active);	//活動するかどうかの変更
 		obj.Add(gameObject);                                            // 生成をした値を配列に入れる
 	}
 }

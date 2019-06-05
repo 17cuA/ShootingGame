@@ -48,7 +48,7 @@ public class MapCreate : MonoBehaviour
 			}
 			CreateMap();			//マップの作成（各オブジェクトの移動）
 			SC.Chara_Get();
-			enemy_cnt = 1;
+			enemy_cnt = 0;
 		}
 	}
 	void CreateMap()
@@ -67,7 +67,8 @@ public class MapCreate : MonoBehaviour
 						//Player =Instantiate(Player, pos, Quaternion.identity);
 						break;
 					case "2":
-						Enemy1.Active_Obj(1);
+						Enemy1.Active_Obj();
+						Enemy1.
 						enemy_cnt++;
 
 						//OC.EnemyPos_Conversion(enemy_cnt,pos);
