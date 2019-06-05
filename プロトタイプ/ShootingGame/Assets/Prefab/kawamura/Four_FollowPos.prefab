@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288050775705196}
-  - component: {fileID: 3903288050775705197}
+  - component: {fileID: 1463659024}
   m_Layer: 0
   m_Name: FollowPosThird
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3903288050775705197
+--- !u!114 &1463659024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,13 +40,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288050775705195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
+  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  offsetX: 2
-  offserY: 2
+  playerObj: {fileID: 0}
+  previousBitPos: []
+  pos: {x: 0, y: 0, z: 0}
+  cnt: 0
   myName: 
+  check: 0
+  isMove: 0
 --- !u!1 &3903288050800170599
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288050800170616}
-  - component: {fileID: 3903288050800170617}
+  - component: {fileID: 219480495}
   m_Layer: 0
   m_Name: FollowPosFourth
   m_TagString: Untagged
@@ -78,7 +81,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3903288050800170617
+--- !u!114 &219480495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,13 +90,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288050800170599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
+  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  offsetX: 2
-  offserY: 2
+  playerObj: {fileID: 0}
+  previousBitPos: []
+  pos: {x: 0, y: 0, z: 0}
+  cnt: 0
   myName: 
+  check: 0
+  isMove: 0
 --- !u!1 &3903288050831207287
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288050831206536}
-  - component: {fileID: 3903288050831206537}
+  - component: {fileID: 816782300}
   m_Layer: 0
   m_Name: FollowPosFirst
   m_TagString: Untagged
@@ -125,7 +131,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3903288050831206537
+--- !u!114 &816782300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,12 +140,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288050831207287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaff2eee9f3bc5146bc3b2e12b28cb77, type: 3}
+  m_Script: {fileID: 11500000, guid: 29ace846abddbad49a12fb72dd0371ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  offsetX: 2.5
-  offserY: 2
+  playerObj: {fileID: 0}
+  playerPos: []
+  pos: {x: 0, y: 0, z: 0}
+  cnt: 0
+  check: 0
+  isMove: 0
 --- !u!1 &3903288051588822611
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288051621982409}
-  - component: {fileID: 3903288051621982410}
+  - component: {fileID: 962793395}
   m_Layer: 0
   m_Name: FollowPosSecond
   m_TagString: Untagged
@@ -205,7 +214,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3903288051621982410
+--- !u!114 &962793395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,10 +223,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288051621982408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
+  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  offsetX: 2
-  offserY: 2
+  playerObj: {fileID: 0}
+  previousBitPos: []
+  pos: {x: 0, y: 0, z: 0}
+  cnt: 0
   myName: 
+  check: 0
+  isMove: 0
