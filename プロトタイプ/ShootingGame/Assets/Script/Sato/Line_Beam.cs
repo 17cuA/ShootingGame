@@ -11,6 +11,8 @@ public class Line_Beam : MonoBehaviour {
     LineRenderer lineRenderer;
 	private Renderer Target_Renderer;
 	Transform Laser_Size;
+	bool isEnable = true;
+	float hitstop=10.0f;
 
 	// Use this for initialization
 	void Awake () {
@@ -66,28 +68,59 @@ public class Line_Beam : MonoBehaviour {
 		int layerMask = LayerMask.GetMask("Enemy");
 		int Wall_layerMask = LayerMask.GetMask("Wall");
 
-		lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
+		var radius = transform.lossyScale.x * 0.5f;
 
-		//if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
-		//{
-		//	Destroy(shotHit.transform.gameObject);
-		//}
-		if (Physics.Raycast(shotRay, out shotHit, range, Wall_layerMask))
+		var isHit = Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit);
+
+		if (isHit)
 		{
-			lineRenderer.SetPosition(1, shotHit.point + shotRay.direction);
+			hitstop = shotHit.distance;
+			if (Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit, Wall_layerMask))
+			{
+				isHit = Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit);
+				if(Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit, layerMask))
+				{
+					Destroy(shotHit.transform.gameObject);
+				}
+			}
 		}
-		//if (Physics.SphereCast(transform.position, 1, transform.forward, out shotHit, layerMask))
+
+
+		//lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
+
+		////if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
+		////{
+		////	Destroy(shotHit.transform.gameObject);
+		////}
+
+		//if (Physics.Raycast(shotRay, out shotHit, range, Wall_layerMask))
 		//{
-		//	Destroy(shotHit.transform.gameObject);
+		//	lineRenderer.SetPosition(1, shotHit.point + shotRay.direction);
 		//}
-		if (Physics.BoxCast(transform.position, Vector3.one, transform.forward, out shotHit, Quaternion.identity, 100f, layerMask))
+
+
+	}
+	void OnDrawGizmos()
+	{
+		if (isEnable == false)
+			return;
+
+		var radius = transform.lossyScale.x * 0.5f;
+
+		var isHit = Physics.SphereCast(transform.position, radius, transform.forward * 10, out shotHit);
+		Gizmos.color = Color.red;
+		if (isHit)
 		{
-			Destroy(shotHit.transform.gameObject);
+			Gizmos.DrawRay(transform.position, transform.forward * shotHit.distance);
+			Gizmos.DrawWireSphere(transform.position + transform.forward * (shotHit.distance), radius);
 		}
-		Debug.DrawLine(transform.position, shotHit.point, Color.red);
+		else
+		{
+			Gizmos.DrawRay(transform.position, transform.forward * 100);
+		}
 	}
 
-	private void disableEffect()
+private void disableEffect()
     {
         beamParticle.Stop();
         lineRenderer.enabled = false;
