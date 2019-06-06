@@ -17,6 +17,8 @@ public class Straight : character_status
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 		transform.eulerAngles = new Vector3(0, -180, 0);
 		Dn = gameObject.GetComponent<Direction>();
+		HP_Setting();
+		renderer = gameObject.GetComponent<MeshRenderer>();
 	}
 
 	// Update is called once per frame
@@ -54,17 +56,17 @@ public class Straight : character_status
 			Dn.Create_Particle();
 
 			//Debug.Log("hei");
+			Hide_Object();
 
+			Reset_Status();
 
-			gameObject.hide();
-			RemoteSettings();
 			gameObject.SetActive(false);
 
 		}
 	}
 	private void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.transform.name == "Player_Bullet(Clone)")
+		if (col.gameObject.transform.tag == "Player_Bullet")
 		{
 			//弾のダメージを取得するための弾のステータスの情報取得
 			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();

@@ -5,13 +5,10 @@
  * 2019/05/28	カットイン時は操作できないようにした
  * 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player1 : character_status
 {
-	private GameObject Bullet;      //弾のPrefab情報
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
@@ -19,9 +16,9 @@ public class Player1 : character_status
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
-	public float energy;                //レーザー打つためのエネルギー
-	public float energy_Max;			//エネルギーの最大値;
-
+	public float energy;						 //レーザー打つためのエネルギー
+	public float energy_Max;            //エネルギーの最大値
+	private Obj_Storage OS;				//ストレージからバレットの情報取得
 		public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -31,14 +28,14 @@ public class Player1 : character_status
 	public Bullet_Type bullet_Type;　//弾の種類を変更
 	void Start()
 	{
-		Bullet = Resources.Load("Player_Bullet") as GameObject;
+		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
-		capsuleCollider = GetComponent<CapsuleCollider>();
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 10;
+		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
         bullet_Type = Bullet_Type.Single;　　//初期状態をsingleに
@@ -136,10 +133,10 @@ public class Player1 : character_status
                     Single_Fire();
                     break;
                 case Bullet_Type.Diffusion:
-                    Diffusion_Fire();
+                    //Diffusion_Fire();
                     break;
                 case Bullet_Type.Three_Point_Burst:
-                    Triple_Fire();
+                   // Triple_Fire();
                     Invoke("Triple_Fire", 0.1f);
                     Invoke("Triple_Fire", 0.2f);
                     break;
@@ -151,21 +148,17 @@ public class Player1 : character_status
 	}
     	private void Single_Fire()
 	{
-		Instantiate
-		(
-			Bullet,
-			shot_Mazle.transform.position,
-			transform.rotation
-		);
+		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+		gameObject.transform.position = shot_Mazle.transform.position;
 	}
-	private void Diffusion_Fire()
-	{
-		Instantiate(Bullet,shot_Mazle.transform.position,transform.rotation);
-		Instantiate(Bullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 30.0f) * Direction);
-		Instantiate(Bullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -30.0f) * Direction);
-	}
-	private void Triple_Fire()
-	{
-		Instantiate(Bullet, shot_Mazle.transform.position, transform.rotation);
-	}
+	//private void Diffusion_Fire()
+	//{
+	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet,shot_Mazle.transform.position,transform.rotation);
+	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 30.0f) * Direction);
+	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -30.0f) * Direction);
+	//}
+	//private void Triple_Fire()
+	//{
+	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, transform.rotation);
+	//}
 }
