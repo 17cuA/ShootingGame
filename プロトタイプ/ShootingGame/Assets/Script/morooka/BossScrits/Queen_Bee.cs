@@ -33,7 +33,16 @@ public class Queen_Bee : MonoBehaviour
 	private BEE_ATTACK Now_Attack { set; get; }					// 現在の攻撃種類の情報
 	private int Bullet_Cnt { set; get; }                        // バレットの発射した回数を数える
 	private Vector3[] Bullet_Direction { set; get; }			// バレットの向き
-	private GameObject Player_Data { set; get; }				// プレイヤーの情報格納用
+	private GameObject Player_Data { set; get; }                // プレイヤーの情報格納用
+	private uint[][] shitei = new uint[6][]
+	{
+		new uint[3] {60,120,180},
+		new uint[3]{60,180,120},
+		new uint[3]{120,60,180},
+		new uint[3]{120,180,60},
+		new uint[3]{180,60,120},
+		new uint[3]{180,120,60},
+	};
 
 	void Start()
     {
@@ -97,9 +106,9 @@ public class Queen_Bee : MonoBehaviour
 private bool Is_Soldier_Alive()
 	{
 		// すべての兵隊機の確認
-		foreach (GameObject obj in Soldier_Bees_G)
+		foreach (Soldier s in Soldier_Bees_S)
 		{
-			if(obj.activeSelf)
+			if(s.Is_Attack_Completed)
 			{
 				return false;
 			}
@@ -112,28 +121,33 @@ private bool Is_Soldier_Alive()
 	/// </summary>
 	private void Soldier_Machine_Generation_Attack()
 	{
-		// 兵隊機の攻撃が終わっているとき
-		if (Is_Soldier_Attack_Finished)
+		if(Is_Soldier_Attack_Finished)
 		{
 			// 各ラインのY軸の数値獲得
-			float[] y_pos = new float[soldier_Line] { (Random.Range(-2.5f, -0.5f)), (Random.Range(0.5f, 1.5f)), (Random.Range(2.5f, 4.5f)) };
-			// ライン用の繰り返し
-			for (int i = 0; i < soldier_Line; i++)
-			{
-				// X軸の数値獲得、vector2にX軸Y軸格納
-				Vector2 temp_pos = new Vector2( Random.Range(0.0f, 10.0f) + 40.0f,y_pos[i]);
-				// メンバー用の繰り返し
-				for (int j = 0; j < soldier_menber; j++)
-				{
-					Soldier_Bees_G[i, j].gameObject.SetActive(true);
-					Soldier_Bees_S[i, j].Attack_Start(temp_pos);
-					Vector2 temp = Soldier_Bees_G[i, j].transform.position - Player_Data.transform.position;
-					Soldier_Bees_G[i, j].transform.right = temp;
-					// 次のメンバーは今のメンバーの後ろに配置
-					temp_pos += temp.normalized * 2.0f;
-				}
-			}
+			//for (int i = 0; i < soldier_Line; i++)
+			//{
+			//	float x_pos = 40.0f;
+			//	for (int j = 0; j < soldier_menber; j++)
+			//	{
+			//		Soldier_Bees_G[i, j].SetActive(true);
+			//		Soldier_Bees_S[i, j].Attack_Preparation(new Vector2(x_pos, y_pos[i]), (uint)Random.RandomRange(60.0f, 100.0f));
+			//		x_pos += 100.0f;
+			//	}
+			//}
 			Is_Soldier_Attack_Finished = false;
+
+			float x_pos = 40.0f;
+			for (int x = 0; x < soldier_menber; x++)
+			{
+				uint[] siii = shitei[(int) Random.Range(0.0f,5.0f)];
+				float[] y_pos = new float[soldier_Line] { (Random.Range(-2.5f, -0.5f)), (Random.Range(0.5f, 1.5f)), (Random.Range(2.5f, 4.5f)) };
+				for (int y = 0; y < soldier_Line; y++)
+				{
+					Soldier_Bees_G[y, x].SetActive(true);
+					Soldier_Bees_S[y, x].Attack_Preparation(new Vector2(x_pos, y_pos[y]), siii[y]);
+				}
+				x_pos += 100.0f;
+			}
 		}
 		// 兵隊機の攻撃が続いているとき
 		if (!Is_Soldier_Attack_Finished)
@@ -141,6 +155,11 @@ private bool Is_Soldier_Alive()
 			// 兵隊機の生存を確認
 			if (Is_Soldier_Alive())
 			{
+				foreach(GameObject obj in Soldier_Bees_G)
+				{
+					obj.SetActive(false);
+				}
+
 				// 兵隊機がすべて死んでいるので攻撃終わり
 				Is_Soldier_Attack_Finished = true;
 				// 攻撃切り替え
