@@ -31,6 +31,8 @@ public class MapCreate : MonoBehaviour
 		{
 			for (int x = 0; x < Obj_Storage.Storage_Data.CsvData[y].Length; x++)
 			{
+				Debug.Log("俺だよ");
+
 				Obj_Storage.Storage_Data.pos = new Vector3(up_left_pos_x + x * 2, up_left_pos_y - y, 0);
 				switch(Obj_Storage.Storage_Data.CsvData[y][x])
 				{

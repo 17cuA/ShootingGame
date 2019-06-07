@@ -21,8 +21,8 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Boss_Prefab;
 	private GameObject Bullet_Prefab;      //弾のPrefab情報
 
-
-
+	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
+	public GameObject particleGameObject;
 
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
@@ -47,12 +47,19 @@ public class Obj_Storage : MonoBehaviour
 		Boss_Prefab = Resources.Load("Boss/Boss_Test") as GameObject;
 		Bullet_Prefab = Resources.Load("Player_Bullet") as GameObject;
 
-
+		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
+		particle[1] = Resources.Load<GameObject>("Effects/Particle_2黒煙");
+		particle[2] = Resources.Load<GameObject>("Effects/Particle_3エネルギー弾");
+		particle[3] = Resources.Load<GameObject>("Effects/Particle_4衝撃波");
+		particle[4] = Resources.Load<GameObject>("Effects/Particle_5箱爆発");
+		particle[5] = Resources.Load<GameObject>("Effects/Particle_6通路");
+		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
 
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");
 		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");
 		PlayerBullet = new Object_Pooling(Bullet_Prefab, 5, "Player_Bullet");
+
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);
 		while (csv.Peek() > -1)

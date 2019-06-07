@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1687921260125957337}
   - component: {fileID: 1687921258785439962}
   - component: {fileID: 472758016315930812}
-  - component: {fileID: 1774729591576693552}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -69,19 +68,6 @@ MonoBehaviour:
   Shot_Delay: 0
   Item_Flag: 0
   Item: {fileID: 0}
---- !u!114 &1774729591576693552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687921260126056697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc3a1fef50d326418d52cc9fca2c979, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleType: 0
 --- !u!1 &6354452132573785511
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,10 +119,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1687921260125957337}
     m_Modifications:
-    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -192,6 +174,10 @@ PrefabInstance:
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Name
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_Controller

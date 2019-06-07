@@ -18,7 +18,6 @@ public class Straight : character_status
 		transform.eulerAngles = new Vector3(0, -180, 0);
 		Dn = gameObject.GetComponent<Direction>();
 		HP_Setting();
-		renderer = gameObject.GetComponent<MeshRenderer>();
 	}
 
 	// Update is called once per frame
@@ -43,27 +42,7 @@ public class Straight : character_status
 		}
 
     }
-	void Died_Process(float hp)
-	{
-		//体力が1未満だったらオブジェクトの消去
-		if (hp < 1)
-        { 
-            Game_Master.MY.Score_Addition(100);
-            if (Item_Flag==true)
-            {
-                Instantiate(Item, transform.position, transform.rotation);
-            }
-			Dn.Create_Particle();
 
-			//Debug.Log("hei");
-			Hide_Object();
-
-			Reset_Status();
-
-			gameObject.SetActive(false);
-
-		}
-	}
 	private void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.transform.tag == "Player_Bullet")
@@ -71,7 +50,7 @@ public class Straight : character_status
 			//弾のダメージを取得するための弾のステータスの情報取得
 			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
 			//弾のダメージの値だけ体力を減らす
-			hp -= Bs.attack_damage;
+			hp -= (int)Bs.attack_damage;
 			//------------------------------
 		}
 

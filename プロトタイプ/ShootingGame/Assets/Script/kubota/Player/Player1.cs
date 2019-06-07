@@ -95,8 +95,8 @@ public class Player1 : character_status
         {
             //敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
             bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
-            hp -= Bs.attack_damage;
-        }
+			hp -= (int)Bs.attack_damage;
+		}
 		if (col.gameObject.tag == "Enemy") hp--;
         if (col.gameObject.tag == "Item") bullet_Type = Bullet_Type.Diffusion;
     }
