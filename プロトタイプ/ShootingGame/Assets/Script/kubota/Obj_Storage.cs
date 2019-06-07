@@ -70,13 +70,13 @@ public class Obj_Storage : MonoBehaviour
 
 	}
 
-	public GameObject GetPlayer()
+	public Object_Pooling  GetPlayer()
 	{
-		return Player_Prefab;
+		return Player;
 	}
-	public GameObject GetBoss()
+	public Object_Pooling GetBoss()
 	{
-		return Boss_Prefab;
+		return Boss;
 	}
 
 }

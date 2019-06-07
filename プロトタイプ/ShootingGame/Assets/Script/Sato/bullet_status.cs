@@ -43,7 +43,7 @@ public class bullet_status : MonoBehaviour
 		//{
 		//	Destroy(gameObject);
 		//}
-		if (!Bullet_Renderer.isVisible)
+		if (!Bullet_Renderer.isVisible) 
 		{
 			//Destroy(gameObject);
 			gameObject.SetActive(false);
@@ -71,21 +71,10 @@ public class bullet_status : MonoBehaviour
 			gameObject.SetActive(false);
 
 			//add:0513_takada 爆発エフェクトのテスト
-			AddExplosionProcess();
 		}
 		if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
 			gameObject.SetActive(false);
-
-			//add:0513_takada 爆発エフェクトのテスト
-			AddExplosionProcess();
 		}
-	}
-
-	private void AddExplosionProcess()
-	{
-		ParticleManagement particleManagementCS;
-		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
-		//particleManagementCS.ParticleCreation(0, transform.position);
 	}
 }

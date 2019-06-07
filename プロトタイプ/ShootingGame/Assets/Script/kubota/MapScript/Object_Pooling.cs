@@ -5,6 +5,7 @@
  *	2019/06/02	まず初めに敵キャラをオブジェクトプーリングする。
  *	2019/06/03	プレイヤーをオブジェクトプーリングする。
  *				作り直し。
+ * 2019/06/06	完成
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -14,11 +15,10 @@ using UnityEngine;
 public class Object_Pooling
 {
 	//生成するキャラクタを入れるリスト
-	List<GameObject> obj = new List<GameObject>();
+	List<GameObject> obj = new List<GameObject>();		//作成したオブジェクトたちをリストに保存し管理する
 	GameObject z = new GameObject();        //親オブジェクトの作成
-	string obj_name;
-	private  GameObject prefab;
-	private GameObject box;
+	string obj_name;						//オブジェクトの名前を保存用変数
+	private  GameObject prefab;		//オブジェクトを再利用するためのプレハブを保存
 
 	/// <summary>
 	/// コンストラクタ
@@ -29,23 +29,29 @@ public class Object_Pooling
 	public Object_Pooling(GameObject Create_obj, int Create_num, string name)
 	{
 		//親オブジェクトの名前を変更
-		z.name = "ObjectPooling";
+		z.name = "Pooling"　;
 		//生成したい数だけ処理を回す
 		for (int i = 0; i < Create_num; i++)
 		{
+			//オブジェクトの作成とリストに追加するリスト
 			Create_newObj(name, Create_obj, z, false);
 		}
+		//名前を保存
 		obj_name = name;
-		box = Create_obj;
+		//プレハブを保存
 		prefab = Create_obj;
 	}
-
+	//リストをすべて返す関数
 	public List<GameObject> Get_Obj()
 	{
 		return obj;
 	}
+	//オブジェクトを稼働にする関数
+	//稼働するオブジェクトが足りない場合はさらに作成し、稼働状態にする
 	public GameObject Active_Obj()
 	{
+		//暇な状態のオブジェクトを検索し、発見し次第稼働状態にし、処理を終了する
+		//暇な状態のオブジェクトが見つからない場合は一つ作成し、稼働状態にする
 		int i = 0;
 		while(i < obj.Count)
 		{
