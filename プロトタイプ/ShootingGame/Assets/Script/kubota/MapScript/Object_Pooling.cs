@@ -46,6 +46,7 @@ public class Object_Pooling
 	}
 	public GameObject Active_Obj()
 	{
+		Debug.Log("hei");
 		int i = 0;
 		while(i < obj.Count)
 		{
