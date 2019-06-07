@@ -12,7 +12,7 @@ public class TempPlayer : MonoBehaviour
 	{
 		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
 		PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
-		PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE));
+		PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
 
 		//説明は42行目に移行
 		PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
@@ -42,17 +42,14 @@ public class TempPlayer : MonoBehaviour
 
 			//外からのアイテム再取得時の処理　
 			//() => { Debug.Log("イベント発生！依頼関数実行"); };
-			//上記部分は実際の処理
-			//PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickAgainCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
+			//上記部分を含め処理する
 
 			//PowerManager.Instance.Pick(type);実行する前に、依頼関数をイベントに入れておけば、同時に実行することができる
 			//パワー内部　＋　パワー外部　同時に実行
 			//何故なら、パワーアップする時、内部データに影響するだけでなく、外部（エフェクト、音再生とか）も影響する
 
 			//新たに生成したパワーをパワーマネージャーで管理
-			PowerManager.Instance.Pick(type);
-
-			
+			PowerManager.Instance.Pick(type);		
 		}
 
 		//弾の場合
