@@ -31,20 +31,18 @@ public class Bit_Move : MonoBehaviour
 
 	void Update()
 	{
+		//if (!isStart)
+		//{
+		_y = radius * Mathf.Cos(timeCnt * speed);
+		_z = radius * Mathf.Sin(timeCnt * speed);
 
-
-		if (!isStart)
-		{
-			_y = radius * Mathf.Cos(timeCnt * speed);
-			_z = radius * Mathf.Sin(timeCnt * speed);
-
-		}
-		else
-		{
-			_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-			_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
-			isStart = false;
-		}
+		//}
+		//else
+		//{
+		//	_y = radius * Mathf.Cos(timeCnt * speed);
+		//	_z = radius * Mathf.Sin(timeCnt * speed);
+		//	isStart = false;
+		//}
 		//_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
 		//_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
 
@@ -56,6 +54,5 @@ public class Bit_Move : MonoBehaviour
 		{
 			timeCnt = 0;
 		}
-
 	}
 }

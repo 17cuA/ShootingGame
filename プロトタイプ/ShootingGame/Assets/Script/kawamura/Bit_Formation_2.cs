@@ -101,24 +101,24 @@ public class Bit_Formation_2 : MonoBehaviour
 
 		//戻ってくる状態なら
 		if (bState==BitState.Return)
-        {
-            //指定したスピードで親の位置（元の位置）に戻る【parentObjの位置までstepのスピードで戻る】
-            transform.position = Vector3.MoveTowards(transform.position, parentObj.transform.position, step);
+		{
+			//指定したスピードで親の位置（元の位置）に戻る【parentObjの位置までstepのスピードで戻る】
+			transform.position = Vector3.MoveTowards(transform.position, parentObj.transform.position, step);
 
-            //親と同じ位置に戻ったら
-            if (transform.position == parentObj.transform.position)
-            {
-                //戻ってくる状態false
-                //親子関係を戻す
-                transform.parent = parentObj.transform;
+			//親と同じ位置に戻ったら
+			if (transform.position == parentObj.transform.position)
+			{
+				//戻ってくる状態false
+				//親子関係を戻す
+				transform.parent = parentObj.transform;
 				transform.rotation=Quaternion.Euler(0,0,0);
 				bState=BitState.Circular;
 				
-            }
-        }
+			}
+		}
 		//追従する位置へ向かう状態
-        else if(bState==BitState.Follow)
-        {
+		else if(bState==BitState.Follow)
+		{
 			if(isFollow)
 			{
 				//親設定解除
@@ -127,15 +127,15 @@ public class Bit_Formation_2 : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, followPosObj.transform.position, step);
 
 			}
-            //追従する位置に行ったら
-            if (transform.position == followPosObj.transform.position)
-            {
+			//追従する位置に行ったら
+			if (transform.position == followPosObj.transform.position)
+			{
 				//追従する位置へ向かう状態false
 				isFollow = false;
-                //追従する位置のオブジェクトを親に設定
-                transform.parent = followPosObj.transform;
-            }
-        }
+				//追従する位置のオブジェクトを親に設定
+				transform.parent = followPosObj.transform;
+			}
+		}
 		//斜め撃ち
 		else if(bState==BitState.Oblique)
 		{
@@ -149,15 +149,15 @@ public class Bit_Formation_2 : MonoBehaviour
 			}
 
 			//追従する位置に行ったら
-            if (transform.position == obliquePosObj.transform.position)
-            {
+			if (transform.position == obliquePosObj.transform.position)
+			{
 				//斜め撃ちの位置へ向かう状態false
 				isOblique=false;
-                //追従する位置のオブジェクトを親に設定
-                transform.parent = obliquePosObj.transform;
+				//追従する位置のオブジェクトを親に設定
+				transform.parent = obliquePosObj.transform;
 				transform.rotation=obliquePosObj.transform.rotation;
 
-            }
+			}
 
 		}
     }
