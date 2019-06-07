@@ -39,6 +39,7 @@ public class character_status : MonoBehaviour
 			//Debug.Log("hei");
 			Reset_Status();
 
+			transform.position = new Vector3(0, 800.0f,0);
 			gameObject.SetActive(false);
 
 		}

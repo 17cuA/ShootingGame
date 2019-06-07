@@ -33,7 +33,7 @@ public class Player1 : character_status
 		PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
 		PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
 
-		//説明は42行目に移行
+		//説明は113行目に移行
 		PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
 	}
 
