@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6763658474058333981}
   - component: {fileID: 7378987120214824057}
   - component: {fileID: 8742663739075480171}
-  - component: {fileID: 6763658474058333976}
+  - component: {fileID: 7893161473832632588}
   - component: {fileID: 6763658474058333977}
   m_Layer: 0
   m_Name: Player_Bullet
@@ -95,7 +95,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.24999999
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6763658474058333976
+--- !u!54 &7893161473832632588
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  shot_speed: 30
+  shot_speed: 0.5
   attack_damage: 1
