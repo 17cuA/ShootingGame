@@ -12,7 +12,7 @@ public class Line_Beam : MonoBehaviour {
 	private Renderer Target_Renderer;
 	Transform Laser_Size;
 	bool isEnable = true;
-	float hitstop=10.0f;
+	float hitstop;
 
 	// Use this for initialization
 	void Awake () {
@@ -63,43 +63,26 @@ public class Line_Beam : MonoBehaviour {
 		lineRenderer.SetPosition(0, transform.position);
 		shotRay.origin = transform.position;
 		shotRay.direction = transform.forward;
-
 		//int layerMask = 0;
-		int layerMask = LayerMask.GetMask("Enemy");
-		int Wall_layerMask = LayerMask.GetMask("Wall");
 
 		var radius = transform.lossyScale.x * 0.5f;
 
-		var isHit = Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit);
+		var isHit = Physics.SphereCast(transform.position, radius, transform.forward , out shotHit);
 
 		if (isHit)
 		{
 			hitstop = shotHit.distance;
-			if (Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit, Wall_layerMask))
+			if (Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, LayerMask.GetMask("Wall")))
 			{
-				isHit = Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit);
-				if(Physics.SphereCast(transform.position, radius, transform.forward * hitstop, out shotHit, layerMask))
-				{
-					Destroy(shotHit.transform.gameObject);
-				}
+				hitstop = shotHit.distance;
+			}
+			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))
+			{
+				Destroy(shotHit.transform.gameObject);
 			}
 		}
-
-
-		//lineRenderer.SetPosition(1, shotRay.origin + shotRay.direction * range);
-
-		////if (Physics.Raycast(shotRay, out shotHit, range, layerMask))
-		////{
-		////	Destroy(shotHit.transform.gameObject);
-		////}
-
-		//if (Physics.Raycast(shotRay, out shotHit, range, Wall_layerMask))
-		//{
-		//	lineRenderer.SetPosition(1, shotHit.point + shotRay.direction);
-		//}
-
-
 	}
+
 	void OnDrawGizmos()
 	{
 		if (isEnable == false)
