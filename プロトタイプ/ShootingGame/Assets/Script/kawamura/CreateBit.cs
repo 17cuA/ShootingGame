@@ -29,7 +29,7 @@ public class CreateBit : MonoBehaviour
 		//bit_Left = Resources.Load("Bit_Left") as GameObject;
 		//bit_Under = Resources.Load("Bit_Under") as GameObject;
 		//bit_Right = Resources.Load("Bit_Right") as GameObject;
-		bits = Resources.Load("Bits2") as GameObject;
+		bits = Resources.Load("TwoBits") as GameObject;
 
 	}
 
