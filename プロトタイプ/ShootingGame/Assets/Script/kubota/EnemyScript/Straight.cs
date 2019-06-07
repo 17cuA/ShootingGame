@@ -17,6 +17,7 @@ public class Straight : character_status
 		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 		transform.eulerAngles = new Vector3(0, -180, 0);
 		Dn = gameObject.GetComponent<Direction>();
+		HP_Setting();
 	}
 
 	// Update is called once per frame
@@ -41,31 +42,15 @@ public class Straight : character_status
 		}
 
     }
-	void Died_Process(float hp)
-	{
-		//体力が1未満だったらオブジェクトの消去
-		if (hp < 1)
-        { 
-            Game_Master.MY.Score_Addition(100);
-            if (Item_Flag==true)
-            {
-                Instantiate(Item, transform.position, transform.rotation);
-            }
-			Dn.Create_Particle();
 
-			Debug.Log("hei");
-			Destroy(gameObject);
-
-		}
-	}
 	private void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.transform.name == "Player_Bullet(Clone)")
+		if (col.gameObject.transform.tag == "Player_Bullet")
 		{
 			//弾のダメージを取得するための弾のステータスの情報取得
 			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
 			//弾のダメージの値だけ体力を減らす
-			hp -= Bs.attack_damage;
+			hp -= (int)Bs.attack_damage;
 			//------------------------------
 		}
 

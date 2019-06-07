@@ -1,6 +1,9 @@
 ﻿//作成日2019/04/22
 //弾の移動管理
 //作成者:佐藤翼
+/*
+ * 2019/06/06	バレットの挙動をオブジェクトプーリングの形式に変更しました
+ */
 using UnityEngine;
 
 public class bullet_status : MonoBehaviour
@@ -15,8 +18,6 @@ public class bullet_status : MonoBehaviour
 	private Rigidbody rb;//rigidbody、物理系
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
-	private float DTime;        //デストロイまでの時間のカウント
-	private int Destroy_Time;   //デストロイする時間
 	private Vector3 progressVector_F;       //　自身の進行ベクトル
 	public Vector3 ProgressVector_F //　自身の進行ベクトル
 	{
@@ -29,8 +30,6 @@ public class bullet_status : MonoBehaviour
 	void Start()
 	{
 		rb = this.GetComponent<Rigidbody>();//このオブジェクトのrigidbodyを取得
-		DTime = 0;
-		Destroy_Time = 1;
 		MovementDirectionSpecification(transform.right);
 		Bullet_Renderer = GetComponent<Renderer>();
 	}
@@ -46,7 +45,8 @@ public class bullet_status : MonoBehaviour
 		//}
 		if (!Bullet_Renderer.isVisible)
 		{
-			Destroy(gameObject);
+			//Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 	/// <summary>
@@ -66,16 +66,16 @@ public class bullet_status : MonoBehaviour
 	private void OnTriggerEnter(Collider col)
 	{
 		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-		if (gameObject.name == "Enemy_Bullet(Clone)" && col.gameObject.tag == "Player")
+		if (gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player")
 		{
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 
 			//add:0513_takada 爆発エフェクトのテスト
 			AddExplosionProcess();
 		}
-		if (gameObject.name == "Player_Bullet(Clone)" && col.gameObject.tag == "Enemy")
+		if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 
 			//add:0513_takada 爆発エフェクトのテスト
 			AddExplosionProcess();

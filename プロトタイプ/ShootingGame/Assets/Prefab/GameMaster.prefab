@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3106418982908883525}
   - component: {fileID: 541882103}
   - component: {fileID: 541882102}
+  - component: {fileID: 1726588924}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -74,6 +75,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896e1ece35273804a9e14cfb5386364a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 0}
-  Player: {fileID: 0}
-  Boss: {fileID: 0}
+--- !u!114 &1726588924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417715682554785829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df86f7bfaf6f0a0458e49390f1b23323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0, z: 0}

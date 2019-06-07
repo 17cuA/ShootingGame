@@ -13,80 +13,41 @@ public class character_status : MonoBehaviour
 	}
 	protected Chara_Type Type; 
 	public float speed;                                         // スピード
-	public float hp;                                            // 体力
+	public int hp;                                            // 体力
+	private int hp_Max;
 	public Vector3 direction;                                   // 向き
 	public CapsuleCollider capsuleCollider;                     // cillider
     public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
     public int Shot_Delay;                                 // 弾を撃つ時の間隔
-	//public Chara_Type Get_Type(Chara_Type type) { return type; }
-	//// Start is called before the first frame update
-	//void Start()
-	//{
-	//	// Rigidbodyを格納
-	//	rigidbody = GetComponent<Rigidbody>();
-	//	// CapsuleColliderを格納
-	//	capsuleCollider = GetComponent<CapsuleCollider>();
-	//}
 
-	//// Update is called once per frame
-	//void Update()
-	//{
-	//	direction = transform.forward;
+	public void HP_Setting()
+	{
+		hp_Max = hp;
+	}
+	public void Reset_Status()
+	{
+		hp = hp_Max;
+	}
+	public void Died_Process(int hp)
+	{
+		//体力が1未満だったらオブジェクトの消去
+		if (hp < 1)
+		{
+			Game_Master.MY.Score_Addition(100);
+			ParticleCreation(gameObject,0);
 
-	//}
+			//Debug.Log("hei");
+			Reset_Status();
 
-	//// get関数
-	//// hp
-	//public float get_hp()
-	//{
-	//	return hp;
-	//}
-	//// スピード
-	//public float get_speed()
-	//{
-	//	return speed;
-	//}
-	//// Rigidbody
-	//public Rigidbody get_rigidbody()
-	//{
-	//	return rigidbody;
-	//}
-	//// CapsuleCollider
-	//public CapsuleCollider get_capsuleCollider()
-	//{
-	//	return capsuleCollider;
-	//}
-	//// 向き
-	//public Vector3 get_direction()
-	//{
-	//	return direction;
-	//}
+			gameObject.SetActive(false);
 
-	//// add関数
-	//// hp
-	//public void add_hp(float addHP)
-	//{
-	//	hp = addHP;
-	//}
-	//// スピード
-	//public void add_speed(float addSpeed)
-	//{
-	//	speed = addSpeed;
-	//}
-	//// Rigidbody
-	//public void add_rigidbody(Rigidbody addRigidbody)
-	//{
-	//	rigidbody = addRigidbody;
-	//}
-	//// CapsuleCollider
-	//public void add_capsuleCollider(CapsuleCollider addCapsuleCollider)
-	//{
-	//	capsuleCollider = addCapsuleCollider;
-	//}
-	//// 向き
-	//public void add_direction(Vector3 addDirection)
-	//{
-	//	direction = addDirection;
-	//}
+		}
+	}
+	public void ParticleCreation(GameObject gameObject, int particleID)
+	{
 
+		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+		Obj_Storage.Storage_Data.particleGameObject = Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
+
+	}
 }

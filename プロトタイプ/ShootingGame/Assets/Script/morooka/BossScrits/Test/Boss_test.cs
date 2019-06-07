@@ -46,7 +46,7 @@ public class Boss_test : MonoBehaviour
 		}
 
 		shurui = attackshurui.bullet;
-		playerData = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
+		//playerData = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
 		resetLocal = hand[0].transform.localPosition;
 
 		num = 0;

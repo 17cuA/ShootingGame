@@ -12,8 +12,6 @@ public class SceneChanger : MonoBehaviour
 	void Update()
 	{
 		if(Player != null) SceneControl();
-
-
 	}
 	public void SceneControl()
 	{
@@ -47,10 +45,10 @@ public class SceneChanger : MonoBehaviour
 		if (SceneManager.GetActiveScene().name == "Stage")
 		{
 			Map = gameObject.GetComponent<MapCreate>();
-			Player = Map.GetPlayer();           //プレイヤーを名前で検索
-			P1 = Player.GetComponent<Player1>();
-			Boss = Map.GetBoss();
-			BA = Boss.GetComponent<BossAll>();
+			//Player = Map.GetPlayer();           //プレイヤーを名前で検索
+			//P1 = Player.GetComponent<Player1>();
+			//Boss = Map.GetBoss();
+			//BA = Boss.GetComponent<BossAll>();
 		}
 	}
 }
