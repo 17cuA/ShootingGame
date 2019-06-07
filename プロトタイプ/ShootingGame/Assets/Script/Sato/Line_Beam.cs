@@ -13,13 +13,14 @@ public class Line_Beam : MonoBehaviour {
 	Transform Laser_Size;
 	bool isEnable = true;
 	float hitstop;
+	Collider coll;
 
 	// Use this for initialization
 	void Awake () {
         beamParticle = GetComponent<ParticleSystem> ();
         lineRenderer = GetComponent<LineRenderer> ();
         Target_Renderer = GetComponent<Renderer>();
-		
+		coll = GetComponent<BoxCollider>();
 	}
 
     // Update is called once per frame
