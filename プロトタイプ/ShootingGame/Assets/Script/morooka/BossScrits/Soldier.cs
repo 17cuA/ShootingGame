@@ -30,7 +30,7 @@ public class Soldier : MonoBehaviour
 	private void Start()
 	{
 		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
-		My_Renderer = GetComponent<SpriteRenderer>();
+		My_Renderer = GetComponent<MeshRenderer>();
 		Position_After_Death = new Vector2(50.0f, 50.0f);
 		Make_Incapacitated();
 		gameObject.SetActive(false);
@@ -61,8 +61,8 @@ public class Soldier : MonoBehaviour
 				}
 				if (transform.position.x <= -40.0f)
 				{
-					//Make_Incapacitated();
-					Is_Attack_Completed = false;
+				Make_Incapacitated();
+				Is_Attack_Completed = false;
 				}
 			}
 	}
