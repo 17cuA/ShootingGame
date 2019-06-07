@@ -73,15 +73,6 @@ public class Bit_Formation_2 : MonoBehaviour
 		//スピード計算
 		step = speed * Time.deltaTime;
 
-		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
-		{
-			if(transform.parent!=parentObj.transform)
-			{
-				//方向転換させる関数の呼び出し
-				Change_In_Direction();
-			}
-		}
-
 		if (bState != BitState.Return)
 		{
 			//Tキーで留めるまたは戻ってこさせる
@@ -160,6 +151,16 @@ public class Bit_Formation_2 : MonoBehaviour
 			}
 
 		}
+		
+		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
+		{
+			if(transform.parent!=parentObj.transform)
+			{
+				//方向転換させる関数の呼び出し
+				Change_In_Direction();
+			}
+		}
+
     }
 
 	//ビットンの方向転換

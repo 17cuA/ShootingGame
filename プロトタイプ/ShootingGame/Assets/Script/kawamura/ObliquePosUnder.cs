@@ -10,6 +10,8 @@ public class ObliquePosUnder : MonoBehaviour
 	float rotaZ_Mini;			//開いている角度の最小
 	float rotaZ_Max;			//開いている角度の最大
 
+	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
+
     void Start()
     {
         rotaZ = -15.0f;
@@ -20,6 +22,7 @@ public class ObliquePosUnder : MonoBehaviour
 
     void Update()
     {
+
 		//ビットンの角度を小さくさせる
 		if(Input.GetKeyDown(KeyCode.J))
 		{
@@ -47,5 +50,23 @@ public class ObliquePosUnder : MonoBehaviour
 		}
 		//角度を代入
         transform.rotation=Quaternion.Euler(0,0,rotaZ);
+
+		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
+		{
+			//方向転換させる関数の呼び出し
+			Change_In_Direction();
+			
+		}
+
     }
+
+	//ビットンの方向転換
+	private void Change_In_Direction()
+	{
+		//方向に−１をかけて反転した物を入れる
+		Direction *= new Quaternion(0, -1, 0, 0);
+		transform.rotation = Direction;
+	}
+
+
 }
