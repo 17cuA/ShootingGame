@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; // ←※これを忘れずに入れる
+using UnityEngine.UI; 
 
 public class Energ_Bar: MonoBehaviour {
 
@@ -14,7 +14,7 @@ public class Energ_Bar: MonoBehaviour {
     Max_Energy=100.0f;
     // スライダーを取得する
     _slider = GameObject.Find("Slider").GetComponent<Slider>();
-    Debug.Log(Energy);
+	//アイテムを取得した時
 	Object = GameObject.Find("Player_Item");
   }
 
