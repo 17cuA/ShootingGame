@@ -21,7 +21,7 @@ public class Energ_Bar: MonoBehaviour {
   void Update ()
   {
 	//Energy = playerScript.energy;
-	Max_Energy += playerScript.energy_Max;
+	//Max_Energy += playerScript.energy_Max;
 	if (Input.GetMouseButton(1))
 	{
 		if (Energy >= 0.0f) Energy -= 0.7f;

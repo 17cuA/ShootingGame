@@ -29,7 +29,7 @@ public class Soldier : MonoBehaviour
 
 	private void Start()
 	{
-		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
+		//Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
 		My_Renderer = GetComponent<MeshRenderer>();
 		Position_After_Death = new Vector2(50.0f, 50.0f);
 		Make_Incapacitated();

@@ -77,7 +77,7 @@ public class Queen_Bee : MonoBehaviour
 		//Laser = Resources.Load("morooka/" + BA.Status_Data.Own_Record[(int)Game_Master.BOSS_DATA_ELEMENTS.eBULLET_NAME_3]) as GameObject;
 		Now_Attack = new BEE_ATTACK();
 		Now_Attack = BEE_ATTACK.eSOLDIER_BEE;
-		Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
+		//Player_Data = Game_Master.MY.GetComponent<MapCreate>().GetPlayer();
 	}
 
 	void Update()
