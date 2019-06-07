@@ -58,8 +58,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7057074789825458409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2, y: 0.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.1414, y: 0.4, z: -0.000000043351}
+  m_LocalScale: {x: 0.63635, y: 0.63635, z: 0.63635}
   m_Children:
   - {fileID: 7057074789825817823}
   - {fileID: 7057074789825817821}
@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920cf7e5b7469ba49a3b045d329fea65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 15
   hp: 10
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 30
+  Shot_DelayMax: 3
   Shot_Delay: 0
   Remaining: 0
   shot_Mazle: {fileID: 0}
@@ -1076,6 +1076,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8d88570aae3f7504892b7efb11f1a730, type: 2}
+    - target: {fileID: 2300000, guid: 6d941afafa4ab3047b8a9405a99c2eff, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 6d941afafa4ab3047b8a9405a99c2eff, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 6d941afafa4ab3047b8a9405a99c2eff, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 6d941afafa4ab3047b8a9405a99c2eff, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d941afafa4ab3047b8a9405a99c2eff, type: 3}
 --- !u!4 &6031678299433112028 stripped
