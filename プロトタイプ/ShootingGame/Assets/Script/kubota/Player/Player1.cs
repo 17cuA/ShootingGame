@@ -18,8 +18,8 @@ public class Player1 : character_status
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	public float energy;						 //レーザー打つためのエネルギー
 	public float energy_Max;            //エネルギーの最大値
-	private Obj_Storage OS;				//ストレージからバレットの情報取得
-		public enum Bullet_Type　　//弾の種類
+	private Obj_Storage OS;             //ストレージからバレットの情報取得
+	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
 		Diffusion,

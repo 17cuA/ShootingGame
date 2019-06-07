@@ -13,7 +13,6 @@ public class Obj_Storage : MonoBehaviour
 {
 	public static Obj_Storage Storage_Data;
 
-
 	//マップ作製に使うプレハブ
 	//リソースフォルダから取得するため、インスペクターは使わない
 	private GameObject Enemy_Prefab;
