@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObliquePosUnder : MonoBehaviour
 {
-	float rotaZ;				//角度の値
+	public float rotaZ;				//角度の値
 	float rotaZ_ChangeValue;	//角度の変化値
 	float rotaZ_Mini;			//開いている角度の最小
 	float rotaZ_Max;			//開いている角度の最大
@@ -22,9 +22,10 @@ public class ObliquePosUnder : MonoBehaviour
 
     void Update()
     {
+		Direction = transform.rotation;
 
 		//ビットンの角度を小さくさせる
-		if(Input.GetKeyDown(KeyCode.J))
+		if (Input.GetKeyDown(KeyCode.J))
 		{
 			//角度を変化値分小さく
 			rotaZ += rotaZ_ChangeValue;
@@ -49,7 +50,8 @@ public class ObliquePosUnder : MonoBehaviour
 
 		}
 		//角度を代入
-        transform.rotation=Quaternion.Euler(0,0,rotaZ);
+        transform.rotation=Quaternion.Euler(transform.rotation.x,transform.rotation.y,rotaZ);
+		Direction = transform.rotation;
 
 		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
 		{
@@ -64,7 +66,7 @@ public class ObliquePosUnder : MonoBehaviour
 	private void Change_In_Direction()
 	{
 		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1, 0, 0);
+		Direction *= new Quaternion(0, -1, -1, 0);
 		transform.rotation = Direction;
 	}
 

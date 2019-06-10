@@ -39,7 +39,7 @@ public class CreateBit : MonoBehaviour
 		//{
 		//	playerObj = GameObject.Find("Player_Demo_1(Clone)");
 		//}
-		if (Input.GetKeyDown(KeyCode.B))
+		if (Input.GetKeyDown(KeyCode.B)|| Input.GetButtonDown("Fire4"))
 		{
 			Instantiate(bits, transform.position, transform.rotation);
 			//Create();
