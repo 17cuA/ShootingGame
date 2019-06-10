@@ -35,12 +35,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 //SceneViewを取得するために宣言、エディタ外では使えないのでUNITY_EDITORで囲む
 using UnityEditor;
-#endif
+//#endif
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]     //playモードじゃなくても、スクリプトが動くようにするもの
 public class LineCreater : MonoBehaviour
 {
 	//プロパティ───────────────────────────────────────

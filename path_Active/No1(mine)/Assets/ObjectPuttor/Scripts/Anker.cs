@@ -11,7 +11,7 @@
 // 2019/04/19 [杉山 雅哉] 使用を変更し、座標も対角線上に置く。
 // 2019/05/09 [杉山 雅哉] 次のアンカーが生成されたとき、自動的にいい感じの角度に変える
 // 2019/05/30 [杉山 雅哉] ハンドルの片方の長さが変わったとき、もう片方は距離を維持して対角線上になるように修正する
-//
+// 2019/06/10 [久保田 達己] playモードで動くように
 // TODO：
 //
 //──────────────────────────────────────────────────────────────────────────
@@ -19,13 +19,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 //SceneViewを取得するために宣言、エディタ外では使えないのでUNITY_EDITORで囲む
 using UnityEditor;
-#endif
+//#endif
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]		//playモードじゃなくても、スクリプトが動くようにするもの
 public class Anker : MonoBehaviour
 {
 	//変数宣言──────────────────────────────────────────────────────────────────────
@@ -158,7 +158,7 @@ public class Anker : MonoBehaviour
 	{
 		gameObject.hideFlags = HideFlags.None;
 
-
+		//ハンドルの長さを調節
 		if (NextHandlePos != prevNextPosition)
 		{
 			prevHandle.transform.localPosition = VersusPosition(nextHandle.transform.localPosition, prevHandle.transform.localPosition);
