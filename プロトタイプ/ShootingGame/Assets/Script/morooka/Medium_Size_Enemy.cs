@@ -76,7 +76,7 @@ public class Medium_Size_Enemy : character_status
 		{
 			for (int i = 0; i < transform.childCount; i++)
 			{
-				GameObject gameObject = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+				GameObject gameObject = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
 				gameObject.transform.position = Shot_Mazle[i].transform.position;
 				gameObject.transform.right = Shot_Mazle[i].transform.right;
 			}

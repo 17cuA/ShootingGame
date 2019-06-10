@@ -19,7 +19,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Player_Prefab;		//プレイヤーのプレハブ
 	private GameObject Boss_Prefab;			//ボスのプレハブ
 	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
-	private GameObject Bullet_Prefab_E;
+	private GameObject Bullet_Prefab_E;		//エネミーの弾のPrefab情報
 	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
 
 	//実際に作られたオブジェクト
@@ -27,6 +27,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Player;
 	public Object_Pooling Boss;
 	public Object_Pooling PlayerBullet;
+	public Object_Pooling EnemyBullet;
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -56,7 +57,8 @@ public class Obj_Storage : MonoBehaviour
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");						//プレイヤー生成
 		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");								//ボス生成
-		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");			//プレイヤーのバレットを生成
+		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");         //プレイヤーのバレットを生成
+		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");			//エネミーのバレットを生成
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納

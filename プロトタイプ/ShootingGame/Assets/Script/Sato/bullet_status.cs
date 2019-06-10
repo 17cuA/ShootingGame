@@ -21,6 +21,7 @@ public class bullet_status : MonoBehaviour
 	void Start()
 	{
 		Bullet_Renderer = GetComponent<Renderer>();
+		//gameObject.SetActive(false);
 	}
 
 	void Update()
