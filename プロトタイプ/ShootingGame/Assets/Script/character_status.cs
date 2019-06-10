@@ -57,6 +57,6 @@ public class character_status : MonoBehaviour
 	public void ParticleCreation(GameObject gameObject, int particleID)
 	{
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-		Obj_Storage.Storage_Data.particleGameObject = Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
+		Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
 	}
 }
