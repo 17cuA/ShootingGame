@@ -18,11 +18,17 @@ public class Medium_Size_Enemy : character_status
 	private Vector3[] corner_position;
 	private bool Is_Up { get; set; }
 	private bool Is_Right { get; set; }
+	private GameObject[] Shot_Mazle { get; set; }
 
 	void Start()
     {
 		Is_Up = true;
 		Is_Right = true;
+		Shot_Mazle = new GameObject[transform.childCount];
+		for(int i = 0; i< transform.childCount;i++)
+		{
+			Shot_Mazle[i] = transform.GetChild(i).gameObject;
+		}
     }
 
     void Update()
@@ -63,6 +69,16 @@ public class Medium_Size_Enemy : character_status
 			if (transform.position == corner_position[3])
 			{
 				Is_Up = true;
+			}
+		}
+
+		if (Game_Master.MY.Frame_Count % Shot_DelayMax == 0)
+		{
+			for (int i = 0; i < transform.childCount; i++)
+			{
+				GameObject gameObject = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+				gameObject.transform.position = Shot_Mazle[i].transform.position;
+				gameObject.transform.right = Shot_Mazle[i].transform.right;
 			}
 		}
 	}
