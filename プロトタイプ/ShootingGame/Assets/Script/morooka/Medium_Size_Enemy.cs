@@ -7,6 +7,7 @@
 // 2019/06/07：移動、攻撃処理
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
+using StorageReference;
 
 public class Medium_Size_Enemy : character_status
 {
@@ -76,9 +77,7 @@ public class Medium_Size_Enemy : character_status
 		{
 			for (int i = 0; i < transform.childCount; i++)
 			{
-				GameObject gameObject = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
-				gameObject.transform.position = Shot_Mazle[i].transform.position;
-				gameObject.transform.right = Shot_Mazle[i].transform.right;
+				Object_Instantiation.Object_Reboot("Enemy_Bullet_01", Shot_Mazle[i].transform.position, Shot_Mazle[i].transform.right);
 			}
 		}
 	}

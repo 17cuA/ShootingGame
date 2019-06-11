@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class bullet_status : MonoBehaviour
 {
-	public enum Bullet_Type
-	{
-		Single,
-		Double,
-		None
-	}
-	public Bullet_Type Type;
+	//public enum Bullet_Type
+	//{
+	//	Single,
+	//	Double,
+	//	None
+	//}
+	//public Bullet_Type Type;
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
