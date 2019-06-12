@@ -21,6 +21,9 @@ public class Medium_Size_Enemy : character_status
 	private bool Is_Right { get; set; }
 	private GameObject[] Shot_Mazle { get; set; }
 
+	private float calculating_number { get; set; }
+
+
 	void Start()
     {
 		Is_Up = true;
@@ -30,48 +33,54 @@ public class Medium_Size_Enemy : character_status
 		{
 			Shot_Mazle[i] = transform.GetChild(i).gameObject;
 		}
-    }
+
+		calculating_number = 2;
+	}
 
     void Update()
     {
-		// 左上
-        if(transform.position != corner_position[0] && Is_Up && !Is_Right)
-		{
-			transform.position = Vector3.Lerp(transform.position, corner_position[0], speed);
-			if(transform.position == corner_position[0])
-			{
-				Is_Right = true;
-			}
-		}
-		// 右上
-       else  if(transform.position != corner_position[1] && Is_Up && Is_Right)
-		{
-			transform.position = Vector3.Lerp(transform.position, corner_position[1], speed);
-			if (transform.position == corner_position[1])
-			{
-				Is_Up = false;
-			}
+		print(Game_Master.MY.Frame_Count);
+		float pos_x = Mathf.Cos(calculating_number * Mathf.PI * Time.time);
+		float pos_y = Mathf.Sin(calculating_number * calculating_number * Mathf.PI * Time.time);
+		transform.position = new Vector2(pos_x, pos_y);
+		//// 左上
+  //      if(transform.position != corner_position[0] && Is_Up && !Is_Right)
+		//{
+		//	transform.position = Vector3.Lerp(transform.position, corner_position[0], speed);
+		//	if(transform.position == corner_position[0])
+		//	{
+		//		Is_Right = true;
+		//	}
+		//}
+		//// 右上
+  //     else  if(transform.position != corner_position[1] && Is_Up && Is_Right)
+		//{
+		//	transform.position = Vector3.Lerp(transform.position, corner_position[1], speed);
+		//	if (transform.position == corner_position[1])
+		//	{
+		//		Is_Up = false;
+		//	}
 
-		}
-		// 右下
-		else if(transform.position != corner_position[2] && !Is_Up && Is_Right)
-		{
-			transform.position = Vector3.Lerp(transform.position, corner_position[2], speed);
-			if (transform.position == corner_position[2])
-			{
-				Is_Right = false;
-			}
+		//}
+		//// 右下
+		//else if(transform.position != corner_position[2] && !Is_Up && Is_Right)
+		//{
+		//	transform.position = Vector3.Lerp(transform.position, corner_position[2], speed);
+		//	if (transform.position == corner_position[2])
+		//	{
+		//		Is_Right = false;
+		//	}
 
-		}
-		// 左下
-		else if(transform.position != corner_position[3] && !Is_Up && !Is_Right)
-		{
-			transform.position = Vector3.Lerp(transform.position, corner_position[3], speed);
-			if (transform.position == corner_position[3])
-			{
-				Is_Up = true;
-			}
-		}
+		//}
+		//// 左下
+		//else if(transform.position != corner_position[3] && !Is_Up && !Is_Right)
+		//{
+		//	transform.position = Vector3.Lerp(transform.position, corner_position[3], speed);
+		//	if (transform.position == corner_position[3])
+		//	{
+		//		Is_Up = true;
+		//	}
+		//}
 
 		if (Game_Master.MY.Frame_Count % Shot_DelayMax == 0)
 		{
