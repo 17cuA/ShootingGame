@@ -22,8 +22,8 @@ public class Medium_Size_Enemy : character_status
 	private GameObject[] Shot_Mazle { get; set; }
 
 	private float calculating_number { get; set; }
-
-
+	private Vector3 Origin{get;set;}
+	float t;
 	void Start()
     {
 		Is_Up = true;
@@ -35,14 +35,17 @@ public class Medium_Size_Enemy : character_status
 		}
 
 		calculating_number = 2;
+		Origin = transform.position;
 	}
 
     void Update()
     {
-		print(Game_Master.MY.Frame_Count);
-		float pos_x = Mathf.Cos(calculating_number * Mathf.PI * Time.time);
-		float pos_y = Mathf.Sin(calculating_number * calculating_number * Mathf.PI * Time.time);
-		transform.position = new Vector2(pos_x, pos_y);
+		t += (Game_Master.MY.Frame_Count / speed /60);
+		float pos_x = Mathf.Sin(3f * t + 0.6f);
+		float pos_y = Mathf.Cos(2f * t) * 3.0f;
+		Vector3 posTemp = new Vector3(pos_x, pos_y, 0.0f);
+
+		transform.position = posTemp + Origin;
 		//// 左上
   //      if(transform.position != corner_position[0] && Is_Up && !Is_Right)
 		//{
