@@ -88,7 +88,7 @@ public class LineCreater : MonoBehaviour
 		if (!CheckError()) return;
 
 		UpdateAnkerCount();
-		Create_Line();
+		//Create_Line();
 		lineRenderer.SetPositions(UpdateCurveLine());
 	}
 	//────────────────────────────────────────────
@@ -332,7 +332,7 @@ public class LineCreater : MonoBehaviour
 	}
 	//マウスクリック判定処理─────────────────────────────────
 #if UNITY_EDITOR
-	private void Create_Line()
+	private void OnDrawGizmos()
 	{
 		//Debug.Log(Event.current.keyCode);
 		//マウスのクリックがあったら処理
@@ -347,7 +347,7 @@ public class LineCreater : MonoBehaviour
 		//マウスの位置情報の取得
 		Vector3 mousePos = Event.current.mousePosition;
 		//Y軸方向の補間
-		//mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
+		mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
 		//Ray..伸びる線のこと
 		//シーンビューでマウスをクリックすると伸びる線を作成（画面には見えない）
 		Ray ray = SceneView.currentDrawingSceneView.camera.ScreenPointToRay(mousePos);
