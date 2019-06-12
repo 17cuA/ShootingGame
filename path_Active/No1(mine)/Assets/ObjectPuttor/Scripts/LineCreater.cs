@@ -35,12 +35,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 //SceneViewを取得するために宣言、エディタ外では使えないのでUNITY_EDITORで囲む
 using UnityEditor;
-//#endif
+#endif
 
-//[ExecuteInEditMode]     //playモードじゃなくても、スクリプトが動くようにするもの
+[ExecuteInEditMode]     //playモードじゃなくても、スクリプトが動くようにするもの
 public class LineCreater : MonoBehaviour
 {
 	//プロパティ───────────────────────────────────────
@@ -53,8 +53,8 @@ public class LineCreater : MonoBehaviour
 	[SerializeField] public LineRenderer lineRenderer;
 	private int prevChildCount;
 	private EventType prevEventType;
-	private const int debugDivision = 20;			// 分割数
-	//────────────────────────────────────────────
+	private const int debugDivision = 20;           // 分割数
+													//────────────────────────────────────────────
 
 	//初期化─────────────────────────────────────────
 	private void Awake()
@@ -88,7 +88,7 @@ public class LineCreater : MonoBehaviour
 		if (!CheckError()) return;
 
 		UpdateAnkerCount();
-
+		Create_Line();
 		lineRenderer.SetPositions(UpdateCurveLine());
 	}
 	//────────────────────────────────────────────
@@ -332,7 +332,7 @@ public class LineCreater : MonoBehaviour
 	}
 	//マウスクリック判定処理─────────────────────────────────
 #if UNITY_EDITOR
-	private void OnDrawGizmos()
+	private void Create_Line()
 	{
 		//Debug.Log(Event.current.keyCode);
 		//マウスのクリックがあったら処理
@@ -347,10 +347,11 @@ public class LineCreater : MonoBehaviour
 		//マウスの位置情報の取得
 		Vector3 mousePos = Event.current.mousePosition;
 		//Y軸方向の補間
-		mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
+		//mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
 		//Ray..伸びる線のこと
 		//シーンビューでマウスをクリックすると伸びる線を作成（画面には見えない）
 		Ray ray = SceneView.currentDrawingSceneView.camera.ScreenPointToRay(mousePos);
+		//Ray ray = Camera.current.ScreenPointToRay(mousePos);
 		//当たり判定用の変数作成
 		RaycastHit hit = new RaycastHit();
 		//当たり判定の処理
