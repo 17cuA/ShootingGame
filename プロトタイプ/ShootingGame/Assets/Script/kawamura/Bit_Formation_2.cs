@@ -155,6 +155,7 @@ public class Bit_Formation_2 : MonoBehaviour
 		}
 		
 		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire3"))
+		if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
 		{
 			if(transform.parent!=parentObj.transform)
 			{
@@ -170,6 +171,8 @@ public class Bit_Formation_2 : MonoBehaviour
 	{
 		//方向に−１をかけて反転した物を入れる
 		transform.localScale = new Vector3 ( transform.localScale.x, transform.localScale.y*-1, transform.localScale.z);
+		Direction *= new Quaternion(0, -1, 0, 0);
+		transform.rotation = Direction;
 	}
 
 	void Bit_Stay()
