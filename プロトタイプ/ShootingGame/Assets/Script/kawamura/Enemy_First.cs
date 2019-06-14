@@ -23,11 +23,16 @@ public class Enemy_First : MonoBehaviour
 	float _z;
 
 	int frame = 0;
+	public float speedX;
+	public float speedY;
 
 	bool isTurn;
-    void Start()
+	bool isAddition = false;
+
+	void Start()
     {
-		speed = 5.0f;
+		speedX = 5.0f;
+		speedY = 5.0f;
 	}
 
 	void Update()
@@ -37,7 +42,7 @@ public class Enemy_First : MonoBehaviour
 			case State.Turn:
 				if(!isTurn)
 				{
-					velocity = gameObject.transform.rotation * new Vector3(-speed, 0, 0);
+					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
 					if (transform.position.x < 9)
 					{
@@ -50,37 +55,59 @@ public class Enemy_First : MonoBehaviour
 				}
 				else if(isTurn)
 				{
-					_y = radius * Mathf.Cos(timeCnt * circleSpeed);
-					_z = radius * Mathf.Sin(timeCnt * circleSpeed);
+					velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+					gameObject.transform.position += velocity * Time.deltaTime;
 
-					//}
-					//else
-					//{
-					//	_y = radius * Mathf.Cos(timeCnt * speed);
-					//	_z = radius * Mathf.Sin(timeCnt * speed);
-					//	isStart = false;
-					//}
-					//_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-					//_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
+					speedX -= 0.12f;
 
-					transform.position = new Vector3(transform.position.x + _y, transform.position.y - _z, transform.position.z );
-					timeCnt += 0.01f;
-					if (timeCnt > 3.0f)
+					if (speedX < -5.0f)
 					{
-						timeCnt = 0;
+						speedX = -5.0f;
 					}
+
+					//_y = radius * Mathf.Cos(timeCnt * circleSpeed);
+					//_z = radius * Mathf.Sin(timeCnt * circleSpeed);
+
+					////}
+					////else
+					////{
+					////	_y = radius * Mathf.Cos(timeCnt * speed);
+					////	_z = radius * Mathf.Sin(timeCnt * speed);
+					////	isStart = false;
+					////}
+					////_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
+					////_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
+
+					//transform.position = new Vector3(transform.position.x + _y, transform.position.y - _z, transform.position.z );
+					//timeCnt += 0.01f;
+					//if (timeCnt > 3.0f)
+					//{
+					//	timeCnt = 0;
+					//}
 
 				}
 				break;
 
 			case State.Generated:
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 		}
     }
 
-	public void SetState(State s)
+	public void SetState(int num)
 	{
-		eState = s;
+		switch(num)
+		{
+			case 0:
+				eState = State.Turn;
+				break;
+
+			case 1:
+				eState = State.Generated;
+				break;
+		}
+		//eState = s;
 	}
 }
