@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3987545026646874053}
   - component: {fileID: 3770310499355279233}
   - component: {fileID: 6193215085923437194}
-  - component: {fileID: 2077797228960413374}
   - component: {fileID: 7182953129740026949}
+  - component: {fileID: 8752064626016516722}
   m_Layer: 0
   m_Name: Player_Missile
   m_TagString: Untagged
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197564034663427417}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3770310499355279233
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -88,26 +88,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197564034663427417}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2077797228960413374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197564034663427417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f30dd9de3e67c1d489af2df0e9ba2dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shot_speed: 0.4
-  attack_damage: 1
-  Travelling_Direction: {x: 0, y: 0, z: 0}
 --- !u!54 &7182953129740026949
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -124,3 +109,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8752064626016516722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197564034663427417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a50f350bfd8a945a7686de55faed17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shot_speed: 0.2
+  attack_damage: 9
+  Travelling_Direction: {x: 0, y: -0.1, z: 0}
+  intervalChange: 1

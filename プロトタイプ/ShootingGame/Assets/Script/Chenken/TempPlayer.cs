@@ -43,7 +43,7 @@ public class TempPlayer : MonoBehaviour
 		float y = Input.GetAxis("Vertical");
 		transform.position = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
 
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKey(KeyCode.Space))
 		{
 			if(activeMissile)
 			{
@@ -51,7 +51,9 @@ public class TempPlayer : MonoBehaviour
 				{
 					//var missile = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
 					//missile.transform.position = transform.position;
-					Object_Instantiation.Object_Reboot("Player_Missile", transform.position, Quaternion.identity);
+					Object_Instantiation.Object_Reboot("Player_Missile", transform.position, transform.right);
+					missileDelay = .0f;
+					canPlayMissile = false;
 				}
 			}
 		}
