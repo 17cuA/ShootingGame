@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7378987120214824057}
   - component: {fileID: 8742663739075480171}
   - component: {fileID: 7893161473832632588}
-  - component: {fileID: 6763658474058333977}
+  - component: {fileID: 7102598851079714349}
   m_Layer: 0
   m_Name: Player_Bullet
   m_TagString: Player_Bullet
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6763658474058333977
+--- !u!114 &7102598851079714349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6763658474058333979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ab7c518a82e3140884ed0bab7aa0cf, type: 3}
+  m_Script: {fileID: 11500000, guid: f30dd9de3e67c1d489af2df0e9ba2dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
   shot_speed: 0.5
   attack_damage: 1
+  Travelling_Direction: {x: 0, y: 0, z: 0}
