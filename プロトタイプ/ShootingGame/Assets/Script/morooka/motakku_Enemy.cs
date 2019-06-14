@@ -5,8 +5,7 @@
  * 2019/06/14 攻撃の追加
  */
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using StorageReference;
 
 public class motakku_Enemy : character_status
 {
@@ -24,12 +23,11 @@ public class motakku_Enemy : character_status
 			Shot_Mazle[i] = transform.GetChild(i).gameObject;
 		}
 	}
-void func()
-{
-
-}
 	void Update()
     {
-       
+       if(Game_Master.MY.Frame_Count % Shot_DelayMax == 0)
+		{
+			Object_Instantiation.Object_Reboot("Player_Missile", transform.position, Quaternion.identity);
+		}
     }
 }
