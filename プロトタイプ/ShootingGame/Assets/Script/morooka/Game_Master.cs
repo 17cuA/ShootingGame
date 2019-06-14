@@ -59,7 +59,6 @@ public class Game_Master : MonoBehaviour
     public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
     public uint display_score{private set; get;}                // 表示スコア
-    public byte[] accumulate_score{private set; get;}           // 溜めスコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
@@ -117,7 +116,6 @@ public class Game_Master : MonoBehaviour
     /// </summary>
     private void Stage_Start()
     {
-        accumulate_score = new byte[10];
         Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
 
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
