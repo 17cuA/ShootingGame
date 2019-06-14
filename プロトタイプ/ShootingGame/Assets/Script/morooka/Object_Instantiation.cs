@@ -50,6 +50,11 @@ namespace StorageReference
 					obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
 					break;
 				#endregion
+				#region
+				case "Player_Missile":
+					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+					break;
+				#endregion
 				default:
 					break;
 			}

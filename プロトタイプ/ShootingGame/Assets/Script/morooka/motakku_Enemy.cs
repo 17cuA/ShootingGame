@@ -10,12 +10,15 @@ using System.Collections.Generic;
 
 public class motakku_Enemy : character_status
 {
-	private GameObject[] Shot_Mazle { get; set; }		//攻撃の発射口に使用
-	private GameObject[] Beam_Mazle { get; set; }	//ビーム型バレットの発射口
+	private const int Beam_Muzzle_Cnt = 2;		// ビーム型のバレット
+	private const int Bullet_Muzzle_Cnt = 6;
+	private GameObject[] Beam_Mazle { get; set; }		//ビーム型バレットの発射口
+	private GameObject[] Shot_Mazle { get; set; }       //攻撃の発射口に使用
 
 	void Start()
     {
-		//Shot_Mazle = new GameObject[];
+		Beam_Mazle = new GameObject[Beam_Muzzle_Cnt];
+		Shot_Mazle = new GameObject[Bullet_Muzzle_Cnt];
 		for (int i = 0; i < transform.childCount; i++)
 		{
 			Shot_Mazle[i] = transform.GetChild(i).gameObject;
