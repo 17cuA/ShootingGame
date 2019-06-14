@@ -14,6 +14,8 @@ public class Bit_Shot : MonoBehaviour
 	//public GameObject shot_Mazle;
 
 	float shot_Delay;
+
+	public bool isShot = true;
 	void Start()
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
@@ -24,10 +26,12 @@ public class Bit_Shot : MonoBehaviour
 
 	void Update()
 	{
-        
-		if (shot_Delay > pl1.Shot_DelayMax * 2)
+        if(isShot)
 		{
-			Bullet_Create();
+			if (shot_Delay > pl1.Shot_DelayMax * 2)
+			{
+				Bullet_Create();
+			}
 		}
 		shot_Delay++;
 

@@ -8,28 +8,36 @@ public class CreateBit : MonoBehaviour
 {
 	GameObject playerObj;
 	GameObject[] tagObjects;
+	GameObject[] followPosObjcs = new GameObject[4];
 
 	GameObject bitObj;
 	GameObject bitSet;
-	public GameObject bits;
+	//public GameObject bits;
 
-	//public GameObject bit_Up;
-	//public GameObject bit_Left;
-	//public GameObject bit_Under;
-	//public GameObject bit_Right;
+	//Vector3[] followPositions = new Vector3[4];
 
-	//public int num;
+	public GameObject bit_First;
+	public GameObject bit_Second;
+	public GameObject bit_Third;
+	public GameObject bit_Fourth;
+
+	public int num;
 
 	Bit_Move bm1;
 	Bit_Move bm2;
 
 	void Start()
 	{
-		//bit_Up = Resources.Load("Bit_Top") as GameObject;
-		//bit_Left = Resources.Load("Bit_Left") as GameObject;
-		//bit_Under = Resources.Load("Bit_Under") as GameObject;
-		//bit_Right = Resources.Load("Bit_Right") as GameObject;
-		bits = Resources.Load("Bits2") as GameObject;
+		bit_First  = Resources.Load("Bit_First") as GameObject;
+		bit_Second = Resources.Load("Bit_Second") as GameObject;
+		bit_Third  = Resources.Load("Bit_Third") as GameObject;
+		bit_Fourth = Resources.Load("Bit_Fourth") as GameObject;
+		//bits = Resources.Load("TwoBits") as GameObject;
+
+		followPosObjcs[0] = GameObject.Find("FollowPosFirst");
+		followPosObjcs[1] = GameObject.Find("FollowPosSecond");
+		followPosObjcs[2] = GameObject.Find("FollowPosThird");
+		followPosObjcs[3] = GameObject.Find("FollowPosFourth");
 
 	}
 
@@ -39,41 +47,42 @@ public class CreateBit : MonoBehaviour
 		//{
 		//	playerObj = GameObject.Find("Player_Demo_1(Clone)");
 		//}
-		if (Input.GetKeyDown(KeyCode.B))
+		if (Input.GetKeyDown(KeyCode.B)|| Input.GetButtonDown("Fire4"))
 		{
-			Instantiate(bits, transform.position, transform.rotation);
-			//Create();
+
+			//Instantiate(bits, transform.position, transform.rotation);
+			Create();
 		}
 	}
 
 	void Create()
 	{
 		//Instantiate(bits, playerObj.transform.position, playerObj.transform.rotation);
-		//	switch(num)
-		//	{
-		//		case 0:
-		//			Instantiate(bit_Up, transform.position, transform.rotation);
-		//			num++;
-		//			break;
+		switch (num)
+		{
+			case 0:
+				Instantiate(bit_First, followPosObjcs[0].transform.position, transform.rotation);
+				num++;
+				break;
 
-		//		case 1:
+			case 1:
 
-		//			bitSet = Instantiate(bit_Left, transform.position, transform.rotation);
-		//			num++;
-		//			break;
+				bitSet = Instantiate(bit_Second, followPosObjcs[0].transform.position, transform.rotation);
+				num++;
+				break;
 
-		//		case 2:
-		//			bitSet = Instantiate(bit_Under, transform.position, transform.rotation);
-		//			num++;
-		//			break;
+			case 2:
+				bitSet = Instantiate(bit_Third, followPosObjcs[0].transform.position, transform.rotation);
+				num++;
+				break;
 
-		//		case 3:
-		//			bitSet = Instantiate(bit_Right, transform.position, transform.rotation);
-		//			num++;
-		//			break;
+			case 3:
+				bitSet = Instantiate(bit_Fourth, followPosObjcs[0].transform.position, transform.rotation);
+				num++;
+				break;
 
-		//		default:
-		//			break;
-		//	}
+			default:
+				break;
+		}
 	}
 }
