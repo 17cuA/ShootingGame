@@ -60,12 +60,7 @@ public class Player1 : character_status
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
-				//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
-				if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
-				{
-					//方向転換させる関数の呼び出し
-					Change_In_Direction();
-				}
+				//プレイヤーの移動処理
 				Player_Move();
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -78,12 +73,7 @@ public class Player1 : character_status
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-				//対応したボタンを押すとプレイヤーの方向がかわる（後ろを向く）
-				if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
-				{
-					//方向転換させる関数の呼び出し
-					Change_In_Direction();
-				}
+				//プレイヤーの移動処理
 				Player_Move();
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -98,7 +88,7 @@ public class Player1 : character_status
 			default:
 				break;
 		}
-						Shot_Delay++;
+		Shot_Delay++;
 	}
     //collisionの時はisTriggerにチェックを入れないこと
     //コライダーが当たった時の処理
@@ -170,7 +160,7 @@ public class Player1 : character_status
 		if (hp < 1) is_died = true;
 		return is_died;
 	}
-		public void Bullet_Create()
+	public void Bullet_Create()
 	{
 		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
 		{
