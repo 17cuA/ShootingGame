@@ -25,7 +25,7 @@ namespace StorageReference
 		/// <param name="name"> 撃ちたいバレットの名前 </param>
 		/// <param name="pos"> 打ち出す場所 </param>
 		/// <param name="direction"> 向き </param>
-		static public void Object_Reboot(string name, Vector3 pos, Vector3 direction)
+		static public GameObject Object_Reboot(string name, Vector3 pos, Vector3 direction)
 		{
 			GameObject obj = null;
 			switch (name)
@@ -45,14 +45,21 @@ namespace StorageReference
 					obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
 					break;
 				#endregion
+				#region
+				case "Beam_Bullet_Enemy":
+					obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
+					break;
+				#endregion
 				default:
 					break;
 			}
 
-			if (obj == null) return;
+			if (obj == null) return obj;
 
 			obj.transform.position = pos;
 			obj.transform.right = direction;
+
+			return obj;
 		}
 
 		/// <summary>
@@ -61,7 +68,7 @@ namespace StorageReference
 		/// <param name="name"> 撃ちたいバレットの名前 </param>
 		/// <param name="pos"> 打ち出す場所 </param>
 		/// <param name="direction"> 向き </param>
-		static public void Object_Reboot(string name, Vector3 pos, Quaternion direction)
+		static public GameObject Object_Reboot(string name, Vector3 pos, Quaternion direction)
 		{
 			GameObject obj = null;
 			switch (name)
@@ -85,10 +92,12 @@ namespace StorageReference
 					break;
 			}
 
-			if (obj == null) return;
+			if (obj == null) return obj;
 
 			obj.transform.position = pos;
 			obj.transform.rotation = direction;
+
+			return obj;
 		}
 	}
 }
