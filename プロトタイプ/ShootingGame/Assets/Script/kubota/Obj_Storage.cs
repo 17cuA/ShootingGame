@@ -15,18 +15,21 @@ public class Obj_Storage : MonoBehaviour
 
 	//マップ作製に使うプレハブ
 	//リソースフォルダから取得するため、インスペクターは使わない
-	private GameObject Enemy_Prefab;		//敵キャラのプレハブ
+	private GameObject Enemy_Prefab;        //敵キャラのプレハブ
+	private GameObject Medium_Enemy_Prefab;	//中型エネミーのプレハブ
 	private GameObject Player_Prefab;		//プレイヤーのプレハブ
 	private GameObject Boss_Prefab;			//ボスのプレハブ
 	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
-	private GameObject Bullet_Prefab_E;
+	private GameObject Bullet_Prefab_E;		//エネミーの弾のPrefab情報
 	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
 
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
+	public Object_Pooling Medium_Size_Enemy1;
 	public Object_Pooling Player;
 	public Object_Pooling Boss;
 	public Object_Pooling PlayerBullet;
+	public Object_Pooling EnemyBullet;
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -42,6 +45,7 @@ public class Obj_Storage : MonoBehaviour
     {
 		Player_Prefab = Resources.Load("Player/Player_Demo_1") as GameObject;
 		Enemy_Prefab = Resources.Load("Enemy/Enemy2") as GameObject;
+		Medium_Enemy_Prefab = Resources.Load("Enemy/Medium_Size_Enemy") as GameObject;
 		Boss_Prefab = Resources.Load("Boss/Boss_Test") as GameObject;
 		Bullet_Prefab_P = Resources.Load("Player_Bullet") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Enemy_Bullet") as GameObject;
@@ -54,9 +58,11 @@ public class Obj_Storage : MonoBehaviour
 		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
 
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
+		Medium_Size_Enemy1 = new Object_Pooling(Medium_Enemy_Prefab, 1, "Medium");
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");						//プレイヤー生成
 		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");								//ボス生成
-		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");			//プレイヤーのバレットを生成
+		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");         //プレイヤーのバレットを生成
+		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");			//エネミーのバレットを生成
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
