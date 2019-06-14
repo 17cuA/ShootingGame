@@ -8,7 +8,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 	public Vector3[] playerPos;
 	public Vector3 pos;				//プレイヤーの座標を保存して動いているかを確かめる変数
-	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 
 	public int cnt;
 	int array_Num;
@@ -27,7 +26,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 	void Update()
 	{
-		Direction = transform.rotation;
 
 		if(Input.GetButtonUp("Bit_Freeze"))
 		{
@@ -97,20 +95,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					cnt = 0;
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
-			{
-				//方向転換させる関数の呼び出し
-				Change_In_Direction();
-
-			}
 		}
 	}
-	//ビットンの方向転換
-	private void Change_In_Direction()
-	{
-		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1, 0, 0);
-		transform.rotation = Direction;
-	}
-
 }

@@ -9,7 +9,6 @@ public class FollowToPreviousBit : MonoBehaviour
 
 	public Vector3[] previousBitPos;
 	public Vector3 pos;
-	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 
 	public int cnt;
 	int array_Num;
@@ -24,8 +23,6 @@ public class FollowToPreviousBit : MonoBehaviour
 	bool isFreeze = false;
 	void Start()
 	{
-		Direction = transform.rotation;
-
 		myName = gameObject.name;
 		if (myName == "FollowPosSecond")
 		{
@@ -136,19 +133,6 @@ public class FollowToPreviousBit : MonoBehaviour
 					cnt = 0;
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.V) || Input.GetButtonDown("Fire1"))
-			{
-				//方向転換させる関数の呼び出し
-				Change_In_Direction();
-
-			}
 		}
-	}
-	//ビットンの方向転換
-	private void Change_In_Direction()
-	{
-		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1, 0, 0);
-		transform.rotation = Direction;
 	}
 }

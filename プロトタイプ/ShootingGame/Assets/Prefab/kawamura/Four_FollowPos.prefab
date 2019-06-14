@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288050775705196}
-  - component: {fileID: 1463659024}
+  - component: {fileID: 1734373888132575477}
   m_Layer: 0
   m_Name: FollowPosThird
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1463659024
+--- !u!114 &1734373888132575477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288050775705195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
+  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288050800170616}
-  - component: {fileID: 219480495}
+  - component: {fileID: 5173068389445111090}
   m_Layer: 0
   m_Name: FollowPosFourth
   m_TagString: Untagged
@@ -81,7 +81,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &219480495
+--- !u!114 &5173068389445111090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288050800170599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
+  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
@@ -158,6 +158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288051588822612}
+  - component: {fileID: 6308793512256315020}
   m_Layer: 0
   m_Name: Four_FollowPos
   m_TagString: Untagged
@@ -183,6 +184,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6308793512256315020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903288051588822611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0240bcc566193499557fa9baec74d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3903288051621982408
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903288051621982409}
-  - component: {fileID: 962793395}
+  - component: {fileID: 6824531158345675805}
   m_Layer: 0
   m_Name: FollowPosSecond
   m_TagString: Untagged
@@ -214,7 +227,7 @@ Transform:
   m_Father: {fileID: 3903288051588822612}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &962793395
+--- !u!114 &6824531158345675805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,7 +236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3903288051621982408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c80f9ba75c620d34eb6b50bbccea7a10, type: 3}
+  m_Script: {fileID: 11500000, guid: b081355eeedeb5f4aa289ff3fb472413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
