@@ -7,6 +7,7 @@
  */
 using UnityEngine;
 using Power;
+using StorageReference;
 public class Player1 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
@@ -183,11 +184,10 @@ public class Player1 : character_status
             Shot_Delay = 0;
 		}
 	}
+	//バレットの発射
     	private void Single_Fire()
 	{
-		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		gameObject.transform.rotation *= Direction ;
-		gameObject.transform.position = shot_Mazle.transform.position;
+		Object_Instantiation.Object_Reboot("Player_Bullet", shot_Mazle.transform.position, shot_Mazle.transform.right);
 	}
 	//private void Diffusion_Fire()
 	//{

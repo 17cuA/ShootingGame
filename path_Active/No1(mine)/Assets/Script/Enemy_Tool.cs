@@ -29,7 +29,7 @@ public class Enemy_Tool : MonoBehaviour
 	private int prevChildCount;
 	private EventType prevEventType;
 	private const int debugDivision = 20;           // 分割数
-													//────────────────────────────────────────────
+	//────────────────────────────────────────────
 
 	private void Start()
 	{
@@ -44,10 +44,12 @@ public class Enemy_Tool : MonoBehaviour
 
 		if (!CheckError()) return;
 
-		if (Input.GetMouseButtonDown(0)) Create_beje();
-		UpdateAnkerCount();
-
-		lineRenderer.SetPositions(UpdateCurveLine());
+		if (Input.GetMouseButtonDown(0))
+		{
+			Create_beje();
+			UpdateAnkerCount();
+			lineRenderer.SetPositions(UpdateCurveLine());
+		}
 	}
 	//ベジェ曲線の各ポジションを等間隔に─────────────────────────────────────────
 	private void Awake()
@@ -55,6 +57,9 @@ public class Enemy_Tool : MonoBehaviour
 		//!< 実行中のみ初期化処理を行う
 		//if (EditorApplication.isPlayingOrWillChangePlaymode)
 		//{
+		Debug.Log(ankers.Length);
+		if(ankers.Length != 0)
+		{
 			int[] adjustDivisions = new int[ankers.Length - 1];
 			for (int a = 0; a < ankers.Length - 1; ++a)
 			{
@@ -69,6 +74,7 @@ public class Enemy_Tool : MonoBehaviour
 			lineRenderer.SetPositions(AjustCurveLine(adjustDivisions));
 
 			Destroy(this);
+		}
 		//}
 	}
 	//内部呼び出しメソッド──────────────────────────────────

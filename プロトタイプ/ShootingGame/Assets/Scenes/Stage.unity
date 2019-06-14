@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4399253, g: 0.56292105, b: 0.7355212, a: 1}
+  m_IndirectSpecularColor: {r: 0.13445884, g: 0.21029553, b: 0.3390852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3831,6 +3831,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeamBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 2868089129731900237, guid: 71be57f871f613e4d99f96462278d9a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2868089129731900233, guid: 71be57f871f613e4d99f96462278d9a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4067,6 +4072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 6485387679533988132, guid: b8973b6698d3d454a950abe5d4366250,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6485387679533988136, guid: b8973b6698d3d454a950abe5d4366250,
         type: 3}

@@ -29,7 +29,7 @@ public class Object_Pooling
 	public Object_Pooling(GameObject Create_obj, int Create_num, string name)
 	{
 		//親オブジェクトの名前を変更
-		z.name = "Pooling"　;
+		z.name = name;
 		//生成したい数だけ処理を回す
 		for (int i = 0; i < Create_num; i++)
 		{

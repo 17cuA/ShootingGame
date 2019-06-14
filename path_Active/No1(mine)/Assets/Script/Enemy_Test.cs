@@ -2,6 +2,7 @@
  * 敵キャラのテスト用スクリプト
  * Database_Managerを使って情報を取得
  * 
+ * 2019/06/14	csvからのファイル作成ではなく、ボタンを設置し、それが押されたらセーブ
  */
  using System.Collections;
 using System.Collections.Generic;
@@ -13,21 +14,24 @@ public class Enemy_Test : MonoBehaviour
 	[SerializeField]public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
 	float[,] Float_Data;
 	int first = 0;
+	LineRenderer LC;			//Linerendererの情報取得
 	public string name;		//使用したいcsvデータの名前
 	void Start()
 	{
-		if (Enemy_Data == null)
-		{
-			Enemy_Data = new Database_Manager(name);
-			Float_Data = new float[Enemy_Data.Database_Array.GetLength(0), Enemy_Data.Database_Array.GetLength(1)];
-		}
-		for (int i = 0; i < Enemy_Data.Database_Array.GetLength(0); i++)
-		{
-			for (int j = 0; j < Enemy_Data.Database_Array.GetLength(1); j++)
-			{
-				Float_Data[i, j] = Enemy_Data.ToFloat(i, j);
-			}
-		}
+		LC = GameObject.Find("Beje").GetComponent<LineRenderer>();
+		//Float_Data 
+		//if (Enemy_Data == null)
+		//{
+		//	Enemy_Data = new Database_Manager(name);
+		//	Float_Data = new float[Enemy_Data.Database_Array.GetLength(0), Enemy_Data.Database_Array.GetLength(1)];
+		//}
+		//for (int i = 0; i < Enemy_Data.Database_Array.GetLength(0); i++)
+		//{
+		//	for (int j = 0; j < Enemy_Data.Database_Array.GetLength(1); j++)
+		//	{
+		//		Float_Data[i, j] = Enemy_Data.ToFloat(i, j);
+		//	}
+		//}
 	}
 
     // Update is called once per frame
