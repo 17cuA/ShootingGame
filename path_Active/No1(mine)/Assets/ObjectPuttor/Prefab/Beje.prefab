@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8610544563961401555}
-  - component: {fileID: 2540294749075906835}
   - component: {fileID: 9146584138966349654}
+  - component: {fileID: 727195221833112235}
+  - component: {fileID: 579302784}
   m_Layer: 0
   m_Name: Beje
   m_TagString: Untagged
@@ -32,25 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2540294749075906835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9122776483277569098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f221b7af48c1d428b4ddcd7f38cccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createLine: 1
-  clickPut: 1
-  AnkerPrefab: {fileID: 8542680920208775497, guid: 45aabbc9393726940b977e7c62323b1f,
-    type: 3}
-  interval: 10
-  ankers: []
-  lineRenderer: {fileID: 9146584138966349654}
 --- !u!120 &9146584138966349654
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -68,7 +50,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 6fe09b2ff16648942b0100f7e55321aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,3 +126,35 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &727195221833112235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122776483277569098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dfb8bf6d0c3ff45922ce3443cd5af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createLine: 0
+  clickPut: 0
+  AnkerPrefab: {fileID: 8542680920208775497, guid: 45aabbc9393726940b977e7c62323b1f,
+    type: 3}
+  interval: 10
+  ankers: []
+  lineRenderer: {fileID: 9146584138966349654}
+--- !u!114 &579302784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122776483277569098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33f82210a45a6643b04b9946be72c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  save_name: csv

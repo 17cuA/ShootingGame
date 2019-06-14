@@ -1,14 +1,20 @@
-﻿using System.Collections;
+﻿/*
+ * エネミーの挙動作成用ツール
+ * クボタタツキ
+ *更新履歴
+ * 2019/06/14
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 //SceneViewを取得するために宣言、エディタ外では使えないのでUNITY_EDITORで囲む
-using UnityEditor;
-#endif
+//using UnityEditor;
+//#endif
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Enemy_Tool : MonoBehaviour
 {
 	//プロパティ───────────────────────────────────────
@@ -19,11 +25,16 @@ public class Enemy_Tool : MonoBehaviour
 	[SerializeField] private float interval;        // 配置間隔
 	[SerializeField] private Anker[] ankers;
 	[SerializeField] public LineRenderer lineRenderer;
+	private Camera camera;		//カメラを取得するための変数
 	private int prevChildCount;
 	private EventType prevEventType;
 	private const int debugDivision = 20;           // 分割数
-	//────────────────────────────────────────────
+													//────────────────────────────────────────────
 
+	private void Start()
+	{
+		camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+	}
 
 
 	//更新処理────────────────────────────────────────
@@ -33,16 +44,17 @@ public class Enemy_Tool : MonoBehaviour
 
 		if (!CheckError()) return;
 
+		if (Input.GetMouseButtonDown(0)) Create_beje();
 		UpdateAnkerCount();
 
 		lineRenderer.SetPositions(UpdateCurveLine());
 	}
 	//ベジェ曲線の各ポジションを等間隔に─────────────────────────────────────────
-	private void 
+	private void Awake()
 	{
 		//!< 実行中のみ初期化処理を行う
-		if (EditorApplication.isPlayingOrWillChangePlaymode)
-		{
+		//if (EditorApplication.isPlayingOrWillChangePlaymode)
+		//{
 			int[] adjustDivisions = new int[ankers.Length - 1];
 			for (int a = 0; a < ankers.Length - 1; ++a)
 			{
@@ -57,7 +69,7 @@ public class Enemy_Tool : MonoBehaviour
 			lineRenderer.SetPositions(AjustCurveLine(adjustDivisions));
 
 			Destroy(this);
-		}
+		//}
 	}
 	//内部呼び出しメソッド──────────────────────────────────
 	/// <summary>
@@ -118,6 +130,7 @@ public class Enemy_Tool : MonoBehaviour
 	/// アンカーのハンドルの長さを調整する
 	/// </summary>
 	/// <returns></returns>
+	/// 
 	void AdjustAnkersHandleRange()
 	{
 		if (ankers.Length > 1)
@@ -297,8 +310,8 @@ public class Enemy_Tool : MonoBehaviour
 		else { return true; }
 	}
 	//マウスクリック判定処理─────────────────────────────────
-#if UNITY_EDITOR
-	private void OnDrawGizmos()
+//#if UNITY_EDITOR
+	private void Create_beje()
 	{
 		//Debug.Log(Event.current.keyCode);
 		//マウスのクリックがあったら処理
@@ -310,13 +323,13 @@ public class Enemy_Tool : MonoBehaviour
 			return;
 		}
 
-		//マウスの位置情報の取得
-		Vector3 mousePos = Event.current.mousePosition;
+		//マウスのクリックした位置情報の取得
+		Vector3 mousePos = Input.mousePosition;
 		//Y軸方向の補間
-		mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
+		//mousePos.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePos.y;
 		//Ray..伸びる線のこと
 		//シーンビューでマウスをクリックすると伸びる線を作成（画面には見えない）
-		Ray ray = SceneView.currentDrawingSceneView.camera.ScreenPointToRay(mousePos);
+		Ray ray = camera.ScreenPointToRay(mousePos);
 		//当たり判定用の変数作成
 		RaycastHit hit = new RaycastHit();
 		//当たり判定の処理
@@ -340,7 +353,7 @@ public class Enemy_Tool : MonoBehaviour
 		//現在のイベントのタイプの更新
 		prevEventType = Event.current.type;
 	}
-#endif
+//endif
 	//────────────────────────────────────────────
 
 }
