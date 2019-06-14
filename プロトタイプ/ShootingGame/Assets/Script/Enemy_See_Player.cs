@@ -14,7 +14,7 @@ public class Enemy_See_Player : MonoBehaviour
 	[Header("移動速度")]
 	private float speed;
 	[SerializeField]
-	[Header("開店時間")]
+	[Header("回転時間")]
 	private float rotation_time;
 
 	private Transform Player_Transform { get; set; }		// プレイヤーのデータ
@@ -27,8 +27,13 @@ public class Enemy_See_Player : MonoBehaviour
     void Update()
     {
 		// 向きを切り替える処理
-		
+		float step = speed * Time.deltaTime;
 
-		transform.position = Player_Transform.position - transform.position;
+		Vector3 Direction = Player_Transform.position - transform.position;
+
+		//指定した方向にゆっくり回転する場合
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(Direction), step);
+
+		transform.position = transform.right * speed;
     }
 }
