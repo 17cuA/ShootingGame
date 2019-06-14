@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 8980319411110346728}
   - component: {fileID: 1880910959}
   - component: {fileID: 1880910963}
+  - component: {fileID: 712332288470004928}
   m_Layer: 0
   m_Name: Player_Demo_1
   m_TagString: Player
@@ -102,6 +103,23 @@ MonoBehaviour:
   energy: 0
   energy_Max: 0
   bullet_Type: 0
+--- !u!114 &712332288470004928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980319411109979080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4d89b067911e04c8b92bda9de16876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  SpeedUpModifier: 1.5
+  missileDelayMax: 2
+  canPlayMissile: 1
+  activeMissile: 0
 --- !u!1001 &1503343103848693443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,6 +127,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8980319411110346728}
     m_Modifications:
+    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
+      propertyPath: m_Name
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -164,10 +186,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
-      propertyPath: m_Name
-      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_Materials.Array.data[0]

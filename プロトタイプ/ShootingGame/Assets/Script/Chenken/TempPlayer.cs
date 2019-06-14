@@ -1,89 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Power;
+using StorageReference;
 
-/// <summary>
-/// プレイヤーに付け足し、修正箇所をこのスクリプトを参照
-/// </summary>
 public class TempPlayer : MonoBehaviour
 {
-	public void Awake()
-	{
-		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
-		PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
-		PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
+	public float speed;
+	public float SpeedUpModifier;
 
-		//説明は42行目に移行
-		PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
+	private float missileDelay;
+	public float missileDelayMax;
+	public bool canPlayMissile = true;
+	public bool activeMissile;
+
+
+	private void OnEnable()
+	{
+		//プール化したため、ここでイベント発生時の処理を入れとく
+		PowerUpManager.Instance.AddEvent(PowerUpType.PowerUp_SpeedUp, SpeedUp);
+		PowerUpManager.Instance.AddEvent(PowerUpType.PowerUp_Missile, ActiveMissile);
 	}
 
-	/// <summary>
-	/// 更新
-	/// </summary>
-	public void Update()
+	private void OnDisable()
 	{
-		//パワーマネージャー更新
-		PowerManager.Instance.OnUpdate(Time.deltaTime);
+		PowerUpManager.Instance.RemoveEvent(PowerUpType.PowerUp_SpeedUp, SpeedUp);
+		PowerUpManager.Instance.RemoveEvent(PowerUpType.PowerUp_Missile, ActiveMissile);
 	}
 
-	/// <summary>
-	/// 当たり判定
-	/// すり抜く場合
-	/// </summary>
-	/// <param name="collision"></param>
-	private void OnTriggerEnter(Collider collision)
+	private void Update()
 	{
-		//アイテムの場合
-		if (collision.tag == "Item")
+		if (Input.GetKeyDown(KeyCode.Q))
 		{
-			//アイテムのパワータイプを取得
-			PowerType type = collision.GetComponent<Item>().powerType;
-
-			//外からのアイテム再取得時の処理　
-			//() => { Debug.Log("イベント発生！依頼関数実行"); };
-			//上記部分を含め処理する
-
-			//PowerManager.Instance.Pick(type);実行する前に、依頼関数をイベントに入れておけば、同時に実行することができる
-			//パワー内部　＋　パワー外部　同時に実行
-			//何故なら、パワーアップする時、内部データに影響するだけでなく、外部（エフェクト、音再生とか）も影響する
-
-			//新たに生成したパワーをパワーマネージャーで管理
-			PowerManager.Instance.Pick(type);		
+			PowerUpManager.Instance.ApplyPowerUpSelection();
 		}
 
-		//弾の場合
-		if(collision.tag == "Enemy_Bullet")
+		if (Input.GetKeyDown(KeyCode.E))
 		{
-			//シールドがある場合
-			if(PowerManager.Instance.HasPower(PowerType.POWER_SHIELD))
+			PowerUpManager.Instance.Excute();
+		}
+
+		float x = Input.GetAxis("Horizontal");
+		float y = Input.GetAxis("Vertical");
+		transform.position = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
+
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			if(activeMissile)
 			{
-				//シールドまだ消滅してない場合
-				if (!PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).IsLost)
+				if(canPlayMissile)
 				{
-					//シールドのHp　-1
-					//変更必要
-					int value = PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).value--;
-					Debug.Log(value);
+					//var missile = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+					//missile.transform.position = transform.position;
+					Object_Instantiation.Object_Reboot("Player_Missile", transform.position, Quaternion.identity);
 				}
 			}
 		}
-
-		if(collision.tag == "Enemy")
+		
+		if(!canPlayMissile)
 		{
-			//シールドがある場合
-			if (PowerManager.Instance.HasPower(PowerType.POWER_SHIELD))
+			missileDelay += Time.deltaTime;
+			if(missileDelay >= missileDelayMax)
 			{
-				//シールドまだ消滅してない場合
-				if (!PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).IsLost)
-				{
-					//シールドのHp　-1
-					//変更必要
-					int value = PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).value--;
-					Debug.Log(value);
-				}
+				missileDelay = missileDelayMax;
+				canPlayMissile = true;
 			}
 		}
+	}
+
+	/// <summary>
+	/// スピード変更関数
+	/// ここに引数なしに注目してください。
+	/// でないと、AddEvent()に入れられない
+	/// </summary>
+	private void SpeedUp()
+	{
+		speed *= SpeedUpModifier;
+		Debug.Log("加速!");
+	}
+
+	private void ActiveMissile()
+	{
+		activeMissile = true;
+		Debug.Log("ミサイル導入");
 	}
 }
 

@@ -6,7 +6,7 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
-using Power;
+//using Power;
 public class Player1 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
@@ -30,11 +30,11 @@ public class Player1 : character_status
 	public void Awake()
 	{
 		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
-		PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
-		PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
+		//PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
+		//PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
 
-		//説明は113行目に移行
-		PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
+		////説明は113行目に移行
+		//PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
 	}
 
 	void Start()
@@ -55,7 +55,7 @@ public class Player1 : character_status
 	void Update()
 	{
 		//パワーマネージャー更新
-		PowerManager.Instance.OnUpdate(Time.deltaTime);
+		//PowerManager.Instance.OnUpdate(Time.deltaTime);
 
 		switch (Game_Master.MY.Management_In_Stage)
 		{
@@ -94,46 +94,46 @@ public class Player1 : character_status
     //コライダーが当たった時の処理
     private void OnTriggerEnter(Collider col)
     {
-		//アイテムの場合
-		if (col.tag == "Item")
-		{
-			//アイテムのパワータイプを取得
-			PowerType type = col.GetComponent<Item>().powerType;
+		////アイテムの場合
+		//if (col.tag == "Item")
+		//{
+		//	//アイテムのパワータイプを取得
+		//	PowerType type = col.GetComponent<Item>().powerType;
 
-			//外からのアイテム再取得時の処理　
-			//() => { Debug.Log("イベント発生！依頼関数実行"); };
-			//上記部分を含め処理する
+		//	//外からのアイテム再取得時の処理　
+		//	//() => { Debug.Log("イベント発生！依頼関数実行"); };
+		//	//上記部分を含め処理する
 
-			//PowerManager.Instance.Pick(type);実行する前に、依頼関数をイベントに入れておけば、同時に実行することができる
-			//パワー内部　＋　パワー外部　同時に実行
-			//何故なら、パワーアップする時、内部データに影響するだけでなく、外部（エフェクト、音再生とか）も影響する
+		//	//PowerManager.Instance.Pick(type);実行する前に、依頼関数をイベントに入れておけば、同時に実行することができる
+		//	//パワー内部　＋　パワー外部　同時に実行
+		//	//何故なら、パワーアップする時、内部データに影響するだけでなく、外部（エフェクト、音再生とか）も影響する
 
-			//新たに生成したパワーをパワーマネージャーで管理
-			PowerManager.Instance.Pick(type);
-		}
+		//	//新たに生成したパワーをパワーマネージャーで管理
+		//	PowerManager.Instance.Pick(type);
+		//}
 		//弾の場合
 		if (col.tag == "Enemy_Bullet")
 		{
-			//シールドがある場合
-			if (PowerManager.Instance.HasPower(PowerType.POWER_SHIELD))
-			{
-				//シールドまだ消滅してない場合
-				if (!PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).IsLost)
-				{
-					//シールドのHp　-1
-					//変更必要
-					int value = PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).value--;
-					//Debug.Log(value);
-				}
-			}
-			//　シールドがない場合
-			else
-			{
-				//敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
-				bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
-				hp -= (int)Bs.attack_damage;
+			////シールドがある場合
+			//if (PowerManager.Instance.HasPower(PowerType.POWER_SHIELD))
+			//{
+			//	//シールドまだ消滅してない場合
+			//	if (!PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).IsLost)
+			//	{
+			//		//シールドのHp　-1
+			//		//変更必要
+			//		int value = PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).value--;
+			//		//Debug.Log(value);
+			//	}
+			//}
+			////　シールドがない場合
+			//else
+			//{
+			//敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
+			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
+			hp -= (int)Bs.attack_damage;
 
-			}
+			//}
 		}
 		if (col.gameObject.tag == "Enemy") hp--;
     }
