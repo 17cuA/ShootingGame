@@ -26,11 +26,11 @@ public class FollowPositions : MonoBehaviour
 
 		if(check)
 		{
-			if(Input.GetButtonUp("Bit_Freeze"))
+			if(Input.GetButtonUp("Bit_Freeze")||Input.GetKeyUp(KeyCode.Y))
 			{
 				transform.parent = null;
 			}
-			else if (Input.GetButton("Bit_Freeze"))
+			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 			{
 				transform.parent = playerObj.transform;
 			}

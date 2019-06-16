@@ -9,8 +9,10 @@ public class FollowToPreviousBit : MonoBehaviour
 
 	public Vector3[] previousBitPos;
 	public Vector3 pos;
+    Vector3 savePos;                //フリーズ開始時の座標を入れる
+    Vector3 defPos;                 //フリーズ解除時、開始時と今の座標との差を入れる
 
-	public int cnt;
+    public int cnt;
 	int array_Num;
 
 	public string myName;
@@ -48,11 +50,17 @@ public class FollowToPreviousBit : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonUp("Bit_Freeze"))
+		if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
 		{
 			isFreeze = false;
+            defPos = transform.position - savePos;
+
+            for (int i = 0; i < array_Num; i++)
+            {
+                previousBitPos[i] += defPos;
+            }
 		}
-		else if (Input.GetButton("Bit_Freeze"))
+		else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 		{
 			isFreeze = true;
 		}
@@ -132,7 +140,8 @@ public class FollowToPreviousBit : MonoBehaviour
 				{
 					cnt = 0;
 				}
-			}
+                savePos = transform.position;
+            }
 		}
 	}
 }
