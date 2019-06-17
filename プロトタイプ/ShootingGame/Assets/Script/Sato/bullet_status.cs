@@ -44,10 +44,10 @@ public class bullet_status : MonoBehaviour
 		//{
 		//	Destroy(gameObject);
 		//}
-		if (!Bullet_Renderer.isVisible)
-		{
-			Destroy(gameObject);
-		}
+		//if (!Bullet_Renderer.isVisible)
+		//{
+		//	Destroy(gameObject);
+		//}
 	}
 	/// <summary>
 	/// 移動向きの指定
