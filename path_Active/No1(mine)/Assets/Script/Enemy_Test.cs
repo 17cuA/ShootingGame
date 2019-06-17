@@ -14,11 +14,13 @@ public class Enemy_Test : MonoBehaviour
 	[SerializeField]public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
 	float[,] Float_Data;
 	int first = 0;
-	LineRenderer LC;			//Linerendererの情報取得
+	Export_Csv EC;			//Linerendererの位置情報を取得するために保存してあるデータを取得するための変数
 	public string name;		//使用したいcsvデータの名前
 	void Start()
 	{
-		LC = GameObject.Find("Beje").GetComponent<LineRenderer>();
+		EC = GameObject.Find("Beje").GetComponent<Export_Csv>();
+
+		//Float_Data = EC.sw[]
 		if (Enemy_Data == null　|| name != null)
 		{
 			Enemy_Data = new Database_Manager(name);
