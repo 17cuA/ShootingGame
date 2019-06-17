@@ -25,11 +25,13 @@ public class motakku_Enemy : character_status
 
 			if(obj.name == "Muzzle_Side")
 			{
-				Beam_Mazle.Add(obj.gameObject);
+				Shot_Mazle.Add(obj.gameObject);
+
 			}
 			else if(obj.name == "Muzzle_Front")
 			{
-				Shot_Mazle.Add(obj.gameObject);
+				Beam_Mazle.Add(obj.gameObject);
+
 			}
 		}
 	}
@@ -37,7 +39,14 @@ public class motakku_Enemy : character_status
     {
        if(Game_Master.MY.Frame_Count % Shot_DelayMax == 0)
 		{
-			Object_Instantiation.Object_Reboot("Player_Missile", transform.position, Quaternion.identity);
+			foreach(GameObject obj in Shot_Mazle)
+			{
+				Object_Instantiation.Object_Reboot("Player_Missile", obj.transform.position, obj.transform.right);
+			}
+			foreach(GameObject obj in Beam_Mazle)
+			{
+				Object_Instantiation.Object_Reboot("Beam_Bullet_Enemy", obj.transform.position, obj.transform.right);
+			}
 		}
     }
 }

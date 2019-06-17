@@ -5,6 +5,8 @@
  * 2019/06/06	バレットの挙動をオブジェクトプーリングの形式に変更しました
  * 2019/06/13	継承用クラスに変更
  */
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class bullet_status : MonoBehaviour
@@ -19,11 +21,19 @@ public class bullet_status : MonoBehaviour
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
-											//private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
-	void Start()
+	private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
+	protected void Start()
 	{
-		//Bullet_Renderer = GetComponent<Renderer>();
+		Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
+	}
+
+	protected void Update()
+	{
+		if(!Bullet_Renderer.isVisible)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col)

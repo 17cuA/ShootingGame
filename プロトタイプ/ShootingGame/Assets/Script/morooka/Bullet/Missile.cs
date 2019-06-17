@@ -7,16 +7,19 @@ public class Missile : bullet_status
 	Vector3 pos;
 	float a = 5;
 
-    void Start()
+    private void Start()
     {
+		base.Start();
 		pos = transform.position;
 		FacingChange(new Vector3(1.0f,0.0f,0.0f));
+		
     }
 
-    void Update()
+	private void Update()
     {
+		base.Update();
 		Vector3 vector = transform.position;
-		vector.y = (transform.position.x - pos.x) * (transform.position.x - pos.x) + transform.position.y;
+		vector.y = -0.2f * (transform.position.x - pos.x) * (transform.position.x - pos.x) + transform.position.y;
 
 		transform.right = vector;
 		transform.position = vector;

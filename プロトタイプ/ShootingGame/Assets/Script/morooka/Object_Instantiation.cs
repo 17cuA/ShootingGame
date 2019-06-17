@@ -31,7 +31,7 @@ namespace StorageReference
 			switch (name)
 			{
 				#region Player_Bullet
-				case "Player_Bullet":
+				case Game_Master.MY.Name_List.[(int)Game_Master.OBJECT_NAME.ePLAYER_BULLET]:
 					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 					break;
 				#endregion
@@ -93,6 +93,12 @@ namespace StorageReference
 					obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
 					break;
 				#endregion
+				#region
+				case "Player_Missile":
+					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+					break;
+				#endregion
+
 				default:
 					break;
 			}
