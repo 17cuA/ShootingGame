@@ -6,6 +6,7 @@ public class Enemy_Wave : MonoBehaviour
 {
 	public float speedX;
 	public float speedY;
+	public float speedZ;
 	public float amplitude;
 
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
@@ -35,7 +36,9 @@ public class Enemy_Wave : MonoBehaviour
 
 	void Start()
 	{
-		scale_Value = 0.75f;
+		speedZ = 0;
+		scale_Value
+			= 0.75f;
 		scaleX = 1.125f;
 		scaleY = scale_Value;
 		scaleZ = scale_Value;
@@ -51,18 +54,24 @@ public class Enemy_Wave : MonoBehaviour
 	{
 		if (!isWave)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+			velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, -speedZ);
 			gameObject.transform.position += velocity * Time.deltaTime;
+			if (transform.position.z < 0)
+			{
+				transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+			}
 
 			if (transform.position.x > 13)
 			{
 				speedX = 5;
+				speedY = defaultSpeedY;
+
 				isWave = true;
 			}
 			else if (transform.position.x > 8)
 			{
+				speedZ = 8;
 				isBig = true;
-				speedY = 2.0f;
 			}
 			if(transform.position.x>10)
 			{
@@ -85,8 +94,8 @@ public class Enemy_Wave : MonoBehaviour
 
 		if (isBig)
 		{
-			scale_Value += 0.015f;
-			scaleX += 0.02f;
+			scale_Value += 0.01f;
+			scaleX += 0.015f;
 			
 			if(scaleX>1.5f)
 			{
