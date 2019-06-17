@@ -73,28 +73,28 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (myName == "Bit_First(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosFirst");
+			//followPosObj = GameObject.Find("FollowPosFirst");
 			//斜め撃ちの上の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosTop");
 		}
 		else if (myName == "Bit_Second(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosSecond");
+			//followPosObj = GameObject.Find("FollowPosSecond");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
 		else if (myName == "Bit_Third(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosThird");
+			//followPosObj = GameObject.Find("FollowPosThird");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
 		else if (myName == "Bit_Fourth(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosFourth");
+			//followPosObj = GameObject.Find("FollowPosFourth");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
@@ -107,19 +107,19 @@ public class Bit_Formation_3 : MonoBehaviour
 	{
 		if(once)
 		{
-			transform.position = followPosObj.transform.position;
-			transform.parent = followPosObj.transform;
+			//transform.position = followPosObj.transform.position;
+			//transform.parent = followPosObj.transform;
 			once = false;
 		}
 
 		//スピード計算
-		step = speed * Time.deltaTime;
+		//step = speed * Time.deltaTime;
 
 		//入力の関数呼び出し
-		Bit_Input();
+		//Bit_Input();
 
 		//ビットンの移動関数呼び出し
-		Bit_Move();
+		//Bit_Move();
 	}
 
 	//------------------ここから関数------------------
