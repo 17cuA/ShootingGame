@@ -5,14 +5,15 @@ using StorageReference;
 
 public class TempPlayer : MonoBehaviour
 {
+	[Header("移動　プロパティ")]
 	public float speed;
 	public float SpeedUpModifier;
 
-	private float missileDelay;
-	public float missileDelayMax;
-	public bool canPlayMissile = true;
-	public bool activeMissile;
+	[Header("ミサイル　プロパティ")]
+	public float missleWaitTime;
+	public bool  activeMissile;
 
+	private float canPlayMissileTime;
 
 	private void OnEnable()
 	{
@@ -29,11 +30,6 @@ public class TempPlayer : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			PowerUpManager.Instance.ApplyPowerUpSelection();
-		}
-
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			PowerUpManager.Instance.Excute();
@@ -45,27 +41,26 @@ public class TempPlayer : MonoBehaviour
 
 		if(Input.GetKey(KeyCode.Space))
 		{
-			if(activeMissile)
+			//ミサイル発射パワーアップ導入され、そして発射できる場合
+			if(Time.time >= canPlayMissileTime && activeMissile)
 			{
-				if(canPlayMissile)
-				{
-					//var missile = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
-					//missile.transform.position = transform.position;
-					Object_Instantiation.Object_Reboot("Player_Missile", transform.position, transform.right);
-					missileDelay = .0f;
-					canPlayMissile = false;
-				}
+				//ミサイル発射
+				Object_Instantiation.Object_Reboot("Player_Missile", transform.position, transform.right);
+				//次の発射時間を設定する
+				canPlayMissileTime = missleWaitTime + Time.time;
 			}
-		}
-		
-		if(!canPlayMissile)
+		}		
+	}
+
+	private void OnTriggerEnter(Collider col)
+	{
+		if(col.tag == "Item")
 		{
-			missileDelay += Time.deltaTime;
-			if(missileDelay >= missileDelayMax)
-			{
-				missileDelay = missileDelayMax;
-				canPlayMissile = true;
-			}
+			var item = col.GetComponent<Item>();
+			if (item.itemType != ItemType.Item_KillAllEnemy)
+				PowerUpManager.Instance.ApplyPowerUpSelection();
+			else
+				PowerUpManager.Instance.KillingExcute();
 		}
 	}
 

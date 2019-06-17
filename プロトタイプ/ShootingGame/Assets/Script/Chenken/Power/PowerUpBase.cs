@@ -9,6 +9,7 @@ public enum PowerUpType
 	PowerUp_Double,
 	PowerUp_Laser,
 	PowerUp_Option,
+	PowerUp_Undecided,
 
 	PowerUp_KillAll,
 

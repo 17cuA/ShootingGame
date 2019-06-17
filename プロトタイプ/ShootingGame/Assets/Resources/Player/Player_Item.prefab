@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2111982399200182094}
   - component: {fileID: 2111982399200182098}
   - component: {fileID: 6889686484107266164}
+  - component: {fileID: 8261887967068370533}
   m_Layer: 0
   m_Name: Player_Item
   m_TagString: Player
@@ -143,7 +144,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36073c47add58e94ab67c56b7c456f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bits: {fileID: 0}
+  bit_First: {fileID: 0}
+  bit_Second: {fileID: 0}
+  bit_Third: {fileID: 0}
+  bit_Fourth: {fileID: 0}
+  num: 0
+--- !u!114 &8261887967068370533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057074789825458409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4d89b067911e04c8b92bda9de16876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  SpeedUpModifier: 1.5
+  missileDelayMax: 0.8
+  canPlayMissile: 1
+  activeMissile: 0
 --- !u!1 &7057074789825458411
 GameObject:
   m_ObjectHideFlags: 0
