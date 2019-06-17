@@ -10,11 +10,15 @@ public class UI_PowerUp : MonoBehaviour
 	private int slot;												　  //現在選択位置
 	private void Awake()
 	{
-		Component[] components = transform.GetComponentsInChildren<Text>();	//子オブジェクトのTextコンポーネント取得
-		for(var i = 0; i < components.Length; ++i)							//データ構造に入れておく
+		//子オブジェクトのTextコンポーネント取得
+		Component[] components = transform.GetComponentsInChildren<Text>();
+
+		//データ構造に入れておく
+		for (var i = 0; i < components.Length; ++i)							
 			texts.Add(i, components[i] as Text);
 
-		current = transform.Find("Image").GetComponent<Image>();			//子オブジェクトからImageコンポーネント取得
+		//子オブジェクトからImageコンポーネント取得
+		current = transform.Find("Image").GetComponent<Image>();
 	}
 	
 

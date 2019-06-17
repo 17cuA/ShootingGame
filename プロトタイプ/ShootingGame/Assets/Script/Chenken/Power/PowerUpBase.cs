@@ -4,28 +4,23 @@ using UnityEngine;
 
 public enum PowerUpType
 {
-	PowerUp_SpeedUp = 0,
-	PowerUp_Missile,
-	PowerUp_Double,
-	PowerUp_Laser,
-	PowerUp_Option,
-	PowerUp_Undecided,
+	PowerUp_SpeedUp = 0,	//加速
+	PowerUp_Missile,		//ミサイル導入
+	PowerUp_Double,			//
+	PowerUp_Laser,			//レーサー導入
+	PowerUp_Option,			//ビット作成
+	PowerUp_Undecided,		//未知（実シールド？）
 
-	PowerUp_KillAll,
+	PowerUp_KillAll,		//敵全滅
 
 }
 public class PowerUpBase 
 {
-	public delegate void OnExcuteCallBack();
-
-	public PowerUpType Type { get; private set; }
-
-	public string Name { get; private set; }
-
-	public int Max { get; private set; }
-
-	public int Count { get; set; }
-
+	public delegate void OnExcuteCallBack();		//パワーアップの処理タイプ（引数なし）
+	public PowerUpType Type { get; private set; }	//パワーアップタイプ（Get用）
+	public string Name　　 　{ get; private set; }	//パワーアップ名（Get用）
+	public int Max 　　　　　{ get; private set; }	//パワーアップレベル最大数（Get用）
+	public int Count 　　　　{ get; set; }			//現在パワーアップレベル（Get、Set）
 	public bool CannotUpgrade
 	{
 		get
@@ -34,6 +29,7 @@ public class PowerUpBase
 		}
 	}
 
+	//パワーアップ時の処理集合
 	private List<OnExcuteCallBack> onExcuteCallBacks;
 	public List<OnExcuteCallBack> OnExcuteCallBacks
 	{
@@ -43,6 +39,12 @@ public class PowerUpBase
 		}
 	}
 
+	/// <summary>
+	/// コンストラクタで初期化させる
+	/// </summary>
+	/// <param name="type">　　パワーアップタイプ　　　　</param>
+	/// <param name="name">　　パワーアップ名　　　　　　</param>
+	/// <param name="max">　　パワーアップ可能最大レベル　</param>
 	public PowerUpBase(PowerUpType type,string name,int max)
 	{
 		onExcuteCallBacks = new List<OnExcuteCallBack>();
