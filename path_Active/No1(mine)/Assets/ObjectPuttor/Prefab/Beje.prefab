@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8610544563961401555}
   - component: {fileID: 9146584138966349654}
-  - component: {fileID: 727195221833112235}
   - component: {fileID: 579302784}
   - component: {fileID: 1902219712}
   m_Layer: 0
@@ -127,35 +126,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &727195221833112235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9122776483277569098}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7dfb8bf6d0c3ff45922ce3443cd5af1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  createLine: 1
-  clickPut: 1
-  AnkerPrefab: {fileID: 8542680920208775497, guid: 45aabbc9393726940b977e7c62323b1f,
-    type: 3}
-  interval: 10
-  ankers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  lineRenderer: {fileID: 9146584138966349654}
 --- !u!114 &579302784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +155,6 @@ MonoBehaviour:
   clickPut: 1
   AnkerPrefab: {fileID: 8542680920208775497, guid: 45aabbc9393726940b977e7c62323b1f,
     type: 3}
-  interval: 1
+  interval: 20
   ankers: []
   lineRenderer: {fileID: 9146584138966349654}
