@@ -6,11 +6,12 @@ public class Enemy_First : MonoBehaviour
 {
 	public enum State
 	{
-		Turn,			//曲がる
+		TurnUp,			//上に曲がる
+		TurnDown,		//下に曲がる
 		Generated,		//生成された時
 	}
 
-	State eState = State.Turn;
+	public State eState = State.TurnDown;
 
 	float speed;
 	Vector3 velocity;
@@ -39,7 +40,7 @@ public class Enemy_First : MonoBehaviour
     {
         switch(eState)
 		{
-			case State.Turn:
+			case State.TurnUp:
 				if(!isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
@@ -55,7 +56,7 @@ public class Enemy_First : MonoBehaviour
 				}
 				else if(isTurn)
 				{
-					velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+					velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
 
 					speedX -= 0.12f;
@@ -88,6 +89,34 @@ public class Enemy_First : MonoBehaviour
 				}
 				break;
 
+			case State.TurnDown:
+				if (!isTurn)
+				{
+					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+					gameObject.transform.position += velocity * Time.deltaTime;
+					if (transform.position.x < 9)
+					{
+						frame++;
+					}
+					if (frame > 180)
+					{
+						isTurn = true;
+					}
+				}
+				else if (isTurn)
+				{
+					velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+					gameObject.transform.position += velocity * Time.deltaTime;
+
+					speedX -= 0.12f;
+
+					if (speedX < -5.0f)
+					{
+						speedX = -5.0f;
+					}
+				}
+				break;
+
 			case State.Generated:
 				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
@@ -101,13 +130,16 @@ public class Enemy_First : MonoBehaviour
 		switch(num)
 		{
 			case 0:
-				eState = State.Turn;
+				eState = State.TurnUp;
 				break;
 
 			case 1:
+				eState = State.TurnDown;
+				break;
+
+			case 2:
 				eState = State.Generated;
 				break;
 		}
-		//eState = s;
 	}
 }
