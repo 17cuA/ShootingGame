@@ -88,7 +88,7 @@ public class Game_Master : MonoBehaviour
 		if(Name_List == null)
 		{
 			Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
-			Name_List = new string[ database_.Database_Array.GetLength(0)];
+			Name_List = new string[database_.Database_Array.GetLength(0)];
 			Name_List = database_.goreco(0);
 		}
 		if (Boss_Data == null)
