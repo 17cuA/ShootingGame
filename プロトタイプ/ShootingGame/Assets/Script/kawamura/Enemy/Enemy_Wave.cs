@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class Enemy_Wave : MonoBehaviour
 {
+	public enum State
+	{
+		WaveUp,
+		WaveDown,
+		WaveOnlyUp,
+		WaveOnlyDown,
+	}
+
+	public State eState;
 	public float speedX;
 	public float speedY;
 	public float speedZ;
+	public float speedZ_Value;
 	public float amplitude;
 
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
@@ -29,7 +39,7 @@ public class Enemy_Wave : MonoBehaviour
 
 	Vector3 velocity;
 
-
+	bool once = true;
 	bool isBig = false;
 	bool isWave = false;
 	//---------------------------------------------------------
@@ -37,8 +47,8 @@ public class Enemy_Wave : MonoBehaviour
 	void Start()
 	{
 		speedZ = 0;
-		scale_Value
-			= 0.75f;
+		speedZ_Value = 8.0f;
+		scale_Value	= 0.75f;
 		scaleX = 1.125f;
 		scaleY = scale_Value;
 		scaleZ = scale_Value;
@@ -52,9 +62,58 @@ public class Enemy_Wave : MonoBehaviour
 
 	void Update()
 	{
+		if(once)
+		{
+			switch(eState)
+			{
+				case State.WaveUp:
+					if (defaultSpeedY < 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					break;
+
+				case State.WaveDown:
+					if (defaultSpeedY > 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					break;
+
+				case State.WaveOnlyUp:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					transform.localScale = new Vector3(1.5f, 1.0f, 1.0f);
+
+					if (defaultSpeedY < 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					speedY = defaultSpeedY;
+					speedX = 5;
+					speedZ_Value = 0;
+					isWave = true;
+					break;
+
+				case State.WaveOnlyDown:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					transform.localScale = new Vector3(1.5f, 1.0f, 1.0f);
+
+					if (defaultSpeedY > 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					speedY = defaultSpeedY;
+					speedX = 5;
+					speedZ_Value = 0;
+					isWave = true;
+					break;
+			}
+			once = false;
+		}
+
 		if (!isWave)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, -speedZ);
+			velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
 			gameObject.transform.position += velocity * Time.deltaTime;
 			if (transform.position.z < 0)
 			{
@@ -70,7 +129,7 @@ public class Enemy_Wave : MonoBehaviour
 			}
 			else if (transform.position.x > 8)
 			{
-				speedZ = 8;
+				speedZ = speedZ_Value;
 				isBig = true;
 			}
 			if(transform.position.x>10)
@@ -86,7 +145,7 @@ public class Enemy_Wave : MonoBehaviour
 			SpeedY_Calculation();
 
 			//this.transform.position = new Vector3(transform.position.x, sin, 0);
-			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * test), transform.position.z);
+			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount*0.1f), transform.position.z);
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -115,21 +174,46 @@ public class Enemy_Wave : MonoBehaviour
 	//Yスピードを見てYスピードを増加させるか減少させるかを決める
 	void SpeedY_Check()
 	{
-		//スピードが初期値以上になった時
-		if (speedY >= defaultSpeedY)
+		if (defaultSpeedY > 0)
 		{
-			//増加をfalse 減少をtrue
-			isAddSpeedY = false;
-			isSubSpeedY = true;
-		}
-		//スピードが0以下になったとき
-		else if (speedY <= -defaultSpeedY)
-		{
-			//減少をfalse 増加をtrue
-			isSubSpeedY = false;
-			isAddSpeedY = true;
+			//スピードが初期値以上になった時
+			if (speedY >= defaultSpeedY)
+			{
+				//増加をfalse 減少をtrue
+				isAddSpeedY = false;
+				isSubSpeedY = true;
+			}
+			//スピードが0以下になったとき
+			else if (speedY <= -defaultSpeedY)
+			{
+				//減少をfalse 増加をtrue
+				isSubSpeedY = false;
+				isAddSpeedY = true;
+
+			}
 
 		}
+		else if (defaultSpeedY < 0)
+		{
+			//スピードが初期値以上になった時
+			if (speedY >= -defaultSpeedY)
+			{
+				//増加をfalse 減少をtrue
+				isAddSpeedY = false;
+				isSubSpeedY = true;
+			}
+			//スピードが0以下になったとき
+			else if (speedY <= defaultSpeedY)
+			{
+				//減少をfalse 増加をtrue
+				isSubSpeedY = false;
+				isAddSpeedY = true;
+
+			}
+
+		}
+
+
 	}
 
 	//スピードを増減させる
