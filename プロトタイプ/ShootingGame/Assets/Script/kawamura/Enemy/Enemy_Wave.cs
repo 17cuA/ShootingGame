@@ -48,8 +48,8 @@ public class Enemy_Wave : MonoBehaviour
 	{
 		speedZ = 0;
 		speedZ_Value = 8.0f;
-		scale_Value	= 0.75f;
-		scaleX = 1.125f;
+		scale_Value	= 0.27f;
+		scaleX = 0.25f;
 		scaleY = scale_Value;
 		scaleZ = scale_Value;
 		transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
@@ -155,10 +155,10 @@ public class Enemy_Wave : MonoBehaviour
 
 		if (isBig)
 		{
-			scale_Value += 0.01f;
-			scaleX += 0.015f;
+			scale_Value += 0.005f;
+			scaleX += 0.001f;
 			
-			if(scaleX>1.5f)
+			if(scaleX>0.3f)
 			{
 				scaleX = 1.5f;
 			}
