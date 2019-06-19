@@ -33,7 +33,7 @@ public class PowerUpManager : Singleton<PowerUpManager>
 	{
 		get
 		{
-			if(currentSlot < 0)
+			if(currentSlot < 0 || !isSelect)
 				return null;
 
 			return powerUps[currentSlot];
