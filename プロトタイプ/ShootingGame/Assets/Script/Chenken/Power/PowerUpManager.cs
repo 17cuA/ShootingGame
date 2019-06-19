@@ -33,7 +33,7 @@ public class PowerUpManager : Singleton<PowerUpManager>
 	{
 		get
 		{
-			if(currentSlot < 0 || !isSelect)
+			if(currentSlot < 0)
 				return null;
 
 			return powerUps[currentSlot];
@@ -147,7 +147,7 @@ public class PowerUpManager : Singleton<PowerUpManager>
 	public void Excute()
 	{
 		//現在パワーアップはアップグレード出来ない、そしてNull　ではない場合
-		if (CurrentPowerUp != null && !CurrentPowerUp.CannotUpgrade)
+		if (CurrentPowerUp != null && !CurrentPowerUp.CannotUpgrade && isSelect)
 		{	
 			//パワーアップの監視処理をすべて実行する
 			for (var i = 0; i < CurrentPowerUp.OnExcuteCallBacks.Count; ++i)

@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  speedUpModifier: 0
+  speedUpModifier: 1.5
   missleWaitTime: 0.8
   activeMissile: 0
   bitIndex: 0
@@ -269,10 +269,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8980319411110346728}
     m_Modifications:
-    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
-      propertyPath: m_Name
-      value: player
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -328,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
+      propertyPath: m_Name
+      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_Materials.Array.data[0]
