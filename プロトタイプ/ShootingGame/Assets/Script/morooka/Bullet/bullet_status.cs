@@ -36,7 +36,7 @@ public class bullet_status : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider col)
+	protected void OnTriggerEnter(Collider col)
 	{
 		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
 		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player") || (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy"))

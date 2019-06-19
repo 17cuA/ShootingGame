@@ -12,7 +12,9 @@ using UnityEngine;
 public class Missile : bullet_status
 {
 	Vector3 pos;
-	float a = 5;
+	float a = -1.9f;
+	int num = 0;
+	int flame = 0;
 
     private void Start()
     {
@@ -25,11 +27,17 @@ public class Missile : bullet_status
     {
 		base.Update();
 		Vector3 vector = transform.position;
-		vector.y = -0.2f * (transform.position.x - pos.x) * (transform.position.x - pos.x) + transform.position.y;
+		vector.y = a * ((flame * shot_speed) - pos.x) * (transform.position.x - pos.x) + pos.y;
 
-		transform.right = vector;
+		//transform.right = vector;
 		transform.position = vector;
 
 		Moving_To_Travelling_Direction();
     }
+
+	void OnEnable()
+	{
+		pos = transform.position;
+		flame = 0;
+	}
 }
