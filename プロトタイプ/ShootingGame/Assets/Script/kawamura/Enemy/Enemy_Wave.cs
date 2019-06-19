@@ -88,10 +88,11 @@ public class Enemy_Wave : MonoBehaviour
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY;
+					speedY = defaultSpeedY / 2;
 					speedX = 5;
 					speedZ_Value = 0;
 					isWave = true;
+					isAddSpeedY = true;
 					break;
 
 				case State.WaveOnlyDown:
@@ -102,10 +103,11 @@ public class Enemy_Wave : MonoBehaviour
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY;
+					speedY = defaultSpeedY / 2;
 					speedX = 5;
 					speedZ_Value = 0;
 					isWave = true;
+					isSubSpeedY = true;
 					break;
 			}
 			once = false;
