@@ -30,18 +30,39 @@ namespace StorageReference
 			GameObject obj = null;
 			switch (name)
 			{
+				#region Enemy_1
+				case Game_Master.OBJECT_NAME.eENEMY_NUM1:
+					obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
+					break;
+				#endregion
+				#region Player_Bullet
 				case Game_Master.OBJECT_NAME.ePLAYER_BULLET:
+					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 					break;
+				#endregion
+				#region Player_Missile
 				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
+					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
 					break;
+				#endregion
+				#region Plauyer_Laser
 				case Game_Master.OBJECT_NAME.ePLAYER_LASER:
 					break;
+				#endregion
+				#region Enemy_Bullet
 				case Game_Master.OBJECT_NAME.eENEMY_BULLET:
+					obj = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
 					break;
+				#endregion
+				#region Enemy_Beam
 				case Game_Master.OBJECT_NAME.eENEMY_BEAM:
+					obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
 					break;
+				#endregion
+				#region Enemy_Laser
 				case Game_Master.OBJECT_NAME.eENEMY_LASER:
 					break;
+				#endregion
 				default:
 					break;
 			}

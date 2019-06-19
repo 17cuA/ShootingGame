@@ -187,7 +187,7 @@ public class Player1 : character_status
 	//バレットの発射
     	private void Single_Fire()
 	{
-		Object_Instantiation.Object_Reboot("Player_Bullet", shot_Mazle.transform.position, shot_Mazle.transform.right);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, shot_Mazle.transform.right);
 	}
 	//private void Diffusion_Fire()
 	//{

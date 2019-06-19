@@ -41,11 +41,11 @@ public class motakku_Enemy : character_status
 		{
 			foreach(GameObject obj in Shot_Mazle)
 			{
-				Object_Instantiation.Object_Reboot("Player_Missile", obj.transform.position, obj.transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, obj.transform.position, obj.transform.right);
 			}
 			foreach(GameObject obj in Beam_Mazle)
 			{
-				Object_Instantiation.Object_Reboot("Beam_Bullet_Enemy", obj.transform.position, obj.transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, obj.transform.position, obj.transform.right);
 			}
 		}
     }

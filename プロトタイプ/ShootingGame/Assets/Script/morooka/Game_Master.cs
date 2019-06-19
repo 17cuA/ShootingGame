@@ -64,14 +64,14 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum OBJECT_NAME
 	{
-		ePLAYER_BULLET,
-		ePLAYER_MISSILE,
-		ePLAYER_LASER,
-		eENEMY_BULLET,
-		eENEMY_BEAM,
-		eENEMY_LASER
+		ePLAYER_BULLET,			// プレイヤーのバレット
+		ePLAYER_MISSILE,		// プレイヤーのミサイル
+		ePLAYER_LASER,			// プレイヤーのレーザー
+		eENEMY_BULLET,			// エネミーのバレット
+		eENEMY_BEAM,			// エネミーのビーム
+		eENEMY_LASER,			// エネミーのレーザー
+		eENEMY_NUM1,			// エネミー1番
 	}
-
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報

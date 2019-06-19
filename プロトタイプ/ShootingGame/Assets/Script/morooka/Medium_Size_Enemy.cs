@@ -33,7 +33,7 @@ public class Medium_Size_Enemy : character_status
 		{
 			for (int i = 0; i < transform.childCount; i++)
 			{
-				Object_Instantiation.Object_Reboot("Enemy_Bullet_01", Shot_Mazle[i].transform.position, Shot_Mazle[i].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Shot_Mazle[i].transform.position, Shot_Mazle[i].transform.right);
 			}
 		}
 	}
