@@ -54,7 +54,7 @@ public class LineCreater : MonoBehaviour
 	private int prevChildCount;
 	private EventType prevEventType;
 	private const int debugDivision = 20;           // 分割数
-	//────────────────────────────────────────────
+													//────────────────────────────────────────────
 
 	//初期化─────────────────────────────────────────
 	private void Awake()
@@ -62,6 +62,8 @@ public class LineCreater : MonoBehaviour
 		//!< 実行中のみ初期化処理を行う
 		if (EditorApplication.isPlayingOrWillChangePlaymode)
 		{
+			//Debug.Log(ankers[ankers.Length - 1]);
+			Debug.Log(ankers.Length);
 			int[] adjustDivisions = new int[ankers.Length - 1];
 			for (int a = 0; a < ankers.Length - 1; ++a)
 			{
