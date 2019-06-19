@@ -59,13 +59,17 @@ public class UI_PowerUp : MonoBehaviour
 				current.gameObject.SetActive(false);
 		}
 
-		
-			//現在選択パワーアップはアップグレード出来ない
-		if (PowerUpManager.Instance.CurrentPowerUp != null && PowerUpManager.Instance.CurrentPowerUp.CannotUpgrade)
+
+		for(var i = 0; i < texts.Count; ++i)
 		{
-			//対応するUIの表示を空でなければ空にする
-			if (texts[slot].text != string.Empty)
-				texts[slot].text = string.Empty;
+			var power = PowerUpManager.Instance.GetPowerUp((PowerUpType)i);
+			if (power != null)
+			{
+				if ((!power.IsMainWeaponUpgrade && !power.CannotUpgrade) || (power.IsMainWeaponUpgrade && !power.IsWeaponUsing))
+					texts[i].text = power.Name;
+				if ((!power.IsMainWeaponUpgrade && power.CannotUpgrade) || (power.IsMainWeaponUpgrade && power.IsWeaponUsing))
+					texts[i].text = string.Empty;
+			}
 		}
 		
 	}

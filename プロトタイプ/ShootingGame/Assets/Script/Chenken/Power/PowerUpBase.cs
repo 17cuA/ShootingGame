@@ -14,13 +14,13 @@ public enum PowerUpType
 	PowerUp_KillAll,		//敵全滅
 
 }
-public class PowerUpBase 
+public class PowerUpBase
 {
-	public delegate void OnExcuteCallBack();		//パワーアップの処理タイプ（引数なし）
-	public PowerUpType Type { get; private set; }	//パワーアップタイプ（Get用）
-	public string Name　　 　{ get; private set; }	//パワーアップ名（Get用）
-	public int Max 　　　　　{ get; private set; }	//パワーアップレベル最大数（Get用）
-	public int Count 　　　　{ get; set; }			//現在パワーアップレベル（Get、Set）
+	public delegate void OnExcuteCallBack();        //パワーアップの処理タイプ（引数なし）
+	public PowerUpType Type { get; private set; }   //パワーアップタイプ（Get用）
+	public string Name { get; private set; }    //パワーアップ名（Get用）
+	public int Max { get; private set; }    //パワーアップレベル最大数（Get用）
+	public int Count { get; private set; }  //現在パワーアップレベル（Get、Set）
 	public bool CannotUpgrade
 	{
 		get
@@ -28,6 +28,11 @@ public class PowerUpBase
 			return Count == Max;
 		}
 	}
+
+	public bool IsMainWeaponUpgrade { get; private set; }
+	public bool IsWeaponUsing { get; set; }
+
+
 
 	//パワーアップ時の処理集合
 	private List<OnExcuteCallBack> onExcuteCallBacks;
@@ -38,6 +43,24 @@ public class PowerUpBase
 			return onExcuteCallBacks;
 		}
 	}
+
+	public void Excute()
+	{
+		if (!CannotUpgrade)
+		{
+			for (var i = 0; i < onExcuteCallBacks.Count; ++i)
+			{
+				onExcuteCallBacks[i]();
+			}
+
+			if (IsMainWeaponUpgrade)
+				IsWeaponUsing = true;
+			else
+				Count++;
+
+		}
+	}
+
 
 	/// <summary>
 	/// コンストラクタで初期化させる
@@ -51,6 +74,15 @@ public class PowerUpBase
 		this.Type = type;
 		this.Name = name;
 		this.Max = max;
+	}
+
+	public PowerUpBase(PowerUpType type, string name, bool isMainWeaponUpgrade)
+	{
+		onExcuteCallBacks = new List<OnExcuteCallBack>();
+		this.Type = type;
+		this.Name = name;
+		this.IsMainWeaponUpgrade = isMainWeaponUpgrade;
+		this.IsWeaponUsing = false;
 	}
 }
 

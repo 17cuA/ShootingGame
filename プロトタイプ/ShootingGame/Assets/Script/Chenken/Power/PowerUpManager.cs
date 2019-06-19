@@ -10,8 +10,8 @@ public class PowerUpManager : Singleton<PowerUpManager>
 		//初期化方法　->　パワーアップタイプ、パワーアップ名、アップグレード可能回数
 		{ new PowerUpBase(PowerUpType.PowerUp_SpeedUp,"SPEED UP", 4) },
 		{ new PowerUpBase(PowerUpType.PowerUp_Missile,"MISSILE" , 1) },
-		{ new PowerUpBase(PowerUpType.PowerUp_Double, "DOUBLE"  , 1) },
-		{ new PowerUpBase(PowerUpType.PowerUp_Laser,  "LASER"   , 1) },
+		{ new PowerUpBase(PowerUpType.PowerUp_Double, "DOUBLE"  , true) },
+		{ new PowerUpBase(PowerUpType.PowerUp_Laser,  "LASER"   , true) },
 		{ new PowerUpBase(PowerUpType.PowerUp_Option, "OPTION"  , 4) },
 		{ new PowerUpBase(PowerUpType.PowerUp_Undecided,  "?"   , 4) },
 	};
@@ -147,16 +147,33 @@ public class PowerUpManager : Singleton<PowerUpManager>
 	public void Excute()
 	{
 		//現在パワーアップはアップグレード出来ない、そしてNull　ではない場合
-		if (CurrentPowerUp != null && !CurrentPowerUp.CannotUpgrade && isSelect)
-		{	
-			//パワーアップの監視処理をすべて実行する
-			for (var i = 0; i < CurrentPowerUp.OnExcuteCallBacks.Count; ++i)
-				CurrentPowerUp.OnExcuteCallBacks[i]();
+		if (CurrentPowerUp != null && isSelect)
+		{
+			if (!CurrentPowerUp.CannotUpgrade)
+			{
+				CurrentPowerUp.Excute();
 
-			CurrentPowerUp.Count++;
-		
-			//選択していない状態にする
-			isSelect = false;		
+				isSelect = false;
+			}	
+
+			if(CurrentPowerUp.IsMainWeaponUpgrade)
+			{
+				if (CurrentPowerUp.IsWeaponUsing)
+				{
+					for (var i = 0; i < powerUps.Count; ++i)
+					{
+						if (powerUps[i].Type != CurrentPowerUp.Type && powerUps[i].IsMainWeaponUpgrade && powerUps[i].IsWeaponUsing)
+						{
+							powerUps[i].IsWeaponUsing = false;
+						}
+					}
+				}
+				else
+				{
+					CurrentPowerUp.Excute();
+					isSelect = false;
+				}
+			}
 		}
 	}
 
