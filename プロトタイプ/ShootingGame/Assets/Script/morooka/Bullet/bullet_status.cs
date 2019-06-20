@@ -25,6 +25,9 @@ public class bullet_status : MonoBehaviour
 	protected void Start()
 	{
 		Bullet_Renderer = GetComponent<Renderer>();
+		//Rigidbody r = gameObject.AddComponent<Rigidbody>();
+		//r.useGravity = false;
+		//r.velocity = Vector3.zero;
 		Travelling_Direction = transform.right;
 	}
 
@@ -51,7 +54,7 @@ public class bullet_status : MonoBehaviour
 	/// <summary>
 	/// 爆発エフェクト生成
 	/// </summary>
-	private void AddExplosionProcess()
+	protected void AddExplosionProcess()
 	{
 		ParticleManagement particleManagementCS;
 		particleManagementCS = GameObject.Find("ParticleManager").GetComponent<ParticleManagement>();
@@ -61,7 +64,7 @@ public class bullet_status : MonoBehaviour
 	/// 向きの変更
 	/// </summary>
 	/// <param name="_Dir"> 向きたい向き </param>
-	public void Moving_Facing_Preference(Vector3 _Dir)
+	protected void Moving_Facing_Preference(Vector3 _Dir)
 	{
 		transform.right = _Dir;
 		Travelling_Direction = _Dir;
@@ -71,7 +74,7 @@ public class bullet_status : MonoBehaviour
 	/// 移動したい向きのみ変更
 	/// </summary>
 	/// <param name="_Dir"> 移動方向 </param>
-	public void FacingChange(Vector3 _Dir)
+	protected void FacingChange(Vector3 _Dir)
 	{
 		Travelling_Direction = _Dir;
 	}
@@ -79,7 +82,7 @@ public class bullet_status : MonoBehaviour
 	/// <summary>
 	/// 向いている方向に移動
 	/// </summary>
-	public void Moving_To_Facing()
+	protected void Moving_To_Facing()
 	{
 		Vector3 temp_Pos = transform.right.normalized * shot_speed;
 
