@@ -16,6 +16,7 @@ public class HSVColorController : MonoBehaviour
 	void Start()
 	{
 		this.material = gameObject.GetComponent<Renderer>().material;
+		val = 0.4f;
 	}
 
 	// Update is called once per frame

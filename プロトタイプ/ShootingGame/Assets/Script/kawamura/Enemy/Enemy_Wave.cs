@@ -11,8 +11,12 @@ public class Enemy_Wave : MonoBehaviour
 		WaveOnlyUp,
 		WaveOnlyDown,
 	}
-
 	public State eState;
+
+	GameObject childObj;
+
+	HSVColorController hsvCon;
+
 	public float speedX;
 	public float speedY;
 	public float speedZ;
@@ -31,6 +35,7 @@ public class Enemy_Wave : MonoBehaviour
 	float posY;
 	float posZ;
 	float defPosX;
+	float val_Value;
 
 	float scaleX;
 	float scaleY;
@@ -39,15 +44,19 @@ public class Enemy_Wave : MonoBehaviour
 
 	Vector3 velocity;
 
-	bool once = true;
-	bool isBig = false;
-	bool isWave = false;
+	public bool once = true;
+	public bool isBig = false;
+	public bool isWave = false;
 	//---------------------------------------------------------
 
 	void Start()
 	{
+		childObj= transform.FindChild("Player_gisshi").gameObject;
+		hsvCon = childObj.GetComponent<HSVColorController>();
+		val_Value = 0.02f;
+
 		speedZ = 0;
-		speedZ_Value = 8.0f;
+		speedZ_Value = 3.0f;
 		scale_Value	= 0.27f;
 		scaleX = 0.25f;
 		scaleY = scale_Value;
@@ -155,21 +164,25 @@ public class Enemy_Wave : MonoBehaviour
 
 		if (isBig)
 		{
-			scale_Value += 0.005f;
-			scaleX += 0.001f;
+			scale_Value += 0.007f;
+			scaleX += 0.007f;
 			
-			if(scaleX>0.3f)
+			if(scaleX>0.4f)
 			{
-				scaleX = 1.5f;
+				scaleX = 0.4f;
 			}
-			if (scale_Value > 1)
+			if (scale_Value > 0.4f)
 			{
-				scale_Value = 1;
+				scale_Value = 0.4f;
 				isBig = false;
 
 			}
-			transform.localScale = new Vector3(scaleX, scale_Value, scale_Value);
-
+			transform.localScale = new Vector3(scale_Value, scale_Value, scale_Value);
+			hsvCon.val += val_Value;
+			if (hsvCon.val > 1.0f)
+			{
+				hsvCon.val = 1.0f;
+			}
 		}
 
 	}
