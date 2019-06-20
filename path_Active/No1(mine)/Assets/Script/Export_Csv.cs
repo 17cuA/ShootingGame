@@ -31,7 +31,7 @@ public class Export_Csv : MonoBehaviour
 		// ファイル書き出し
 		// 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
 		// 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
-		sw = new StreamWriter(@"Assets/CSV/" + save_name + Extension, false, Encoding.GetEncoding("Shift_JIS"));
+		sw = new StreamWriter(@"Assets/" + save_name + Extension, false, Encoding.GetEncoding("Shift_JIS"));
 		// データ出力
 		for (int i = 0; i < LC.lineRenderer.positionCount; i++)
 		{
