@@ -51,14 +51,17 @@ public class Enemy_Wave : MonoBehaviour
 
 	void Start()
 	{
-		childObj= transform.FindChild("Player_gisshi").gameObject;
+		childObj= transform.Find("Player_gisshi").gameObject;
 		hsvCon = childObj.GetComponent<HSVColorController>();
-		val_Value = 0.02f;
+		val_Value = 0.015f;
 
 		speedZ = 0;
-		speedZ_Value = 3.0f;
-		scale_Value	= 0.27f;
-		scaleX = 0.25f;
+		speedZ_Value = 30.0f;
+		//scale_Value	= 0.27f;
+		//scaleX = 0.25f;
+		scale_Value = 0.4f;
+		scaleX = 0.4f;
+
 		scaleY = scale_Value;
 		scaleZ = scale_Value;
 		transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
@@ -124,11 +127,11 @@ public class Enemy_Wave : MonoBehaviour
 
 		if (!isWave)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+			velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, -speedZ);
 			gameObject.transform.position += velocity * Time.deltaTime;
 			if (transform.position.z < 0)
 			{
-				transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+				transform.position = new Vector3(transform.position.x, transform.position.y, scaleZ);
 			}
 
 			if (transform.position.x > 13)
@@ -140,12 +143,21 @@ public class Enemy_Wave : MonoBehaviour
 			}
 			else if (transform.position.x > 8)
 			{
-				speedZ = speedZ_Value;
-				isBig = true;
+				//speedZ = speedZ_Value;
+				//isBig = true;
 			}
-			if(transform.position.x>10)
+			if(transform.position.x>3)
 			{
-				speedX *= 0.95f;
+				speedZ = speedZ_Value;
+				hsvCon.val += val_Value;
+				if (hsvCon.val > 1.0f)
+				{
+					hsvCon.val = 1.0f;
+				}
+			}
+			if (transform.position.x>10)
+			{
+				speedX *= 0.93f;
 			}
 		}
 		else if(isWave)
@@ -162,28 +174,28 @@ public class Enemy_Wave : MonoBehaviour
 
 		}
 
-		if (isBig)
-		{
-			scale_Value += 0.007f;
-			scaleX += 0.007f;
+		//if (isBig)
+		//{
+		//	scale_Value += 0.007f;
+		//	scaleX += 0.007f;
 			
-			if(scaleX>0.4f)
-			{
-				scaleX = 0.4f;
-			}
-			if (scale_Value > 0.4f)
-			{
-				scale_Value = 0.4f;
-				isBig = false;
+		//	if(scaleX>0.4f)
+		//	{
+		//		scaleX = 0.4f;
+		//	}
+		//	if (scale_Value > 0.4f)
+		//	{
+		//		scale_Value = 0.4f;
+		//		isBig = false;
 
-			}
-			transform.localScale = new Vector3(scale_Value, scale_Value, scale_Value);
-			hsvCon.val += val_Value;
-			if (hsvCon.val > 1.0f)
-			{
-				hsvCon.val = 1.0f;
-			}
-		}
+		//	}
+		//	transform.localScale = new Vector3(scale_Value, scale_Value, scale_Value);
+		//	hsvCon.val += val_Value;
+		//	if (hsvCon.val > 1.0f)
+		//	{
+		//		hsvCon.val = 1.0f;
+		//	}
+		//}
 
 	}
 	//Yスピードを見てYスピードを増加させるか減少させるかを決める
