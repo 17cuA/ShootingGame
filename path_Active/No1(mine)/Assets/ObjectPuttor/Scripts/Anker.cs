@@ -15,17 +15,16 @@
 // TODO：
 //
 //──────────────────────────────────────────────────────────────────────────
-
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System;
 
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 //SceneViewを取得するために宣言、エディタ外では使えないのでUNITY_EDITORで囲む
 using UnityEditor;
-//#endif
-using UnityEngine;
+#endif
 
-//[ExecuteInEditMode]		//playモードじゃなくても、スクリプトが動くようにするもの
+[ExecuteInEditMode]		//playモードじゃなくても、スクリプトが動くようにするもの
 public class Anker : MonoBehaviour
 {
 	//変数宣言──────────────────────────────────────────────────────────────────────
@@ -181,6 +180,7 @@ public class Anker : MonoBehaviour
 	/// <returns></returns>
 	void UpdateLinePosition()
 	{
+		//print(1);
 		lineRenderer.SetPosition(0, PrevHandlePos);
 		lineRenderer.SetPosition(1, transform.position);
 		lineRenderer.SetPosition(2, NextHandlePos);
