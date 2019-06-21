@@ -186,7 +186,7 @@ public class Player1 : character_status
     	private void Single_Fire()
 	{
 		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		gameObject.transform.rotation *= Direction ;
+		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
 	}
 	//private void Diffusion_Fire()

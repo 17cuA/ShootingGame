@@ -30,14 +30,17 @@ public class character_status : MonoBehaviour
 	{
 		hp = hp_Max;
 	}
+	public void Damege_Process(int damege)
+	{
+		hp -= damege;
+	}
 	/// <summary>
 	/// 死んだときに呼び出される
 	/// </summary>
-	/// <param name="hp">キャラクターの体力を持って来る</param>
-	public void Died_Process(int hp)
+	public void Died_Process()
 	{
 		//体力が1未満だったらオブジェクトの消去
-		if (hp < 1)
+		if (hp < 0)
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(100);
@@ -50,7 +53,7 @@ public class character_status : MonoBehaviour
 			transform.position = new Vector3(0, 800.0f,0);
 			//稼働しないようにする
 			gameObject.SetActive(false);
-
+			Debug.Log(gameObject.transform.parent.name + "		Destroy");
 		}
 	}
 	//パーティクルの作成（爆発のみ）

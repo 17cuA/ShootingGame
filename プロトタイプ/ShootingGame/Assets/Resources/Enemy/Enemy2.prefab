@@ -57,17 +57,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687921260126056697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e703263cb9d9894e949bbfa8f2d4938, type: 3}
+  m_Script: {fileID: 11500000, guid: 86f91c632f71b564fa8462e740dd24f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  hp: 0
+  speed: 1
+  hp: 1
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  Item_Flag: 0
-  Item: {fileID: 0}
 --- !u!1 &6354452132573785511
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +117,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1687921260125957337}
     m_Modifications:
+    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -174,10 +176,6 @@ PrefabInstance:
     - target: {fileID: 400006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
-      propertyPath: m_Name
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: f9951c3552f84244796b67bcda03b6ed, type: 3}
       propertyPath: m_Controller
