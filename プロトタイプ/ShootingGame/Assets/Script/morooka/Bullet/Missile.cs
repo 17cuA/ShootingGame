@@ -14,19 +14,23 @@ public class Missile : bullet_status
 	[SerializeField]
 	[Header("二次関数の傾き")]
 	private float slope;
+	[SerializeField]
+	[Header("等速直線運動のスピード")]
+	private float ConstantVelocityLineSpeed;     // 等速直線速度
 
 	private Vector3 Vertex { get; set; }
 	private int Act_Step { get; set; }
 	private int Running_Flame { get; set; }
+
 	RaycastHit hit;
-	float ray_length = 0.5f;
+	float ray_length = 0.3f;
 
 	private new void Start()
-    {
+	{
 		base.Start();
 		Vertex = transform.position;
-		FacingChange(new Vector3(1.0f,0.0f,0.0f));
-    }
+		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
+	}
 
 	private new void Update()
 	{
@@ -39,43 +43,28 @@ public class Missile : bullet_status
 		}
 		if (Act_Step == 1)
 		{
-			Vector3 vector = Vector3.zero;
-			vector.x = Running_Flame;
-			vector.y = (slope * Mathf.Pow((int)(vector.x - Vertex.x), 2)) + Vertex.y;
-			transform.right = vector;
-			transform.position += vector.normalized * shot_speed;
-			Running_Flame++;
-
-			if (Physics.Raycast(transform.position,transform.right, out hit, ray_length))
+			HorizontalProjection();
+		}
+		else if (Act_Step == 2)
+		{
+			transform.position += transform.right.normalized * shot_speed;
+			if (Physics.Raycast(transform.position, transform.up * -1.0f, out hit, ray_length * 3.0f))
 			{
-				if (hit.transform.gameObject.tag == "Wall")
+				if (hit.normal.y != 1.0f)
 				{
-					Vector2 normal_a = hit.normal;					// 衝突したオブジェクトの向き
-					Vector2 missile_facing = transform.right;       // ミサイルの向き
-					float inner_product = (normal_a.x * missile_facing.x) + (normal_a.y * missile_facing.y);
-					float a = (float)Math.Sqrt((double)((normal_a.x * normal_a.x) + (normal_a.y * normal_a.y)));
-					float b = (float)Math.Sqrt((double)((missile_facing.x * missile_facing.x) + (missile_facing.y * missile_facing.y)));
-					inner_product / a * b;
-
-					//if (hit.normal.z - transform.right.z <= -90.0f)
-					//{
-					//	transform.right = new Vector3(1.0f, 0.0f, 0.0f);
-					//	Act_Step++;
-					//}
-					//else if(hit.normal.z - transform.right.z > -90.0f)
-					//{
-					//	AddExplosionProcess();
-					//	gameObject.SetActive(false);
-					//}
+					Moving_Facing_Change();
 				}
 			}
-
 		}
-		else if(Act_Step == 2)
+
+		if (Physics.Raycast(transform.position, transform.right, out hit, ray_length))
 		{
-			Vector3 vector = transform.position;
-			vector.x += shot_speed;
-			transform.position = vector;
+			if (hit.transform.gameObject.tag == "Wall")
+			{
+				Moving_Facing_Change();
+				Act_Step = 2;
+				Debug.Log("hei");
+			}
 		}
 	}
 
@@ -85,6 +74,31 @@ public class Missile : bullet_status
 		Act_Step = 0;
 	}
 
+	/// <summary>
+	/// 移動向き変更
+	/// </summary>
+	private void Moving_Facing_Change()
+	{
+		transform.right = new Vector2(hit.normal.y, -hit.normal.x);
+		float an = transform.right.x * 0.0f + transform.right.y * 1.0f;
+
+		if (an > 0)
+		{
+			AddExplosionProcess();
+			gameObject.SetActive(false);
+		}
+	}
+
+	/// <summary>
+	/// 水平投射
+	/// </summary>
+	private void HorizontalProjection()
+	{
+		Vector3 vector = new Vector3(ConstantVelocityLineSpeed, -1.0f * (Running_Flame * shot_speed));
+		transform.right = vector;
+		transform.position += vector.normalized * shot_speed;
+		Running_Flame++;
+	}
 	//private new void OnTriggerEnter(Collider col)
 	//{
 	//	if (col.gameObject.tag == "Wall")
