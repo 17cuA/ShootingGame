@@ -25,9 +25,6 @@ public class bullet_status : MonoBehaviour
 	protected void Start()
 	{
 		Bullet_Renderer = GetComponent<Renderer>();
-		//Rigidbody r = gameObject.AddComponent<Rigidbody>();
-		//r.useGravity = false;
-		//r.velocity = Vector3.zero;
 		Travelling_Direction = transform.right;
 	}
 

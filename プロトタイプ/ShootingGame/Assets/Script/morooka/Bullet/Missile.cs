@@ -3,6 +3,7 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/06/19 落下と地面衝突時の移動向き変更
+ * 2019/06/21 上り坂に衝突時自身の破壊
  */
 using System;
 using System.Collections;
@@ -12,58 +13,57 @@ using UnityEngine;
 public class Missile : bullet_status
 {
 	[SerializeField]
-	[Header("二次関数の傾き")]
-	private float slope;
+	[Header("等速直線運動のスピード")]
+	private float constant_velocity_line_speed;     // 等速直線速度
 	[SerializeField]
 	[Header("等速直線運動のスピード")]
-	private float ConstantVelocityLineSpeed;     // 等速直線速度
+	private float ray_length = 0.3f;                        // 等速直線運動のスピード
 
-	private Vector3 Vertex { get; set; }
-	private int Act_Step { get; set; }
-	private int Running_Flame { get; set; }
+	private RaycastHit hit_mesh;							// 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
-	RaycastHit hit;
-	float ray_length = 0.3f;
+	private int Act_Step { get; set; }					// 行動の変更用
+	private int Running_Flame { get; set; }		// 起動している間のフレーム
 
 	private new void Start()
 	{
 		base.Start();
-		Vertex = transform.position;
 		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
+		hit_mesh = new RaycastHit();
 	}
 
 	private new void Update()
 	{
 		base.Update();
 
+		// 障害物に当たる前の行動
 		if (Act_Step == 0)
-		{
-			Vertex = transform.position;
-			Act_Step++;
-		}
-		if (Act_Step == 1)
 		{
 			HorizontalProjection();
 		}
+		// 障害物に当たった後の行動
 		else if (Act_Step == 2)
 		{
+			// 自身の向いている方向に移動
 			transform.position += transform.right.normalized * shot_speed;
-			if (Physics.Raycast(transform.position, transform.up * -1.0f, out hit, ray_length * 3.0f))
+			//	自身の下方向にコライダーがあるとき
+			if (Physics.Raycast(transform.position, transform.up * -1.0f, out hit_mesh, ray_length * 3.0f))
 			{
-				if (hit.normal.y != 1.0f)
+				// コライダーの持ち主がWAllのとき、法線が上向きでないとき
+				if (hit_mesh.transform.tag=="Wall" && hit_mesh.normal.y != 1.0f)
 				{
-					Moving_Facing_Change();
+					Moving_Facing_Confirmation();
 				}
 			}
 		}
-
-		if (Physics.Raycast(transform.position, transform.right, out hit, ray_length))
+		// 先端に触れたメッシュ(コライダーの一部)があるとき
+		if (Physics.Raycast(transform.position, transform.right, out hit_mesh, ray_length))
 		{
-			if (hit.transform.gameObject.tag == "Wall")
+			// コライダーの持ち主がWAllのとき
+			if (hit_mesh.transform.gameObject.tag == "Wall")
 			{
-				Moving_Facing_Change();
+				Moving_Facing_Confirmation();
+				// 移動の種類を変える
 				Act_Step = 2;
-				Debug.Log("hei");
 			}
 		}
 	}
@@ -75,15 +75,17 @@ public class Missile : bullet_status
 	}
 
 	/// <summary>
-	/// 移動向き変更
+	/// 移動向き確認
 	/// </summary>
-	private void Moving_Facing_Change()
+	private void Moving_Facing_Confirmation()
 	{
-		transform.right = new Vector2(hit.normal.y, -hit.normal.x);
+		transform.right = new Vector2(hit_mesh.normal.y, -hit_mesh.normal.x);
 		float an = transform.right.x * 0.0f + transform.right.y * 1.0f;
 
+		// 内閣が0以下のとき
 		if (an > 0)
 		{
+			// 自信を消す
 			AddExplosionProcess();
 			gameObject.SetActive(false);
 		}
@@ -94,34 +96,9 @@ public class Missile : bullet_status
 	/// </summary>
 	private void HorizontalProjection()
 	{
-		Vector3 vector = new Vector3(ConstantVelocityLineSpeed, -1.0f * (Running_Flame * shot_speed));
+		Vector3 vector = new Vector3(constant_velocity_line_speed, -1.0f * (Running_Flame * shot_speed));
 		transform.right = vector;
 		transform.position += vector.normalized * shot_speed;
 		Running_Flame++;
 	}
-	//private new void OnTriggerEnter(Collider col)
-	//{
-	//	if (col.gameObject.tag == "Wall")
-	//	{
-	//		RaycastHit hit;
-	//		Physics.Raycast(transform.position, transform.right, out hit, Mathf.Infinity);
-
-	//		if((hit.normal.z - transform.right.z) < 90.0f)
-	//		{
-	//			print("OKK");
-	//		}
-
-	//		if (Act_Step == 1)
-	//		{
-	//			Act_Step++;
-	//		}
-	//		else if(Act_Step == 2)
-	//		{
-	//			gameObject.SetActive(false);
-
-	//			//add:0513_takada 爆発エフェクトのテスト
-	//			base.AddExplosionProcess();
-	//		}
-	//	}
-	//}
 }
