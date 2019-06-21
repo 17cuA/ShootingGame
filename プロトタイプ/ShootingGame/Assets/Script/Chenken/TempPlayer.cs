@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
+using Power;
 
 public class TempPlayer : MonoBehaviour
 {
@@ -31,23 +32,23 @@ public class TempPlayer : MonoBehaviour
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
-		PowerUpManager.Instance.AddEvent(PowerUpType.PowerUp_SpeedUp, SpeedUp);
-		PowerUpManager.Instance.AddEvent(PowerUpType.PowerUp_Missile, ActiveMissile);
-		PowerUpManager.Instance.AddEvent(PowerUpType.PowerUp_Option, CreateBit);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 
 	private void OnDisable()
 	{
-		PowerUpManager.Instance.RemoveEvent(PowerUpType.PowerUp_SpeedUp, SpeedUp);
-		PowerUpManager.Instance.RemoveEvent(PowerUpType.PowerUp_Missile, ActiveMissile);
-		PowerUpManager.Instance.RemoveEvent(PowerUpType.PowerUp_Option, CreateBit);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.E))
 		{
-			PowerUpManager.Instance.Excute();
+			PowerManager.Instance.Upgrade();
 		}
 
 		float x = Input.GetAxis("Horizontal");
@@ -78,9 +79,9 @@ public class TempPlayer : MonoBehaviour
 		{
 			var item = col.GetComponent<Item>();
 			if (item.itemType != ItemType.Item_KillAllEnemy)
-				PowerUpManager.Instance.ApplyPowerUpSelection();
+				PowerManager.Instance.Pick();
 			else
-				PowerUpManager.Instance.KillingExcute();
+				PowerManager.Instance.Annihilate();
 		}
 	}
 
