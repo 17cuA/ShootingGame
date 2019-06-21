@@ -90,5 +90,4 @@ public class Obj_Storage : MonoBehaviour
 	{
 		return Boss;
 	}
-
 }
