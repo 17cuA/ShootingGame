@@ -6,10 +6,11 @@ public class TurnToPlayer_Slow : MonoBehaviour
 {
 	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
 	public Quaternion qqq;
+	Transform ttt;
 
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
 	Vector3 velocity;
-
+	Vector3 vvv;
 
 	public float speed;
 	float speedX;
@@ -61,36 +62,37 @@ public class TurnToPlayer_Slow : MonoBehaviour
 
 		DegreeCalculation();
 
-		if(isFollow)
-		{
-			if(once)
-			{
-				if (playerObj.transform.position.y > transform.position.y)
-				{
-					isInc = false;
-					isDec = true;
-				}
-				else
-				{
-					isDec = false;
-					isInc = true;
-				}
-				once = false;
-			}
+		//if(isFollow)
+		//{
+		//	if(once)
+		//	{
+		//		if (playerObj.transform.position.y > transform.position.y)
+		//		{
+		//			isInc = false;
+		//			isDec = true;
+		//		}
+		//		else
+		//		{
+		//			isDec = false;
+		//			isInc = true;
+		//		}
+		//		once = false;
+		//	}
 
 
-		}
+		//}
 
-		if(isInc)
-		{
-			transform.Rotate(0, 0, 1.0f);
+		//if(isInc)
+		//{
+		//	transform.Rotate(0, 0, 1.0f);
 
-		}
-		else if(isDec)
-		{
-			transform.Rotate(0, 0, -1.0f);
+		//}
+		//else if(isDec)
+		//{
+		//	transform.Rotate(0, 0, -1.0f);
 
-		}
+		//}
+
 		//if (degree == saveDeg)
 		//{
 
@@ -125,17 +127,20 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//	}
 		//}
 
-
-
+		qqq = new Quaternion(0, 0, degree,180);
+		vvv=new Vector3(0,0,degree);
+		//ttt.rotation = Quaternion.Euler(0, 0, degree);
 		//----
 		// 補完スピードを決める
 
-		//// ターゲット方向のベクトルを取得
-		//Vector3 relativePos = playerObj.transform.position - this.transform.position;
-		//// 方向を、回転情報に変換
-		//Quaternion rotation = Quaternion.LookRotation(relativePos);
-		//// 現在の回転情報と、ターゲット方向の回転情報を補完する
-		//transform.rotation = Quaternion.Slerp(this.transform.rotation, qqq, speed);
+		// ターゲット方向のベクトルを取得
+		Vector3 relativePos = playerObj.transform.position - this.transform.position;
+		// 方向を、回転情報に変換
+		Quaternion rotation = Quaternion.LookRotation(relativePos);
+		// 現在の回転情報と、ターゲット方向の回転情報を補完する
+		transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
+
+		//transform.rotation = qqq;
 		////----
 
 		//-----
