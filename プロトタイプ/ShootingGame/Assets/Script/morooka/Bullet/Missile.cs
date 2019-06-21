@@ -4,6 +4,7 @@
 /*
  * 2019/06/19 落下と地面衝突時の移動向き変更
  */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class Missile : bullet_status
 	private Vector3 Vertex { get; set; }
 	private int Act_Step { get; set; }
 	private int Running_Flame { get; set; }
+	RaycastHit hit;
+	float ray_length = 0.5f;
 
-    private new void Start()
+	private new void Start()
     {
 		base.Start();
 		Vertex = transform.position;
@@ -43,17 +46,29 @@ public class Missile : bullet_status
 			transform.position += vector.normalized * shot_speed;
 			Running_Flame++;
 
-			RaycastHit hit;
-			Debug.DrawLine(transform.position, transform.position + transform.right, Color.red);
-			if (Physics.Raycast(transform.position, transform.position + transform.right, out hit, 3.0f))
+			if (Physics.Raycast(transform.position,transform.right, out hit, ray_length))
 			{
-				if(hit.transform.gameObject.tag == "Wall")
+				if (hit.transform.gameObject.tag == "Wall")
 				{
-					transform.right = new Vector3(1.0f, 0.0f, 0.0f);
-					Act_Step++;
+					Vector2 normal_a = hit.normal;					// 衝突したオブジェクトの向き
+					Vector2 missile_facing = transform.right;       // ミサイルの向き
+					float inner_product = (normal_a.x * missile_facing.x) + (normal_a.y * missile_facing.y);
+					float a = (float)Math.Sqrt((double)((normal_a.x * normal_a.x) + (normal_a.y * normal_a.y)));
+					float b = (float)Math.Sqrt((double)((missile_facing.x * missile_facing.x) + (missile_facing.y * missile_facing.y)));
+					inner_product / a * b;
+
+					//if (hit.normal.z - transform.right.z <= -90.0f)
+					//{
+					//	transform.right = new Vector3(1.0f, 0.0f, 0.0f);
+					//	Act_Step++;
+					//}
+					//else if(hit.normal.z - transform.right.z > -90.0f)
+					//{
+					//	AddExplosionProcess();
+					//	gameObject.SetActive(false);
+					//}
 				}
 			}
-
 
 		}
 		else if(Act_Step == 2)

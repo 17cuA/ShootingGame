@@ -45,7 +45,6 @@ public class bullet_status : MonoBehaviour
 		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player") || (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy"))
 		{
 			gameObject.SetActive(false);
-
 			//add:0513_takada 爆発エフェクトのテスト
 			AddExplosionProcess();
 		}
