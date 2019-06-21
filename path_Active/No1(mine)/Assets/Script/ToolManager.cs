@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 
 [ExecuteInEditMode]     //playモードじゃなくても、スクリプトが動くようにするもの
-public class ToolManager : Editor
+public class ToolManager : MonoBehaviour
 {
 	[Header("セーブをして、csvファイルに書き出すのかどうか")]
 	public bool IS_Save;
@@ -17,10 +17,10 @@ public class ToolManager : Editor
 
 	[Header("敵キャラの動きを確認するかどうか")]
 	public bool Enemy_Test;
-	public GameObject Enemy;
-	public int frame = 0;
-	public int frame_Max;
-	public int cnt = 0;
+	[SerializeField]private GameObject Enemy;
+	//private int frame = 0;
+	//private int frame_Max;
+	private int cnt = 0;
 	[Header("動かす敵キャラの数")]
 	public int Enemy_Num;
 
@@ -28,30 +28,38 @@ public class ToolManager : Editor
 	private void OnGUI()
 	{
 		if (IS_Save) Save_Pos();
-
-
-	}
-
-	private void Update()
-	{
 		if (Enemy_Test)
 		{
 			Enemy_Action();
 		}
 	}
+
+	private void Update()
+	{
+
+		//エディタ全体の再描画
+		//EditorApplication.QueuePlayerLoopUpdate();
+	}
 	void Enemy_Action()
 	{
-		if (frame > frame_Max)
+		//if (frame > frame_Max)
+		//{
+		//	Enemy.transform.position = LC.lineRenderer.GetPosition(cnt);
+		//	cnt++;
+		//	frame = 0;
+		//	if(cnt >= LC.lineRenderer.positionCount - 1)
+		//	{
+		//		cnt = 0;
+		//	}
+		//}
+		//frame++;
+		Enemy.transform.position = LC.lineRenderer.GetPosition(cnt);
+		cnt++;
+		if(cnt >= LC.lineRenderer.positionCount - 1)
 		{
-			Enemy.transform.position = LC.lineRenderer.GetPosition(cnt);
-			cnt++;
-			frame = 0;
-			if(cnt >= LC.lineRenderer.positionCount - 1)
-			{
-				cnt = 0;
-			}
+			cnt = 0;
 		}
-		frame++;
+
 	}
 
 
