@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15995968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 171.99927, y: -2.4836655, z: 741}
+  m_LocalPosition: {x: 16.172241, y: 17.314117, z: 741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IS_Save: 0
   LC: {fileID: 236221517}
-  save_name: 
+  save_name: hei
   Enemy_Test: 1
   Enemy: {fileID: 15995968}
   Enemy_Num: 0
@@ -3909,6 +3909,54 @@ PrefabInstance:
       propertyPath: m_Name
       value: Beje
       objectReference: {fileID: 0}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: createLine
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1761260278}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1794794940}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[2]
+      value: 
+      objectReference: {fileID: 156670815}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[3]
+      value: 
+      objectReference: {fileID: 1490429446}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[4]
+      value: 
+      objectReference: {fileID: 1748367801}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[5]
+      value: 
+      objectReference: {fileID: 1641722858}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: clickPut
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[6]
+      value: 
+      objectReference: {fileID: 486256984}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[7]
+      value: 
+      objectReference: {fileID: 461423386}
+    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
+      propertyPath: ankers.Array.data[8]
+      value: 
+      objectReference: {fileID: 695067868}
     - target: {fileID: 8610544563961401555, guid: ba3448f181a66b9409992ec38eb91d5d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13738,53 +13786,5 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: createLine
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[0]
-      value: 
-      objectReference: {fileID: 1761260278}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[1]
-      value: 
-      objectReference: {fileID: 1794794940}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[2]
-      value: 
-      objectReference: {fileID: 156670815}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[3]
-      value: 
-      objectReference: {fileID: 1490429446}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[4]
-      value: 
-      objectReference: {fileID: 1748367801}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[5]
-      value: 
-      objectReference: {fileID: 1641722858}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: clickPut
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[6]
-      value: 
-      objectReference: {fileID: 486256984}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[7]
-      value: 
-      objectReference: {fileID: 461423386}
-    - target: {fileID: 1902219712, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
-      propertyPath: ankers.Array.data[8]
-      value: 
-      objectReference: {fileID: 695067868}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba3448f181a66b9409992ec38eb91d5d, type: 3}
