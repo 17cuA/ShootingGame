@@ -8,6 +8,7 @@
 // 2019/05/14：レコード、カラムの配列を検索して読み込み
 // 2019/05/16：レコード保管用のクラス作成
 // 2019/05/20：コンストラクタの作成
+// 2019/06/17：レコード、カラムから各軸で取り出せるようにする
 //----------------------------------------------------------------------------------------------
 //
 // 理想のデータベースの形（例）
@@ -172,6 +173,28 @@ namespace CSV_Management
 			}
 
 			return returning_string;
+		}
+
+		public string[] goreco(int num)
+		{
+			string[] rString = new string[Database_Array.GetLength(0)];
+
+			for(int i = 0; i < Database_Array.GetLength(0); i++)
+			{
+				rString[i] = Database_Array[num, i];
+			}
+			return rString;
+		}
+
+		public string[] gokara(int num)
+		{
+			string[] rString = new string[Database_Array.GetLength(1)];
+
+			for(int i = 0; i < Database_Array.GetLength(1); i++)
+			{
+				rString[i] = Database_Array[i, num];
+			}
+			return rString;
 		}
 
 		/// <summary>

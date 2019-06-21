@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 506803755655685621}
   - component: {fileID: 9135540294587538138}
   - component: {fileID: 1554323710006405756}
-  - component: {fileID: 1554323710006405757}
+  - component: {fileID: 946810528526216286}
   m_Layer: 0
   m_Name: Enemy_Bullet
   m_TagString: Enemy_Bullet
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1554323710006405757
+--- !u!114 &946810528526216286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1554323710006405754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ab7c518a82e3140884ed0bab7aa0cf, type: 3}
+  m_Script: {fileID: 11500000, guid: cf16ed96bb7cb5343a225972897e08f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
   shot_speed: 0.5
   attack_damage: 2
+  Travelling_Direction: {x: 0, y: 0, z: 0}

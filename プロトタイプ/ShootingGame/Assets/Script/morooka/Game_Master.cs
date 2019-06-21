@@ -48,6 +48,9 @@ public class Game_Master : MonoBehaviour
         eEFFECT					// エフェクト
     }
 
+	/// <summary>
+	/// ステージ内のセグメント管理
+	/// </summary>
     public enum CONFIGURATION_IN_STAGE
     {
         eNORMAL,	
@@ -56,7 +59,21 @@ public class Game_Master : MonoBehaviour
         eCLEAR,
     }
 
-    public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
+	/// <summary>
+	/// 生成オブジェクトの指定用
+	/// </summary>
+	public enum OBJECT_NAME
+	{
+		ePLAYER_BULLET,			// プレイヤーのバレット
+		ePLAYER_MISSILE,		// プレイヤーのミサイル
+		ePLAYER_LASER,			// プレイヤーのレーザー
+		eENEMY_BULLET,			// エネミーのバレット
+		eENEMY_BEAM,			// エネミーのビーム
+		eENEMY_LASER,			// エネミーのレーザー
+		eENEMY_NUM1,			// エネミー1番
+	}
+
+	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
     public uint display_score{private set; get;}                // 表示スコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
@@ -64,9 +81,16 @@ public class Game_Master : MonoBehaviour
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
     public Score_Display _Display{private set; get;}			// スコア表示をするため用
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
+	public string[] Name_List {  get; private set; }
 
 	private void Awake()
 	{
+		if(Name_List == null)
+		{
+			Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
+			Name_List = new string[database_.Database_Array.GetLength(0)];
+			Name_List = database_.goreco(0);
+		}
 		if (Boss_Data == null)
 		{
 			Boss_Data = new Database_Manager("Boss/Boss_Data");
