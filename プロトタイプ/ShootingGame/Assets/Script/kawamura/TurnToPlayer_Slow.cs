@@ -23,11 +23,16 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	float frameCnt;
 
 	public float saveDeg;
+	public float saveDig_plus;
 
 	bool isFollow = false;
 	bool once = true;
 	public bool isInc;
 	public bool isDec;
+	public bool isPositive;
+	public bool isNegative;
+	public bool isPlus;
+	public bool isMinus;
 	// Update is called once per frame
 	private void Start()
 	{
@@ -41,7 +46,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	void Update()
 	{
 		frameCnt++;
-		if(frameCnt>180)
+		if(frameCnt>60)
 		{
 			isFollow = true;
 		}
@@ -60,38 +65,130 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
 		//gameObject.transform.position += velocity * Time.deltaTime;
 
+		//プレイヤーの方向へ向く角度の値を更新前の値として保存
+		saveDig_plus = degree_plus;
+		//プレイヤーの方向角度の値更新
 		DegreeCalculation();
 
-		//if(isFollow)
+		//角度の値が増えたか減ったかを判定
+		if (degree_plus > saveDig_plus)
+		{
+			isPlus = true;
+			isMinus = false;
+		}
+		else if (degree_plus < saveDig_plus)
+		{
+			isMinus = true;
+			isPlus = false;
+		}
+
+		//角度を変え始める
+		if (isFollow)
+		{
+			//一回のみ行う
+			if (once)
+			{
+				if (playerObj.transform.position.y > transform.position.y)
+				{
+					isInc = false;
+					isDec = true;
+				}
+				else
+				{
+					isDec = false;
+					isInc = true;
+				}
+				once = false;
+			}
+		}
+
+		//角度が増えているとき（向く方向が今の角度より大きい）
+		if (isInc)
+		{
+			//角度を増やす
+			transform.Rotate(0, 0, 1.0f);
+
+			if (transform.rotation.z >= 0)
+			{
+				isPositive = true;
+				isNegative = false;
+			}
+			else if (transform.rotation.z < 0)
+			{
+				isNegative = true;
+				isPositive = false;
+			}
+
+			//角度の値が減っていてdegreeが正の値の時
+			if (isMinus && isPositive)
+			{
+				//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+				if (degree < transform.rotation.z)
+				{
+					//角度を減らす判定true
+					isDec = true;
+					isInc = false;
+				}
+			}
+			//角度が減っていてdegreeが負の値の時
+			else if (isMinus && isNegative)
+			{
+				//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+				if (degree < transform.rotation.z)
+				{
+					isDec = true;
+					isInc = false;
+				}
+			}
+
+		}
+		else if (isDec)
+		{
+			transform.Rotate(0, 0, -1.0f);
+
+			if (transform.rotation.z >= 0)
+			{
+				isPositive = true;
+				isNegative = false;
+			}
+			else if (transform.rotation.z < 0)
+			{
+				isNegative = true;
+				isPositive = false;
+			}
+
+			if (isPlus && isPositive)
+			{
+				if (degree > transform.rotation.z)
+				{
+					isInc = true;
+					isDec = false;
+				}
+			}
+			else if (isPlus && isNegative)
+			{
+				if (degree > transform.rotation.z)
+				{
+					isInc = true;
+					isDec = false;
+				}
+			}
+
+		}
+
+		//if (isPlus && isPositive)
 		//{
-		//	if(once)
+		//	if (degree_plus > transform.rotation.z)
 		//	{
-		//		if (playerObj.transform.position.y > transform.position.y)
-		//		{
-		//			isInc = false;
-		//			isDec = true;
-		//		}
-		//		else
-		//		{
-		//			isDec = false;
-		//			isInc = true;
-		//		}
-		//		once = false;
+		//		isInc = true;
+		//		isDec = false;
 		//	}
-
-
 		//}
-
-		//if(isInc)
+		//else if (isMinus && isPositive)
 		//{
-		//	transform.Rotate(0, 0, 1.0f);
 
 		//}
-		//else if(isDec)
-		//{
-		//	transform.Rotate(0, 0, -1.0f);
 
-		//}
 
 		//if (degree == saveDeg)
 		//{
@@ -108,7 +205,6 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//	{
 		//		saveDeg += speed;
 		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-
 		//	}
 		//}
 		//else if (degree > 0)
@@ -117,13 +213,11 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//	{
 		//		saveDeg += speed;
 		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-
 		//	}
 		//	else if (degree < saveDeg)
 		//	{
 		//		saveDeg -= speed;
 		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-
 		//	}
 		//}
 
@@ -172,6 +266,16 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//角度を求める
 		degree = radian * Mathf.Rad2Deg;
 
+		//if (degree >= 0)
+		//{
+		//	isPositive = true;
+		//	isNegative = false;
+		//}
+		//else if (degree < 0)
+		//{
+		//	isNegative = true;
+		//	isPositive = false;
+		//}
 		if (degree < 0)
 		{
 			degree_plus = degree + 360.0f;
