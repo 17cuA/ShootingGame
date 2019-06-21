@@ -24,7 +24,7 @@ namespace Power
 			/// </summary>
 			public class UpgradeInfo
 			{
-				public int upgradeCount;        //現在強化回数
+				public int upgradeCount;           //現在強化回数
 				public int maxUpgradeTime;      //最大強化回数
 
 				//強化可能かどうか
@@ -52,9 +52,9 @@ namespace Power
 			//強化時のイベント（処理、関数群）
 			public delegate void OnUpgradeCallBack();
 
-			public PowerType type;                          //パワータイプ
-			public PowerTag tag;                            //パワータグ
-			public bool isUsing;                            //武器のパワーアップとして使用されている？
+			public PowerType type;								   //パワータイプ
+			public PowerTag tag;									   //パワータグ
+			public bool isUsing;										　//武器のパワーアップとして使用されている？
 			public UpgradeInfo upgradeInfo = null;          //強化情報（未使用時はNull）
 
 			//UIで表示させるか？
@@ -119,10 +119,10 @@ namespace Power
 					{
 						//現在武器のパワーアップはNullではない場合
 						if (Instance.weaponPower != null)
-							Instance.weaponPower.isUsing = false;   //現在武器のパワーアップを　使われていない　に　設定
+							Instance.weaponPower.isUsing = false;   　//現在武器のパワーアップを　使われていない　に　設定
 
-						Instance.weaponPower = this;                //現在武器のパワーアップを　このパワーアップ　に　設定
-						Instance.weaponPower.isUsing = true;        //現在武器のパワーアップを　使われている　に　設定
+						Instance.weaponPower = this;                　　//現在武器のパワーアップを　このパワーアップ　に　設定
+						Instance.weaponPower.isUsing = true;        　//現在武器のパワーアップを　使われている　に　設定
 					}
 				}
 				//タグが普通の場合

@@ -7,8 +7,7 @@ using Power;
 public class UI_PowerUp : MonoBehaviour
 {
 	private Dictionary<int, Text> texts = new Dictionary<int, Text>();  //UI中のTextコンポーネント
-	private Image current;                                            //現在選択Image
-	private int slot;                                                  //現在選択位置
+	private Image current;																  //現在選択Image
 	private void Awake()
 	{
 		//子オブジェクトのTextコンポーネント取得

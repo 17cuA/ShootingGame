@@ -7,17 +7,15 @@ using Power;
 public class TempPlayer : MonoBehaviour
 {
 	[Header("移動　プロパティ")]
-	public float speed;				//移動速度
+	public float speed;				    //移動速度
 	public float speedUpModifier;	//スピードアップ変更率(1.5 -> 150% UP!!!)
 
 	[Header("ミサイル　プロパティ")]
 	public float missleWaitTime;	//ミサイル発射間隔時間
-	public bool  activeMissile;     //ミサイルは導入されたかどうか
-
-
+	public bool  activeMissile;        //ミサイルは導入されたかどうか
 	private float canPlayMissileTime;
 
-	private GameObject[] bitsPrefabs = new GameObject[4];
+	private GameObject[] bitsPrefabs      = new GameObject[4];
 	private GameObject[] bitGameObject = new GameObject[4];
 	public int bitIndex = 0;
 
@@ -114,6 +112,7 @@ public class TempPlayer : MonoBehaviour
 				bitIndex++;
 				break;
 		}
+		Debug.Log("ビットン生成");
 	}
 }
 
