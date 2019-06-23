@@ -13,13 +13,15 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	Vector3 vvv;
 
 	public float speed;
-	float speedX;
+	public float speedX;
 	public float aaaa;
 
 	float radian;           //ラジアン
 	public float degree;    //角度
 	public float degree_plus;
+    public int rollDelay;
 
+    public float watchZ;
 	float frameCnt;
 
 	public float saveDeg;
@@ -33,11 +35,11 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	public bool isNegative;
 	public bool isPlus;
 	public bool isMinus;
-	// Update is called once per frame
+    bool isDelay = false;
 	private void Start()
 	{
 		frameCnt = 0;
-		speedX = 3.0f;
+		//speedX = 3.0f;
 		//speed = 0.2f;
 		//transform.rotation = Quaternion.Euler(0, 0, 180);
 		saveDeg = 180;
@@ -55,18 +57,18 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			playerObj = GameObject.FindGameObjectWithTag("Player");
 		}
 
-		//----
-		//Vector3 targetDir = new Vector3(transform.position.x, transform.position.y, playerObj.transform.position.z) - transform.position;
-		//Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, speed * Time.deltaTime, 0f);
-		//transform.rotation = Quaternion.LookRotation(newDir);
-		//----
+        //----
+        //Vector3 targetDir = new Vector3(transform.position.x, transform.position.y, playerObj.transform.position.z) - transform.position;
+        //Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, speed * Time.deltaTime, 0f);
+        //transform.rotation = Quaternion.LookRotation(newDir);
+        //----
 
-		//----
-		//velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
-		//gameObject.transform.position += velocity * Time.deltaTime;
+        //----
+        velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
+        gameObject.transform.position += velocity * Time.deltaTime;
 
-		//プレイヤーの方向へ向く角度の値を更新前の値として保存
-		saveDig_plus = degree_plus;
+        //プレイヤーの方向へ向く角度の値を更新前の値として保存
+        saveDig_plus = degree_plus;
 		//プレイヤーの方向角度の値更新
 		DegreeCalculation();
 
@@ -107,153 +109,151 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		{
 			//角度を増やす
 			transform.Rotate(0, 0, 1.0f);
+            watchZ = transform.eulerAngles.z;
 
-			if (transform.rotation.z >= 0)
-			{
-				isPositive = true;
-				isNegative = false;
-			}
-			else if (transform.rotation.z < 0)
-			{
-				isNegative = true;
-				isPositive = false;
-			}
+            if (transform.eulerAngles.z <= 180)
+            {
+                isPositive = true;
+                isNegative = false;
+            }
+            else if (transform.eulerAngles.z > 180)
+            {
+                isNegative = true;
+                isPositive = false;
+            }
 
-			//角度の値が減っていてdegreeが正の値の時
-			if (isMinus && isPositive)
-			{
-				//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-				if (degree < transform.rotation.z)
-				{
-					//角度を減らす判定true
-					isDec = true;
-					isInc = false;
-				}
-			}
-			//角度が減っていてdegreeが負の値の時
-			else if (isMinus && isNegative)
-			{
-				//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-				if (degree < transform.rotation.z)
-				{
-					isDec = true;
-					isInc = false;
-				}
-			}
+            //角度の値が減っていてdegreeが正の値の時
+            //         if (isMinus && isPositive)
+            //{
+            //	//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+            //	if (saveDig_plus < transform.eulerAngles.z)
+            //	{
+            //		//角度を減らす判定true
+            //		isDec = true;
+            //		isInc = false;
+            //	}
+            //}
+            ////角度が減っていてdegreeが負の値の時
+            //else if (isMinus && isNegative)
+            //{
+            //	//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+            //	if (saveDig_plus < transform.eulerAngles.z)
+            //	{
+            //		isDec = true;
+            //		isInc = false;
+            //	}
+            //}
+            //if (isPositive)
+            //{
+            //    //プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+            //    if (saveDig_plus < transform.eulerAngles.z)
+            //    {
+            //        //角度を減らす判定true
+            //        isDec = true;
+            //        isInc = false;
+            //    }
+            //}
+            ////角度が減っていてdegreeが負の値の時
+            //else if (isNegative)
+            //{
+            //    //プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
+            //    if (saveDig_plus < transform.eulerAngles.z)
+            //    {
+            //        isDec = true;
+            //        isInc = false;
+            //    }
+            //}
 
-		}
-		else if (isDec)
+
+        }
+        else if (isDec)
 		{
 			transform.Rotate(0, 0, -1.0f);
+            watchZ = transform.eulerAngles.z;
 
-			if (transform.rotation.z >= 0)
+
+            if (transform.eulerAngles.z <= 180)
 			{
 				isPositive = true;
 				isNegative = false;
 			}
-			else if (transform.rotation.z < 0)
+			else if (transform.eulerAngles.z > 180)
 			{
 				isNegative = true;
 				isPositive = false;
 			}
 
-			if (isPlus && isPositive)
-			{
-				if (degree > transform.rotation.z)
-				{
-					isInc = true;
-					isDec = false;
-				}
-			}
-			else if (isPlus && isNegative)
-			{
-				if (degree > transform.rotation.z)
-				{
-					isInc = true;
-					isDec = false;
-				}
-			}
-
-		}
-
-		//if (isPlus && isPositive)
-		//{
-		//	if (degree_plus > transform.rotation.z)
-		//	{
-		//		isInc = true;
-		//		isDec = false;
-		//	}
-		//}
-		//else if (isMinus && isPositive)
-		//{
-
-		//}
-
-
-		//if (degree == saveDeg)
-		//{
-
-		//}
-		//else if (degree < 0)
-		//{
-		//	if (degree < saveDeg)
-		//	{
-		//		saveDeg -= speed;
-		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-		//	}
-		//	else if (degree > saveDeg)
-		//	{
-		//		saveDeg += speed;
-		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-		//	}
-		//}
-		//else if (degree > 0)
-		//{
-		//	if (degree > saveDeg)
-		//	{
-		//		saveDeg += speed;
-		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-		//	}
-		//	else if (degree < saveDeg)
-		//	{
-		//		saveDeg -= speed;
-		//		transform.rotation = Quaternion.Euler(0, 0, saveDeg);
-		//	}
-		//}
-
-		qqq = new Quaternion(0, 0, degree,180);
-		vvv=new Vector3(0,0,degree);
-		//ttt.rotation = Quaternion.Euler(0, 0, degree);
-		//----
-		// 補完スピードを決める
-
-		// ターゲット方向のベクトルを取得
-		Vector3 relativePos = playerObj.transform.position - this.transform.position;
-		// 方向を、回転情報に変換
-		Quaternion rotation = Quaternion.LookRotation(relativePos);
-		// 現在の回転情報と、ターゲット方向の回転情報を補完する
-		transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
-
-		//transform.rotation = qqq;
-		////----
-
-		//-----
-		//float dx = playerObj.transform.position.x - transform.position.x;
-		//float dy = playerObj.transform.position.y - transform.position.y;
-		//float rad = Mathf.Atan2(dy, dx);
-		//aaaa = rad * Mathf.Rad2Deg;
-		//-----
+            //if (isPlus && isPositive)
+            //{
+            //	if (saveDig_plus > transform.eulerAngles.z)
+            //	{
+            //		isInc = true;
+            //		isDec = false;
+            //	}
+            //}
+            //else if (isPlus && isNegative)
+            //{
+            //	if (saveDig_plus > transform.eulerAngles.z)
+            //	{
+            //		isInc = true;
+            //		isDec = false;
+            //	}
+            //}
+            //if (isPositive)
+            //{
+            //    if (saveDig_plus > transform.eulerAngles.z)
+            //    {
+            //        isInc = true;
+            //        isDec = false;
+            //    }
+            //}
+            //else if (isNegative)
+            //{
+            //    if (saveDig_plus > transform.eulerAngles.z)
+            //    {
+            //        isInc = true;
+            //        isDec = false;
+            //    }
+            //}
 
 
-		// ターゲット方向のベクトルを取得
-		//Vector3 relativePos = playerObj.transform.position - this.transform.position;
+        }
 
-		// 方向を、回転情報に変換
-		//Quaternion rotation = Quaternion.LookRotation(relativePos);
+        //if (isPlus && isPositive)
+        //{
+        //	if (degree_plus > transform.rotation.z)
+        //	{
+        //		isInc = true;
+        //		isDec = false;
+        //	}
+        //}
+        //else if (isMinus && isPositive)
+        //{
 
-		// 現在の回転情報と、ターゲット方向の回転情報を補完する
-		//transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, speed);
-		//transform.rotation = Quaternion.Slerp(this.transform.rotation, qqq, speed);
+        //}
+
+        if(isDelay)
+        {
+            rollDelay++;
+            if(rollDelay>5)
+            {
+                rollDelay = 0;
+                isDelay = false;
+
+                if (isInc)
+                {
+                    isInc = false;
+                    isDec = true;
+                }
+                else if (isDec)
+                {
+                    isDec = false;
+                    isInc = true;
+                }
+
+            }
+        }
+
 	}
 	void DegreeCalculation()
 	{
@@ -285,6 +285,15 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			degree_plus = degree;
 		}
 	}
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag=="Player")
+        {
+            isDelay = true;
+
+        }  
+    }
 
 }
 
