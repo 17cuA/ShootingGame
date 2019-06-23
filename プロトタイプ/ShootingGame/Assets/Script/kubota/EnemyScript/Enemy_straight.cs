@@ -13,10 +13,11 @@ public class Enemy_straight : character_status
     void Update()
     {
 		Died_Process();
-    }
+		Enemy_Move();
+	}
 
 	private void Enemy_Move()
 	{
-		transform.position += new Vector3(0.1f, 0, 0) * Time.deltaTime * speed;
+		transform.position += new Vector3(-0.1f, 0, 0) * Time.deltaTime * speed;
 	}
 }

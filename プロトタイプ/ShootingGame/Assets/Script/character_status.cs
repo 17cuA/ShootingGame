@@ -53,7 +53,7 @@ public class character_status : MonoBehaviour
 			transform.position = new Vector3(0, 800.0f,0);
 			//稼働しないようにする
 			gameObject.SetActive(false);
-			Debug.Log(gameObject.transform.parent.name + "		Destroy");
+			Debug.Log(gameObject.transform.parent.name + "	Destroy");
 		}
 	}
 	//パーティクルの作成（爆発のみ）
@@ -61,5 +61,11 @@ public class character_status : MonoBehaviour
 	{
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
 		Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
+	}
+	private void OnTriggerEnter(Collider col)
+	{
+		bullet_status BS = col.gameObject.GetComponent<bullet_status>();
+		Damege_Process((int)BS.attack_damage);
+		Debug.Log(gameObject.name + "	damege");
 	}
 }
