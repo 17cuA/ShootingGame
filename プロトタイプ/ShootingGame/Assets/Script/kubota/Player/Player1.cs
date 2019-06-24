@@ -6,6 +6,7 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
+using StorageReference;
 //using Power;
 public class Player1 : character_status
 {
@@ -185,9 +186,13 @@ public class Player1 : character_status
 	}
     	private void Single_Fire()
 	{
-		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		gameObject.transform.rotation *= Direction ;
-		gameObject.transform.position = shot_Mazle.transform.position;
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_TowWay, shot_Mazle.transform.position, shot_Mazle.transform.right);
+		obj.GetComponent<Missile_Tow_Way>().Y_Axis_Orientation_Preference(1);
+		 obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_TowWay, shot_Mazle.transform.position, shot_Mazle.transform.right);
+		obj.GetComponent<Missile_Tow_Way>().Y_Axis_Orientation_Preference(0);
+		//GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+		//gameObject.transform.rotation *= Direction ;
+		//gameObject.transform.position = shot_Mazle.transform.position;
 	}
 	//private void Diffusion_Fire()
 	//{

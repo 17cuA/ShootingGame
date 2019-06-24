@@ -31,6 +31,7 @@ public class Missile_Tow_Way : bullet_status
 	// Update is called once per frame
 	private new void Update()
 	{
+		base.Update();
 		HorizontalProjection();
 	}
 
@@ -42,7 +43,7 @@ public class Missile_Tow_Way : bullet_status
 	/// <summary>
 	/// 水平投射
 	/// </summary>
-	private void HorizontalProjection()
+	public void HorizontalProjection()
 	{
 		Vector3 vector = new Vector3(constant_velocity_line_speed, y_axis_facing * (Running_Flame * shot_speed));
 		transform.right = vector;

@@ -17,8 +17,8 @@ public class Missile : bullet_status
 	[Header("等速直線運動のスピード")]
 	private float constant_velocity_line_speed;     // 等速直線速度
 	[SerializeField]
-	[Header("等速直線運動のスピード")]
-	private float ray_length = 0.3f;                        // 等速直線運動のスピード
+	[Header("レイの長さ")]
+	private float ray_length = 0.3f;                        // レイの長さ
 	private RaycastHit hit_mesh;							// 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
 	private int Act_Step { get; set; }							// 行動の変更用
