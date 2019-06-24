@@ -17,22 +17,29 @@ public class CurveLaserMaker : MonoBehaviour
 
 	private section[] sections;
 	[SerializeField] float laserWidth = 1;
+
 	[SerializeField] Material laserMat;
+
+	IPointGetter pointGetter;
 
 	void Start()
 	{
-		setVectors();
+		pointGetter = transform.GetComponentInChildren<IPointGetter>();
+		GetComponent<MeshRenderer>().sortingOrder = GetInstanceID();
 	}
 	void Update()
 	{
+		// 取得した座標が無効の場合、すべての処理は行う必要がない.
+		if (!pointGetter.GetPoint().HasValue) return;
+
 		setPoints();
 		setVectors();
 		createMesh();
 	}
-	[SerializeField] float appendDistance = 0.5f;
+	[SerializeField] float appendDistance = 5.0f;
 	private float appendSqrDistance;
 
-	[SerializeField] int maxPointCount = 30;
+	[SerializeField] int maxPointCount = 100;
 	[SerializeField] bool keepPointLength;
 
 	/// <summary>
@@ -45,13 +52,20 @@ public class CurveLaserMaker : MonoBehaviour
 
 	void setPoints()
 	{
-		// マウス押下中のみ処理を行う.
-		if (!Input.GetMouseButton(0)) return;
+
+		// 値の取得.
+		var curPoint = pointGetter.GetPoint().Value;
+
+		//// 値の取得.
+		//var curPoint = pointGetter.GetPoint();
+
+		//// マウス押下中のみ処理を行う.
+		//if (!Input.GetMouseButton(0)) return;
 
 		// マウスの位置をスクリーン座標からワールド座標に変換.
 		var screenMousePos = Input.mousePosition;
 		screenMousePos.z = -Camera.main.transform.position.z;
-		var curPoint = Camera.main.ScreenToWorldPoint(screenMousePos);
+		//var curPoint = Camera.main.ScreenToWorldPoint(screenMousePos);
 
 		if (points == null)
 		{
@@ -138,6 +152,9 @@ public class CurveLaserMaker : MonoBehaviour
 
 		MeshFilter mf = GetComponent<MeshFilter>();
 		Mesh mesh = mf.mesh = new Mesh();
+		MeshCollider mc = GetComponent<MeshCollider>();
+		MeshRenderer mr = GetComponent<MeshRenderer>();
+
 
 		mesh.name = "CurveLaserMesh";
 
@@ -180,6 +197,9 @@ public class CurveLaserMaker : MonoBehaviour
 		mesh.vertices = vertices;
 		mesh.uv = uvs;
 		mesh.triangles = triangles;
+		mc.sharedMesh = mesh;
+		mr.material = laserMat;
+
 	}
 
 	void OnDrawGizmos()
