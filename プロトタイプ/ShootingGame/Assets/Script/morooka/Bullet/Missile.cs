@@ -4,6 +4,7 @@
 /*
  * 2019/06/19 落下と地面衝突時の移動向き変更
  * 2019/06/21 上り坂に衝突時自身の破壊
+ * 2019/06/24 EAGLEWINDに対応
  */
 using System;
 using System.Collections;
@@ -18,11 +19,11 @@ public class Missile : bullet_status
 	[SerializeField]
 	[Header("等速直線運動のスピード")]
 	private float ray_length = 0.3f;                        // 等速直線運動のスピード
-
 	private RaycastHit hit_mesh;							// 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
-	private int Act_Step { get; set; }					// 行動の変更用
-	private int Running_Flame { get; set; }		// 起動している間のフレーム
+	private int Act_Step { get; set; }							// 行動の変更用
+	private int Running_Flame { get; set; }				// 起動している間のフレーム
+	public float Y_Axis_Facing { get; private set; }		// Y軸の方向
 
 	private new void Start()
 	{
@@ -96,9 +97,25 @@ public class Missile : bullet_status
 	/// </summary>
 	private void HorizontalProjection()
 	{
-		Vector3 vector = new Vector3(constant_velocity_line_speed, -1.0f * (Running_Flame * shot_speed));
+		Vector3 vector = new Vector3(constant_velocity_line_speed, Y_Axis_Facing * (Running_Flame * shot_speed));
 		transform.right = vector;
 		transform.position += vector.normalized * shot_speed;
 		Running_Flame++;
+	}
+
+	/// <summary>
+	/// Y軸方向の設定
+	/// </summary>
+	/// <param name="select_number"> 偶数を渡すと上方向に移動、奇数を渡すと下方向に移動 </param>
+	public void Y_Axis_Orientation_Preference(int select_number)
+	{
+		if (select_number % 2 == 0)
+		{
+			Y_Axis_Facing = 1.0f;
+		}
+		else if (select_number % 2 == 1)
+		{
+			Y_Axis_Facing = -1.0f;
+		}
 	}
 }
