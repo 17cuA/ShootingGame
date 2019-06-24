@@ -28,12 +28,12 @@ public class TurnToPlayer_Slow : MonoBehaviour
 
 	public bool isFollow = false;
 	bool once;
-	bool isInc = false;
-	bool isDec = false;
-	bool isPositive;
-	bool isNegative;
-	bool isPlus;
-	bool isMinus;
+	public bool isInc = false;
+	public bool isDec = false;
+	public bool isPositive;
+	public bool isNegative;
+	public bool isPlus;
+	public bool isMinus;
 	private void Start()
 	{
 		once = true;
@@ -68,11 +68,13 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		{
 			isPlus = true;
 			isMinus = false;
+
 		}
 		else if (degree_plus < saveDig_plus)
 		{
 			isMinus = true;
 			isPlus = false;
+
 		}
 
 		//追従を始める
@@ -133,13 +135,23 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		{
 			if(isFollow)
 			{
-				if (saveDig_plus < transform.eulerAngles.z - 3)
+				if ((degree_plus > transform.eulerAngles.z + 3 && transform.eulerAngles.z - degree_plus < 20) || transform.eulerAngles.z - degree_plus > 20)
+				{
+
+					isInc = true;
+					isDec = false;
+				}
+
+				else if ((degree_plus < transform.eulerAngles.z - 3 && degree_plus - transform.eulerAngles.z < 20) || degree_plus - transform.eulerAngles.z > 20)
 				{
 					isDec = true;
 					isInc = false;
+
+				
 				}
-				else if (saveDig_plus > transform.eulerAngles.z + 3)
+				else if (degree_plus > transform.eulerAngles.z + 3)
 				{
+					
 					isInc = true;
 					isDec = false;
 				}
