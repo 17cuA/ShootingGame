@@ -5,65 +5,56 @@ using UnityEngine;
 public class TurnToPlayer_Slow : MonoBehaviour
 {
 	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
-	public Quaternion qqq;
-	Transform ttt;
+	List<GameObject> colList = new List<GameObject>();
 
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
 	Vector3 velocity;
-	Vector3 vvv;
 
 	public float speed;
 	public float speedX;
-	public float aaaa;
+	public float rollSpeed;
 
 	float radian;           //ラジアン
 	public float degree;    //角度
 	public float degree_plus;
     public int rollDelay;
 
-    public float watchZ;
-	float frameCnt;
+	public float frameCnt;
+	public float followStartTime;
+	public float followEndTime;
 
 	public float saveDeg;
 	public float saveDig_plus;
 
-	bool isFollow = false;
-	bool once = true;
-	public bool isInc;
-	public bool isDec;
-	public bool isPositive;
-	public bool isNegative;
-	public bool isPlus;
-	public bool isMinus;
-    bool isDelay = false;
+	public bool isFollow = false;
+	bool once;
+	bool isInc = false;
+	bool isDec = false;
+	bool isPositive;
+	bool isNegative;
+	bool isPlus;
+	bool isMinus;
 	private void Start()
 	{
+		once = true;
 		frameCnt = 0;
-		//speedX = 3.0f;
-		//speed = 0.2f;
-		//transform.rotation = Quaternion.Euler(0, 0, 180);
 		saveDeg = 180;
 
+		transform.rotation = Quaternion.Euler(0, 0, 180.0f);
 	}
 	void Update()
 	{
 		frameCnt++;
-		if(frameCnt>60)
+		if(frameCnt> followStartTime)
 		{
 			isFollow = true;
+			frameCnt = 0;
 		}
 		if (playerObj == null)
 		{
 			playerObj = GameObject.FindGameObjectWithTag("Player");
 		}
 
-        //----
-        //Vector3 targetDir = new Vector3(transform.position.x, transform.position.y, playerObj.transform.position.z) - transform.position;
-        //Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, speed * Time.deltaTime, 0f);
-        //transform.rotation = Quaternion.LookRotation(newDir);
-        //----
-
-        //----
         velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
         gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -84,7 +75,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			isPlus = false;
 		}
 
-		//角度を変え始める
+		//追従を始める
 		if (isFollow)
 		{
 			//一回のみ行う
@@ -92,13 +83,15 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			{
 				if (playerObj.transform.position.y > transform.position.y)
 				{
-					isInc = false;
 					isDec = true;
+					isInc = false;
+
 				}
 				else
 				{
-					isDec = false;
 					isInc = true;
+					isDec = false;
+
 				}
 				once = false;
 			}
@@ -108,8 +101,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		if (isInc)
 		{
 			//角度を増やす
-			transform.Rotate(0, 0, 1.0f);
-            watchZ = transform.eulerAngles.z;
+			transform.Rotate(0, 0, rollSpeed);
 
             if (transform.eulerAngles.z <= 180)
             {
@@ -121,57 +113,10 @@ public class TurnToPlayer_Slow : MonoBehaviour
                 isNegative = true;
                 isPositive = false;
             }
-
-            //角度の値が減っていてdegreeが正の値の時
-            //         if (isMinus && isPositive)
-            //{
-            //	//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-            //	if (saveDig_plus < transform.eulerAngles.z)
-            //	{
-            //		//角度を減らす判定true
-            //		isDec = true;
-            //		isInc = false;
-            //	}
-            //}
-            ////角度が減っていてdegreeが負の値の時
-            //else if (isMinus && isNegative)
-            //{
-            //	//プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-            //	if (saveDig_plus < transform.eulerAngles.z)
-            //	{
-            //		isDec = true;
-            //		isInc = false;
-            //	}
-            //}
-            //if (isPositive)
-            //{
-            //    //プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-            //    if (saveDig_plus < transform.eulerAngles.z)
-            //    {
-            //        //角度を減らす判定true
-            //        isDec = true;
-            //        isInc = false;
-            //    }
-            //}
-            ////角度が減っていてdegreeが負の値の時
-            //else if (isNegative)
-            //{
-            //    //プレイヤーの方向に向く角度の値が今の角度の値より小さくなった時
-            //    if (saveDig_plus < transform.eulerAngles.z)
-            //    {
-            //        isDec = true;
-            //        isInc = false;
-            //    }
-            //}
-
-
         }
         else if (isDec)
 		{
-			transform.Rotate(0, 0, -1.0f);
-            watchZ = transform.eulerAngles.z;
-
-
+			transform.Rotate(0, 0, -rollSpeed);
             if (transform.eulerAngles.z <= 180)
 			{
 				isPositive = true;
@@ -182,77 +127,33 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				isNegative = true;
 				isPositive = false;
 			}
-
-            //if (isPlus && isPositive)
-            //{
-            //	if (saveDig_plus > transform.eulerAngles.z)
-            //	{
-            //		isInc = true;
-            //		isDec = false;
-            //	}
-            //}
-            //else if (isPlus && isNegative)
-            //{
-            //	if (saveDig_plus > transform.eulerAngles.z)
-            //	{
-            //		isInc = true;
-            //		isDec = false;
-            //	}
-            //}
-            //if (isPositive)
-            //{
-            //    if (saveDig_plus > transform.eulerAngles.z)
-            //    {
-            //        isInc = true;
-            //        isDec = false;
-            //    }
-            //}
-            //else if (isNegative)
-            //{
-            //    if (saveDig_plus > transform.eulerAngles.z)
-            //    {
-            //        isInc = true;
-            //        isDec = false;
-            //    }
-            //}
-
-
         }
 
-        //if (isPlus && isPositive)
-        //{
-        //	if (degree_plus > transform.rotation.z)
-        //	{
-        //		isInc = true;
-        //		isDec = false;
-        //	}
-        //}
-        //else if (isMinus && isPositive)
-        //{
+		if(!isInc && !isDec)
+		{
+			if(isFollow)
+			{
+				if (saveDig_plus < transform.eulerAngles.z - 3)
+				{
+					isDec = true;
+					isInc = false;
+				}
+				else if (saveDig_plus > transform.eulerAngles.z + 3)
+				{
+					isInc = true;
+					isDec = false;
+				}
+			}
+		}
 
-        //}
-
-        if(isDelay)
-        {
-            rollDelay++;
-            if(rollDelay>5)
-            {
-                rollDelay = 0;
-                isDelay = false;
-
-                if (isInc)
-                {
-                    isInc = false;
-                    isDec = true;
-                }
-                else if (isDec)
-                {
-                    isDec = false;
-                    isInc = true;
-                }
-
-            }
-        }
+		if (saveDig_plus - 3 <= transform.eulerAngles.z && saveDig_plus + 3 >= transform.eulerAngles.z)
+		{
+			if(isFollow)
+			{
+				isInc = false;
+				isDec = false;
+			}
+		}
 
 	}
 	void DegreeCalculation()
@@ -266,16 +167,30 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		//角度を求める
 		degree = radian * Mathf.Rad2Deg;
 
-		//if (degree >= 0)
+		//if (colList.Count > 0)
 		//{
-		//	isPositive = true;
-		//	isNegative = false;
+		//	foreach(GameObject checkObj in colList)
+		//	{
+		//		if(checkObj.tag=="Player")
+		//		{
+		//			if (isFollow)
+		//			{
+		//				if (isPlus)
+		//				{
+		//					isDec = false;
+		//					isInc = true;
+		//				}
+		//				else if (isMinus)
+		//				{
+		//					isInc = false;
+		//					isDec = true;
+
+		//				}
+		//			}
+		//		}
+		//	}
 		//}
-		//else if (degree < 0)
-		//{
-		//	isNegative = true;
-		//	isPositive = false;
-		//}
+
 		if (degree < 0)
 		{
 			degree_plus = degree + 360.0f;
@@ -286,14 +201,37 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if(col.gameObject.tag=="Player")
-        {
-            isDelay = true;
+ //   private void OnTriggerStay(Collider col)
+ //   {
+	//	colList.Add(col.gameObject);
+	//	if (col.gameObject.tag=="Player")
+ //       {
+	//		isInc = false;
+	//		isDec = false;
 
-        }  
-    }
+ //       }  
+ //   }
 
+	//private void OnTriggerExit(Collider col)
+	//{
+	//	colList.Remove(col.gameObject);
+	//	if (col.gameObject.tag == "Player")
+	//	{
+	//		if(isFollow)
+	//		{
+	//			if (isPlus)
+	//			{
+	//				isDec = false;
+	//				isInc = true;
+	//			}
+	//			else if (isMinus)
+	//			{
+	//				isInc = false;
+	//				isDec = true;
+
+	//			}
+	//		}
+	//	}
+	//}
 }
 
