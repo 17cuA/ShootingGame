@@ -18,14 +18,12 @@ public class Missile_Tow_Way : bullet_status
 	private float ray_length;                        // 等速直線運動のスピード
 
 	private int Running_Flame { get; set; }				// 起動している間のフレーム
-	public float y_axis_facing { get; private set; }		// Y軸の方向
+	public float Y_Axis_Facing { get; private set; }		// Y軸の方向
 
 	private new void Start()
 	{
 		base.Start();
 		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
-		Running_Flame = 0;
-		y_axis_facing = 0;
 	}
 
 	// Update is called once per frame
@@ -45,7 +43,7 @@ public class Missile_Tow_Way : bullet_status
 	/// </summary>
 	public void HorizontalProjection()
 	{
-		Vector3 vector = new Vector3(constant_velocity_line_speed, y_axis_facing * (Running_Flame * shot_speed));
+		Vector3 vector = new Vector3(constant_velocity_line_speed, Y_Axis_Facing * (Running_Flame * shot_speed));
 		transform.right = vector;
 		transform.position += vector.normalized * shot_speed;
 		Running_Flame++;
@@ -59,11 +57,11 @@ public class Missile_Tow_Way : bullet_status
 	{
 		if(select_number % 2 == 0)
 		{
-			y_axis_facing = 1.0f;
+			Y_Axis_Facing = 1.0f;
 		}
 		else if(select_number % 2 == 1)
 		{
-			y_axis_facing = -1.0f;
+			Y_Axis_Facing = -1.0f;
 		}
 	}
 }

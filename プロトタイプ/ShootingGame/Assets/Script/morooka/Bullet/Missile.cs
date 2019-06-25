@@ -47,12 +47,16 @@ public class Missile : bullet_status
 			// 自身の向いている方向に移動
 			transform.position += transform.right.normalized * shot_speed;
 			//	自身の下方向にコライダーがあるとき
-			if (Physics.Raycast(transform.position, transform.up * -1.0f, out hit_mesh, ray_length * 3.0f))
+			Vector3 vector = transform.position;
+			vector.x += 0.5f;
+
+			Debug.DrawRay(vector, new Vector3(0.0f, Y_Axis_Facing),Color.red);
+			if (Physics.Raycast(vector, new Vector3(0.0f, Y_Axis_Facing), out hit_mesh, ray_length * 5.0f))
 			{
 				// コライダーの持ち主がWAllのとき、法線が上向きでないとき
 				if (hit_mesh.transform.tag=="Wall" && hit_mesh.normal.y != 1.0f)
 				{
-					Moving_Facing_Confirmation();
+					Moving_Facing_Confirmation(hit_mesh.normal );
 				}
 			}
 		}
@@ -62,7 +66,7 @@ public class Missile : bullet_status
 			// コライダーの持ち主がWAllのとき
 			if (hit_mesh.transform.gameObject.tag == "Wall")
 			{
-				Moving_Facing_Confirmation();
+				Moving_Facing_Confirmation(hit_mesh.normal);
 				// 移動の種類を変える
 				Act_Step = 2;
 			}
@@ -76,23 +80,6 @@ public class Missile : bullet_status
 	}
 
 	/// <summary>
-	/// 移動向き確認
-	/// </summary>
-	private void Moving_Facing_Confirmation()
-	{
-		transform.right = new Vector2(hit_mesh.normal.y, -hit_mesh.normal.x);
-		float an = transform.right.x * 0.0f + transform.right.y * 1.0f;
-
-		// 内閣が0以下のとき
-		if (an > 0)
-		{
-			// 自信を消す
-			AddExplosionProcess();
-			gameObject.SetActive(false);
-		}
-	}
-
-	/// <summary>
 	/// 水平投射
 	/// </summary>
 	private void HorizontalProjection()
@@ -101,6 +88,30 @@ public class Missile : bullet_status
 		transform.right = vector;
 		transform.position += vector.normalized * shot_speed;
 		Running_Flame++;
+	}
+
+	/// <summary>
+	/// 移動向き確認
+	/// </summary>
+	private void Moving_Facing_Confirmation(Vector3 mesh_normal )
+	{
+		if(mesh_normal.y < 0.0f)
+		{
+			mesh_normal.y *= -1.0f;
+		}
+
+		mesh_normal.x *= Y_Axis_Facing;
+
+		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
+		float an = transform.right.x * 0.0f + transform.right.y * -Y_Axis_Facing;
+
+		// 内閣が0以下のとき
+		if (an > 0)
+		{
+			// 自信を消す
+			AddExplosionProcess();
+			gameObject.SetActive(false);
+		}
 	}
 
 	/// <summary>
