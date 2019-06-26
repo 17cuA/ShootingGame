@@ -2,62 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Power;
 
 public class UI_PowerUp : MonoBehaviour
 {
-	private Dictionary<int, Text> texts = new Dictionary<int, Text>();
-	private Image current;
-	private int slot;
+	private Dictionary<int, Text> texts = new Dictionary<int, Text>();  //UI中のTextコンポーネント
+	private Image current;																  //現在選択Image
 	private void Awake()
 	{
+		//子オブジェクトのTextコンポーネント取得
 		Component[] components = transform.GetComponentsInChildren<Text>();
 
-		for(var i = 0; i < components.Length; ++i)
-		{
+		//データ構造に入れておく
+		for (var i = 0; i < components.Length; ++i)
 			texts.Add(i, components[i] as Text);
-		}
 
+		//子オブジェクトからImageコンポーネント取得
 		current = transform.Find("Image").GetComponent<Image>();
 	}
-	// Start is called before the first frame update
-	private void Start()
-    {
-		var index = 0;
-		foreach(var value in texts.Values)
-		{
-			value.text = PowerUpManager.Instance.GetPowerUp((PowerUpType)index).Name;
-			value.transform.parent.name = PowerUpManager.Instance.GetPowerUp((PowerUpType)index).Name;
-			index++;
-		}
-		current.name = "Cursor";
-    }
 
-    // Update is called once per frame
-    void Update()
-    {		
-		if (PowerUpManager.Instance.IsSelect)
+
+	private void Start()
+	{
+		for (var i = 0; i < texts.Count; ++i)
 		{
+			texts[i].text = PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i).type.ToString();    //パワーアップ名をUIで表示させる
+			texts[i].transform.parent.name = texts[i].name;                                                                                  //対応するオブジェクト名を修正
+		}
+		//選択オブジェクト名を修正
+		current.name = "Cursor";
+	}
+
+	private void Update()
+	{
+		//現在選択パワー存在
+		if (PowerManager.Instance.CurrentPower != null)
+		{
+			//選択画像無効の場合　　->　有効にする
 			if (!current.gameObject.activeSelf)
 				current.gameObject.SetActive(true);
-
-			slot = PowerUpManager.Instance.CurrentSlot;
-
-			if(current.transform.position != texts[slot].transform.position)
-				current.transform.position = texts[slot].transform.position;
-		
+			//現在位置に合わせる
+			if (current.transform.position != texts[PowerManager.Instance.Position].transform.position)
+				current.transform.position = texts[PowerManager.Instance.Position].transform.position;
 		}
+		//現在選択パワーがない、　有効である場合　->　無効にする
 		else
-		{
-			if(current.gameObject.activeSelf)
-				current.gameObject.SetActive(false);
-		}
+			if (current.gameObject.activeSelf)
+			current.gameObject.SetActive(false);
 
-		if (PowerUpManager.Instance.CurrentPowerUp != null)
+		//表示検索ループ
+		for (var i = 0; i < texts.Count; ++i)
 		{
-			if (PowerUpManager.Instance.CurrentPowerUp.CannotUpgrade)
+			//すべてパワーをチェック
+			var power = PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i);
+			//表示できる場合、　パワー名を表示させる
+			if (power.CanShow)
 			{
-				if (texts[slot].text != string.Empty)
-					texts[slot].text = string.Empty;
+				if (texts[i].text != power.type.ToString())
+					texts[i].text = power.type.ToString();
+			}
+			//表示できない場合、　パワー名を空にする
+			else
+			{
+				if (texts[i].text != string.Empty)
+					texts[i].text = string.Empty;
 			}
 		}
 	}

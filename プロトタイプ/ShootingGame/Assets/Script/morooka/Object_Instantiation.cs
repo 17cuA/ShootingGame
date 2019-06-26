@@ -25,39 +25,77 @@ namespace StorageReference
 		/// <param name="name"> 撃ちたいバレットの名前 </param>
 		/// <param name="pos"> 打ち出す場所 </param>
 		/// <param name="direction"> 向き </param>
-		static public GameObject Object_Reboot(string name, Vector3 pos, Vector3 direction)
+		static public GameObject Object_Reboot(Game_Master.OBJECT_NAME name, Vector3 pos, Vector3 direction)
 		{
 			GameObject obj = null;
 			switch (name)
 			{
-				#region Player_Bullet
-				case "Player_Bullet":
-					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-					break;
-				#endregion
-				#region Enemy_Bullet_01
-				case "Enemy_Bullet_01":
-					obj = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
-					break;
-				#endregion
-				#region Enemy
-				case "Enemy":
+				#region Enemy_1
+				case Game_Master.OBJECT_NAME.eENEMY_NUM1:
 					obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
 					break;
 				#endregion
-				#region
-				case "Beam_Bullet_Enemy":
+				#region Player_Bullet
+				case Game_Master.OBJECT_NAME.ePLAYER_BULLET:
+					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+					break;
+				#endregion
+				#region Player_Missile
+				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
+					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+					break;
+				#endregion
+				#region Plauyer_Laser
+				case Game_Master.OBJECT_NAME.ePLAYER_LASER:
+					break;
+				#endregion
+				#region Enemy_Bullet
+				case Game_Master.OBJECT_NAME.eENEMY_BULLET:
+					obj = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
+					break;
+				#endregion
+				#region Enemy_Beam
+				case Game_Master.OBJECT_NAME.eENEMY_BEAM:
 					obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
 					break;
 				#endregion
-				#region
-				case "Player_Missile":
-					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+				#region Enemy_Laser
+				case Game_Master.OBJECT_NAME.eENEMY_LASER:
 					break;
 				#endregion
 				default:
 					break;
 			}
+			 //switch (name)
+			 //{
+			 //	#region Player_Bullet
+			 //	case name:
+			 //		obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+			 //		break;
+			 //	#endregion
+			 //	#region Enemy_Bullet_01
+			 //	case "Enemy_Bullet_01":
+			 //		obj = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
+			 //		break;
+			 //	#endregion
+			 //	#region Enemy
+			 //	case "Enemy":
+			 //		obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
+			 //		break;
+			 //	#endregion
+			 //	#region
+			 //	case "Beam_Bullet_Enemy":
+			 //		obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
+			 //		break;
+			 //	#endregion
+			 //	#region
+			 //	case "Player_Missile":
+			 //		obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+			 //		break;
+			 //	#endregion
+			 //	default:
+			 //		break;
+			 //}
 
 			if (obj == null) return obj;
 
@@ -93,6 +131,12 @@ namespace StorageReference
 					obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
 					break;
 				#endregion
+				#region
+				case "Player_Missile":
+					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
+					break;
+				#endregion
+
 				default:
 					break;
 			}
