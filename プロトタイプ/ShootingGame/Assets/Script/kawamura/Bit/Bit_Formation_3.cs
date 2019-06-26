@@ -26,7 +26,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	GameObject obliquePosObj;				//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;					//レーザー時の座標用オブジェクト
 
-	Bit_Shot b_Shot;						//ビットンの攻撃スクリプト情報
+	Bit_Shot b_Shot;                        //ビットンの攻撃スクリプト情報
+	Player1 pl1;
 
 	public float speed;						//ビットンの移動スピード
 	float step;								//スピードを計算して入れる
@@ -37,8 +38,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	string myName;							//自分の名前を入れる
 	private Quaternion Direction;			//オブジェクトの向きを変更する時に使う
 
-	float smoothTime;						//レーザー時の座標へ移動するのにかかる時間
-	Vector3 velocity = Vector3.zero;		
+	float smoothTime;                       //レーザー時の座標へ移動するのにかかる時間
+	Vector3 velocity;		
 	public int laserCnt = 0;				//レーザーのボタンを押してからの時間カウント
 	int returnNum;							//レーザーを解除できる時間
 
@@ -46,11 +47,12 @@ public class Bit_Formation_3 : MonoBehaviour
 	bool isFollow = false;          //プレイヤーを追従する位置に向かっているかどうか
 	bool isOblique = false;         //斜め撃ちの位置に向かっているかどうか
 	bool once = true;
-
+	bool isPlayerDieCheck;
+	bool isDead = false;
 	void Start()
 	{
+		speed = 20;
 		//値を設定
-		speed = 50;
 		state_Num = 0;
 		smoothTime = 0.35f;
 		returnNum = 30;
@@ -60,6 +62,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		//プレイヤーオブジェクト取得
 		playerObj = GameObject.FindGameObjectWithTag("Player");
+		pl1 = playerObj.GetComponent<Player1>();
 		//親のオブジェクト取得
 		//parentObj = transform.parent.gameObject;
 		//自分の名前取得
@@ -111,6 +114,33 @@ public class Bit_Formation_3 : MonoBehaviour
 			//transform.parent = followPosObj.transform;
 			once = false;
 		}
+
+		if(Input.GetKeyDown(KeyCode.I))
+		{
+			isDead = true;
+		}
+
+
+		//if(pl1.Died_Judgment())
+		//{
+		//	isDead = true;
+		//	transform.parent = null;
+		//}
+
+		if (isDead)
+		{
+			transform.parent = null;
+			velocity = gameObject.transform.rotation * new Vector3(speed, 0, -0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
+			speed -= 0.5f;
+			if (speed < -1.5f)
+			{
+				speed = -1.5f;
+			}
+		}
+
+		//isPlayerDieCheck = pl1.Died_Judgment();
 
 		//スピード計算
 		//step = speed * Time.deltaTime;
@@ -275,17 +305,15 @@ public class Bit_Formation_3 : MonoBehaviour
 			//	break;
 		}
 	}
+	private void OnTriggerEnter(Collider col)
+	{
+		if(isDead)
+		{
+			if (col.gameObject.tag=="Player")
+			{
 
-	//レーザー時の移動関数
-	//void Bit_Laser()
-	//{
-	//	bState = BitState.Laser;
-	//	laserCnt++;
-	//	transform.parent = playerObj.transform;
-	//	// 追従対象オブジェクトのTransformから、目的地を算出
-	//	Vector3 targetPos = laserPos.transform.TransformPoint(new Vector3(0, 0, 0));
+			}
 
-	//	// 移動
-	//	transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
-	//}
+		}
+	}
 }
