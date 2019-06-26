@@ -49,6 +49,11 @@ public class Missile_Tow_Way : bullet_status
 		Running_Flame++;
 	}
 
+	public void che()
+	{
+		constant_velocity_line_speed *= -1.0f;
+	}
+
 	/// <summary>
 	/// Y軸方向の設定
 	/// </summary>

@@ -21,22 +21,19 @@ public class Missile : bullet_status
 	private float ray_length;       // レイの長さ
 	private RaycastHit hit_mesh;            // 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
-	private int Act_Step { get; set; }                          // 行動の変更用
+	private int Act_Step { get; set; }                  // 行動の変更用
 	private int Running_Flame { get; set; }             // 起動している間のフレーム
-	private Transform Missile_Head { get; set; }        // ミサイルの先端
-	public float Y_Axis_Facing { get; private set; }        // Y軸の方向
-	public float Length_On_Gliding {get; set;}
-	public float Length_On_Landing { get; set; }
+	public Vector3 Ray_Direction { get; set; }          // レイの向き
+	public float Length_On_Landing { get; set; }		// 落下時のレイの長さ
+	public float Length_On_Gliding {get; set;}			// 滑空時のレイの長さ
 
-	//private 
 	private new void Start()
 	{
 		base.Start();
 		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
 		hit_mesh = new RaycastHit();
-		Missile_Head = transform.GetChild(0);
-		//Length_On_Gliding = ray_length * 1.5f;
-		//Length_On_Landing = ray_length;
+		Length_On_Landing = ray_length;
+		Length_On_Gliding = ray_length * 3.0f;
 	}
 
 	private new void Update()
@@ -57,9 +54,9 @@ public class Missile : bullet_status
 			Vector3 vector = transform.position;
 			vector.x += 0.5f;
 		}
-		Debug.DrawRay(Missile_Head.position, new Vector3(0.0f, Y_Axis_Facing).normalized * ray_length, Color.red);
+		Debug.DrawRay(transform.position, Ray_Direction.normalized * Length_On_Landing, Color.red);
 		// 先端に触れたメッシュ(コライダーの一部)があるとき
-		if (Physics.Raycast(Missile_Head.position, new Vector3(0.0f, Y_Axis_Facing), out hit_mesh, ray_length))
+		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, Length_On_Landing))
 		{
 			// コライダーの持ち主がWAllのとき
 			if (hit_mesh.transform.gameObject.tag == "Wall")
@@ -67,16 +64,21 @@ public class Missile : bullet_status
 				Moving_Facing_Confirmation(hit_mesh.normal);
 				// 移動の種類を変える
 				Act_Step = 2;
-				//ray_length = Length_On_Gliding;
+				Length_On_Landing = Length_On_Gliding;
 			}
 		}
 	}
 
-	void OnEnable()
+	/// <summary>
+	/// 再起動時の設定関数
+	/// </summary>
+	/// <param name="y"> Y軸方向の設定へ渡す数値 </param>
+	public void Setting_On_Reboot(int y)
 	{
+		Ray_Direction = new Vector3(0.0f, Y_Axis_Orientation_Preference(y), 0.0f);
 		Running_Flame = 0;
 		Act_Step = 0;
-		//ray_length = Length_On_Landing;
+		Length_On_Landing = ray_length;
 	}
 
 	/// <summary>
@@ -84,7 +86,7 @@ public class Missile : bullet_status
 	/// </summary>
 	private void HorizontalProjection()
 	{
-		Vector3 vector = new Vector3(constant_velocity_line_speed, Y_Axis_Facing * (Running_Flame * shot_speed));
+		Vector3 vector = new Vector3(constant_velocity_line_speed, Ray_Direction.y * (Running_Flame * shot_speed));
 		transform.right = vector;
 		transform.position += vector.normalized * shot_speed;
 		Running_Flame++;
@@ -93,20 +95,22 @@ public class Missile : bullet_status
 	/// <summary>
 	/// 移動向き確認
 	/// </summary>
-	private void Moving_Facing_Confirmation(Vector3 mesh_normal )
+	private void Moving_Facing_Confirmation(Vector3 mesh_normal)
 	{
-		if(mesh_normal.y < 0.0f)
-		{
-			mesh_normal.y *= -1.0f;
-		}
+		//if(mesh_normal.y < 0.0f)
+		//{
+		//	mesh_normal.y *= -1.0f;
+		//}
 
-		mesh_normal.x *= Y_Axis_Facing;
+		mesh_normal.y *= (Ray_Direction.y * -1.0f);
+
+		mesh_normal.x *= Ray_Direction.y;
 
 		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
-		float an = transform.right.x * 0.0f + transform.right.y * -Y_Axis_Facing;
+		float an = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
 
 		// 内閣が0以下のとき
-		if (an > 0)
+		if (an < 0)
 		{
 			// 自信を消す
 			AddExplosionProcess();
@@ -118,15 +122,14 @@ public class Missile : bullet_status
 	/// Y軸方向の設定
 	/// </summary>
 	/// <param name="select_number"> 偶数を渡すと上方向に移動、奇数を渡すと下方向に移動 </param>
-	public void Y_Axis_Orientation_Preference(int select_number)
+	private float Y_Axis_Orientation_Preference(int select_number)
 	{
+		float y_di = -1.0f;
 		if (select_number % 2 == 0)
 		{
-			Y_Axis_Facing = 1.0f;
+			y_di = 1.0f;
 		}
-		else if (select_number % 2 == 1)
-		{
-			Y_Axis_Facing = -1.0f;
-		}
+
+		return y_di;
 	}
 }
