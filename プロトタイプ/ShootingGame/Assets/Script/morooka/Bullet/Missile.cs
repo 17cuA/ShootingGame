@@ -18,18 +18,22 @@ public class Missile : bullet_status
 	private float constant_velocity_line_speed;     // 等速直線速度
 	[SerializeField]
 	[Header("レイの長さ")]
-	private float ray_length = 0.3f;                        // レイの長さ
-	private RaycastHit hit_mesh;							// 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
+	private float ray_length;		// レイの長さ
+	private RaycastHit hit_mesh;			// 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
-	private int Act_Step { get; set; }							// 行動の変更用
-	private int Running_Flame { get; set; }				// 起動している間のフレーム
+	private int Act_Step { get; set; }                          // 行動の変更用
+	private int Running_Flame { get; set; }             // 起動している間のフレーム
+	private Transform Missile_Head { get; set; }		// ミサイルの先端
 	public float Y_Axis_Facing { get; private set; }		// Y軸の方向
-
+	public Vector3 Ray_Direction { get; set; }
+	//private 
 	private new void Start()
 	{
 		base.Start();
 		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
 		hit_mesh = new RaycastHit();
+		Missile_Head = transform.GetChild(0);
+		Ray_Direction = transform.right;
 	}
 
 	private new void Update()
@@ -50,18 +54,18 @@ public class Missile : bullet_status
 			Vector3 vector = transform.position;
 			vector.x += 0.5f;
 
-			Debug.DrawRay(vector, new Vector3(0.0f, Y_Axis_Facing),Color.red);
-			if (Physics.Raycast(vector, new Vector3(0.0f, Y_Axis_Facing), out hit_mesh, ray_length * 5.0f))
-			{
-				// コライダーの持ち主がWAllのとき、法線が上向きでないとき
-				if (hit_mesh.transform.tag=="Wall" && hit_mesh.normal.y != 1.0f)
-				{
-					Moving_Facing_Confirmation(hit_mesh.normal );
-				}
-			}
+			//if (Physics.Raycast(Missile_Head.position, new Vector3(0.0f, Y_Axis_Facing), out hit_mesh, ray_length*0.5f))
+			//{
+			//	// コライダーの持ち主がWAllのとき、法線が上向きでないとき
+			//	if (hit_mesh.transform.tag=="Wall" && hit_mesh.normal.y != 1.0f)
+			//	{
+			//		Moving_Facing_Confirmation(hit_mesh.normal );
+			//	}
+			//}
 		}
+		Debug.DrawRay(transform.position, new Vector3(0.0f, Y_Axis_Facing).normalized * ray_length, Color.red);
 		// 先端に触れたメッシュ(コライダーの一部)があるとき
-		if (Physics.Raycast(transform.position, transform.right, out hit_mesh, ray_length))
+		if (Physics.Raycast(transform.position, new Vector3(0.0f, Y_Axis_Facing), out hit_mesh, ray_length))
 		{
 			// コライダーの持ち主がWAllのとき
 			if (hit_mesh.transform.gameObject.tag == "Wall")
@@ -77,6 +81,7 @@ public class Missile : bullet_status
 	{
 		Running_Flame = 0;
 		Act_Step = 0;
+		Ray_Direction = transform.right;
 	}
 
 	/// <summary>
@@ -104,6 +109,8 @@ public class Missile : bullet_status
 
 		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
 		float an = transform.right.x * 0.0f + transform.right.y * -Y_Axis_Facing;
+
+		Ray_Direction = new Vector3(0.0f, Y_Axis_Facing);
 
 		// 内閣が0以下のとき
 		if (an > 0)

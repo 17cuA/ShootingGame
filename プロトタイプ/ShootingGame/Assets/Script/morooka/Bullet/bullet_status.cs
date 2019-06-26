@@ -21,10 +21,11 @@ public class bullet_status : MonoBehaviour
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
-	private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
+	[SerializeField]
+	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
 	protected void Start()
 	{
-		Bullet_Renderer = GetComponent<Renderer>();
+		if (Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
 	}
 
