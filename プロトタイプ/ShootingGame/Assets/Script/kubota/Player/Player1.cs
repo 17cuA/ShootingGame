@@ -69,6 +69,8 @@ public class Player1 : character_status
 				{
 					Bullet_Create();
 				}
+				if (Input.GetKeyDown(KeyCode.Z)) hp = 0;
+
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
@@ -82,6 +84,8 @@ public class Player1 : character_status
 				{
 					Bullet_Create();
 				}
+				if (Input.GetKeyDown(KeyCode.Z)) hp = 0;
+
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
 				break;
