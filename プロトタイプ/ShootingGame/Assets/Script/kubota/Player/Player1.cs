@@ -9,6 +9,7 @@ using UnityEngine;
 //using Power;
 public class Player1 : character_status
 {
+	public int rema;				//残機
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
@@ -16,8 +17,6 @@ public class Player1 : character_status
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
-	public float energy;						 //レーザー打つためのエネルギー
-	public float energy_Max;            //エネルギーの最大値
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
 	public enum Bullet_Type　　//弾の種類
 	{
@@ -56,7 +55,10 @@ public class Player1 : character_status
 	{
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
-		Died_Process();
+		if(hp < 1)
+		{
+			Died_Process();
+		}
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
@@ -97,53 +99,6 @@ public class Player1 : character_status
 		}
 		Shot_Delay++;
 	}
-    //collisionの時はisTriggerにチェックを入れないこと
-    //コライダーが当たった時の処理
-    private void OnTriggerEnter(Collider col)
-    {
-		////アイテムの場合
-		//if (col.tag == "Item")
-		//{
-		//	//アイテムのパワータイプを取得
-		//	PowerType type = col.GetComponent<Item>().powerType;
-
-		//	//外からのアイテム再取得時の処理　
-		//	//() => { Debug.Log("イベント発生！依頼関数実行"); };
-		//	//上記部分を含め処理する
-
-		//	//PowerManager.Instance.Pick(type);実行する前に、依頼関数をイベントに入れておけば、同時に実行することができる
-		//	//パワー内部　＋　パワー外部　同時に実行
-		//	//何故なら、パワーアップする時、内部データに影響するだけでなく、外部（エフェクト、音再生とか）も影響する
-
-		//	//新たに生成したパワーをパワーマネージャーで管理
-		//	PowerManager.Instance.Pick(type);
-		//}
-		//弾の場合
-		if (col.tag == "Enemy_Bullet")
-		{
-			////シールドがある場合
-			//if (PowerManager.Instance.HasPower(PowerType.POWER_SHIELD))
-			//{
-			//	//シールドまだ消滅してない場合
-			//	if (!PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).IsLost)
-			//	{
-			//		//シールドのHp　-1
-			//		//変更必要
-			//		int value = PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).value--;
-			//		//Debug.Log(value);
-			//	}
-			//}
-			////　シールドがない場合
-			//else
-			//{
-			//敵の弾の攻撃力を取得し、プレイヤーの体力を減らす
-			bullet_status Bs = col.gameObject.GetComponent<bullet_status>();
-			hp -= (int)Bs.attack_damage;
-
-			//}
-		}
-		if (col.gameObject.tag == "Enemy") hp--;
-    }
 	//コントローラーの操作
 	private void Player_Move()
 	{

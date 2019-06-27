@@ -12,7 +12,10 @@ public class Enemy_straight : character_status
     // Update is called once per frame
     void Update()
     {
-		Died_Process();
+		if (hp < 1)
+		{
+			Died_Process();
+		}
 		Enemy_Move();
 	}
 

@@ -20,7 +20,8 @@ public class character_status : MonoBehaviour
 	private Rigidbody rigidbody;								//rigitbody
     public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
     public int Shot_Delay;                                 // 弾を撃つ時の間隔
-
+	private int invincible;                                      //無敵時間を計測する変数
+	public int invincible_Max;										//無敵時間の最大値(計測する変数の中身がここまで来たら無敵時間停止)
 	private void Start()
 	{
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
@@ -46,25 +47,21 @@ public class character_status : MonoBehaviour
 	/// </summary>
 	public void Died_Process()
 	{
-		//体力が1未満だったらオブジェクトの消去
-		if (hp < 1)
+		if (gameObject.name != "Player")
 		{
-			if(gameObject.name != "Player")
-			{
 			//スコア
 			Game_Master.MY.Score_Addition(100);
-			}
-			//爆発処理の作成
-			ParticleCreation(gameObject,0);
-
-			//Debug.Log("hei");
-			Reset_Status();
-			//死んだらゲームオブジェクトを遠くに飛ばす処理
-			transform.position = new Vector3(0, 800.0f,0);
-			//稼働しないようにする
-			gameObject.SetActive(false);
-			Debug.Log(gameObject.transform.parent.name + "	Destroy");
 		}
+		//爆発処理の作成
+		ParticleCreation(gameObject, 0);
+
+		//Debug.Log("hei");
+		Reset_Status();
+		//死んだらゲームオブジェクトを遠くに飛ばす処理
+		transform.position = new Vector3(0, 800.0f, 0);
+		//稼働しないようにする
+		gameObject.SetActive(false);
+		Debug.Log(gameObject.transform.parent.name + "	Destroy");
 	}
 	//パーティクルの作成（爆発のみ）
 	public void ParticleCreation(GameObject gameObject, int particleID)
@@ -79,13 +76,10 @@ public class character_status : MonoBehaviour
 		{
 			bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 			Damege_Process((int)BS.attack_damage);
-			Debug.Log(gameObject.name + "	1damege");
 		}
 		else if(col.gameObject.tag != gameObject.tag)
 		{
 			Damege_Process(1);
-			Debug.Log(gameObject.name + "	" + col.gameObject.name + "	hit");
-
 		}
 	}
 }
