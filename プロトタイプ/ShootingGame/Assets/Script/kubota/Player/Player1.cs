@@ -56,7 +56,7 @@ public class Player1 : character_status
 	{
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
-
+		Died_Process();
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
@@ -69,8 +69,11 @@ public class Player1 : character_status
 				{
 					Bullet_Create();
 				}
-				if (Input.GetKeyDown(KeyCode.Z)) hp = 0;
-
+				if (Input.GetKeyDown(KeyCode.Z))
+				{
+					Damege_Process(1);
+					Debug.Log("Player_HP	" + hp);
+				}
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
 				break;
@@ -84,7 +87,7 @@ public class Player1 : character_status
 				{
 					Bullet_Create();
 				}
-				if (Input.GetKeyDown(KeyCode.Z)) hp = 0;
+				if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
 
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
