@@ -44,6 +44,11 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
 					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
 					break;
+					#endregion
+				#region
+				case Game_Master.OBJECT_NAME.ePLAYER_TowWay:
+					obj = Obj_Storage.Storage_Data.PlayerMissile_TowWay.Active_Obj();
+					break;
 				#endregion
 				#region Plauyer_Laser
 				case Game_Master.OBJECT_NAME.ePLAYER_LASER:

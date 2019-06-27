@@ -4,6 +4,7 @@
 /*
  * 2019/06/06	バレットの挙動をオブジェクトプーリングの形式に変更しました
  * 2019/06/13	継承用クラスに変更
+ * 2019/06/26	レンダーの初期化法の変更
  */
 using System;
 using System.Collections;
@@ -21,13 +22,11 @@ public class bullet_status : MonoBehaviour
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
-	private Renderer Bullet_Renderer; // 判定したいオブジェクトのrendererへの参照
+	[SerializeField]
+	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
 	protected void Start()
 	{
-		Bullet_Renderer = GetComponent<Renderer>();
-		//Rigidbody r = gameObject.AddComponent<Rigidbody>();
-		//r.useGravity = false;
-		//r.velocity = Vector3.zero;
+		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
 	}
 
