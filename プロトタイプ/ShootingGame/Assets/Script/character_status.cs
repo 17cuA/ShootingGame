@@ -81,10 +81,10 @@ public class character_status : MonoBehaviour
 			Damege_Process((int)BS.attack_damage);
 			Debug.Log(gameObject.name + "	1damege");
 		}
-		else
+		else if(col.gameObject.tag != gameObject.tag)
 		{
 			Damege_Process(1);
-			Debug.Log(gameObject.name + "	1damege");
+			Debug.Log(gameObject.name + "	" + col.gameObject.name + "	hit");
 
 		}
 	}
