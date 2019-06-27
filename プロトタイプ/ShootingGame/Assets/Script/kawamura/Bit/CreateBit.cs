@@ -61,38 +61,43 @@ public class CreateBit : MonoBehaviour
 		switch (num)
 		{
 			case 0:
-				bitObj = Instantiate(bit_First, followPosObjcs[0].transform.position, transform.rotation);
-				bitObj.transform.parent = followPosObjcs[0].transform;
-				bitObj.transform.position = followPosObjcs[0].transform.position;
-				bitObj = null;
+				//bitObj = Instantiate(bit_First, followPosObjcs[0].transform.position, transform.rotation);
+				//bitObj.transform.parent = followPosObjcs[0].transform;
+				//bitObj.transform.position = followPosObjcs[0].transform.position;
+				//bitObj = null;
 
+				Instantiate(bit_First, transform.position, transform.rotation);
 				num++;
 				break;
 
 			case 1:
 
-				bitObj = Instantiate(bit_First, followPosObjcs[1].transform.position, transform.rotation);
-				bitObj.transform.parent = followPosObjcs[1].transform;
-				bitObj.transform.position = followPosObjcs[1].transform.position;
-				bitObj = null;
+				//bitObj = Instantiate(bit_First, followPosObjcs[1].transform.position, transform.rotation);
+				//bitObj.transform.parent = followPosObjcs[1].transform;
+				//bitObj.transform.position = followPosObjcs[1].transform.position;
+				//bitObj = null;
 
+				Instantiate(bit_First, transform.position, transform.rotation);
 				num++;
 				break;
 
 			case 2:
-				bitObj = Instantiate(bit_First, followPosObjcs[2].transform.position, transform.rotation);
-				bitObj.transform.parent = followPosObjcs[2].transform;
-				bitObj.transform.position = followPosObjcs[2].transform.position;
-				bitObj = null;
+				//bitObj = Instantiate(bit_First, followPosObjcs[2].transform.position, transform.rotation);
+				//bitObj.transform.parent = followPosObjcs[2].transform;
+				//bitObj.transform.position = followPosObjcs[2].transform.position;
+				//bitObj = null;
 
+				Instantiate(bit_First, transform.position, transform.rotation);
 				num++;
 				break;
 
 			case 3:
-				bitObj = Instantiate(bit_First, followPosObjcs[3].transform.position, transform.rotation);
-				bitObj.transform.parent = followPosObjcs[3].transform;
-				bitObj.transform.position = followPosObjcs[3].transform.position;
-				bitObj = null;
+				//bitObj = Instantiate(bit_First, followPosObjcs[3].transform.position, transform.rotation);
+				//bitObj.transform.parent = followPosObjcs[3].transform;
+				//bitObj.transform.position = followPosObjcs[3].transform.position;
+				//bitObj = null;
+
+				Instantiate(bit_First, transform.position, transform.rotation);
 
 				num++;
 				break;

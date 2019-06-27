@@ -22,15 +22,32 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	GameObject playerObj;					//プレイヤーのオブジェクト
 	public GameObject parentObj;			//親のオブジェクト
-	public GameObject followPosObj;			//プレイヤーを追従するときの位置オブジェクト
+	public GameObject followPosObj;         //プレイヤーを追従するときの位置オブジェクト
+	GameObject followPosFirstObj;
+	GameObject followPosSecondObj;
+	GameObject followPosThirdObj;
+	GameObject followPosFourthObj;
+
 	GameObject obliquePosObj;				//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;					//レーザー時の座標用オブジェクト
 
 	Bit_Shot b_Shot;                        //ビットンの攻撃スクリプト情報
 	Player1 pl1;
+	FollowToPlayer_SameMotion FtoPlayer;
+	FollowToPreviousBit FtoPBit_Second;
+	FollowToPreviousBit FtoPBit_Third;
+	FollowToPreviousBit FtoPBit_Fourth;
 
-	public float speed;						//ビットンの移動スピード
-	float step;								//スピードを計算して入れる
+
+	Renderer renderer;
+	public MeshRenderer meshrender;
+	Color bit_Color;
+	float alpha_Value = 0;
+
+	float speed;                        //ビットンの移動スピード
+	public float defaultSpeed;
+	float step;                             //スピードを計算して入れる
+	int collectDelay;
 
 	int state_Num;                          //ビットンの状態を変えるための数字		
 
@@ -48,10 +65,11 @@ public class Bit_Formation_3 : MonoBehaviour
 	bool isOblique = false;         //斜め撃ちの位置に向かっているかどうか
 	bool once = true;
 	bool isPlayerDieCheck;
-	bool isDead = false;
+	bool isborn=true;
+	public bool isDead = false;
 	void Start()
 	{
-		speed = 20;
+		speed = defaultSpeed ;
 		//値を設定
 		state_Num = 0;
 		smoothTime = 0.35f;
@@ -60,8 +78,29 @@ public class Bit_Formation_3 : MonoBehaviour
 		//状態の初期設定
 		bState = BitState.Follow;
 
+		renderer = gameObject.GetComponent<Renderer>();
+
+		bit_Color = renderer.material.color;
+		//meshrender = gameObject.GetComponent<MeshRenderer>();
+		//meshrender.material.color = new Color(0, 0, 0, 0);
+
 		//プレイヤーオブジェクト取得
 		playerObj = GameObject.FindGameObjectWithTag("Player");
+
+		//4つの追従位置とそれぞれのスクリプト取得
+		followPosFirstObj = GameObject.Find("FollowPosFirst");
+		FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
+
+		followPosSecondObj = GameObject.Find("FollowPosSecond");
+		FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
+
+		followPosThirdObj = GameObject.Find("FollowPosThird");
+		FtoPBit_Third=followPosThirdObj.GetComponent<FollowToPreviousBit>();
+
+		followPosFourthObj = GameObject.Find("FollowPosFourth");
+		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
+
+
 		pl1 = playerObj.GetComponent<Player1>();
 		//親のオブジェクト取得
 		//parentObj = transform.parent.gameObject;
@@ -101,21 +140,27 @@ public class Bit_Formation_3 : MonoBehaviour
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
-
-		//transform.position = followPosObj.transform.position;
-		//transform.parent = followPosObj.transform;
 	}
 
 	void Update()
 	{
-		if(once)
+		//生成された時の処理
+		if(isborn)
 		{
-			//transform.position = followPosObj.transform.position;
-			//transform.parent = followPosObj.transform;
-			once = false;
+			SetParent();
+			isborn = false;
 		}
+		
+		alpha_Value += 0.1f;
+		if (alpha_Value >= 1.0f)
+		{
+			alpha_Value = 1.0f;
+		}
+		bit_Color.a = alpha_Value;
+		renderer.material.color = bit_Color;
+		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
 
-		if(Input.GetKeyDown(KeyCode.I))
+		if (Input.GetKeyDown(KeyCode.I))
 		{
 			isDead = true;
 		}
@@ -138,6 +183,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				speed = -1.5f;
 			}
+			collectDelay++;
 		}
 
 		//isPlayerDieCheck = pl1.Died_Judgment();
@@ -305,15 +351,87 @@ public class Bit_Formation_3 : MonoBehaviour
 			//	break;
 		}
 	}
+
+	void SetParent()
+	{
+		if (FtoPlayer.childCnt == 0)
+		{
+			transform.parent = followPosFirstObj.transform;
+			transform.position = followPosFirstObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Second.childCnt == 0)
+		{
+			transform.parent = followPosSecondObj.transform;
+			transform.position = followPosSecondObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Third.childCnt == 0)
+		{
+			transform.parent = followPosThirdObj.transform;
+			transform.position = followPosThirdObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Fourth.childCnt == 0)
+		{
+			transform.parent = followPosFourthObj.transform;
+			transform.position = followPosFourthObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+	}
+
+	//オプション回収の処理
 	private void OnTriggerEnter(Collider col)
 	{
-		if(isDead)
+		if(isDead && collectDelay>10)
 		{
-			if (col.gameObject.tag=="Player")
+			if (col.gameObject.tag == "Player")
 			{
-
+				if (FtoPlayer.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosFirstObj.transform;
+					transform.position = followPosFirstObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Second.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosSecondObj.transform;
+					transform.position = followPosSecondObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Third.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosThirdObj.transform;
+					transform.position = followPosThirdObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Fourth.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosFourthObj.transform;
+					transform.position = followPosFourthObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
 			}
-
 		}
 	}
 }
