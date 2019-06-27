@@ -66,10 +66,10 @@ public class Obj_Storage : MonoBehaviour
 		particle[5] = Resources.Load<GameObject>("Effects/Particle_6通路");
 		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
 
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
+		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");                              //ボス生成
 		Medium_Size_Enemy1 = new Object_Pooling(Medium_Enemy_Prefab, 1, "Medium");
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");						//プレイヤー生成
-		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");								//ボス生成
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");         //プレイヤーのバレットを生成
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
@@ -94,5 +94,4 @@ public class Obj_Storage : MonoBehaviour
 	{
 		return Boss;
 	}
-
 }
