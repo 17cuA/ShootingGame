@@ -22,6 +22,8 @@ public class character_status : MonoBehaviour
     public int Shot_Delay;                                 // 弾を撃つ時の間隔
 	private int invincible;                                      //無敵時間を計測する変数
 	public int invincible_Max;										//無敵時間の最大値(計測する変数の中身がここまで来たら無敵時間停止)
+	private int Remaining;										 //残機（Unity側の設定）
+
 	private void Start()
 	{
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;

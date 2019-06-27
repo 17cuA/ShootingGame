@@ -15,7 +15,6 @@ public class Player1 : character_status
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
-	public int Remaining;		//プレイヤーの残機（Unity側の設定）
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
 	public enum Bullet_Type　　//弾の種類
