@@ -135,6 +135,19 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		{
 			if(isFollow)
 			{
+				//if(degree_plus>transform.eulerAngles.z+3)
+				//{
+				//	isInc = true;
+				//}
+
+
+				if ((degree_plus < transform.eulerAngles.z - 3 && degree_plus - transform.eulerAngles.z < 20) || degree_plus - transform.eulerAngles.z > 20)
+				{
+					isDec = true;
+					isInc = false;
+
+				
+				}
 				if ((degree_plus > transform.eulerAngles.z + 3 && transform.eulerAngles.z - degree_plus < 20) || transform.eulerAngles.z - degree_plus > 20)
 				{
 
@@ -142,19 +155,12 @@ public class TurnToPlayer_Slow : MonoBehaviour
 					isDec = false;
 				}
 
-				else if ((degree_plus < transform.eulerAngles.z - 3 && degree_plus - transform.eulerAngles.z < 20) || degree_plus - transform.eulerAngles.z > 20)
-				{
-					isDec = true;
-					isInc = false;
-
-				
-				}
-				else if (degree_plus > transform.eulerAngles.z + 3)
-				{
+				//else if (degree_plus > transform.eulerAngles.z + 3)
+				//{
 					
-					isInc = true;
-					isDec = false;
-				}
+				//	isInc = true;
+				//	isDec = false;
+				//}
 			}
 		}
 
