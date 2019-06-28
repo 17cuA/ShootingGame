@@ -11,7 +11,7 @@ public class Enemy_First : MonoBehaviour
 		Generated,		//生成された時
 	}
 
-	public State eState = State.TurnDown;
+	State eState;
 
 	float speed;
 	Vector3 velocity;
@@ -32,6 +32,14 @@ public class Enemy_First : MonoBehaviour
 
 	void Start()
     {
+		if (transform.position.y > 0)
+		{
+			eState = State.TurnDown;
+		}
+		else
+		{
+			eState = State.TurnUp;
+		}
 		speedX = 5.0f;
 		speedY = 5.0f;
 	}

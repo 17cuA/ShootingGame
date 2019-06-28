@@ -14,6 +14,10 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	public float speedX;
 	public float rollSpeed;
 
+	float rotaX;
+	float rotaY;
+	float rotaZ;
+
 	float radian;           //ラジアン
 	public float degree;    //角度
 	public float degree_plus;
@@ -39,13 +43,18 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	public bool isPlus;
 	public bool isMinus;
 	public bool isCCCCC = false;
+
 	private void Start()
 	{
+		rotaX = transform.eulerAngles.x;
+		rotaY = transform.eulerAngles.y;
+		rotaZ = 180;
+
 		once = true;
 		frameCnt = 0;
 		saveDeg = 180;
 
-		transform.rotation = Quaternion.Euler(0, 0, 180.0f);
+		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 	}
 	void Update()
 	{
