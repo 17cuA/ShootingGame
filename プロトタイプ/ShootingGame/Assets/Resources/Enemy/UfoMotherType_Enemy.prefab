@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70d85cf01ac95a046bb8be520720cf0d, type: 3}
+  - {fileID: 2100000, guid: 8c6b4c842fb0e5141af92d66b8cf5b5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70d85cf01ac95a046bb8be520720cf0d, type: 3}
+  - {fileID: 2100000, guid: 8c6b4c842fb0e5141af92d66b8cf5b5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,8 +203,10 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
   Shot_DelayMax: 10
   Shot_Delay: 0
+  score: 0
   rotating_velocity: 0.5
 --- !u!135 &8978416478806754180
 SphereCollider:

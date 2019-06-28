@@ -172,14 +172,14 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				//	isDec = true;
 				//	isInc = false;
 				//}
-				if ((degree_plus < rotationZ_Dec && isMinus) || (degree_plus > 350 && transform.eulerAngles.z < 10))
+				if ((degree_plus < rotationZ_Dec && isMinus) || degree_plus < rotationZ_Inc)
 				{
 					isDec = true;
 					isInc = false;
 
 
 				}
-				else if ((degree_plus > rotationZ_Inc && isPlus) || (transform.eulerAngles.z > 350 && degree_plus < 10))
+				else if ((degree_plus > rotationZ_Inc && isPlus) || degree_plus > rotationZ_Dec)
 				{
 
 					isInc = true;

@@ -106,7 +106,6 @@ public class Enemy_Wave : MonoBehaviour
 					speedY = defaultSpeedY;
 					amplitude = 0.1f;
 					speedX = 5;
-					speedX = 0;
 					speedZ_Value = 0;
 					isStraight = false;
 					isOnlyWave = true;
@@ -124,7 +123,6 @@ public class Enemy_Wave : MonoBehaviour
 					speedY = defaultSpeedY;
 					amplitude = -0.1f;
 					speedX = 5;
-					speedX = 0;
 					speedZ_Value = 0;
 					isOnlyWave = true;
 					//isWave = true;
@@ -136,6 +134,7 @@ public class Enemy_Wave : MonoBehaviour
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
 					speedX = 5;
+					amplitude = 0;
 
 					break;
 			}
