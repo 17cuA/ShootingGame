@@ -6,6 +6,9 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
+using Power;
+using StorageReference;
+
 //using Power;
 public class Player1 : character_status
 {
@@ -39,7 +42,21 @@ public class Player1 : character_status
 		////説明は113行目に移行
 		//PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
 	}
-
+	//プレイヤーがアクティブになった瞬間に呼び出される
+	private void OnEnable()
+	{
+		//プール化したため、ここでイベント発生時の処理を入れとく
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+	}
+	//プレイヤーのアクティブが切られたら呼び出される
+	private void OnDisable()
+	{
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+	}
 	void Start()
 	{
 		//OS =GameObject.Find("GameMaster").GetComponent 
@@ -185,7 +202,8 @@ public class Player1 : character_status
             Shot_Delay = 0;
 		}
 	}
-    	private void Single_Fire()
+
+    private void Single_Fire()
 	{
 		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 		gameObject.transform.rotation = Direction;
@@ -201,4 +219,33 @@ public class Player1 : character_status
 	//{
 	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, transform.rotation);
 	//}
+	private void SpeedUp()
+	{
+		speed += speed;
+		Debug.Log("スピードUP");
+	}
+	//ミサイルをアクティブに
+	private void ActiveMissile()
+	{
+		activeMissile = true;
+		Debug.Log("ミサイル導入");
+	}
+	//オプションをアクティブに
+	private void CreateBit()
+	{
+		switch (bitIndex)
+		{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				//bitGameObject[bitIndex] = Instantiate(bitsPrefabs[bitIndex], transform.position, transform.rotation) as GameObject;
+				//bitIndex++;
+				break;
+			default:
+				break;
+		}
+		Debug.Log("ビットン生成");
+	}
+
 }
