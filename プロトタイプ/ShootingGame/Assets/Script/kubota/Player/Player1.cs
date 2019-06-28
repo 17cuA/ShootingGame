@@ -9,7 +9,6 @@ using UnityEngine;
 //using Power;
 public class Player1 : character_status
 {
-	public int rema;				//残機
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
@@ -17,6 +16,12 @@ public class Player1 : character_status
 	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
+	public int Remaining;                                        //残機（あらかじめ設定）
+	public int invincible_time;              //無敵時間計測用
+	public int invincible_Max;          //無敵時間最大時間
+	public bool invincible;             //無敵時間帯かどうか
+	public Material material;
+	private Color first_color;
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -47,7 +52,9 @@ public class Player1 : character_status
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
-        bullet_Type = Bullet_Type.Single;　　//初期状態をsingleに
+        bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
+		direction = transform.position;
+		first_color = material.color;
 	}
 
 	void Update()
@@ -56,8 +63,25 @@ public class Player1 : character_status
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
 		if(hp < 1)
 		{
-			Died_Process();
+			Remaining--;
+			if (Remaining < 1)
+			{
+				Died_Process();
+			}
+			else
+			{
+				Reset_Status();
+				gameObject.transform.position = direction;
+				invincible = true;
+				invincible_time = 0;
+			}
 		}
+		if(Input.GetKeyDown(KeyCode.X))
+		{
+			invincible_time = 0;
+			//Debug.Log("hei");
+		}
+		Invincible();
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
@@ -106,7 +130,24 @@ public class Player1 : character_status
 		vector3 = new Vector3(x, y, 0);
         transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
-	
+	//無敵時間（色の点滅も含め）
+	private void Invincible()
+	{
+		//既定の時間より短ければ点滅を
+		if (invincible_time <= invincible_Max)
+		{
+			invincible_time++;          //フレーム管理
+			capsuleCollider.enabled = false;	//規定のコライダーをオフに変更
+			if (invincible_time % 20 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
+			if (invincible) material.color = Color.clear;				//色を透明に
+			else material.color = first_color;							//初期の色に変更
+		}
+		else
+		{
+			material.color = first_color;	//初期の色に戻す
+			capsuleCollider.enabled = true;	//
+		}
+	}
 	//プレイヤーの方向転換
 	private void Change_In_Direction()
 	{

@@ -190,13 +190,16 @@ MonoBehaviour:
   speed: 10
   hp: 1000
   direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 1880910959}
   Shot_DelayMax: 30
   Shot_Delay: 0
-  Remaining: 0
+  score: 0
   shot_Mazle: {fileID: 0}
-  energy: 0
-  energy_Max: 0
+  Remaining: 3
+  invincible_time: 0
+  invincible_Max: 80
+  invincible: 0
+  material: {fileID: 2100000, guid: 7358f0cc48b568a42ae4ea77464d8a77, type: 2}
   bullet_Type: 0
 --- !u!114 &4661887842685014632
 MonoBehaviour:
@@ -269,6 +272,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8980319411110346728}
     m_Modifications:
+    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
+      propertyPath: m_Name
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -324,10 +331,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
-      propertyPath: m_Name
-      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 432eb0c000adec74c9e6c0c340a39531, type: 3}
       propertyPath: m_Materials.Array.data[0]

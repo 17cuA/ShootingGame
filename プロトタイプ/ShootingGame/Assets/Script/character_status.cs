@@ -16,18 +16,16 @@ public class character_status : MonoBehaviour
 	public int hp;                                            // 体力
 	private int hp_Max;
 	public Vector3 direction;                                   // 向き
-	private CapsuleCollider capsuleCollider;                     // cillider
+	public CapsuleCollider capsuleCollider;                     // cillider
 	private Rigidbody rigidbody;								//rigitbody
     public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
     public int Shot_Delay;                                 // 弾を撃つ時の間隔
-	private int invincible;                                      //無敵時間を計測する変数
-	public int invincible_Max;										//無敵時間の最大値(計測する変数の中身がここまで来たら無敵時間停止)
-	private int Remaining;										 //残機（Unity側の設定）
-
+	public uint score;
 	private void Start()
 	{
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 		rigidbody.useGravity = false;
+		capsuleCollider = GetComponent<CapsuleCollider>();
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -52,7 +50,7 @@ public class character_status : MonoBehaviour
 		if (gameObject.name != "Player")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(100);
+			Game_Master.MY.Score_Addition(score);
 		}
 		//爆発処理の作成
 		ParticleCreation(gameObject, 0);
