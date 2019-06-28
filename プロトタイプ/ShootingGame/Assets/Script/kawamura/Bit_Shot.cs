@@ -16,20 +16,20 @@ public class Bit_Shot : MonoBehaviour
 	float shot_Delay;
 	void Start()
 	{
-		Bullet = Resources.Load("Player_Bullet") as GameObject;
+		//Bullet = Resources.Load("Player_Bullet") as GameObject;
 
-		playerObj = GameObject.FindGameObjectWithTag("Player");
-		pl1 = playerObj.GetComponent<Player1>();
+		//playerObj = GameObject.FindGameObjectWithTag("Player");
+		//pl1 = playerObj.GetComponent<Player1>();
 	}
 
 	void Update()
 	{
         
-		if (shot_Delay > pl1.Shot_DelayMax * 2)
-		{
-			Bullet_Create();
-		}
-		shot_Delay++;
+		//if (shot_Delay > pl1.Shot_DelayMax * 2)
+		//{
+		//	Bullet_Create();
+		//}
+		//shot_Delay++;
 
 	}
 	public void Bullet_Create()

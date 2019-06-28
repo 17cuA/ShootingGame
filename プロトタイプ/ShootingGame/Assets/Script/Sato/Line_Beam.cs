@@ -4,12 +4,12 @@ using System.Collections;
 
 public class Line_Beam : MonoBehaviour {
 
-	float range = 57.0f;
-    Ray shotRay;
-    RaycastHit shotHit;  
-    ParticleSystem beamParticle;
-    LineRenderer lineRenderer;
-	private Renderer Target_Renderer;
+	float range = 57.0f;	//レーザーの長さ
+    Ray shotRay;			//レーザーの判定に使用するray
+    RaycastHit shotHit;  //レーザーが当たったかの確認
+	ParticleSystem beamParticle;	//パーティクルの格納
+    LineRenderer lineRenderer;      //LineRendererの格納
+	private Renderer Target_Renderer;	//
 	Transform Laser_Size;
 	bool isEnable = true;
 	float hitstop;

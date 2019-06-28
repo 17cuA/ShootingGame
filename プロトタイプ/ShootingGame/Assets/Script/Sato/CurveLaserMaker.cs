@@ -29,12 +29,12 @@ public class CurveLaserMaker : MonoBehaviour
 	}
 	void Update()
 	{
-		// 取得した座標が無効の場合、すべての処理は行う必要がない.
-		if (!pointGetter.GetPoint().HasValue) return;
+			// 取得した座標が無効の場合、すべての処理は行う必要がない.
+			if (!pointGetter.GetPoint().HasValue) return;
 
-		setPoints();
-		setVectors();
-		createMesh();
+			setPoints();
+			setVectors();
+			createMesh();
 	}
 	[SerializeField] float appendDistance = 5.0f;
 	private float appendSqrDistance;
@@ -76,7 +76,7 @@ public class CurveLaserMaker : MonoBehaviour
 		//ポイント追加
 		addPoint(curPoint);
 		// 前回のポイントとの比較を行う.
-		var distance = (curPoint - points[points.Count - 1]);
+		var distance = (curPoint - points[points.Count -1]);
 		if (distance.sqrMagnitude >= appendSqrDistance)
 		{
 			points.Add(curPoint);
@@ -199,7 +199,6 @@ public class CurveLaserMaker : MonoBehaviour
 		mesh.triangles = triangles;
 		mc.sharedMesh = mesh;
 		mr.material = laserMat;
-
 	}
 
 	void OnDrawGizmos()

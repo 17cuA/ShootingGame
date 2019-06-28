@@ -15,11 +15,11 @@ public class Laser_Blast : MonoBehaviour
 		//	transform.position,
 		//	transform.rotation);
 		//}
-		if (Input.GetMouseButton(1))
+		if (Input.GetMouseButtonDown(1))
 		{
 			flag = true;
 		}
-		else if (Input.GetMouseButton(0))
+		else if (Input.GetMouseButtonUp(1))
 		{
 			flag = false;
 		}

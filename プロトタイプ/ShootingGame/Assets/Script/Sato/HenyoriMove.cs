@@ -4,8 +4,8 @@ using System.Collections;
 public class HenyoriMove : MonoBehaviour, IPointGetter
 {
 
-	[SerializeField] float moveSpeed = 4;
-	private const float waitTime = 0.5f;
+	[SerializeField] float moveSpeed = 15;
+	private const float waitTime = 0f;
 	private WaitForSeconds waitOnStart = new WaitForSeconds(waitTime);
 
 	private Transform cachedTransform
@@ -26,14 +26,14 @@ public class HenyoriMove : MonoBehaviour, IPointGetter
 	IEnumerator Start()
 	{
 		yield return waitOnStart;
-		yield return new WaitForSeconds(0.2f);
-		changeSpeedCor(-0.5f, 0.8f, true);
-		yield return changeDirectionCor(-180, 1.5f, true);
-		yield return changeDirectionCor(-120, 1, true);
-		changeSpeedCor(2f, 1f, true);
-		yield return new WaitForSeconds(0.28f);
-		yield return changeDirectionCor(80, 0.8f, true);
-		yield return changeDirectionCor(-80, 0.8f, true);
+		yield return new WaitForSeconds(0f);
+		changeSpeedCor(0f, 0f, true);
+		yield return changeDirectionCor(0, 0f, true);
+		yield return changeDirectionCor(0, 0, true);
+		changeSpeedCor(0f, 0f, true);
+		yield return new WaitForSeconds(0f);
+		yield return changeDirectionCor(0, 0f, true);
+		yield return changeDirectionCor(0, 0, true);
 	}
 
 	void Update()
@@ -73,7 +73,6 @@ public class HenyoriMove : MonoBehaviour, IPointGetter
 		{
 			dest += cachedTransform.eulerAngles.z;
 		}
-
 		if (term <= 0)
 		{
 			setAngleZ(dest);
@@ -91,7 +90,6 @@ public class HenyoriMove : MonoBehaviour, IPointGetter
 			setAngleZ(curDir);
 			yield return waitForEndOfFrame;
 		}
-
 		setAngleZ(dest);
 	}
 	void setAngleZ(float newAngle)

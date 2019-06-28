@@ -95,13 +95,13 @@ public class Bit_Move : MonoBehaviour
 		else
 		{
 			_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-			_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
+			_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.x;
 			isStart = false;
 		}
 		//_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
 		//_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
 
-		transform.position = new Vector3(parent.transform.position.x, parent.transform.position.y + _y, parent.transform.position.z + _z);
+		transform.position = new Vector3(parent.transform.position.x + _z, parent.transform.position.y + _y, parent.transform.position.z );
 
 
 		timeCnt += 0.01f;
