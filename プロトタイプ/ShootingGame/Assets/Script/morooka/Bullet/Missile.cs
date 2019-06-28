@@ -34,6 +34,7 @@ public class Missile : bullet_status
 		hit_mesh = new RaycastHit();
 		Length_On_Landing = ray_length;
 		Length_On_Gliding = ray_length * 3.0f;
+		Tag_Change("Player_Bullet");
 	}
 
 	private new void Update()
@@ -129,7 +130,6 @@ public class Missile : bullet_status
 		{
 			y_di = 1.0f;
 		}
-
 		return y_di;
 	}
 }

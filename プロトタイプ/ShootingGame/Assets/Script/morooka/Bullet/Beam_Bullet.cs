@@ -10,10 +10,11 @@ public class Beam_Bullet : bullet_status
 {
 	void Start()
     {
-		gameObject.tag = "Enemy_Bullet";
-    }
+		base.Start();
+		Tag_Change("Enemy_Bullet");
+	}
 
-    void Update()
+	void Update()
     {
 		Moving_To_Facing();
     }
