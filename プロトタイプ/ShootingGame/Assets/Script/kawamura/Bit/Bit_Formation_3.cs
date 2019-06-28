@@ -160,7 +160,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		renderer.material.color = bit_Color;
 		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
 
-		if (Input.GetKeyDown(KeyCode.I))
+		if (Input.GetKeyDown(KeyCode.I) || pl1.Died_Judgment())
 		{
 			isDead = true;
 		}
