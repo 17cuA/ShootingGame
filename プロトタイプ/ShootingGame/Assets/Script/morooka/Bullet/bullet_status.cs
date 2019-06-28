@@ -95,4 +95,13 @@ public class bullet_status : MonoBehaviour
 		Vector3 tempPos = Travelling_Direction.normalized * shot_speed;
 		transform.position += tempPos;
 	}
+
+	/// <summary>
+	/// タグの変更
+	/// </summary>
+	/// <param name="tag_name"> 変更したいタグ名 </param>
+	protected void Tag_Change(string tag_name)
+	{
+		gameObject.tag = tag_name;
+	}
 }
