@@ -69,13 +69,13 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		DegreeCalculation();
 
 		//角度の値が増えたか減ったかを判定
-		if (degree_plus > saveDig_plus && saveDig_plus - degree_plus < 0)
+		if ((saveDig_plus-degree_plus>350 || degree_plus > saveDig_plus) && saveDig_plus - degree_plus < 0)
 		{
 			isPlus = true;
 			isMinus = false;
 
 		}
-		else if (( degree_plus < saveDig_plus) && saveDig_plus - degree_plus > 0)
+		else if ((degree_plus - saveDig_plus>350 || degree_plus < saveDig_plus))
 		{
 			isMinus = true;
 			isPlus = false;
