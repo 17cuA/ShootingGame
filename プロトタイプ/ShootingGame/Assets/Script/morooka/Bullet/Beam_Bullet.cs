@@ -11,7 +11,7 @@ public class Beam_Bullet : bullet_status
 	void Start()
     {
 		base.Start();
-		Tag_Change("Enemy_Bullet");
+		Tag_Change("Enemy");
 	}
 
 	void Update()
