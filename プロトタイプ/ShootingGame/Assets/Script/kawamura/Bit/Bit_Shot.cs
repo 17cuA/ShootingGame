@@ -54,6 +54,6 @@ public class Bit_Shot : MonoBehaviour
 	private void Single_Fire()
 	{
 		//Instantiate(Bullet, transform.position, transform.rotation);
-		Object_Instantiation.Object_Reboot("Player_Bullet", transform.position, transform.rotation);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, transform.rotation);
 	}
 }
