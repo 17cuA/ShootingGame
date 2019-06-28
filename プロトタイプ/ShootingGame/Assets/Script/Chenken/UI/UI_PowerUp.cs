@@ -27,6 +27,12 @@ public class UI_PowerUp : MonoBehaviour
 		for (var i = 0; i < texts.Count; ++i)
 		{
 			texts[i].text = PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i).type.ToString();    //パワーアップ名をUIで表示させる
+			if (PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i).type == PowerManager.Power.PowerType.UNKNOWN)
+			{
+				texts[i].text = "?";
+				texts[i].transform.parent.name = texts[i].name;
+				continue;
+			}
 			texts[i].transform.parent.name = texts[i].name;                                                                                  //対応するオブジェクト名を修正
 		}
 		//選択オブジェクト名を修正
@@ -58,6 +64,12 @@ public class UI_PowerUp : MonoBehaviour
 			//表示できる場合、　パワー名を表示させる
 			if (power.CanShow)
 			{
+				if (power.type == PowerManager.Power.PowerType.UNKNOWN)
+				{
+					texts[i].text = "?";
+					continue;
+				}
+
 				if (texts[i].text != power.type.ToString())
 					texts[i].text = power.type.ToString();
 			}
