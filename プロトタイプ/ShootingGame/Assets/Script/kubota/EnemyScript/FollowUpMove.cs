@@ -23,7 +23,7 @@ public class FollowUpMove : character_status
 
     void Start()
     {
-		capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
+		//capsuleCollider = GetComponent<CapsuleCollider>();  //カプセルコライダーの情報取得
 
 		Travelling_Direction();
 		Player = GameObject.Find("Player_Demo 1(Clone)");           //プレイヤーを名前で検索

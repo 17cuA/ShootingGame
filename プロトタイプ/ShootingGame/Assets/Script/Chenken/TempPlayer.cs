@@ -59,11 +59,11 @@ public class TempPlayer : MonoBehaviour
 			if(Time.time >= canPlayMissileTime && activeMissile)
 			{
 				//ミサイル発射
-				Object_Instantiation.Object_Reboot("Player_Missile", transform.position, transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, transform.right);
 
 				for(var i = 0; i < bitIndex; ++i)
 				{
-					Object_Instantiation.Object_Reboot("Player_Missile", bitGameObject[i].transform.position, bitGameObject[i].transform.right);
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, bitGameObject[i].transform.position, bitGameObject[i].transform.right);
 				}
 				//次の発射時間を設定する
 				canPlayMissileTime = missleWaitTime + Time.time;

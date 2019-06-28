@@ -14,7 +14,6 @@ public class Energ_Bar: MonoBehaviour {
     Max_Energy=100.0f;
     // スライダーを取得する
     _slider = GameObject.Find("Slider").GetComponent<Slider>();
-    Debug.Log(Energy);
 	Object = GameObject.Find("Player_Item");
   }
 

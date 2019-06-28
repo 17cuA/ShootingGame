@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 680557164878472795}
   - component: {fileID: 680557163938664274}
   m_Layer: 0
-  m_Name: BeamBullet
-  m_TagString: Untagged
+  m_Name: Beam_Bullet
+  m_TagString: Enemy_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,3 +110,4 @@ MonoBehaviour:
   shot_speed: 0.5
   attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
+  Bullet_Renderer: {fileID: 0}
