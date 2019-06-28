@@ -24,11 +24,11 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
 	private GameObject Bullet_Prefab_E;     //エネミーの弾のPrefab情報
 	private GameObject Beam_Bullet_E_Prefab;        //エネミーのビーム型バレットのプレハブ
-	private GameObject UfoType_Enemy_Prefab;
-	private GameObject UfoMotherType_Enemy_Prefab;
-	private GameObject ClamChowderType_Enemy_Prefab;
-	private GameObject OctopusType_Enemy_Prefab;
-	private GameObject BeelzebubType_Enemy_Prefab;
+	private GameObject UfoType_Enemy_Prefab;        // UFO型エネミーのプレハブ
+	private GameObject UfoMotherType_Enemy_Prefab;      // UFO母艦型エネミーのプレハブ
+	private GameObject ClamChowderType_Enemy_Prefab;        // 貝型エネミーのプレハブ
+	private GameObject OctopusType_Enemy_Prefab;        // タコ型エネミーのプレハブ
+	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
 	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
 
 	//実際に作られたオブジェクト
@@ -89,7 +89,12 @@ public class Obj_Storage : MonoBehaviour
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
-		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");		// エネミーのビーム型バレットを生成
+		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
+		UfoMotherType_Enemy = new Object_Pooling(UfoMotherType_Enemy_Prefab, 1, "UfoMotherType_Enemy");         // UFO母艦型エネミーを生成
+		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");		// 貝型エネミーを生成
+		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
+		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
