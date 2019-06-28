@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class Player_Bullet : bullet_status
 {
-    void Start()
+    private new void Start()
     {
 		gameObject.tag = "Player_Bullet";
 	}
 
     // Update is called once per frame
-    void Update()
+    private new void Update()
     {
 		Moving_To_Facing();
 	}

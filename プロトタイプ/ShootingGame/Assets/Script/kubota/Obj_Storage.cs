@@ -18,7 +18,8 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Enemy_Prefab;        //敵キャラのプレハブ
 	private GameObject Medium_Enemy_Prefab;	//中型エネミーのプレハブ
 	private GameObject Player_Prefab;       //プレイヤーのプレハブ
-	private GameObject Player_Missile_Prefab;		//プレイヤーのミサイルプレハブ
+	private GameObject Player_Missile_Prefab;       //プレイヤーのミサイルプレハブ
+	private GameObject Player_Missile_Tow_Way_Prefab;
 	private GameObject Boss_Prefab;			//ボスのプレハブ
 	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
 	private GameObject Bullet_Prefab_E;     //エネミーの弾のPrefab情報
@@ -32,6 +33,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Boss;
 	public Object_Pooling PlayerBullet;
 	public Object_Pooling PlayerMissile;
+	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
 	public Object_Pooling Beam_Bullet_E;
 	//マップの作製時に使う処理
@@ -53,6 +55,7 @@ public class Obj_Storage : MonoBehaviour
 		Boss_Prefab = Resources.Load("Boss/Boss_Test") as GameObject;
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet") as GameObject;
 		Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
+		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
 		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
@@ -63,12 +66,13 @@ public class Obj_Storage : MonoBehaviour
 		particle[5] = Resources.Load<GameObject>("Effects/Particle_6通路");
 		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
 
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
+		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");                              //ボス生成
 		Medium_Size_Enemy1 = new Object_Pooling(Medium_Enemy_Prefab, 1, "Medium");
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");						//プレイヤー生成
-		Boss = new Object_Pooling(Boss_Prefab, 1, "Boss");								//ボス生成
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");         //プレイヤーのバレットを生成
-		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");		//プレイヤーのミサイルの生成
+		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
+		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");		// エネミーのビーム型バレットを生成
 
@@ -90,5 +94,4 @@ public class Obj_Storage : MonoBehaviour
 	{
 		return Boss;
 	}
-
 }

@@ -56,7 +56,7 @@ public class Player1 : character_status
 	{
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
-
+		Died_Process();
 		switch (Game_Master.MY.Management_In_Stage)
 		{
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
@@ -68,6 +68,11 @@ public class Player1 : character_status
 				if (Shot_Delay > Shot_DelayMax)
 				{
 					Bullet_Create();
+				}
+				if (Input.GetKeyDown(KeyCode.Z))
+				{
+					Damege_Process(1);
+					Debug.Log("Player_HP	" + hp);
 				}
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
@@ -82,6 +87,8 @@ public class Player1 : character_status
 				{
 					Bullet_Create();
 				}
+				if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
+
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
 				break;
@@ -186,7 +193,7 @@ public class Player1 : character_status
     	private void Single_Fire()
 	{
 		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		gameObject.transform.rotation *= Direction ;
+		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
 	}
 	//private void Diffusion_Fire()

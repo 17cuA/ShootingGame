@@ -83,6 +83,8 @@ public class ToolManager : MonoBehaviour
 		}
 		// StreamWriterを閉じる
 		sw.Close();
+		Debug.Log("Save		completed");
+		Debug.Log("一度画面を切り替えるか、AssetFolderの中のResourcesを確認してください");
 		IS_Save = false;
 	}
 }

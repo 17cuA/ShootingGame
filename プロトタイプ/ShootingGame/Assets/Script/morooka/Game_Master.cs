@@ -64,10 +64,11 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum OBJECT_NAME
 	{
-		ePLAYER_BULLET,			// プレイヤーのバレット
+		ePLAYER_BULLET,		// プレイヤーのバレット
 		ePLAYER_MISSILE,		// プレイヤーのミサイル
-		ePLAYER_LASER,			// プレイヤーのレーザー
-		eENEMY_BULLET,			// エネミーのバレット
+		ePLAYER_LASER,		// プレイヤーのレーザー
+		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
+		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
 		eENEMY_NUM1,			// エネミー1番
