@@ -23,7 +23,12 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Boss_Prefab;			//ボスのプレハブ
 	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
 	private GameObject Bullet_Prefab_E;     //エネミーの弾のPrefab情報
-	private GameObject Beam_Bullet_E_Prefab;		//エネミーのビーム型バレットのプレハブ
+	private GameObject Beam_Bullet_E_Prefab;        //エネミーのビーム型バレットのプレハブ
+	private GameObject UfoType_Enemy_Prefab;        // UFO型エネミーのプレハブ
+	private GameObject UfoMotherType_Enemy_Prefab;      // UFO母艦型エネミーのプレハブ
+	private GameObject ClamChowderType_Enemy_Prefab;        // 貝型エネミーのプレハブ
+	private GameObject OctopusType_Enemy_Prefab;        // タコ型エネミーのプレハブ
+	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
 	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
 
 	//実際に作られたオブジェクト
@@ -36,6 +41,11 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
 	public Object_Pooling Beam_Bullet_E;
+	public Object_Pooling 	UfoType_Enemy;
+	public Object_Pooling	UfoMotherType_Enemy;
+	public Object_Pooling	ClamChowderType_Enemy;
+	public Object_Pooling	OctopusType_Enemy;
+	public Object_Pooling BeelzebubType_Enemy;
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -58,6 +68,11 @@ public class Obj_Storage : MonoBehaviour
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		UfoType_Enemy_Prefab = Resources.Load("Enemy/UfoType_Enemy") as GameObject;
+		UfoMotherType_Enemy_Prefab = Resources.Load("Enemy/UfoMotherType_Enemy") as GameObject; 
+		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject; ;
+		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
+		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject; ;
 		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
 		particle[1] = Resources.Load<GameObject>("Effects/Particle_2黒煙");
 		particle[2] = Resources.Load<GameObject>("Effects/Particle_3エネルギー弾");
@@ -74,7 +89,12 @@ public class Obj_Storage : MonoBehaviour
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
-		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");		// エネミーのビーム型バレットを生成
+		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
+		UfoMotherType_Enemy = new Object_Pooling(UfoMotherType_Enemy_Prefab, 1, "UfoMotherType_Enemy");         // UFO母艦型エネミーを生成
+		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");		// 貝型エネミーを生成
+		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
+		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納

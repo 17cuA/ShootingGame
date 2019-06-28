@@ -24,6 +24,7 @@ public class Missile_Tow_Way : bullet_status
 	{
 		base.Start();
 		FacingChange(new Vector3(1.0f, 0.0f, 0.0f));
+		Tag_Change("Player_Bullet");
 	}
 
 	// Update is called once per frame
