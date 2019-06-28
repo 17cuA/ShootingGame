@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Enemy_Roll : MonoBehaviour
 {
-	float rotaX;
-	float rotaZ;
+	public float rotaX;
+	public float rotaY;
+	public float rotaZ;
 
-	public float rotaX_Value;
-	public float rotaZ_Value;
+	public float rotaX_Value = 0;
+	public float rotaY_Value = 0;
+	public float rotaZ_Value = 0;
 
     void Start()
     {
-		rotaZ = 90.0f;
+		rotaX = transform.eulerAngles.x;
+		rotaY = transform.eulerAngles.y;
+		rotaZ = transform.eulerAngles.z;
     }
 
     void Update()
     {
-		transform.rotation = Quaternion.Euler(rotaX, 0, rotaZ);
+		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
+
 		rotaX += rotaX_Value;
-		//rotaZ += rotaZ_Value;
+		rotaY += rotaY_Value;
+		rotaZ += rotaZ_Value;
     }
 }

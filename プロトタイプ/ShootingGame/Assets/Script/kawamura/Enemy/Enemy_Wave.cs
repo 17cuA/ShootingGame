@@ -10,6 +10,7 @@ public class Enemy_Wave : MonoBehaviour
 		WaveDown,
 		WaveOnlyUp,
 		WaveOnlyDown,
+		Straight,
 	}
 	public State eState;
 
@@ -29,7 +30,7 @@ public class Enemy_Wave : MonoBehaviour
 	private bool isAddSpeedY = false;   //Yスピードを増加させるかどうか
 	private bool isSubSpeedY = false;   //Yスピードを減少させるかどうか
 
-	public float sin;
+	//public float sin;
 
 	float posX;
 	float posY;
@@ -47,24 +48,25 @@ public class Enemy_Wave : MonoBehaviour
 	public bool once = true;
 	public bool isBig = false;
 	public bool isWave = false;
+	public bool isStraight = false;
+	public bool isOnlyWave;
 	//---------------------------------------------------------
 
 	void Start()
 	{
-		childObj= transform.Find("Player_gisshi").gameObject;
+		childObj = transform.GetChild(0).gameObject;
 		hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.015f;
 
 		speedZ = 0;
-		speedZ_Value = 30.0f;
 		//scale_Value	= 0.27f;
 		//scaleX = 0.25f;
 		scale_Value = 0.4f;
 		scaleX = 0.4f;
 
 		scaleY = scale_Value;
-		scaleZ = scale_Value;
-		transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+		scaleZ = 0;
+		//transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
 
 		posX = transform.position.x;
 		posY = transform.position.y;
@@ -79,6 +81,7 @@ public class Enemy_Wave : MonoBehaviour
 			switch(eState)
 			{
 				case State.WaveUp:
+					isStraight = false;
 					if (defaultSpeedY < 0)
 					{
 						defaultSpeedY *= -1;
@@ -86,6 +89,7 @@ public class Enemy_Wave : MonoBehaviour
 					break;
 
 				case State.WaveDown:
+					isStraight = false;
 					if (defaultSpeedY > 0)
 					{
 						defaultSpeedY *= -1;
@@ -94,44 +98,70 @@ public class Enemy_Wave : MonoBehaviour
 
 				case State.WaveOnlyUp:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-					transform.localScale = new Vector3(1.5f, 1.0f, 1.0f);
 
 					if (defaultSpeedY < 0)
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY / 2;
+					speedY = defaultSpeedY;
+					amplitude = 0.1f;
 					speedX = 5;
+					speedX = 0;
 					speedZ_Value = 0;
-					isWave = true;
+					isStraight = false;
+					isOnlyWave = true;
+					//isWave = true;
 					isAddSpeedY = true;
 					break;
 
 				case State.WaveOnlyDown:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-					transform.localScale = new Vector3(1.5f, 1.0f, 1.0f);
 
 					if (defaultSpeedY > 0)
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY / 2;
+					speedY = defaultSpeedY;
+					amplitude = -0.1f;
 					speedX = 5;
+					speedX = 0;
 					speedZ_Value = 0;
-					isWave = true;
+					isOnlyWave = true;
+					//isWave = true;
+					isStraight = false;
 					isSubSpeedY = true;
+					break;
+
+				case State.Straight:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isStraight = true;
+					speedX = 5;
+
 					break;
 			}
 			once = false;
 		}
 
-		if (!isWave)
+		if(isStraight)
+		{
+			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
+		}
+		else if (isOnlyWave)
+		{
+			transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
+			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
+		}
+		else if (!isWave)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, -speedZ);
 			gameObject.transform.position += velocity * Time.deltaTime;
 			if (transform.position.z < 0)
 			{
-				transform.position = new Vector3(transform.position.x, transform.position.y, scaleZ);
+				transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 			}
 
 			if (transform.position.x > 13)
@@ -146,7 +176,7 @@ public class Enemy_Wave : MonoBehaviour
 				//speedZ = speedZ_Value;
 				//isBig = true;
 			}
-			if(transform.position.x>3)
+			if(transform.position.x>8)
 			{
 				speedZ = speedZ_Value;
 				hsvCon.val += val_Value;
@@ -162,7 +192,7 @@ public class Enemy_Wave : MonoBehaviour
 		}
 		else if(isWave)
 		{
-			sin =posY + Mathf.Sin(Time.time*5);
+			//sin =posY + Mathf.Sin(Time.time*5);
 
 			SpeedY_Check();
 			SpeedY_Calculation();
@@ -178,7 +208,7 @@ public class Enemy_Wave : MonoBehaviour
 		//{
 		//	scale_Value += 0.007f;
 		//	scaleX += 0.007f;
-			
+
 		//	if(scaleX>0.4f)
 		//	{
 		//		scaleX = 0.4f;
@@ -201,17 +231,17 @@ public class Enemy_Wave : MonoBehaviour
 	//Yスピードを見てYスピードを増加させるか減少させるかを決める
 	void SpeedY_Check()
 	{
-		if (defaultSpeedY > 0)
+		if (defaultSpeedY >= 0)
 		{
 			//スピードが初期値以上になった時
-			if (speedY >= defaultSpeedY)
+			if (speedY > defaultSpeedY)
 			{
 				//増加をfalse 減少をtrue
 				isAddSpeedY = false;
 				isSubSpeedY = true;
 			}
 			//スピードが0以下になったとき
-			else if (speedY <= -defaultSpeedY)
+			else if (speedY < -defaultSpeedY)
 			{
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;
@@ -223,14 +253,14 @@ public class Enemy_Wave : MonoBehaviour
 		else if (defaultSpeedY < 0)
 		{
 			//スピードが初期値以上になった時
-			if (speedY >= -defaultSpeedY)
+			if (speedY > -defaultSpeedY)
 			{
 				//増加をfalse 減少をtrue
 				isAddSpeedY = false;
 				isSubSpeedY = true;
 			}
 			//スピードが0以下になったとき
-			else if (speedY <= defaultSpeedY)
+			else if (speedY < defaultSpeedY)
 			{
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;
