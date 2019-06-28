@@ -19,6 +19,10 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	public float degree_plus;
     public int rollDelay;
 
+	public float Zcheck;
+	public float rotationZ_Inc;
+	public float rotationZ_Dec;
+
 	public float frameCnt;
 	public float followStartTime;
 	public float followEndTime;
@@ -34,6 +38,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	public bool isNegative;
 	public bool isPlus;
 	public bool isMinus;
+	public bool isCCCCC = false;
 	private void Start()
 	{
 		once = true;
@@ -64,13 +69,13 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		DegreeCalculation();
 
 		//角度の値が増えたか減ったかを判定
-		if (degree_plus > saveDig_plus)
+		if (degree_plus > saveDig_plus && saveDig_plus - degree_plus < 0)
 		{
 			isPlus = true;
 			isMinus = false;
 
 		}
-		else if (degree_plus < saveDig_plus)
+		else if (( degree_plus < saveDig_plus) && saveDig_plus - degree_plus > 0)
 		{
 			isMinus = true;
 			isPlus = false;
@@ -131,6 +136,19 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			}
         }
 
+		rotationZ_Inc = transform.eulerAngles.z + 3;
+		if (rotationZ_Inc > 360)
+		{
+			rotationZ_Inc -= 360;
+		}
+
+		rotationZ_Dec = transform.eulerAngles.z - 3;
+		if (rotationZ_Dec < 0)
+		{
+			rotationZ_Dec += 360;
+		}
+
+		Zcheck = transform.eulerAngles.z+5;
 		if(!isInc && !isDec)
 		{
 			if(isFollow)
@@ -140,19 +158,24 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				//	isInc = true;
 				//}
 
-
-				if ((degree_plus < transform.eulerAngles.z - 3 && degree_plus - transform.eulerAngles.z < 20) || degree_plus - transform.eulerAngles.z > 20)
+				//if (degree_plus - transform.eulerAngles.z > 180)
+				//{
+				//	isDec = true;
+				//	isInc = false;
+				//}
+				if ((degree_plus < rotationZ_Dec && isMinus) || (degree_plus > 350 && transform.eulerAngles.z < 10))
 				{
 					isDec = true;
 					isInc = false;
 
-				
+
 				}
-				if ((degree_plus > transform.eulerAngles.z + 3 && transform.eulerAngles.z - degree_plus < 20) || transform.eulerAngles.z - degree_plus > 20)
+				else if ((degree_plus > rotationZ_Inc && isPlus) || (transform.eulerAngles.z > 350 && degree_plus < 10))
 				{
 
 					isInc = true;
 					isDec = false;
+					isCCCCC = false;
 				}
 
 				//else if (degree_plus > transform.eulerAngles.z + 3)
@@ -163,7 +186,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				//}
 			}
 		}
-
+		
 		if (saveDig_plus - 3 <= transform.eulerAngles.z && saveDig_plus + 3 >= transform.eulerAngles.z)
 		{
 			if(isFollow)
@@ -173,6 +196,11 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			}
 		}
 
+		if(isMinus)
+		{
+			isCCCCC = true;
+
+		}
 	}
 	void DegreeCalculation()
 	{
