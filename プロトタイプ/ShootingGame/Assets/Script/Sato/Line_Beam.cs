@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Line_Beam : MonoBehaviour {
 
-	float range = 57.0f;	//レーザーの長さ
+	public float range = 57.0f;	//レーザーの長さ
     Ray shotRay;			//レーザーの判定に使用するray
     RaycastHit shotHit;  //レーザーが当たったかの確認
 	ParticleSystem beamParticle;	//パーティクルの格納
@@ -27,28 +27,7 @@ public class Line_Beam : MonoBehaviour {
     void Update ()
 	{
 		Laser_Size = this.transform;
-		if (Input.GetKeyDown(KeyCode.I))
-		{
-			// ローカル座標を基準にした、サイズを取得
-			Vector3 localScale = Laser_Size.localScale;
-			localScale.x = 2.0f; // ローカル座標を基準にした、x軸方向へ2倍のサイズ変更
-			localScale.y = 2.0f; // ローカル座標を基準にした、y軸方向へ2倍のサイズ変更
-			localScale.z = 2.0f; // ローカル座標を基準にした、z軸方向へ2倍のサイズ変更
-			Laser_Size.localScale = localScale;
-			lineRenderer.startWidth = 2f;
-			lineRenderer.endWidth = 2f;
-		}
-		if (Input.GetKeyDown(KeyCode.U))
-		{
-			// ローカル座標を基準にした、サイズを取得
-			Vector3 localScale = Laser_Size.localScale;
-			localScale.x = 1.0f; // ローカル座標を基準にした、x軸方向へ2倍のサイズ変更
-			localScale.y = 1.0f; // ローカル座標を基準にした、y軸方向へ2倍のサイズ変更
-			localScale.z = 1.0f; // ローカル座標を基準にした、z軸方向へ2倍のサイズ変更
-			Laser_Size.localScale = localScale;
-			lineRenderer.startWidth = 1f;
-			lineRenderer.endWidth = 1f;
-		}
+
 		if (Input.GetMouseButton (1))
 		{
             shot ();
