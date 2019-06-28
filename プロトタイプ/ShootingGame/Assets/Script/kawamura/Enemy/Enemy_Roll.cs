@@ -12,13 +12,13 @@ public class Enemy_Roll : MonoBehaviour
 
     void Start()
     {
-        
+		rotaZ = 90.0f;
     }
 
     void Update()
     {
 		transform.rotation = Quaternion.Euler(rotaX, 0, rotaZ);
 		rotaX += rotaX_Value;
-		rotaZ += rotaZ_Value;
+		//rotaZ += rotaZ_Value;
     }
 }

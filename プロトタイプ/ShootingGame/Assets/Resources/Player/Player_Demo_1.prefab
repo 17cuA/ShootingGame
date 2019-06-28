@@ -60,6 +60,36 @@ Transform:
   m_Father: {fileID: 8980319411110346728}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4172848409937959084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8507242059000949458}
+  m_Layer: 0
+  m_Name: Missile_Mozle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8507242059000949458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172848409937959084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8980319411110346728}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6185922680083967462
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +188,7 @@ Transform:
   - {fileID: 7360733094304822569}
   - {fileID: 1750373320429773481}
   - {fileID: 9154948381062892126}
+  - {fileID: 8507242059000949458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,8 +202,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
-  m_Height: 2.5
+  m_Radius: 0.1
+  m_Height: 0.1
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1880910963
@@ -190,16 +221,14 @@ MonoBehaviour:
   speed: 10
   hp: 1000
   direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 1880910959}
+  capsuleCollider: {fileID: 0}
   Shot_DelayMax: 30
   Shot_Delay: 0
-  score: 0
+  Remaining: 0
   shot_Mazle: {fileID: 0}
-  Remaining: 3
-  invincible_time: 0
-  invincible_Max: 80
-  invincible: 0
-  material: {fileID: 2100000, guid: 7358f0cc48b568a42ae4ea77464d8a77, type: 2}
+  energy: 0
+  energy_Max: 0
+  Missilemozle: {fileID: 4172848409937959084}
   bullet_Type: 0
 --- !u!114 &4661887842685014632
 MonoBehaviour:
@@ -208,7 +237,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8980319411109979080}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36073c47add58e94ab67c56b7c456f17, type: 3}
   m_Name: 

@@ -14,6 +14,7 @@ public class FollowToPreviousBit : MonoBehaviour
 
     public int cnt;
 	int array_Num;
+	public int childCnt;
 
 	public string myName;
 
@@ -50,6 +51,8 @@ public class FollowToPreviousBit : MonoBehaviour
 
 	void Update()
 	{
+		childCnt = this.transform.childCount;
+
 		if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
 		{
 			isFreeze = false;

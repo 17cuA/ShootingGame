@@ -22,14 +22,32 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	GameObject playerObj;					//プレイヤーのオブジェクト
 	public GameObject parentObj;			//親のオブジェクト
-	public GameObject followPosObj;			//プレイヤーを追従するときの位置オブジェクト
+	public GameObject followPosObj;         //プレイヤーを追従するときの位置オブジェクト
+	GameObject followPosFirstObj;
+	GameObject followPosSecondObj;
+	GameObject followPosThirdObj;
+	GameObject followPosFourthObj;
+
 	GameObject obliquePosObj;				//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;					//レーザー時の座標用オブジェクト
 
-	Bit_Shot b_Shot;						//ビットンの攻撃スクリプト情報
+	Bit_Shot b_Shot;                        //ビットンの攻撃スクリプト情報
+	Player1 pl1;
+	FollowToPlayer_SameMotion FtoPlayer;
+	FollowToPreviousBit FtoPBit_Second;
+	FollowToPreviousBit FtoPBit_Third;
+	FollowToPreviousBit FtoPBit_Fourth;
 
-	public float speed;						//ビットンの移動スピード
-	float step;								//スピードを計算して入れる
+
+	Renderer renderer;
+	public MeshRenderer meshrender;
+	Color bit_Color;
+	float alpha_Value = 0;
+
+	float speed;                        //ビットンの移動スピード
+	public float defaultSpeed;
+	float step;                             //スピードを計算して入れる
+	int collectDelay;
 
 	int state_Num;                          //ビットンの状態を変えるための数字		
 
@@ -37,8 +55,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	string myName;							//自分の名前を入れる
 	private Quaternion Direction;			//オブジェクトの向きを変更する時に使う
 
-	float smoothTime;						//レーザー時の座標へ移動するのにかかる時間
-	Vector3 velocity = Vector3.zero;		
+	float smoothTime;                       //レーザー時の座標へ移動するのにかかる時間
+	Vector3 velocity;		
 	public int laserCnt = 0;				//レーザーのボタンを押してからの時間カウント
 	int returnNum;							//レーザーを解除できる時間
 
@@ -46,11 +64,13 @@ public class Bit_Formation_3 : MonoBehaviour
 	bool isFollow = false;          //プレイヤーを追従する位置に向かっているかどうか
 	bool isOblique = false;         //斜め撃ちの位置に向かっているかどうか
 	bool once = true;
-
+	bool isPlayerDieCheck;
+	bool isborn=true;
+	public bool isDead = false;
 	void Start()
 	{
+		speed = defaultSpeed ;
 		//値を設定
-		speed = 50;
 		state_Num = 0;
 		smoothTime = 0.35f;
 		returnNum = 30;
@@ -58,8 +78,30 @@ public class Bit_Formation_3 : MonoBehaviour
 		//状態の初期設定
 		bState = BitState.Follow;
 
+		renderer = gameObject.GetComponent<Renderer>();
+
+		bit_Color = renderer.material.color;
+		//meshrender = gameObject.GetComponent<MeshRenderer>();
+		//meshrender.material.color = new Color(0, 0, 0, 0);
+
 		//プレイヤーオブジェクト取得
 		playerObj = GameObject.FindGameObjectWithTag("Player");
+
+		//4つの追従位置とそれぞれのスクリプト取得
+		followPosFirstObj = GameObject.Find("FollowPosFirst");
+		FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
+
+		followPosSecondObj = GameObject.Find("FollowPosSecond");
+		FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
+
+		followPosThirdObj = GameObject.Find("FollowPosThird");
+		FtoPBit_Third=followPosThirdObj.GetComponent<FollowToPreviousBit>();
+
+		followPosFourthObj = GameObject.Find("FollowPosFourth");
+		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
+
+
+		pl1 = playerObj.GetComponent<Player1>();
 		//親のオブジェクト取得
 		//parentObj = transform.parent.gameObject;
 		//自分の名前取得
@@ -73,53 +115,87 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (myName == "Bit_First(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosFirst");
+			//followPosObj = GameObject.Find("FollowPosFirst");
 			//斜め撃ちの上の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosTop");
 		}
 		else if (myName == "Bit_Second(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosSecond");
+			//followPosObj = GameObject.Find("FollowPosSecond");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
 		else if (myName == "Bit_Third(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosThird");
+			//followPosObj = GameObject.Find("FollowPosThird");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
 		else if (myName == "Bit_Fourth(Clone)")
 		{
 			//プレイヤーを追従する座標オブジェクト取得
-			followPosObj = GameObject.Find("FollowPosFourth");
+			//followPosObj = GameObject.Find("FollowPosFourth");
 			//斜め撃ちの下の座標オブジェクト取得
 			//obliquePosObj = GameObject.Find("ObliquePosUnder");
 		}
-
-		//transform.position = followPosObj.transform.position;
-		//transform.parent = followPosObj.transform;
 	}
 
 	void Update()
 	{
-		if(once)
+		//生成された時の処理
+		if(isborn)
 		{
-			transform.position = followPosObj.transform.position;
-			transform.parent = followPosObj.transform;
-			once = false;
+			SetParent();
+			isborn = false;
+		}
+		
+		alpha_Value += 0.1f;
+		if (alpha_Value >= 1.0f)
+		{
+			alpha_Value = 1.0f;
+		}
+		bit_Color.a = alpha_Value;
+		renderer.material.color = bit_Color;
+		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
+
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			isDead = true;
 		}
 
+
+		//if(pl1.Died_Judgment())
+		//{
+		//	isDead = true;
+		//	transform.parent = null;
+		//}
+
+		if (isDead)
+		{
+			transform.parent = null;
+			velocity = gameObject.transform.rotation * new Vector3(speed, 0, -0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
+			speed -= 0.5f;
+			if (speed < -1.5f)
+			{
+				speed = -1.5f;
+			}
+			collectDelay++;
+		}
+
+		//isPlayerDieCheck = pl1.Died_Judgment();
+
 		//スピード計算
-		step = speed * Time.deltaTime;
+		//step = speed * Time.deltaTime;
 
 		//入力の関数呼び出し
-		Bit_Input();
+		//Bit_Input();
 
 		//ビットンの移動関数呼び出し
-		Bit_Move();
+		//Bit_Move();
 	}
 
 	//------------------ここから関数------------------
@@ -276,16 +352,86 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 	}
 
-	//レーザー時の移動関数
-	//void Bit_Laser()
-	//{
-	//	bState = BitState.Laser;
-	//	laserCnt++;
-	//	transform.parent = playerObj.transform;
-	//	// 追従対象オブジェクトのTransformから、目的地を算出
-	//	Vector3 targetPos = laserPos.transform.TransformPoint(new Vector3(0, 0, 0));
+	void SetParent()
+	{
+		if (FtoPlayer.childCnt == 0)
+		{
+			transform.parent = followPosFirstObj.transform;
+			transform.position = followPosFirstObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Second.childCnt == 0)
+		{
+			transform.parent = followPosSecondObj.transform;
+			transform.position = followPosSecondObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Third.childCnt == 0)
+		{
+			transform.parent = followPosThirdObj.transform;
+			transform.position = followPosThirdObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+		else if (FtoPBit_Fourth.childCnt == 0)
+		{
+			transform.parent = followPosFourthObj.transform;
+			transform.position = followPosFourthObj.transform.position;
+			isDead = false;
+			speed = defaultSpeed;
+			collectDelay = 0;
+		}
+	}
 
-	//	// 移動
-	//	transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
-	//}
+	//オプション回収の処理
+	private void OnTriggerEnter(Collider col)
+	{
+		if(isDead && collectDelay>10)
+		{
+			if (col.gameObject.tag == "Player")
+			{
+				if (FtoPlayer.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosFirstObj.transform;
+					transform.position = followPosFirstObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Second.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosSecondObj.transform;
+					transform.position = followPosSecondObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Third.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosThirdObj.transform;
+					transform.position = followPosThirdObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+				else if (FtoPBit_Fourth.childCnt == 0)
+				{
+					alpha_Value = 0;
+					transform.parent = followPosFourthObj.transform;
+					transform.position = followPosFourthObj.transform.position;
+					isDead = false;
+					speed = defaultSpeed;
+					collectDelay = 0;
+				}
+			}
+		}
+	}
 }

@@ -12,6 +12,7 @@ public class Bit_Shot : MonoBehaviour
 
 	GameObject playerObj;
 	Player1 pl1;
+	Bit_Formation_3 bf;
 	//public GameObject shot_Mazle;
 
 	float shot_Delay;
@@ -20,6 +21,7 @@ public class Bit_Shot : MonoBehaviour
 	void Start()
 	{
 		Bullet = Resources.Load("Player_Bullet") as GameObject;
+		bf = gameObject.GetComponent<Bit_Formation_3>();
 
 		playerObj = GameObject.FindGameObjectWithTag("Player");
 		pl1 = playerObj.GetComponent<Player1>();
@@ -27,14 +29,17 @@ public class Bit_Shot : MonoBehaviour
 
 	void Update()
 	{
-        if(isShot)
+		if(!bf.isDead)
 		{
-			if (shot_Delay > pl1.Shot_DelayMax * 2)
+			if (isShot)
 			{
-				Bullet_Create();
+				shot_Delay++;
+				if (shot_Delay > pl1.Shot_DelayMax * 2)
+				{
+					Bullet_Create();
+				}
 			}
 		}
-		shot_Delay++;
 
 	}
 	public void Bullet_Create()
@@ -49,6 +54,6 @@ public class Bit_Shot : MonoBehaviour
 	private void Single_Fire()
 	{
 		//Instantiate(Bullet, transform.position, transform.rotation);
-		Object_Instantiation.Object_Reboot("Player_Bullet", transform.position, transform.rotation);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, transform.rotation);
 	}
 }

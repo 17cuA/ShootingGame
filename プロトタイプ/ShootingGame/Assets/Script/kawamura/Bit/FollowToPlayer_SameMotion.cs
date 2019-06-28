@@ -13,6 +13,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 	public int cnt;
 	int array_Num;
+	public int childCnt;
 
 	bool defCheck = true;
 	public bool check = false;
@@ -28,6 +29,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 	void Update()
 	{
+		childCnt = this.transform.childCount;
 
 		if(Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
 		{
