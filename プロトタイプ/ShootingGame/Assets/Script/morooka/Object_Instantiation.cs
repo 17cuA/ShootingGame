@@ -68,39 +68,27 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eENEMY_LASER:
 					break;
 				#endregion
+				case Game_Master.OBJECT_NAME.ePLAYER:
+					obj = Obj_Storage.Storage_Data.Player.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.UfoType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eUFOMOTHERTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.UfoMotherType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eBEELZEBUBTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.BeelzebubType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eCLAMCHOWDERTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eOCTOPUSTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.OctopusType_Enemy.Active_Obj();
+					break;
 				default:
 					break;
 			}
-			 //switch (name)
-			 //{
-			 //	#region Player_Bullet
-			 //	case name:
-			 //		obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-			 //		break;
-			 //	#endregion
-			 //	#region Enemy_Bullet_01
-			 //	case "Enemy_Bullet_01":
-			 //		obj = Obj_Storage.Storage_Data.EnemyBullet.Active_Obj();
-			 //		break;
-			 //	#endregion
-			 //	#region Enemy
-			 //	case "Enemy":
-			 //		obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
-			 //		break;
-			 //	#endregion
-			 //	#region
-			 //	case "Beam_Bullet_Enemy":
-			 //		obj = Obj_Storage.Storage_Data.Beam_Bullet_E.Active_Obj();
-			 //		break;
-			 //	#endregion
-			 //	#region
-			 //	case "Player_Missile":
-			 //		obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
-			 //		break;
-			 //	#endregion
-			 //	default:
-			 //		break;
-			 //}
 
 			if (obj == null) return obj;
 
@@ -159,6 +147,24 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eENEMY_LASER:
 					break;
 				#endregion
+				case Game_Master.OBJECT_NAME.ePLAYER:
+					obj = Obj_Storage.Storage_Data.Player.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.UfoType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eUFOMOTHERTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.UfoMotherType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eBEELZEBUBTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.BeelzebubType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eCLAMCHOWDERTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eOCTOPUSTYPE_ENEMY:
+					obj = Obj_Storage.Storage_Data.OctopusType_Enemy.Active_Obj();
+					break;
 				default:
 					break;
 			}

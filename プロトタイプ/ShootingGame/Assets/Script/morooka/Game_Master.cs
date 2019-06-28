@@ -71,7 +71,14 @@ public class Game_Master : MonoBehaviour
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
-		eENEMY_NUM1,			// エネミー1番
+		/////////////////////////////////////////////////////////////////
+		ePLAYER,										// プレイヤー
+		eENEMY_NUM1,								// エネミー1番
+		eUFOTYPE_ENEMY,                         // UFOタイプエネミー
+		eUFOMOTHERTYPE_ENEMY,			// UFO母艦タイプエネミー
+		eBEELZEBUBTYPE_ENEMY,				// ハエ型エネミー
+		eCLAMCHOWDERTYPE_ENEMY,		// 貝型エネミー
+		eOCTOPUSTYPE_ENEMY,					// タコ型エネミー
 	}
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
