@@ -29,21 +29,22 @@ public class TurnToPlayer_Slow : MonoBehaviour
 
 	public float frameCnt;
 	public float followStartTime;
-	public float followEndTime;
+    public int followTimeCnt;
+	public int followEndTime;
 
 	public float saveDeg;
 	public float saveDig_plus;
 
-	public bool isFollow = false;
+	bool isFollow = false;
 	bool once;
-	public bool isInc = false;
-	public bool isDec = false;
-	public bool isPositive;
-	public bool isNegative;
-	public bool isPlus;
-	public bool isMinus;
-	public bool isCCCCC = false;
-    public bool isDelay = false;
+	bool isInc = false;
+	bool isDec = false;
+	bool isPositive;
+	bool isNegative;
+	bool isPlus;
+	bool isMinus;
+	bool isCCCCC = false;
+    bool isDelay = false;
 
 	private void Start()
 	{
@@ -112,7 +113,15 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				}
 				once = false;
 			}
+            followTimeCnt++;
 		}
+
+        if (followTimeCnt > followEndTime)
+        {
+            isFollow = false;
+            isInc = false;
+            isDec = false;
+        }
 
 		//角度が増えているとき（向く方向が今の角度より大きい）
 		if (isInc)
@@ -205,7 +214,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			}
 		}
 
-        if(isDelay)
+        if(isFollow && isDelay)
         {
             rollDelay++;
             if (rollDelay > 8)
