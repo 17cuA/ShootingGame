@@ -65,6 +65,8 @@ public class One_Boss_All : character_status
 	private int Original_Position_Num { get; set; }
 	private int Now_Positon_Num { get; set; }
 
+	private int Attack_Step { get; set; }
+
 	void Start()
     {
 		//base.Start();
@@ -86,11 +88,12 @@ public class One_Boss_All : character_status
 		Moving_Target_Point.Add(under_in_point);
 		Original_Position_Num = 0;
 		Rotation_Speed_Change();
+
+		Attack_Step = 0;
 	}
 
     void Update()
     {
-		Shot_Delay++;
 		// 一定HP以上のとき
 		if((hp / Initial_HP) > (remaining_hp_percent / 100))
 		{
@@ -98,25 +101,29 @@ public class One_Boss_All : character_status
 
 			if(transform.position != Now_Target)
 			{
-				//transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed);
-				transform.position = Moving_To_Target(transform.position, Now_Target, speed);
-				Boss_Body.transform.Rotate(new Vector3(Rotating_Velocity, 0.0f, 0.0f));
+				transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed);
+				//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(-360.0f, 0.0f, 0.0f), speed);
+				//transform.position = Moving_To_Target(transform.position, Now_Target, speed);
+				//Boss_Body.transform.Rotate(new Vector3(Rotating_Velocity, 0.0f, 0.0f));
 				//Debug.LogError(Rotating_Velocity);
 			}
 			else if(transform.position == Now_Target)
 			{
-				//Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
-				Rotation_Speed_Change();
+				Shot_Delay++;
+				if (Shot_Delay > Shot_DelayMax)
+				{
+					
+					Vector2 temp_pos = Beam_Mazle[0].position;
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, temp_pos, Beam_Mazle[0].right);
+					temp_pos = Beam_Mazle[1].position;
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, temp_pos, Beam_Mazle[1].right);
+					Shot_Delay = 0;
+
+					Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
+					Rotation_Speed_Change();
+				}
 			}
 
-			if(Shot_Delay > Shot_DelayMax)
-			{
-				Vector2 temp_pos = Beam_Mazle[0].position;
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, temp_pos, Beam_Mazle[0].right);
-				temp_pos = Beam_Mazle[1].position;
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, temp_pos, Beam_Mazle[1].right);
-				Shot_Delay = 0;
-			}
 		}
 		// 一定HP以下のとき
 		else
@@ -134,7 +141,7 @@ public class One_Boss_All : character_status
 	{
 		Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
 		Now_Target = Moving_Target_Point[Now_Positon_Num];
-		Rotating_Velocity = (Moving_Target_Point[Now_Positon_Num].y - Moving_Target_Point[Original_Position_Num].y) / 360.0f;
+		//Rotating_Velocity = (Moving_Target_Point[Now_Positon_Num].y - Moving_Target_Point[Original_Position_Num].y) / 360.0f;
 		Original_Position_Num = Now_Positon_Num;
 	}
 
@@ -147,15 +154,22 @@ public class One_Boss_All : character_status
 	/// <returns> 移動後のポジション </returns>
 	private Vector3 Moving_To_Target(Vector3 origin,Vector3 target, float speed)
 	{
-		Vector3 moving_facing = Vector3.zero;				// 移動する前のターゲットとの向き
-		Vector3 facing_after_moved = Vector3.zero;		// 移動した後のターゲットとの向き
-		Vector3 return_pos = Vector3.zero;						// 返すポジション
+		Vector3 moving_facing		= Vector3.zero;		// 移動する前のターゲットとの向き
+		Vector3 facing_after_moved	= Vector3.zero;		// 移動した後のターゲットとの向き
+		Vector3 return_pos			= Vector3.zero;		// 返すポジション
 		
 		moving_facing = origin - target;
-		return_pos = origin + moving_facing.normalized * speed;	
+		print(moving_facing);
+		return_pos = origin + (moving_facing.normalized * speed);
+		print(return_pos);
 		facing_after_moved = return_pos - target;
+		print(facing_after_moved);
 
-		float inner_product = moving_facing.x * facing_after_moved.x + moving_facing.y * facing_after_moved.y + moving_facing.z * facing_after_moved.z;
+		//Vector2 v1 = moving_facing.normalized;
+		//Vector2 v2 = facing_after_moved.normalized;
+
+		float inner_product = Vector3.Dot(moving_facing,facing_after_moved);
+		//float inner_product = v1.x * v2.x + v1.y * v2.y;
 
 		// ターゲットとの向きが移動前と違うとき(ターゲットを超えてしまうとき)
 		if (inner_product <= 0)
@@ -165,6 +179,7 @@ public class One_Boss_All : character_status
 		}
 		else
 		{
+			//Debug.LogWarning(v1 + ":" + v2);
 			Debug.LogError(inner_product);
 		}
 
