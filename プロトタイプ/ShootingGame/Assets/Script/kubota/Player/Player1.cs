@@ -195,23 +195,15 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-          switch (bullet_Type)
-            {
-                case Bullet_Type.Single:
-                    Single_Fire();
-                    break;
-                case Bullet_Type.Diffusion:
-                    //Diffusion_Fire();
-                    break;
-                case Bullet_Type.Three_Point_Burst:
-                   // Triple_Fire();
-                    Invoke("Triple_Fire", 0.1f);
-                    Invoke("Triple_Fire", 0.2f);
-                    break;
-                default:
-                    break;
-            }
-            Shot_Delay = 0;
+			if(Shot_Delay > Shot_DelayMax)
+			{
+				Single_Fire();
+				if (activeMissile)
+				{
+					Missile_Fire();
+				}
+				Shot_Delay = 0;
+			}
 		}
 	}
 
@@ -220,6 +212,11 @@ public class Player1 : character_status
 		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
+	}
+	private void Missile_Fire()
+	{
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 	}
 	private void SpeedUp()
 	{
