@@ -108,10 +108,10 @@ public class Missile : bullet_status
 		mesh_normal.x *= Ray_Direction.y;
 
 		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
-		float an = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
+		float inner_product = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
 
 		// 内閣が0以下のとき
-		if (an < 0)
+		if (inner_product < 0)
 		{
 			// 自信を消す
 			AddExplosionProcess();

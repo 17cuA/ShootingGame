@@ -9,8 +9,8 @@
 // 2019/05/24：画面外時当たり判定をなくす
 // 2019/05/24：HP 0 時の挙動変更
 //----------------------------------------------------------------------------------------------
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class BossParts : MonoBehaviour
 {
@@ -101,4 +101,10 @@ public class BossParts : MonoBehaviour
             }
         }
     }
+
+	public void Boot_Stop()
+	{
+		gameObject.SetActive(false);
+	
+	}
 }
