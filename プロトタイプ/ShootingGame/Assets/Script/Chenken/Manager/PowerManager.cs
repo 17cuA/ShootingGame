@@ -41,10 +41,15 @@ namespace Power
 					this.maxUpgradeTime = maxUpgradeTime;
 					this.upgradeCount = 0;
 				}
+
+				public void Reset()
+				{
+					upgradeCount = 0;
+				}
 			}
 
 			//パワータイプ列挙型
-			public enum PowerType { SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, KILLALL}
+			public enum PowerType { SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, SHIELD, KILLALL, INITSPEED}
 
 			//パワータグ列挙型
 			public enum PowerTag { NORMAL, WEAPON, TOENEMY }
@@ -162,11 +167,14 @@ namespace Power
 		//全部のパワー
 		private Dictionary<Power.PowerType, Power> powers = new Dictionary<Power.PowerType, Power>
 		{
-			{ Power.PowerType.SPEEDUP, new Power(Power.PowerType.SPEEDUP, 5) },
+			{ Power.PowerType.SPEEDUP, new Power(Power.PowerType.SPEEDUP, 4) },
 			{ Power.PowerType.MISSILE, new Power(Power.PowerType.MISSILE, 1) },
 			{ Power.PowerType.DOUBLE,  new Power(Power.PowerType.DOUBLE) },
 			{ Power.PowerType.LASER,   new Power(Power.PowerType.LASER) },
-			{ Power.PowerType.OPTION,  new Power(Power.PowerType.OPTION,  4) }
+			{ Power.PowerType.OPTION,  new Power(Power.PowerType.OPTION,  4) },
+			{ Power.PowerType.SHIELD,  new Power(Power.PowerType.SHIELD, 1) },
+
+			{ Power.PowerType.INITSPEED,new Power(Power.PowerType.INITSPEED, 1) }
 		};
 
 		//敵全滅パワー
@@ -188,7 +196,7 @@ namespace Power
 		private Power weaponPower = null;
 
 		//位置
-		private static int position = -1;
+		private int position = -1;
 		public int Position
 		{
 			get
@@ -250,6 +258,28 @@ namespace Power
 			// 具体的な処理はPowerクラス内に移行
 			CurrentPower.Upgrade();
 
+			if (CurrentPower.type == Power.PowerType.SPEEDUP)
+			{
+				if (!CurrentPower.upgradeInfo.canUpgrade)
+				{
+					CurrentPower.upgradeInfo.Reset();
+					var temp = powers[Power.PowerType.SPEEDUP];
+					powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+					powers[Power.PowerType.INITSPEED] = temp;
+				}
+			}
+
+			if (CurrentPower.type == Power.PowerType.INITSPEED)
+			{
+				if (!CurrentPower.upgradeInfo.canUpgrade)
+				{
+					CurrentPower.upgradeInfo.Reset();
+					var temp = powers[Power.PowerType.INITSPEED];
+					powers[Power.PowerType.INITSPEED] = powers[Power.PowerType.SPEEDUP];
+					powers[Power.PowerType.SPEEDUP] = temp;
+				}
+			}
+
 			//強化成功、位置をリセット
 			position = -1;
 		}
@@ -267,8 +297,7 @@ namespace Power
 			//位置移動
 			position++;
 
-			//位置修正
-			position %= powers.Count;
+			position %= powers.Count - 1;
 		}
 
 
@@ -286,6 +315,11 @@ namespace Power
 				return null;
 
 			return powers[type];
+		}
+
+		public void ResetShieldPower()
+		{
+			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
 		}
 	}
 }
