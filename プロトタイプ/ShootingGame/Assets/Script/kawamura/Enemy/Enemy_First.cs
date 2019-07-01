@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_First : MonoBehaviour
+public class Enemy_First : character_status
 {
 	public enum State
 	{
@@ -13,9 +13,9 @@ public class Enemy_First : MonoBehaviour
 
 	State eState;
 
-	float speed;
 	Vector3 velocity;
 
+	GameObject parentObj;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
@@ -46,7 +46,12 @@ public class Enemy_First : MonoBehaviour
 
 	void Update()
     {
-        switch(eState)
+		if (hp < 1)
+		{
+			Died_Process();
+		}
+
+		switch (eState)
 		{
 			case State.TurnUp:
 				if(!isTurn)
