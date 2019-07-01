@@ -29,7 +29,10 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject ClamChowderType_Enemy_Prefab;        // 貝型エネミーのプレハブ
 	private GameObject OctopusType_Enemy_Prefab;        // タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
-	public GameObject[] particle = new GameObject[7];		//パーティクルを格納する配列
+	public GameObject[] particle = new GameObject[7];       //パーティクルを格納する配列
+	private GameObject Option_Prefab;                   //オプションのプレハブ
+	private GameObject Item_Prefab;						//パワーアップのアイテムを入れえるための処理
+
 
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
@@ -41,11 +44,13 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
 	public Object_Pooling Beam_Bullet_E;
-	public Object_Pooling 	UfoType_Enemy;
-	public Object_Pooling	UfoMotherType_Enemy;
-	public Object_Pooling	ClamChowderType_Enemy;
-	public Object_Pooling	OctopusType_Enemy;
+	public Object_Pooling UfoType_Enemy;
+	public Object_Pooling UfoMotherType_Enemy;
+	public Object_Pooling ClamChowderType_Enemy;
+	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
+	public Object_Pooling Option;
+	public Object_Pooling PowerUP_Item;
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -73,6 +78,11 @@ public class Obj_Storage : MonoBehaviour
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject; ;
 		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject; ;
+		Option_Prefab = Resources.Load("Option/Option") as GameObject;		//オプションのロード
+		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
+
+
+
 		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
 		particle[1] = Resources.Load<GameObject>("Effects/Particle_2黒煙");
 		particle[2] = Resources.Load<GameObject>("Effects/Particle_3エネルギー弾");
@@ -95,6 +105,9 @@ public class Obj_Storage : MonoBehaviour
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");		// 貝型エネミーを生成
 		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
+		Option = new Object_Pooling(Option_Prefab, 4, "Option");
+		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
+
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
