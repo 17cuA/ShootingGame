@@ -22,6 +22,7 @@ public class FollowToPreviousBit : MonoBehaviour
 	bool once = true;
 	public bool check = false;      //配列すべてに値が入っているかの判定
 	public bool isMove = false;
+	public bool hasOption = false;
 	bool defCheck = false;
 	bool isFreeze = false;
 	void Start()
