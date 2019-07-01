@@ -166,11 +166,11 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 
-		//if(pl1.Died_Judgment())
-		//{
-		//	isDead = true;
-		//	transform.parent = null;
-		//}
+		if (pl1.Died_Judgment())
+		{
+			isDead = true;
+			transform.parent = null;
+		}
 
 		if (isDead)
 		{
@@ -196,6 +196,13 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		//ビットンの移動関数呼び出し
 		//Bit_Move();
+		//----------------------------------------------
+		//画面外に出たら、オフにする
+		if (!renderer.isVisible)
+		{
+			gameObject.SetActive(false);
+		}
+		//------------------------------------------------
 	}
 
 	//------------------ここから関数------------------
