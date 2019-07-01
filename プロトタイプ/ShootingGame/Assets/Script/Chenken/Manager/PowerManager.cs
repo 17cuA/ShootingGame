@@ -49,7 +49,7 @@ namespace Power
 			}
 
 			//パワータイプ列挙型
-			public enum PowerType { SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, UNKNOWN, KILLALL, INITSPEED}
+			public enum PowerType { SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, SHIELD, KILLALL, INITSPEED}
 
 			//パワータグ列挙型
 			public enum PowerTag { NORMAL, WEAPON, TOENEMY }
@@ -172,7 +172,7 @@ namespace Power
 			{ Power.PowerType.DOUBLE,  new Power(Power.PowerType.DOUBLE) },
 			{ Power.PowerType.LASER,   new Power(Power.PowerType.LASER) },
 			{ Power.PowerType.OPTION,  new Power(Power.PowerType.OPTION,  4) },
-			{ Power.PowerType.UNKNOWN, new Power(Power.PowerType.UNKNOWN, 3) },
+			{ Power.PowerType.SHIELD,  new Power(Power.PowerType.SHIELD, 1) },
 
 			{ Power.PowerType.INITSPEED,new Power(Power.PowerType.INITSPEED, 1) }
 		};
@@ -196,7 +196,7 @@ namespace Power
 		private Power weaponPower = null;
 
 		//位置
-		private static int position = -1;
+		private int position = -1;
 		public int Position
 		{
 			get
@@ -297,7 +297,6 @@ namespace Power
 			//位置移動
 			position++;
 
-			//位置修正
 			position %= powers.Count - 1;
 		}
 
@@ -316,6 +315,11 @@ namespace Power
 				return null;
 
 			return powers[type];
+		}
+
+		public void ResetShieldPower()
+		{
+			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
 		}
 	}
 }

@@ -7,7 +7,6 @@ using StorageReference;
 [DefaultExecutionOrder(500)]
 public class Enemy_MiddleBoss : character_status
 {
-	public Transform player;
 	public StateType type;
 	public float advanceBackSpeed;
 	public float escapeSpeed;
@@ -17,7 +16,7 @@ public class Enemy_MiddleBoss : character_status
 	private int backActionSlot;
 	public float debutDuration = 2f;
 	public float moveDuration = 1;
-	public float advanceDuration = 2f;
+	public float advanceBackDuration = 2f;
 	public float stopDuration = 1f;
 	public float escapeDuration = 2f;
 	private Vector3 moveDirection;
@@ -25,6 +24,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private CapsuleCollider capsuleCollider;                    
 	private Rigidbody rigidbody;
+	private Transform player;
 	private Animator animator;
 	private bool canAdvanceAttack;
 
@@ -48,7 +48,7 @@ public class Enemy_MiddleBoss : character_status
 		state.ExitCallBack = Debut_Exit;
 		stateManager.Add(state);
 
-		state = new StateBase<StateType>(advanceDuration, StateType.ADVANCE_AND_BACK);
+		state = new StateBase<StateType>(advanceBackDuration, StateType.ADVANCE_AND_BACK);
 		state.EnterCallBack = AdvanceBack_Enter;
 		state.UpdateCallBack = AdvanceBack_Update;
 		stateManager.Add(state);

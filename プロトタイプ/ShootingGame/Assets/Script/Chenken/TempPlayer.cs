@@ -15,9 +15,11 @@ public class TempPlayer : MonoBehaviour
 	public bool  activeMissile;        //ミサイルは導入されたかどうか
 	private float canPlayMissileTime;
 
-	private GameObject[] bitsPrefabs      = new GameObject[4];
+	private GameObject[] bitsPrefabs   = new GameObject[4];
 	private GameObject[] bitGameObject = new GameObject[4];
 	public int bitIndex = 0;
+
+	private int shield = 0;
 
 	private void Start()
 	{	
@@ -33,6 +35,7 @@ public class TempPlayer : MonoBehaviour
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, CreateShield);
 	}
 
 	private void OnDisable()
@@ -40,7 +43,9 @@ public class TempPlayer : MonoBehaviour
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, CreateShield);
 	}
+
 
 	private void Update()
 	{
@@ -68,7 +73,17 @@ public class TempPlayer : MonoBehaviour
 				//次の発射時間を設定する
 				canPlayMissileTime = missleWaitTime + Time.time;
 			}
-		}		
+		}
+
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			shield--;
+		}
+
+		if(shield == 0)
+		{
+			PowerManager.Instance.ResetShieldPower();
+		}
 	}
 
 	private void OnTriggerEnter(Collider col)
@@ -113,6 +128,11 @@ public class TempPlayer : MonoBehaviour
 				break;
 		}
 		Debug.Log("ビットン生成");
+	}
+
+	private void CreateShield()
+	{
+		shield = 5;
 	}
 }
 
