@@ -249,6 +249,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		//画面外に出たら、オフにする
 		if (!renderer.isVisible && isDead)
 		{
+			isDead = false;
+			isborn = true;
+			parentObj = null;
 			gameObject.SetActive(false);
 		}
 		//------------------------------------------------
@@ -363,6 +366,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 	}
 
+	//生成(画面に表示された時のポジション設定)
 	void SetParent()
 	{
 		if (!FtoPlayer.hasOption)
