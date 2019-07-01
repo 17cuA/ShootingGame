@@ -9,58 +9,60 @@ public class Line_Beam : MonoBehaviour {
     RaycastHit shotHit;  //レーザーが当たったかの確認
 	ParticleSystem beamParticle;	//パーティクルの格納
     LineRenderer lineRenderer;      //LineRendererの格納
-	Transform Laser_Size;　//レーザーの長さを変形
+	Transform Laser_Size;　//レーザーの太さ
 	bool isEnable = true;	//当たり判定の有効化
 	float hitstop;	//当たった際の変数
-	Collider coll;　//当たり判定
 
 	// Use this for initialization
 	void Awake () {
-        beamParticle = GetComponent<ParticleSystem> ();
-        lineRenderer = GetComponent<LineRenderer> ();
-		coll = GetComponent<BoxCollider>();
+        beamParticle = GetComponent<ParticleSystem> (); 　//particle情報を格納
+        lineRenderer = GetComponent<LineRenderer> ();	//linerenderer情報を格納
 	}
 
     // Update is called once per frame
     void Update ()
 	{
-		Laser_Size = this.transform;
+		Laser_Size = this.transform;	//laserの太さを変更
 
-		if (Input.GetMouseButton (1))
+		if (Input.GetMouseButton (1))		//レーザー発射
 		{
-            shot ();
+            shot ();	//shot関数を呼び出す
         }
-		else disableEffect();
+		else disableEffect();//エフェクトを止める関数を呼び出す
 	}
 
+	//発射に使用する関数
 	private void shot()
 	{
-		beamParticle.Stop();
-		beamParticle.Play();
-		lineRenderer.enabled = true;
-		lineRenderer.SetPosition(0, transform.position);
-		shotRay.origin = transform.position;
-		shotRay.direction = transform.forward;
+		beamParticle.Stop();	//レーザーparticleを止める
+		beamParticle.Play();   //レーザーparticleを再生
+		lineRenderer.enabled = true;	//linerendererを有効化
+		lineRenderer.SetPosition(0, transform.position);	//linerendererの生成位置を固定
+		shotRay.origin = transform.position;	//rayの原点を移動する場所に
+		shotRay.direction = transform.forward;	//rayの向きをplayerの向いている方向に
 		//int layerMask = 0;
 
-		var radius = transform.lossyScale.x * 0.5f;
+		var radius = transform.lossyScale.x * 0.5f;	//レーザーの長さを伸ばす
 
-		var isHit = Physics.SphereCast(transform.position, radius, transform.forward , out shotHit);
+		var isHit = Physics.SphereCast(transform.position, radius, transform.forward , out shotHit);		//スフィアキャストによる当たり判定を取得
 
-		if (isHit)
+		if (isHit)		//当たったものに大しての処理
 		{
-			hitstop = shotHit.distance;
+			hitstop = shotHit.distance;     //SphereCastが何かに当たった際その場所で止まる
+			//スフィアキャストがwalllayerに衝突したとき
 			if (Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, LayerMask.GetMask("Wall")))
 			{
-				hitstop = shotHit.distance;
+				hitstop = shotHit.distance;	//その場所で止める
 			}
-			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))
+			//スフィアキャストがenemylayerに衝突したとき
+			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))	
 			{
-				Destroy(shotHit.transform.gameObject);
+				Destroy(shotHit.transform.gameObject);//対象を削除する
 			}
 		}
 	}
 
+	//デバック用（sceneviewに表示されている赤い玉です）
 	void OnDrawGizmos()
 	{
 		if (isEnable == false)
@@ -81,9 +83,10 @@ public class Line_Beam : MonoBehaviour {
 		}
 	}
 
+	//レーザーのエフェクトを止める関数
 private void disableEffect()
     {
-        beamParticle.Stop();
-        lineRenderer.enabled = false;
+        beamParticle.Stop();　//レーザーのparticleを止める
+        lineRenderer.enabled = false;	//linerendererを無効化
     }
 }
