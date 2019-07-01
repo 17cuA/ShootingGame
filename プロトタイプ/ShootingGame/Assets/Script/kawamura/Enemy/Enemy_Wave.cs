@@ -66,6 +66,10 @@ public class Enemy_Wave : MonoBehaviour
 
 	void Update()
 	{
+		//if (transform.childCount == 0)
+		//{
+		//	Destroy(this.gameObject);
+		//}
 		if(once)
 		{
 			switch(eState)
