@@ -49,6 +49,7 @@ public class One_Boss_All : character_status
 	private int Attack_Step { get; set; }                                   // 攻撃手順支持
 	private List<Vector3> Initial_Boss_Option_Table_Pos { get; set; }
 	private List<Vector3> muki { get; set; }
+	//private Vector3
 	void Start()
     {
 		//base.Start();
