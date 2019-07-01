@@ -16,7 +16,7 @@ public class Player1 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
-	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
+	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
 	public int Remaining;                                        //残機（あらかじめ設定）
@@ -25,6 +25,9 @@ public class Player1 : character_status
 	public bool invincible;             //無敵時間帯かどうか
 	public Material material;
 	private Color first_color;
+	public bool activeMissile;        //ミサイルは導入されたかどうか
+	public int bitIndex = 0;        //オプションの数
+	public Transform pos;
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -76,6 +79,10 @@ public class Player1 : character_status
 
 	void Update()
 	{
+		//-------------------------------
+		//デバックの工程
+		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
+		
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
 		if(hp < 1)
@@ -104,6 +111,11 @@ public class Player1 : character_status
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
 				//プレイヤーの移動処理
 				Player_Move();
+				//パワーアップの処理
+				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+				{
+					PowerManager.Instance.Upgrade();
+				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
 				//弾の発射（Fire2かSpaceキーで撃てる）
@@ -181,7 +193,7 @@ public class Player1 : character_status
 	}
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
           switch (bullet_Type)
             {
@@ -209,16 +221,6 @@ public class Player1 : character_status
 		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
 	}
-	//private void Diffusion_Fire()
-	//{
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet,shot_Mazle.transform.position,transform.rotation);
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 30.0f) * Direction);
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -30.0f) * Direction);
-	//}
-	//private void Triple_Fire()
-	//{
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, transform.rotation);
-	//}
 	private void SpeedUp()
 	{
 		speed += speed;
@@ -233,19 +235,28 @@ public class Player1 : character_status
 	//オプションをアクティブに
 	private void CreateBit()
 	{
+		//オプションをそれぞれアクティブに
 		switch (bitIndex)
 		{
 			case 0:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
 			case 1:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
 			case 2:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
 			case 3:
-				//bitGameObject[bitIndex] = Instantiate(bitsPrefabs[bitIndex], transform.position, transform.rotation) as GameObject;
-				//bitIndex++;
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
 				break;
 			default:
 				break;
 		}
 		Debug.Log("ビットン生成");
 	}
-
 }
