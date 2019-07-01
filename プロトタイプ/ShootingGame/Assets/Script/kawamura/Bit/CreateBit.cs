@@ -66,7 +66,7 @@ public class CreateBit : MonoBehaviour
 				//bitObj.transform.position = followPosObjcs[0].transform.position;
 				//bitObj = null;
 
-				Instantiate(bit_First, transform.position, transform.rotation);
+				//Instantiate(bit_First, transform.position, transform.rotation);
 				num++;
 				break;
 

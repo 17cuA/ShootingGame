@@ -202,8 +202,8 @@ public class One_Boss_All : character_status
 					{
 						if (Boss_Option_Table[0].transform.position != Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position != Initial_Boss_Option_Table_Pos[1])
 						{
-							Boss_Option_Table[0].transform.position = Vector3.Lerp(Boss_Option_Table[0].transform.position, Initial_Boss_Option_Table_Pos[0], speed );
-							Boss_Option_Table[1].transform.position = Vector3.Lerp(Boss_Option_Table[1].transform.position, Initial_Boss_Option_Table_Pos[1], speed);
+							Boss_Option_Table[0].transform.position = Vector3.MoveTowards(Boss_Option_Table[0].transform.position, Initial_Boss_Option_Table_Pos[0], speed * 5);
+							Boss_Option_Table[1].transform.position = Vector3.MoveTowards(Boss_Option_Table[1].transform.position, Initial_Boss_Option_Table_Pos[1], speed * 5);
 						}
 						else if(Boss_Option_Table[0].transform.position == Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position == Initial_Boss_Option_Table_Pos[1])
 						{
@@ -223,7 +223,11 @@ public class One_Boss_All : character_status
 						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Beam_Mazle[0].position;
 						Beam_Mazle[0].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Beam_Mazle[0].position, Beam_Mazle[0].right);
-						Shot_Delay /= 2;
+
+						target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Beam_Mazle[1].position;
+						Beam_Mazle[1].right = target_dir;
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Beam_Mazle[1].position, Beam_Mazle[1].right);
+						Shot_Delay = 0;
 					}
 				}
 			}
@@ -297,7 +301,14 @@ public class One_Boss_All : character_status
 			{
 				hp = Initial_HP;
 				Debug.Log("Boss_ＨＰ_Full");
-
+			}
+			else if(Input.GetKey(KeyCode.Alpha1))
+			{
+				Attack_Step++;
+			}
+			else if(Input.GetKey(KeyCode.Alpha0))
+			{
+				Attack_Step = 0;
 			}
 		}
 	}
