@@ -15,7 +15,9 @@ public class Enemy_First : character_status
 
 	Vector3 velocity;
 
+    GameObject item;
 	GameObject parentObj;
+    CreateItem ci;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
@@ -29,10 +31,13 @@ public class Enemy_First : character_status
 
 	bool isTurn;
 	bool isAddition = false;
-
+    bool isDead = false;
 	void Start()
     {
-		if (transform.position.y > 0)
+        item = Resources.Load("Item/Item_Test") as GameObject;
+
+
+        if (transform.position.y > 0)
 		{
 			eState = State.TurnDown;
 		}
@@ -42,16 +47,48 @@ public class Enemy_First : character_status
 		}
 		speedX = 5.0f;
 		speedY = 5.0f;
-	}
 
-	void Update()
+        if (transform.parent)
+        {
+            parentObj = transform.parent.gameObject;
+            ci = parentObj.GetComponent<CreateItem>();
+        }
+
+    }
+
+    void Update()
     {
 		if (hp < 1)
 		{
-			Died_Process();
+            isTurn = false;
+            frame = 0;
+            if (ci.remainingEnemiesCnt == 1)
+            {
+                ci.itemPos = transform.position;
+                ci.itemTransform = this.transform;
+
+                Instantiate(item, this.transform.position, transform.rotation);
+            }
+            ci.remainingEnemiesCnt -= 1;
+
+            hp = 1;
+            isDead = true;
+
+            Died_Process();
 		}
 
-		switch (eState)
+        if(!parentObj)
+        if (transform.parent)
+        {
+            if(transform.parent)
+            {
+                parentObj = transform.parent.gameObject;
+                ci = parentObj.GetComponent<CreateItem>();
+
+            }
+        }
+
+        switch (eState)
 		{
 			case State.TurnUp:
 				if(!isTurn)
@@ -137,8 +174,16 @@ public class Enemy_First : character_status
 				break;
 		}
     }
+    private void OnDisable()
+    {
+        if(isDead)
+        {
+            isDead = false;
+        }
+    }
 
-	public void SetState(int num)
+    //---------ここから関数--------------
+    public void SetState(int num)
 	{
 		switch(num)
 		{

@@ -291,7 +291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173866cae347fef49bb7821646dde97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
   childNum: 0
+  remainingEnemiesCnt: 0
+  itemTransform: {fileID: 0}
+  itemPos: {x: 0, y: 0, z: 0}
+  isDead: 0
 --- !u!1001 &8716967868486405165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,16 +304,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -364,6 +359,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -400,16 +405,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -465,6 +460,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -501,16 +506,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -566,6 +561,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -602,16 +607,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -667,6 +662,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -703,16 +708,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -768,6 +763,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -804,16 +809,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -869,6 +864,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -905,16 +910,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -970,6 +965,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: hp
@@ -1006,16 +1011,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797495, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1070,6 +1065,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867143807157797489, guid: cd49e4af72042c844bbf65da1f90441f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1867143807157797488, guid: cd49e4af72042c844bbf65da1f90441f,
         type: 3}
