@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Wave : MonoBehaviour
+public class Enemy_Wave : character_status
 {
 	public enum State
 	{
@@ -44,7 +44,6 @@ public class Enemy_Wave : MonoBehaviour
 	public bool isSubSpeedY = false;   //Yスピードを減少させるかどうか
 
 	public bool once = true;
-	public bool isBig = false;
 	public bool isWave = false;
 	public bool isStraight = false;
 	public bool isOnlyWave;
@@ -72,6 +71,7 @@ public class Enemy_Wave : MonoBehaviour
 		//}
 		if(once)
 		{
+			//状態によって値を変える
 			switch(eState)
 			{
 				case State.WaveUp:
@@ -212,8 +212,20 @@ public class Enemy_Wave : MonoBehaviour
 
 		}
 
+		if (hp < 1)
+		{
+			speedZ = 0;
+			hsvCon.val = 0.4f;
+			once = true;
+			isWave = false;
 
+
+			Reset_Status();
+			Died_Process();
+		}
 	}
+	//-------------ここから関数------------------
+
 	//Yスピードを見てYスピードを増加させるか減少させるかを決める
 	void SpeedY_Check()
 	{
@@ -275,6 +287,33 @@ public class Enemy_Wave : MonoBehaviour
 			speedY -= addAndSubValue;
 		}
 
+	}
+
+	public void SetState(int n)
+	{
+		switch(n)
+		{
+			case 1:
+				eState = State.WaveUp;
+				break;
+
+			case 2:
+				eState = State.WaveDown;
+				break;
+
+			case 3:
+				eState = State.WaveOnlyUp;
+				break;
+
+			case 4:
+				eState = State.WaveOnlyDown;
+				break;
+
+			case 5:
+				eState = State.Straight;
+				break;
+
+		}
 	}
 
 }

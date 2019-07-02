@@ -18,6 +18,7 @@ public class EnemyGroupManage : MonoBehaviour
 	public Vector3 itemPos;
 
 	public bool isDead = false;
+	public bool isItemDrop=true;
 	void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
@@ -44,6 +45,12 @@ public class EnemyGroupManage : MonoBehaviour
 			//isDead = true;
 			//Died_Process();
 		}
+	}
+
+	//アイテムを落とす群かを設定する(trueで落とす、falseで落とさない)
+	public void WhetherToDropTheItem(bool isDrop)
+	{
+		isItemDrop = isDrop;
 	}
 	private void OnDisable()
 	{

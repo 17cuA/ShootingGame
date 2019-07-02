@@ -37,6 +37,7 @@ public class Enemy_First : character_status
 	bool isTurn;
 	bool isAddition = false;
     bool isDead = false;
+	public bool isisisisi=false;
 	void Start()
     {
         item = Resources.Load("Item/Item_Test") as GameObject;
@@ -55,7 +56,7 @@ public class Enemy_First : character_status
 		speedX = 5.0f;
 		speedY = 5.0f;
 
-        if (transform.parent)
+        if (transform.parent!=null)
         {
             parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
@@ -68,33 +69,36 @@ public class Enemy_First : character_status
 		//倒されたとき
 		if (hp < 1)
 		{
-            frame = 0;
-
-			//群を管理している親の残っている敵カウントを減らす
-			groupManage.remainingEnemiesCnt -= 1;
-
-			//群に残っている敵がいなくなったとき
-			if (groupManage.remainingEnemiesCnt == 0)
-            {
-				//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
-				if (groupManage.notDefeatedEnemyCnt == 0)
+			if(parentObj)
+			{
+				//群を管理している親の残っている敵カウントマイナス
+				groupManage.remainingEnemiesCnt--;
+				//倒された敵のカウントプラス
+				groupManage.defeatedEnemyCnt++;
+				//群に残っている敵がいなくなったとき
+				if (groupManage.remainingEnemiesCnt == 0)
 				{
+					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					{
+						//アイテム生成
+						Instantiate(item, this.transform.position, transform.rotation);
+					}
+					//一体でも倒されていなかったら
+					else
+					{
+						//なにもしない
+					}
+					groupManage.itemPos = transform.position;
+					groupManage.itemTransform = this.transform;
 
 				}
-				//一体でも倒されていなかったら
-				else
-				{
-
-				}
-                groupManage.itemPos = transform.position;
-                groupManage.itemTransform = this.transform;
-
-                Instantiate(item, this.transform.position, transform.rotation);
-            }
-            hp = 1;
+			}
+			Reset_Status();
             isDead = true;
+			frame = 0;
 
-            Died_Process();
+			Died_Process();
 		}
 
         if(!parentObj)
@@ -120,10 +124,10 @@ public class Enemy_First : character_status
 					if (transform.position.x < 9)
 					{
 						frame++;
-					}
-					if (frame>180)
-					{
-						isTurn = true;
+						if (frame > 180)
+						{
+							isTurn = true;
+						}
 					}
 				}
 				else if(isTurn)
@@ -209,11 +213,11 @@ public class Enemy_First : character_status
 	//オフになったとき実行される
 	private void OnDisable()
     {
-        //if(isDead)
-        //{
-        //    isDead = false;
-        //}
-    }
+		if (isDead)
+		{
+			isDead = false;
+		}
+	}
 
     //---------ここから関数--------------
     public void SetState(int num)
@@ -231,6 +235,18 @@ public class Enemy_First : character_status
 			case 2:
 				eState = State.Generated;
 				break;
+		}
+	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
+		{
+			groupManage.notDefeatedEnemyCnt++;
+			groupManage.remainingEnemiesCnt -= 1;
+			frame = 0;
+			isisisisi = true;
+			gameObject.SetActive(false);
 		}
 	}
 }
