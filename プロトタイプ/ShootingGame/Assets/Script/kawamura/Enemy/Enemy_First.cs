@@ -17,7 +17,12 @@ public class Enemy_First : character_status
 
     GameObject item;
 	GameObject parentObj;
-    CreateItem ci;
+	GameObject childObj;
+
+	EnemyGroupManage groupManage;
+	VisibleCheck vc;
+
+	//Renderer renderer;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
@@ -35,9 +40,11 @@ public class Enemy_First : character_status
 	void Start()
     {
         item = Resources.Load("Item/Item_Test") as GameObject;
+		childObj = transform.GetChild(0).gameObject;
+		vc = childObj.GetComponent<VisibleCheck>();
+		//renderer = gameObject.GetComponent<Renderer>();
 
-
-        if (transform.position.y > 0)
+		if (transform.position.y > 0)
 		{
 			eState = State.TurnDown;
 		}
@@ -51,26 +58,39 @@ public class Enemy_First : character_status
         if (transform.parent)
         {
             parentObj = transform.parent.gameObject;
-            ci = parentObj.GetComponent<CreateItem>();
+			groupManage = parentObj.GetComponent<EnemyGroupManage>();
         }
 
     }
 
     void Update()
     {
+		//倒されたとき
 		if (hp < 1)
 		{
-            isTurn = false;
             frame = 0;
-            if (ci.remainingEnemiesCnt == 1)
+
+			//群を管理している親の残っている敵カウントを減らす
+			groupManage.remainingEnemiesCnt -= 1;
+
+			//群に残っている敵がいなくなったとき
+			if (groupManage.remainingEnemiesCnt == 0)
             {
-                ci.itemPos = transform.position;
-                ci.itemTransform = this.transform;
+				//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+				if (groupManage.notDefeatedEnemyCnt == 0)
+				{
+
+				}
+				//一体でも倒されていなかったら
+				else
+				{
+
+				}
+                groupManage.itemPos = transform.position;
+                groupManage.itemTransform = this.transform;
 
                 Instantiate(item, this.transform.position, transform.rotation);
             }
-            ci.remainingEnemiesCnt -= 1;
-
             hp = 1;
             isDead = true;
 
@@ -78,17 +98,19 @@ public class Enemy_First : character_status
 		}
 
         if(!parentObj)
-        if (transform.parent)
-        {
-            if(transform.parent)
-            {
-                parentObj = transform.parent.gameObject;
-                ci = parentObj.GetComponent<CreateItem>();
+		{
+			if (transform.parent)
+			{
+				if (transform.parent)
+				{
+					parentObj = transform.parent.gameObject;
+					groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
-            }
-        }
+				}
+			}
+		}
 
-        switch (eState)
+		switch (eState)
 		{
 			case State.TurnUp:
 				if(!isTurn)
@@ -173,13 +195,24 @@ public class Enemy_First : character_status
 
 				break;
 		}
-    }
-    private void OnDisable()
+
+		//画面外に出たら、オフにする
+		//if (!renderer.isVisible)
+		//{
+		//	isTurn = false;
+		//	isDead = false;
+		//	gameObject.SetActive(false);
+		//}
+
+	}
+
+	//オフになったとき実行される
+	private void OnDisable()
     {
-        if(isDead)
-        {
-            isDead = false;
-        }
+        //if(isDead)
+        //{
+        //    isDead = false;
+        //}
     }
 
     //---------ここから関数--------------
