@@ -15,8 +15,9 @@ public class ParticleDestroy : MonoBehaviour
 	{
 		existenceHour -= Time.deltaTime;
 		if(existenceHour < 0.0f)
-		{ 
-			Destroy(this.gameObject);
+		{
+			//Destroy(this.gameObject);
+			gameObject.SetActive(false);
 		}
 
 	}

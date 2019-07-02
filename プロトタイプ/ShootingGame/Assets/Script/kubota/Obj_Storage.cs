@@ -31,8 +31,9 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
 	public GameObject[] particle = new GameObject[7];       //パーティクルを格納する配列
 	private GameObject Option_Prefab;                   //オプションのプレハブ
-	private GameObject Item_Prefab;						//パワーアップのアイテムを入れえるための処理
-
+	private GameObject Item_Prefab;                     //パワーアップのアイテムを入れえるための処理
+	private GameObject[] Effects = new GameObject[18];  //particleのプレハブ
+	private GameObject Boss_Middle_Prefab;						//中ボスのプレハブ
 
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
@@ -51,6 +52,19 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling Option;
 	public Object_Pooling PowerUP_Item;
+	public Object_Pooling Boss_Middle;
+	//effect関係-----------------------------------------------------
+	public Object_Pooling Player_explosion;		//プレイヤー爆発
+	public Object_Pooling Player_injection_appearance;     //プレイヤージェット噴射（登場）
+	public Object_Pooling Player_injection;
+	public Object_Pooling Player_Fire;
+	public Object_Pooling Enemy_explosion;
+	public Object_Pooling Enemy_Core_Sheld_explosion;
+	public Object_Pooling Player_PowerUP;
+	public Object_Pooling Boss_explosion;
+	public Object_Pooling Player_Bullet_impact;
+	public Object_Pooling Player_Sheld;
+
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -80,16 +94,27 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject; ;
 		Option_Prefab = Resources.Load("Option/Option") as GameObject;		//オプションのロード
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
+		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 
+		Effects[0] = Resources.Load<GameObject>("Effects/Effects_000");
+		Effects[1] = Resources.Load<GameObject>("Effects/Effects_001");
+		Effects[2] = Resources.Load<GameObject>("Effects/Effects_002");
+		Effects[3] = Resources.Load<GameObject>("Effects/Effects_003");
+		Effects[4] = Resources.Load<GameObject>("Effects/Effects_004");     //none
+		Effects[5] = Resources.Load<GameObject>("Effects/Effects_005");
+		Effects[6] = Resources.Load<GameObject>("Effects/Effects_006");
+		Effects[7] = Resources.Load<GameObject>("Effects/Effects_007");
+		Effects[8] = Resources.Load<GameObject>("Effects/Effects_008");
+		Effects[9] = Resources.Load<GameObject>("Effects/Effects_009");     //none
+		Effects[10] = Resources.Load<GameObject>("Effects/Effects_010");
+		Effects[11] = Resources.Load<GameObject>("Effects/Effects_011");
+		Effects[12] = Resources.Load<GameObject>("Effects/Effects_012");
+		Effects[13] = Resources.Load<GameObject>("Effects/Effects_013");
+		Effects[14] = Resources.Load<GameObject>("Effects/Effects_014");        //none
+		Effects[15] = Resources.Load<GameObject>("Effects/Effects_015");        //none
+		Effects[16] = Resources.Load<GameObject>("Effects/Effects_016");        //none
+		Effects[17] = Resources.Load<GameObject>("Effects/Effects_017");
 
-
-		particle[0] = Resources.Load<GameObject>("Effects/Particle_1唐揚げ爆発");
-		particle[1] = Resources.Load<GameObject>("Effects/Particle_2黒煙");
-		particle[2] = Resources.Load<GameObject>("Effects/Particle_3エネルギー弾");
-		particle[3] = Resources.Load<GameObject>("Effects/Particle_4衝撃波");
-		particle[4] = Resources.Load<GameObject>("Effects/Particle_5箱爆発");
-		particle[5] = Resources.Load<GameObject>("Effects/Particle_6通路");
-		particle[6] = Resources.Load<GameObject>("Effects/Particle_7汎用煙");
 
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
@@ -107,7 +132,17 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
-
+		//effect---------------------------------------------------------------------------------------------
+		Player_explosion = new Object_Pooling(Effects[0], 1, "Player_explosion");
+		Player_injection = new Object_Pooling(Effects[2], 1, "Player_explosion");
+		Player_Fire = new Object_Pooling(Effects[3], 2, "Player_Fire");
+		Enemy_explosion = new Object_Pooling(Effects[5], 1, "Enemy_explosion");
+		Enemy_Core_Sheld_explosion = new Object_Pooling(Effects[6], 1, "Enemy_Core_Sheld_explosion");
+		Player_PowerUP = new Object_Pooling(Effects[7], 1, "Player_PowerUP");
+		Boss_explosion = new Object_Pooling(Effects[8], 1, "Boss_explosion");
+		Player_Bullet_impact = new Object_Pooling(Effects[12], 4, "Player_Bullet_impact");
+		Player_Sheld = new Object_Pooling(Effects[17], 1, "Player_Sheld");
+		//---------------------------------------------------------------------------------------------------
 
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
