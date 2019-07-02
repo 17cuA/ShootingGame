@@ -64,7 +64,7 @@ public class Obj_Storage : MonoBehaviour
 
 	void Start()
     {
-		Player_Prefab = Resources.Load("Player/Player_Demo_1") as GameObject;
+		Player_Prefab = Resources.Load("Player/Player") as GameObject;
 		Enemy_Prefab = Resources.Load("Enemy/Enemy2") as GameObject;
 		Medium_Enemy_Prefab = Resources.Load("Enemy/Medium_Size_Enemy") as GameObject;
 		Boss_Prefab = Resources.Load("Boss/Boss_Test") as GameObject;
