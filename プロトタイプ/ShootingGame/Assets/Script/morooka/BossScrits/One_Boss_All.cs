@@ -121,8 +121,8 @@ public class One_Boss_All : character_status
 					else if (Attack_Step == 1 || Attack_Step == 3)
 					{
 
-						Debug.Log(Beam_Cnt);
-						Debug.Log(beam_max);
+						//Debug.Log(Beam_Cnt);
+						//Debug.Log(beam_max);
 
 						if (Beam_Cnt < beam_max)
 						{
@@ -165,7 +165,7 @@ public class One_Boss_All : character_status
 						Shot_Delay = 0;
 						Beam_Cnt = 0;
 
-						if (Random.Range(0, 1) == 0)
+						if (Random.Range(0, 2) == 0)
 						{
 							Attack_Step = 7;
 						}
