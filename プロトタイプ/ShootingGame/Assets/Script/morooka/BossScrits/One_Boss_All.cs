@@ -120,6 +120,10 @@ public class One_Boss_All : character_status
 					// ビーム攻撃上
 					else if (Attack_Step == 1 || Attack_Step == 3)
 					{
+
+						Debug.Log(Beam_Cnt);
+						Debug.Log(beam_max);
+
 						if (Beam_Cnt < beam_max)
 						{
 							//Vector2 temp_pos = Beam_Mazle[0].position;
@@ -158,8 +162,56 @@ public class One_Boss_All : character_status
 					{
 						Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
 						Rotation_Speed_Change();
-						Attack_Step = 0;
 						Shot_Delay = 0;
+						Beam_Cnt = 0;
+
+						if (Random.Range(0, 1) == 0)
+						{
+							Attack_Step = 7;
+						}
+						else
+						{
+							Attack_Step = 0;
+						}
+					}
+
+					else if (Attack_Step == 7)
+					{
+						if (Now_Target != Moving_Target_Point[0])
+						{
+							Now_Target = Moving_Target_Point[0];
+						}
+						else
+						{
+							Shoot_Beam(0);
+							Shoot_Beam(1);
+
+							Vector3 temp_right = Beam_Mazle[0].right;
+							temp_right.y++;
+							Beam_Mazle[0].right = temp_right;
+
+							temp_right = Beam_Mazle[1].right;
+							temp_right.y--;
+							Beam_Mazle[1].right = temp_right;
+
+							Shot_Delay /= 3;
+							Beam_Cnt++;
+						}
+
+						if (Beam_Cnt == 3)
+						{
+
+							Debug.Log("asdfg");
+							Attack_Step = 5;
+							Shot_Delay = 0;
+							Vector3 temp_right = Beam_Mazle[0].right;
+							temp_right.y -= 3.0f;
+							Beam_Mazle[0].right = temp_right;
+
+							temp_right = Beam_Mazle[1].right;
+							temp_right.y += 3.0f;
+							Beam_Mazle[1].right = temp_right;
+						}
 					}
 				}
 			}
