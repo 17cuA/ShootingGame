@@ -29,13 +29,16 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject createPosLm4;
 	public GameObject createPosLm5;
 
+    public GameObject createMiddleBossPos;
+
 	public GameObject enemy_UFO_Group;
 	public GameObject enemy_ClamChowder_Group_Four;
 	public GameObject enemy_ClamChowder_Group_Two_Top;
     public GameObject enemy_ClamChowder_Group_Two_Under;
     public GameObject enemy_ClamChowder_Group_Three_Item;
 	public GameObject enemy_ClamChowder_Group_Seven;
-	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+    public GameObject enemy_MiddleBoss_Father;
+    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
@@ -75,13 +78,16 @@ public class EnemyCreate : MonoBehaviour
 		createPosLm4 = GameObject.Find("CreatePos_Left_-4");
 		createPosLm5 = GameObject.Find("CreatePos_Left_-5");
 
-		enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+        createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
+
+        enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
 		enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
 		enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
         enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
         enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
 		enemy_ClamChowder_Group_Seven = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-		enemy_ClamChowder_Group_ThreeWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
+        enemy_MiddleBoss_Father = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+        enemy_ClamChowder_Group_ThreeWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
@@ -188,6 +194,7 @@ public class EnemyCreate : MonoBehaviour
 				case 12:
 					isCreate = false;
 					groupCnt++;
+                    Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
 
 					break;
 
