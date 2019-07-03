@@ -10,7 +10,7 @@ public class TurnToPlayer_Slow : character_status
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
 	Vector3 velocity;
 
-	public float speed;
+	//public float speed;
 	public float speedX;
 	public float rollSpeed;
 
