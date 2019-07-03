@@ -8,7 +8,7 @@ public class DropItem : MonoBehaviour
 {
 	public GameObject item;
 	Vector3 itemPos;
-
+	bool isQuitting=false;
 	void Start()
     {
 		item = Resources.Load("Item/Item_Test") as GameObject;
@@ -20,8 +20,16 @@ public class DropItem : MonoBehaviour
 		//アイテムの生成位置更新
 		itemPos = transform.position;
     }
+	void OnApplicationQuit()
+
+	{
+
+		isQuitting = true;
+
+	}
 	private void OnDisable()
 	{
+		if(!isQuitting)
 		Instantiate(item, itemPos, transform.rotation);
 	}
 
