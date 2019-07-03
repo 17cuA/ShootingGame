@@ -54,11 +54,11 @@ public class Line_Beam : MonoBehaviour {
 			{
 				hitstop = shotHit.distance;	//その場所で止める
 			}
-			//スフィアキャストがenemylayerに衝突したとき
-			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))	
-			{
-				//ここにダメージ処理を!!
-			}
+			////スフィアキャストがenemylayerに衝突したとき
+			//if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))	
+			//{
+   //             Destroy(shotHit.collider.gameObject);
+			//}
 		}
 	}
 
@@ -83,8 +83,15 @@ public class Line_Beam : MonoBehaviour {
 		}
 	}
 
-	//レーザーのエフェクトを止める関数
-private void disableEffect()
+    void OnParticleCollision(GameObject obj)
+    {
+        Debug.Log("衝突");
+        //ダメージ処理に使用
+        //☺obj.GetComponent<DamageScript>().Damage(attackPower);
+    }
+
+//レーザーのエフェクトを止める関数
+    private void disableEffect()
     {
         beamParticle.Stop();　//レーザーのparticleを止める
         lineRenderer.enabled = false;	//linerendererを無効化
