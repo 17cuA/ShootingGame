@@ -94,6 +94,7 @@ public class character_status : MonoBehaviour
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
 					PowerManager.Instance.Pick();
+					SE_Manager.SE_Obj.SE_Active(5);
 					col.gameObject.SetActive(false);
 				}
 				else

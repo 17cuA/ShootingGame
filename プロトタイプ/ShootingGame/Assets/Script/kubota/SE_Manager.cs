@@ -8,8 +8,12 @@ public class SE_Manager : MonoBehaviour
 	[Header("音を鳴らすかどうか")]
 	public bool Is_Active;
 	private AudioSource audiosource;
-    // Start is called before the first frame update
-    void Start()
+	private void Awake()
+	{
+		SE_Obj = GetComponent<SE_Manager>();
+	}
+	// Start is called before the first frame update
+	void Start()
     {
 		audiosource = GetComponent<AudioSource>();
     }

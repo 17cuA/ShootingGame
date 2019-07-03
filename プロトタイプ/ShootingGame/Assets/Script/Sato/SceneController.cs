@@ -10,11 +10,11 @@ public class SceneController : MonoBehaviour
 	// ボタンをクリックするとBattleSceneに移動します
 	public void ButtonClicked_Tittle()
 	{
-		SceneManager.LoadScene("TITLE");
+		//SceneManager.LoadScene("TITLE");
 	}
 	public void ButtonClicked_Stage()
 	{
-        FadeManager.Instance.LoadScene ("Stage", 1.0f);
+        //FadeManager.Instance.LoadScene ("Stage", 1.0f);
 		//SceneManager.LoadScene("Stage");
 	}
 }
