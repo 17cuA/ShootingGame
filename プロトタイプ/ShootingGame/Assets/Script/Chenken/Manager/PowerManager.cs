@@ -192,6 +192,15 @@ namespace Power
 			}
 		}
 
+        public bool CanUpgrade
+        {
+            get
+            {
+                return !(CurrentPower == null || (CurrentPower.tag == Power.PowerTag.NORMAL && !CurrentPower.upgradeInfo.canUpgrade)
+				|| (CurrentPower.tag == Power.PowerTag.WEAPON && CurrentPower.isUsing));
+            }
+        }
+
 		//武器のパワーアップとして使われているパワー
 		private Power weaponPower = null;
 
@@ -250,8 +259,7 @@ namespace Power
 		public void Upgrade()
 		{
 			//現在パワーはNull、現在パワーは普通でさらに強化できない、現在パワーは武器のパワーアップ、今使われている　　の場合は　　強化不可能、処理中断
-			if (CurrentPower == null || (CurrentPower.tag == Power.PowerTag.NORMAL && !CurrentPower.upgradeInfo.canUpgrade)
-				|| (CurrentPower.tag == Power.PowerTag.WEAPON && CurrentPower.isUsing))
+			if (!CanUpgrade)
 				return;
 
 			//その以外の場合は強化を行う
