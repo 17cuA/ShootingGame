@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018761117412073051}
+  - component: {fileID: 2390954576926504980}
   m_Layer: 0
   m_Name: Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018761117412073048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.2, y: 1, z: 20}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2668991152109538383}
@@ -33,6 +34,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2390954576926504980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018761117412073048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173866cae347fef49bb7821646dde97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  childNum: 0
+  remainingEnemiesCnt: 0
+  defeatedEnemyCnt: 0
+  notDefeatedEnemyCnt: 0
+  itemTransform: {fileID: 0}
+  itemPos: {x: 0, y: 0, z: 0}
+  isDead: 0
+  isItemDrop: 1
 --- !u!1001 &1018761116687556089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -133,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -213,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}

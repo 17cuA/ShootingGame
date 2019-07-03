@@ -39,6 +39,13 @@ public class Enemy_Wave : character_status
 
 	Vector3 velocity;
 
+	GameObject item;
+	GameObject parentObj;
+	//GameObject childObj;
+
+	EnemyGroupManage groupManage;
+	VisibleCheck vc;
+
 
 	public bool isAddSpeedY = false;   //Yスピードを増加させるかどうか
 	public bool isSubSpeedY = false;   //Yスピードを減少させるかどうか
@@ -54,6 +61,13 @@ public class Enemy_Wave : character_status
 		childObj = transform.GetChild(0).gameObject;
 		hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.02f;
+
+		if (transform.parent != null)
+		{
+			parentObj = transform.parent.gameObject;
+			groupManage = parentObj.GetComponent<EnemyGroupManage>();
+		}
+
 
 		speedZ = 0;
 
@@ -84,6 +98,7 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = true;
 					isAddSpeedY = false;
 					speedX = 15;
+					speedZ_Value = 35;
 					hsvCon.val = 0.4f;
 
 					break;
@@ -98,6 +113,7 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = true;
 					isSubSpeedY = false;
 					speedX = 15;
+					speedZ_Value = 35;
 					hsvCon.val = 0.4f;
 
 					break;
@@ -214,6 +230,33 @@ public class Enemy_Wave : character_status
 
 		if (hp < 1)
 		{
+			if (parentObj)
+			{
+				//群を管理している親の残っている敵カウントマイナス
+				groupManage.remainingEnemiesCnt--;
+				//倒された敵のカウントプラス
+				groupManage.defeatedEnemyCnt++;
+				//群に残っている敵がいなくなったとき
+				if (groupManage.remainingEnemiesCnt == 0)
+				{
+					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					{
+						//アイテム生成
+						//Instantiate(item, this.transform.position, transform.rotation);
+					}
+					//一体でも倒されていなかったら
+					else
+					{
+						//なにもしない
+					}
+					groupManage.itemPos = transform.position;
+					groupManage.itemTransform = this.transform;
+
+				}
+			}
+			Died_Process();
+
 			speedZ = 0;
 			hsvCon.val = 0.4f;
 			once = true;
@@ -313,6 +356,15 @@ public class Enemy_Wave : character_status
 				eState = State.Straight;
 				break;
 
+		}
+	}
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.name == "WallLeft")
+		{
+			groupManage.notDefeatedEnemyCnt++;
+			groupManage.remainingEnemiesCnt -= 1;
+			gameObject.SetActive(false);
 		}
 	}
 
