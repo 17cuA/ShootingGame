@@ -23,7 +23,8 @@ public class Enemy_MiddleBoss : character_status
 	private Vector3 moveDirection;
 	private StateManager<StateType> stateManager;
 
-	private CapsuleCollider capsuleCollider;                    
+	private CapsuleCollider capsuleCollider;   
+    private CapsuleCollider[] childsCapsuleColliders;
 	private Rigidbody rigidbody;
 	private Transform player;
 	private Animator animator;
@@ -35,6 +36,7 @@ public class Enemy_MiddleBoss : character_status
 		rigidbody = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
+        childsCapsuleColliders = GetComponentsInChildren<CapsuleCollider>();
 		rigidbody.useGravity = false;
 
 		var state = new StateBase<StateType>(moveDuration, StateType.MOVE);
@@ -44,6 +46,7 @@ public class Enemy_MiddleBoss : character_status
 		stateManager.Add(state);
 
 		state = new StateBase<StateType>(waitDuration, StateType.WAIT);
+        state.EnterCallBack = Wait_Enter;
 		state.UpdateCallBack = Wait_Update;
 		stateManager.Add(state);
 
@@ -95,6 +98,15 @@ public class Enemy_MiddleBoss : character_status
 		}
 	}
 
+    private void Wait_Enter()
+    {
+        for(var i = 0; i < childsCapsuleColliders.Length; ++i)
+        {
+            childsCapsuleColliders[i].enabled = false;
+        }
+        capsuleCollider.enabled = false;
+    }
+
 	private void Wait_Update()
 	{
 		if (stateManager.Current.IsDone)
@@ -107,7 +119,6 @@ public class Enemy_MiddleBoss : character_status
 	private void Debut_Enter()
 	{
 		animator.Play("Debut");
-		capsuleCollider.enabled = false;
 	}
 
 	private void Debut_Update()
@@ -125,7 +136,12 @@ public class Enemy_MiddleBoss : character_status
 		animator.Play("None");
 		transform.position = transform.GetChild(0).transform.position;
 		transform.GetChild(0).localPosition = Vector3.zero;
-		capsuleCollider.enabled = true;
+
+		 for(var i = 0; i < childsCapsuleColliders.Length; ++i)
+        {
+            childsCapsuleColliders[i].enabled = true;
+        }
+        capsuleCollider.enabled = true;
 	}
 
 	private void Move_Enter()
@@ -142,9 +158,9 @@ public class Enemy_MiddleBoss : character_status
 		}
 			
 		if (moveDirection == Vector3.down)
-			transform.Rotate(Vector3.left * (180.0f / (moveDuration * 60f)));
+			transform.Rotate(Vector3.left * (180.0f / (moveDuration / Time.deltaTime)));
 		if (moveDirection == Vector3.up)
-			transform.Rotate(Vector3.right * (180.0f / (moveDuration * 60f)));
+			transform.Rotate(Vector3.right * (180.0f / (moveDuration / Time.deltaTime)));
 
 		transform.position += speed  * moveDirection * Time.deltaTime;
 	}
