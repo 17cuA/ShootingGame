@@ -43,37 +43,41 @@ public class Bit_Formation_3 : MonoBehaviour
 	public MeshRenderer meshrender;
 	Color bit_Color;
 	float alpha_Value = 0;
+	public float scale_value = 0.5f;
+	public float aaaaaaaaaaaaaaaaa;
 
 	float speed;                        //ビットンの移動スピード
 	public float defaultSpeed;
 	float step;                             //スピードを計算して入れる
-	int collectDelay;
+	int collectDelay;                       //死亡時当たり判定にディレイを持たせる
+	int scaleDelay;
+
 
 	int state_Num;                          //ビットンの状態を変えるための数字		
+	int option_OrdinalNum;
+
 
 	[SerializeField]
 	string myName;							//自分の名前を入れる
 	private Quaternion Direction;			//オブジェクトの向きを変更する時に使う
 
-	float smoothTime;                       //レーザー時の座標へ移動するのにかかる時間
 	Vector3 velocity;		
-	public int laserCnt = 0;				//レーザーのボタンを押してからの時間カウント
-	int returnNum;							//レーザーを解除できる時間
 
 	bool isCircular = false;
 	bool isFollow = false;          //プレイヤーを追従する位置に向かっているかどうか
-	bool isOblique = false;         //斜め撃ちの位置に向かっているかどうか
 	bool once = true;
+	bool isScaleInc = false;
+	bool isScaleDec = false;
 	bool isPlayerDieCheck;
 	bool isborn=true;
 	public bool isDead = false;
 	void Start()
 	{
+		isScaleDec = true;
+		defaultSpeed = 20;
 		speed = defaultSpeed ;
 		//値を設定
 		state_Num = 0;
-		smoothTime = 0.35f;
-		returnNum = 30;
 
 		//状態の初期設定
 		bState = BitState.Follow;
@@ -81,7 +85,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		renderer = gameObject.GetComponent<Renderer>();
 
 		bit_Color = renderer.material.color;
-		//meshrender = gameObject.GetComponent<MeshRenderer>();
+		
+		meshrender = gameObject.GetComponent<MeshRenderer>();
 		//meshrender.material.color = new Color(0, 0, 0, 0);
 
 		//プレイヤーオブジェクト取得
@@ -109,37 +114,6 @@ public class Bit_Formation_3 : MonoBehaviour
 		//攻撃の情報取得
 		//b_Shot = gameObject.GetComponent<Bit_Shot>();
 
-		//laserPos = GameObject.Find("LaserPos");
-
-		//自分の名前によって取得するオブジェクトを変える
-		if (myName == "Bit_First(Clone)")
-		{
-			//プレイヤーを追従する座標オブジェクト取得
-			//followPosObj = GameObject.Find("FollowPosFirst");
-			//斜め撃ちの上の座標オブジェクト取得
-			//obliquePosObj = GameObject.Find("ObliquePosTop");
-		}
-		else if (myName == "Bit_Second(Clone)")
-		{
-			//プレイヤーを追従する座標オブジェクト取得
-			//followPosObj = GameObject.Find("FollowPosSecond");
-			//斜め撃ちの下の座標オブジェクト取得
-			//obliquePosObj = GameObject.Find("ObliquePosUnder");
-		}
-		else if (myName == "Bit_Third(Clone)")
-		{
-			//プレイヤーを追従する座標オブジェクト取得
-			//followPosObj = GameObject.Find("FollowPosThird");
-			//斜め撃ちの下の座標オブジェクト取得
-			//obliquePosObj = GameObject.Find("ObliquePosUnder");
-		}
-		else if (myName == "Bit_Fourth(Clone)")
-		{
-			//プレイヤーを追従する座標オブジェクト取得
-			//followPosObj = GameObject.Find("FollowPosFourth");
-			//斜め撃ちの下の座標オブジェクト取得
-			//obliquePosObj = GameObject.Find("ObliquePosUnder");
-		}
 	}
 
 	void Update()
@@ -150,7 +124,12 @@ public class Bit_Formation_3 : MonoBehaviour
 			SetParent();
 			isborn = false;
 		}
-		
+
+		if (parentObj)
+		{
+			transform.position = parentObj.transform.position;
+		}
+
 		alpha_Value += 0.1f;
 		if (alpha_Value >= 1.0f)
 		{
@@ -160,21 +139,91 @@ public class Bit_Formation_3 : MonoBehaviour
 		renderer.material.color = bit_Color;
 		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
 
-		if (Input.GetKeyDown(KeyCode.I))
+		//オプションの縮小試し
+		//scaleDelay++;
+		//if (scaleDelay > 5)
+		//{
+		//	scale_value = Mathf.Sin(Time.frameCount) / 12.5f + 0.42f;
+		//	transform.localScale = new Vector3(scale_value, scale_value, scale_value);
+		//	scaleDelay = 0;
+		//}
+
+		//if(isScaleInc)
+		//{
+		//	scale_value += 0.01f;
+		//	if (scale_value > 0.5)
+		//	{
+		//		scale_value = 0.5f;
+		//		isScaleInc = false;
+		//		isScaleDec = true;
+		//	}
+		//}
+		//else if(isScaleDec)
+		//{
+		//	scale_value -= 0.01f;
+		//	if (scale_value < 0.35f)
+		//	{
+		//		scale_value = 0.35f;
+		//		isScaleDec = false;
+		//		isScaleInc = true;
+		//	}
+		//}
+
+		if (Input.GetKeyDown(KeyCode.I) || pl1.Died_Judgment())
 		{
 			isDead = true;
+			parentObj = null;
+
+			switch (option_OrdinalNum)
+			{
+				case 1:
+					FtoPlayer.hasOption = false;
+					break;
+
+				case 2:
+					FtoPBit_Second.hasOption = false;
+					break;
+
+				case 3:
+					FtoPBit_Third.hasOption = false;
+					break;
+
+				case 4:
+					FtoPBit_Fourth.hasOption = false;
+					break;
+			}
+
 		}
 
+		//プレイヤーが死んだかどうか判定
+		if (pl1.Died_Judgment())
+		{
+			isDead = true;
+			parentObj = null;
 
-		//if(pl1.Died_Judgment())
-		//{
-		//	isDead = true;
-		//	transform.parent = null;
-		//}
+			switch(option_OrdinalNum)
+			{
+				case 1:
+					FtoPlayer.hasOption = false;
+					break;
+
+				case 2:
+					FtoPBit_Second.hasOption = false;
+					break;
+
+				case 3:
+					FtoPBit_Third.hasOption = false;
+					break;
+
+				case 4:
+					FtoPBit_Fourth.hasOption = false;
+					break;
+			}
+		}
 
 		if (isDead)
 		{
-			transform.parent = null;
+			
 			velocity = gameObject.transform.rotation * new Vector3(speed, 0, -0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -196,57 +245,22 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		//ビットンの移動関数呼び出し
 		//Bit_Move();
+		//----------------------------------------------
+		//画面外に出たら、オフにする
+		if (!renderer.isVisible && isDead)
+		{
+			isDead = false;
+			isborn = true;
+			parentObj = null;
+			gameObject.SetActive(false);
+		}
+		//------------------------------------------------
 	}
 
 	//------------------ここから関数------------------
 	void Bit_Input()
 	{
-		//Lキーが離された時
-		//if (Input.GetKeyUp(KeyCode.L))
-		//{
-		//	//レーザー状態になってからの経過時間が解除可能時間より小さかったら解除できる
-		//	if (laserCnt < returnNum)
-		//	{
-		//		//ビットンの状態をレーザーになる前の状態に戻す
-		//		bState = previous_state;
-		//		//レーザー経過時間リセット
-		//		laserCnt = 0;
 
-		//		//状態が変わったのでそれぞれの位置に戻すためのbool変数をtrueに
-		//		switch (bState)
-		//		{
-		//			case BitState.Circular:
-		//				isCircular = true;
-		//				break;
-
-		//			case BitState.Oblique:
-		//				isOblique = true;
-		//				break;
-
-		//			case BitState.Follow:
-		//				isFollow = true;
-		//				break;
-		//		}
-		//	}
-		//	laserCnt = 0;
-		//}
-		//Lキーを押している間レーザー状態になる
-		//else if (Input.GetKey(KeyCode.L))
-		//{
-		//	//レーザー時の関数呼び出し
-		//	Bit_Laser();
-		//}
-		//Tキーか学校のコントローラーだとXボタンを押したときビットンの状態切り替え
-		//else if (Input.GetKeyDown(KeyCode.T) || Input.GetButtonDown("Fire3"))
-		//{
-		//	state_Num++;
-		//	if (state_Num > 0)
-		//	{
-		//		state_Num = 0;
-		//	}
-		//	//状態切り替えの関数呼び出し
-		//	ChangeState();
-		//}
 	}
 
 
@@ -352,38 +366,59 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 	}
 
+	//生成(画面に表示された時のポジション設定)
 	void SetParent()
 	{
-		if (FtoPlayer.childCnt == 0)
+		if (!FtoPlayer.hasOption)
 		{
-			transform.parent = followPosFirstObj.transform;
-			transform.position = followPosFirstObj.transform.position;
+			FtoPlayer.hasOption = true;
+			parentObj = followPosFirstObj;
+			transform.position = parentObj.transform.position;
+
+			//transform.parent = followPosFirstObj.transform;
+			//transform.position = followPosFirstObj.transform.position;
 			isDead = false;
 			speed = defaultSpeed;
+			option_OrdinalNum = 1;
 			collectDelay = 0;
 		}
-		else if (FtoPBit_Second.childCnt == 0)
+		else if (!FtoPBit_Second.hasOption)
 		{
-			transform.parent = followPosSecondObj.transform;
-			transform.position = followPosSecondObj.transform.position;
+			FtoPBit_Second.hasOption = true;
+			parentObj = followPosSecondObj;
+			transform.position = parentObj.transform.position;
+
+			//transform.parent = followPosSecondObj.transform;
+			//transform.position = followPosSecondObj.transform.position;
 			isDead = false;
 			speed = defaultSpeed;
+			option_OrdinalNum = 2;
 			collectDelay = 0;
 		}
-		else if (FtoPBit_Third.childCnt == 0)
+		else if (!FtoPBit_Third.hasOption)
 		{
-			transform.parent = followPosThirdObj.transform;
-			transform.position = followPosThirdObj.transform.position;
+			FtoPBit_Third.hasOption = true;
+			parentObj = followPosThirdObj;
+			transform.position = parentObj.transform.position;
+
+			//transform.parent = followPosThirdObj.transform;
+			//transform.position = followPosThirdObj.transform.position;
 			isDead = false;
 			speed = defaultSpeed;
+			option_OrdinalNum = 3;
 			collectDelay = 0;
 		}
-		else if (FtoPBit_Fourth.childCnt == 0)
+		else if (!FtoPBit_Fourth.hasOption)
 		{
-			transform.parent = followPosFourthObj.transform;
-			transform.position = followPosFourthObj.transform.position;
+			FtoPBit_Fourth.hasOption = true;
+			parentObj = followPosFourthObj;
+			transform.position = parentObj.transform.position;
+
+			//transform.parent = followPosFourthObj.transform;
+			//transform.position = followPosFourthObj.transform.position;
 			isDead = false;
 			speed = defaultSpeed;
+			option_OrdinalNum = 4;
 			collectDelay = 0;
 		}
 	}
@@ -393,42 +428,62 @@ public class Bit_Formation_3 : MonoBehaviour
 	{
 		if(isDead && collectDelay>10)
 		{
-			if (col.gameObject.tag == "Player")
+			if (col.gameObject.name == "Player")
 			{
-				if (FtoPlayer.childCnt == 0)
+				if (!FtoPlayer.hasOption)
 				{
-					alpha_Value = 0;
-					transform.parent = followPosFirstObj.transform;
-					transform.position = followPosFirstObj.transform.position;
+					FtoPlayer.hasOption = true;
+					parentObj = followPosFirstObj;
+					transform.position = parentObj.transform.position;
+
+					//transform.parent = followPosFirstObj.transform;
+					//transform.position = followPosFirstObj.transform.position;
 					isDead = false;
 					speed = defaultSpeed;
+					option_OrdinalNum = 1;
+					alpha_Value = 0;
 					collectDelay = 0;
 				}
-				else if (FtoPBit_Second.childCnt == 0)
+				else if (!FtoPBit_Second.hasOption)
 				{
-					alpha_Value = 0;
-					transform.parent = followPosSecondObj.transform;
-					transform.position = followPosSecondObj.transform.position;
+					FtoPBit_Second.hasOption = true;
+					parentObj = followPosSecondObj;
+					transform.position = parentObj.transform.position;
+
+					//transform.parent = followPosSecondObj.transform;
+					//transform.position = followPosSecondObj.transform.position;
 					isDead = false;
 					speed = defaultSpeed;
+					option_OrdinalNum = 2;
+					alpha_Value = 0;
 					collectDelay = 0;
 				}
-				else if (FtoPBit_Third.childCnt == 0)
+				else if (!FtoPBit_Third.hasOption)
 				{
-					alpha_Value = 0;
-					transform.parent = followPosThirdObj.transform;
-					transform.position = followPosThirdObj.transform.position;
+					FtoPBit_Third.hasOption = true;
+					parentObj = followPosThirdObj;
+					transform.position = parentObj.transform.position;
+
+					//transform.parent = followPosThirdObj.transform;
+					//transform.position = followPosThirdObj.transform.position;
 					isDead = false;
 					speed = defaultSpeed;
+					option_OrdinalNum = 3;
+					alpha_Value = 0;
 					collectDelay = 0;
 				}
-				else if (FtoPBit_Fourth.childCnt == 0)
+				else if (!FtoPBit_Fourth.hasOption)
 				{
-					alpha_Value = 0;
-					transform.parent = followPosFourthObj.transform;
-					transform.position = followPosFourthObj.transform.position;
+					FtoPBit_Fourth.hasOption = true;
+					parentObj = followPosFourthObj;
+					transform.position = parentObj.transform.position;
+
+					//transform.parent = followPosFourthObj.transform;
+					//transform.position = followPosFourthObj.transform.position;
 					isDead = false;
 					speed = defaultSpeed;
+					option_OrdinalNum = 4;
+					alpha_Value = 0;
 					collectDelay = 0;
 				}
 			}

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class CreateBit : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class CreateBit : MonoBehaviour
 	//Vector3[] followPositions = new Vector3[4];
 
 	public GameObject bit_First;
-	public GameObject bit_Second;
-	public GameObject bit_Third;
-	public GameObject bit_Fourth;
+	//public GameObject bit_Second;
+	//public GameObject bit_Third;
+	//public GameObject bit_Fourth;
 
 	public int num;
 
@@ -28,16 +29,16 @@ public class CreateBit : MonoBehaviour
 
 	void Start()
 	{
-		bit_First  = Resources.Load("Bit_First") as GameObject;
-		bit_Second = Resources.Load("Bit_Second") as GameObject;
-		bit_Third  = Resources.Load("Bit_Third") as GameObject;
-		bit_Fourth = Resources.Load("Bit_Fourth") as GameObject;
+		bit_First  = Resources.Load("Option") as GameObject;
+		//bit_Second = Resources.Load("Bit_Second") as GameObject;
+		//bit_Third  = Resources.Load("Bit_Third") as GameObject;
+		//bit_Fourth = Resources.Load("Bit_Fourth") as GameObject;
 		//bits = Resources.Load("TwoBits") as GameObject;
 
-		followPosObjcs[0] = GameObject.Find("FollowPosFirst");
-		followPosObjcs[1] = GameObject.Find("FollowPosSecond");
-		followPosObjcs[2] = GameObject.Find("FollowPosThird");
-		followPosObjcs[3] = GameObject.Find("FollowPosFourth");
+		//followPosObjcs[0] = GameObject.Find("FollowPosFirst");
+		//followPosObjcs[1] = GameObject.Find("FollowPosSecond");
+		//followPosObjcs[2] = GameObject.Find("FollowPosThird");
+		//followPosObjcs[3] = GameObject.Find("FollowPosFourth");
 
 	}
 
@@ -65,7 +66,6 @@ public class CreateBit : MonoBehaviour
 				//bitObj.transform.parent = followPosObjcs[0].transform;
 				//bitObj.transform.position = followPosObjcs[0].transform.position;
 				//bitObj = null;
-
 				//Instantiate(bit_First, transform.position, transform.rotation);
 				num++;
 				break;

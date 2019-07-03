@@ -8,8 +8,6 @@ using StorageReference;
 
 public class Bit_Shot : MonoBehaviour
 {
-	public GameObject Bullet;      //弾のPrefab情報
-
 	GameObject playerObj;
 	Player1 pl1;
 	Bit_Formation_3 bf;
@@ -20,7 +18,6 @@ public class Bit_Shot : MonoBehaviour
 	public bool isShot = true;
 	void Start()
 	{
-		Bullet = Resources.Load("Player_Bullet") as GameObject;
 		bf = gameObject.GetComponent<Bit_Formation_3>();
 
 		playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -44,7 +41,7 @@ public class Bit_Shot : MonoBehaviour
 	}
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
 			Single_Fire();
 			shot_Delay = 0;
@@ -53,7 +50,8 @@ public class Bit_Shot : MonoBehaviour
 
 	private void Single_Fire()
 	{
-		//Instantiate(Bullet, transform.position, transform.rotation);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, transform.rotation);
+		GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+		pl1.transform.rotation = pl1.Direction;
+		Bullet.transform.position =gameObject.transform.position;
 	}
 }

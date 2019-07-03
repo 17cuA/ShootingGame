@@ -18,6 +18,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	bool defCheck = true;
 	public bool check = false;
 	public bool isMove = false;
+	public bool hasOption = false;
 	bool isFreeze = false;
 
 	void Start()

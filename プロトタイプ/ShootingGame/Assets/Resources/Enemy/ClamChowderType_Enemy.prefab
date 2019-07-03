@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3110145218247895070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.78, y: -0.1, z: 0}
+  m_LocalPosition: {x: -20, y: 2, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3110145218927732068}
@@ -44,19 +44,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbe2b1fb2fcd6e448743022c894a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eState: 2
-  speedX: 0
+  eState: 1
+  speedX: 5
   speedY: 0
   speedZ: 0
-  speedZ_Value: 35
+  speedZ_Value: 32
   amplitude: 0
-  defaultSpeedY: 1
-  addAndSubValue: 0
+  defaultSpeedY: 7
+  addAndSubValue: 0.5
+  sin: 0
+  isAddSpeedY: 0
+  isSubSpeedY: 0
   once: 1
   isBig: 0
   isWave: 0
   isStraight: 0
   isOnlyWave: 0
+--- !u!114 &3110145218855737138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110145218928097604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hue: 1
+  sat: 1
+  val: 1
 --- !u!114 &3110145218855737141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,21 +93,6 @@ MonoBehaviour:
   rotaX_Value: 0
   rotaY_Value: 0
   rotaZ_Value: 8
---- !u!114 &3110145218855737138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110145218928097604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hue: 1
-  sat: 1
-  val: 1
 --- !u!1001 &3110145218928132068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,10 +103,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_Name
       value: Enemy_Wave
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_LocalPosition.x

@@ -29,20 +29,22 @@ public class TurnToPlayer_Slow : MonoBehaviour
 
 	public float frameCnt;
 	public float followStartTime;
-	public float followEndTime;
+    public int followTimeCnt;
+	public int followEndTime;
 
 	public float saveDeg;
 	public float saveDig_plus;
 
-	public bool isFollow = false;
+	bool isFollow = false;
 	bool once;
-	public bool isInc = false;
-	public bool isDec = false;
-	public bool isPositive;
-	public bool isNegative;
-	public bool isPlus;
-	public bool isMinus;
-	public bool isCCCCC = false;
+	bool isInc = false;
+	bool isDec = false;
+	bool isPositive;
+	bool isNegative;
+	bool isPlus;
+	bool isMinus;
+	bool isCCCCC = false;
+    bool isDelay = false;
 
 	private void Start()
 	{
@@ -111,11 +113,24 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				}
 				once = false;
 			}
+            followTimeCnt++;
 		}
+
+        if (followTimeCnt > followEndTime)
+        {
+            isFollow = false;
+            isInc = false;
+            isDec = false;
+        }
 
 		//角度が増えているとき（向く方向が今の角度より大きい）
 		if (isInc)
 		{
+            //rollSpeed += 0.5f;
+            //if (rollSpeed > 2.5f)
+            //{
+            //    rollSpeed = 2.5f;
+            //}
 			//角度を増やす
 			transform.Rotate(0, 0, rollSpeed);
 
@@ -148,16 +163,17 @@ public class TurnToPlayer_Slow : MonoBehaviour
 		rotationZ_Inc = transform.eulerAngles.z + 3;
 		if (rotationZ_Inc > 360)
 		{
-			rotationZ_Inc -= 360;
+			//rotationZ_Inc -= 360;
 		}
 
 		rotationZ_Dec = transform.eulerAngles.z - 3;
 		if (rotationZ_Dec < 0)
 		{
-			rotationZ_Dec += 360;
+			//rotationZ_Dec += 360;
 		}
 
 		Zcheck = transform.eulerAngles.z+5;
+
 		if(!isInc && !isDec)
 		{
 			if(isFollow)
@@ -172,19 +188,21 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				//	isDec = true;
 				//	isInc = false;
 				//}
-				if ((degree_plus < rotationZ_Dec && isMinus) || (degree_plus > 350 && transform.eulerAngles.z < 10))
+				if ((degree_plus < rotationZ_Dec && isMinus) || degree_plus < rotationZ_Inc)
 				{
-					isDec = true;
-					isInc = false;
+
+                    isDelay = true;
+					//isDec = true;
+					//isInc = false;
 
 
 				}
-				else if ((degree_plus > rotationZ_Inc && isPlus) || (transform.eulerAngles.z > 350 && degree_plus < 10))
+				else if ((degree_plus > rotationZ_Inc && isPlus) || degree_plus > rotationZ_Dec)
 				{
-
-					isInc = true;
-					isDec = false;
-					isCCCCC = false;
+                    isDelay = true;
+					//isInc = true;
+					//isDec = false;
+					//isCCCCC = false;
 				}
 
 				//else if (degree_plus > transform.eulerAngles.z + 3)
@@ -195,13 +213,47 @@ public class TurnToPlayer_Slow : MonoBehaviour
 				//}
 			}
 		}
+
+        if(isFollow && isDelay)
+        {
+            rollDelay++;
+            if (rollDelay > 8)
+            {
+                if ((degree_plus > transform.eulerAngles.z || transform.eulerAngles.z - degree_plus > 180))
+                {
+                    isInc = true;
+                    isDec = false;
+
+                    if (degree_plus > 180 && transform.eulerAngles.z < 60)
+                    {
+                        isDec = true;
+                        isInc = false;
+                    }
+                }
+                else if (degree_plus < transform.eulerAngles.z || degree_plus - transform.eulerAngles.z > 180)
+                {
+                    isDec = true;
+                    isInc = false;
+                    if (degree_plus < 60 && transform.eulerAngles.z > 180)
+                    {
+                        isInc = true;
+                        isDec = false;
+                    }
+                }
+                //rollDelay = 0;
+                //isDelay = false;
+            }
+        }
 		
 		if (saveDig_plus - 3 <= transform.eulerAngles.z && saveDig_plus + 3 >= transform.eulerAngles.z)
 		{
 			if(isFollow)
 			{
+                //rollSpeed = 0;
 				isInc = false;
 				isDec = false;
+                isDelay = false;
+                rollDelay = 0;
 			}
 		}
 

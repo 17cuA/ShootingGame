@@ -6,6 +6,9 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
+using Power;
+using StorageReference;
+
 //using Power;
 public class Player1 : character_status
 {
@@ -13,7 +16,7 @@ public class Player1 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
-	private Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
+	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
 	public int Remaining;                                        //残機（あらかじめ設定）
@@ -22,6 +25,9 @@ public class Player1 : character_status
 	public bool invincible;             //無敵時間帯かどうか
 	public Material material;
 	private Color first_color;
+	public bool activeMissile;        //ミサイルは導入されたかどうか
+	public int bitIndex = 0;        //オプションの数
+	public Transform pos;
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -39,13 +45,27 @@ public class Player1 : character_status
 		////説明は113行目に移行
 		//PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
 	}
-
+	//プレイヤーがアクティブになった瞬間に呼び出される
+	private void OnEnable()
+	{
+		//プール化したため、ここでイベント発生時の処理を入れとく
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+	}
+	//プレイヤーのアクティブが切られたら呼び出される
+	private void OnDisable()
+	{
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
+	}
 	void Start()
 	{
 		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
-		transform.eulerAngles = new Vector3(-30, 0, 0);
+		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 10;
@@ -59,6 +79,10 @@ public class Player1 : character_status
 
 	void Update()
 	{
+		//-------------------------------
+		//デバックの工程
+		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
+		
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
 		if(hp < 1)
@@ -70,6 +94,7 @@ public class Player1 : character_status
 			}
 			else
 			{
+				ParticleCreation(0);
 				Reset_Status();
 				gameObject.transform.position = direction;
 				invincible = true;
@@ -87,6 +112,11 @@ public class Player1 : character_status
 			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
 				//プレイヤーの移動処理
 				Player_Move();
+				//パワーアップの処理
+				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+				{
+					PowerManager.Instance.Upgrade();
+				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
 				//弾の発射（Fire2かSpaceキーで撃てる）
@@ -128,6 +158,13 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");
 		y = Input.GetAxis("Vertical");
 		vector3 = new Vector3(x, y, 0);
+		if(y < 0)
+		{
+			if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
+			{
+				transform.eulerAngles += new Vector3(y, 0, 0);
+			}
+		}
         transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
 	//無敵時間（色の点滅も含め）
@@ -164,41 +201,68 @@ public class Player1 : character_status
 	}
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-          switch (bullet_Type)
-            {
-                case Bullet_Type.Single:
-                    Single_Fire();
-                    break;
-                case Bullet_Type.Diffusion:
-                    //Diffusion_Fire();
-                    break;
-                case Bullet_Type.Three_Point_Burst:
-                   // Triple_Fire();
-                    Invoke("Triple_Fire", 0.1f);
-                    Invoke("Triple_Fire", 0.2f);
-                    break;
-                default:
-                    break;
-            }
-            Shot_Delay = 0;
+			if(Shot_Delay > Shot_DelayMax)
+			{
+				Single_Fire();
+				ParticleCreation(3);
+				if (activeMissile)
+				{
+					Missile_Fire();
+				}
+				Shot_Delay = 0;
+			}
 		}
 	}
-    	private void Single_Fire()
+
+    private void Single_Fire()
 	{
 		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
 	}
-	//private void Diffusion_Fire()
-	//{
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet,shot_Mazle.transform.position,transform.rotation);
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 30.0f) * Direction);
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, shot_Mazle.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -30.0f) * Direction);
-	//}
-	//private void Triple_Fire()
-	//{
-	//	Instantiate(Obj_Storage.Storage_Data.PlayerBullet, shot_Mazle.transform.position, transform.rotation);
-	//}
+	private void Missile_Fire()
+	{
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		obj.GetComponent<Missile>().Setting_On_Reboot(1);
+	}
+	private void SpeedUp()
+	{
+		speed += speed;
+		Debug.Log("スピードUP");
+	}
+	//ミサイルをアクティブに
+	private void ActiveMissile()
+	{
+		activeMissile = true;
+		Debug.Log("ミサイル導入");
+	}
+	//オプションをアクティブに
+	private void CreateBit()
+	{
+		//オプションをそれぞれアクティブに
+		switch (bitIndex)
+		{
+			case 0:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
+			case 1:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
+			case 2:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
+			case 3:
+				Obj_Storage.Storage_Data.Option.Active_Obj();
+				bitIndex++;
+				break;
+			default:
+				break;
+		}
+		Debug.Log("ビットン生成");
+	}
 }
