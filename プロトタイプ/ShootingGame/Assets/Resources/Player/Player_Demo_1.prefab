@@ -474,6 +474,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8980319411110346728}
     m_Modifications:
+    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.49014425
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 639761849524068967, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
       propertyPath: m_Name
@@ -532,41 +582,6 @@ PrefabInstance:
     - target: {fileID: 639761849524068966, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: CollisionModule.m_Bounce.scalar
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
