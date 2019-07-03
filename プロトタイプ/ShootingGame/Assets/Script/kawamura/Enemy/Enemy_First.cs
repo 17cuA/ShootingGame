@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_First : MonoBehaviour
+public class Enemy_First : character_status
 {
 	public enum State
 	{
@@ -13,9 +13,16 @@ public class Enemy_First : MonoBehaviour
 
 	State eState;
 
-	float speed;
 	Vector3 velocity;
 
+    GameObject item;
+	GameObject parentObj;
+	GameObject childObj;
+
+	EnemyGroupManage groupManage;
+	VisibleCheck vc;
+
+	//Renderer renderer;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
@@ -29,9 +36,15 @@ public class Enemy_First : MonoBehaviour
 
 	bool isTurn;
 	bool isAddition = false;
-
+    bool isDead = false;
+	public bool isisisisi=false;
 	void Start()
     {
+        item = Resources.Load("Item/Item_Test") as GameObject;
+		childObj = transform.GetChild(0).gameObject;
+		vc = childObj.GetComponent<VisibleCheck>();
+		//renderer = gameObject.GetComponent<Renderer>();
+
 		if (transform.position.y > 0)
 		{
 			eState = State.TurnDown;
@@ -42,11 +55,66 @@ public class Enemy_First : MonoBehaviour
 		}
 		speedX = 5.0f;
 		speedY = 5.0f;
-	}
 
-	void Update()
+        if (transform.parent!=null)
+        {
+            parentObj = transform.parent.gameObject;
+			groupManage = parentObj.GetComponent<EnemyGroupManage>();
+        }
+
+    }
+
+    void Update()
     {
-        switch(eState)
+		//倒されたとき
+		if (hp < 1)
+		{
+			if(parentObj)
+			{
+				//群を管理している親の残っている敵カウントマイナス
+				groupManage.remainingEnemiesCnt--;
+				//倒された敵のカウントプラス
+				groupManage.defeatedEnemyCnt++;
+				//群に残っている敵がいなくなったとき
+				if (groupManage.remainingEnemiesCnt == 0)
+				{
+					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					{
+						//アイテム生成
+						Instantiate(item, this.transform.position, transform.rotation);
+					}
+					//一体でも倒されていなかったら
+					else
+					{
+						//なにもしない
+					}
+					groupManage.itemPos = transform.position;
+					groupManage.itemTransform = this.transform;
+
+				}
+			}
+			Reset_Status();
+            isDead = true;
+			frame = 0;
+
+			Died_Process();
+		}
+
+        if(!parentObj)
+		{
+			if (transform.parent)
+			{
+				if (transform.parent)
+				{
+					parentObj = transform.parent.gameObject;
+					groupManage = parentObj.GetComponent<EnemyGroupManage>();
+
+				}
+			}
+		}
+
+		switch (eState)
 		{
 			case State.TurnUp:
 				if(!isTurn)
@@ -56,10 +124,10 @@ public class Enemy_First : MonoBehaviour
 					if (transform.position.x < 9)
 					{
 						frame++;
-					}
-					if (frame>180)
-					{
-						isTurn = true;
+						if (frame > 180)
+						{
+							isTurn = true;
+						}
 					}
 				}
 				else if(isTurn)
@@ -131,9 +199,28 @@ public class Enemy_First : MonoBehaviour
 
 				break;
 		}
-    }
 
-	public void SetState(int num)
+		//画面外に出たら、オフにする
+		//if (!renderer.isVisible)
+		//{
+		//	isTurn = false;
+		//	isDead = false;
+		//	gameObject.SetActive(false);
+		//}
+
+	}
+
+	//オフになったとき実行される
+	private void OnDisable()
+    {
+		if (isDead)
+		{
+			isDead = false;
+		}
+	}
+
+    //---------ここから関数--------------
+    public void SetState(int num)
 	{
 		switch(num)
 		{
@@ -148,6 +235,18 @@ public class Enemy_First : MonoBehaviour
 			case 2:
 				eState = State.Generated;
 				break;
+		}
+	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
+		{
+			groupManage.notDefeatedEnemyCnt++;
+			groupManage.remainingEnemiesCnt -= 1;
+			frame = 0;
+			isisisisi = true;
+			gameObject.SetActive(false);
 		}
 	}
 }
