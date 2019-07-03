@@ -29,7 +29,6 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject ClamChowderType_Enemy_Prefab;        // 貝型エネミーのプレハブ
 	private GameObject OctopusType_Enemy_Prefab;        // タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
-	public GameObject[] particle = new GameObject[7];       //パーティクルを格納する配列
 	private GameObject Option_Prefab;                   //オプションのプレハブ
 	private GameObject Item_Prefab;                     //パワーアップのアイテムを入れえるための処理
 	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
@@ -150,6 +149,8 @@ public class Obj_Storage : MonoBehaviour
 			CsvData.Add(line.Split(','));               //カンマごとに割り振る
 		}
 
+
+	
 	}
 
 	public Object_Pooling  GetPlayer()
