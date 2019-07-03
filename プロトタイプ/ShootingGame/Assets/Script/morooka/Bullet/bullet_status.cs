@@ -45,7 +45,7 @@ public class bullet_status : MonoBehaviour
 		{
 			gameObject.SetActive(false);
 			//add:0513_takada 爆発エフェクトのテスト
-			AddExplosionProcess();
+			//AddExplosionProcess();
 		}
 	}
 

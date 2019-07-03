@@ -65,8 +65,9 @@ public class character_status : MonoBehaviour
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
-		gameObject.SetActive(false);
 		Debug.Log(gameObject.transform.parent.name + "	Destroy");
+		gameObject.SetActive(false);
+
 	}
 	//パーティクルの作成（爆発のみ）
 	public void ParticleCreation(int particleID)
