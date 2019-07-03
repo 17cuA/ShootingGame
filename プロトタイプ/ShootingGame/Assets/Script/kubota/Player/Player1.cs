@@ -63,7 +63,7 @@ public class Player1 : character_status
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		//PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaiser);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -71,6 +71,7 @@ public class Player1 : character_status
 	{
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 	void Start()
@@ -292,7 +293,7 @@ public class Player1 : character_status
 	}
 	private void SpeedUp()
 	{
-		speed += speed;
+		speed *= 1.2f;
 		Debug.Log("スピードUP");
 	}
 	//ミサイルをアクティブに

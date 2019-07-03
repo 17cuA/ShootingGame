@@ -89,7 +89,10 @@ public class character_status : MonoBehaviour
 			{
 				var item = col.GetComponent<Item>();
 				if (item.itemType != ItemType.Item_KillAllEnemy)
+				{
 					PowerManager.Instance.Pick();
+					col.gameObject.SetActive(false);
+				}
 				else
 					PowerManager.Instance.Annihilate();
 			}
