@@ -61,8 +61,8 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.55
-  m_Height: 1
-  m_Direction: 1
+  m_Height: 2.5
+  m_Direction: 2
   m_Center: {x: 2.64, y: 0, z: 0}
 --- !u!114 &7443829467301037727
 MonoBehaviour:
@@ -83,6 +83,8 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
+  shield: 0
+  activeShield: 0
   type: 0
   advanceBackSpeed: 3.5
   escapeSpeed: 8
@@ -94,25 +96,6 @@ MonoBehaviour:
   advanceBackDuration: 2
   stopDuration: 1
   escapeDuration: 2
---- !u!95 &7443829467885293957
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443829467897553957}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9f6744dd9bc7bd44aa206e429a07de7e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &541825022
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -157,6 +140,25 @@ CapsuleCollider:
   m_Height: 12.26
   m_Direction: 2
   m_Center: {x: 2, y: 0, z: -2.31}
+--- !u!95 &7443829467885293957
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443829467897553957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f6744dd9bc7bd44aa206e429a07de7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7443829467897651845
 PrefabInstance:
   m_ObjectHideFlags: 0
