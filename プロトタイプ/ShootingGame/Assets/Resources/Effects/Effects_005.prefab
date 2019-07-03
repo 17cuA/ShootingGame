@@ -4709,7 +4709,6 @@ GameObject:
   - component: {fileID: 1242075628622677299}
   - component: {fileID: 6104919850149508508}
   - component: {fileID: 6829067791812640271}
-  - component: {fileID: 1659925598361330039}
   m_Layer: 0
   m_Name: Effects_005
   m_TagString: Untagged
@@ -9402,19 +9401,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1659925598361330039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 610527169759882253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b4afcbd17bec342b6de2e0bac1af88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  existenceHour: 3
 --- !u!1 &1939447890055988160
 GameObject:
   m_ObjectHideFlags: 0
@@ -10390,7 +10376,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 200
+        scalar: 100
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -14577,7 +14563,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -15268,7 +15254,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 10
         minScalar: 30
         maxCurve:
           serializedVersion: 2
