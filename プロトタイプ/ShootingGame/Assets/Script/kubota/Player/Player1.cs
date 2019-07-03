@@ -23,18 +23,20 @@ public class Player1 : character_status
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
-	public Material material;
-	private Color first_color;
+	public Material material;			//この機体のマテリアル（これをいじくって透明化等を行う）
+	private Color first_color;			//初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
+	public bool activeLaser;            //現在の攻撃がレーザーかどうかの判定（初期false）
+	public bool activeBullet;           //現在の攻撃が弾丸かどうかの判定用（初期true）
+	public bool activeDouble;			//現在の攻撃が弾丸の二連かどうかの判定用（初期false）
 	public int bitIndex = 0;        //オプションの数
 	[Tooltip("ジェット噴射の位置情報を入れる")]
 	public GameObject Injection_pos;         //ジェット噴射の位置情報を入れる変数(unity側にて設定)
-	private GameObject injection;
+	private GameObject injection;			//ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
 	public float swing_facing;      // 旋回向き
-	public int shoot_number;
-	private GameObject[] effect_mazlefrash = new GameObject[3];
-	public bool IS_Lasear;
-	public ParticleSystem laser;
+	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
+	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
+	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
 	public int missile_dilay_max;				// ミサイルの発射間隔
@@ -42,8 +44,7 @@ public class Player1 : character_status
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
-		Diffusion,
-		Three_Point_Burst
+		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 
@@ -62,6 +63,7 @@ public class Player1 : character_status
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		//PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaiser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -99,7 +101,7 @@ public class Player1 : character_status
 			invincible_time = 0;
 			//Debug.Log("hei");
 		}
-		if (Input.GetKeyDown(KeyCode.C))
+		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			Damege_Process(1);
 		}
@@ -124,14 +126,13 @@ public class Player1 : character_status
 			}
 			else
 			{
-				ParticleCreation(0);
-				Reset_Status();
-				gameObject.transform.position = direction;
-				invincible = true;
-				invincible_time = 0;
+				ParticleCreation(0);		//爆発のエフェクト発動
+				Reset_Status();				//体力の修正
+				gameObject.transform.position = direction;		//初期位置に戻す
+				invincible = false;			//無敵状態にするかどうかの処理
+				invincible_time = 0;		//無敵時間のカウントする用の変数の初期化
 			}
 		}
-
 		Invincible();
 		switch (Game_Master.MY.Management_In_Stage)
 		{
@@ -142,6 +143,10 @@ public class Player1 : character_status
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					PowerManager.Instance.Upgrade();
+					GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+					ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+					effect.transform.position = gameObject.transform.position;
+					particle.Play();
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -220,8 +225,8 @@ public class Player1 : character_status
 		{
 			invincible_time++;          //フレーム管理
 			capsuleCollider.enabled = false;	//規定のコライダーをオフに変更
-			if (invincible_time % 20 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
-			if (invincible) material.color = Color.clear;				//色を透明に
+			if (invincible_time % 5 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
+			if (!invincible) material.color = Color.clear;				//色を透明に
 			else material.color = first_color;							//初期の色に変更
 		}
 		else
@@ -296,9 +301,9 @@ public class Player1 : character_status
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
 	}
-	private void ActiveLaiser()
+	private void ActiveLaser()
 	{
-		IS_Lasear = true;
+		activeLaser = true;
 		Debug.Log("レーザーに変更");
 	}
 	//オプションをアクティブに

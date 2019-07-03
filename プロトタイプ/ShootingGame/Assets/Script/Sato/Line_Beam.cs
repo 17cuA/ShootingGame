@@ -50,6 +50,7 @@ public class Line_Beam : MonoBehaviour {
 		if (isHit)
 		{
 			hitstop = shotHit.distance;
+			Destroy(shotHit.transform.gameObject);
 			if (Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, LayerMask.GetMask("Wall")))
 			{
 				hitstop = shotHit.distance;
