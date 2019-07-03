@@ -65,7 +65,7 @@ public class Player1 : character_status
 		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
-		transform.eulerAngles = new Vector3(-30, 0, 0);
+		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 10;
@@ -94,6 +94,7 @@ public class Player1 : character_status
 			}
 			else
 			{
+				ParticleCreation(0);
 				Reset_Status();
 				gameObject.transform.position = direction;
 				invincible = true;
@@ -157,6 +158,13 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");
 		y = Input.GetAxis("Vertical");
 		vector3 = new Vector3(x, y, 0);
+		if(y < 0)
+		{
+			if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
+			{
+				transform.eulerAngles += new Vector3(y, 0, 0);
+			}
+		}
         transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
 	//無敵時間（色の点滅も含め）
@@ -198,6 +206,7 @@ public class Player1 : character_status
 			if(Shot_Delay > Shot_DelayMax)
 			{
 				Single_Fire();
+				ParticleCreation(3);
 				if (activeMissile)
 				{
 					Missile_Fire();

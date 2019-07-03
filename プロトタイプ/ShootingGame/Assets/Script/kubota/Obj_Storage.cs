@@ -32,7 +32,7 @@ public class Obj_Storage : MonoBehaviour
 	public GameObject[] particle = new GameObject[7];       //パーティクルを格納する配列
 	private GameObject Option_Prefab;                   //オプションのプレハブ
 	private GameObject Item_Prefab;                     //パワーアップのアイテムを入れえるための処理
-	private GameObject[] Effects = new GameObject[18];  //particleのプレハブ
+	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
 	private GameObject Boss_Middle_Prefab;						//中ボスのプレハブ
 
 	//実際に作られたオブジェクト
@@ -54,17 +54,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
 	//effect関係-----------------------------------------------------
-	public Object_Pooling Player_explosion;		//プレイヤー爆発
-	public Object_Pooling Player_injection_appearance;     //プレイヤージェット噴射（登場）
-	public Object_Pooling Player_injection;
-	public Object_Pooling Player_Fire;
-	public Object_Pooling Enemy_explosion;
-	public Object_Pooling Enemy_Core_Sheld_explosion;
-	public Object_Pooling Player_PowerUP;
-	public Object_Pooling Boss_explosion;
-	public Object_Pooling Player_Bullet_impact;
-	public Object_Pooling Player_Sheld;
-
+	public Object_Pooling[] Effects = new Object_Pooling[18];
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -96,24 +86,24 @@ public class Obj_Storage : MonoBehaviour
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 
-		Effects[0] = Resources.Load<GameObject>("Effects/Effects_000");
-		Effects[1] = Resources.Load<GameObject>("Effects/Effects_001");
-		Effects[2] = Resources.Load<GameObject>("Effects/Effects_002");
-		Effects[3] = Resources.Load<GameObject>("Effects/Effects_003");
-		Effects[4] = Resources.Load<GameObject>("Effects/Effects_004");     //none
-		Effects[5] = Resources.Load<GameObject>("Effects/Effects_005");
-		Effects[6] = Resources.Load<GameObject>("Effects/Effects_006");
-		Effects[7] = Resources.Load<GameObject>("Effects/Effects_007");
-		Effects[8] = Resources.Load<GameObject>("Effects/Effects_008");
-		Effects[9] = Resources.Load<GameObject>("Effects/Effects_009");     //none
-		Effects[10] = Resources.Load<GameObject>("Effects/Effects_010");
-		Effects[11] = Resources.Load<GameObject>("Effects/Effects_011");
-		Effects[12] = Resources.Load<GameObject>("Effects/Effects_012");
-		Effects[13] = Resources.Load<GameObject>("Effects/Effects_013");
-		Effects[14] = Resources.Load<GameObject>("Effects/Effects_014");        //none
-		Effects[15] = Resources.Load<GameObject>("Effects/Effects_015");        //none
-		Effects[16] = Resources.Load<GameObject>("Effects/Effects_016");        //none
-		Effects[17] = Resources.Load<GameObject>("Effects/Effects_017");
+		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Effects_000");
+		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Effects_001");
+		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Effects_002");
+		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Effects_003");
+		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Effects_004");     //none
+		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Effects_005");
+		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Effects_006");
+		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Effects_007");
+		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Effects_008");
+		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Effects_009");     //none
+		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Effects_010");
+		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Effects_011");
+		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Effects_012");
+		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Effects_013");
+		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Effects_014");        //none
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Effects_015");        //none
+		Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Effects_016");        //none
+		Effects_Prefab[17] = Resources.Load<GameObject>("Effects/Effects_017");
 
 
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
@@ -133,17 +123,25 @@ public class Obj_Storage : MonoBehaviour
 		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		//effect---------------------------------------------------------------------------------------------
-		Player_explosion = new Object_Pooling(Effects[0], 1, "Player_explosion");
-		Player_injection = new Object_Pooling(Effects[2], 1, "Player_explosion");
-		Player_Fire = new Object_Pooling(Effects[3], 2, "Player_Fire");
-		Enemy_explosion = new Object_Pooling(Effects[5], 1, "Enemy_explosion");
-		Enemy_Core_Sheld_explosion = new Object_Pooling(Effects[6], 1, "Enemy_Core_Sheld_explosion");
-		Player_PowerUP = new Object_Pooling(Effects[7], 1, "Player_PowerUP");
-		Boss_explosion = new Object_Pooling(Effects[8], 1, "Boss_explosion");
-		Player_Bullet_impact = new Object_Pooling(Effects[12], 4, "Player_Bullet_impact");
-		Player_Sheld = new Object_Pooling(Effects[17], 1, "Player_Sheld");
+		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");						//プレイヤーの爆発
+		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
+		Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_injection");						//プレイヤーのジェット噴射
+		Effects[3] = new Object_Pooling(Effects_Prefab[3], 2, "Player_Fire");							//プレイヤーのマズルフラッシュ
+		Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Player_Bullet");						   //プレイヤーの弾（使用してない）
+		Effects[5] = new Object_Pooling(Effects_Prefab[5], 5, "Enemy_explosion");					//エネミーの死亡時の爆発
+		Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Enemy_Core_Sheld_explosion");	//エネミーの中ボス以上のコアシールドの爆発エフェクト
+		Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Player_PowerUP");				   //プレイヤーのパワーアップ時のエフェクト
+		Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Boss_explosion");					 //ボス死亡時のエフェクト
+		Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Player_PowerUP_Bullet");			//プレイヤーのパワーアップした弾（使用してない）
+		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Enemy_Grain");					//敵の粒子
+		Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Big_explosion");					 //大爆発
+		Effects[12] = new Object_Pooling(Effects_Prefab[12], 4, "Player_Bullet_impact");		//プレイヤーの弾の着弾時のエフェクト
+		Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Boss_Appearance");			  //ボス登場時のエフェクト
+		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet1");					//ボスの弾その１
+		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet2");				 //ボスの弾その２
+		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Boss_Bullet3");				//ボスの弾その3
+		Effects[17] = new Object_Pooling(Effects_Prefab[17], 1, "Player_Sheld");			   //プレイヤーのシールド
 		//---------------------------------------------------------------------------------------------------
-
 		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;             //csvファイルを入れる変数
 		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
 		while (csv.Peek() > -1)
