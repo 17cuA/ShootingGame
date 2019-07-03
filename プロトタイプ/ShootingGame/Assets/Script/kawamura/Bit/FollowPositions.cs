@@ -16,9 +16,9 @@ public class FollowPositions : MonoBehaviour
     {
 		if(playerObj==null)
 		{
-			if(GameObject.FindGameObjectWithTag("Player"))
+			if(GameObject.Find("Player"))
 			{
-				playerObj = GameObject.FindGameObjectWithTag("Player");
+				playerObj = GameObject.Find("Player");
 				check = true;
 			}
 		}
@@ -33,6 +33,7 @@ public class FollowPositions : MonoBehaviour
 			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 			{
 				transform.parent = playerObj.transform;
+
 			}
 
 		}

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6120813242344014904}
+  - component: {fileID: 9087772854262036298}
   m_Layer: 0
   m_Name: Enemy_ClamChowder_Group_Straight
   m_TagString: Untagged
@@ -42,6 +43,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9087772854262036298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120813242344014907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173866cae347fef49bb7821646dde97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  childNum: 0
+  remainingEnemiesCnt: 0
+  defeatedEnemyCnt: 0
+  notDefeatedEnemyCnt: 0
+  itemTransform: {fileID: 0}
+  itemPos: {x: 0, y: 0, z: 0}
+  isDead: 0
+  isItemDrop: 1
 --- !u!1001 &6120813241346573581
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -167,7 +167,7 @@ namespace Power
 		//全部のパワー
 		private Dictionary<Power.PowerType, Power> powers = new Dictionary<Power.PowerType, Power>
 		{
-			{ Power.PowerType.SPEEDUP, new Power(Power.PowerType.SPEEDUP, 4) },
+			{ Power.PowerType.SPEEDUP, new Power(Power.PowerType.SPEEDUP, 5) },
 			{ Power.PowerType.MISSILE, new Power(Power.PowerType.MISSILE, 1) },
 			{ Power.PowerType.DOUBLE,  new Power(Power.PowerType.DOUBLE) },
 			{ Power.PowerType.LASER,   new Power(Power.PowerType.LASER) },
@@ -258,27 +258,27 @@ namespace Power
 			// 具体的な処理はPowerクラス内に移行
 			CurrentPower.Upgrade();
 
-			if (CurrentPower.type == Power.PowerType.SPEEDUP)
-			{
-				if (!CurrentPower.upgradeInfo.canUpgrade)
-				{
-					CurrentPower.upgradeInfo.Reset();
-					var temp = powers[Power.PowerType.SPEEDUP];
-					powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
-					powers[Power.PowerType.INITSPEED] = temp;
-				}
-			}
+			//if (CurrentPower.type == Power.PowerType.SPEEDUP)
+			//{
+			//	if (!CurrentPower.upgradeInfo.canUpgrade)
+			//	{
+			//		CurrentPower.upgradeInfo.Reset();
+			//		var temp = powers[Power.PowerType.SPEEDUP];
+			//		powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+			//		powers[Power.PowerType.INITSPEED] = temp;
+			//	}
+			//}
 
-			if (CurrentPower.type == Power.PowerType.INITSPEED)
-			{
-				if (!CurrentPower.upgradeInfo.canUpgrade)
-				{
-					CurrentPower.upgradeInfo.Reset();
-					var temp = powers[Power.PowerType.INITSPEED];
-					powers[Power.PowerType.INITSPEED] = powers[Power.PowerType.SPEEDUP];
-					powers[Power.PowerType.SPEEDUP] = temp;
-				}
-			}
+			//if (CurrentPower.type == Power.PowerType.INITSPEED)
+			//{
+			//	if (!CurrentPower.upgradeInfo.canUpgrade)
+			//	{
+			//		CurrentPower.upgradeInfo.Reset();
+			//		var temp = powers[Power.PowerType.INITSPEED];
+			//		powers[Power.PowerType.INITSPEED] = powers[Power.PowerType.SPEEDUP];
+			//		powers[Power.PowerType.SPEEDUP] = temp;
+			//	}
+			//}
 
 			//強化成功、位置をリセット
 			position = -1;
@@ -334,6 +334,7 @@ namespace Power
 			powers[Power.PowerType.MISSILE].upgradeInfo.Reset();
 			powers[Power.PowerType.DOUBLE].isUsing = false;
 			powers[Power.PowerType.LASER].isUsing = false;
+            weaponPower = null;
 			powers[Power.PowerType.INITSPEED].upgradeInfo.Reset();
 			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
 			
