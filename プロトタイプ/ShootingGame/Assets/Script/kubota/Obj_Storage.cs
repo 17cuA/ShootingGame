@@ -60,6 +60,9 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
+	//public AudioClip[] audio_se; 
+
+
 	private void Awake()
 	{
 		Storage_Data = GetComponent<Obj_Storage>();

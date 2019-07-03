@@ -49,6 +49,7 @@ public class Player1 : character_status
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
+		Double,
 		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
@@ -68,6 +69,7 @@ public class Player1 : character_status
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
@@ -78,6 +80,7 @@ public class Player1 : character_status
 	{
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
@@ -100,6 +103,12 @@ public class Player1 : character_status
 		first_color = material.color;
 		injection = Obj_Storage.Storage_Data.Effects[2].Active_Obj();
 		shield = 3;
+		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
+		activeBullet = true;
+		activeDouble = false;
+		activeLaser = false;
+		activeShield = false;
+		activeMissile = false;
 	}
 
 	void Update()
@@ -282,8 +291,23 @@ public class Player1 : character_status
 				// 連続で4発まで撃てるようにした
 				if (shoot_number < 5)
 				{
-					Single_Fire();
-					ParticleCreation(3);
+					switch (bullet_Type)
+					{
+						case Bullet_Type.Single:
+							Single_Fire();
+							ParticleCreation(3);
+
+							break;
+						case Bullet_Type.Double:
+							Double_Fire();
+							ParticleCreation(3);
+
+							break;
+						case Bullet_Type.Laser:
+							break;
+						default:
+							break;
+					}
 					// ミサイルは別途ディレイの計算と分岐をする
 					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 					{
@@ -307,6 +331,11 @@ public class Player1 : character_status
 		gameObject.transform.rotation = Direction;
 		gameObject.transform.position = shot_Mazle.transform.position;
 	}
+	private void Double_Fire()
+	{
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)*/Quaternion.Euler(0,0,45));
+	}
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
@@ -325,11 +354,22 @@ public class Player1 : character_status
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
 	}
+	private void ActiveDouble()
+	{
+		activeDouble = true;
+		Debug.Log("ダブル導入");
+		activeBullet = false;
+		activeLaser = false;
+		bullet_Type = Bullet_Type.Double;
+	}
 	//レーザーを打てるように
 	private void ActiveLaser()
 	{
 		activeLaser = true;
+		activeDouble = false;
+		activeBullet = false;
 		Debug.Log("レーザーに変更");
+		bullet_Type = Bullet_Type.Laser;
 	}
 	//シールドの発動
 	private void ActiveShield()
