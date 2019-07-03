@@ -46,7 +46,6 @@ public class Remaining_Display : MonoBehaviour
 		{
 			image_image.Add(transform.GetChild(i).GetComponent<Image>());
 			image_image[i].sprite = Sprite_Ok[0];
-			image_image[i].name = "kkkkkkkkkkkkkkkkkkkkk";
 		}
 
 		//for(int i = 0; i<Player_Data.Remaining;i++)
@@ -71,10 +70,10 @@ public class Remaining_Display : MonoBehaviour
 			iiiiii++;
 		}
 
-		if(Player_Data.Remaining != Remaining_Num)
+		if(Player_Data.Remaining < Remaining_Num)
 		{
 			Remaining_Num--;
-			image_image[Remaining_Num].sprite = Sprite_No;
+			image_image[Remaining_Num].enabled = false;
 		}
     }
 }
