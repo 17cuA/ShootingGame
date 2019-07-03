@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnToPlayer_Slow : MonoBehaviour
+public class TurnToPlayer_Slow : character_status
 {
 	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
 	List<GameObject> colList = new List<GameObject>();
@@ -10,7 +10,7 @@ public class TurnToPlayer_Slow : MonoBehaviour
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
 	Vector3 velocity;
 
-	public float speed;
+	//public float speed;
 	public float speedX;
 	public float rollSpeed;
 
@@ -257,11 +257,17 @@ public class TurnToPlayer_Slow : MonoBehaviour
 			}
 		}
 
-		if(isMinus)
+		if (hp < 1)
 		{
-			isCCCCC = true;
-
+			frameCnt = 0;
+			followTimeCnt = 0;
+			once = true;
+			isDec = false;
+			isInc = false;
+			Reset_Status();
+			Died_Process();
 		}
+
 	}
 	void DegreeCalculation()
 	{
