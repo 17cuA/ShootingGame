@@ -14,21 +14,22 @@ public class One_Boss_All : character_status
 	// Unity側で変更用変数
 	//------------------------------------------------------------
 	[Header("ボスの構成パーツ")]
-	[SerializeField, Tooltip("ボスの本体")] private One_Boss_Parts boss_body;
-	[SerializeField, Tooltip("ボスのコア")] private One_Boss_Parts boss_core;
-	[SerializeField, Tooltip("ボスのオプション")] private One_Boss_Parts[] boss_option;
-	[SerializeField, Tooltip("ボスのオプションの設置台")] private One_Boss_Parts[] boss_option_table;
-	[SerializeField, Tooltip("ボスの本体にあるマズル")] private Transform[] beam_mazle;
+	[SerializeField, Tooltip("ボスの本体")]				private One_Boss_Parts boss_body;
+	[SerializeField, Tooltip("ボスのコア")]				private One_Boss_Parts boss_core;
+	[SerializeField, Tooltip("ボスのオプション")]			private One_Boss_Parts[] boss_option;
+	[SerializeField, Tooltip("ボスのオプションの設置台")]	private One_Boss_Parts[] boss_option_table;
+	[SerializeField, Tooltip("ボスの本体にあるマズル")]		private Transform[] beam_mazle;
+
 	[Header("ボスの操作に使用")]
-	[SerializeField, Tooltip("残りHPパーセント")] private int remaining_hp_percent;
-	[SerializeField, Tooltip("初期コアカラー")] private Color initial_core_color;
-	[SerializeField, Tooltip("ピンチのコアカラー")] private Color pinch_core_color;
-	[SerializeField, Tooltip("上のポイント")] private Vector2 upper_point;
-	[SerializeField, Tooltip("上中のポイント")] private Vector2 upper_in_point;
-	[SerializeField, Tooltip("中のポイント")] private Vector2 in_point;
-	[SerializeField, Tooltip("下中のポイント")] private Vector2 under_in_point;
-	[SerializeField, Tooltip("下のポイント")] private Vector2 under_point;
-	[SerializeField, Tooltip("ビームの最大数")] private int beam_max;
+	[SerializeField, Tooltip("残りHPパーセント")]			private int remaining_hp_percent;
+	[SerializeField, Tooltip("初期コアカラー")]			private Color initial_core_color;
+	[SerializeField, Tooltip("ピンチのコアカラー")]		private Color pinch_core_color;
+	[SerializeField, Tooltip("上のポイント")]				private Vector2 upper_point;
+	[SerializeField, Tooltip("上中のポイント")]			private Vector2 upper_in_point;
+	[SerializeField, Tooltip("中のポイント")]				private Vector2 in_point;
+	[SerializeField, Tooltip("下中のポイント")]			private Vector2 under_in_point;
+	[SerializeField, Tooltip("下のポイント")]				private Vector2 under_point;
+	[SerializeField, Tooltip("ビームの最大数")]			private int beam_max;
 	//------------------------------------------------------------
 
 	public One_Boss_Parts Boss_Body { get; private set; }                       // ボスの本体
@@ -49,6 +50,7 @@ public class One_Boss_All : character_status
 	private int Attack_Step { get; set; }                                   // 攻撃手順支持
 	private List<Vector3> Initial_Boss_Option_Table_Pos { get; set; }
 	private List<Vector3> muki { get; set; }
+	//private Vector3
 	void Start()
     {
 		//base.Start();
@@ -98,10 +100,6 @@ public class One_Boss_All : character_status
 			if(transform.position != Now_Target)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed);
-				//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(-360.0f, 0.0f, 0.0f), speed);
-				//transform.position = Moving_To_Target(transform.position, Now_Target, speed);
-				//Boss_Body.transform.Rotate(new Vector3(Rotating_Velocity, 0.0f, 0.0f));
-				//Debug.LogError(Rotating_Velocity);
 			}
 			// 移動したい場所が今の位置と同じとき
 			else if (transform.position == Now_Target)
@@ -121,8 +119,6 @@ public class One_Boss_All : character_status
 					{
 						if (Beam_Cnt < beam_max)
 						{
-							//Vector2 temp_pos = Beam_Mazle[0].position;
-
 							Shoot_Beam(0);
 							Beam_Cnt++;
 							Shot_Delay /= 20;
@@ -139,8 +135,6 @@ public class One_Boss_All : character_status
 					{
 						if (Beam_Cnt < beam_max)
 						{
-							//Vector2 temp_pos = Beam_Mazle[0].position;
-
 							Shoot_Beam(1);
 							Beam_Cnt++;
 							Shot_Delay /= 20;
@@ -157,8 +151,55 @@ public class One_Boss_All : character_status
 					{
 						Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
 						Rotation_Speed_Change();
-						Attack_Step = 0;
 						Shot_Delay = 0;
+						Beam_Cnt = 0;
+
+						if (Random.Range(0, 2) == 0)
+						{
+							Attack_Step = 7;
+						}
+						else
+						{
+							Attack_Step = 0;
+						}
+					}
+
+					else if (Attack_Step == 7)
+					{
+						if (Now_Target != Moving_Target_Point[0])
+						{
+							Now_Target = Moving_Target_Point[0];
+						}
+						else
+						{
+							Shoot_Beam(0);
+							Shoot_Beam(1);
+
+							Vector3 temp_right = Beam_Mazle[0].right;
+							temp_right.y++;
+							Beam_Mazle[0].right = temp_right;
+
+							temp_right = Beam_Mazle[1].right;
+							temp_right.y--;
+							Beam_Mazle[1].right = temp_right;
+
+							Shot_Delay /= 3;
+							Beam_Cnt++;
+						}
+
+						if (Beam_Cnt == 3)
+						{
+							Debug.Log("asdfg");
+							Attack_Step = 5;
+							Shot_Delay = 0;
+							Vector3 temp_right = Beam_Mazle[0].right;
+							temp_right.y -= 3.0f;
+							Beam_Mazle[0].right = temp_right;
+
+							temp_right = Beam_Mazle[1].right;
+							temp_right.y += 3.0f;
+							Beam_Mazle[1].right = temp_right;
+						}
 					}
 				}
 			}
@@ -202,8 +243,8 @@ public class One_Boss_All : character_status
 					{
 						if (Boss_Option_Table[0].transform.position != Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position != Initial_Boss_Option_Table_Pos[1])
 						{
-							Boss_Option_Table[0].transform.position = Vector3.Lerp(Boss_Option_Table[0].transform.position, Initial_Boss_Option_Table_Pos[0], speed );
-							Boss_Option_Table[1].transform.position = Vector3.Lerp(Boss_Option_Table[1].transform.position, Initial_Boss_Option_Table_Pos[1], speed);
+							Boss_Option_Table[0].transform.position = Vector3.MoveTowards(Boss_Option_Table[0].transform.position, Initial_Boss_Option_Table_Pos[0], speed * 5);
+							Boss_Option_Table[1].transform.position = Vector3.MoveTowards(Boss_Option_Table[1].transform.position, Initial_Boss_Option_Table_Pos[1], speed * 5);
 						}
 						else if(Boss_Option_Table[0].transform.position == Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position == Initial_Boss_Option_Table_Pos[1])
 						{
@@ -223,7 +264,11 @@ public class One_Boss_All : character_status
 						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Beam_Mazle[0].position;
 						Beam_Mazle[0].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Beam_Mazle[0].position, Beam_Mazle[0].right);
-						Shot_Delay /= 2;
+
+						target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Beam_Mazle[1].position;
+						Beam_Mazle[1].right = target_dir;
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Beam_Mazle[1].position, Beam_Mazle[1].right);
+						Shot_Delay = 0;
 					}
 				}
 			}
@@ -297,7 +342,14 @@ public class One_Boss_All : character_status
 			{
 				hp = Initial_HP;
 				Debug.Log("Boss_ＨＰ_Full");
-
+			}
+			else if(Input.GetKey(KeyCode.Alpha1))
+			{
+				Attack_Step++;
+			}
+			else if(Input.GetKey(KeyCode.Alpha0))
+			{
+				Attack_Step = 0;
 			}
 		}
 	}

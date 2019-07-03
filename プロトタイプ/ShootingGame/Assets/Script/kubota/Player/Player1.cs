@@ -23,16 +23,28 @@ public class Player1 : character_status
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
-	public Material material;
-	private Color first_color;
+	public Material material;			//この機体のマテリアル（これをいじくって透明化等を行う）
+	private Color first_color;			//初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
+	public bool activeLaser;            //現在の攻撃がレーザーかどうかの判定（初期false）
+	public bool activeBullet;           //現在の攻撃が弾丸かどうかの判定用（初期true）
+	public bool activeDouble;			//現在の攻撃が弾丸の二連かどうかの判定用（初期false）
 	public int bitIndex = 0;        //オプションの数
-	public Transform pos;
+	[Tooltip("ジェット噴射の位置情報を入れる")]
+	public GameObject Injection_pos;         //ジェット噴射の位置情報を入れる変数(unity側にて設定)
+	private GameObject injection;			//ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
+	public float swing_facing;      // 旋回向き
+	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
+	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
+	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
+
+	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
+	public int missile_dilay_max;				// ミサイルの発射間隔
+
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
-		Diffusion,
-		Three_Point_Burst
+		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 
@@ -51,6 +63,7 @@ public class Player1 : character_status
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		//PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaiser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -65,7 +78,7 @@ public class Player1 : character_status
 		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
-		transform.eulerAngles = new Vector3(-30, 0, 0);
+		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 10;
@@ -75,6 +88,7 @@ public class Player1 : character_status
         bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
+		injection = Obj_Storage.Storage_Data.Effects[2].Active_Obj();
 	}
 
 	void Update()
@@ -82,10 +96,28 @@ public class Player1 : character_status
 		//-------------------------------
 		//デバックの工程
 		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
-		
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			invincible_time = 0;
+			//Debug.Log("hei");
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			Damege_Process(1);
+		}
+		if(Input.GetKey(KeyCode.Z))
+		{
+			laser.Play();
+		}
+		if(Input.GetKeyUp(KeyCode.Z))
+		{
+			laser.Stop();
+		}
+		//---------------------------
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
-		if(hp < 1)
+		
+		if (hp < 1)
 		{
 			Remaining--;
 			if (Remaining < 1)
@@ -94,16 +126,12 @@ public class Player1 : character_status
 			}
 			else
 			{
-				Reset_Status();
-				gameObject.transform.position = direction;
-				invincible = true;
-				invincible_time = 0;
+				ParticleCreation(0);		//爆発のエフェクト発動
+				Reset_Status();				//体力の修正
+				gameObject.transform.position = direction;		//初期位置に戻す
+				invincible = false;			//無敵状態にするかどうかの処理
+				invincible_time = 0;		//無敵時間のカウントする用の変数の初期化
 			}
-		}
-		if(Input.GetKeyDown(KeyCode.X))
-		{
-			invincible_time = 0;
-			//Debug.Log("hei");
 		}
 		Invincible();
 		switch (Game_Master.MY.Management_In_Stage)
@@ -115,6 +143,10 @@ public class Player1 : character_status
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					PowerManager.Instance.Upgrade();
+					GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+					ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+					effect.transform.position = gameObject.transform.position;
+					particle.Play();
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -149,7 +181,11 @@ public class Player1 : character_status
 			default:
 				break;
 		}
+
+		// 通常のバレットのディレイ計算
 		Shot_Delay++;
+		// ミサイルのディレイ計算
+		missile_dilay_cnt++;
 	}
 	//コントローラーの操作
 	private void Player_Move()
@@ -157,7 +193,29 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");
 		y = Input.GetAxis("Vertical");
 		vector3 = new Vector3(x, y, 0);
-        transform.position = transform.position + vector3 * Time.deltaTime * speed;
+		#region
+		//if(y < 0)
+		//{
+		//	if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
+		//	{
+		//		transform.eulerAngles += new Vector3(y, 0, 0);
+		//	}
+		//}
+		#endregion
+		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
+		if (transform.eulerAngles.x != (swing_facing * y))
+		{
+			// 参考にしたURL↓
+			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+			// Unity にある Mathf.LerpAngle 関数を使用
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), Time.time);
+			transform.eulerAngles = new Vector3(angle, 0, 0);
+		}
+
+		transform.position = transform.position + vector3 * Time.deltaTime * speed;
+		injection.transform.position = Injection_pos.transform.position;
+		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
@@ -167,8 +225,8 @@ public class Player1 : character_status
 		{
 			invincible_time++;          //フレーム管理
 			capsuleCollider.enabled = false;	//規定のコライダーをオフに変更
-			if (invincible_time % 20 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
-			if (invincible) material.color = Color.clear;				//色を透明に
+			if (invincible_time % 5 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
+			if (!invincible) material.color = Color.clear;				//色を透明に
 			else material.color = first_color;							//初期の色に変更
 		}
 		else
@@ -197,12 +255,26 @@ public class Player1 : character_status
 		{
 			if(Shot_Delay > Shot_DelayMax)
 			{
-				Single_Fire();
-				if (activeMissile)
+				shoot_number++;
+
+				// 連続で4発まで撃てるようにした
+				if (shoot_number < 5)
 				{
-					Missile_Fire();
+					Single_Fire();
+					ParticleCreation(3);
+					// ミサイルは別途ディレイの計算と分岐をする
+					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+					{
+						Missile_Fire();
+						missile_dilay_cnt = 0;
+					}
+					Shot_Delay = 0;
 				}
-				Shot_Delay = 0;
+				// 4発撃った後、10フレーム程置く
+				else if(shoot_number == 15)
+				{
+					shoot_number = 0;
+				}
 			}
 		}
 	}
@@ -228,6 +300,11 @@ public class Player1 : character_status
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
+	}
+	private void ActiveLaser()
+	{
+		activeLaser = true;
+		Debug.Log("レーザーに変更");
 	}
 	//オプションをアクティブに
 	private void CreateBit()

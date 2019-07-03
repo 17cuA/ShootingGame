@@ -14,6 +14,7 @@ public class Enemy_MiddleBoss : character_status
 	public int excapeActionSlot;
 	private int currentSlot;
 	private int backActionSlot;
+	public float waitDuration = 5;
 	public float debutDuration = 2f;
 	public float moveDuration = 1;
 	public float advanceBackDuration = 2f;
@@ -42,7 +43,11 @@ public class Enemy_MiddleBoss : character_status
 		state.ExitCallBack = Move_Exit;
 		stateManager.Add(state);
 
-		state = new StateBase<StateType>(0, StateType.DEBUT);
+		state = new StateBase<StateType>(waitDuration, StateType.WAIT);
+		state.UpdateCallBack = Wait_Update;
+		stateManager.Add(state);
+
+		state = new StateBase<StateType>(debutDuration, StateType.DEBUT);
 		state.EnterCallBack = Debut_Enter;
 		state.UpdateCallBack = Debut_Update;
 		state.ExitCallBack = Debut_Exit;
@@ -72,7 +77,7 @@ public class Enemy_MiddleBoss : character_status
 		base.HP_Setting();
 
 		player = GameObject.Find("Player").transform.GetChild(0).transform;
-		stateManager.Start(StateType.DEBUT);
+		stateManager.Start(StateType.WAIT);
 	}
 
 	// Update is called once per frame
@@ -84,7 +89,19 @@ public class Enemy_MiddleBoss : character_status
 			type = stateManager.Current.StateType;
 		}
 
-		base.Died_Process();
+		if (base.hp < 1)
+		{
+			base.Died_Process();
+		}
+	}
+
+	private void Wait_Update()
+	{
+		if (stateManager.Current.IsDone)
+		{
+			stateManager.ChangeState(StateType.DEBUT);
+			return;
+		}
 	}
 
 	private void Debut_Enter()

@@ -47,27 +47,38 @@ public class character_status : MonoBehaviour
 	/// </summary>
 	public void Died_Process()
 	{
-		if (gameObject.name != "Player")
+		if (gameObject.tag != "Player")
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
+			//爆発処理の作成
+			ParticleCreation(5);
 		}
-		//爆発処理の作成
-		ParticleCreation(gameObject, 0);
+		else
+		{
+			//爆発処理の作成
+			ParticleCreation(0);
+		}
 
 		//Debug.Log("hei");
 		Reset_Status();
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
-		gameObject.SetActive(false);
 		Debug.Log(gameObject.transform.parent.name + "	Destroy");
+		gameObject.SetActive(false);
+
 	}
 	//パーティクルの作成（爆発のみ）
-	public void ParticleCreation(GameObject gameObject, int particleID)
+	public GameObject ParticleCreation(int particleID)
 	{
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-		Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
+		//Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
+		GameObject effect = Obj_Storage.Storage_Data.Effects[particleID].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+		return effect;
 	}
 	//自分以外の玉と当たった時にダメージを食らう
 	private void OnTriggerEnter(Collider col)
