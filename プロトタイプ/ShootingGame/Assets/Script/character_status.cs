@@ -21,6 +21,9 @@ public class character_status : MonoBehaviour
 	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                 // 弾を撃つ時の間隔
 	public uint score;
+	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
+	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
+
 	private void Start()
 	{
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
@@ -99,11 +102,25 @@ public class character_status : MonoBehaviour
 			if (col.tag == "Enemy_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
-				Damege_Process((int)BS.attack_damage);
+				if(activeShield && shield != 0)
+				{
+					shield--;
+				}
+				else
+				{
+					Damege_Process((int)BS.attack_damage);
+				}
 			}
 			if (col.tag == "Enemy")
 			{
-				Damege_Process(1);
+				if (activeShield && shield != 0)
+				{
+					shield--;
+				}
+				else
+				{
+					Damege_Process(1);
+				}
 			}
 		}
 		if (gameObject.tag == "Enemy")
@@ -112,6 +129,10 @@ public class character_status : MonoBehaviour
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
+			}
+			else if(col.tag == "Player")
+			{
+				Damege_Process(1);
 			}
 		}
 	}

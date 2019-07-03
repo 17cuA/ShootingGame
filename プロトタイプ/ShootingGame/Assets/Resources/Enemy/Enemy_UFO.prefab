@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6541507908288555264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541507907469195028}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71bf4913965b2741841524e45c84e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
+  timeCnt: 0
+  circleSpeed: 10
+  radius: 1
+  speedX: 0
+  speedY: 0
+  isisisisi: 0
 --- !u!114 &6541507908288555267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,23 +45,6 @@ MonoBehaviour:
   rotaX_Value: 0
   rotaY_Value: 0
   rotaZ_Value: 15
---- !u!114 &6541507908288555264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6541507907469195028}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71bf4913965b2741841524e45c84e5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeCnt: 0
-  circleSpeed: 10
-  radius: 1
-  speedX: 0
-  speedY: 0
 --- !u!1 &6541507908318001144
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,11 +89,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71bf4913965b2741841524e45c84e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
   timeCnt: 0
   circleSpeed: 10
   radius: 1
   speedX: 0
   speedY: 0
+  isisisisi: 0
 --- !u!1001 &6541507907469291956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91,10 +111,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6541507908318001150}
     m_Modifications:
-    - target: {fileID: 100000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
-      propertyPath: m_Name
-      value: UfoType_Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -151,6 +167,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
+      propertyPath: m_Name
+      value: UfoType_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 865796a0916b8c840a294598e8f384c9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
 --- !u!1 &6541507907469195028 stripped

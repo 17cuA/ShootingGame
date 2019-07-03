@@ -41,8 +41,8 @@ public class MapCreate : MonoBehaviour
 						Player_obj.transform.position = Obj_Storage.Storage_Data.pos;
 						break;
 					case "2":
-						GameObject Enemy_obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
-						Enemy_obj.transform.position = Obj_Storage.Storage_Data.pos;
+						//GameObject Enemy_obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
+						//Enemy_obj.transform.position = Obj_Storage.Storage_Data.pos;
 						break;
 					case "3":
 						//GameObject Boss_obj = Obj_Storage.Storage_Data.Boss.Active_Obj();
