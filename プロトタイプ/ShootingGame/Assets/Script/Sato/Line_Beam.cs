@@ -57,7 +57,7 @@ public class Line_Beam : MonoBehaviour {
 			//スフィアキャストがenemylayerに衝突したとき
 			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))	
 			{
-				Destroy(shotHit.transform.gameObject);//対象を削除する
+				//ここにダメージ処理を!!
 			}
 		}
 	}
