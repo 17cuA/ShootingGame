@@ -53,7 +53,7 @@ public class Enemy_Wave : character_status
 	{
 		childObj = transform.GetChild(0).gameObject;
 		hsvCon = childObj.GetComponent<HSVColorController>();
-		val_Value = 0.015f;
+		val_Value = 0.02f;
 
 		speedZ = 0;
 
