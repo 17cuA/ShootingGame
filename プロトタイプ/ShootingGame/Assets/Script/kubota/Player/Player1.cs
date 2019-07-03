@@ -27,10 +27,12 @@ public class Player1 : character_status
 	private Color first_color;
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
-	public Transform pos;
-
+	[Tooltip("ジェット噴射の位置情報を入れる")]
+	public GameObject Injection_pos;         //ジェット噴射の位置情報を入れる変数(unity側にて設定)
+	private GameObject injection;
 	public float swing_facing;      // 旋回向き
 	public int shoot_number;
+	private GameObject[] effect_mazlefrash = new GameObject[3];
 
 	public enum Bullet_Type　　//弾の種類
 	{
@@ -79,6 +81,7 @@ public class Player1 : character_status
         bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
+		injection = Obj_Storage.Storage_Data.Effects[2].Active_Obj();
 	}
 
 	void Update()
@@ -86,10 +89,20 @@ public class Player1 : character_status
 		//-------------------------------
 		//デバックの工程
 		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
-		
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			invincible_time = 0;
+			//Debug.Log("hei");
+		}
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			Damege_Process(1);
+		}
+		//---------------------------
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime);
-		if(hp < 1)
+		
+		if (hp < 1)
 		{
 			Remaining--;
 			if (Remaining < 1)
@@ -105,11 +118,7 @@ public class Player1 : character_status
 				invincible_time = 0;
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.X))
-		{
-			invincible_time = 0;
-			//Debug.Log("hei");
-		}
+
 		Invincible();
 		switch (Game_Master.MY.Management_In_Stage)
 		{
@@ -179,6 +188,8 @@ public class Player1 : character_status
 		}
 
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
+		injection.transform.position = Injection_pos.transform.position;
+		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
