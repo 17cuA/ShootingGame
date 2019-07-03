@@ -19,63 +19,59 @@ public class Remaining_Display : MonoBehaviour
 	[Header("表示位置")]
 	private Vector3 position;
 
-	private string Font_Path { get; set; }
-	private string Image_Path { get; set; }
-	private List<GameObject> Object_For_Display { get; set; }
-	private List<Image> image_image { get; set; }
-	private Player1 Player_Data { get; set; }
-	public Character_Display Object_To_Display { private set; get; }
+	private List<GameObject> Remaining_Object { get; set; }			// 残機アイコン表示用オブジェクト
+	private List<Image> Remaining_Object_Image { get; set; }        // 残機アイコン表示用 Image 
+	private Player1 Player_Data { get; set; }						// プレイヤーの残機確認用
+	private Character_Display Object_To_Display { set; get; }		// 文字表示用
+	private int Remaining_Num { get; set; }							// 現在表示してる残機
+	private Sprite[] Display_Sprite { get; set; }                   // 表示したいスプライト用
 
-	private int Remaining_Num { get; set; }
-
-	public Sprite[] Sprite_Ok { get; set; }
-	public int One_Play;
-
-	// Update is called once per frame
 	void Update()
     {
-		if(One_Play == 0)
+		// プレイヤーの情報がないとき
+		if(Player_Data == null)
 		{
+			// プレイヤーのデータを保存
 			Player_Data = Obj_Storage.Storage_Data.Player.Get_Obj()[0].GetComponent<Player1>();
 			Remaining_Num = Player_Data.Remaining;
 
-			Sprite_Ok = Resources.LoadAll<Sprite>("morooka/Remaining");
+			// リソースからアイコン用の画像取得
+			Display_Sprite = Resources.LoadAll<Sprite>("morooka/Remaining");
 
-			Vector2 posTemp = transform.position;
-			posTemp.y = -100;
+			// アイコンの初期位置設定用
+			Vector2 posTemp = new Vector3(0.0f,-150.0f,0.0f);
 
-			Object_For_Display = new List<GameObject>();
-			image_image = new List<Image>();
+			// アイコンの作製と設置
+			// プレイヤーの初期残機数からアイコン生成
+			Remaining_Object = new List<GameObject>();
+			Remaining_Object_Image = new List<Image>();
 			for (int i = 0; i < Remaining_Num; i++)
 			{
-				Object_For_Display.Add(new GameObject());
-				Object_For_Display[i].AddComponent<Image>();
-				image_image.Add(Object_For_Display[i].GetComponent<Image>());
-				Object_For_Display[i].transform.position = posTemp;
-				posTemp.x += 200.0f;
-				Object_For_Display[i].transform.SetParent(transform);
+				Remaining_Object.Add(new GameObject());
+				Remaining_Object[i].AddComponent<Image>();
+				Remaining_Object_Image.Add(Remaining_Object[i].GetComponent<Image>());
+				Remaining_Object[i].transform.SetParent(transform);
 
-				image_image[i].sprite = Sprite_Ok[0];
+				RectTransform r_transform = Remaining_Object[i].GetComponent<RectTransform>();
+				r_transform.localPosition = posTemp;
+				r_transform.localScale *= 1.5f;
+
+				posTemp.x += 150.0f;
+				Remaining_Object_Image[i].sprite = Display_Sprite[0];
 			}
 
-
-			//for (int i = 0; i < transform.childCount; i++)
-			//{
-			//	image_image.Add(transform.GetChild(i).GetComponent<Image>());
-			//	image_image[i].sprite = Sprite_Ok[0];
-			//}
-
+			// 「1P」の文字作製と設置
 			Object_To_Display = new Character_Display(2, "morooka/SS", gameObject, position);
 			Object_To_Display.Character_Preference("1P");
 			Object_To_Display.Size_Change(new Vector3(font_size, font_size, font_size));
-
-			One_Play++;
 		}
 
+		//表示中のアイコンの数とプレイヤーの残機の数が違うとき
 		if(Player_Data.Remaining < Remaining_Num)
 		{
+			// 表示中のアイコンの非表示化
 			Remaining_Num--;
-			image_image[Remaining_Num].enabled = false;
+			Remaining_Object_Image[Remaining_Num].enabled = false;
 		}
     }
 }
