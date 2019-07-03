@@ -28,6 +28,10 @@ public class Player1 : character_status
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
 	public Transform pos;
+
+	public float swing_facing;      // 旋回向き
+	public int shoot_number;
+
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -158,14 +162,23 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");
 		y = Input.GetAxis("Vertical");
 		vector3 = new Vector3(x, y, 0);
-		if(y < 0)
+		#region
+		//if(y < 0)
+		//{
+		//	if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
+		//	{
+		//		transform.eulerAngles += new Vector3(y, 0, 0);
+		//	}
+		//}
+		#endregion
+		// プレイヤー機体の旋回
+		if (transform.eulerAngles.x != (swing_facing * y))
 		{
-			if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
-			{
-				transform.eulerAngles += new Vector3(y, 0, 0);
-			}
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), Time.time);
+			transform.eulerAngles = new Vector3(angle, 0, 0);
 		}
-        transform.position = transform.position + vector3 * Time.deltaTime * speed;
+
+		transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
@@ -205,13 +218,24 @@ public class Player1 : character_status
 		{
 			if(Shot_Delay > Shot_DelayMax)
 			{
-				Single_Fire();
-				ParticleCreation(3);
-				if (activeMissile)
+				shoot_number++;
+
+				// 連続で4発まで撃てるようにした
+				if (shoot_number < 5)
 				{
-					Missile_Fire();
+					Single_Fire();
+					ParticleCreation(3);
+					if (activeMissile)
+					{
+						Missile_Fire();
+					}
+					Shot_Delay = 0;
 				}
-				Shot_Delay = 0;
+				// 4発撃った後、10フレーム程置く
+				else if(shoot_number == 15)
+				{
+					shoot_number = 0;
+				}
 			}
 		}
 	}

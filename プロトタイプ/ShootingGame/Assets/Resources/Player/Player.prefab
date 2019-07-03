@@ -70,7 +70,7 @@ MonoBehaviour:
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 7622277348625522743}
-  Shot_DelayMax: 30
+  Shot_DelayMax: 5
   Shot_Delay: 0
   score: 0
   Direction: {x: 0, y: 0, z: 0, w: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   activeMissile: 0
   bitIndex: 0
   pos: {fileID: 0}
+  swing_facing: 45
   bullet_Type: 0
 --- !u!1 &230934739483769455
 GameObject:
