@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void StateCallBack();
-public enum StateType {DEBUT, MOVE, STOP, ADVANCE_AND_BACK, ESCAPE}
+public enum StateType {WAIT, DEBUT, MOVE, STOP, ADVANCE_AND_BACK, ESCAPE}
 public class StateBase<T> where T : struct
 {
 	public StateCallBack EnterCallBack    { get; set;}

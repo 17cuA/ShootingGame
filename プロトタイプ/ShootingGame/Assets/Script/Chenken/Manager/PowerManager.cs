@@ -317,9 +317,40 @@ namespace Power
 			return powers[type];
 		}
 
+		/// <summary>
+		/// シールドリセット
+		/// </summary>
 		public void ResetShieldPower()
 		{
 			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
+		}
+
+		/// <summary>
+		///　ビットイン以外、プレイヤー死亡時呼び出し
+		/// </summary>
+		public void ResetAllPower()
+		{
+			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
+			powers[Power.PowerType.MISSILE].upgradeInfo.Reset();
+			powers[Power.PowerType.DOUBLE].isUsing = false;
+			powers[Power.PowerType.LASER].isUsing = false;
+			powers[Power.PowerType.INITSPEED].upgradeInfo.Reset();
+			powers[Power.PowerType.SHIELD].upgradeInfo.Reset();
+			
+			if(powers[Power.PowerType.SPEEDUP].type != Power.PowerType.SPEEDUP)
+			{
+				var temp = powers[Power.PowerType.SPEEDUP];
+				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+				powers[Power.PowerType.INITSPEED] = temp;
+			}
+		}
+
+		/// <summary>
+		/// ビトンリセット
+		/// </summary>
+		public void ResetOptionPower()
+		{
+			powers[Power.PowerType.OPTION].upgradeInfo.Reset();
 		}
 	}
 }

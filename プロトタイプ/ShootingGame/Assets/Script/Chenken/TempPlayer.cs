@@ -78,25 +78,17 @@ public class TempPlayer : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.R))
 		{
 			shield--;
+			PowerManager.Instance.ResetAllPower();
 		}
 
 		if(shield == 0)
 		{
 			PowerManager.Instance.ResetShieldPower();
 		}
+
+
 	}
 
-	private void OnTriggerEnter(Collider col)
-	{
-		if(col.tag == "Item")
-		{
-			var item = col.GetComponent<Item>();
-			if (item.itemType != ItemType.Item_KillAllEnemy)
-				PowerManager.Instance.Pick();
-			else
-				PowerManager.Instance.Annihilate();
-		}
-	}
 
 	/// <summary>
 	/// スピード変更関数
