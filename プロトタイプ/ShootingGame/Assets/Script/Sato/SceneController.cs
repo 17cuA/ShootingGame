@@ -14,6 +14,7 @@ public class SceneController : MonoBehaviour
 	}
 	public void ButtonClicked_Stage()
 	{
-		SceneManager.LoadScene("Stage");
+        FadeManager.Instance.LoadScene ("Stage", 1.0f);
+		//SceneManager.LoadScene("Stage");
 	}
 }
