@@ -33,7 +33,8 @@ public class Player1 : character_status
 	public float swing_facing;      // 旋回向き
 	public int shoot_number;
 	private GameObject[] effect_mazlefrash = new GameObject[3];
-
+	public bool IS_Lasear;
+	public ParticleSystem laser;
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -97,6 +98,14 @@ public class Player1 : character_status
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			Damege_Process(1);
+		}
+		if(Input.GetKey(KeyCode.Z))
+		{
+			laser.Play();
+		}
+		if(Input.GetKeyUp(KeyCode.Z))
+		{
+			laser.Stop();
 		}
 		//---------------------------
 		//パワーマネージャー更新
@@ -272,6 +281,11 @@ public class Player1 : character_status
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
+	}
+	private void ActiveLaiser()
+	{
+		IS_Lasear = true;
+		Debug.Log("レーザーに変更");
 	}
 	//オプションをアクティブに
 	private void CreateBit()
