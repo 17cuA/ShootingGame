@@ -35,6 +35,10 @@ public class Player1 : character_status
 	private GameObject[] effect_mazlefrash = new GameObject[3];
 	public bool IS_Lasear;
 	public ParticleSystem laser;
+
+	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
+	public int missile_dilay_max;				// ミサイルの発射間隔
+
 	public enum Bullet_Type　　//弾の種類
 	{
 		Single,
@@ -172,7 +176,11 @@ public class Player1 : character_status
 			default:
 				break;
 		}
+
+		// 通常のバレットのディレイ計算
 		Shot_Delay++;
+		// ミサイルのディレイ計算
+		missile_dilay_cnt++;
 	}
 	//コントローラーの操作
 	private void Player_Move()
@@ -190,8 +198,12 @@ public class Player1 : character_status
 		//}
 		#endregion
 		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
 		if (transform.eulerAngles.x != (swing_facing * y))
 		{
+			// 参考にしたURL↓
+			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+			// Unity にある Mathf.LerpAngle 関数を使用
 			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), Time.time);
 			transform.eulerAngles = new Vector3(angle, 0, 0);
 		}
@@ -245,9 +257,11 @@ public class Player1 : character_status
 				{
 					Single_Fire();
 					ParticleCreation(3);
-					if (activeMissile)
+					// ミサイルは別途ディレイの計算と分岐をする
+					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 					{
 						Missile_Fire();
+						missile_dilay_cnt = 0;
 					}
 					Shot_Delay = 0;
 				}
