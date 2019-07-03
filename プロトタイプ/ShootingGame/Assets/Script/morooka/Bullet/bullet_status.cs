@@ -48,6 +48,8 @@ public class bullet_status : MonoBehaviour
 			//AddExplosionProcess();
 			GameObject effect = Obj_Storage.Storage_Data.Effects[12].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
 		}
 	}
 
