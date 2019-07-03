@@ -28,10 +28,11 @@ public class Player1 : character_status
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
 	[Tooltip("ジェット噴射の位置情報を入れる")]
-	public Transform Injection_pos;         //ジェット噴射の位置情報を入れる変数(unity側にて設定)
+	public GameObject Injection_pos;         //ジェット噴射の位置情報を入れる変数(unity側にて設定)
 	private GameObject injection;
 	public float swing_facing;      // 旋回向き
 	public int shoot_number;
+	private GameObject[] effect_mazlefrash = new GameObject[3];
 
 	public enum Bullet_Type　　//弾の種類
 	{
@@ -187,7 +188,8 @@ public class Player1 : character_status
 		}
 
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		injection.transform.position = Injection_pos;
+		injection.transform.position = Injection_pos.transform.position;
+		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()

@@ -70,7 +70,7 @@ public class character_status : MonoBehaviour
 
 	}
 	//パーティクルの作成（爆発のみ）
-	public void ParticleCreation(int particleID)
+	public GameObject ParticleCreation(int particleID)
 	{
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
 		//Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
@@ -78,6 +78,7 @@ public class character_status : MonoBehaviour
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
+		return effect;
 	}
 	//自分以外の玉と当たった時にダメージを食らう
 	private void OnTriggerEnter(Collider col)

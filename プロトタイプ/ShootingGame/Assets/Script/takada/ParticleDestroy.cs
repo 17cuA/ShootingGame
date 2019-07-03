@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ParticleDestroy : MonoBehaviour
 {
-	public float existenceHour = 1.0f;
+	public float existenceHour;
+	private float kari;
 	private ParticleSystem particle;
 	void Start()
 	{
 		particle = GetComponent<ParticleSystem>();
+		kari = existenceHour;
 	}
 
 	void Update()
@@ -20,7 +22,7 @@ public class ParticleDestroy : MonoBehaviour
 			{
 				//Destroy(this.gameObject);
 				particle.Stop();
-				existenceHour = 1.0f;
+				existenceHour = kari;
 				gameObject.SetActive(false);
 			}
 		}

@@ -46,6 +46,8 @@ public class bullet_status : MonoBehaviour
 			gameObject.SetActive(false);
 			//add:0513_takada 爆発エフェクトのテスト
 			//AddExplosionProcess();
+			GameObject effect = Obj_Storage.Storage_Data.Effects[12].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		}
 	}
 
