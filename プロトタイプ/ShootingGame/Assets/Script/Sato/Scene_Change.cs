@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class Scene_Change : MonoBehaviour
 {
@@ -13,12 +13,14 @@ public class Scene_Change : MonoBehaviour
 			isLoaded = !isLoaded;
 			if (isLoaded)
 			{
-				Application.LoadLevelAdditive("MENU");
+				//Application.LoadLevelAdditive("MENU");
+				SceneManager.LoadScene("MENU", LoadSceneMode.Additive); // OK
 				gameObject.SetActive(false);
 			}
 			else
 			{
-				Application.UnloadLevel("MENU");
+				//Application.UnloadLevel("MENU");
+				SceneManager.LoadScene("MENU", LoadSceneMode.Additive);
 				Resources.UnloadUnusedAssets();
 				gameObject.SetActive(true);
 			}

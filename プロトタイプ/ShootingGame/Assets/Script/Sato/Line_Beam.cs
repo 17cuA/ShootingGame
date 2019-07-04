@@ -54,11 +54,12 @@ public class Line_Beam : MonoBehaviour {
 			{
 				hitstop = shotHit.distance;	//その場所で止める
 			}
-			////スフィアキャストがenemylayerに衝突したとき
-			//if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))	
-			//{
-   //             Destroy(shotHit.collider.gameObject);
-			//}
+			//スフィアキャストがenemylayerに衝突したとき
+			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))
+			{
+				//Destroy(shotHit.collider.gameObject);
+
+			}
 		}
 	}
 
