@@ -13,7 +13,6 @@ public class Bit_Shot : MonoBehaviour
 
     Player1 pl1;
 	Bit_Formation_3 bf;
-    //public GameObject shot_Mazle;
     public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
     int shotNum;
     float shot_Delay;
@@ -23,6 +22,8 @@ public class Bit_Shot : MonoBehaviour
     int shotDelayMax;
 	void Start()
 	{
+		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
+
 		bf = gameObject.GetComponent<Bit_Formation_3>();
         //shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
         Direction = transform.rotation;
@@ -83,10 +84,10 @@ public class Bit_Shot : MonoBehaviour
                     }
                 }				
 			}
+			shot_Delay++;
 		}
-        shot_Delay++;
 
-        missileDelayCnt++;
+		missileDelayCnt++;
     }
 	public void Bullet_Create()
 	{
@@ -101,9 +102,14 @@ public class Bit_Shot : MonoBehaviour
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-			GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-			pl1.transform.rotation = pl1.Direction;
-			Bullet.transform.position = gameObject.transform.position;
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, Direction);
+
+			//GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+			//pl1.transform.rotation = pl1.Direction;
+			//Bullet.transform.position = gameObject.transform.position;
+			//gameObject.transform.rotation = Direction;
+			//gameObject.transform.position = shot_Mazle.transform.position;
+
 			shot_Delay = 0;
 		}
 
