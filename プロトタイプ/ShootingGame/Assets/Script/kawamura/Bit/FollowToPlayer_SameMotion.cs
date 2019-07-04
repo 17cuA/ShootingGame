@@ -15,6 +15,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	int array_Num;
 	public int childCnt;
 
+	Vector3 freesePos;
+
 	bool defCheck = true;
 	public bool check = false;
 	public bool isMove = false;
@@ -108,5 +110,28 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
                 savePos = transform.position;
 			}
 		}
+		//else if(isFreeze)
+		//{
+		//	if(pos==playerObj.transform.position)
+		//	{
+		//		isMove = false;
+		//	}
+		//	//プレイヤーの座標が動いていたとき
+		//	else
+		//	{
+		//		isMove = true;
+		//		//プレイヤーのtransform保存
+		//		pos = playerObj.transform.position;
+
+		//	}
+
+		//	if(isMove)
+		//	{
+		//		freesePos = playerObj.transform.position - savePos;
+
+		//		this.transform.position += freesePos;
+		//		savePos = transform.position;
+		//	}
+		//}
 	}
 }

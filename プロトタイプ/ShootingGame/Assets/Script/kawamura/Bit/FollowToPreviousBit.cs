@@ -12,6 +12,8 @@ public class FollowToPreviousBit : MonoBehaviour
     Vector3 savePos;                //フリーズ開始時の座標を入れる
     Vector3 defPos;                 //フリーズ解除時、開始時と今の座標との差を入れる
 
+	Vector3 freesePos;
+
     public int cnt;
 	int array_Num;
 	public int childCnt;
@@ -147,5 +149,13 @@ public class FollowToPreviousBit : MonoBehaviour
                 savePos = transform.position;
             }
 		}
+		//else if(isFreeze)
+		//{
+		//	freesePos = playerObj.transform.position - savePos;
+
+		//	this.transform.position += freesePos;
+		//	savePos = transform.position;
+
+		//}
 	}
 }

@@ -203,7 +203,7 @@ public class Enemy_Wave : character_status
 
 				isWave = true;
 			}
-			else if(transform.position.x>8)
+			else if(transform.position.x>7)
 			{
 				speedZ = speedZ_Value;
 				hsvCon.val += val_Value;
