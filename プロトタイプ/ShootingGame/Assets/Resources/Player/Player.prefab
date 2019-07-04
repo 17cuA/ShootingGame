@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920cf7e5b7469ba49a3b045d329fea65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 7622277348625522743}
@@ -538,16 +538,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_Name
-      value: Lasers
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player_Bullet
-      objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -667,6 +657,16 @@ PrefabInstance:
         type: 3}
       propertyPath: TriggerModule.enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_Name
+      value: Lasers
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player_Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860315, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
