@@ -11,14 +11,12 @@ public class Line_Beam : MonoBehaviour {
     LineRenderer lineRenderer;      //LineRendererの格納
 	Transform Laser_Size;　//レーザーの太さ
 	bool isEnable = true;	//当たり判定の有効化
-	float hitstop;  //当たった際の変数
-	public GameObject gameObject;
-	public float damege = 1;
+	float hitstop;	//当たった際の変数
 
 	// Use this for initialization
 	void Awake () {
         beamParticle = GetComponent<ParticleSystem> (); 　//particle情報を格納
-        lineRenderer = GetComponent<LineRenderer> ();   //linerenderer情報を格納
+        lineRenderer = GetComponent<LineRenderer> ();	//linerenderer情報を格納
 	}
 
     // Update is called once per frame
@@ -61,8 +59,6 @@ public class Line_Beam : MonoBehaviour {
 			{
 				//Destroy(shotHit.collider.gameObject);
 				shotHit.collider.GetComponent<character_status>().Damege_Process(1);
-				//character_status cs = shotHit.collider.GetComponent<character_status>();
-				//cs.Damege_Process(1);
 			}
 		}
 	}
