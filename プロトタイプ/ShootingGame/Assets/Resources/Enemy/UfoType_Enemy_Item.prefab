@@ -19,6 +19,8 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
+  shield: 0
+  activeShield: 0
   timeCnt: 0
   circleSpeed: 10
   radius: 1
@@ -96,7 +98,9 @@ MonoBehaviour:
   capsuleCollider: {fileID: 1725562770}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 0
+  score: 150
+  shield: 0
+  activeShield: 0
   timeCnt: 0
   circleSpeed: 10
   radius: 1
@@ -153,6 +157,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7817588397244657310}
     m_Modifications:
+    - target: {fileID: 100000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
+      propertyPath: m_Name
+      value: Enemy_UFO
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -208,10 +216,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: e8f9432cc34ab3146a49fe063f4b5c8e, type: 3}
       propertyPath: m_Materials.Array.data[0]

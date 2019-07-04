@@ -20,7 +20,7 @@ public class character_status : MonoBehaviour
 	private Rigidbody rigidbody;                                //rigitbody
 	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                 // 弾を撃つ時の間隔
-	public uint score;
+	public uint score;							// 保持しているスコア
 	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
 	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
 
@@ -54,6 +54,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
+			SE_Manager.SE_Obj.SE_Active(9);
 			//爆発処理の作成
 			ParticleCreation(5);
 		}
