@@ -16,6 +16,7 @@ public class Beam_Bullet : bullet_status
 
 	void Update()
     {
+		base.Update();
 		Moving_To_Facing();
     }
 }

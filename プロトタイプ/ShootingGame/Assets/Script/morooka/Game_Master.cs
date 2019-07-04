@@ -139,7 +139,6 @@ public class Game_Master : MonoBehaviour
     public void Score_Addition(uint addition)
     {
 		display_score += addition;
-		Debug.Log(addition);
 		_Display.Object_To_Display.Character_Preference(display_score.ToString("D10"));
     }
 
