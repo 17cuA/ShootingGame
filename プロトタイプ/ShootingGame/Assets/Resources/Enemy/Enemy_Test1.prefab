@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2114535904710440501}
   - component: {fileID: 2114535904711767575}
   - component: {fileID: 2114535904712733911}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2114535904710440503}
   - component: {fileID: 2114535904711767577}
   - component: {fileID: 2114535904712733913}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pyramid004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 2114535904710440505}
   - component: {fileID: 2114535904711767579}
   - component: {fileID: 2114535904712733915}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pyramid003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 2114535904710440507}
   - component: {fileID: 2114535904711767581}
   - component: {fileID: 2114535904712733917}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pyramid002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 2114535904710440509}
   - component: {fileID: 2114535904711767583}
   - component: {fileID: 2114535904712733919}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pyramid001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 2114535904978442815}
   - component: {fileID: 2114535904978442812}
   - component: {fileID: 2114535904978442813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Test1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,11 +468,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   hp: 1
-  Rig: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 60
   Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
   E_Type: 0
 --- !u!1 &5916437772943013697
 GameObject:
@@ -484,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 801239777002391495}
   - component: {fileID: 8088895593673368127}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
