@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7817562976207974997}
   - component: {fileID: 3757566690773754422}
   - component: {fileID: 8944329725358551495}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BeelzebubType_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -99,8 +99,9 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
+  shield: 0
+  activeShield: 0
   playerObj: {fileID: 0}
-  speed: 0
   speedX: 2
   rollSpeed: 2.5
   degree: 0

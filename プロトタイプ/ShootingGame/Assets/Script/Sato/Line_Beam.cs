@@ -16,23 +16,23 @@ public class Line_Beam : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         beamParticle = GetComponent<ParticleSystem> (); 　//particle情報を格納
-        lineRenderer = GetComponent<LineRenderer> ();	//linerenderer情報を格納
+        lineRenderer = GetComponent<LineRenderer> ();   //linerenderer情報を格納
 	}
 
     // Update is called once per frame
-    void Update ()
-	{
-		Laser_Size = this.transform;	//laserの太さを変更
+ //   void Update ()
+	//{
+	//	Laser_Size = this.transform;	//laserの太さを変更
 
-		if (Input.GetMouseButton (1))		//レーザー発射
-		{
-            shot ();	//shot関数を呼び出す
-        }
-		else disableEffect();//エフェクトを止める関数を呼び出す
-	}
+	//	if (Input.GetMouseButton (1))		//レーザー発射
+	//	{
+ //           shot ();	//shot関数を呼び出す
+ //       }
+	//	else disableEffect();//エフェクトを止める関数を呼び出す
+	//}
 
 	//発射に使用する関数
-	private void shot()
+	public void shot()
 	{
 		beamParticle.Stop();	//レーザーparticleを止める
 		beamParticle.Play();   //レーザーparticleを再生
@@ -58,7 +58,7 @@ public class Line_Beam : MonoBehaviour {
 			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))
 			{
 				//Destroy(shotHit.collider.gameObject);
-
+				shotHit.collider.GetComponent<character_status>().Damege_Process(1);
 			}
 		}
 	}

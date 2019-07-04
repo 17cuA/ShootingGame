@@ -44,7 +44,9 @@ public class Player1 : character_status
 	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
-	public int missile_dilay_max;				// ミサイルの発射間隔
+	public int missile_dilay_max;               // ミサイルの発射間隔
+
+	public Line_Beam line_beam;
 
 	public enum Bullet_Type　　//弾の種類
 	{
@@ -94,7 +96,7 @@ public class Player1 : character_status
 		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
-		hp = 10;
+		hp = 1;
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
@@ -109,6 +111,7 @@ public class Player1 : character_status
 		activeLaser = false;
 		activeShield = false;
 		activeMissile = false;
+		laser.Stop();
 	}
 
 	void Update()
@@ -145,6 +148,11 @@ public class Player1 : character_status
 		{
 			Shield_Effect.transform.position = Shield_pos.transform.position;
 		}
+		if(shield < 1)
+		{
+			PowerManager.Instance.ResetShieldPower();
+			Shield_Effect.SetActive(false);
+		}
 		if (hp < 1)
 		{
 			Remaining--;
@@ -155,10 +163,11 @@ public class Player1 : character_status
 			else
 			{
 				ParticleCreation(0);		//爆発のエフェクト発動
-				Reset_Status();				//体力の修正
+				Reset_Status();             //体力の修正
+				PowerManager.Instance.ResetAllPower();
 				gameObject.transform.position = direction;      //初期位置に戻す
-				ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
-				particle.Stop();				//effectを止める
+				//ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
+				//particle.Stop();				//effectを止める
 				invincible = false;			//無敵状態にするかどうかの処理
 				invincible_time = 0;		//無敵時間のカウントする用の変数の初期化
 			}
@@ -180,6 +189,19 @@ public class Player1 : character_status
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
+				if(bullet_Type == Bullet_Type.Laser)
+				{
+					if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+					{
+						laser.Play();
+						line_beam.shot();
+
+					}
+					if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.Space))
+					{
+						laser.Stop();
+					}
+				}
 				//弾の発射（Fire2かSpaceキーで撃てる）
 				if (Shot_Delay > Shot_DelayMax)
 				{
@@ -284,43 +306,55 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-			if(Shot_Delay > Shot_DelayMax)
+			shoot_number++;
+
+			// 連続で4発まで撃てるようにした
+			if (shoot_number < 5)
 			{
-				shoot_number++;
-
-				// 連続で4発まで撃てるようにした
-				if (shoot_number < 5)
+				switch (bullet_Type)
 				{
-					switch (bullet_Type)
-					{
-						case Bullet_Type.Single:
-							Single_Fire();
-							ParticleCreation(3);
+					case Bullet_Type.Single:
+						Single_Fire();
+						SE_Manager.SE_Obj.SE_Active(4);
+						ParticleCreation(3);
 
-							break;
-						case Bullet_Type.Double:
-							Double_Fire();
-							ParticleCreation(3);
+						break;
+					case Bullet_Type.Double:
+						Double_Fire();
+						SE_Manager.SE_Obj.SE_Active(4);
+						ParticleCreation(3);
 
-							break;
-						case Bullet_Type.Laser:
-							break;
-						default:
-							break;
-					}
-					// ミサイルは別途ディレイの計算と分岐をする
-					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
-					{
-						Missile_Fire();
-						missile_dilay_cnt = 0;
-					}
-					Shot_Delay = 0;
+						break;
+					default:
+						break;
 				}
-				// 4発撃った後、10フレーム程置く
-				else if(shoot_number == 15)
+				// ミサイルは別途ディレイの計算と分岐をする
+				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 				{
-					shoot_number = 0;
+					Missile_Fire();
+					missile_dilay_cnt = 0;
 				}
+				Shot_Delay = 0;
+			}
+			// 4発撃った後、10フレーム程置く
+			else if (shoot_number == 15)
+			{
+				shoot_number = 0;
+			}
+		}
+		else
+		{
+			switch (bullet_Type)
+			{
+				case Bullet_Type.Single:
+					break;
+				case Bullet_Type.Double:
+					break;
+				case Bullet_Type.Laser:
+					laser.Stop();
+					break;
+				default:
+					break;
 			}
 		}
 	}
@@ -335,6 +369,10 @@ public class Player1 : character_status
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)*/Quaternion.Euler(0,0,45));
+	}
+	private void Laser_Fire()
+	{
+		laser.Play();
 	}
 	//	ミサイルの発射
 	private void Missile_Fire()
@@ -374,7 +412,8 @@ public class Player1 : character_status
 	//シールドの発動
 	private void ActiveShield()
 	{
-		activeShield = true;			//シールドが発動するかどうかの判定
+		activeShield = true;            //シールドが発動するかどうかの判定
+		shield = 3;
 		Shield_Effect = Obj_Storage.Storage_Data.Effects[17].Active_Obj();			//エフェクトをオンの状態に
 		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
 		particle.Play();				//パーティクルの稼働

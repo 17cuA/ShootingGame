@@ -11,6 +11,7 @@ public class Enemy_Bullet : bullet_status
 	}
 	private new void Update()
     {
+		base.Update();
 		Moving_To_Facing();
     }
 }

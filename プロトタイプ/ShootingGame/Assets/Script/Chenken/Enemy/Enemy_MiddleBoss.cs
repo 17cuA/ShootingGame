@@ -98,7 +98,12 @@ public class Enemy_MiddleBoss : character_status
 		}
 	}
 
-    private void Wait_Enter()
+	private void OnTriggerExit(Collider other)
+	{
+		
+	}
+
+	private void Wait_Enter()
     {
         for(var i = 0; i < childsCapsuleColliders.Length; ++i)
         {
