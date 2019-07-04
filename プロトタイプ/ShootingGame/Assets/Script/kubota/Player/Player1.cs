@@ -37,7 +37,8 @@ public class Player1 : character_status
 	public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
 	private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
 
-	public float swing_facing;				// 旋回向き
+	public float swing_facing;              // 旋回向き
+	public float facing_cnt;				// 旋回カウント
 	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
 
 	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
@@ -191,13 +192,13 @@ public class Player1 : character_status
 				//Died_Judgment();
 				if(bullet_Type == Bullet_Type.Laser)
 				{
-					if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+					if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 					{
 						laser.Play();
 						line_beam.shot();
 
 					}
-					if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.Space))
+					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
 					{
 						laser.Stop();
 					}
@@ -242,8 +243,26 @@ public class Player1 : character_status
 	//コントローラーの操作
 	private void Player_Move()
 	{
-		x = Input.GetAxis("Horizontal");
-		y = Input.GetAxis("Vertical");
+			x = Input.GetAxis("Horizontal");
+			y = Input.GetAxis("Vertical");
+
+		if (transform.position.y >= 4.0f && y > 0)
+		{
+			y = 0;
+		}
+		if(transform.position.y <= -4.5f && y < 0)
+		{
+			y = 0;
+		}
+		if(transform.position.x >= 17.0f && x>0)
+		{
+			x = 0;
+		}
+		if( transform.position.x <= -17.0f && x < 0)
+		{
+			x = 0;
+		}
+
 		vector3 = new Vector3(x, y, 0);
 		#region
 		//if(y < 0)
@@ -261,8 +280,13 @@ public class Player1 : character_status
 			// 参考にしたURL↓
 			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
 			// Unity にある Mathf.LerpAngle 関数を使用
-			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), Time.time);
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
 			transform.eulerAngles = new Vector3(angle, 0, 0);
+			facing_cnt++;
+		}
+		else
+		{
+			facing_cnt = 0;
 		}
 
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;

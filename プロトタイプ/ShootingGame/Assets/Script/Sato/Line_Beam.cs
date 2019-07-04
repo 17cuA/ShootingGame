@@ -39,18 +39,18 @@ public class Line_Beam : MonoBehaviour {
 		lineRenderer.enabled = true;	//linerendererを有効化
 		lineRenderer.SetPosition(0, transform.position);	//linerendererの生成位置を固定
 		shotRay.origin = transform.position;	//rayの原点を移動する場所に
-		shotRay.direction = transform.forward;	//rayの向きをplayerの向いている方向に
-		//int layerMask = 0;
+		shotRay.direction = transform.forward;  //rayの向きをplayerの向いている方向に
+		int layerMask = LayerMask.GetMask(new string[] { "Wall", "Enemy" });
 
 		var radius = transform.lossyScale.x * 0.5f;	//レーザーの長さを伸ばす
 
-		var isHit = Physics.SphereCast(transform.position, radius, transform.forward , out shotHit);		//スフィアキャストによる当たり判定を取得
+		var isHit = Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, layerMask);		//スフィアキャストによる当たり判定を取得
 
 		if (isHit)		//当たったものに大しての処理
 		{
 			hitstop = shotHit.distance;     //SphereCastが何かに当たった際その場所で止まる
 			//スフィアキャストがwalllayerに衝突したとき
-			if (Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, LayerMask.GetMask("Wall")))
+			if (Physics.SphereCast(transform.position, radius, transform.forward , out shotHit, layerMask,LayerMask.GetMask("Wall")))
 			{
 				hitstop = shotHit.distance;	//その場所で止める
 			}
