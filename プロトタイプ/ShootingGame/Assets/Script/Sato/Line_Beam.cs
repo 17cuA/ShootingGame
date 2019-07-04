@@ -58,7 +58,7 @@ public class Line_Beam : MonoBehaviour {
 			if (Physics.SphereCast(shotRay, radius, out shotHit, hitstop, LayerMask.GetMask("Enemy")))
 			{
 				//Destroy(shotHit.collider.gameObject);
-
+				shotHit.collider.GetComponent<character_status>().Damege_Process(1);
 			}
 		}
 	}
