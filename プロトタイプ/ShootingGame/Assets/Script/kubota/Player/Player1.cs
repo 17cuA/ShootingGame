@@ -94,7 +94,7 @@ public class Player1 : character_status
 		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
-		hp = 10;
+		hp = 1;
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
@@ -145,6 +145,11 @@ public class Player1 : character_status
 		{
 			Shield_Effect.transform.position = Shield_pos.transform.position;
 		}
+		if(shield < 1)
+		{
+			PowerManager.Instance.ResetShieldPower();
+			Shield_Effect.SetActive(false);
+		}
 		if (hp < 1)
 		{
 			Remaining--;
@@ -155,10 +160,11 @@ public class Player1 : character_status
 			else
 			{
 				ParticleCreation(0);		//爆発のエフェクト発動
-				Reset_Status();				//体力の修正
+				Reset_Status();             //体力の修正
+				PowerManager.Instance.ResetAllPower();
 				gameObject.transform.position = direction;      //初期位置に戻す
-				ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
-				particle.Stop();				//effectを止める
+				//ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
+				//particle.Stop();				//effectを止める
 				invincible = false;			//無敵状態にするかどうかの処理
 				invincible_time = 0;		//無敵時間のカウントする用の変数の初期化
 			}
@@ -295,11 +301,13 @@ public class Player1 : character_status
 					{
 						case Bullet_Type.Single:
 							Single_Fire();
+							SE_Manager.SE_Obj.SE_Active(4);
 							ParticleCreation(3);
 
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
+							SE_Manager.SE_Obj.SE_Active(4);
 							ParticleCreation(3);
 
 							break;
@@ -374,7 +382,8 @@ public class Player1 : character_status
 	//シールドの発動
 	private void ActiveShield()
 	{
-		activeShield = true;			//シールドが発動するかどうかの判定
+		activeShield = true;            //シールドが発動するかどうかの判定
+		shield = 3;
 		Shield_Effect = Obj_Storage.Storage_Data.Effects[17].Active_Obj();			//エフェクトをオンの状態に
 		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
 		particle.Play();				//パーティクルの稼働
