@@ -32,7 +32,13 @@ public class bullet_status : MonoBehaviour
 
 	protected void Update()
 	{
-		if(!Bullet_Renderer.isVisible)
+		//if(!Bullet_Renderer.isVisible)
+		//{
+		//	Debug.LogError("消えた？");
+		//	gameObject.SetActive(false);
+		//}
+		if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
+			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
 		{
 			gameObject.SetActive(false);
 		}

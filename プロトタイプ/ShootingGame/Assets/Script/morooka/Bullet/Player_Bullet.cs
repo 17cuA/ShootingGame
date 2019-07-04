@@ -17,6 +17,7 @@ public class Player_Bullet : bullet_status
 	// Update is called once per frame
 	private new void Update()
     {
+		base.Update();
 		Moving_To_Facing();
 	}
 }

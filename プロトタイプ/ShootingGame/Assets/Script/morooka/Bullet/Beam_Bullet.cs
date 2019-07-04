@@ -11,11 +11,12 @@ public class Beam_Bullet : bullet_status
 	void Start()
     {
 		base.Start();
-		Tag_Change("Enemy");
+		//Tag_Change("Enemy");
 	}
 
 	void Update()
     {
+		base.Update();
 		Moving_To_Facing();
     }
 }
