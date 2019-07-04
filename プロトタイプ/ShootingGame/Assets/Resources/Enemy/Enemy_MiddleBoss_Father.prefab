@@ -88,11 +88,14 @@ MonoBehaviour:
   escapeSpeed: 8
   advanceActionSlot: 0200000007000000
   excapeActionSlot: 10
+  waitDuration: 5
   debutDuration: 2
   moveDuration: 1
   advanceBackDuration: 2
   stopDuration: 1
   escapeDuration: 2
+  limitYUp: 4
+  limitYDown: -4.5
 --- !u!95 &433305396998900561
 Animator:
   serializedVersion: 3
@@ -119,6 +122,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 433305395559275592}
     m_Modifications:
+    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
+      propertyPath: m_Name
+      value: Enemy_MiddleBoss
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -174,10 +181,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Name
-      value: Enemy_MiddleBoss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}

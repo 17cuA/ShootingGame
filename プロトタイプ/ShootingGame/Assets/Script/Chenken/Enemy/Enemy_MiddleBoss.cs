@@ -32,7 +32,7 @@ public class Enemy_MiddleBoss : character_status
 	private Vector3 moveDirection;
 	private StateManager<StateType> stateManager;
 
-	private CapsuleCollider capsuleCollider;   
+	private CapsuleCollider _capsuleCollider;   
     private CapsuleCollider[] childsCapsuleColliders;
 	private Rigidbody rb;
 	private Transform player;
@@ -44,7 +44,7 @@ public class Enemy_MiddleBoss : character_status
 		stateManager = new StateManager<StateType>();
 		rb = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
-		capsuleCollider = GetComponent<CapsuleCollider>();
+		_capsuleCollider = GetComponent<CapsuleCollider>();
         childsCapsuleColliders = GetComponentsInChildren<CapsuleCollider>();
 		rb.useGravity = false;
 
@@ -113,7 +113,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsCapsuleColliders[i].enabled = false;
         }
-        capsuleCollider.enabled = false;
+		_capsuleCollider.enabled = false;
     }
 
 	private void Wait_Update()
@@ -150,7 +150,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsCapsuleColliders[i].enabled = true;
         }
-        capsuleCollider.enabled = true;
+		_capsuleCollider.enabled = true;
 	}
 
 	private void Move_Enter()
