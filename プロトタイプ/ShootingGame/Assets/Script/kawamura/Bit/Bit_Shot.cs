@@ -54,7 +54,7 @@ public class Bit_Shot : MonoBehaviour
         //shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
         Direction = transform.rotation;
         shotDelayMax = 5;
-		//laser.Stop();
+		laser.Stop();
 
 
 	}
@@ -89,7 +89,7 @@ public class Bit_Shot : MonoBehaviour
 					}
 				}
 
-				if (shot_Delay > shotDelayMax)
+				else if (shot_Delay > shotDelayMax)
 				{
                     shotNum++;
 
