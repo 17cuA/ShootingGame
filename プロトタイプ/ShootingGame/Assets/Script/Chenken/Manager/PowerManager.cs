@@ -361,6 +361,15 @@ namespace Power
 		{
 			powers[Power.PowerType.OPTION].upgradeInfo.Reset();
 		}
+
+		/// <summary>
+		/// ビットン個数を強化回数に設定する
+		/// </summary>
+		/// <param name="num">　ビットン個数　</param>
+		public void SetOptionPower(int num)
+		{
+			powers[Power.PowerType.OPTION].upgradeInfo.upgradeCount = num;
+		}
 	}
 }
 

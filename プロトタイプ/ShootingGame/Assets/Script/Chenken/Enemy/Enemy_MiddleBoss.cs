@@ -34,7 +34,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private CapsuleCollider capsuleCollider;   
     private CapsuleCollider[] childsCapsuleColliders;
-	private Rigidbody rigidbody;
+	private Rigidbody rb;
 	private Transform player;
 	private Animator animator;
 	private bool canAdvanceAttack;
@@ -42,11 +42,11 @@ public class Enemy_MiddleBoss : character_status
 	private void Awake()
 	{
 		stateManager = new StateManager<StateType>();
-		rigidbody = GetComponent<Rigidbody>() ;
+		rb = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
         childsCapsuleColliders = GetComponentsInChildren<CapsuleCollider>();
-		rigidbody.useGravity = false;
+		rb.useGravity = false;
 
 		var state = new StateBase<StateType>(moveDuration, StateType.MOVE);
 		state.EnterCallBack = Move_Enter;
