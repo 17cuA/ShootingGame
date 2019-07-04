@@ -94,7 +94,7 @@ public class Player1 : character_status
 		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
-		hp = 10;
+		hp = 1;
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
@@ -301,11 +301,13 @@ public class Player1 : character_status
 					{
 						case Bullet_Type.Single:
 							Single_Fire();
+							SE_Manager.SE_Obj.SE_Active(4);
 							ParticleCreation(3);
 
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
+							SE_Manager.SE_Obj.SE_Active(4);
 							ParticleCreation(3);
 
 							break;
