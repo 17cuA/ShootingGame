@@ -53,11 +53,13 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
+  shield: 0
+  activeShield: 0
   eState: 1
   speedX: 5
   speedY: 0
   speedZ: 0
-  speedZ_Value: 32
+  speedZ_Value: 35
   amplitude: 0
   defaultSpeedY: 7
   addAndSubValue: 0.5
@@ -138,10 +140,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3110145218247895068}
     m_Modifications:
-    - target: {fileID: 100000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Wave
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -197,6 +195,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Wave
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_Materials.Array.data[0]
