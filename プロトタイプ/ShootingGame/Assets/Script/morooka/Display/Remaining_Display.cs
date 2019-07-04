@@ -54,7 +54,7 @@ public class Remaining_Display : MonoBehaviour
 
 				RectTransform r_transform = Remaining_Object[i].GetComponent<RectTransform>();
 				r_transform.localPosition = posTemp;
-				r_transform.localScale *= 1.5f;
+				r_transform.localScale *= 1.4f;
 
 				posTemp.x += 150.0f;
 				Remaining_Object_Image[i].sprite = Display_Sprite[0];
