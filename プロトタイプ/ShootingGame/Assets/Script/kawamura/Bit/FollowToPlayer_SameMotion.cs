@@ -26,7 +26,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	void Start()
 	{
 		int cnt = 0;
-		array_Num = 8;
+		array_Num = 12;
 		playerPos = new Vector3[array_Num];
 	}
 
@@ -54,9 +54,9 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		if (playerObj == null)
 		{
 			//プレイヤーがいたら入れる
-			if (GameObject.FindGameObjectWithTag("Player"))
+			if (GameObject.Find("Player"))
 			{
-				playerObj = GameObject.FindGameObjectWithTag("Player");
+				playerObj = GameObject.Find("Player");
 				//配列にとりあえず追従位置を入れる
 				for (int i = 0; i < array_Num; i++)
 				{

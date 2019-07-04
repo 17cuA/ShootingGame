@@ -19,22 +19,23 @@ public class Line_Beam : MonoBehaviour {
         lineRenderer = GetComponent<LineRenderer> ();   //linerenderer情報を格納
 	}
 
-    // Update is called once per frame
- //   void Update ()
-	//{
-	//	Laser_Size = this.transform;	//laserの太さを変更
+	//Update is called once per frame
 
-	//	if (Input.GetMouseButton (1))		//レーザー発射
-	//	{
- //           shot ();	//shot関数を呼び出す
- //       }
-	//	else disableEffect();//エフェクトを止める関数を呼び出す
-	//}
+	void Update()
+	{
+		Laser_Size = this.transform;    //laserの太さを変更
+
+		//if (Input.GetMouseButton(1))        //レーザー発射
+		//{
+			/*shot();*/ //shot関数を呼び出す
+		//}
+		//else disableEffect();//エフェクトを止める関数を呼び出す
+	}
 
 	//発射に使用する関数
 	public void shot()
 	{
-		beamParticle.Stop();	//レーザーparticleを止める
+		//beamParticle.Stop();	//レーザーparticleを止める
 		beamParticle.Play();   //レーザーparticleを再生
 		lineRenderer.enabled = true;	//linerendererを有効化
 		lineRenderer.SetPosition(0, transform.position);	//linerendererの生成位置を固定
@@ -92,7 +93,7 @@ public class Line_Beam : MonoBehaviour {
     }
 
 //レーザーのエフェクトを止める関数
-    private void disableEffect()
+    public void disableEffect()
     {
         beamParticle.Stop();　//レーザーのparticleを止める
         lineRenderer.enabled = false;	//linerendererを無効化

@@ -44,7 +44,7 @@ public class FollowToPreviousBit : MonoBehaviour
 		}
 
 		int cnt = 0;
-		array_Num = 8;
+		array_Num = 12;
 		previousBitPos = new Vector3[array_Num];
 
 		defCheck = true;
@@ -75,9 +75,9 @@ public class FollowToPreviousBit : MonoBehaviour
 		if (playerObj == null)
 		{
 			//プレイヤーがいたら入れる
-			if (GameObject.FindGameObjectWithTag("Player"))
+			if (GameObject.Find("Player"))
 			{
-				playerObj = GameObject.FindGameObjectWithTag("Player");
+				playerObj = GameObject.Find("Player");
 				//isMove = true;
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;

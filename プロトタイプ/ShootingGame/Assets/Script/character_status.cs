@@ -132,7 +132,7 @@ public class character_status : MonoBehaviour
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
 			}
-			else if(col.tag == "Player")
+			else if(col.gameObject.name == "Player")
 			{
 				Damege_Process(1);
 			}

@@ -83,14 +83,16 @@ public class Bit_Formation_3 : MonoBehaviour
 		bState = BitState.Follow;
 
 		renderer = gameObject.GetComponent<Renderer>();
+		meshrender = gameObject.GetComponent<MeshRenderer>();
 
 		bit_Color = renderer.material.color;
-		
-		meshrender = gameObject.GetComponent<MeshRenderer>();
+		bit_Color.a = alpha_Value;
+		renderer.material.color = bit_Color;
+
 		//meshrender.material.color = new Color(0, 0, 0, 0);
 
 		//プレイヤーオブジェクト取得
-		playerObj = GameObject.FindGameObjectWithTag("Player");
+		//playerObj = GameObject.FindGameObjectWithTag("Player");
 
 		//4つの追従位置とそれぞれのスクリプト取得
 		followPosFirstObj = GameObject.Find("FollowPosFirst");
@@ -106,7 +108,6 @@ public class Bit_Formation_3 : MonoBehaviour
 		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
 
 
-		pl1 = playerObj.GetComponent<Player1>();
 		//親のオブジェクト取得
 		//parentObj = transform.parent.gameObject;
 		//自分の名前取得
@@ -118,12 +119,21 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	void Update()
 	{
+		if (playerObj == null)
+		{
+			playerObj = GameObject.Find("Player");
+
+			pl1 = playerObj.GetComponent<Player1>();
+
+		}
+
 		//生成された時の処理
-		if(isborn)
+		if (isborn)
 		{
 			SetParent();
 			isborn = false;
 		}
+
 
 		if (parentObj)
 		{
@@ -442,6 +452,9 @@ public class Bit_Formation_3 : MonoBehaviour
 					speed = defaultSpeed;
 					option_OrdinalNum = 1;
 					alpha_Value = 0;
+					bit_Color.a = alpha_Value;
+					renderer.material.color = bit_Color;
+
 					collectDelay = 0;
 				}
 				else if (!FtoPBit_Second.hasOption)
@@ -456,6 +469,9 @@ public class Bit_Formation_3 : MonoBehaviour
 					speed = defaultSpeed;
 					option_OrdinalNum = 2;
 					alpha_Value = 0;
+					bit_Color.a = alpha_Value;
+					renderer.material.color = bit_Color;
+
 					collectDelay = 0;
 				}
 				else if (!FtoPBit_Third.hasOption)
@@ -470,6 +486,9 @@ public class Bit_Formation_3 : MonoBehaviour
 					speed = defaultSpeed;
 					option_OrdinalNum = 3;
 					alpha_Value = 0;
+					bit_Color.a = alpha_Value;
+					renderer.material.color = bit_Color;
+
 					collectDelay = 0;
 				}
 				else if (!FtoPBit_Fourth.hasOption)
@@ -484,6 +503,9 @@ public class Bit_Formation_3 : MonoBehaviour
 					speed = defaultSpeed;
 					option_OrdinalNum = 4;
 					alpha_Value = 0;
+					bit_Color.a = alpha_Value;
+					renderer.material.color = bit_Color;
+
 					collectDelay = 0;
 				}
 			}
