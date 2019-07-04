@@ -186,6 +186,17 @@ public class Player1 : character_status
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
+				if(bullet_Type == Bullet_Type.Laser)
+				{
+					if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+					{
+						laser.Play();
+					}
+					if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.Space))
+					{
+						laser.Stop();
+					}
+				}
 				//弾の発射（Fire2かSpaceキーで撃てる）
 				if (Shot_Delay > Shot_DelayMax)
 				{
@@ -290,45 +301,55 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-			if(Shot_Delay > Shot_DelayMax)
+			shoot_number++;
+
+			// 連続で4発まで撃てるようにした
+			if (shoot_number < 5)
 			{
-				shoot_number++;
-
-				// 連続で4発まで撃てるようにした
-				if (shoot_number < 5)
+				switch (bullet_Type)
 				{
-					switch (bullet_Type)
-					{
-						case Bullet_Type.Single:
-							Single_Fire();
-							SE_Manager.SE_Obj.SE_Active(4);
-							ParticleCreation(3);
+					case Bullet_Type.Single:
+						Single_Fire();
+						SE_Manager.SE_Obj.SE_Active(4);
+						ParticleCreation(3);
 
-							break;
-						case Bullet_Type.Double:
-							Double_Fire();
-							SE_Manager.SE_Obj.SE_Active(4);
-							ParticleCreation(3);
+						break;
+					case Bullet_Type.Double:
+						Double_Fire();
+						SE_Manager.SE_Obj.SE_Active(4);
+						ParticleCreation(3);
 
-							break;
-						case Bullet_Type.Laser:
-							break;
-						default:
-							break;
-					}
-					// ミサイルは別途ディレイの計算と分岐をする
-					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
-					{
-						Missile_Fire();
-						missile_dilay_cnt = 0;
-					}
-					Shot_Delay = 0;
+						break;
+					default:
+						break;
 				}
-				// 4発撃った後、10フレーム程置く
-				else if(shoot_number == 15)
+				// ミサイルは別途ディレイの計算と分岐をする
+				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 				{
-					shoot_number = 0;
+					Missile_Fire();
+					missile_dilay_cnt = 0;
 				}
+				Shot_Delay = 0;
+			}
+			// 4発撃った後、10フレーム程置く
+			else if (shoot_number == 15)
+			{
+				shoot_number = 0;
+			}
+		}
+		else
+		{
+			switch (bullet_Type)
+			{
+				case Bullet_Type.Single:
+					break;
+				case Bullet_Type.Double:
+					break;
+				case Bullet_Type.Laser:
+					laser.Stop();
+					break;
+				default:
+					break;
 			}
 		}
 	}
@@ -343,6 +364,10 @@ public class Player1 : character_status
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)*/Quaternion.Euler(0,0,45));
+	}
+	private void Laser_Fire()
+	{
+		laser.Play();
 	}
 	//	ミサイルの発射
 	private void Missile_Fire()
