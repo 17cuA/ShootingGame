@@ -8,24 +8,33 @@ using StorageReference;
 public class Enemy_MiddleBoss : character_status
 {
 	public StateType type;
+	[Header("移動パラメータ（単位：Unit/秒）")]
 	public float advanceBackSpeed;
 	public float escapeSpeed;
+	[Header("何回目行動時　突撃行動　（単位：回目）")]
 	public List<int> advanceActionSlot = new List<int>();
+	[Header("何回目行動時　逃走行動　（単位：回目）")]
 	public int excapeActionSlot;
 	private int currentSlot;
 	private int backActionSlot;
+	[Header("行動持続時間　（単位：秒）")]
 	public float waitDuration = 5;
 	public float debutDuration = 2f;
 	public float moveDuration = 1;
 	public float advanceBackDuration = 2f;
 	public float stopDuration = 1f;
 	public float escapeDuration = 2f;
+
+	[Header("移動限界Y座標（単位：Unit）")]
+	public float limitYUp = -5f;
+	public float limitYDown = -12f;
+
 	private Vector3 moveDirection;
 	private StateManager<StateType> stateManager;
 
-	private CapsuleCollider capsuleCollider;   
+	private CapsuleCollider _capsuleCollider;   
     private CapsuleCollider[] childsCapsuleColliders;
-	private Rigidbody rigidbody;
+	private Rigidbody rb;
 	private Transform player;
 	private Animator animator;
 	private bool canAdvanceAttack;
@@ -33,11 +42,11 @@ public class Enemy_MiddleBoss : character_status
 	private void Awake()
 	{
 		stateManager = new StateManager<StateType>();
-		rigidbody = GetComponent<Rigidbody>() ;
+		rb = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
-		capsuleCollider = GetComponent<CapsuleCollider>();
+		_capsuleCollider = GetComponent<CapsuleCollider>();
         childsCapsuleColliders = GetComponentsInChildren<CapsuleCollider>();
-		rigidbody.useGravity = false;
+		rb.useGravity = false;
 
 		var state = new StateBase<StateType>(moveDuration, StateType.MOVE);
 		state.EnterCallBack = Move_Enter;
@@ -109,7 +118,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsCapsuleColliders[i].enabled = false;
         }
-        capsuleCollider.enabled = false;
+		_capsuleCollider.enabled = false;
     }
 
 	private void Wait_Update()
@@ -146,7 +155,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsCapsuleColliders[i].enabled = true;
         }
-        capsuleCollider.enabled = true;
+		_capsuleCollider.enabled = true;
 	}
 
 	private void Move_Enter()
@@ -266,6 +275,18 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Stop_Exit()
 	{
+		if (transform.position.y > limitYUp)
+		{
+			moveDirection = Vector3.down;
+			return;
+		}
+
+		if (transform.position.y < limitYDown)
+		{
+			moveDirection = Vector3.up;
+			return;
+		}
+
 		if (player.transform.position.y >= transform.position.y)
 			moveDirection = Vector3.up;
 		else
