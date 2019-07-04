@@ -44,7 +44,9 @@ public class Player1 : character_status
 	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
-	public int missile_dilay_max;				// ミサイルの発射間隔
+	public int missile_dilay_max;               // ミサイルの発射間隔
+
+	public Line_Beam line_beam;
 
 	public enum Bullet_Type　　//弾の種類
 	{
@@ -109,6 +111,7 @@ public class Player1 : character_status
 		activeLaser = false;
 		activeShield = false;
 		activeMissile = false;
+		laser.Stop();
 	}
 
 	void Update()
@@ -191,6 +194,8 @@ public class Player1 : character_status
 					if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
 					{
 						laser.Play();
+						line_beam.shot();
+
 					}
 					if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.Space))
 					{
