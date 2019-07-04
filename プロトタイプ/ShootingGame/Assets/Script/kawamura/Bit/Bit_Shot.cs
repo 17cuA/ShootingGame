@@ -48,8 +48,26 @@ public class Bit_Shot : MonoBehaviour
                     // 連続で4発まで撃てるようにした
                     if (shotNum < 5)
                     {
-                        Bullet_Create();
-                        pl1.ParticleCreation(3);
+						switch(pl1.bullet_Type)
+						{
+							case Player1.Bullet_Type.Single:
+								Single_Fire();
+								//Bullet_Create();
+
+								pl1.ParticleCreation(3);
+
+								break;
+							case Player1.Bullet_Type.Double:
+								Double_Fire();
+								pl1.ParticleCreation(3);
+
+								break;
+							case Player1.Bullet_Type.Laser:
+								break;
+							default:
+								break;
+
+						}
                         // ミサイルは別途ディレイの計算と分岐をする
                         if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
                         {
@@ -72,20 +90,36 @@ public class Bit_Shot : MonoBehaviour
     }
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-		{
-			Single_Fire();
-			shot_Delay = 0;
-		}
+		//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		//{
+		//	Single_Fire();
+		//	shot_Delay = 0;
+		//}
 	}
 
 	private void Single_Fire()
 	{
-		GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		pl1.transform.rotation = pl1.Direction;
-		Bullet.transform.position =gameObject.transform.position;
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		{
+			GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+			pl1.transform.rotation = pl1.Direction;
+			Bullet.transform.position = gameObject.transform.position;
+			shot_Delay = 0;
+		}
+
 	}
-    private void Missile_Fire()
+	private void Double_Fire()
+	{
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		{
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, Direction);
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, transform.position, /*new Quaternion(-8,1,45,0)*/Quaternion.Euler(0, 0, 45));
+			shot_Delay = 0;
+		}
+
+	}
+
+	private void Missile_Fire()
     {
         GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, Direction);
         obj.GetComponent<Missile>().Setting_On_Reboot(1);

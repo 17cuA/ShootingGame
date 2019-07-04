@@ -222,6 +222,22 @@ public class EnemyCreate : MonoBehaviour
 
 					break;
 
+				case 16:
+					isCreate = false;
+					groupCnt++;
+					Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+
+					break;
+
+				case 17:
+					isCreate = false;
+					groupCnt++;
+					Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+
+					break;
+
 			}
 		}
 	}
@@ -230,7 +246,15 @@ public class EnemyCreate : MonoBehaviour
 	//---------------------------------------------------------------------
 	void CreateCheck()
 	{
-		if (frameCnt == 3160.0f + plusNum + plusNum2 + plusNum3)
+		if (frameCnt == 3520.0f + plusNum + plusNum2 + plusNum3)
+		{
+			isCreate = true;
+		}
+		else if (frameCnt == 3340.0f + plusNum + plusNum2 + plusNum3)
+		{
+			isCreate = true;
+		}
+		else if (frameCnt == 3160.0f + plusNum + plusNum2 + plusNum3)
 		{
 			isCreate = true;
 		}
