@@ -129,14 +129,6 @@ public class Player1 : character_status
 		{
 			Damege_Process(1);
 		}
-		if(Input.GetKey(KeyCode.Z))
-		{
-			laser.Play();
-		}
-		if(Input.GetKeyUp(KeyCode.Z))
-		{
-			laser.Stop();
-		}
 		if(Input.GetKeyDown(KeyCode.Alpha2))
 		{
 			PowerManager.Instance.Pick();
@@ -188,10 +180,6 @@ public class Player1 : character_status
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					PowerManager.Instance.Upgrade();
-					GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
-					ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-					effect.transform.position = gameObject.transform.position;
-					particle.Play();
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -390,12 +378,22 @@ public class Player1 : character_status
 	{
 		speed *= 1.2f;
 		Debug.Log("スピードUP");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//ミサイルをアクティブに
 	private void ActiveMissile()
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	private void ActiveDouble()
 	{
@@ -404,6 +402,11 @@ public class Player1 : character_status
 		activeBullet = false;
 		activeLaser = false;
 		bullet_Type = Bullet_Type.Double;
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -413,6 +416,11 @@ public class Player1 : character_status
 		activeBullet = false;
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//シールドの発動
 	private void ActiveShield()
@@ -423,6 +431,11 @@ public class Player1 : character_status
 		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
 		particle.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		powerup.Play();
+
 	}
 	//オプションをアクティブに
 	private void CreateBit()

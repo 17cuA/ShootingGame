@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8828914398105814670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -7.08, z: 0}
+  m_LocalPosition: {x: -1.3, y: -10.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8828914399103449107}
@@ -96,8 +96,13 @@ MonoBehaviour:
   advanceBackDuration: 2
   stopDuration: 1
   escapeDuration: 2
-  limitYUp: 4
-  limitYDown: -4.5
+  limitYUp: 2.7
+  limitYDown: -2.7
+  frontBulletOffetY: 0.5
+  backBulletOffetY: 1.33
+  bulletsDistance: 1.25
+  bulletCreatLocalPos: {x: 0, y: 0}
+  canFirstShot: 0
 --- !u!54 &2146899430110271464
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -168,34 +173,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8828914398105814666}
     m_Modifications:
-    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Name
-      value: Enemy_MiddleBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -242,15 +219,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.667
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.667
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.667
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
+      propertyPath: m_Name
+      value: Enemy_MiddleBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalPosition.y
