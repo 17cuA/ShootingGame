@@ -13,6 +13,12 @@ public class Bit_Shot : MonoBehaviour
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	GameObject laserObj;
 
+	//public Transform startMarker;
+	//public Transform endMarker;
+
+	public Vector3 startMarker;
+	public Vector3 endMarker;
+
 	public ParticleSystem laser;            //レーザーのパーティクルを取得するための変数
 	public Line_Beam line_beam;
 
@@ -45,6 +51,8 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
+		//startMarker = new Vector3(0, 0, 0);
+		
 		laserObj= transform.FindChild("Lasers").gameObject;
 		line_beam = laserObj.GetComponent<Line_Beam>();
 
