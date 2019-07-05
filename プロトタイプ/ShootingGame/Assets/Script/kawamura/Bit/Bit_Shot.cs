@@ -102,12 +102,12 @@ public class Bit_Shot : MonoBehaviour
 								Single_Fire();
 								//Bullet_Create();
 
-								pl1.ParticleCreation(3);
+								//pl1.ParticleCreation(3);
 
 								break;
 							case Player1.Bullet_Type.Double:
 								Double_Fire();
-								pl1.ParticleCreation(3);
+								//pl1.ParticleCreation(3);
 
 								break;
 							case Player1.Bullet_Type.Laser:
