@@ -17,7 +17,7 @@ public class Enemy_Wave : character_status
 	GameObject childObj;
 
 	HSVColorController hsvCon;
-
+	Color hsvColor;
 
 	//public Transform startMarker;
 	//public Transform endMarker;
@@ -83,6 +83,7 @@ public class Enemy_Wave : character_status
 		distance_two= Vector3.Distance(startMarker, endMarker);
 
 		childObj = transform.GetChild(0).gameObject;
+		hsvColor = childObj.GetComponent<Renderer>().material.color;
 		hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.025f;
 
@@ -124,7 +125,8 @@ public class Enemy_Wave : character_status
 					speedX = 15;
 					speedZ_Value = 38;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
-					hsvCon.val = 0.4f;
+					//hsvCon.val = 0.4f;
+					hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
 
 					break;
 
@@ -140,8 +142,8 @@ public class Enemy_Wave : character_status
 					speedX = 16;
 					speedZ_Value = 38;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
-
-					hsvCon.val = 0.4f;
+					//hsvCon.val = 0.4f;
+					hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
 
 					break;
 

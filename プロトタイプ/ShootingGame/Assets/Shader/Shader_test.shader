@@ -12,6 +12,7 @@
 		_Val("Value", Float) = 1 }
     SubShader
     {
+
         Tags { "RenderType"="Opaque" }
         LOD 200
 
