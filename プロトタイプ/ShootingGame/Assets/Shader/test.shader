@@ -1,5 +1,4 @@
-﻿
-Shader "Custom/Enemy"
+﻿Shader "Custom/test"
 {
 	Properties
 	{
@@ -97,8 +96,8 @@ Shader "Custom/Enemy"
 			Pass
 				{
 				Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
-					
-		
+
+
 					CGPROGRAM
 					#pragma vertex vert
 					#pragma fragment frag
@@ -206,5 +205,5 @@ Shader "Custom/Enemy"
 						}
 						ENDCG
 					}
-	}
+		}
 }
