@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5584372000684067162}
   - component: {fileID: 7622277348625522743}
   - component: {fileID: 35721853293384218}
+  - component: {fileID: 3825340585804884471}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -92,6 +93,49 @@ MonoBehaviour:
   Injection_pos: {fileID: 974578023809983038}
   Shield_pos: {fileID: 6957008926585757929}
   swing_facing: 45
+  facing_cnt: 0
+  shoot_number: 0
+  laser: {fileID: 6597367794329211543}
+  missile_dilay_max: 45
+  line_beam: {fileID: 3675090651481051913}
+  bullet_Type: 0
+--- !u!114 &3825340585804884471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110147255693294561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4d89b067911e04c8b92bda9de16876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  hp: 1
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 7622277348625522743}
+  Shot_DelayMax: 5
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
+  Direction: {x: 0, y: 0, z: 0, w: 0}
+  shot_Mazle: {fileID: 0}
+  Remaining: 0
+  invincible_time: 0
+  invincible_Max: 0
+  invincible: 0
+  material: {fileID: 0}
+  activeMissile: 0
+  activeLaser: 0
+  activeBullet: 0
+  activeDouble: 0
+  bitIndex: 0
+  Injection_pos: {fileID: 974578023809983038}
+  Shield_pos: {fileID: 6957008926585757929}
+  swing_facing: 45
+  facing_cnt: 0
   shoot_number: 0
   laser: {fileID: 6597367794329211543}
   missile_dilay_max: 45
@@ -452,10 +496,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 100008, guid: c16c131656465c94f9985ad26986703e, type: 3}
-      propertyPath: m_Name
-      value: Big_Viper
-      objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c16c131656465c94f9985ad26986703e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.325
@@ -511,6 +551,10 @@ PrefabInstance:
     - target: {fileID: 400008, guid: c16c131656465c94f9985ad26986703e, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: c16c131656465c94f9985ad26986703e, type: 3}
+      propertyPath: m_Name
+      value: Big_Viper
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: c16c131656465c94f9985ad26986703e, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -29,6 +29,12 @@ public class Enemy_MiddleBoss : character_status
 	public float limitYUp = -5f;
 	public float limitYDown = -12f;
 
+	[Header("弾発射位置調整")]
+	public float frontBulletOffetY;
+	public float backBulletOffetY;
+	public float bulletsDistance;
+	public Vector2 bulletCreatLocalPos;
+
 	private Vector3 moveDirection;
 	private StateManager<StateType> stateManager;
 
@@ -209,10 +215,10 @@ public class Enemy_MiddleBoss : character_status
 		{
 			if (canAdvanceAttack)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(1, 1, 0), Vector3.left);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(0, 0.5f, 0), Vector3.left);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(0, -0.5f, 0), Vector3.left);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(1, -1, 0), Vector3.left);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, -frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, -backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 				canAdvanceAttack = false;
 			}
 			moveDirection = Vector3.zero;
@@ -241,10 +247,10 @@ public class Enemy_MiddleBoss : character_status
 	private void Stop_Enter()
 	{
 		moveDirection = Vector3.zero;
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(1, 1, 0), Vector3.left);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(0, 0.5f, 0), Vector3.left);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(0, -0.5f, 0), Vector3.left);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(1, -1, 0), Vector3.left);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, -frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, -backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 	}
 
 	private void Stop_Update()
