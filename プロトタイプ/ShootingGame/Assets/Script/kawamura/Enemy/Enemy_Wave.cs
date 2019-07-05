@@ -60,7 +60,7 @@ public class Enemy_Wave : character_status
 	{
 		childObj = transform.GetChild(0).gameObject;
 		hsvCon = childObj.GetComponent<HSVColorController>();
-		val_Value = 0.02f;
+		val_Value = 0.025f;
 
 		if (transform.parent != null)
 		{
@@ -98,7 +98,8 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = true;
 					isAddSpeedY = false;
 					speedX = 15;
-					speedZ_Value = 35;
+					speedZ_Value = 42;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
 					hsvCon.val = 0.4f;
 
 					break;
@@ -113,7 +114,9 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = true;
 					isSubSpeedY = false;
 					speedX = 15;
-					speedZ_Value = 35;
+					speedZ_Value = 42;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
+
 					hsvCon.val = 0.4f;
 
 					break;
@@ -203,14 +206,18 @@ public class Enemy_Wave : character_status
 
 				isWave = true;
 			}
-			else if(transform.position.x>7)
+			else if (transform.position.x > 7)
 			{
-				speedZ = speedZ_Value;
+				//speedZ = speedZ_Value;
 				hsvCon.val += val_Value;
 				if (hsvCon.val > 1.0f)
 				{
 					hsvCon.val = 1.0f;
 				}
+			}
+			else if(transform.position.x>1)
+			{
+				speedZ = speedZ_Value;
 			}
 		}
 		else if(isWave)
