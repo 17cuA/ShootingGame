@@ -264,7 +264,8 @@ namespace Power
 
 		public void Update()
 		{
-			for(var i = 0; i < powers.Count - 1; ++i)
+			// パワーアップ数に注意
+			for(var i = 0; i < powers.Count; ++i)
 			{
 				var power = powers[(Power.PowerType)i];
 				power.Update();

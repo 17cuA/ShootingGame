@@ -35,6 +35,9 @@ public class Enemy_MiddleBoss : character_status
 	public float bulletsDistance;
 	public Vector2 bulletCreatLocalPos;
 
+	[Header("微調整")]
+	public bool canFirstShot = false;
+
 	private Vector3 moveDirection;
 	private StateManager<StateType> stateManager;
 
@@ -247,6 +250,9 @@ public class Enemy_MiddleBoss : character_status
 	private void Stop_Enter()
 	{
 		moveDirection = Vector3.zero;
+		if(!canFirstShot && currentSlot == 0)
+			return;
+
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, -frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);

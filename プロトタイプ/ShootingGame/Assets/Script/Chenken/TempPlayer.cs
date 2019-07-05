@@ -21,7 +21,7 @@ public class TempPlayer : MonoBehaviour
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
-		//第一引数は指定パワーアップ、第二引数はリセット条件、第三引数はリセット処理（ラムダ式推薦）
+		//第一引数は指定パワーアップ、第二引数はリセット条件、第三引数はリセット処理
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return player1.hp < 1; }, null);
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return player1.hp < 1; }, null);
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE,  () => { return player1.hp < 1 || player1.bullet_Type == Player1.Bullet_Type.Laser; }, null);
@@ -40,16 +40,8 @@ public class TempPlayer : MonoBehaviour
 	{
 		PowerManager.Instance.Update();
 		PowerManager.Instance.UpdateBit(player1.bitIndex);
-		print(player1.shield);
 		//---------------------------
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime)
-
-		//if(Input.GetKeyDown(KeyCode.M))
-		//{
-		//	PowerManager.Instance.GetPower(PowerManager.Power.PowerType.SHIELD).SetUpgradeCount(0);
-		//}
-
-		print(player1.shield < 1);
 	}
 }
