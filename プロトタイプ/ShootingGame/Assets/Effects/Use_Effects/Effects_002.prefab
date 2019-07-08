@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1323649327828440048
 Transform:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3910285428973206469
 Transform:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -291,7 +291,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.3443396, g: 0.46610507, b: 1, a: 0.6784314}
+      maxColor: {r: 0.3443396, g: 0.46610507, b: 1, a: 0.67058825}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -353,7 +353,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1163,36 +1163,36 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.84425545
-          inSlope: 0.092300475
-          outSlope: 0.092300475
+          value: 0.74193573
+          inSlope: -0.3438636
+          outSlope: -0.3438636
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.25245893
-          value: 0.8675575
-          inSlope: 0.05257447
-          outSlope: 0.05257447
-          tangentMode: 0
+          time: 0.2439024
+          value: 0.6580666
+          inSlope: -0.014167443
+          outSlope: -0.014167443
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.13982402
+          outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.7033707
-          value: 0.80784124
-          inSlope: -0.05365135
-          outSlope: -0.05365135
-          tangentMode: 0
+          time: 0.69931865
+          value: 0.8017635
+          inSlope: 0.058277406
+          outSlope: 0.058277406
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.21744765
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.84425545
-          inSlope: 0.122759975
-          outSlope: 0.122759975
+          value: 0.74193573
+          inSlope: -0.19897391
+          outSlope: -0.19897391
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -4944,7 +4944,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1

@@ -13,6 +13,7 @@ public class Bit_Shot : MonoBehaviour
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	GameObject laserObj;
 
+
 	public ParticleSystem laser;            //レーザーのパーティクルを取得するための変数
 	public Line_Beam line_beam;
 
@@ -45,6 +46,7 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
+
 		laserObj= transform.FindChild("Lasers").gameObject;
 		line_beam = laserObj.GetComponent<Line_Beam>();
 
@@ -73,13 +75,13 @@ public class Bit_Shot : MonoBehaviour
 			{
 				if (pl1.bullet_Type == Player1.Bullet_Type.Laser)
 				{
-					if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.Space))
+					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
 					{
 						//line_beam.disableEffect();
 						laser.Stop();
 					}
 
-					else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.Space))
+					else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 					{
 						laser.Play();
 						line_beam.shot();
@@ -102,12 +104,9 @@ public class Bit_Shot : MonoBehaviour
 								Single_Fire();
 								//Bullet_Create();
 
-								pl1.ParticleCreation(3);
-
 								break;
 							case Player1.Bullet_Type.Double:
 								Double_Fire();
-								pl1.ParticleCreation(3);
 
 								break;
 							case Player1.Bullet_Type.Laser:

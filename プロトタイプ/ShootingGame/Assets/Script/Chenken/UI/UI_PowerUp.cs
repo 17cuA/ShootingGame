@@ -18,8 +18,8 @@ public class UI_PowerUp : MonoBehaviour
 		for (var i = start; i < end; ++i)
 		{
 			var power		 = PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i);
-			var number       = (int)power.type;
-			transform.GetChild(i - start).gameObject.name = power.type.ToString();
+			var number       = (int)power.Type;
+			transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 			displays.Add(number, transform.GetChild(i - start).gameObject);
 		}
 		
@@ -30,7 +30,7 @@ public class UI_PowerUp : MonoBehaviour
 	{
 		var currentPower = PowerManager.Instance.CurrentPower;
 		//現在選択パワー存在
-		if (currentPower != null && (int)currentPower.type >= start && (int)currentPower.type < end)
+		if (currentPower != null && (int)currentPower.Type >= start && (int)currentPower.Type < end)
 		{
 			//選択画像無効の場合　　->　有効にする
 			if (!current.gameObject.activeSelf)
@@ -68,7 +68,7 @@ public class UI_PowerUp : MonoBehaviour
 			//すべてパワーをチェック
 			var power = PowerManager.Instance.GetPower((PowerManager.Power.PowerType)i);
 			//表示できる場合、　パワー名を表示させる
-			if (power.CanShow)
+			if (power.CanUpgrade)
 			{
 				if (transform.GetChild(i - start).GetChild(0).gameObject.activeSelf)
 					transform.GetChild(i - start).GetChild(0).gameObject.SetActive(false);

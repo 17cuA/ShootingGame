@@ -9,8 +9,8 @@ public class HSVColorController : MonoBehaviour
 	public float hue = 0f;
 	[Range(0f, 1f)]
 	public float sat = 1f;
-	[Range(0f, 1f)]
-	public float val = 1f;
+	[Range(0f, 1f),Header("0で真っ黒,１が普通の色")]
+	public float val = 1f;//0で真っ黒（明るさが）１が普通の色
 
 	// Use this for initialization
 	void Start()

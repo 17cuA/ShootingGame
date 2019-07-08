@@ -17,6 +17,21 @@ public class Enemy_Wave : character_status
 	GameObject childObj;
 
 	HSVColorController hsvCon;
+	Color hsvColor;
+
+	//public Transform startMarker;
+	//public Transform endMarker;
+
+	//----------
+	public Vector3 startMarker;
+	public Vector3 endMarker;
+
+	public float testSpeed = 1.0f;
+
+	private float distance_two;
+	//----------
+
+
 
 	public float speedX;
 	public float speedY;
@@ -54,13 +69,23 @@ public class Enemy_Wave : character_status
 	public bool isWave = false;
 	public bool isStraight = false;
 	public bool isOnlyWave;
+
+	public bool isSlerp = false;
+	public bool susumimasu=true;
+	public bool isNoSlerp=false;
+	float present_Location = 0;
 	//---------------------------------------------------------
 
 	void Start()
 	{
+		startMarker = new Vector3(-26.0f, transform.position.y, 38.0f);
+		endMarker = new Vector3(13.0f, transform.position.y, 0);
+		distance_two= Vector3.Distance(startMarker, endMarker);
+
 		childObj = transform.GetChild(0).gameObject;
+		hsvColor = childObj.GetComponent<Renderer>().material.color;
 		hsvCon = childObj.GetComponent<HSVColorController>();
-		val_Value = 0.02f;
+		val_Value = 0.025f;
 
 		if (transform.parent != null)
 		{
@@ -98,8 +123,10 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = true;
 					isAddSpeedY = false;
 					speedX = 15;
-					speedZ_Value = 35;
-					hsvCon.val = 0.4f;
+					speedZ_Value = 38;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
+					//hsvCon.val = 0.4f;
+					hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
 
 					break;
 
@@ -112,9 +139,11 @@ public class Enemy_Wave : character_status
 					}
 					isAddSpeedY = true;
 					isSubSpeedY = false;
-					speedX = 15;
-					speedZ_Value = 35;
-					hsvCon.val = 0.4f;
+					speedX = 16;
+					speedZ_Value = 38;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
+					//hsvCon.val = 0.4f;
+					hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
 
 					break;
 
@@ -184,32 +213,66 @@ public class Enemy_Wave : character_status
 		}
 		else if (!isWave)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-			gameObject.transform.position += velocity * Time.deltaTime;
-			if (transform.position.z < 0)
+			if(!isSlerp&&!isNoSlerp)
 			{
-				transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+				velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+				gameObject.transform.position += velocity * Time.deltaTime;
 			}
-
-			if (transform.position.x > 10)
+			if (isNoSlerp)
 			{
-				speedX *= 0.93f;
-			}
-
-			if (transform.position.x > 13)
-			{
-				speedX = 5;
-				speedY = defaultSpeedY;
-
-				isWave = true;
-			}
-			else if(transform.position.x>7)
-			{
-				speedZ = speedZ_Value;
-				hsvCon.val += val_Value;
-				if (hsvCon.val > 1.0f)
+				velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+				gameObject.transform.position += velocity * Time.deltaTime;
+				if (transform.position.z < 0)
 				{
-					hsvCon.val = 1.0f;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+				}
+
+				if (transform.position.x > 7)
+				{
+					//speedX -= 0.25f;
+					speedX *= 0.965f;
+				}
+
+				if (transform.position.x > 13)
+				{
+					speedX = 5;
+					speedY = defaultSpeedY;
+
+					isWave = true;
+				}
+				else if (transform.position.x > 7)
+				{
+					
+					//speedZ = speedZ_Value;
+					hsvCon.val += val_Value;
+					if (hsvCon.val > 1.0f)
+					{
+						hsvCon.val = 1.0f;
+					}
+				}
+				else if (transform.position.x > 1)
+				{
+					speedZ = speedZ_Value;
+				}
+			}
+			else if(isSlerp)
+			{
+				if(susumimasu)
+				{
+					velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+					gameObject.transform.position += velocity * Time.deltaTime;
+					if (transform.position.x > -26)
+					{
+						susumimasu = false;
+					}
+				}
+				else
+				{
+					// 現在の位置
+					float present_Location = (Time.time * testSpeed) / distance_two;
+
+					// オブジェクトの移動(ここだけ変わった！)
+					transform.position = Vector3.Slerp(startMarker, endMarker, present_Location);
 				}
 			}
 		}

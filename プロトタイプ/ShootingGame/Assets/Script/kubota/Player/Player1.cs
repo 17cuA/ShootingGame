@@ -129,17 +129,13 @@ public class Player1 : character_status
 		{
 			Damege_Process(1);
 		}
-		if(Input.GetKey(KeyCode.Z))
-		{
-			laser.Play();
-		}
-		if(Input.GetKeyUp(KeyCode.Z))
-		{
-			laser.Stop();
-		}
 		if(Input.GetKeyDown(KeyCode.Alpha2))
 		{
 			PowerManager.Instance.Pick();
+		}
+		if(Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			hp = 1000;
 		}
 		//---------------------------
 		//パワーマネージャー更新
@@ -170,7 +166,8 @@ public class Player1 : character_status
 				//ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
 				//particle.Stop();				//effectを止める
 				invincible = false;			//無敵状態にするかどうかの処理
-				invincible_time = 0;		//無敵時間のカウントする用の変数の初期化
+				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+				bullet_Type = Bullet_Type.Single;
 			}
 		}
 		Invincible();
@@ -183,10 +180,6 @@ public class Player1 : character_status
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					PowerManager.Instance.Upgrade();
-					GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
-					ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-					effect.transform.position = gameObject.transform.position;
-					particle.Play();
 				}
 				//体力が０になると死ぬ処理
 				//Died_Judgment();
@@ -246,33 +239,13 @@ public class Player1 : character_status
 			x = Input.GetAxis("Horizontal");
 			y = Input.GetAxis("Vertical");
 
-		if (transform.position.y >= 4.0f && y > 0)
-		{
-			y = 0;
-		}
-		if(transform.position.y <= -4.5f && y < 0)
-		{
-			y = 0;
-		}
-		if(transform.position.x >= 17.0f && x>0)
-		{
-			x = 0;
-		}
-		if( transform.position.x <= -17.0f && x < 0)
-		{
-			x = 0;
-		}
-
+		//プレイヤーの移動に上下左右制限を設ける
+		if (transform.position.y >= 4.0f && y > 0)		y = 0;
+		if (transform.position.y <= -4.5f && y < 0)		y = 0;
+		if (transform.position.x >= 17.0f && x>0)		x = 0;
+		if (transform.position.x <= -17.0f && x < 0)	x = 0;
+		
 		vector3 = new Vector3(x, y, 0);
-		#region
-		//if(y < 0)
-		//{
-		//	if(transform.rotation.x < 20.0f && transform.rotation.x > -20.0f)
-		//	{
-		//		transform.eulerAngles += new Vector3(y, 0, 0);
-		//	}
-		//}
-		#endregion
 		// プレイヤー機体の旋回
 		// プレイヤーの向き(Y軸の正負)で角度算出
 		if (transform.eulerAngles.x != (swing_facing * y))
@@ -288,7 +261,7 @@ public class Player1 : character_status
 		{
 			facing_cnt = 0;
 		}
-
+		//
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
 		injection.transform.position = Injection_pos.transform.position;
 		//injection.transform.position = Injection_pos;
@@ -341,13 +314,11 @@ public class Player1 : character_status
 						Single_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
 						ParticleCreation(3);
-
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
 						ParticleCreation(3);
-
 						break;
 					default:
 						break;
@@ -385,14 +356,12 @@ public class Player1 : character_status
 
     private void Single_Fire()
 	{
-		GameObject gameObject =Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-		gameObject.transform.rotation = Direction;
-		gameObject.transform.position = shot_Mazle.transform.position;
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 	}
 	private void Double_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)*/Quaternion.Euler(0,0,45));
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0,0,45));
 	}
 	private void Laser_Fire()
 	{
@@ -409,12 +378,22 @@ public class Player1 : character_status
 	{
 		speed *= 1.2f;
 		Debug.Log("スピードUP");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//ミサイルをアクティブに
 	private void ActiveMissile()
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	private void ActiveDouble()
 	{
@@ -423,6 +402,11 @@ public class Player1 : character_status
 		activeBullet = false;
 		activeLaser = false;
 		bullet_Type = Bullet_Type.Double;
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -432,6 +416,11 @@ public class Player1 : character_status
 		activeBullet = false;
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		particle.Play();
+
 	}
 	//シールドの発動
 	private void ActiveShield()
@@ -442,6 +431,11 @@ public class Player1 : character_status
 		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
 		particle.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
+		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		powerup.Play();
+
 	}
 	//オプションをアクティブに
 	private void CreateBit()
