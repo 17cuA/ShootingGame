@@ -1,5 +1,5 @@
 ﻿//ビットの攻撃スクリプト
-//プレイヤーのShot_DelayMaxを参照してプレイヤーの2発おきに攻撃する
+//作成者:川村良太
 
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +28,7 @@ public class Bit_Shot : MonoBehaviour
     int shotDelayMax;
 
 	bool activeLaser = true;
+
 	bool activeDouble = false;
 	bool activeBullet = false;
 
@@ -119,10 +120,13 @@ public class Bit_Shot : MonoBehaviour
                         // ミサイルは別途ディレイの計算と分岐をする
                         if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
                         {
-                            Missile_Fire();
-                            //missileDelayCnt = 0;
-                        }
-                        shot_Delay = 0;
+							if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+							{
+								Missile_Fire();
+							}
+							//missileDelayCnt = 0;
+						}
+						shot_Delay = 0;
                     }
                     // 4発撃った後、10フレーム程置く
                     else if (shotNum == 15)
@@ -174,12 +178,9 @@ public class Bit_Shot : MonoBehaviour
 
 	private void Missile_Fire()
     {
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-		{
-			GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, Direction);
-			obj.GetComponent<Missile>().Setting_On_Reboot(1);
-			missileDelayCnt = 0;
-		}
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, Direction);
+		obj.GetComponent<Missile>().Setting_On_Reboot(1);
+		missileDelayCnt = 0;
 	}
 	private void ActiveLaser()
 	{

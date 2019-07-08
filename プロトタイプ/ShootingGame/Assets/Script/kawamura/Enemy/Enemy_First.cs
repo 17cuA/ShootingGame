@@ -8,7 +8,7 @@ public class Enemy_First : character_status
 	{
 		TurnUp,			//上に曲がる
 		TurnDown,		//下に曲がる
-		Generated,		//生成された時
+		Generated,		//生成された時(曲がらない)
 	}
 
 	State eState;
@@ -220,6 +220,8 @@ public class Enemy_First : character_status
 	}
 
     //---------ここから関数--------------
+
+	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
     public void SetState(int num)
 	{
 		switch(num)
