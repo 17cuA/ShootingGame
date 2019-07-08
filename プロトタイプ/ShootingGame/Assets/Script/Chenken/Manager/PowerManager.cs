@@ -8,12 +8,16 @@ namespace Power
 	public delegate void ExcutePowerUpgradeCallBack();
 	public delegate void ResetPowerCallBack();
 
-	public enum PowerType { SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, SHIELD, INITSPEED, KILLALL }
-
 	public class PowerManager : Singleton<PowerManager>
 	{
+		/// <summary>
+		/// パワークラス
+		/// </summary>
 		public class Power
 		{
+			/// <summary>
+			/// パワータイプ列挙型
+			/// </summary>
 			public enum PowerType
 			{
 				SPEEDUP,
@@ -26,16 +30,16 @@ namespace Power
 				KILLALL
 			}
 
-			private int upgradeCount;
-			private int maxUpgradeCount;
-			private PowerType type;
-			private event ExcutePowerUpgradeCallBack onUpgradeCallBack;
-			private event ResetPowerCallBack onResetCallBack;
-			private CheckPowerResetCallBack onCheckResetCallBack;
-			private bool resetCheck;
+			private int upgradeCount;														//現在強化回数
+			private int maxUpgradeCount;													//最大強化可能回数
+			private PowerType type;															//パワータイプ
+			private List<ExcutePowerUpgradeCallBack> onUpgradeCallBacks;//強化時コールバック
+			private List<ResetPowerCallBack> onResetCallBacks;					//リセット時コールバック
+			private CheckPowerResetCallBack onCheckResetCallBack;			//条件判断コールバック
+			private bool resetCheck;															//現在リセット状態
 
-			public PowerType Type { get { return type; } }
-			public bool CanUpgrade
+			public PowerType Type { get { return type; } }							//取得要パワータイプ
+			public bool CanUpgrade															//強化可能かどうか
 			{
 				get
 				{
@@ -43,46 +47,84 @@ namespace Power
 				}
 			}
 
+			/// <summary>
+			/// コンストラクタ➀
+			/// </summary>
+			/// <param name="type">　　　　			　パワータイプ　　</param>
+			/// <param name="maxUpgradeCount">　最大強化回数　</param>
 			public Power(PowerType type, int maxUpgradeCount)
 			{
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = maxUpgradeCount;
 				this.type = type;
 				this.resetCheck = false;
+				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
+				this.onResetCallBacks = new List<ResetPowerCallBack>();
 			}
 
+			/// <summary>
+			/// コンストラクタ②
+			/// </summary>
+			/// <param name="type">　　パワータイプ　</param>
 			public Power(PowerType type)
 			{
 				this.type = type;
 				this.resetCheck = false;
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = 999999999;
+				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
+				this.onResetCallBacks = new List<ResetPowerCallBack>();
 			}
 
-
+			/// <summary>
+			/// 強化
+			/// </summary>
 			public void Upgrade()
 			{
-				onUpgradeCallBack?.Invoke();
+				//強化コンストラクタ関数実行
+				for(var i = 0; i < onUpgradeCallBacks.Count; ++i)
+				{
+					if (onUpgradeCallBacks != null)
+						onUpgradeCallBacks[i]();
+				}
 
+				//強化回数＋１
 				upgradeCount++;
 				Debug.Log("強化成功、パワーアップ名：" + type.ToString());
-
 			}
 
+			/// <summary>
+			/// 更新
+			/// </summary>
 			public void Update()
 			{
-
+				//　条件判断コールバック関数が存在し、　リセット状態はFalse　-> Trueに変更する時　　、条件判断コールバック関数でTrueが返された時、　　　
 				if (onCheckResetCallBack != null && resetCheck != onCheckResetCallBack() && onCheckResetCallBack() == true)
 				{
+					//強化回数リセット
 					SetUpgradeCount(0);
-					onResetCallBack?.Invoke();
-					resetCheck = onCheckResetCallBack();
-					Debug.Log(type.ToString() + "リセット");
+					//リセット処理実行する
+					for (var i = 0; i < onResetCallBacks.Count; ++i)
+					{
+						if (onResetCallBacks != null)
+							onResetCallBacks[i]();
+					}
+					//リセット状態Trueにする
+					resetCheck = true;
+					return;
 				}
-				resetCheck = false;
+
+				if(onCheckResetCallBack != null && resetCheck != onCheckResetCallBack() && onCheckResetCallBack() == false)
+				{
+					resetCheck = false;
+					return;
+				}
 			}
 
-
+			/// <summary>
+			/// 強化回数設定メソッド
+			/// </summary>
+			/// <param name="count">　　設定したい回数　</param>
 			public void SetUpgradeCount(int count)
 			{
 				if (upgradeCount == count)
@@ -94,53 +136,95 @@ namespace Power
 				upgradeCount = count;
 			}
 
+			/// <summary>
+			/// 強化処理を監視するメソッド
+			/// </summary>
+			/// <param name="callBack">　void()　</param>
 			public void AddUpgradeFunction(ExcutePowerUpgradeCallBack callBack)
 			{
 				if (callBack == null)
 					return;
 
-				onUpgradeCallBack += callBack;
+				if (onUpgradeCallBacks.Contains(callBack))
+					return;
+
+				onUpgradeCallBacks.Add(callBack);
 			}
 
+			/// <summary>
+			/// 強化処理の監視を削除するメソッド
+			/// </summary>
+			/// <param name="callBack"> void() </param>
 			public void RemoveUpgradeFunction(ExcutePowerUpgradeCallBack callBack)
 			{
 				if (callBack == null)
 					return;
 
-				onUpgradeCallBack -= callBack;
+				if (!onUpgradeCallBacks.Contains(callBack))
+					return;
+
+				onUpgradeCallBacks.Remove(callBack);
 			}
 
+			/// <summary>
+			/// 強化リセット条件判断処理を監視するメソッド
+			/// </summary>
+			/// <param name="callBack">　　　　bool()　</param>
+			/// <param name="resetCallBack">　void()　</param>
 			public void AddCheckFunction(CheckPowerResetCallBack callBack,ResetPowerCallBack resetCallBack)
 			{
 				if (callBack == null)
 					return;
 
 				onCheckResetCallBack = callBack;
-				onResetCallBack += resetCallBack;
+
+				if (onResetCallBacks.Contains(resetCallBack))
+					return;
+
+				onResetCallBacks.Add(resetCallBack);
 			}
 
+			/// <summary>
+			/// 強化リセット条件判断処理の監視を削除するメソッド
+			/// </summary>
+			/// <param name="resetCallBack">　void()　</param>
 			public void RemoveCheckFunction(ResetPowerCallBack resetCallBack)
 			{
 				onCheckResetCallBack = null;
 
-				if (onCheckResetCallBack != null)
-					onResetCallBack -= resetCallBack;
+				if(!onResetCallBacks.Contains(resetCallBack))
+					return;
+
+				onResetCallBacks.Remove(resetCallBack);
 			}
 		}
 	
+		//--------------------------------------------------
+		//パワーマネジメント
+		//プロパティ
+		//-------------------------------------------------
 
+		/// <summary>
+		/// パワーデータ
+		/// </summary>
 		private Dictionary<Power.PowerType, Power> powers = new Dictionary<Power.PowerType, Power>
 		{
 			{ Power.PowerType.SPEEDUP, new Power(Power.PowerType.SPEEDUP, 5) },
-			{ Power.PowerType.MISSILE, new Power(Power.PowerType.MISSILE, 1) },
+			{ Power.PowerType.MISSILE,  new Power(Power.PowerType.MISSILE, 1) },
 			{ Power.PowerType.DOUBLE,  new Power(Power.PowerType.DOUBLE,  1) },
-			{ Power.PowerType.LASER,   new Power(Power.PowerType.LASER,   1) },
-			{ Power.PowerType.OPTION,  new Power(Power.PowerType.OPTION,  4) },
-			{ Power.PowerType.SHIELD,  new Power(Power.PowerType.SHIELD,  1) }
+			{ Power.PowerType.LASER,     new Power(Power.PowerType.LASER,   1) },
+			{ Power.PowerType.OPTION,   new Power(Power.PowerType.OPTION,  4) },
+			{ Power.PowerType.SHIELD,    new Power(Power.PowerType.SHIELD,  1) }
 		};
 
+		/// <summary>
+		/// 敵全滅させるパワー
+		/// </summary>
 		private Power annihilate = new Power(Power.PowerType.KILLALL);
 
+		/// <summary>
+		/// 現在選択されたパワーはデータにある位置
+		/// </summary>
 		private int position = -1;
 		public int Position
 		{
@@ -150,6 +234,9 @@ namespace Power
 			}
 		}
 
+		/// <summary>
+		/// 現在選択されたパワー
+		/// </summary>
 		public Power CurrentPower
 		{
 			get
@@ -161,6 +248,9 @@ namespace Power
 			}
 		}
 
+		/// <summary>
+		/// 現在選択されたパワーは強化可能かどうか
+		/// </summary>
 		public bool CurrentPowerCanUpgrade
 		{
 			get
@@ -169,6 +259,11 @@ namespace Power
 			}
 		}
 
+		/// <summary>
+		/// 強化処理を監視するメソッド
+		/// </summary>
+		/// <param name="type">　パワータイプ　</param>
+		/// <param name="callBack">　void()　</param>
 		public void AddFunction(Power.PowerType type, ExcutePowerUpgradeCallBack callBack)
 		{
 			if (callBack == null)
@@ -186,6 +281,11 @@ namespace Power
 			powers[type].AddUpgradeFunction(callBack);
 		}
 
+		/// <summary>
+		/// 強化処理の監視を削除するメソッド
+		/// </summary>
+		/// <param name="type">　パワータイプ　</param>
+		/// <param name="callBack">　void() </param>
 		public void RemoveFunction(Power.PowerType type, ExcutePowerUpgradeCallBack callBack)
 		{
 			if (callBack == null)
@@ -203,6 +303,12 @@ namespace Power
 			powers[type].RemoveUpgradeFunction(callBack);
 		}
 
+		/// <summary>
+		/// パワーリセット条件判断処理を監視するメソッド及びリセット後の処理を監視するメソッド
+		/// </summary>
+		/// <param name="type">　　パワータイプ　</param>
+		/// <param name="callBack">　bool()　</param>
+		/// <param name="resetCallBack"> void() </param>
 		public void AddCheckFunction(Power.PowerType type, CheckPowerResetCallBack callBack,ResetPowerCallBack resetCallBack)
 		{
 			if (callBack == null)
@@ -214,6 +320,12 @@ namespace Power
 			powers[type].AddCheckFunction(callBack,resetCallBack);
 		}
 
+		/// <summary>
+		/// パワーリセット条件判断処理の監視を削除するメソッド及びリセット後の処理の監視を削除するメソッド
+		/// </summary>
+		/// <param name="type">　パワータイプ　</param>
+		/// <param name="callBack">　bool()　</param>
+		/// <param name="resetCallBack"> void() </param>
 		public void RemoveCheckFunction(Power.PowerType type, CheckPowerResetCallBack callBack,ResetPowerCallBack resetCallBack)
 		{
 			if (callBack == null)
@@ -225,6 +337,9 @@ namespace Power
 			powers[type].RemoveCheckFunction(resetCallBack);
 		}
 
+		/// <summary>
+		/// 強化処理
+		/// </summary>
 		public void Upgrade()
 		{
 			if (!CurrentPowerCanUpgrade)
@@ -234,11 +349,17 @@ namespace Power
 			position = -1;
 		}
 
+		/// <summary>
+		/// 敵全滅処理
+		/// </summary>
 		public void Annihilate()
 		{
 			annihilate.Upgrade();
 		}
 
+		/// <summary>
+		/// アイテム取得処理
+		/// </summary>
 		public void Pick()
 		{
 			position++;
@@ -246,6 +367,11 @@ namespace Power
 			position %= powers.Count;
 		}
 
+		/// <summary>
+		/// パワー取得処理
+		/// </summary>
+		/// <param name="type">　パワータイプ　</param>
+		/// <returns></returns>
 		public Power GetPower(Power.PowerType type)
 		{
 			if (type == Power.PowerType.KILLALL)
@@ -257,11 +383,18 @@ namespace Power
 			return powers[type];
 		}
 
+		/// <summary>
+		/// ビットン数更新処理、　ビットン数 = 現在オプションパワー強化数
+		/// </summary>
+		/// <param name="count"></param>
 		public void UpdateBit(int count)
 		{
 			powers[Power.PowerType.OPTION].SetUpgradeCount(count);
 		}
 
+		/// <summary>
+		/// マネージャー更新
+		/// </summary>
 		public void Update()
 		{
 			// パワーアップ数に注意
