@@ -10,6 +10,6 @@ public class obj_Off : MonoBehaviour
 	float cnt_Time;				//生成されてからの時間をカウント
     void Update()
     {
-		tim
+		//tim
     }
 }
