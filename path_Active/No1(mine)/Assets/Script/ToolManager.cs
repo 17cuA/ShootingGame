@@ -21,9 +21,8 @@ public class ToolManager : MonoBehaviour
 	//private int frame = 0;
 	//private int frame_Max;
 	private int cnt = 0;
-	[Header("動かす敵キャラの数")]
-	public int Enemy_Num;
-
+	//[Header("動かす敵キャラの数")]
+	//public int Enemy_Num;
 
 	private void OnGUI()
 	{
@@ -42,17 +41,6 @@ public class ToolManager : MonoBehaviour
 	}
 	void Enemy_Action()
 	{
-		//if (frame > frame_Max)
-		//{
-		//	Enemy.transform.position = LC.lineRenderer.GetPosition(cnt);
-		//	cnt++;
-		//	frame = 0;
-		//	if(cnt >= LC.lineRenderer.positionCount - 1)
-		//	{
-		//		cnt = 0;
-		//	}
-		//}
-		//frame++;
 		Enemy.transform.position = LC.lineRenderer.GetPosition(cnt);
 		cnt++;
 		if(cnt >= LC.lineRenderer.positionCount - 1)
