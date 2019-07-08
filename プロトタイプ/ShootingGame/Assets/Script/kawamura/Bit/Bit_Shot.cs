@@ -120,7 +120,7 @@ public class Bit_Shot : MonoBehaviour
                         if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
                         {
                             Missile_Fire();
-                            missileDelayCnt = 0;
+                            //missileDelayCnt = 0;
                         }
                         shot_Delay = 0;
                     }
@@ -174,9 +174,13 @@ public class Bit_Shot : MonoBehaviour
 
 	private void Missile_Fire()
     {
-        GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, Direction);
-        obj.GetComponent<Missile>().Setting_On_Reboot(1);
-    }
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		{
+			GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, transform.position, Direction);
+			obj.GetComponent<Missile>().Setting_On_Reboot(1);
+			missileDelayCnt = 0;
+		}
+	}
 	private void ActiveLaser()
 	{
 		activeLaser = true;
