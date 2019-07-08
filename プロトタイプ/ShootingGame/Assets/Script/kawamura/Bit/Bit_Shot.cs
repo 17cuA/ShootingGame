@@ -111,7 +111,7 @@ public class Bit_Shot : MonoBehaviour
 
 								break;
 							case Player1.Bullet_Type.Laser:
-								laser.Stop();
+								//laser.Stop();
 								break;
 							default:
 								break;

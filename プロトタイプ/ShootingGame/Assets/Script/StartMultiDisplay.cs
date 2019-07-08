@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//実行データでマルチディスプレイの認識をさせるスクリプト
+
+using UnityEngine;
 using System.Collections;
 
 public class StartMultiDisplay : MonoBehaviour
