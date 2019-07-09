@@ -21,7 +21,7 @@ public class One_Boss_All : character_status
 	[SerializeField, Tooltip("ボスの本体にあるマズル")]		private Transform[] beam_mazle;
 
 	[Header("ボスの操作に使用")]
-	[SerializeField, Tooltip("残りHPパーセント")]			private int remaining_hp_percent;
+	[SerializeField, Tooltip("残りHPパーセント")]			private float remaining_hp_percent;
 	[SerializeField, Tooltip("初期コアカラー")]			private Color initial_core_color;
 	[SerializeField, Tooltip("ピンチのコアカラー")]		private Color pinch_core_color;
 	[SerializeField, Tooltip("上のポイント")]				private Vector2 upper_point;
@@ -30,6 +30,7 @@ public class One_Boss_All : character_status
 	[SerializeField, Tooltip("下中のポイント")]			private Vector2 under_in_point;
 	[SerializeField, Tooltip("下のポイント")]				private Vector2 under_point;
 	[SerializeField, Tooltip("ビームの最大数")]			private int beam_max;
+	[SerializeField, Tooltip("回転角度")]			private int rotating_velocity;
 	//------------------------------------------------------------
 
 	public One_Boss_Parts Boss_Body { get; private set; }                       // ボスの本体
@@ -62,7 +63,8 @@ public class One_Boss_All : character_status
 
 		Core_Material = Boss_Core.GetComponent<MeshRenderer>().material;
 		Core_Material.color = initial_core_color;
-		Initial_HP = hp;
+
+		Initial_HP = Boss_Core.hp = hp;
 
 		Moving_Target_Point = new List<Vector3>();
 		Moving_Target_Point.Add(in_point);
@@ -85,14 +87,17 @@ public class One_Boss_All : character_status
 		Initial_Boss_Option_Table_Pos = new List<Vector3>();
 		Initial_Boss_Option_Table_Pos.Add(Boss_Option_Table[0].transform.localPosition);
 		Initial_Boss_Option_Table_Pos.Add(Boss_Option_Table[1].transform.localPosition);
+
+		Rotating_Velocity = rotating_velocity;
 	}
 
     void Update()
     {
 		Boss_Debug();
 
+		float now_percent = (float)Boss_Core.hp / (float)Initial_HP;
 		// 一定HP以上のとき
-		if ((hp / Initial_HP) > (remaining_hp_percent / 100))
+		if (now_percent > remaining_hp_percent / 100.0f)
 		{
 			//Boss_Body.transform.Rotate(new Vector3(rotating_velocity,0.0f,0.0f));
 
@@ -105,102 +110,146 @@ public class One_Boss_All : character_status
 			else if (transform.position == Now_Target)
 			{
 				Shot_Delay++;
-				// 一定時間たったとき
-				if (Shot_Delay > Shot_DelayMax)
+				#region 保留
+				//// 一定時間たったとき
+				//if (Shot_Delay > Shot_DelayMax)
+				//{
+				//	// 一拍おく
+				//	if (Attack_Step == 0)
+				//	{
+				//		Attack_Step++;
+				//		Shot_Delay = 0;
+				//	}
+				//	// ビーム攻撃上
+				//	else if (Attack_Step == 1 || Attack_Step == 3)
+				//	{
+				//		if (Beam_Cnt < beam_max)
+				//		{
+				//			Shoot_Beam(0);
+				//			Beam_Cnt++;
+				//			Shot_Delay /= 20;
+				//		}
+				//		else
+				//		{
+				//			Beam_Cnt = 0;
+				//			Attack_Step++;
+				//			Shot_Delay /= 2;
+				//		}
+				//	}
+				//	// ビーム攻撃下
+				//	else if (Attack_Step == 2 || Attack_Step == 4)
+				//	{
+				//		if (Beam_Cnt < beam_max)
+				//		{
+				//			Shoot_Beam(1);
+				//			Beam_Cnt++;
+				//			Shot_Delay /= 20;
+				//		}
+				//		else
+				//		{
+				//			Beam_Cnt = 0;
+				//			Attack_Step++;
+				//			Shot_Delay /= 2;
+				//		}
+				//	}
+				//	// 次の位置決定
+				//	else if (Attack_Step == 5)
+				//	{
+				//		Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
+				//		Rotation_Speed_Change();
+				//		Shot_Delay = 0;
+				//		Beam_Cnt = 0;
+
+				//		if (Random.Range(0, 2) == 0)
+				//		{
+				//			Attack_Step = 7;
+				//		}
+				//		else
+				//		{
+				//			Attack_Step = 0;
+				//		}
+				//	}
+
+				//	else if (Attack_Step == 7)
+				//	{
+				//		if (Now_Target != Moving_Target_Point[0])
+				//		{
+				//			Now_Target = Moving_Target_Point[0];
+				//		}
+				//		else
+				//		{
+				//			Shoot_Beam(0);
+				//			Shoot_Beam(1);
+
+				//			Vector3 temp_right = Beam_Mazle[0].right;
+				//			temp_right.y++;
+				//			Beam_Mazle[0].right = temp_right;
+
+				//			temp_right = Beam_Mazle[1].right;
+				//			temp_right.y--;
+				//			Beam_Mazle[1].right = temp_right;
+
+				//			Shot_Delay /= 3;
+				//			Beam_Cnt++;
+				//		}
+
+				//		if (Beam_Cnt == 3)
+				//		{
+				//			Debug.Log("asdfg");
+				//			Attack_Step = 5;
+				//			Shot_Delay = 0;
+				//			Vector3 temp_right = Beam_Mazle[0].right;
+				//			temp_right.y -= 3.0f;
+				//			Beam_Mazle[0].right = temp_right;
+
+				//			temp_right = Beam_Mazle[1].right;
+				//			temp_right.y += 3.0f;
+				//			Beam_Mazle[1].right = temp_right;
+				//		}
+				//	}
+				//}
+				#endregion
+				if(Shot_Delay > Shot_DelayMax)
 				{
-					// 一拍おく
-					if (Attack_Step == 0)
+					if(Attack_Step < beam_max / 2)
 					{
+						//Shoot_Beam(0);
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Beam_Mazle[0].transform.position, Beam_Mazle[0].transform.right);
+						Beam_Mazle[0].transform.Rotate(new Vector3(0.0f, 0.0f, Rotating_Velocity));
+
+						//Shoot_Beam(1);
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Beam_Mazle[1].transform.position, Beam_Mazle[1].transform.right);
+						Beam_Mazle[1].transform.Rotate(new Vector3(0.0f, 0.0f, -Rotating_Velocity));
+
 						Attack_Step++;
-						Shot_Delay = 0;
 					}
-					// ビーム攻撃上
-					else if (Attack_Step == 1 || Attack_Step == 3)
+					else if(Attack_Step >= beam_max / 2 && Attack_Step < beam_max)
 					{
-						if (Beam_Cnt < beam_max)
-						{
-							Shoot_Beam(0);
-							Beam_Cnt++;
-							Shot_Delay /= 20;
-						}
-						else
-						{
-							Beam_Cnt = 0;
-							Attack_Step++;
-							Shot_Delay /= 2;
-						}
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Beam_Mazle[0].transform.position, Beam_Mazle[0].transform.right);
+						Beam_Mazle[0].transform.Rotate(new Vector3(0.0f, 0.0f, -Rotating_Velocity));
+
+						//Shoot_Beam(1);
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Beam_Mazle[1].transform.position, Beam_Mazle[1].transform.right);
+						Beam_Mazle[1].transform.Rotate(new Vector3(0.0f, 0.0f, Rotating_Velocity));
+
+						Attack_Step++;
 					}
-					// ビーム攻撃下
-					else if (Attack_Step == 2 || Attack_Step == 4)
+					else
 					{
-						if (Beam_Cnt < beam_max)
-						{
-							Shoot_Beam(1);
-							Beam_Cnt++;
-							Shot_Delay /= 20;
-						}
-						else
-						{
-							Beam_Cnt = 0;
-							Attack_Step++;
-							Shot_Delay /= 2;
-						}
-					}
-					// 次の位置決定
-					else if (Attack_Step == 5)
-					{
-						Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
-						Rotation_Speed_Change();
-						Shot_Delay = 0;
-						Beam_Cnt = 0;
+						Attack_Step = 0;
+						Beam_Mazle[0].transform.right = muki[0];
+						Beam_Mazle[1].transform.right = muki[1];
 
-						if (Random.Range(0, 2) == 0)
+						Vector3 pos;
+						do
 						{
-							Attack_Step = 7;
-						}
-						else
-						{
-							Attack_Step = 0;
-						}
+							pos = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
+						} while (pos == Now_Target);
+
+						Now_Target = pos;
 					}
 
-					else if (Attack_Step == 7)
-					{
-						if (Now_Target != Moving_Target_Point[0])
-						{
-							Now_Target = Moving_Target_Point[0];
-						}
-						else
-						{
-							Shoot_Beam(0);
-							Shoot_Beam(1);
-
-							Vector3 temp_right = Beam_Mazle[0].right;
-							temp_right.y++;
-							Beam_Mazle[0].right = temp_right;
-
-							temp_right = Beam_Mazle[1].right;
-							temp_right.y--;
-							Beam_Mazle[1].right = temp_right;
-
-							Shot_Delay /= 3;
-							Beam_Cnt++;
-						}
-
-						if (Beam_Cnt == 3)
-						{
-							Debug.Log("asdfg");
-							Attack_Step = 5;
-							Shot_Delay = 0;
-							Vector3 temp_right = Beam_Mazle[0].right;
-							temp_right.y -= 3.0f;
-							Beam_Mazle[0].right = temp_right;
-
-							temp_right = Beam_Mazle[1].right;
-							temp_right.y += 3.0f;
-							Beam_Mazle[1].right = temp_right;
-						}
-					}
+					Shot_Delay = 0;
 				}
 			}
 		}
@@ -231,32 +280,32 @@ public class One_Boss_All : character_status
 						Boss_Option_Table[0].gameObject.SetActive(true);
 						Vector3 vector = Boss_Option_Table[0].transform.position;
 						vector.x = 25.0f;
-						Boss_Option_Table[0].transform.position = vector;
+						Boss_Option_Table[0].transform.localPosition = vector;
 
 						Boss_Option_Table[1].gameObject.SetActive(true);
 						vector = Boss_Option_Table[1].transform.position;
 						vector.x = 25.0f;
-						Boss_Option_Table[1].transform.position = vector;
+						Boss_Option_Table[1].transform.localPosition = vector;
 					}
 					else if (Boss_Option_Table[0].gameObject.activeSelf && true 
 						|| Boss_Option_Table[1].gameObject.activeSelf == true)
 					{
-						if (Boss_Option_Table[0].transform.position != Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position != Initial_Boss_Option_Table_Pos[1])
+						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1])
 						{
-							Boss_Option_Table[0].transform.position = Vector3.MoveTowards(Boss_Option_Table[0].transform.position, Initial_Boss_Option_Table_Pos[0], speed * 5);
-							Boss_Option_Table[1].transform.position = Vector3.MoveTowards(Boss_Option_Table[1].transform.position, Initial_Boss_Option_Table_Pos[1], speed * 5);
+							Boss_Option_Table[0].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[0].transform.localPosition, Initial_Boss_Option_Table_Pos[0], speed * 5);
+							Boss_Option_Table[1].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[1].transform.localPosition, Initial_Boss_Option_Table_Pos[1], speed * 5);
 						}
-						else if(Boss_Option_Table[0].transform.position == Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.position == Initial_Boss_Option_Table_Pos[1])
+						else if(Boss_Option_Table[0].transform.localPosition == Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.localPosition == Initial_Boss_Option_Table_Pos[1])
 						{
 							Attack_Step++;
 						}
 					}
 				}
 			}
-			//
+			// 攻撃開始
 			else if(Attack_Step == 1)
 			{
-				if(Beam_Cnt < beam_max)
+				if(Beam_Cnt < 10)
 				{
 					Shot_Delay++;
 					if(Shot_Delay > Shot_DelayMax)
@@ -269,8 +318,19 @@ public class One_Boss_All : character_status
 						Beam_Mazle[1].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Beam_Mazle[1].position, Beam_Mazle[1].right);
 						Shot_Delay = 0;
+
+						Beam_Cnt++;
 					}
 				}
+				else
+				{
+					Beam_Cnt = 0;
+					Attack_Step++;
+				}
+			}
+			else if(Attack_Step == 2)
+			{
+
 			}
 		}
     }
@@ -331,17 +391,17 @@ public class One_Boss_All : character_status
 			if (Input.GetKey(KeyCode.H))
 			{
 				hp = Initial_HP / 2;
-				Debug.Log("Boss_ＨＰ_Harf");
+				Debug.Log("Boss_HP_Harf");
 			}
 			else if (Input.GetKey(KeyCode.Z))
 			{
 				hp = 0;
-				Debug.Log("Boss_ＨＰ_Zero");
+				Debug.Log("Boss_HP_Zero");
 			}
 			else if (Input.GetKey(KeyCode.F))
 			{
 				hp = Initial_HP;
-				Debug.Log("Boss_ＨＰ_Full");
+				Debug.Log("Boss_HP_Full");
 			}
 			else if(Input.GetKey(KeyCode.Alpha1))
 			{
