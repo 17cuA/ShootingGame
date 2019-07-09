@@ -20,4 +20,12 @@ public class BattleshipType_Battery : character_status
 
 		gameObject.tag = transform.parent.tag;
 	}
+
+	private void Update()
+	{
+		if(hp<=0)
+		{
+			Died_Process();
+		}
+	}
 }

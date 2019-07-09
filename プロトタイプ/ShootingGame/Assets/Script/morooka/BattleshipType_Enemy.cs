@@ -78,20 +78,19 @@ public class BattleshipType_Enemy : character_status
 		{
 			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].right));
 			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].right));
+			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select+2].position, muzzle_set_up[Muzzle_Select+2].right));
+			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select+2].position, muzzle_set_Down[Muzzle_Select+2].right));
 			Muzzle_Select++;
-			if (Muzzle_Select == muzzle_set_up.Length)
+			if (Muzzle_Select == 2)
 			{
 				Muzzle_Select = 0;
-				Shot_Delay = 0;
 			}
-			else
-			{
-				Shot_Delay = Shot_DelayMax - 60;
-			}
+
+			Shot_Delay = 0;
 		}
 
 		// 保管したバレットの確認
-		for(int i = 0; i< Bullet_Object.Count;i++)
+		for (int i = 0; i< Bullet_Object.Count;i++)
 		{
 			// バレットが起動しているとき
 			if (Bullet_Object[i].activeSelf)
@@ -107,6 +106,11 @@ public class BattleshipType_Enemy : character_status
 				// バレット情報のリリース
 				Bullet_Object.RemoveAt(i);
 			}
+		}
+
+		if (hp <= 0)
+		{
+			Died_Process();
 		}
 	}
 
