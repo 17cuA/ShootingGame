@@ -4,6 +4,7 @@
 /*
  * 2019/07/08　挟み込み移動と弾を撃つ行動
  * 2019/07/08　まっすぐ移動
+ * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +36,6 @@ public class BattleshipType_Enemy : character_status
 		Bullet_Object = new List<GameObject>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		// 移動したい向きに移動
@@ -47,9 +47,6 @@ public class BattleshipType_Enemy : character_status
 			// X軸が移動先に近づいたとき
 			// Y軸が移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
-			//if (Mathf.Abs(transform.position.x - moving_change_point[Now_Target].x) < speed
-			//	&& Mathf.Abs(transform.position.y - moving_change_point[Now_Target].y) < speed
-			//	&& Now_Target < moving_change_point.Length - 1)			
 			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
 				&& Now_Target < moving_change_point.Length - 1)
 			{
@@ -118,7 +115,16 @@ public class BattleshipType_Enemy : character_status
 	{
 		transform.position = initial_position;
 		Now_Target = 0;
-		Shot_Delay = Shot_DelayMax / 3;
+		Shot_Delay = 0;
+
+		// 子供が不能のとき、再起動
+		for(int i = 0; i< transform.childCount;i++)
+		{
+			if(!transform.GetChild(i).gameObject.activeSelf)
+			{
+				transform.GetChild(i).gameObject.SetActive(true);
+			}
+		}
 	}
 
 	/// <summary>
@@ -133,5 +139,31 @@ public class BattleshipType_Enemy : character_status
 		float yy = a.y - a.y;
 
 		return Mathf.Sqrt(xx * xx + yy * yy);
+	}
+
+	/// <summary>
+	/// 移動モードの設定(0：上側の移動、1：中心直進、2：下側の移動)
+	/// </summary>
+	/// <param name="num"></param>
+	public void Moving_Mode_Preference(int num)
+	{
+		switch(num)
+		{
+			case 0:
+				is_sandwich = false;
+				break;
+			case 1:
+				is_sandwich = true;
+				break;
+			case 2:
+				is_sandwich = false;
+				for(int i =0;i< moving_change_point.Length;i++)
+				{
+					moving_change_point[i].y *= -1.0f;
+				}
+				break;
+			default:
+				break;
+		}
 	}
 }
