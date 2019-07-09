@@ -166,6 +166,7 @@ public class Player1 : character_status
 			Remaining--;
 			if (Remaining < 1)
 			{
+				//
 				Died_Process();
 			}
 			else
@@ -173,7 +174,7 @@ public class Player1 : character_status
 				ParticleCreation(0);		//爆発のエフェクト発動
 				Reset_Status();             //体力の修正
 				gameObject.transform.position = direction;      //初期位置に戻す
-				laser.Stop();				//レーザーを稼働状態から停止状態にする
+				if(laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 				invincible = false;			//無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
