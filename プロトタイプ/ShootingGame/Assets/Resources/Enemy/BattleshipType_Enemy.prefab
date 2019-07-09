@@ -72,6 +72,8 @@ GameObject:
   - component: {fileID: 1346105030398948289}
   - component: {fileID: 1346105030399947009}
   - component: {fileID: 956480977882286626}
+  - component: {fileID: 3971275403807773527}
+  - component: {fileID: 9054743081646108658}
   m_Layer: 9
   m_Name: Cylinder011
   m_TagString: Untagged
@@ -147,11 +149,48 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880001}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!114 &3971275403807773527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
+--- !u!54 &9054743081646108658
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880001}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880003
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +202,9 @@ GameObject:
   - component: {fileID: 1346105030402372579}
   - component: {fileID: 1346105030398948291}
   - component: {fileID: 1346105030399947011}
+  - component: {fileID: 5032255919445073453}
   - component: {fileID: 4175908020359073857}
+  - component: {fileID: 6183895731423775401}
   m_Layer: 9
   m_Name: Cylinder012
   m_TagString: Untagged
@@ -231,6 +272,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5032255919445073453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &4175908020359073857
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -239,11 +301,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880003}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &6183895731423775401
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880003}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880005
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +333,6 @@ GameObject:
   - component: {fileID: 1346105030402372581}
   - component: {fileID: 1346105030398948293}
   - component: {fileID: 1346105030399947013}
-  - component: {fileID: 6706435469624701748}
   m_Layer: 9
   m_Name: Cylinder001
   m_TagString: Enemy
@@ -322,22 +399,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &6706435469624701748
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1346105030401880005}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1346105030401880007
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +410,9 @@ GameObject:
   - component: {fileID: 1346105030402372583}
   - component: {fileID: 1346105030398948295}
   - component: {fileID: 1346105030399947015}
+  - component: {fileID: 5001972239627688780}
   - component: {fileID: 2302305014530260989}
+  - component: {fileID: 6404206233659875759}
   m_Layer: 9
   m_Name: Cylinder002
   m_TagString: Untagged
@@ -417,6 +480,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5001972239627688780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 5
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 100
+  shield: 0
+  activeShield: 0
 --- !u!65 &2302305014530260989
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -425,11 +509,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880007}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &6404206233659875759
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880007}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880009
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +541,9 @@ GameObject:
   - component: {fileID: 1346105030402372585}
   - component: {fileID: 1346105030398948297}
   - component: {fileID: 1346105030399947017}
+  - component: {fileID: 2421894172455055504}
   - component: {fileID: 7661509914224948047}
+  - component: {fileID: 581117951447902295}
   m_Layer: 9
   m_Name: Cylinder015
   m_TagString: Untagged
@@ -509,6 +611,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2421894172455055504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &7661509914224948047
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -517,11 +640,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880009}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &581117951447902295
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880009}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880011
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +672,9 @@ GameObject:
   - component: {fileID: 1346105030402372587}
   - component: {fileID: 1346105030398948299}
   - component: {fileID: 1346105030399947019}
+  - component: {fileID: 4508685063195705633}
   - component: {fileID: 5677703554905875375}
+  - component: {fileID: 6987148162009794404}
   m_Layer: 9
   m_Name: Cylinder016
   m_TagString: Untagged
@@ -601,6 +742,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4508685063195705633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &5677703554905875375
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -609,11 +771,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880011}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &6987148162009794404
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880011}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880013
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +803,9 @@ GameObject:
   - component: {fileID: 1346105030402372589}
   - component: {fileID: 1346105030398948301}
   - component: {fileID: 1346105030399947021}
+  - component: {fileID: 8253702922458496116}
   - component: {fileID: 8334533463866755368}
+  - component: {fileID: 4570823020715361757}
   m_Layer: 9
   m_Name: Cylinder013
   m_TagString: Untagged
@@ -693,6 +873,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8253702922458496116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &8334533463866755368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -701,11 +902,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880013}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &4570823020715361757
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880013}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880015
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +934,9 @@ GameObject:
   - component: {fileID: 1346105030402372591}
   - component: {fileID: 1346105030398948303}
   - component: {fileID: 1346105030399947023}
+  - component: {fileID: 6836040447442954196}
   - component: {fileID: 9034515626623104063}
+  - component: {fileID: 2968846133233381161}
   m_Layer: 9
   m_Name: Cylinder014
   m_TagString: Untagged
@@ -785,6 +1004,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6836040447442954196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &9034515626623104063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -793,11 +1033,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880015}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &2968846133233381161
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880015}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880021
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +1065,9 @@ GameObject:
   - component: {fileID: 1346105030402372597}
   - component: {fileID: 1346105030398948309}
   - component: {fileID: 1346105030399947029}
+  - component: {fileID: 4409028980022405751}
   - component: {fileID: 7157195339763150201}
+  - component: {fileID: 6487419563351818475}
   m_Layer: 9
   m_Name: Cylinder017
   m_TagString: Untagged
@@ -877,6 +1135,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4409028980022405751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd0790f3f8b1ef4e96cb82a75ed255c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!65 &7157195339763150201
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -885,11 +1164,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880021}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12700012, y: 0.1270001, z: 0.1790752}
   m_Center: {x: -0.00000016018762, y: 0.000000011282211, z: 0.43837962}
+--- !u!54 &6487419563351818475
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880021}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1346105030401880023
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +1198,7 @@ GameObject:
   - component: {fileID: 327285724795515794}
   - component: {fileID: 7333191891123298224}
   - component: {fileID: 6585920855748660191}
+  - component: {fileID: 7733423196847069894}
   m_Layer: 9
   m_Name: BattleshipType_Enemy
   m_TagString: Enemy
@@ -917,7 +1213,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880023}
-  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 3.12, z: -0.18151954}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -932,7 +1228,7 @@ Transform:
   - {fileID: 1346105030402372597}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &81537746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,7 +1275,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880023}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5, y: 2.5, z: 1}
@@ -992,7 +1288,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880023}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.53
   m_Height: 2
@@ -1006,11 +1302,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346105030401880023}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 1.8, z: 1}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!54 &7733423196847069894
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346105030401880023}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2607390433365311803
 GameObject:
   m_ObjectHideFlags: 0

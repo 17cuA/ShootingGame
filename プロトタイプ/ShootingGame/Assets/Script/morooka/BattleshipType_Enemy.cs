@@ -2,7 +2,8 @@
 // 戦艦型エネミーの挙動
 // 作成者:諸岡勇樹
 /*
- * 2019/07/08　移動と弾を撃つ行動
+ * 2019/07/08　挟み込み移動と弾を撃つ行動
+ * 2019/07/08　まっすぐ移動
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -46,8 +47,10 @@ public class BattleshipType_Enemy : character_status
 			// X軸が移動先に近づいたとき
 			// Y軸が移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
-			if (Mathf.Abs(transform.position.x - moving_change_point[Now_Target].x) < 1.0f
-				&& Mathf.Abs(transform.position.y - moving_change_point[Now_Target].y) < 1.0f
+			//if (Mathf.Abs(transform.position.x - moving_change_point[Now_Target].x) < speed
+			//	&& Mathf.Abs(transform.position.y - moving_change_point[Now_Target].y) < speed
+			//	&& Now_Target < moving_change_point.Length - 1)			
+			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
 				&& Now_Target < moving_change_point.Length - 1)
 			{
 				// 向きを確認
@@ -86,16 +89,22 @@ public class BattleshipType_Enemy : character_status
 				Shot_Delay = Shot_DelayMax - 60;
 			}
 		}
+
+		// 保管したバレットの確認
 		for(int i = 0; i< Bullet_Object.Count;i++)
 		{
+			// バレットが起動しているとき
 			if (Bullet_Object[i].activeSelf)
 			{
+				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
 				Vector3 pos = Bullet_Object[i].transform.position;
 				pos.x += velocity.x;
 				Bullet_Object[i].transform.position = pos;
 			}
+			// 起動していないとき
 			else
 			{
+				// バレット情報のリリース
 				Bullet_Object.RemoveAt(i);
 			}
 		}
@@ -106,5 +115,19 @@ public class BattleshipType_Enemy : character_status
 		transform.position = initial_position;
 		Now_Target = 0;
 		Shot_Delay = Shot_DelayMax / 3;
+	}
+
+	/// <summary>
+	/// ベクトルの長さを出す
+	/// </summary>
+	/// <param name="a"> 開始座標 </param>
+	/// <param name="b"> 目標座標 </param>
+	/// <returns></returns>
+	private float Vector_Size( Vector3 a, Vector3 b )
+	{
+		float xx = a.x - b.x;
+		float yy = a.y - a.y;
+
+		return Mathf.Sqrt(xx * xx + yy * yy);
 	}
 }
