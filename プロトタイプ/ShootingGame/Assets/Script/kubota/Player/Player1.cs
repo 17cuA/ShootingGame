@@ -113,10 +113,10 @@ public class Player1 : character_status
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
-        bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
+        bullet_Type = Bullet_Type.Single;	//初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
-		shield = 3;			//シールドに防御可能回数文の値を入れる
+		shield = 3;										//シールドに防御可能回数文の値を入れる
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeBullet = true;
 		activeDouble = false;
@@ -419,7 +419,7 @@ public class Player1 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		shield = 3;
+		//shield = 3;
 		shield_Effect.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();

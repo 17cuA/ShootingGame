@@ -13,16 +13,17 @@ public class character_status : MonoBehaviour
 	}
 	protected Chara_Type Type;
 	public float speed;                                         // スピード
+	private float speed_Max;
 	public int hp;                                            // 体力
 	private int hp_Max;
 	public Vector3 direction;                                   // 向き
 	public CapsuleCollider capsuleCollider;                     // cillider
 	private Rigidbody rigidbody;                                //rigitbody
 	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
-	public int Shot_Delay;                                 // 弾を撃つ時の間隔
-	public uint score;							// 保持しているスコア
-	private int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
+	public int Shot_Delay;								// 弾を撃つ時の間隔
+	public uint score;										// 保持しているスコア
+	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
+	public bool activeShield;							//現在シールドが発動しているかどうかの判定用（初期値false）
 
 	private void Start()
 	{
