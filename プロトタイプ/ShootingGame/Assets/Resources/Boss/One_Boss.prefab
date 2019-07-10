@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7574051346316743749}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,6 +105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051346333242875
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +218,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051346351118028
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +239,7 @@ GameObject:
   - component: {fileID: 7574051346351118029}
   m_Layer: 0
   m_Name: One_Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,6 +283,8 @@ MonoBehaviour:
   Shot_DelayMax: 30
   Shot_Delay: 0
   score: 9000
+  shield: 0
+  activeShield: 0
   boss_body: {fileID: 7574051347997956166}
   boss_core: {fileID: 7574051346316743749}
   boss_option:
@@ -288,7 +308,8 @@ MonoBehaviour:
   in_point: {x: 0, y: 0}
   under_in_point: {x: 0, y: -1.5}
   under_point: {x: 0, y: -3}
-  beam_max: 1
+  beam_max: 15
+  rotating_velocity: 6
 --- !u!1 &7574051346738520887
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +418,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347183997461
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +531,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347197746677
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +644,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347345507439
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +787,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347530955823
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +900,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347664356066
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1047,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051347997956173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,6 +1160,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
 --- !u!1 &7574051348282791951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,3 +1273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  shield: 0
+  activeShield: 0
