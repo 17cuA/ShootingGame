@@ -261,7 +261,7 @@ public class One_Boss_All : character_status
 			{
 				// コアの色を変える
 				Core_Material.color = pinch_core_color;
-				Now_Target = Moving_Target_Point[0];
+				Now_Target = new Vector3(14.0f,0.0f,0.0f);
 				Attack_Step = 0;
 			}
 			// 攻撃準備
@@ -270,7 +270,7 @@ public class One_Boss_All : character_status
 				// 本体の移動
 				if(transform.position != Now_Target)
 				{
-					transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed);
+					transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed * 3.0f);
 				}
 				// 装備の設置
 				else if(transform.position == Now_Target)
