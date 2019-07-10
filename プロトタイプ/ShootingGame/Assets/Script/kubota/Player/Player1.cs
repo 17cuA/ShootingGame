@@ -76,6 +76,11 @@ public class Player1 : character_status
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { Debug.Log("ミサイルリセット"); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Debug.Log("ダブルリセット"); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Debug.Log("レーサーリセット"); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { Debug.Log("シールドリセット"); });
 
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -87,7 +92,11 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
-
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { Debug.Log("ミサイルリセット"); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Debug.Log("ダブルリセット"); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Debug.Log("レーサーリセット"); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { Debug.Log("シールドリセット"); });
 	}
 	void Start()
 	{
@@ -138,8 +147,10 @@ public class Player1 : character_status
 			hp = 1000;
 		}
 		//---------------------------
-		//パワーマネージャー更新
-		//PowerManager.Instance.OnUpdate(Time.deltaTime);
+
+		PowerManager.Instance.Update();
+		//ビットン数をパワーマネージャーに更新する
+		PowerManager.Instance.UpdateBit(bitIndex);
 
 		if (activeShield)
 		{
@@ -155,16 +166,15 @@ public class Player1 : character_status
 			Remaining--;
 			if (Remaining < 1)
 			{
+				//
 				Died_Process();
 			}
 			else
 			{
 				ParticleCreation(0);		//爆発のエフェクト発動
 				Reset_Status();             //体力の修正
-				PowerManager.Instance.ResetAllPower();
 				gameObject.transform.position = direction;      //初期位置に戻す
-				//ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();
-				//particle.Stop();				//effectを止める
+				if(laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 				invincible = false;			//無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
@@ -220,7 +230,6 @@ public class Player1 : character_status
 					Bullet_Create();
 				}
 				if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
-
 				break;
 			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
 				break;

@@ -48,7 +48,7 @@ public class Bit_Shot : MonoBehaviour
 	void Start()
 	{
 
-		laserObj= transform.FindChild("Lasers").gameObject;
+		laserObj= transform.Find("Lasers").gameObject;
 		line_beam = laserObj.GetComponent<Line_Beam>();
 
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
