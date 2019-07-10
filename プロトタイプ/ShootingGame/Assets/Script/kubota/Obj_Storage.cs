@@ -95,7 +95,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Single/S01");	//敵キャラの爆発エフェクト
 		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Single/S02");	//敵キャラコアシールドの破壊エフェクト
 		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Reuse/R02");	//プレイヤーパワーアップエフェクト
-		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Single/S03");	//敵キャラ
+		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Single/S03");	//ボス爆発
 		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Effects_009");     //none
 		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Loop/L01");//敵の粒子
 		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Single/S04");     //大爆発

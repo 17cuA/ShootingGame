@@ -31,14 +31,6 @@ public class character_status : MonoBehaviour
 		rigidbody.useGravity = false;
 		capsuleCollider = GetComponent<CapsuleCollider>();
 	}
-	/// <summary>
-	/// シールドの値を設定する関数
-	/// </summary>
-	/// <param name="num"></param>
-	public void Shield_Set(int num)
-	{
-		shield = num;
-	}
 	//初期の体力を保存
 	public void HP_Setting()
 	{
@@ -65,7 +57,7 @@ public class character_status : MonoBehaviour
 			Game_Master.MY.Score_Addition(score);
 			SE_Manager.SE_Obj.SE_Active(9);
 			//爆発処理の作成
-			ParticleCreation(5);
+			ParticleCreation(4);
 		}
 		else
 		{
