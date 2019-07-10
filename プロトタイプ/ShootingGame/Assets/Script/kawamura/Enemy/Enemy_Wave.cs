@@ -15,12 +15,17 @@ public class Enemy_Wave : character_status
 	public State eState;
 
 	GameObject childObj;
+	GameObject item;
+	GameObject parentObj;
+	//GameObject blurObj;
 
 	HSVColorController hsvCon;
 	Color hsvColor;
+	//BlurController blurCon;
+	EnemyGroupManage groupManage;
+	VisibleCheck vc;
 
-	//public Transform startMarker;
-	//public Transform endMarker;
+	Vector3 velocity;
 
 	//----------
 	public Vector3 startMarker;
@@ -30,8 +35,6 @@ public class Enemy_Wave : character_status
 
 	private float distance_two;
 	//----------
-
-
 
 	public float speedX;
 	public float speedY;
@@ -51,15 +54,7 @@ public class Enemy_Wave : character_status
 	float posZ;
 	float defPosX;
 	float val_Value;
-
-	Vector3 velocity;
-
-	GameObject item;
-	GameObject parentObj;
-	//GameObject childObj;
-
-	EnemyGroupManage groupManage;
-	VisibleCheck vc;
+	float sigma_Value;
 
 
 	public bool isAddSpeedY = false;   //Yスピードを増加させるかどうか
@@ -86,6 +81,10 @@ public class Enemy_Wave : character_status
 		hsvColor = childObj.GetComponent<Renderer>().material.color;
 		hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.025f;
+
+		//blurObj = transform.GetChild(1).gameObject;
+		//blurCon = blurObj.GetComponent<BlurController>();
+		sigma_Value = 0.1f;
 
 		if (transform.parent != null)
 		{
@@ -251,9 +250,17 @@ public class Enemy_Wave : character_status
 					{
 						hsvCon.val = 1.0f;
 					}
+
+					//blurCon.sigma -= sigma_Value;
+					//if (blurCon.sigma <= 0)
+					//{
+					//	blurCon.sigma = 0.1f;
+					//}
 				}
 				else if (transform.position.x > 1)
 				{
+					//blurCon.sigma -= sigma_Value;
+
 					speedZ = speedZ_Value;
 				}
 			}

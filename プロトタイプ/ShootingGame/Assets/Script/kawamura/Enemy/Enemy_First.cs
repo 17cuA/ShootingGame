@@ -11,7 +11,7 @@ public class Enemy_First : character_status
 		Straight,       //生成された時(曲がらない)
 	}
 
-	State eState;
+	public State eState;
 
 	Vector3 velocity;
 
@@ -32,6 +32,7 @@ public class Enemy_First : character_status
 
 	int frame = 0;
 	public float speedX;
+	public float speedX_Straight;
 	public float speedY;
 
 	bool isTurn;
@@ -44,7 +45,7 @@ public class Enemy_First : character_status
 		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
-		speedX = 5.0f;
+		//speedX = 5.0f;
 		speedY = 5.0f;
 
 		if (transform.parent != null)
@@ -60,6 +61,22 @@ public class Enemy_First : character_status
 			}
 		}
 
+		if(parentObj)
+		{
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			{
+				if (parentObj.transform.position.y > 0)
+				{
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					speedX = 5;
+					eState = State.TurnUp;
+				}
+			}
+		}
 
 		HP_Setting();
 	}
@@ -80,15 +97,19 @@ public class Enemy_First : character_status
 			if (parentObj.name != "Enemy_UFO_Group(Clone)")
 			{
 				eState = State.Straight;
+				speedX = speedX_Straight;
 			}
-		}
-		else if (transform.position.y > 0)
-		{
-			eState = State.TurnDown;
-		}
-		else
-		{
-			eState = State.TurnUp;
+			else if (parentObj.transform.position.y > 0)
+			{
+				speedX = 5;
+				eState = State.TurnDown;
+			}
+			else
+			{
+				speedX = 5;
+				eState = State.TurnUp;
+			}
+
 		}
 	}
 
@@ -97,7 +118,11 @@ public class Enemy_First : character_status
 		//倒されたとき
 		if (hp < 1)
 		{
-			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			if (parentObj == null)
+			{
+
+			}
+			else if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -122,7 +147,7 @@ public class Enemy_First : character_status
 
 				}
 			}
-			Reset_Status();
+			//Reset_Status();
 			//isDead = true;
 			frame = 0;
 
@@ -248,6 +273,7 @@ public class Enemy_First : character_status
 				break;
 
 			case State.Straight:
+				speedX = speedX_Straight;
 				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -281,11 +307,20 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			if(parentObj)
 			{
-				groupManage.notDefeatedEnemyCnt++;
-				groupManage.remainingEnemiesCnt -= 1;
+				if (parentObj.name == "Enemy_UFO_Group(Clone)")
+				{
+					groupManage.notDefeatedEnemyCnt++;
+					groupManage.remainingEnemiesCnt -= 1;
+				}
 			}
+			frame = 0;
+			gameObject.SetActive(false);
+
+		}
+		else if (eState == State.Straight && (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallRight"))
+		{
 			frame = 0;
 			gameObject.SetActive(false);
 		}

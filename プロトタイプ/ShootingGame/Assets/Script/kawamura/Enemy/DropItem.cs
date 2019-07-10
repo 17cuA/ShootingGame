@@ -23,13 +23,11 @@ public class DropItem : MonoBehaviour
 	void OnApplicationQuit()
 
 	{
-
 		isQuitting = true;
-
 	}
 	private void OnDisable()
 	{
-		if(!isQuitting)
+		//if(!isQuitting)
 		Instantiate(item, itemPos, transform.rotation);
 	}
 
