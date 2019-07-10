@@ -12,27 +12,54 @@ public class UfoMotherType_Enemy : character_status
 {
 	[SerializeField]
 	[Header("回転速度")]
-	private float rotating_velocity;		// 回転速度
-	private GameObject[] Shot_Mazle { get; set; }
+	private float rotating_velocity;        // 回転速度
+	[SerializeField]
+	private Transform[] shot_mazle;
+	[SerializeField, Header("攻撃のインターバル")]
+	private int attack_interval;
+
+	private int Sortie_Number { get; set; }
+	private int Shot_Cnt { get; set; }
+	private int Interval_Cnt { get; set; }
 
 	void Start()
-    {
-		Shot_Mazle = new GameObject[transform.childCount];
-		for(int i = 0; i< transform.childCount;i++)
-		{
-			Shot_Mazle[i] = transform.GetChild(i).gameObject;
-		}
+	{
+		Sortie_Number = 6;
+		Shot_Cnt = 0;
+		Interval_Cnt = 0;
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		transform.Rotate(new Vector3(0.0f, 0.0f, rotating_velocity));
 
-		if (Game_Master.MY.Frame_Count % Shot_DelayMax == 0)
+		if (Shot_Cnt < Sortie_Number)
 		{
-			for (int i = 0; i < transform.childCount; i++)
+			Shot_Delay++;
+			if (Shot_Delay > Shot_DelayMax)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY, Shot_Mazle[i].transform.position, Shot_Mazle[i].transform.right);
+				for (int i = 0; i < shot_mazle.Length; i++)
+				{
+					if (Random.Range(0, Sortie_Number * 4) == 0)
+					{ }
+					else
+					{
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY, shot_mazle[i].position, shot_mazle[i].right);
+					}
+				}
+
+				Shot_Delay = 0;
+				Shot_Cnt++;
+			}
+		}
+		else if (Shot_Cnt == Sortie_Number)
+		{
+			Interval_Cnt++;
+
+			if (Interval_Cnt > attack_interval)
+			{
+				Interval_Cnt = 0;
+				Shot_Cnt = 0;
 			}
 		}
 	}
