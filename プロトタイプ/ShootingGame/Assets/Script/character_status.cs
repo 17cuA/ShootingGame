@@ -21,7 +21,7 @@ public class character_status : MonoBehaviour
 	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                 // 弾を撃つ時の間隔
 	public uint score;							// 保持しているスコア
-	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
+	private int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
 	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
 
 	private void Start()
@@ -29,6 +29,14 @@ public class character_status : MonoBehaviour
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 		rigidbody.useGravity = false;
 		capsuleCollider = GetComponent<CapsuleCollider>();
+	}
+	/// <summary>
+	/// シールドの値を設定する関数
+	/// </summary>
+	/// <param name="num"></param>
+	public void Shield_Set(int num)
+	{
+		shield = num;
 	}
 	//初期の体力を保存
 	public void HP_Setting()

@@ -31,11 +31,14 @@ public class Player1 : character_status
 	public bool activeDouble;           //現在の攻撃が弾丸の二連かどうかの判定用（初期false）
 	public int bitIndex = 0;        //オプションの数
 
-	[Tooltip("ジェット噴射の位置情報を入れる")]
-	public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
-	private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
-	public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
-	private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
+	//[Tooltip("ジェット噴射の位置情報を入れる")]
+	//public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
+	//private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
+	//public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
+	//private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
+
+	private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
+	private ParticleSystem shield_Effect;		//シールドのエフェクトを入れる
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;				// 旋回カウント
@@ -113,60 +116,42 @@ public class Player1 : character_status
         bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
-		injection = Obj_Storage.Storage_Data.Effects[2].Active_Obj();
-		shield = 3;
+		shield = 3;			//シールドに防御可能回数文の値を入れる
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeBullet = true;
 		activeDouble = false;
 		activeLaser = false;
 		activeShield = false;
 		activeMissile = false;
-		laser.Stop();
+		laser.Stop();		//レーザーのパーティクルを動かさないようにする
+		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
+		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 	}
 
 	void Update()
 	{
 		//-------------------------------
 		//デバックの工程
-		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			invincible_time = 0;
-			//Debug.Log("hei");
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			Damege_Process(1);
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			PowerManager.Instance.Pick();
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			hp = 1000;
-		}
+		if (Input.GetKeyDown(KeyCode.Alpha1))Damege_Process(1);
+		if(Input.GetKeyDown(KeyCode.Alpha2))PowerManager.Instance.Pick();
+		if(Input.GetKeyDown(KeyCode.Alpha3))hp = 1000;
 		//---------------------------
 
 		PowerManager.Instance.Update();
 		//ビットン数をパワーマネージャーに更新する
 		PowerManager.Instance.UpdateBit(bitIndex);
 
-		if (activeShield)
-		{
-			Shield_Effect.transform.position = Shield_pos.transform.position;
-		}
 		if(shield < 1)
 		{
 			PowerManager.Instance.ResetShieldPower();
-			Shield_Effect.SetActive(false);
+			shield_Effect.Play(false);
 		}
 		if (hp < 1)
 		{
 			Remaining--;
 			if (Remaining < 1)
 			{
-				//
+				//残機がない場合死亡
 				Died_Process();
 			}
 			else
@@ -272,7 +257,6 @@ public class Player1 : character_status
 		}
 		//
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		injection.transform.position = Injection_pos.transform.position;
 		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
@@ -436,15 +420,13 @@ public class Player1 : character_status
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
 		shield = 3;
-		Shield_Effect = Obj_Storage.Storage_Data.Effects[17].Active_Obj();			//エフェクトをオンの状態に
-		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
-		particle.Play();				//パーティクルの稼働
+		shield_Effect.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
-
+		shield_Effect.Play();
 	}
 	//オプションをアクティブに
 	private void CreateBit()
