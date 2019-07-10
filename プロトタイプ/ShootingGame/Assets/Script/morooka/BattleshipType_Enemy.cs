@@ -23,7 +23,8 @@ public class BattleshipType_Enemy : character_status
 	public float Y_Move_Facing { get; set; }			// Y軸の移動向き
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
-	public List<GameObject> Bullet_Object { get; set; }
+	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
+	public List<BattleshipType_Battery> Child_Scriptes { get; set; }
 
 	void Start()
 	{
@@ -34,6 +35,16 @@ public class BattleshipType_Enemy : character_status
 		Muzzle_Select = 0;
 		Shot_Delay = Shot_DelayMax / 3;
 		Bullet_Object = new List<GameObject>();
+		Child_Scriptes = new List<BattleshipType_Battery>();
+
+		for (int i = 0; i < transform.childCount; i++)
+		{
+			BattleshipType_Battery b = transform.GetChild(i).GetComponent<BattleshipType_Battery>();
+			if (b != null)
+			{
+				Child_Scriptes.Add(b);
+			}
+		}
 	}
 
 	void Update()
@@ -107,6 +118,16 @@ public class BattleshipType_Enemy : character_status
 
 		if (hp <= 0)
 		{
+			for (int i = 0; i < Child_Scriptes.Count; i++)
+			{
+				if (Child_Scriptes[i].gameObject.activeSelf)
+				{
+					Child_Scriptes[i].Died_Process();
+					//character_status c = transform.GetChild(i).GetComponent<character_status>();
+					//c.Died_Process();
+				}
+			}
+
 			Died_Process();
 		}
 	}
@@ -117,12 +138,17 @@ public class BattleshipType_Enemy : character_status
 		Now_Target = 0;
 		Shot_Delay = 0;
 
-		// 子供が不能のとき、再起動
-		for(int i = 0; i< transform.childCount;i++)
+		if (Child_Scriptes != null)
 		{
-			if(!transform.GetChild(i).gameObject.activeSelf)
+			// 子供が不能のとき、再起動
+			for (int i = 0; i < Child_Scriptes.Count; i++)
 			{
-				transform.GetChild(i).gameObject.SetActive(true);
+				if (!Child_Scriptes[i].gameObject.activeSelf)
+				{
+					Child_Scriptes[i].gameObject.SetActive(true);
+					//character_status c = transform.GetChild(i).GetComponent<character_status>();
+					//c.Died_Process();
+				}
 			}
 		}
 	}

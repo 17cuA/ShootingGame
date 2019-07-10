@@ -16,7 +16,7 @@ public class Enemy_First : character_status
 	Vector3 velocity;
 
     GameObject item;
-	GameObject parentObj;
+	public GameObject parentObj;
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
