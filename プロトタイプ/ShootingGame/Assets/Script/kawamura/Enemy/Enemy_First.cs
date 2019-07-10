@@ -6,16 +6,16 @@ public class Enemy_First : character_status
 {
 	public enum State
 	{
-		TurnUp,			//上に曲がる
-		TurnDown,		//下に曲がる
-		Generated,		//生成された時(曲がらない)
+		TurnUp,         //上に曲がる
+		TurnDown,       //下に曲がる
+		Straight,       //生成された時(曲がらない)
 	}
 
 	State eState;
 
 	Vector3 velocity;
 
-    GameObject item;
+	GameObject item;
 	GameObject parentObj;
 	GameObject childObj;
 
@@ -36,11 +36,10 @@ public class Enemy_First : character_status
 
 	bool isTurn;
 	bool isAddition = false;
-    bool isDead = false;
-	public bool isisisisi=false;
+	bool isDead = false;
 	void Start()
-    {
-        item = Resources.Load("Item/Item_Test") as GameObject;
+	{
+		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
 		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
@@ -56,20 +55,20 @@ public class Enemy_First : character_status
 		speedX = 5.0f;
 		speedY = 5.0f;
 
-        if (transform.parent!=null)
-        {
-            parentObj = transform.parent.gameObject;
+		if (transform.parent != null)
+		{
+			parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
-        }
+		}
+		HP_Setting();
+	}
 
-    }
-
-    void Update()
-    {
+	void Update()
+	{
 		//倒されたとき
 		if (hp < 1)
 		{
-			if(parentObj)
+			if (parentObj.name == "Enemy_UFO_Group")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -95,13 +94,13 @@ public class Enemy_First : character_status
 				}
 			}
 			Reset_Status();
-            isDead = true;
+			isDead = true;
 			frame = 0;
 
 			Died_Process();
 		}
 
-        if(!parentObj)
+		if (!parentObj)
 		{
 			if (transform.parent)
 			{
@@ -114,10 +113,33 @@ public class Enemy_First : character_status
 			}
 		}
 
+		Move();
+
+		//画面外に出たら、オフにする
+		//if (!renderer.isVisible)
+		//{
+		//	isTurn = false;
+		//	isDead = false;
+		//	gameObject.SetActive(false);
+		//}
+	}
+
+	//オフになったとき実行される
+	private void OnDisable()
+	{
+		if (isDead)
+		{
+			isDead = false;
+		}
+	}
+
+	//---------ここから関数--------------
+	void Move()
+	{
 		switch (eState)
 		{
 			case State.TurnUp:
-				if(!isTurn)
+				if (!isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -130,7 +152,7 @@ public class Enemy_First : character_status
 						}
 					}
 				}
-				else if(isTurn)
+				else if (isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -193,49 +215,32 @@ public class Enemy_First : character_status
 				}
 				break;
 
-			case State.Generated:
+			case State.Straight:
 				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 		}
-
-		//画面外に出たら、オフにする
-		//if (!renderer.isVisible)
-		//{
-		//	isTurn = false;
-		//	isDead = false;
-		//	gameObject.SetActive(false);
-		//}
-
 	}
-
-	//オフになったとき実行される
-	private void OnDisable()
-    {
-		if (isDead)
-		{
-			isDead = false;
-		}
-	}
-
-    //---------ここから関数--------------
 
 	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
-    public void SetState(int num)
+	public void SetState(int num)
 	{
 		switch(num)
 		{
+			//上に曲がる
 			case 0:
 				eState = State.TurnUp;
 				break;
 
+				//下に曲がる
 			case 1:
 				eState = State.TurnDown;
 				break;
 
+				//直進
 			case 2:
-				eState = State.Generated;
+				eState = State.Straight;
 				break;
 		}
 	}
@@ -244,10 +249,12 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			groupManage.notDefeatedEnemyCnt++;
-			groupManage.remainingEnemiesCnt -= 1;
+			if (parentObj.name == "Enemy_UFO_Group")
+			{
+				groupManage.notDefeatedEnemyCnt++;
+				groupManage.remainingEnemiesCnt -= 1;
+			}
 			frame = 0;
-			isisisisi = true;
 			gameObject.SetActive(false);
 		}
 	}

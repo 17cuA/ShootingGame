@@ -100,6 +100,8 @@ public class Enemy_Wave : character_status
 		startPosY = transform.position.y;
 		posZ = -5.0f;
 		defPosX = (13.0f - transform.position.x) / 120.0f;         //13.0fはとりあえず敵が右へ向かう限界の座標
+
+		HP_Setting();
 	}
 
 	void Update()
