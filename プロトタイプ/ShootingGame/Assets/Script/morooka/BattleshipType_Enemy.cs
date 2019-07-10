@@ -116,6 +116,7 @@ public class BattleshipType_Enemy : character_status
 			}
 		}
 
+		// 本体がHP０以下のとき
 		if (hp <= 0)
 		{
 			for (int i = 0; i < Child_Scriptes.Count; i++)
@@ -130,6 +131,7 @@ public class BattleshipType_Enemy : character_status
 
 			Died_Process();
 		}
+
 	}
 
 	void OnEnable()
@@ -145,7 +147,10 @@ public class BattleshipType_Enemy : character_status
 			{
 				if (!Child_Scriptes[i].gameObject.activeSelf)
 				{
-					Child_Scriptes[i].gameObject.SetActive(true);
+					Child_Scriptes[i].ReBoot();
+
+					//Child_Scriptes[i].gameObject.SetActive(true);
+
 					//character_status c = transform.GetChild(i).GetComponent<character_status>();
 					//c.Died_Process();
 				}
