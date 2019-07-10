@@ -16,7 +16,7 @@ public class Enemy_First : character_status
 	Vector3 velocity;
 
 	GameObject item;
-	GameObject parentObj;
+	public GameObject parentObj;
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
@@ -44,7 +44,45 @@ public class Enemy_First : character_status
 		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
-		if (transform.position.y > 0)
+		speedX = 5.0f;
+		speedY = 5.0f;
+
+		if (transform.parent != null)
+		{
+			parentObj = transform.parent.gameObject;
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			{
+				groupManage = parentObj.GetComponent<EnemyGroupManage>();
+			}
+			else
+			{
+				eState = State.Straight;
+			}
+		}
+
+
+		HP_Setting();
+	}
+
+	private void OnEnable()
+	{
+		//if (transform.parent != null)
+		//{
+		//	parentObj = transform.parent.gameObject;
+		//	if (parentObj.name == "Enemy_UFO_Group(Clone)")
+		//	{
+		//		groupManage = parentObj.GetComponent<EnemyGroupManage>();
+		//	}
+		//}
+
+		if (parentObj)
+		{
+			if (parentObj.name != "Enemy_UFO_Group(Clone)")
+			{
+				eState = State.Straight;
+			}
+		}
+		else if (transform.position.y > 0)
 		{
 			eState = State.TurnDown;
 		}
@@ -52,15 +90,6 @@ public class Enemy_First : character_status
 		{
 			eState = State.TurnUp;
 		}
-		speedX = 5.0f;
-		speedY = 5.0f;
-
-		if (transform.parent != null)
-		{
-			parentObj = transform.parent.gameObject;
-			groupManage = parentObj.GetComponent<EnemyGroupManage>();
-		}
-		HP_Setting();
 	}
 
 	void Update()
@@ -68,7 +97,7 @@ public class Enemy_First : character_status
 		//倒されたとき
 		if (hp < 1)
 		{
-			if (parentObj.name == "Enemy_UFO_Group")
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -94,7 +123,7 @@ public class Enemy_First : character_status
 				}
 			}
 			Reset_Status();
-			isDead = true;
+			//isDead = true;
 			frame = 0;
 
 			Died_Process();
@@ -113,6 +142,7 @@ public class Enemy_First : character_status
 			}
 		}
 
+		//移動関数呼び出し
 		Move();
 
 		//画面外に出たら、オフにする
@@ -125,15 +155,17 @@ public class Enemy_First : character_status
 	}
 
 	//オフになったとき実行される
-	private void OnDisable()
-	{
-		if (isDead)
-		{
-			isDead = false;
-		}
-	}
+	//private void OnDisable()
+	//{
+	//	if (isDead)
+	//	{
+	//		isDead = false;
+	//	}
+	//}
 
 	//---------ここから関数--------------
+
+	//移動の関数
 	void Move()
 	{
 		switch (eState)
@@ -249,7 +281,7 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			if (parentObj.name == "Enemy_UFO_Group")
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				groupManage.notDefeatedEnemyCnt++;
 				groupManage.remainingEnemiesCnt -= 1;
