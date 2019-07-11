@@ -95,6 +95,11 @@ public class One_Boss_All : character_status
     {
 		Boss_Debug();
 
+		//if(Boss_Core.hp <= 0)
+		//{
+		//	Died_Process();
+		//}
+
 		float now_percent = (float)Boss_Core.hp / (float)Initial_HP;
 		// 一定HP以上のとき
 		if (now_percent > remaining_hp_percent / 100.0f)
