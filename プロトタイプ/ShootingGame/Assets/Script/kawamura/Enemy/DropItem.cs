@@ -27,8 +27,10 @@ public class DropItem : MonoBehaviour
 	}
 	private void OnDisable()
 	{
-		//if(!isQuitting)
-		Instantiate(item, itemPos, transform.rotation);
-	}
+		if(!isQuitting)
+        {
+            Instantiate(item, itemPos, transform.rotation);
+        }
+    }
 
 }

@@ -48,35 +48,35 @@ public class Enemy_First : character_status
 		//speedX = 5.0f;
 		speedY = 5.0f;
 
-		if (transform.parent != null)
+		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
 			if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
-			}
-			else
+
+                if (parentObj.transform.position.y > 0)
+                {
+                    speedX = 5;
+                    eState = State.TurnDown;
+                }
+                else
+                {
+                    speedX = 5;
+                    eState = State.TurnUp;
+                }
+            }
+            else
 			{
 				eState = State.Straight;
 			}
 		}
-
-		if(parentObj)
-		{
-			if (parentObj.name == "Enemy_UFO_Group(Clone)")
-			{
-				if (parentObj.transform.position.y > 0)
-				{
-					speedX = 5;
-					eState = State.TurnDown;
-				}
-				else
-				{
-					speedX = 5;
-					eState = State.TurnUp;
-				}
-			}
-		}
+        else
+        {
+            parentObj = GameObject.Find("TemporaryParent");
+            transform.parent = parentObj.transform;
+        }
+        
 
 		HP_Setting();
 	}
@@ -154,18 +154,15 @@ public class Enemy_First : character_status
 			Died_Process();
 		}
 
-		if (!parentObj)
-		{
-			if (transform.parent)
-			{
-				if (transform.parent)
-				{
-					parentObj = transform.parent.gameObject;
-					groupManage = parentObj.GetComponent<EnemyGroupManage>();
+		//if (!parentObj)
+		//{
+		//	if (transform.parent.gameObject)
+		//	{
+		//		parentObj = transform.parent.gameObject;
+		//		groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
-				}
-			}
-		}
+		//	}
+		//}
 
 		//移動関数呼び出し
 		Move();
