@@ -13,16 +13,17 @@ public class character_status : MonoBehaviour
 	}
 	protected Chara_Type Type;
 	public float speed;                                         // スピード
+	private float speed_Max;
 	public int hp;                                            // 体力
 	private int hp_Max;
 	public Vector3 direction;                                   // 向き
 	public CapsuleCollider capsuleCollider;                     // cillider
 	private Rigidbody rigidbody;                                //rigitbody
 	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
-	public int Shot_Delay;                                 // 弾を撃つ時の間隔
-	public uint score;							// 保持しているスコア
+	public int Shot_Delay;								// 弾を撃つ時の間隔
+	public uint score;										// 保持しているスコア
 	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
+	public bool activeShield;							//現在シールドが発動しているかどうかの判定用（初期値false）
 
 	private void Start()
 	{
@@ -56,7 +57,7 @@ public class character_status : MonoBehaviour
 			Game_Master.MY.Score_Addition(score);
 			SE_Manager.SE_Obj.SE_Active(9);
 			//爆発処理の作成
-			ParticleCreation(5);
+			ParticleCreation(4);
 		}
 		else
 		{
@@ -64,7 +65,6 @@ public class character_status : MonoBehaviour
 			ParticleCreation(0);
 		}
 
-		//Debug.Log("hei");
 		Reset_Status();
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
