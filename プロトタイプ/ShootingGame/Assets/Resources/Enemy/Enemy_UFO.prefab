@@ -55,12 +55,14 @@ MonoBehaviour:
   score: 0
   shield: 0
   activeShield: 0
+  eState: 0
+  parentObj: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
-  speedX: 0
+  speedX: 5
+  speedX_Straight: 3
   speedY: 0
-  isisisisi: 0
 --- !u!136 &5582079347219364264
 CapsuleCollider:
   m_ObjectHideFlags: 0

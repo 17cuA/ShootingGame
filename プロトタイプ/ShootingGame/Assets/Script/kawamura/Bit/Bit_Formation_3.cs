@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//オプションの位置関係の処理のスクリプト
+//作成者：川村良太
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
