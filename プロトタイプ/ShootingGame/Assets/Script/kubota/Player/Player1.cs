@@ -321,12 +321,12 @@ public class Player1 : character_status
 					case Bullet_Type.Single:
 						Single_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
-						ParticleCreation(3);
+						ParticleCreation(2);
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
-						ParticleCreation(3);
+						ParticleCreation(2);
 						break;
 					default:
 						break;
@@ -386,7 +386,7 @@ public class Player1 : character_status
 	{
 		speed *= 1.2f;
 		Debug.Log("スピードUP");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -397,7 +397,7 @@ public class Player1 : character_status
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -407,7 +407,7 @@ public class Player1 : character_status
 	{
 		Debug.Log("ダブル導入");
 		bullet_Type = Bullet_Type.Double;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -418,7 +418,7 @@ public class Player1 : character_status
 	{
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -431,7 +431,7 @@ public class Player1 : character_status
 		shield = 3;
 		shield_Effect.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();

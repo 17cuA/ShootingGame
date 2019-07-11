@@ -65,7 +65,6 @@ public class character_status : MonoBehaviour
 			ParticleCreation(0);
 		}
 
-		//Debug.Log("hei");
 		Reset_Status();
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
