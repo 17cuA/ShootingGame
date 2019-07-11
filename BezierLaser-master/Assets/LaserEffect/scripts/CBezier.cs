@@ -10,7 +10,7 @@ public class CBezier : MonoBehaviour {
 	{
 		get
 		{
-			return this.points;
+			return points;
 		}
 	}
 

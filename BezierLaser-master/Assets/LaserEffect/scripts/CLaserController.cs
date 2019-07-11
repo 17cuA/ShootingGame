@@ -11,7 +11,7 @@ public class CLaserController : MonoBehaviour {
 
 	void Start()
 	{
-		this.bezier = GetComponentInChildren<CBezier> ();
+		bezier = GetComponentInChildren<CBezier> ();
 	}
 
 
@@ -25,14 +25,14 @@ public class CLaserController : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (1.0f);
 
-        Transform end_point = this.bezier.Points[this.bezier.Points.Length - 1];
+        Transform end_point = bezier.Points[bezier.Points.Length - 1];
 
         float prev_time = Time.time;
 		int target = 0;
 		while (true)
 		{
             // Follow the target.
-            end_point.position = this.enemies [target].position;
+            end_point.position = enemies [target].position;
 
             // Change the target after 3 seconds.
             if (Time.time - prev_time > 3.0f)
@@ -40,7 +40,7 @@ public class CLaserController : MonoBehaviour {
                 prev_time = Time.time;
                 ++target;
 
-                if (target >= this.enemies.Length)
+                if (target >= enemies.Length)
                 {
                     target = 0;
                 }

@@ -6,33 +6,46 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CBezier))]
 public class CLaserRenderer : MonoBehaviour {
 
-    // 노드 개수가 많을수록 부드러운 곡선이 됨.
 	[SerializeField]
 	int node_count;
+	public Transform start;
+	public Transform target;
 
 	LineRenderer line_renderer;
+	CapsuleCollider capsule;
+
+	public float LineWidth;
+
 	CBezier bezier;
 
 	void Awake()
 	{
-		this.line_renderer = gameObject.GetComponent<LineRenderer> ();
-		this.bezier = gameObject.GetComponent<CBezier> ();
+		line_renderer = gameObject.GetComponent<LineRenderer> ();
+		bezier = gameObject.GetComponent<CBezier> ();
+		capsule = gameObject.AddComponent<CapsuleCollider>();
+		capsule.radius = LineWidth / 2;
+		capsule.center = Vector3.zero;
+		capsule.direction = 2; // Z-axis for easier "LookAt" orientation
 		set_vertex_count (node_count + 1);
 	}
 
 
 	void set_vertex_count(int count)
 	{
-		this.line_renderer.SetVertexCount (count);
+		line_renderer.positionCount=count;
 	}
-
 
 	// Update is called once per frame
 	void Update () {
 		for (int i = 0; i <= node_count; ++i)
 		{
-			Vector3 to = this.bezier.bezier(i / (float)node_count);
-			this.line_renderer.SetPosition (i, to);
+			Vector3 to = bezier.bezier(i / (float)node_count);
+			line_renderer.SetPosition (i, to);
 		}
+		line_renderer.SetPosition(0, start.position);
+		line_renderer.SetPosition(1, target.position);
+		capsule.transform.position = start.position + (target.position - start.position) / 2;
+		capsule.transform.LookAt(start.position);
+		capsule.height = (target.position - start.position).magnitude;
 	}
 }
