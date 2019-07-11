@@ -57,6 +57,8 @@ public class TurnToPlayer_Slow : character_status
 		saveDeg = 180;
 
 		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
+
+		HP_Setting();
 	}
 	void Update()
 	{

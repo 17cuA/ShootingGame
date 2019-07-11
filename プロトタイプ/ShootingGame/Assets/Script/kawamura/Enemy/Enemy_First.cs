@@ -6,16 +6,16 @@ public class Enemy_First : character_status
 {
 	public enum State
 	{
-		TurnUp,			//上に曲がる
-		TurnDown,		//下に曲がる
-		Generated,		//生成された時
+		TurnUp,         //上に曲がる
+		TurnDown,       //下に曲がる
+		Straight,       //生成された時(曲がらない)
 	}
 
-	State eState;
+	public State eState;
 
 	Vector3 velocity;
 
-    GameObject item;
+	GameObject item;
 	public GameObject parentObj;
 	GameObject childObj;
 
@@ -32,44 +32,97 @@ public class Enemy_First : character_status
 
 	int frame = 0;
 	public float speedX;
+	public float speedX_Straight;
 	public float speedY;
 
 	bool isTurn;
 	bool isAddition = false;
-    bool isDead = false;
-	public bool isisisisi=false;
+	bool isDead = false;
 	void Start()
-    {
-        item = Resources.Load("Item/Item_Test") as GameObject;
+	{
+		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
 		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
-		if (transform.position.y > 0)
-		{
-			eState = State.TurnDown;
-		}
-		else
-		{
-			eState = State.TurnUp;
-		}
-		speedX = 5.0f;
+		//speedX = 5.0f;
 		speedY = 5.0f;
 
-        if (transform.parent!=null)
-        {
-            parentObj = transform.parent.gameObject;
-			groupManage = parentObj.GetComponent<EnemyGroupManage>();
-        }
+		if (transform.parent != null)
+		{
+			parentObj = transform.parent.gameObject;
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			{
+				groupManage = parentObj.GetComponent<EnemyGroupManage>();
+			}
+			else
+			{
+				eState = State.Straight;
+			}
+		}
 
-    }
+		if(parentObj)
+		{
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			{
+				if (parentObj.transform.position.y > 0)
+				{
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					speedX = 5;
+					eState = State.TurnUp;
+				}
+			}
+		}
 
-    void Update()
-    {
+		HP_Setting();
+	}
+
+	private void OnEnable()
+	{
+		//if (transform.parent != null)
+		//{
+		//	parentObj = transform.parent.gameObject;
+		//	if (parentObj.name == "Enemy_UFO_Group(Clone)")
+		//	{
+		//		groupManage = parentObj.GetComponent<EnemyGroupManage>();
+		//	}
+		//}
+
+		if (parentObj)
+		{
+			if (parentObj.name != "Enemy_UFO_Group(Clone)")
+			{
+				eState = State.Straight;
+				speedX = speedX_Straight;
+			}
+			else if (parentObj.transform.position.y > 0)
+			{
+				speedX = 5;
+				eState = State.TurnDown;
+			}
+			else
+			{
+				speedX = 5;
+				eState = State.TurnUp;
+			}
+
+		}
+	}
+
+	void Update()
+	{
 		//倒されたとき
 		if (hp < 1)
 		{
-			if(parentObj)
+			if (parentObj == null)
+			{
+
+			}
+			else if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -94,14 +147,14 @@ public class Enemy_First : character_status
 
 				}
 			}
-			Reset_Status();
-            isDead = true;
+			//Reset_Status();
+			//isDead = true;
 			frame = 0;
 
 			Died_Process();
 		}
 
-        if(!parentObj)
+		if (!parentObj)
 		{
 			if (transform.parent)
 			{
@@ -114,10 +167,36 @@ public class Enemy_First : character_status
 			}
 		}
 
+		//移動関数呼び出し
+		Move();
+
+		//画面外に出たら、オフにする
+		//if (!renderer.isVisible)
+		//{
+		//	isTurn = false;
+		//	isDead = false;
+		//	gameObject.SetActive(false);
+		//}
+	}
+
+	//オフになったとき実行される
+	//private void OnDisable()
+	//{
+	//	if (isDead)
+	//	{
+	//		isDead = false;
+	//	}
+	//}
+
+	//---------ここから関数--------------
+
+	//移動の関数
+	void Move()
+	{
 		switch (eState)
 		{
 			case State.TurnUp:
-				if(!isTurn)
+				if (!isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -130,7 +209,7 @@ public class Enemy_First : character_status
 						}
 					}
 				}
-				else if(isTurn)
+				else if (isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -193,47 +272,33 @@ public class Enemy_First : character_status
 				}
 				break;
 
-			case State.Generated:
+			case State.Straight:
+				speedX = speedX_Straight;
 				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 		}
-
-		//画面外に出たら、オフにする
-		//if (!renderer.isVisible)
-		//{
-		//	isTurn = false;
-		//	isDead = false;
-		//	gameObject.SetActive(false);
-		//}
-
 	}
 
-	//オフになったとき実行される
-	private void OnDisable()
-    {
-		if (isDead)
-		{
-			isDead = false;
-		}
-	}
-
-    //---------ここから関数--------------
-    public void SetState(int num)
+	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
+	public void SetState(int num)
 	{
 		switch(num)
 		{
+			//上に曲がる
 			case 0:
 				eState = State.TurnUp;
 				break;
 
+				//下に曲がる
 			case 1:
 				eState = State.TurnDown;
 				break;
 
+				//直進
 			case 2:
-				eState = State.Generated;
+				eState = State.Straight;
 				break;
 		}
 	}
@@ -242,10 +307,21 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			groupManage.notDefeatedEnemyCnt++;
-			groupManage.remainingEnemiesCnt -= 1;
+			if(parentObj)
+			{
+				if (parentObj.name == "Enemy_UFO_Group(Clone)")
+				{
+					groupManage.notDefeatedEnemyCnt++;
+					groupManage.remainingEnemiesCnt -= 1;
+				}
+			}
 			frame = 0;
-			isisisisi = true;
+			gameObject.SetActive(false);
+
+		}
+		else if (eState == State.Straight && (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallRight"))
+		{
+			frame = 0;
 			gameObject.SetActive(false);
 		}
 	}
