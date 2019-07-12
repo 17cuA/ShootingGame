@@ -10,11 +10,11 @@ public class SceneChanger : MonoBehaviour
 	public Enemy_MiddleBoss EMB;
 	private void Start()
 	{
-		Player = Obj_Storage.Storage_Data.Player;
+		//Player = Obj_Storage.Storage_Data.Player;
 	}
 	void Update()
 	{
-		SceneControl();
+		//SceneControl();
 	}
 	public void SceneControl()
 	{
