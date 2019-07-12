@@ -138,6 +138,19 @@ public class Player1 : character_status
 		if (Input.GetKeyDown(KeyCode.Alpha1))Damege_Process(1);
 		if(Input.GetKeyDown(KeyCode.Alpha2))PowerManager.Instance.Pick();
 		if(Input.GetKeyDown(KeyCode.Alpha3))hp = 1000;
+		if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			Remaining--;
+			ParticleCreation(0);        //爆発のエフェクト発動
+			Reset_Status();             //体力の修正
+			gameObject.transform.position = direction;      //初期位置に戻す
+			if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+			invincible = false;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			bullet_Type = Bullet_Type.Single;
+
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 		//---------------------------
 
 		PowerManager.Instance.Update();
@@ -299,13 +312,6 @@ public class Player1 : character_status
 		Direction *= new Quaternion(0, -1,0, 0);
 		transform.rotation = Direction;
 	}
-    //プレイヤーが死んだかどうかの判定用関数
-	public bool Died_Judgment()
-	{
-		bool is_died = false;
-		if (hp < 1) is_died = true;
-		return is_died;
-	}
 	//弾の発射
 	public void Bullet_Create()
 	{
@@ -320,12 +326,10 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-						SE_Manager.SE_Obj.SE_Active(4);
 						ParticleCreation(2);
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						SE_Manager.SE_Obj.SE_Active(4);
 						ParticleCreation(2);
 						break;
 					default:
@@ -365,11 +369,13 @@ public class Player1 : character_status
     private void Single_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	private void Double_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0,0,45));
+		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	private void Laser_Fire()
 	{
@@ -390,6 +396,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
 
 	}
 	//ミサイルをアクティブに
@@ -401,7 +408,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
 	}
 	private void ActiveDouble()
 	{
@@ -411,7 +418,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -422,7 +429,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 	}
 	//シールドの発動
 	private void ActiveShield()
@@ -436,6 +443,8 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 		shield_Effect.Play();
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
+
 	}
 	//オプションをアクティブに
 	private void CreateBit()
@@ -462,6 +471,7 @@ public class Player1 : character_status
 			default:
 				break;
 		}
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[16]);
 		Debug.Log("ビットン生成");
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更

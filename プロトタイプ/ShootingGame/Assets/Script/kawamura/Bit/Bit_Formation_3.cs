@@ -78,7 +78,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	{
 		isScaleDec = true;
 		defaultSpeed = 20;
-		speed = defaultSpeed ;
+		speed = defaultSpeed;
 		//値を設定
 		state_Num = 0;
 
@@ -265,6 +265,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			isDead = false;
 			isborn = true;
 			parentObj = null;
+			pl1.bitIndex--;
 			gameObject.SetActive(false);
 		}
 		//------------------------------------------------
