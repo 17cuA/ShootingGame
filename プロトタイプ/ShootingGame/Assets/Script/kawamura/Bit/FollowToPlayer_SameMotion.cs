@@ -75,7 +75,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 			if (defCheck)
 			{
 				//プレイヤーの座標が動いていないとき
-				if (pos == playerObj.transform.position)
+				//if (pos == playerObj.transform.position)
+				if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
 				{
 					isMove = false;
 				}
