@@ -89,7 +89,6 @@ public class Enemy_First : character_status
 			transform.parent = parentObj.transform;
 		}
 
-
 		HP_Setting();
 	}
 
@@ -153,7 +152,6 @@ public class Enemy_First : character_status
 					}
 					groupManage.itemPos = transform.position;
 					groupManage.itemTransform = this.transform;
-
 				}
 			}
 			//Reset_Status();

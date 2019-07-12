@@ -18,17 +18,17 @@ public class Enemy_Wave : character_status
 	}
 	public State eState;
 
-	GameObject childObj;
-	GameObject item;
-	GameObject parentObj;
+	GameObject childObj;		//子供入れる
+	GameObject item;			//アイテム入れる
+	GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
 
-	Renderer renderer;
-	HSVColorController hsvCon;
-	Color hsvColor;
+	Renderer renderer;			//レンダラー
+	//HSVColorController hsvCon;	//シェーダー用
+	//Color hsvColor;
 	//BlurController blurCon;
-	EnemyGroupManage groupManage;
-	VisibleCheck vc;
+	EnemyGroupManage groupManage;		//群れの時の親スクリプト
+	//VisibleCheck vc;
 
 	Vector3 velocity;
 
@@ -50,7 +50,6 @@ public class Enemy_Wave : character_status
 
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
 	public float addAndSubValue;        //Yスピードを増減させる値
-
 
 	public float sin;
 
@@ -97,10 +96,9 @@ public class Enemy_Wave : character_status
 
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
 		renderer = childObj.GetComponent<Renderer>();
-		hsvColor = childObj.GetComponent<Renderer>().material.color;
+		//hsvColor = childObj.GetComponent<Renderer>().material.color;
 		//hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.025f;
-		
 
 		//blurObj = transform.GetChild(1).gameObject;
 		//blurCon = blurObj.GetComponent<BlurController>();
@@ -118,7 +116,6 @@ public class Enemy_Wave : character_status
         }
 
         speedZ = 0;
-
 		//posX = transform.position.x;
 		startPosY = transform.position.y;
 		//posZ = -5.0f;
@@ -155,7 +152,6 @@ public class Enemy_Wave : character_status
 					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-
 					break;
 
 				case State.WaveDown:
@@ -175,13 +171,10 @@ public class Enemy_Wave : character_status
 					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-
-
 					break;
 
 				case State.WaveOnlyUp:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-
 					if (defaultSpeedY < 0)
 					{
 						defaultSpeedY *= -1;
@@ -197,12 +190,10 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-
 					break;
 
 				case State.WaveOnlyDown:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-
 					if (defaultSpeedY > 0)
 					{
 						defaultSpeedY *= -1;
@@ -218,7 +209,6 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-
 					break;
 
 				case State.Straight:
@@ -229,7 +219,6 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-
 					break;
 			}
 			once = false;
@@ -297,7 +286,6 @@ public class Enemy_Wave : character_status
 				{
 					speedX = 5;
 					speedY = defaultSpeedY;
-
 					isWave = true;
 				}
 				//else if (transform.position.x > 7)
@@ -329,7 +317,6 @@ public class Enemy_Wave : character_status
 				else if (transform.position.x > 1)
 				{
 					//blurCon.sigma -= sigma_Value;
-
 					speedZ = speedZ_Value;
 				}
 			}
@@ -366,7 +353,6 @@ public class Enemy_Wave : character_status
 			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.1f), transform.position.z);
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
-
 		}
 
 		if (hp < 1)
@@ -415,7 +401,6 @@ public class Enemy_Wave : character_status
 			once = true;
 			isWave = false;
 
-
 			//Reset_Status();
 			Died_Process();
 		}
@@ -440,9 +425,7 @@ public class Enemy_Wave : character_status
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;
 				isAddSpeedY = true;
-
 			}
-
 		}
 		else if (defaultSpeedY < 0)
 		{
@@ -459,12 +442,8 @@ public class Enemy_Wave : character_status
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;
 				isAddSpeedY = true;
-
 			}
-
 		}
-
-
 	}
 
 	//スピードを増減させる
@@ -482,7 +461,6 @@ public class Enemy_Wave : character_status
 			//Yスピードを減少
 			speedY -= addAndSubValue;
 		}
-
 	}
 
 	public void SetState(int n)
@@ -508,7 +486,6 @@ public class Enemy_Wave : character_status
 			case 5:
 				eState = State.Straight;
 				break;
-
 		}
 	}
 	private void OnTriggerExit(Collider col)
@@ -520,5 +497,4 @@ public class Enemy_Wave : character_status
 			gameObject.SetActive(false);
 		}
 	}
-
 }

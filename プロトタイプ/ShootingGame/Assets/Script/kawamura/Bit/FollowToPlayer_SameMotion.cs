@@ -49,7 +49,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 			isFreeze = true;
 		}
 
-
 		//プレイヤー格納がnullなら入れる
 		if (playerObj == null)
 		{
@@ -86,7 +85,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					isMove = true;
 					//プレイヤーのtransform保存
 					pos = playerObj.transform.position;
-
 				}
 			}
 
@@ -101,7 +99,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				//自分の位置を移動したのでその位置を今のプレイヤーのいる位置で更新
 				//playerPos[cnt] = playerObj.transform;
 				playerPos[cnt] = playerObj.transform.position;
-
 
 				cnt++;
 				if (cnt > array_Num - 1)
