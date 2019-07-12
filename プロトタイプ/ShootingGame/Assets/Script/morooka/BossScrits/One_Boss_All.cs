@@ -38,7 +38,7 @@ public class One_Boss_All : character_status
 	public One_Boss_Parts Boss_Core { get; private set; }						// ボスのコア
 	public One_Boss_Parts[] Boss_Option { get; private set; }				// ボスのオプション
 	public One_Boss_Parts[] Boss_Option_Table { get; private set; }		// ボスの武装(台)
-	public Transform[] Initial_Beam_Mazle { get; private set; }							// ボスのマズル
+	public Transform[] Initial_Beam_Mazle { get; private set; }				// ボスのマズル
 	public Transform Boss_Option_Center { get; private set; }				// ボスのオプションの中心位置
 
 	private int Active_Flame { get; set; }									// ボスが起動されてからのフレーム数
@@ -120,6 +120,7 @@ public class One_Boss_All : character_status
 
     void Update()
     {
+
 		Boss_Debug();
 
 		//if(Boss_Core.hp <= 0)
@@ -127,6 +128,7 @@ public class One_Boss_All : character_status
 		//	Died_Process();
 		//}
 
+		// のこりHPの確認
 		float now_percent = (float)Boss_Core.hp / (float)Initial_HP;
 		// 一定HP以上のとき
 		if (now_percent > remaining_hp_percent / 100.0f)
@@ -241,8 +243,12 @@ public class One_Boss_All : character_status
 				//	}
 				//}
 				#endregion
+
+				// 攻撃可能のとき
 				if(Shot_Delay > Shot_DelayMax)
 				{
+					// ビームの半分の動き
+					// ビームを撃ったらマズルの回転
 					if(Attack_Step < beam_max / 2)
 					{
 						//Shoot_Beam(0);
@@ -255,7 +261,9 @@ public class One_Boss_All : character_status
 
 						Attack_Step++;
 					}
-					else if(Attack_Step >= beam_max / 2 && Attack_Step < beam_max)
+					// ビームのもう半分の動き
+					// ビームを撃ったらマズルの回転
+					else if (Attack_Step >= beam_max / 2 && Attack_Step < beam_max)
 					{
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[0].transform.position, Initial_Beam_Mazle[0].transform.right);
 						Initial_Beam_Mazle[0].transform.Rotate(new Vector3(0.0f, 0.0f, -Rotating_Velocity));
@@ -266,21 +274,17 @@ public class One_Boss_All : character_status
 
 						Attack_Step++;
 					}
+					// ビームを撃ち切ったとき
 					else
 					{
+						// リセット
 						Attack_Step = 0;
 						Initial_Beam_Mazle[0].transform.right = Muzzle_Facing[0];
 						Initial_Beam_Mazle[1].transform.right = Muzzle_Facing[1];
 
-						Vector3 pos;
-						do
-						{
-							pos = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
-						} while (pos == Now_Target);
-
-						Now_Target = pos;
+						// 次の位置はランダム、今の位置と違う位置が指定されるまで続ける
+						Moving_Target_Change();
 					}
-
 					Shot_Delay = 0;
 				}
 			}
@@ -308,7 +312,9 @@ public class One_Boss_All : character_status
 				else if(transform.position == Now_Target)
 				{
 					//	アクティブでないとき
-					if (!Boss_Option_Table[0].gameObject.activeSelf || !Boss_Option_Table[1].gameObject.activeSelf || !Boss_Option_Center.gameObject.activeSelf)
+					if (!Boss_Option_Table[0].gameObject.activeSelf 
+						|| !Boss_Option_Table[1].gameObject.activeSelf 
+						|| !Boss_Option_Center.gameObject.activeSelf)
 					{
 						// オプション台アクティブ化、位置を変える
 						Boss_Option_Table[0].gameObject.SetActive(true);
@@ -338,20 +344,23 @@ public class One_Boss_All : character_status
 						//}
 					}
 					// アクティブのとき
-					else if (Boss_Option_Table[0].gameObject.activeSelf && true 
-						|| Boss_Option_Table[1].gameObject.activeSelf == true)
+					else if (Boss_Option_Table[0].gameObject.activeSelf
+						|| Boss_Option_Table[1].gameObject.activeSelf
+						|| Boss_Option_Center.gameObject.activeSelf)
 					{
-						// オプションの位置変更
-						for (int i = 0; i < Boss_Option.Length; i++)
-						{
-							if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
-							{
-								Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 5);
-							}
-						}
+						//// オプションの位置変更
+						//for (int i = 0; i < Boss_Option.Length; i++)
+						//{
+						//	if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+						//	{
+						//		Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 5);
+						//	}
+						//}
 
 						// オプション台の位置変更,オプションの位置変更
-						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1] || Boss_Option_Center.transform.position != Initial_Boss_Option_Center)
+						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0] 
+							|| Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1] 
+							|| Boss_Option_Center.transform.position != Initial_Boss_Option_Center)
 						{
 							Boss_Option_Table[0].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[0].transform.localPosition, Initial_Boss_Option_Table_Pos[0], speed * 5);
 							Boss_Option_Table[1].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[1].transform.localPosition, Initial_Boss_Option_Table_Pos[1], speed * 5);
@@ -372,11 +381,11 @@ public class One_Boss_All : character_status
 					Shot_Delay++;
 					if(Shot_Delay > Shot_DelayMax)
 					{
-						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Initial_Beam_Mazle[0].position;
+						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[0].position;
 						Initial_Beam_Mazle[0].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[0].position, Initial_Beam_Mazle[0].right);
 
-						target_dir = Obj_Storage.Storage_Data.GetPlayer().Get_Obj()[0].transform.position - Initial_Beam_Mazle[1].position;
+						target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[1].position;
 						Initial_Beam_Mazle[1].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[1].position, Initial_Beam_Mazle[1].right);
 						Shot_Delay = 0;
@@ -392,17 +401,25 @@ public class One_Boss_All : character_status
 			}
 			else if(Attack_Step == 2)
 			{
-
 			}
 		}
     }
 
+	/// <summary>
+	/// 今と違う位置に移動
+	/// </summary>
 	private void Moving_Target_Change()
 	{
-		Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
+		do
+		{
+			Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
+		} while (Original_Position_Num == Now_Positon_Num);
 		Now_Target = Moving_Target_Point[Now_Positon_Num];
-		//Rotating_Velocity = (Moving_Target_Point[Now_Positon_Num].y - Moving_Target_Point[Original_Position_Num].y) / 360.0f;
 		Original_Position_Num = Now_Positon_Num;
+		//Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
+		//Now_Target = Moving_Target_Point[Now_Positon_Num];
+		////Rotating_Velocity = (Moving_Target_Point[Now_Positon_Num].y - Moving_Target_Point[Original_Position_Num].y) / 360.0f;
+		//Original_Position_Num = Now_Positon_Num;
 	}
 
 	/// <summary>
