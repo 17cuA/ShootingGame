@@ -69,7 +69,8 @@ public class Enemy_Wave : character_status
 	public bool once = true;			//updateで一回だけ呼び出す処理用
 	public bool isWave = false;			//奥からくる敵を上下移動に変える用
 	public bool isStraight = false;		//直進かどうか
-	public bool isOnlyWave;				//上下移動のみか（左へ進みながら）
+	public bool isOnlyWave;             //上下移動のみか（左へ進みながら）
+	public bool haveItem = false;
 
 	public bool isSlerp = false;
 	//public bool susumimasu=true;
@@ -77,12 +78,22 @@ public class Enemy_Wave : character_status
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
+	private void Awake()
+	{
+		if (gameObject.GetComponent<DropItem>())
+		{
+			DropItem dItem = gameObject.GetComponent<DropItem>();
+			haveItem = true;
+		}
+	}
+
 	void Start()
 	{
 		//startMarker = new Vector3(-26.0f, transform.position.y, 38.0f);
 		//endMarker = new Vector3(13.0f, transform.position.y, 0);
 		//distance_two= Vector3.Distance(startMarker, endMarker);
-		
+		item = Resources.Load("Item/Item_Test") as GameObject;
+
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
 		renderer = childObj.GetComponent<Renderer>();
 		hsvColor = childObj.GetComponent<Renderer>().material.color;
@@ -359,6 +370,13 @@ public class Enemy_Wave : character_status
 
 		if (hp < 1)
 		{
+			if (haveItem)
+			{
+				if (haveItem)
+				{
+					Instantiate(item, this.transform.position, transform.rotation);
+				}
+			}
 			if (parentObj)
 			{
                 if(parentObj.name!= "TemporaryParent")
