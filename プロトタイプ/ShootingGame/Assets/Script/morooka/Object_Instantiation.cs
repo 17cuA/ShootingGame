@@ -89,6 +89,9 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM:
 					obj = Obj_Storage.Storage_Data.UfoType_Item_Enemy.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.ePOWERUP_ITEM:
+					obj = Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
+					break;
 				default:
 					break;
 			}
@@ -171,6 +174,10 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM:
 					obj = Obj_Storage.Storage_Data.UfoType_Item_Enemy.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.ePOWERUP_ITEM:
+					obj = Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
+					break;
+
 				default:
 					break;
 			}

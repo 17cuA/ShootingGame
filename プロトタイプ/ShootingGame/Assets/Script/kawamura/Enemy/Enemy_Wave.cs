@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_Wave : character_status
 {
@@ -374,7 +375,8 @@ public class Enemy_Wave : character_status
 			{
 				if (haveItem)
 				{
-					Instantiate(item, this.transform.position, transform.rotation);
+					//Instantiate(item, this.transform.position, transform.rotation);
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 				}
 			}
 			if (parentObj)
@@ -391,11 +393,12 @@ public class Enemy_Wave : character_status
 					    //倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
 					    if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 					    {
-						    //アイテム生成
-						    //Instantiate(item, this.transform.position, transform.rotation);
-					    }
-					    //一体でも倒されていなかったら
-					    else
+							//アイテム生成
+							//Instantiate(item, this.transform.position, transform.rotation);
+							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+						}
+						//一体でも倒されていなかったら
+						else
 					    {
 						    //なにもしない
 					    }

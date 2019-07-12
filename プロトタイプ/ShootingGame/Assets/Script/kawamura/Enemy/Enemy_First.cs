@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_First : character_status
 {
@@ -121,7 +122,8 @@ public class Enemy_First : character_status
 		{
 			if (haveItem)
 			{
-				Instantiate(item, this.transform.position, transform.rotation);
+				//Instantiate(item, this.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 			}
 
 			if (parentObj == null)
@@ -141,7 +143,8 @@ public class Enemy_First : character_status
 					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 					{
 						//アイテム生成
-						Instantiate(item, this.transform.position, transform.rotation);
+						//Instantiate(item, this.transform.position, transform.rotation);
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 					}
 					//一体でも倒されていなかったら
 					else
