@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Scane : MonoBehaviour
+public class Scane_Title : MonoBehaviour
 {
 
 	// Use this for initialization

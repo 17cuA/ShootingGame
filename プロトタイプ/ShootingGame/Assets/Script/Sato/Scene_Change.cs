@@ -15,11 +15,12 @@ public class Scene_Change : MonoBehaviour
 			{
 				//Application.LoadLevelAdditive("MENU");
 				SceneManager.LoadScene("MENU", LoadSceneMode.Additive); // OK
+				//SceneManager.UnloadSceneAsync("Title");
 				gameObject.SetActive(false);
 			}
 			else
 			{
-				SceneManager.UnloadSceneAsync("MENU");
+				SceneManager.UnloadSceneAsync("Title");
 				Resources.UnloadUnusedAssets();
 				gameObject.SetActive(true);
 			}
