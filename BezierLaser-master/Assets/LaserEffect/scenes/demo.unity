@@ -420,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &246648543
 Transform:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &533592344
 Transform:
   m_ObjectHideFlags: 0
@@ -1583,6 +1583,7 @@ GameObject:
   - component: {fileID: 927893708}
   - component: {fileID: 927893707}
   - component: {fileID: 927893706}
+  - component: {fileID: 927893710}
   m_Layer: 0
   m_Name: BezierLaser
   m_TagString: Untagged
@@ -1633,8 +1634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   node_count: 20
-  start: {fileID: 0}
-  target: {fileID: 0}
+  start: {fileID: 1637062294}
+  target: {fileID: 1861932691}
   LineWidth: 0
 --- !u!120 &927893708
 LineRenderer:
@@ -1757,6 +1758,20 @@ MonoBehaviour:
   - {fileID: 499216510}
   - {fileID: 1889787092}
   - {fileID: 1861932691}
+--- !u!136 &927893710
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927893704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.25
+  m_Height: 1.5160202
+  m_Direction: 1
+  m_Center: {x: -0.30024967, y: 18.604298, z: 0.5}
 --- !u!1 &1000131688
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2271,6 @@ GameObject:
   - component: {fileID: 1737307025}
   - component: {fileID: 1737307024}
   - component: {fileID: 1737307023}
-  - component: {fileID: 1737307027}
   m_Layer: 0
   m_Name: BezierLaser
   m_TagString: Untagged
@@ -2307,7 +2321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   node_count: 20
-  start: {fileID: 1737307022}
+  start: {fileID: 803595500}
   target: {fileID: 246648543}
   LineWidth: 0
 --- !u!120 &1737307025
@@ -2431,20 +2445,6 @@ MonoBehaviour:
   - {fileID: 43910469}
   - {fileID: 1285619884}
   - {fileID: 295011807}
---- !u!136 &1737307027
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737307021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1748140939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,7 +2464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1748140941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,7 +2571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1833672502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2826,6 +2826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: enemies (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195359595582276308, guid: a2e2dd566683cc144b5672033be2fa33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8195359595582276309, guid: a2e2dd566683cc144b5672033be2fa33,
         type: 3}
