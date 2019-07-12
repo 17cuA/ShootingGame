@@ -53,6 +53,7 @@ public class One_Boss_All : character_status
 	private int Attack_Step { get; set; }										// 攻撃手順支持
 
 	private Vector3 Initial_Boss_Option_Center { get; set; }					// オプションの中心の初期位置
+	private Vector3[] Facing_Hexagonal_Option { get; set; }					// オプションの六角形の向き
 	private List<Vector3> Initial_Boss_Option_Table_Pos { get; set; }		// オプション台の初期位置
 	private List<Vector3> Initial_Boss_Option_Pos { get; set; }				// オプションの初期位置
 	private List<Vector3> Muzzle_Facing { get; set; }							// マズルの初期の向き
@@ -116,9 +117,18 @@ public class One_Boss_All : character_status
 
 		// 回転地の保持
 		Rotating_Velocity = rotating_velocity;
+
+		// オプションの六角形の向き設定
+		Facing_Hexagonal_Option = new Vector3[6];
+		Facing_Hexagonal_Option[0] = new Vector3(0.0f, 5.0f, 0.0f);
+		Facing_Hexagonal_Option[1] = new Vector3(4.330127f, 2.5f, 0.0f);
+		Facing_Hexagonal_Option[2] = new Vector3(4.330127f, -2.5f, 0.0f);
+		Facing_Hexagonal_Option[3] = new Vector3(0.0f, -5.0f, 0.0f);
+		Facing_Hexagonal_Option[4] = new Vector3(-4.330127f, -2.5f, 0.0f);
+		Facing_Hexagonal_Option[5] = new Vector3(-4.330127f, 2.5f, 0.0f);
 	}
 
-    void Update()
+	void Update()
     {
 
 		Boss_Debug();
@@ -407,6 +417,7 @@ public class One_Boss_All : character_status
 			}
 			else if(Attack_Step == 2)
 			{
+				//if(Boss_Option[0])
 			}
 		}
     }
