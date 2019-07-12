@@ -23,10 +23,10 @@ public class BattleshipType_Battery : character_status
 		gameObject.tag = transform.parent.tag;
 		Initial_Position = transform.localPosition;
 
-		if(Muzzle == null)
-		{
-			Muzzle = transform.GetChild(0).gameObject;
-		}
+		//if(Muzzle == null)
+		//{
+		//	Muzzle = transform.GetChild(0).gameObject;
+		//}
 	}
 
 	private void Update()
@@ -34,13 +34,23 @@ public class BattleshipType_Battery : character_status
 		// HPが0以下のとき
 		if (hp <= 0)
 		{
-			// character_status の Died_Process()を一部を変更しての処理
-			// 爆発のパーティクルをマズルのポジションに発生させる
-			ParticleCreation(0).transform.position = Muzzle.transform.position;
-			Reset_Status();
-			//死んだらゲームオブジェクトを遠くに飛ばす処理
-			transform.position = new Vector3(0, 800.0f, 0);
-			gameObject.SetActive(false);
+			Died_Process();
+
+			//// character_status の Died_Process()を一部を変更しての処理
+			//// 爆発のパーティクルをマズルのポジションに発生させる
+			//ParticleCreation(0).transform.position = Muzzle.transform.position;
+			//Reset_Status();
+			////死んだらゲームオブジェクトを遠くに飛ばす処理
+			//transform.position = new Vector3(0, 800.0f, 0);
+			//gameObject.SetActive(false);
+
+			//// character_status の Died_Process()を一部を変更しての処理
+			//// 爆発のパーティクルをマズルのポジションに発生させる
+			//ParticleCreation(0).transform.position = transform.position;
+			//Reset_Status();
+			////死んだらゲームオブジェクトを遠くに飛ばす処理
+			//transform.position = new Vector3(0, 800.0f, 0);
+			//gameObject.SetActive(false);
 		}
 	}
 
