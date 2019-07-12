@@ -6,17 +6,17 @@ public class Enemy_First : character_status
 {
 	public enum State
 	{
-		TurnUp,			//上に曲がる
-		TurnDown,		//下に曲がる
-		Generated,		//生成された時
+		TurnUp,         //上に曲がる
+		TurnDown,       //下に曲がる
+		Straight,       //生成された時(曲がらない)
 	}
 
-	State eState;
+	public State eState;
 
 	Vector3 velocity;
 
-    GameObject item;
-	GameObject parentObj;
+	GameObject item;
+	public GameObject parentObj;
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
@@ -32,44 +32,103 @@ public class Enemy_First : character_status
 
 	int frame = 0;
 	public float speedX;
+	public float speedX_Straight;
 	public float speedY;
 
 	bool isTurn;
 	bool isAddition = false;
-    bool isDead = false;
-	public bool isisisisi=false;
+	bool isDead = false;
+	public bool haveItem = false;
+
+	private void Awake()
+	{
+		if (gameObject.GetComponent<DropItem>())
+		{
+			DropItem dItem = gameObject.GetComponent<DropItem>();
+			haveItem = true;
+		}
+	}
+
 	void Start()
-    {
-        item = Resources.Load("Item/Item_Test") as GameObject;
+	{
+		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
 		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
-		if (transform.position.y > 0)
+		//speedX = 5.0f;
+		speedY = 5.0f;
+
+		if (transform.parent)
 		{
-			eState = State.TurnDown;
+			parentObj = transform.parent.gameObject;
+			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			{
+				groupManage = parentObj.GetComponent<EnemyGroupManage>();
+
+				if (parentObj.transform.position.y > 0)
+				{
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					speedX = 5;
+					eState = State.TurnUp;
+				}
+			}
+			else
+			{
+				eState = State.Straight;
+			}
 		}
 		else
 		{
-			eState = State.TurnUp;
+			parentObj = GameObject.Find("TemporaryParent");
+			transform.parent = parentObj.transform;
 		}
-		speedX = 5.0f;
-		speedY = 5.0f;
 
-        if (transform.parent!=null)
-        {
-            parentObj = transform.parent.gameObject;
-			groupManage = parentObj.GetComponent<EnemyGroupManage>();
-        }
 
-    }
+		HP_Setting();
+	}
 
-    void Update()
-    {
+	private void OnEnable()
+	{
+		if (parentObj)
+		{
+			if (parentObj.name != "Enemy_UFO_Group(Clone)")
+			{
+				eState = State.Straight;
+				speedX = speedX_Straight;
+			}
+			else if (parentObj.transform.position.y > 0)
+			{
+				speedX = 5;
+				eState = State.TurnDown;
+			}
+			else
+			{
+				speedX = 5;
+				eState = State.TurnUp;
+			}
+		}
+	}
+
+	void Update()
+	{
 		//倒されたとき
 		if (hp < 1)
 		{
-			if(parentObj)
+			if (haveItem)
+			{
+				Instantiate(item, this.transform.position, transform.rotation);
+			}
+
+			if (parentObj == null)
+			{
+
+			}
+			else if (parentObj.name == "Enemy_UFO_Group(Clone)")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -94,30 +153,25 @@ public class Enemy_First : character_status
 
 				}
 			}
-			Reset_Status();
-            isDead = true;
+			//Reset_Status();
+			//isDead = true;
 			frame = 0;
 
 			Died_Process();
 		}
+		//移動関数呼び出し
+		Move();
+	}
 
-        if(!parentObj)
-		{
-			if (transform.parent)
-			{
-				if (transform.parent)
-				{
-					parentObj = transform.parent.gameObject;
-					groupManage = parentObj.GetComponent<EnemyGroupManage>();
+	//---------ここから関数--------------
 
-				}
-			}
-		}
-
+	//移動の関数
+	void Move()
+	{
 		switch (eState)
 		{
 			case State.TurnUp:
-				if(!isTurn)
+				if (!isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -130,7 +184,7 @@ public class Enemy_First : character_status
 						}
 					}
 				}
-				else if(isTurn)
+				else if (isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
@@ -141,27 +195,6 @@ public class Enemy_First : character_status
 					{
 						speedX = -5.0f;
 					}
-
-					//_y = radius * Mathf.Cos(timeCnt * circleSpeed);
-					//_z = radius * Mathf.Sin(timeCnt * circleSpeed);
-
-					////}
-					////else
-					////{
-					////	_y = radius * Mathf.Cos(timeCnt * speed);
-					////	_z = radius * Mathf.Sin(timeCnt * speed);
-					////	isStart = false;
-					////}
-					////_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-					////_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
-
-					//transform.position = new Vector3(transform.position.x + _y, transform.position.y - _z, transform.position.z );
-					//timeCnt += 0.01f;
-					//if (timeCnt > 3.0f)
-					//{
-					//	timeCnt = 0;
-					//}
-
 				}
 				break;
 
@@ -193,47 +226,33 @@ public class Enemy_First : character_status
 				}
 				break;
 
-			case State.Generated:
+			case State.Straight:
+				speedX = speedX_Straight;
 				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 		}
-
-		//画面外に出たら、オフにする
-		//if (!renderer.isVisible)
-		//{
-		//	isTurn = false;
-		//	isDead = false;
-		//	gameObject.SetActive(false);
-		//}
-
 	}
 
-	//オフになったとき実行される
-	private void OnDisable()
-    {
-		if (isDead)
-		{
-			isDead = false;
-		}
-	}
-
-    //---------ここから関数--------------
-    public void SetState(int num)
+	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
+	public void SetState(int num)
 	{
-		switch(num)
+		switch (num)
 		{
+			//上に曲がる
 			case 0:
 				eState = State.TurnUp;
 				break;
 
+			//下に曲がる
 			case 1:
 				eState = State.TurnDown;
 				break;
 
+			//直進
 			case 2:
-				eState = State.Generated;
+				eState = State.Straight;
 				break;
 		}
 	}
@@ -242,10 +261,21 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			groupManage.notDefeatedEnemyCnt++;
-			groupManage.remainingEnemiesCnt -= 1;
+			if (parentObj)
+			{
+				if (parentObj.name == "Enemy_UFO_Group(Clone)")
+				{
+					groupManage.notDefeatedEnemyCnt++;
+					groupManage.remainingEnemiesCnt -= 1;
+				}
+			}
 			frame = 0;
-			isisisisi = true;
+			gameObject.SetActive(false);
+
+		}
+		else if (eState == State.Straight && (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallRight"))
+		{
+			frame = 0;
 			gameObject.SetActive(false);
 		}
 	}

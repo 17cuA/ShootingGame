@@ -86,6 +86,9 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eOCTOPUSTYPE_ENEMY:
 					obj = Obj_Storage.Storage_Data.OctopusType_Enemy.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM:
+					obj = Obj_Storage.Storage_Data.UfoType_Item_Enemy.Active_Obj();
+					break;
 				default:
 					break;
 			}
@@ -164,6 +167,9 @@ namespace StorageReference
 					break;
 				case Game_Master.OBJECT_NAME.eOCTOPUSTYPE_ENEMY:
 					obj = Obj_Storage.Storage_Data.OctopusType_Enemy.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM:
+					obj = Obj_Storage.Storage_Data.UfoType_Item_Enemy.Active_Obj();
 					break;
 				default:
 					break;

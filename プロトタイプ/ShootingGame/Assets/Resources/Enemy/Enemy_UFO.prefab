@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6541507908318001150}
   - component: {fileID: 6541507908318001145}
+  - component: {fileID: 5582079347219364264}
+  - component: {fileID: 3061553639748057897}
   m_Layer: 9
   m_Name: Enemy_UFO
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,21 +46,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71bf4913965b2741841524e45c84e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
+  speed: 1
+  hp: 1
   direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 5582079347219364264}
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
   shield: 0
   activeShield: 0
+  eState: 0
+  parentObj: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
-  speedX: 0
+  speedX: 5
+  speedX_Straight: 3
   speedY: 0
-  isisisisi: 0
+--- !u!136 &5582079347219364264
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541507908318001144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25943387
+  m_Height: 0.58973604
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3061553639748057897
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541507908318001144}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7705214003019906429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7560823306772941650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a0132c8ade644388ac0a948dce495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotaX: 0
+  rotaY: 0
+  rotaZ: 0
+  rotaX_Value: 0
+  rotaY_Value: 0
+  rotaZ_Value: 15
 --- !u!1001 &7560823306773040626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,6 +184,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
+--- !u!1 &7560823306772941650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: e463bf685487aeb469be78af75eeec80,
+    type: 3}
+  m_PrefabInstance: {fileID: 7560823306773040626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7560823306773174130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e463bf685487aeb469be78af75eeec80,

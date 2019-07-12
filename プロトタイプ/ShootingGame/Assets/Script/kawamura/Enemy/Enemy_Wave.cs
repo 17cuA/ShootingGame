@@ -15,12 +15,17 @@ public class Enemy_Wave : character_status
 	public State eState;
 
 	GameObject childObj;
+	GameObject item;
+	GameObject parentObj;
+	//GameObject blurObj;
 
 	HSVColorController hsvCon;
 	Color hsvColor;
+	//BlurController blurCon;
+	EnemyGroupManage groupManage;
+	VisibleCheck vc;
 
-	//public Transform startMarker;
-	//public Transform endMarker;
+	Vector3 velocity;
 
 	//----------
 	public Vector3 startMarker;
@@ -30,8 +35,6 @@ public class Enemy_Wave : character_status
 
 	private float distance_two;
 	//----------
-
-
 
 	public float speedX;
 	public float speedY;
@@ -51,15 +54,7 @@ public class Enemy_Wave : character_status
 	float posZ;
 	float defPosX;
 	float val_Value;
-
-	Vector3 velocity;
-
-	GameObject item;
-	GameObject parentObj;
-	//GameObject childObj;
-
-	EnemyGroupManage groupManage;
-	VisibleCheck vc;
+	float sigma_Value;
 
 
 	public bool isAddSpeedY = false;   //Yスピードを増加させるかどうか
@@ -87,19 +82,29 @@ public class Enemy_Wave : character_status
 		hsvCon = childObj.GetComponent<HSVColorController>();
 		val_Value = 0.025f;
 
-		if (transform.parent != null)
+		//blurObj = transform.GetChild(1).gameObject;
+		//blurCon = blurObj.GetComponent<BlurController>();
+		sigma_Value = 0.1f;
+
+		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
 		}
+        else
+        {
+            parentObj = GameObject.Find("TemporaryParent");
+            transform.parent = parentObj.transform;
+        }
 
-
-		speedZ = 0;
+        speedZ = 0;
 
 		posX = transform.position.x;
 		startPosY = transform.position.y;
 		posZ = -5.0f;
 		defPosX = (13.0f - transform.position.x) / 120.0f;         //13.0fはとりあえず敵が右へ向かう限界の座標
+
+		HP_Setting();
 	}
 
 	void Update()
@@ -249,9 +254,17 @@ public class Enemy_Wave : character_status
 					{
 						hsvCon.val = 1.0f;
 					}
+
+					//blurCon.sigma -= sigma_Value;
+					//if (blurCon.sigma <= 0)
+					//{
+					//	blurCon.sigma = 0.1f;
+					//}
 				}
 				else if (transform.position.x > 1)
 				{
+					//blurCon.sigma -= sigma_Value;
+
 					speedZ = speedZ_Value;
 				}
 			}
@@ -295,29 +308,31 @@ public class Enemy_Wave : character_status
 		{
 			if (parentObj)
 			{
-				//群を管理している親の残っている敵カウントマイナス
-				groupManage.remainingEnemiesCnt--;
-				//倒された敵のカウントプラス
-				groupManage.defeatedEnemyCnt++;
-				//群に残っている敵がいなくなったとき
-				if (groupManage.remainingEnemiesCnt == 0)
-				{
-					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
-					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
-					{
-						//アイテム生成
-						//Instantiate(item, this.transform.position, transform.rotation);
-					}
-					//一体でも倒されていなかったら
-					else
-					{
-						//なにもしない
-					}
-					groupManage.itemPos = transform.position;
-					groupManage.itemTransform = this.transform;
-
-				}
-			}
+                if(parentObj.name!= "TemporaryParent")
+                {
+				    //群を管理している親の残っている敵カウントマイナス
+				    groupManage.remainingEnemiesCnt--;
+				    //倒された敵のカウントプラス
+				    groupManage.defeatedEnemyCnt++;
+				    //群に残っている敵がいなくなったとき
+				    if (groupManage.remainingEnemiesCnt == 0)
+				    {
+					    //倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					    if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					    {
+						    //アイテム生成
+						    //Instantiate(item, this.transform.position, transform.rotation);
+					    }
+					    //一体でも倒されていなかったら
+					    else
+					    {
+						    //なにもしない
+					    }
+					    groupManage.itemPos = transform.position;
+					    groupManage.itemTransform = this.transform;
+				    }
+                }
+            }
 			Died_Process();
 
 			speedZ = 0;
@@ -326,7 +341,7 @@ public class Enemy_Wave : character_status
 			isWave = false;
 
 
-			Reset_Status();
+			//Reset_Status();
 			Died_Process();
 		}
 	}

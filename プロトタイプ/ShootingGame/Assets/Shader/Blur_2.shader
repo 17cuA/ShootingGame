@@ -19,7 +19,7 @@
 
 		Cull Off
 
-		GrabPass{ "_Frost" }
+		GrabPass{ "Blur_2" }
 
 		CGINCLUDE
 		#include "UnityCG.cginc"
@@ -139,5 +139,6 @@
 			ENDCG
 		}
 	}
+
 	Fallback Off
 }
