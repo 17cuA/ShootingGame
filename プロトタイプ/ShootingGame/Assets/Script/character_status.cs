@@ -138,4 +138,12 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
+	//キャラクターが死んだかどうかの判定用関数
+	public bool Died_Judgment()
+	{
+		bool is_died = false;
+		if (hp < 1) is_died = true;
+		return is_died;
+	}
+
 }

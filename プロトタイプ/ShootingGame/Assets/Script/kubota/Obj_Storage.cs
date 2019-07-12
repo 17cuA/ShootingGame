@@ -201,12 +201,12 @@ public class Obj_Storage : MonoBehaviour
 	
 	}
 
-	public Object_Pooling  GetPlayer()
+	public GameObject GetPlayer()
 	{
-		return Player;
+		return Player.Get_Obj()[0].gameObject;
 	}
-	public Object_Pooling GetBoss()
+	public GameObject GetBoss()
 	{
-		return Boss;
+		return Boss_Middle.Get_Obj()[0].gameObject;
 	}
 }
