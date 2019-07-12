@@ -1,16 +1,22 @@
-﻿using System.Collections;
+﻿//作成日2019/06/13
+// 一面のボスのパーツ管理
+// 作成者:諸岡勇樹
+/*
+ * 2019/07/11　初期位置の確保
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class One_Boss_Parts : character_status
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+	private Vector3 Initial_Position { get; set; }
+
+	void Start()
+    {
+		Initial_Position = transform.position;
+    }
     void Update()
     {
         
