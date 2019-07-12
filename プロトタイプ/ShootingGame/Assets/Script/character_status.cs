@@ -55,7 +55,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Active(9);
+			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[9]);
 			//爆発処理の作成
 			ParticleCreation(4);
 		}
@@ -95,7 +95,7 @@ public class character_status : MonoBehaviour
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
 					PowerManager.Instance.Pick();
-					SE_Manager.SE_Obj.SE_Active(5);
+					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[5]);
 					col.gameObject.SetActive(false);
 				}
 				else
