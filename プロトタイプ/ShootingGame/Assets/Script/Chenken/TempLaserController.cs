@@ -4,67 +4,86 @@ using UnityEngine;
 
 public class TempLaserController : MonoBehaviour
 {
-    private Transform parent;
-    private GameObject[] arrowArray = new GameObject[20];
-    public Sprite sprite;
-    public Vector3 target;
+    public class Controller
+    {
 
+        public Vector2 pushPos;
+        public float theta;
+
+        public Controller(Vector2 pushPos, float moveSpeed)
+        {
+            this.pushPos = pushPos;
+            this.theta = 0;
+        }
+
+        public void Rotate(float angle)
+        {
+            this.theta += angle;
+            this.pushPos.x = Mathf.Cos(this.theta);
+            this.pushPos.y = Mathf.Sin(this.theta);
+        }
+    }
+
+    public class Point
+    {
+        public Vector2 pos;
+        public Vector2 direction;
+        public float speed;
+        
+        public Point(Vector2 pos, Vector2 direction, float speed)
+        {
+            this.pos = pos;
+            this.direction = direction;
+            this.speed = speed;
+        }
+
+        public void Move()
+        {
+            pos += direction * speed * Time.deltaTime;
+        }
+    }
+
+
+    private LineRenderer lineRenderer;
+    private List<Point> points;
+    private Controller controller;
+
+    
     private void Awake()
     {
-        parent   = this.transform;
-
-        for(var i = 0; i < arrowArray.Length; ++i)
-        {
-            var image = new GameObject().AddComponent<SpriteRenderer>();
-            image.sprite  = sprite;
-            image.transform.SetParent(parent);
-            image.gameObject.name  = "laser_node";
-            arrowArray[i] = image.gameObject;
-        }
+        lineRenderer = GetComponent<LineRenderer>();
+        points = new List<Point>();
+        controller = new Controller(new Vector2(1,0), 5);
     }
 
-    public void SetArrow(Vector2 startPos, Vector2 endPos)
+    private void Update()
     {
-        var controlPointA = Vector2.zero;
-        var controlPointB = Vector2.zero;
-        controlPointA.x = startPos.x + (startPos.x - endPos.x) * 0.1f;
-        controlPointA.y = endPos.y - (endPos.y - startPos.y) * 0.2f;
-        controlPointB.y = endPos.y + (endPos.y - startPos.y) * 0.3f;
-        controlPointB.x = startPos.x - (startPos.x - endPos.x) * 0.3f;
-
-        for(var i = 0; i < arrowArray.Length; ++i)
+        if(Input.GetKey(KeyCode.UpArrow))
         {
-            var t = (float) i / 19f;
-            var pos = startPos * (1 - t) * (1 - t) * (1 - t) +
-                      3 * controlPointA * t * (1 - t) * (1 - t) + 
-                      3 * controlPointB * t * t * (1 - t) +
-                      endPos * t * t * t;
-            arrowArray[i].transform.position = pos;
+            controller.Rotate(-Mathf.PI / 12.0f);
+        }
+        if(Input.GetKey(KeyCode.DownArrow))
+        {
+            controller.Rotate(-Mathf.PI / 12.0f);
         }
 
-        UpdateAngle();
-    }
-
-    private void UpdateAngle()
-    {
-        for(var i = 0; i < arrowArray.Length; ++i)
+        if(Input.GetKey(KeyCode.Space))
         {
-            if(i == 0)
-            { 
-                arrowArray[i].transform.localEulerAngles = new Vector3(0, 0, 90);
-                continue;
+            var tempX = 0f;
+            var tempY = 0f;
+
+            for(var i = 0; i < 4; ++i)
+            {
+                points.Add(new Point( new Vector2(transform.position.x + tempX, transform.position.y * tempY), controller.pushPos , 10));
+                tempX += controller.pushPos.x;
+                tempY += controller.pushPos.y;
             }
-            var current   = arrowArray[i];
-            var last      = arrowArray[i - 1];
-            var direction = current.transform.position - last.transform.position;
-            var sign      =  (current.transform.position.y < last.transform.position.y) ? -1 : 1;
-            var angle     = Vector3.Angle(direction,Vector3.right) * sign;
-            current.transform.localEulerAngles = new Vector3(0, 0, angle);
         }
-    }
 
-    public void Update()
-    {
-        SetArrow(transform.position,target);
+        for(var i = 0; i < points.Count; ++i)
+            points[i].Move();
+
+        for(var i = 0; i < points.Count; ++i)
+            lineRenderer.SetPosition(i,points[i].pos);
     }
 }
