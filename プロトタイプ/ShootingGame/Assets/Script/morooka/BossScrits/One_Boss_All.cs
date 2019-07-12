@@ -357,7 +357,7 @@ public class One_Boss_All : character_status
 						//	}
 						//}
 
-						// オプション台の位置変更,オプションの位置変更
+						// オプション台,オプション、所定の位置へ移動
 						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0] 
 							|| Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1] 
 							|| Boss_Option_Center.transform.position != Initial_Boss_Option_Center)
@@ -366,7 +366,10 @@ public class One_Boss_All : character_status
 							Boss_Option_Table[1].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[1].transform.localPosition, Initial_Boss_Option_Table_Pos[1], speed * 5);
 							Boss_Option_Center.localPosition = Vector3.MoveTowards(Boss_Option_Center.localPosition, Initial_Boss_Option_Center, speed * 5);
 						}
-						else if(Boss_Option_Table[0].transform.localPosition == Initial_Boss_Option_Table_Pos[0] || Boss_Option_Table[1].transform.localPosition == Initial_Boss_Option_Table_Pos[1] || Boss_Option_Center.transform.position == Initial_Boss_Option_Center)
+						// 指定の位置についたとき
+						else if(Boss_Option_Table[0].transform.localPosition == Initial_Boss_Option_Table_Pos[0] 
+							|| Boss_Option_Table[1].transform.localPosition == Initial_Boss_Option_Table_Pos[1] 
+							|| Boss_Option_Center.transform.localPosition == Initial_Boss_Option_Center)
 						{
 							Attack_Step++;
 						}
@@ -376,20 +379,23 @@ public class One_Boss_All : character_status
 			// 攻撃開始
 			else if(Attack_Step == 1)
 			{
+				// 10個のバレットを撃つ
 				if(Beam_Cnt < 10)
 				{
 					Shot_Delay++;
 					if(Shot_Delay > Shot_DelayMax)
 					{
+						// プレイヤーにマズルを向ける
 						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[0].position;
 						Initial_Beam_Mazle[0].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[0].position, Initial_Beam_Mazle[0].right);
 
+						// プレイヤーにマズルを向ける
 						target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[1].position;
 						Initial_Beam_Mazle[1].right = target_dir;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[1].position, Initial_Beam_Mazle[1].right);
-						Shot_Delay = 0;
 
+						Shot_Delay = 0;
 						Beam_Cnt++;
 					}
 				}
