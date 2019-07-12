@@ -10,21 +10,22 @@ public class DropItem : MonoBehaviour
 	public GameObject item;
 	Vector3 itemPos;
     public bool isQuitting = false;
+	public bool isDrop = false;
 
     private void Awake()
     {
-        item = Resources.Load("Item/Item_Test") as GameObject;
-        isQuitting = true;
+        //item = Resources.Load("Item/Item_Test") as GameObject;
+        //isQuitting = true;
     }
 
     private void OnEnable()
     {
-        isQuitting = false;
+        //isQuitting = false;
     }
 
     void Start()
     {
-        isQuitting = true;
+        //isQuitting = true;
 	}
 
 
@@ -33,16 +34,16 @@ public class DropItem : MonoBehaviour
 		//アイテムの生成位置更新
 		itemPos = transform.position;
     }
-	void OnApplicationQuit()
 
+	void OnApplicationQuit()
 	{
-		isQuitting = true;
+		//isQuitting = true;
 	}
 	private void OnDisable()
 	{
 		if(!isQuitting)
         {
-            Instantiate(item, itemPos, transform.rotation);
+            //Instantiate(item, itemPos, transform.rotation);
             //Object_Instantiation.Object_Reboot("PowerUP_Item", itemPos, transform.rotation);
         }
     }

@@ -38,6 +38,17 @@ public class Enemy_First : character_status
 	bool isTurn;
 	bool isAddition = false;
 	bool isDead = false;
+	public bool haveItem = false;
+
+	private void Awake()
+	{
+		if (gameObject.GetComponent<DropItem>())
+		{
+			DropItem dItem = gameObject.GetComponent<DropItem>();
+			haveItem = true;
+		}
+	}
+
 	void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
@@ -55,43 +66,34 @@ public class Enemy_First : character_status
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
-                if (parentObj.transform.position.y > 0)
-                {
-                    speedX = 5;
-                    eState = State.TurnDown;
-                }
-                else
-                {
-                    speedX = 5;
-                    eState = State.TurnUp;
-                }
-            }
-            else
+				if (parentObj.transform.position.y > 0)
+				{
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					speedX = 5;
+					eState = State.TurnUp;
+				}
+			}
+			else
 			{
 				eState = State.Straight;
 			}
 		}
-        else
-        {
-            parentObj = GameObject.Find("TemporaryParent");
-            transform.parent = parentObj.transform;
-        }
-        
+		else
+		{
+			parentObj = GameObject.Find("TemporaryParent");
+			transform.parent = parentObj.transform;
+		}
+
 
 		HP_Setting();
 	}
 
 	private void OnEnable()
 	{
-		//if (transform.parent != null)
-		//{
-		//	parentObj = transform.parent.gameObject;
-		//	if (parentObj.name == "Enemy_UFO_Group(Clone)")
-		//	{
-		//		groupManage = parentObj.GetComponent<EnemyGroupManage>();
-		//	}
-		//}
-
 		if (parentObj)
 		{
 			if (parentObj.name != "Enemy_UFO_Group(Clone)")
@@ -109,7 +111,6 @@ public class Enemy_First : character_status
 				speedX = 5;
 				eState = State.TurnUp;
 			}
-
 		}
 	}
 
@@ -118,6 +119,11 @@ public class Enemy_First : character_status
 		//倒されたとき
 		if (hp < 1)
 		{
+			if (haveItem)
+			{
+				Instantiate(item, this.transform.position, transform.rotation);
+			}
+
 			if (parentObj == null)
 			{
 
@@ -153,37 +159,9 @@ public class Enemy_First : character_status
 
 			Died_Process();
 		}
-
-		//if (!parentObj)
-		//{
-		//	if (transform.parent.gameObject)
-		//	{
-		//		parentObj = transform.parent.gameObject;
-		//		groupManage = parentObj.GetComponent<EnemyGroupManage>();
-
-		//	}
-		//}
-
 		//移動関数呼び出し
 		Move();
-
-		//画面外に出たら、オフにする
-		//if (!renderer.isVisible)
-		//{
-		//	isTurn = false;
-		//	isDead = false;
-		//	gameObject.SetActive(false);
-		//}
 	}
-
-	//オフになったとき実行される
-	//private void OnDisable()
-	//{
-	//	if (isDead)
-	//	{
-	//		isDead = false;
-	//	}
-	//}
 
 	//---------ここから関数--------------
 
@@ -217,27 +195,6 @@ public class Enemy_First : character_status
 					{
 						speedX = -5.0f;
 					}
-
-					//_y = radius * Mathf.Cos(timeCnt * circleSpeed);
-					//_z = radius * Mathf.Sin(timeCnt * circleSpeed);
-
-					////}
-					////else
-					////{
-					////	_y = radius * Mathf.Cos(timeCnt * speed);
-					////	_z = radius * Mathf.Sin(timeCnt * speed);
-					////	isStart = false;
-					////}
-					////_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-					////_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
-
-					//transform.position = new Vector3(transform.position.x + _y, transform.position.y - _z, transform.position.z );
-					//timeCnt += 0.01f;
-					//if (timeCnt > 3.0f)
-					//{
-					//	timeCnt = 0;
-					//}
-
 				}
 				break;
 
@@ -281,19 +238,19 @@ public class Enemy_First : character_status
 	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
 	public void SetState(int num)
 	{
-		switch(num)
+		switch (num)
 		{
 			//上に曲がる
 			case 0:
 				eState = State.TurnUp;
 				break;
 
-				//下に曲がる
+			//下に曲がる
 			case 1:
 				eState = State.TurnDown;
 				break;
 
-				//直進
+			//直進
 			case 2:
 				eState = State.Straight;
 				break;
@@ -304,7 +261,7 @@ public class Enemy_First : character_status
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
 		{
-			if(parentObj)
+			if (parentObj)
 			{
 				if (parentObj.name == "Enemy_UFO_Group(Clone)")
 				{
