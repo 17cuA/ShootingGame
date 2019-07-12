@@ -439,6 +439,17 @@ public class One_Boss_All : character_status
 			else if(Attack_Step == 3)
 			{
 				Boss_Option_Center.localPosition = Boss_Option_Center.localPosition + Through_Direction[(int)MOVING_DISTANCE.eLEFT].normalized * speed;
+				Boss_Option_Center.Rotate(new Vector3(0.0f, 0.0f, rotating_velocity / 10.0f));
+
+				Shot_Delay++;
+				if(Shot_Delay > Shot_DelayMax)
+				{
+					foreach(One_Boss_Parts obp in Boss_Option)
+					{
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, obp.transform.position, obp.transform.right);
+					}
+					Shot_Delay = 0;
+				}
 			}
 			else if(Attack_Step == 4)
 			{
