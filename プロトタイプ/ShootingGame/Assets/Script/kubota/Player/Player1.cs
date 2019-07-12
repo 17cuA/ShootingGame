@@ -138,6 +138,19 @@ public class Player1 : character_status
 		if (Input.GetKeyDown(KeyCode.Alpha1))Damege_Process(1);
 		if(Input.GetKeyDown(KeyCode.Alpha2))PowerManager.Instance.Pick();
 		if(Input.GetKeyDown(KeyCode.Alpha3))hp = 1000;
+		if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			Remaining--;
+			ParticleCreation(0);        //爆発のエフェクト発動
+			Reset_Status();             //体力の修正
+			gameObject.transform.position = direction;      //初期位置に戻す
+			if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+			invincible = false;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			bullet_Type = Bullet_Type.Single;
+
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 		//---------------------------
 
 		PowerManager.Instance.Update();

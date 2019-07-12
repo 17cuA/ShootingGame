@@ -265,6 +265,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			isDead = false;
 			isborn = true;
 			parentObj = null;
+			pl1.bitIndex--;
 			gameObject.SetActive(false);
 		}
 		//------------------------------------------------

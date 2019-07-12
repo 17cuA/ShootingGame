@@ -3,6 +3,8 @@
  * 久保田達己
  * 更新履歴
  * 2019/06/06	とりあえずの作成
+ * 2019/07/03	SEの追加
+ * 2019/07/12	VOICEの追加
  */
  using System.Collections;
 using System.Collections.Generic;
