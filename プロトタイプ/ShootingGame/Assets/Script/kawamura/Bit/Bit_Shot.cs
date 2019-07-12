@@ -37,6 +37,7 @@ public class Bit_Shot : MonoBehaviour
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		Power.PowerManager.Instance.AddFunction(Power.PowerManager.Power.PowerType.LASER, ActiveLaser);
+		laser.Stop();
 
 	}
 	private void OnDisable()
@@ -137,7 +138,10 @@ public class Bit_Shot : MonoBehaviour
 			}
 			shot_Delay++;
 		}
-
+		else if(bf.isDead)
+		{
+			laser.Stop();
+		}
 		missileDelayCnt++;
     }
 	public void Bullet_Create()

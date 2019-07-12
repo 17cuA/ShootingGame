@@ -195,7 +195,7 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = true;
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
 
 					break;
 
