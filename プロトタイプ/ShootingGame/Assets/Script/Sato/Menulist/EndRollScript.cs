@@ -28,7 +28,7 @@ public class EndRollScript : MonoBehaviour
 			//　エンドロール用テキストがリミットを越えるまで動かす
 			if (transform.position.y <= limitPosition)
 			{
-				transform.position = new Vector2(transform.position.x, transform.position.y + textScrollSpeed * Time.deltaTime);
+				transform.position = new Vector3(transform.position.x , transform.position.y + textScrollSpeed * Time.deltaTime, transform.position.z + textScrollSpeed * Time.deltaTime);
 			}
 			else
 			{
