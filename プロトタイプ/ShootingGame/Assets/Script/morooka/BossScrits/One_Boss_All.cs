@@ -427,6 +427,7 @@ public class One_Boss_All : character_status
 	/// </summary>
 	private void Moving_Target_Change()
 	{
+		// 同じ位置になるまで繰り返す
 		do
 		{
 			Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
