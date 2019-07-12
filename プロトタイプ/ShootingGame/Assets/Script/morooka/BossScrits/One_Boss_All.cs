@@ -11,6 +11,19 @@ using StorageReference;
 
 public class One_Boss_All : character_status
 {
+	// 移動方向
+	private enum MOVING_DISTANCE
+	{
+		eRIGHT,					// 右
+		eRIGHT_UP,			// 右斜め上
+		eUP,						// 上
+		eLEFT_UP,				// 左斜め上
+		eLEFT,					// 左
+		eLEFT_DOWN,		// 左斜め下
+		eDOWN,				// 下
+		eRIGHT_DOWN,		// 右斜め下
+	}
+
 	// Unity側で変更用変数
 	//------------------------------------------------------------
 	[Header("ボスの構成パーツ")]
@@ -32,6 +45,7 @@ public class One_Boss_All : character_status
 	[SerializeField, Tooltip("下のポイント")]				private Vector2 under_point;
 	[SerializeField, Tooltip("ビームの最大数")]			private int beam_max;
 	[SerializeField, Tooltip("回転角度")]					private int rotating_velocity;
+	[SerializeField, Tooltip("六角形の大きさ")]			private float hexagonal_size;
 	//------------------------------------------------------------
 
 	public One_Boss_Parts Boss_Body { get; private set; }						// ボスの本体
@@ -54,11 +68,24 @@ public class One_Boss_All : character_status
 
 	private Vector3 Initial_Boss_Option_Center { get; set; }					// オプションの中心の初期位置
 	private Vector3[] Facing_Hexagonal_Option { get; set; }					// オプションの六角形の向き
+	private Vector3[] Position_Hexagonal_Option { get; set; }					// オプションの六角形の位置
 	private List<Vector3> Initial_Boss_Option_Table_Pos { get; set; }		// オプション台の初期位置
 	private List<Vector3> Initial_Boss_Option_Pos { get; set; }				// オプションの初期位置
 	private List<Vector3> Muzzle_Facing { get; set; }							// マズルの初期の向き
+	private List<Vector3> Through_Direction { get; set; }						// 直進方向
+
 	void Start()
     {
+		Through_Direction = new List<Vector3>();
+		Through_Direction.Add(new Vector3(1.0f,0.0f,0.0f));
+		Through_Direction.Add(new Vector3(1.0f,1.0f,0.0f));
+		Through_Direction.Add(new Vector3(0.0f,1.0f,0.0f));
+		Through_Direction.Add(new Vector3(-1.0f,1.0f,0.0f));
+		Through_Direction.Add(new Vector3(-1.0f,0.0f,0.0f));
+		Through_Direction.Add(new Vector3(-1.0f,-1.0f,0.0f));
+		Through_Direction.Add(new Vector3(0.0f,-1.0f,0.0f));
+		Through_Direction.Add(new Vector3(1.0f,-1.0f,0.0f));
+
 		// 各パーツの保持
 		Boss_Body = boss_body;
 		Boss_Core = boss_core;
@@ -119,17 +146,22 @@ public class One_Boss_All : character_status
 		Rotating_Velocity = rotating_velocity;
 
 		// オプションの六角形の向き設定
-		Facing_Hexagonal_Option = new Vector3[6];
+		Facing_Hexagonal_Option = new Vector3[Boss_Option.Length];
+		Position_Hexagonal_Option = new Vector3[Boss_Option.Length];
 		Facing_Hexagonal_Option[0] = new Vector3(0.0f, 5.0f, 0.0f);
 		Facing_Hexagonal_Option[1] = new Vector3(4.330127f, 2.5f, 0.0f);
 		Facing_Hexagonal_Option[2] = new Vector3(4.330127f, -2.5f, 0.0f);
 		Facing_Hexagonal_Option[3] = new Vector3(0.0f, -5.0f, 0.0f);
 		Facing_Hexagonal_Option[4] = new Vector3(-4.330127f, -2.5f, 0.0f);
 		Facing_Hexagonal_Option[5] = new Vector3(-4.330127f, 2.5f, 0.0f);
+		for(int i = 0; i < Facing_Hexagonal_Option.Length; i++)
+		{
+			Position_Hexagonal_Option[i] = Facing_Hexagonal_Option[i].normalized * hexagonal_size;
+		}
 	}
 
 	void Update()
-    {
+	{
 
 		Boss_Debug();
 
@@ -146,7 +178,7 @@ public class One_Boss_All : character_status
 			//Boss_Body.transform.Rotate(new Vector3(rotating_velocity,0.0f,0.0f));
 
 			// 移動したい場所が今の位置と違うとき
-			if(transform.position != Now_Target)
+			if (transform.position != Now_Target)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed);
 			}
@@ -255,11 +287,11 @@ public class One_Boss_All : character_status
 				#endregion
 
 				// 攻撃可能のとき
-				if(Shot_Delay > Shot_DelayMax)
+				if (Shot_Delay > Shot_DelayMax)
 				{
 					// ビームの半分の動き
 					// ビームを撃ったらマズルの回転
-					if(Attack_Step < beam_max / 2)
+					if (Attack_Step < beam_max / 2)
 					{
 						//Shoot_Beam(0);
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[0].transform.position, Initial_Beam_Mazle[0].transform.right);
@@ -303,27 +335,27 @@ public class One_Boss_All : character_status
 		else
 		{
 			// コアの色が変わっていないとき
-			if(Core_Material.color != pinch_core_color)
+			if (Core_Material.color != pinch_core_color)
 			{
 				// コアの色を変える
 				Core_Material.color = pinch_core_color;
-				Now_Target = new Vector3(14.0f,0.0f,0.0f);
+				Now_Target = new Vector3(14.0f, 0.0f, 0.0f);
 				Attack_Step = 0;
 			}
 			// 攻撃準備
-			if(Attack_Step == 0)
+			if (Attack_Step == 0)
 			{
 				// 本体の移動
-				if(transform.position != Now_Target)
+				if (transform.position != Now_Target)
 				{
 					transform.position = Vector3.MoveTowards(transform.position, Now_Target, speed * 3.0f);
 				}
 				// 装備の設置
-				else if(transform.position == Now_Target)
+				else if (transform.position == Now_Target)
 				{
 					//	アクティブでないとき
-					if (!Boss_Option_Table[0].gameObject.activeSelf 
-						|| !Boss_Option_Table[1].gameObject.activeSelf 
+					if (!Boss_Option_Table[0].gameObject.activeSelf
+						|| !Boss_Option_Table[1].gameObject.activeSelf
 						|| !Boss_Option_Center.gameObject.activeSelf)
 					{
 						// オプション台アクティブ化、位置を変える
@@ -343,43 +375,25 @@ public class One_Boss_All : character_status
 						vector = Boss_Option_Center.localPosition;
 						vector.x += 25.0f;
 						Boss_Option_Center.localPosition = vector;
-
-						//// オプションのアクティブ化、位置を変える
-						//for(int i = 0; i< Boss_Option.Length;i++)
-						//{
-						//	Boss_Option[i].gameObject.SetActive(true);
-						//	vector = Boss_Option[i].transform.localPosition;
-						//	vector.x += 25.0f;
-						//	Boss_Option[i].transform.localPosition = vector;
-						//}
 					}
 					// アクティブのとき
 					else if (Boss_Option_Table[0].gameObject.activeSelf
 						|| Boss_Option_Table[1].gameObject.activeSelf
 						|| Boss_Option_Center.gameObject.activeSelf)
 					{
-						//// オプションの位置変更
-						//for (int i = 0; i < Boss_Option.Length; i++)
-						//{
-						//	if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
-						//	{
-						//		Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 5);
-						//	}
-						//}
-
 						// オプション台,オプション、所定の位置へ移動
-						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0] 
-							|| Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1] 
-							|| Boss_Option_Center.transform.position != Initial_Boss_Option_Center)
+						if (Boss_Option_Table[0].transform.localPosition != Initial_Boss_Option_Table_Pos[0]
+							|| Boss_Option_Table[1].transform.localPosition != Initial_Boss_Option_Table_Pos[1]
+							|| Boss_Option_Center.transform.localPosition != Initial_Boss_Option_Center)
 						{
 							Boss_Option_Table[0].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[0].transform.localPosition, Initial_Boss_Option_Table_Pos[0], speed * 5);
 							Boss_Option_Table[1].transform.localPosition = Vector3.MoveTowards(Boss_Option_Table[1].transform.localPosition, Initial_Boss_Option_Table_Pos[1], speed * 5);
 							Boss_Option_Center.localPosition = Vector3.MoveTowards(Boss_Option_Center.localPosition, Initial_Boss_Option_Center, speed * 5);
 						}
 						// 指定の位置についたとき
-						else if(Boss_Option_Table[0].transform.localPosition == Initial_Boss_Option_Table_Pos[0] 
-							|| Boss_Option_Table[1].transform.localPosition == Initial_Boss_Option_Table_Pos[1] 
-							|| Boss_Option_Center.transform.localPosition == Initial_Boss_Option_Center)
+						else if (Boss_Option_Table[0].transform.localPosition == Initial_Boss_Option_Table_Pos[0]
+							|| Boss_Option_Table[1].transform.localPosition == Initial_Boss_Option_Table_Pos[1]
+							|| Boss_Option_Center.localPosition == Initial_Boss_Option_Center)
 						{
 							Attack_Step++;
 						}
@@ -387,13 +401,13 @@ public class One_Boss_All : character_status
 				}
 			}
 			// 攻撃開始
-			else if(Attack_Step == 1)
+			else if (Attack_Step == 1)
 			{
 				// 10個のバレットを撃つ
-				if(Beam_Cnt < 10)
+				if (Beam_Cnt < 10)
 				{
 					Shot_Delay++;
-					if(Shot_Delay > Shot_DelayMax)
+					if (Shot_Delay > Shot_DelayMax)
 					{
 						// プレイヤーにマズルを向ける
 						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[0].position;
@@ -415,12 +429,63 @@ public class One_Boss_All : character_status
 					Attack_Step++;
 				}
 			}
-			else if(Attack_Step == 2)
+			else if (Attack_Step == 2)
 			{
-				//if(Boss_Option[0])
+				if(Make_Options_Hexagon())
+				{
+					Attack_Step++;
+				}
+			}
+			else if(Attack_Step == 3)
+			{
+				Boss_Option_Center.localPosition = Boss_Option_Center.localPosition + Through_Direction[(int)MOVING_DISTANCE.eLEFT].normalized * speed;
+			}
+			else if(Attack_Step == 4)
+			{
+				if (Options_Initial_Position_Move())
+				{
+					Attack_Step = 1;
+				}
 			}
 		}
-    }
+	}
+
+	/// <summary>
+	/// オプションの六角形への移動
+	/// </summary>
+	/// <returns> 移動したらTRUE </returns>
+	private bool Make_Options_Hexagon()
+	{
+		bool installation_complete = true;
+		for (int i = 0; i < Boss_Option.Length; i++)
+		{
+			if (Boss_Option[i].transform.localPosition != Facing_Hexagonal_Option[i])
+			{
+				Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Facing_Hexagonal_Option[i], speed * 6);
+				installation_complete = false;
+			}
+		}
+		return installation_complete;
+	}
+
+	/// <summary>
+	/// オプションの初期位置への移動
+	/// </summary>
+	/// <returns> 移動したらTRUE </returns>
+	private bool Options_Initial_Position_Move()
+	{
+		bool installation_complete = true;
+		for (int i = 0; i < Boss_Option.Length; i++)
+		{
+			if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+			{
+				Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 6);
+				installation_complete = false;
+			}
+		}
+
+		return installation_complete;
+	}
 
 	/// <summary>
 	/// 今と違う位置に移動
