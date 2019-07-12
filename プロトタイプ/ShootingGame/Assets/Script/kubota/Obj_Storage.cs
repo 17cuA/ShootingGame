@@ -171,6 +171,7 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
+		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		//effect---------------------------------------------------------------------------------------------
 		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");                      //プレイヤーの爆発
 		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
@@ -203,10 +204,10 @@ public class Obj_Storage : MonoBehaviour
 
 	public GameObject GetPlayer()
 	{
-		return Player.Get_Obj()[0].gameObject;
+		return Player.Get_Obj()[0];
 	}
 	public GameObject GetBoss()
 	{
-		return Boss_Middle.Get_Obj()[0].gameObject;
+		return Boss_Middle.Get_Obj()[0];
 	}
 }
