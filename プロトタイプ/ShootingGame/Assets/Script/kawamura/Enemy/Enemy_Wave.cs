@@ -86,14 +86,18 @@ public class Enemy_Wave : character_status
 		//blurCon = blurObj.GetComponent<BlurController>();
 		sigma_Value = 0.1f;
 
-		if (transform.parent != null)
+		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
 		}
+        else
+        {
+            parentObj = GameObject.Find("TemporaryParent");
+            transform.parent = parentObj.transform;
+        }
 
-
-		speedZ = 0;
+        speedZ = 0;
 
 		posX = transform.position.x;
 		startPosY = transform.position.y;
@@ -304,29 +308,31 @@ public class Enemy_Wave : character_status
 		{
 			if (parentObj)
 			{
-				//群を管理している親の残っている敵カウントマイナス
-				groupManage.remainingEnemiesCnt--;
-				//倒された敵のカウントプラス
-				groupManage.defeatedEnemyCnt++;
-				//群に残っている敵がいなくなったとき
-				if (groupManage.remainingEnemiesCnt == 0)
-				{
-					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
-					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
-					{
-						//アイテム生成
-						//Instantiate(item, this.transform.position, transform.rotation);
-					}
-					//一体でも倒されていなかったら
-					else
-					{
-						//なにもしない
-					}
-					groupManage.itemPos = transform.position;
-					groupManage.itemTransform = this.transform;
-
-				}
-			}
+                if(parentObj.name!= "TemporaryParent")
+                {
+				    //群を管理している親の残っている敵カウントマイナス
+				    groupManage.remainingEnemiesCnt--;
+				    //倒された敵のカウントプラス
+				    groupManage.defeatedEnemyCnt++;
+				    //群に残っている敵がいなくなったとき
+				    if (groupManage.remainingEnemiesCnt == 0)
+				    {
+					    //倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					    if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					    {
+						    //アイテム生成
+						    //Instantiate(item, this.transform.position, transform.rotation);
+					    }
+					    //一体でも倒されていなかったら
+					    else
+					    {
+						    //なにもしない
+					    }
+					    groupManage.itemPos = transform.position;
+					    groupManage.itemTransform = this.transform;
+				    }
+                }
+            }
 			Died_Process();
 
 			speedZ = 0;
@@ -335,7 +341,7 @@ public class Enemy_Wave : character_status
 			isWave = false;
 
 
-			Reset_Status();
+			//Reset_Status();
 			Died_Process();
 		}
 	}

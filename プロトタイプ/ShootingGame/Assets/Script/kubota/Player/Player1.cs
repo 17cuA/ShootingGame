@@ -26,16 +26,23 @@ public class Player1 : character_status
 	public Material material;			//この機体のマテリアル（これをいじくって透明化等を行う）
 	private Color first_color;			//初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
-	public bool activeLaser;            //現在の攻撃がレーザーかどうかの判定（初期false）
-	public bool activeBullet;           //現在の攻撃が弾丸かどうかの判定用（初期true）
-	public bool activeDouble;           //現在の攻撃が弾丸の二連かどうかの判定用（初期false）
 	public int bitIndex = 0;        //オプションの数
 
-	[Tooltip("ジェット噴射の位置情報を入れる")]
-	public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
-	private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
-	public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
-	private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
+	//[Tooltip("ジェット噴射の位置情報を入れる")]
+	//public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
+	//private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
+	//public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
+	//private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
+
+	[SerializeField]private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
+	public ParticleSystem particleSystem;							//ジェット噴射自体のパーティクルシステム
+	private ParticleSystem.MainModule particleSystemMain;	//☝の中のメイン部分（としか言いようがない）
+	[SerializeField]private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
+	//ジェット噴射用の数値-------------------------------
+	public const float baseInjectionAmount = 0.2f;          //基本噴射量
+	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
+	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
+	//------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;				// 旋回カウント
@@ -70,18 +77,19 @@ public class Player1 : character_status
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
+		//パワーアップの処理が行われる際に読み込まれる関数
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { Debug.Log("ミサイルリセット"); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Debug.Log("ダブルリセット"); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Debug.Log("レーサーリセット"); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { Debug.Log("シールドリセット"); });
-
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { laser.Stop(); Reset_BulletType(); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
@@ -95,8 +103,8 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { Debug.Log("ミサイルリセット"); });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Debug.Log("ダブルリセット"); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Debug.Log("レーサーリセット"); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { Debug.Log("シールドリセット"); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { /*activeDouble = false;*/ });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { activeShield = false; shield_Effect.Stop(); });
 	}
 	void Start()
 	{
@@ -110,63 +118,43 @@ public class Player1 : character_status
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
-        bullet_Type = Bullet_Type.Single;  //初期状態をsingleに
+        bullet_Type = Bullet_Type.Single;	//初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
-		injection = Obj_Storage.Storage_Data.Effects[2].Active_Obj();
-		shield = 3;
+		shield = 3;                                     //シールドに防御可能回数文の値を入れる
+		particleSystemMain = particleSystem.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
-		activeBullet = true;
-		activeDouble = false;
-		activeLaser = false;
 		activeShield = false;
 		activeMissile = false;
-		laser.Stop();
+		laser.Stop();		//レーザーのパーティクルを動かさないようにする
+		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
+		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 	}
 
 	void Update()
 	{
 		//-------------------------------
 		//デバックの工程
-		if(Input.GetKeyDown(KeyCode.A)) Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			invincible_time = 0;
-			//Debug.Log("hei");
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			Damege_Process(1);
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			PowerManager.Instance.Pick();
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			hp = 1000;
-		}
+		if (Input.GetKeyDown(KeyCode.Alpha1))Damege_Process(1);
+		if(Input.GetKeyDown(KeyCode.Alpha2))PowerManager.Instance.Pick();
+		if(Input.GetKeyDown(KeyCode.Alpha3))hp = 1000;
 		//---------------------------
 
 		PowerManager.Instance.Update();
 		//ビットン数をパワーマネージャーに更新する
 		PowerManager.Instance.UpdateBit(bitIndex);
 
-		if (activeShield)
-		{
-			Shield_Effect.transform.position = Shield_pos.transform.position;
-		}
-		if(shield < 1)
-		{
-			PowerManager.Instance.ResetShieldPower();
-			Shield_Effect.SetActive(false);
-		}
+		//if(shield < 1)
+		//{
+		//	PowerManager.Instance.ResetShieldPower();
+		//	shield_Effect.Play(false);
+		//}
 		if (hp < 1)
 		{
 			Remaining--;
 			if (Remaining < 1)
 			{
-				//
+				//残機がない場合死亡
 				Died_Process();
 			}
 			else
@@ -270,9 +258,20 @@ public class Player1 : character_status
 		{
 			facing_cnt = 0;
 		}
-		//
+		//右入力
+		if (0 < x)
+		{
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+		}
+		//左入力
+		else if (x < 0)
+		{
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+		}
+		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		injection.transform.position = Injection_pos.transform.position;
 		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
@@ -322,12 +321,12 @@ public class Player1 : character_status
 					case Bullet_Type.Single:
 						Single_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
-						ParticleCreation(3);
+						ParticleCreation(2);
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						SE_Manager.SE_Obj.SE_Active(4);
-						ParticleCreation(3);
+						ParticleCreation(2);
 						break;
 					default:
 						break;
@@ -387,7 +386,7 @@ public class Player1 : character_status
 	{
 		speed *= 1.2f;
 		Debug.Log("スピードUP");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -398,7 +397,7 @@ public class Player1 : character_status
 	{
 		activeMissile = true;
 		Debug.Log("ミサイル導入");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -406,12 +405,9 @@ public class Player1 : character_status
 	}
 	private void ActiveDouble()
 	{
-		activeDouble = true;
 		Debug.Log("ダブル導入");
-		activeBullet = false;
-		activeLaser = false;
 		bullet_Type = Bullet_Type.Double;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -420,12 +416,9 @@ public class Player1 : character_status
 	//レーザーを打てるように
 	private void ActiveLaser()
 	{
-		activeLaser = true;
-		activeDouble = false;
-		activeBullet = false;
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -436,15 +429,13 @@ public class Player1 : character_status
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
 		shield = 3;
-		Shield_Effect = Obj_Storage.Storage_Data.Effects[17].Active_Obj();			//エフェクトをオンの状態に
-		ParticleSystem particle = Shield_Effect.GetComponent<ParticleSystem>();	//パーティクルの再生するかどうかを動かすため
-		particle.Play();				//パーティクルの稼働
+		shield_Effect.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
-		GameObject effect = Obj_Storage.Storage_Data.Effects[7].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
-
+		shield_Effect.Play();
 	}
 	//オプションをアクティブに
 	private void CreateBit()
@@ -472,5 +463,10 @@ public class Player1 : character_status
 				break;
 		}
 		Debug.Log("ビットン生成");
+	}
+	//レーザーの攻撃を初期バレットまたはダブルに変更
+	private void Reset_BulletType()
+	{
+		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
 }
