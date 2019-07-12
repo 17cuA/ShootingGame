@@ -62,8 +62,8 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[16]; 	//ＳＥを読み込むための配列
-
+	public AudioClip[] audio_se = new AudioClip[16];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_voice = new AudioClip[25];
 
 	private void Awake()
 	{
@@ -108,23 +108,48 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Effects_015");        //none
 		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Effects_016");        //none
 
-		audio_se[0] = Resources.Load<AudioClip>("SE/01_gradius_se_intro");
-		audio_se[1] = Resources.Load<AudioClip>("SE/04_gradius_se_credit");
-		audio_se[2] = Resources.Load<AudioClip>("SE/05_gradius_se_SelectMove");
-		audio_se[3] = Resources.Load<AudioClip>("SE/06_gradius_se_Select_OK");
-		audio_se[4] = Resources.Load<AudioClip>("SE/07_gradius_se_Shot");
-		audio_se[5] = Resources.Load<AudioClip>("SE/08_gradius_se_ItemGet");
-		audio_se[6] = Resources.Load<AudioClip>("SE/09_gradius_se_zakoenemy_Destroyed");
-		audio_se[7] = Resources.Load<AudioClip>("SE/10_gradius_se_Shot_Hit");
-		audio_se[8] = Resources.Load<AudioClip>("SE/11_gradius_se_Explosion");
-		audio_se[9] = Resources.Load<AudioClip>("SE/12_gradius_se_BossExplosion");
-		audio_se[10] = Resources.Load<AudioClip>("SE/13_gradius_se_SpeedUp");
-		audio_se[11] = Resources.Load<AudioClip>("SE/14_gradius_se_LASER");
-		audio_se[12] = Resources.Load<AudioClip>("SE/15_gradius_se_Double");
-		audio_se[13] = Resources.Load<AudioClip>("SE/16_gradius_se_LIPLE_LASER");
-		audio_se[14] = Resources.Load<AudioClip>("SE/17_gradius_se_OPTION");
-		audio_se[15] = Resources.Load<AudioClip>("SE/18_gradius_se_FORCE_FIELD");
+		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");
+		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
+		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
+		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
+		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/07_gradius_se_Shot");
+		audio_se[5] = Resources.Load<AudioClip>("Sound/SE/08_gradius_se_ItemGet");
+		audio_se[6] = Resources.Load<AudioClip>("Sound/SE/09_gradius_se_zakoenemy_Destroyed");
+		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");
+		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/11_gradius_se_Explosion");
+		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/12_gradius_se_BossExplosion");
+		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/13_gradius_se_SpeedUp");
+		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/14_gradius_se_LASER");
+		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/15_gradius_se_Double");
+		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/16_gradius_se_LIPLE_LASER");
+		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/17_gradius_se_OPTION");
+		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/18_gradius_se_FORCE_FIELD");
 
+		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
+		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
+		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_03");
+		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_04");
+		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_05");
+		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_06");
+		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_07");
+		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_08");
+		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_09");
+		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_10");
+		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_11");
+		audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_12");
+		audio_voice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");
+		audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");
+		audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");
+		audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");
+		audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_17");
+		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_18");
+		audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");
+		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20");
+		audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_21");
+		audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_22");
+		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_23");
+		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_24");
+		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_25");
 
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
