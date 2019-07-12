@@ -312,13 +312,6 @@ public class Player1 : character_status
 		Direction *= new Quaternion(0, -1,0, 0);
 		transform.rotation = Direction;
 	}
-    //プレイヤーが死んだかどうかの判定用関数
-	public bool Died_Judgment()
-	{
-		bool is_died = false;
-		if (hp < 1) is_died = true;
-		return is_died;
-	}
 	//弾の発射
 	public void Bullet_Create()
 	{
@@ -403,7 +396,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[12]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
 
 	}
 	//ミサイルをアクティブに
@@ -415,7 +408,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[13]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
 	}
 	private void ActiveDouble()
 	{
@@ -425,7 +418,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[14]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -436,7 +429,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[15]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 	}
 	//シールドの発動
 	private void ActiveShield()
@@ -450,7 +443,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 		shield_Effect.Play();
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[17]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
 
 	}
 	//オプションをアクティブに
@@ -478,7 +471,7 @@ public class Player1 : character_status
 			default:
 				break;
 		}
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_voice[16]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[16]);
 		Debug.Log("ビットン生成");
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更

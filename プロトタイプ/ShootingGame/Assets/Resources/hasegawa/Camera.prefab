@@ -305,7 +305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 728411572644177917}
   - component: {fileID: 728411572644177919}
-  - component: {fileID: 728411572644177916}
   - component: {fileID: 728411572644177918}
   m_Layer: 0
   m_Name: LeftCamera
@@ -370,14 +369,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &728411572644177916
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728411572644177914}
-  m_Enabled: 1
 --- !u!95 &728411572644177918
 Animator:
   serializedVersion: 3
