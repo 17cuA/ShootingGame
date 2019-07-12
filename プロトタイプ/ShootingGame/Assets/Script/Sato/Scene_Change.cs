@@ -13,16 +13,17 @@ public class Scene_Change : MonoBehaviour
 			isLoaded = !isLoaded;
 			if (isLoaded)
 			{
-				//Application.LoadLevelAdditive("MENU");
-				SceneManager.LoadScene("MENU", LoadSceneMode.Additive); // OK
-				//SceneManager.UnloadSceneAsync("Title");
-				gameObject.SetActive(false);
+				////Application.LoadLevelAdditive("MENU");
+				//SceneManager.LoadScene("MENU", LoadSceneMode.Additive); // OK
+				////SceneManager.UnloadSceneAsync("Title");
+				//gameObject.SetActive(false);
+
 			}
 			else
 			{
-				SceneManager.UnloadSceneAsync("Title");
-				Resources.UnloadUnusedAssets();
-				gameObject.SetActive(true);
+				//SceneManager.UnloadSceneAsync("Title");
+				//Resources.UnloadUnusedAssets();
+				//gameObject.SetActive(true);
 			}
 		}
 	}
