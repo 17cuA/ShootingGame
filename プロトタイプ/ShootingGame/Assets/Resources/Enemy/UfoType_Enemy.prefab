@@ -90,12 +90,13 @@ MonoBehaviour:
   score: 100
   shield: 0
   activeShield: 0
+  eState: 0
   parentObj: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
   speedX: 5
-  speedX_Straight: 3
+  speedX_Straight: 1.5
   speedY: 0
 --- !u!136 &8157944093981489980
 CapsuleCollider:

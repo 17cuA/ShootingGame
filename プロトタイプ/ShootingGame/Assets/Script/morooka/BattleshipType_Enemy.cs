@@ -4,6 +4,7 @@
 /*
  * 2019/07/08　挟み込み移動と弾を撃つ行動
  * 2019/07/08　まっすぐ移動
+ * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ public class BattleshipType_Enemy : character_status
 	public float Y_Move_Facing { get; set; }			// Y軸の移動向き
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
-	public List<GameObject> Bullet_Object { get; set; }
+	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
+	public List<BattleshipType_Battery> Child_Scriptes { get; set; }
 
 	void Start()
 	{
@@ -33,9 +35,18 @@ public class BattleshipType_Enemy : character_status
 		Muzzle_Select = 0;
 		Shot_Delay = Shot_DelayMax / 3;
 		Bullet_Object = new List<GameObject>();
+		Child_Scriptes = new List<BattleshipType_Battery>();
+
+		for (int i = 0; i < transform.childCount; i++)
+		{
+			BattleshipType_Battery b = transform.GetChild(i).GetComponent<BattleshipType_Battery>();
+			if (b != null)
+			{
+				Child_Scriptes.Add(b);
+			}
+		}
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		// 移動したい向きに移動
@@ -47,9 +58,6 @@ public class BattleshipType_Enemy : character_status
 			// X軸が移動先に近づいたとき
 			// Y軸が移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
-			//if (Mathf.Abs(transform.position.x - moving_change_point[Now_Target].x) < speed
-			//	&& Mathf.Abs(transform.position.y - moving_change_point[Now_Target].y) < speed
-			//	&& Now_Target < moving_change_point.Length - 1)			
 			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
 				&& Now_Target < moving_change_point.Length - 1)
 			{
@@ -78,20 +86,19 @@ public class BattleshipType_Enemy : character_status
 		{
 			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].right));
 			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].right));
+			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select+2].position, muzzle_set_up[Muzzle_Select+2].right));
+			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select+2].position, muzzle_set_Down[Muzzle_Select+2].right));
 			Muzzle_Select++;
-			if (Muzzle_Select == muzzle_set_up.Length)
+			if (Muzzle_Select == 2)
 			{
 				Muzzle_Select = 0;
-				Shot_Delay = 0;
 			}
-			else
-			{
-				Shot_Delay = Shot_DelayMax - 60;
-			}
+
+			Shot_Delay = 0;
 		}
 
 		// 保管したバレットの確認
-		for(int i = 0; i< Bullet_Object.Count;i++)
+		for (int i = 0; i< Bullet_Object.Count;i++)
 		{
 			// バレットが起動しているとき
 			if (Bullet_Object[i].activeSelf)
@@ -108,13 +115,47 @@ public class BattleshipType_Enemy : character_status
 				Bullet_Object.RemoveAt(i);
 			}
 		}
+
+		// 本体がHP０以下のとき
+		if (hp <= 0)
+		{
+			for (int i = 0; i < Child_Scriptes.Count; i++)
+			{
+				if (Child_Scriptes[i].gameObject.activeSelf)
+				{
+					Child_Scriptes[i].Died_Process();
+					//character_status c = transform.GetChild(i).GetComponent<character_status>();
+					//c.Died_Process();
+				}
+			}
+
+			Died_Process();
+		}
+
 	}
 
 	void OnEnable()
 	{
 		transform.position = initial_position;
 		Now_Target = 0;
-		Shot_Delay = Shot_DelayMax / 3;
+		Shot_Delay = 0;
+
+		if (Child_Scriptes != null)
+		{
+			// 子供が不能のとき、再起動
+			for (int i = 0; i < Child_Scriptes.Count; i++)
+			{
+				if (!Child_Scriptes[i].gameObject.activeSelf)
+				{
+					Child_Scriptes[i].ReBoot();
+
+					//Child_Scriptes[i].gameObject.SetActive(true);
+
+					//character_status c = transform.GetChild(i).GetComponent<character_status>();
+					//c.Died_Process();
+				}
+			}
+		}
 	}
 
 	/// <summary>
@@ -129,5 +170,31 @@ public class BattleshipType_Enemy : character_status
 		float yy = a.y - a.y;
 
 		return Mathf.Sqrt(xx * xx + yy * yy);
+	}
+
+	/// <summary>
+	/// 移動モードの設定(0：上側の移動、1：中心直進、2：下側の移動)
+	/// </summary>
+	/// <param name="num"></param>
+	public void Moving_Mode_Preference(int num)
+	{
+		switch(num)
+		{
+			case 0:
+				is_sandwich = false;
+				break;
+			case 1:
+				is_sandwich = true;
+				break;
+			case 2:
+				is_sandwich = false;
+				for(int i =0;i< moving_change_point.Length;i++)
+				{
+					moving_change_point[i].y *= -1.0f;
+				}
+				break;
+			default:
+				break;
+		}
 	}
 }

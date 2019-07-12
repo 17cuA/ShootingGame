@@ -7,9 +7,18 @@ using UnityEngine;
 public class obj_Off : MonoBehaviour
 {
 	ParticleSystem particle;    //particleの情報を取得
-	float cnt_Time;				//生成されてからの時間をカウント
-    void Update()
+	int frame;                //生成されてからの時間をカウント
+	public int frame_Max;
+	private void Start()
+	{
+		particle = GetComponent<ParticleSystem>();
+	}
+	void Update()
     {
-		//tim
+		frame++;
+		if(frame > frame_Max)
+		{
+			particle.Stop();
+		}
     }
 }

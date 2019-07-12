@@ -74,11 +74,13 @@ MonoBehaviour:
   score: 0
   shield: 0
   activeShield: 0
+  eState: 0
   parentObj: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
   speedX: 0
+  speedX_Straight: 1.5
   speedY: 0
 --- !u!114 &2050936479434828788
 MonoBehaviour:
@@ -93,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  isQuitting: 0
 --- !u!54 &1725562771
 Rigidbody:
   m_ObjectHideFlags: 0
