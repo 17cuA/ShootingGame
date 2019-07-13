@@ -65,8 +65,34 @@ public class Obj_Storage : MonoBehaviour
 	private int column;                                         //配列の列を入れる変数
 
 	public AudioClip[] audio_se = new AudioClip[16];    //ＳＥを読み込むための配列
-	public AudioClip[] audio_voice = new AudioClip[25];	//VOICEを読み込むための配列
+	public AudioClip[] audio_voice = new AudioClip[25]; //VOICEを読み込むための配列
 
+	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
+	public GameObject enemy_UFO_Group_prefab;
+	public GameObject enemy_ClamChowder_Group_Four_prefab;
+	public GameObject enemy_ClamChowder_Group_Two_Top_prefab;
+	public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
+	public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
+	public GameObject enemy_ClamChowder_Group_Seven_prefab;
+	public GameObject enemy_MiddleBoss_Father_prefab;
+	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
+	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
+	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
+	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
+
+	public Object_Pooling enemy_UFO_Group;
+	public Object_Pooling enemy_ClamChowder_Group_Four;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Top;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Under;
+	public Object_Pooling enemy_ClamChowder_Group_Three_Item;
+	public Object_Pooling enemy_ClamChowder_Group_Seven;
+	public Object_Pooling enemy_MiddleBoss_Father;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+
+	//----------------------------------------------------------
 	private void Awake()
 	{
 		Storage_Data = GetComponent<Obj_Storage>();
@@ -153,6 +179,20 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_23");
 		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_24");
 		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_25");
+
+		//--------------------------------------------------------------------------------------------------------
+		enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+		enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
+		enemy_ClamChowder_Group_Two_Top_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+		enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+		enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+		enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+		enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
+		//--------------------------------------------------------------------------------------------------------
 
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
