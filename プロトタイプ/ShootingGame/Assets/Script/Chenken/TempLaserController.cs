@@ -6,11 +6,10 @@ public class TempLaserController : MonoBehaviour
 {
     public class Controller
     {
-
         public Vector2 pushPos;
         public float theta;
 
-        public Controller(Vector2 pushPos, float moveSpeed)
+        public Controller(Vector2 pushPos)
         {
             this.pushPos = pushPos;
             this.theta = 0;
@@ -26,9 +25,9 @@ public class TempLaserController : MonoBehaviour
 
     public class Point
     {
-        public Vector2 pos;
         public Vector2 direction;
         public float speed;
+        public Vector2 pos;
         
         public Point(Vector2 pos, Vector2 direction, float speed)
         {
@@ -43,47 +42,122 @@ public class TempLaserController : MonoBehaviour
         }
     }
 
-
-    private LineRenderer lineRenderer;
-    private List<Point> points;
+    private Dictionary<LineRenderer,List<Point>> datas;
+    private LineRenderer currentLine;
     private Controller controller;
-
+    [Range(0,  0.03f)] public float laserShotInterval;
+    [Range(0.2f,0.5f)]public float waitTime = 0.2f;
+    public Material lineMaterial;
+    public Material trailMaterial;
+    public float lineWidth;
+    public float laserSpeed;
+    public int waitLaserLimit = 80;
+    public bool rotateLaserControl;
+    private float laserShotTime;
+    private int currentPointsCount;
+    private int index;
+    private int laserCount;
     
     private void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        points = new List<Point>();
-        controller = new Controller(new Vector2(1,0), 5);
+        datas = new Dictionary<LineRenderer, List<Point>>();
+        controller = new Controller(new Vector2(0.1f,0));
     }
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
-        {
-            controller.Rotate(-Mathf.PI / 12.0f);
-        }
-        if(Input.GetKey(KeyCode.DownArrow))
-        {
-            controller.Rotate(-Mathf.PI / 12.0f);
+        if(rotateLaserControl)
+        { 
+            HandleInput();
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if((Input.GetKeyDown(KeyCode.Space) && Time.time >= laserShotTime))
         {
-            var tempX = 0f;
-            var tempY = 0f;
+            CreateNewLaserLine();
+        }
 
-            for(var i = 0; i < 4; ++i)
+                
+        if(Input.GetKey(KeyCode.Space) &&  Time.time >= laserShotTime)
+        {         
+            DynamicChangeLine();
+
+            laserCount++;
+
+            laserShotTime = Time.time + laserShotInterval;
+        }
+
+        if(laserCount >= waitLaserLimit)
+        {
+            CreateNewLaserLine();
+            laserShotTime = Time.time + waitTime;
+            laserCount = 0;
+        }
+
+
+        UpdatePoints();                   
+    }
+
+    private void HandleInput()
+    {
+         if(Input.GetKey(KeyCode.UpArrow))
+         {
+             controller.Rotate(-Mathf.PI / 12.0f);
+         }
+         if(Input.GetKey(KeyCode.DownArrow))
+         {
+             controller.Rotate(Mathf.PI / 12.0f);
+         }
+    }
+
+    private void CreateNewLaserLine()
+    {
+         var go = new GameObject("LaserLine");
+         var lineRenderer        = go.AddComponent<LineRenderer>();
+         lineRenderer.material   = lineMaterial;
+         lineRenderer.startWidth = lineWidth;
+         lineRenderer.endWidth   = lineWidth;
+         currentLine = lineRenderer;
+         datas.Add(currentLine, new List<Point>());
+    }
+
+    private void DynamicChangeLine()
+    {
+         var tempX = 0f;
+         var tempY = 0f;
+
+         controller.pushPos.Normalize();
+         tempX += controller.pushPos.x;
+         tempY += controller.pushPos.y;
+         
+         datas[currentLine].Add(new Point(new Vector2(transform.position.x + tempX, transform.position.y * tempY), controller.pushPos, laserSpeed));
+      
+         var temp = datas[currentLine].Count;
+         currentLine.positionCount = temp;
+    }
+
+    private void UpdatePoints()
+    {
+        foreach(var data in datas)
+        {
+            var outScreenCount = 0;
+            for(var i = 0; i < data.Value.Count; ++i)
             {
-                points.Add(new Point( new Vector2(transform.position.x + tempX, transform.position.y * tempY), controller.pushPos , 10));
-                tempX += controller.pushPos.x;
-                tempY += controller.pushPos.y;
+                if(data.Value[i].pos.x >= 20 || data.Value[i].pos.x <= -20 || data.Value[i].pos.y >= 7 || data.Value[i].pos.y <= -7)
+                {
+                    outScreenCount++;
+                }
+
+                data.Value[i].Move();
+                data.Key.SetPosition(i, data.Value[i].pos);
             }
-        }
+            if(outScreenCount == data.Value.Count && outScreenCount > 0)
+            {
+                var uselessLineRenderer = data.Key;
+                datas.Remove(data.Key);
+                Destroy(uselessLineRenderer.gameObject);
 
-        for(var i = 0; i < points.Count; ++i)
-            points[i].Move();
-
-        for(var i = 0; i < points.Count; ++i)
-            lineRenderer.SetPosition(i,points[i].pos);
+                break;
+            }
+        }        
     }
 }
