@@ -19,7 +19,7 @@ public class Player1 : character_status
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
-	public int Remaining;                                        //残機（あらかじめ設定）
+	
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
@@ -106,7 +106,7 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { /*activeDouble = false;*/ });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { activeShield = false; shield_Effect.Stop(); });
 	}
-	void Start()
+	new void Start()
 	{
 		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
@@ -129,6 +129,7 @@ public class Player1 : character_status
 		laser.Stop();		//レーザーのパーティクルを動かさないようにする
 		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+		base.Start();
 	}
 
 	void Update()
@@ -390,7 +391,7 @@ public class Player1 : character_status
 	//プレイヤーの速度上昇
 	private void SpeedUp()
 	{
-		speed *= 1.2f;
+		speed *= 1.3f;
 		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();

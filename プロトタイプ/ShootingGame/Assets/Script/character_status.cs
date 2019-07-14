@@ -23,13 +23,16 @@ public class character_status : MonoBehaviour
 	public int Shot_Delay;								// 弾を撃つ時の間隔
 	public uint score;										// 保持しているスコア
 	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;							//現在シールドが発動しているかどうかの判定用（初期値false）
+	public bool activeShield;                           //現在シールドが発動しているかどうかの判定用（初期値false）
+	public int Remaining;                                        //残機（あらかじめ設定）
 
-	private void Start()
+	public void Start()
 	{
 		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 		rigidbody.useGravity = false;
 		capsuleCollider = GetComponent<CapsuleCollider>();
+		if (tag == "Player") Remaining = 3;
+		else Remaining = 1;
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -142,7 +145,7 @@ public class character_status : MonoBehaviour
 	public bool Died_Judgment()
 	{
 		bool is_died = false;
-		if (hp < 1) is_died = true;
+		if (hp < 1 && Remaining < 1) is_died = true;
 		return is_died;
 	}
 
