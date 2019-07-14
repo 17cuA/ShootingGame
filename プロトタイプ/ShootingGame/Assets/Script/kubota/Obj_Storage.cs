@@ -74,7 +74,7 @@ public class Obj_Storage : MonoBehaviour
 	public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
 	public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
 	public GameObject enemy_ClamChowder_Group_Seven_prefab;
-	public GameObject enemy_MiddleBoss_Father_prefab;
+	//public GameObject enemy_MiddleBoss_Father_prefab;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
 	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
@@ -86,7 +86,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling enemy_ClamChowder_Group_Two_Under;
 	public Object_Pooling enemy_ClamChowder_Group_Three_Item;
 	public Object_Pooling enemy_ClamChowder_Group_Seven;
-	public Object_Pooling enemy_MiddleBoss_Father;
+	//public Object_Pooling enemy_MiddleBoss_Father;
 	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
 	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
 	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
@@ -187,7 +187,7 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
 		enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
 		enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-		enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		//enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
@@ -237,7 +237,7 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
 		enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
 		enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
-		enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
+		//enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");

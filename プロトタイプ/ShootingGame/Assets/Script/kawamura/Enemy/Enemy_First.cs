@@ -63,7 +63,7 @@ public class Enemy_First : character_status
 		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
-			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			if (parentObj.name == "enemy_UFO_Group")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
@@ -96,7 +96,7 @@ public class Enemy_First : character_status
 	{
 		if (parentObj)
 		{
-			if (parentObj.name != "Enemy_UFO_Group(Clone)")
+			if (parentObj.name != "enemy_UFO_Group")
 			{
 				eState = State.Straight;
 				speedX = speedX_Straight;
@@ -129,7 +129,7 @@ public class Enemy_First : character_status
 			{
 
 			}
-			else if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			else if (parentObj.name == "enemy_UFO_Group")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -264,7 +264,7 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-				if (parentObj.name == "Enemy_UFO_Group(Clone)")
+				if (parentObj.name == "enemy_UFO_Group")
 				{
 					groupManage.notDefeatedEnemyCnt++;
 					groupManage.remainingEnemiesCnt -= 1;
