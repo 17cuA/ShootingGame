@@ -73,14 +73,16 @@ public class LaserMeshGenerator : MonoBehaviour
         public Vector3 start;
         public List<Point> points;
         public List<Point> midPoints;
+        public bool isDrawClockRotate;
         public Mesh mesh;
 
-        public MeshInfo(Vector3 start)
+        public MeshInfo(Vector3 start,bool isDrawClockRotate)
         {
             this.start = start;
             points = new List<Point>();
             midPoints = new List<Point>();
             mesh = new Mesh();
+            this.isDrawClockRotate = isDrawClockRotate;
         }
 
         public void Update()
@@ -149,13 +151,14 @@ public class LaserMeshGenerator : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Space))
         {
-            CreateNewMeshPoint();
+            CreateNewMeshPoints();
         }
 
         
         for(var i = 0; i < hasCreatedMeshs.Count; ++i)
         {
-            hasCreatedMeshs[i].Update();
+            hasCreatedMeshs[i].Update();        
+            DynamicChangeMeshPoints(hasCreatedMeshs[i]);
             hasCreatedLasers[i].mesh = hasCreatedMeshs[i].mesh;
         }     
     }
@@ -168,7 +171,7 @@ public class LaserMeshGenerator : MonoBehaviour
         renderer.material = laserMaterial;
         
 
-        var meshInfo = new MeshInfo(transform.position);
+        var meshInfo = new MeshInfo(transform.position,isDrawTrueClockRotate);
 
         var tempX = 0f;
         var tempY = 0f;
@@ -187,11 +190,11 @@ public class LaserMeshGenerator : MonoBehaviour
         meshInfo.mesh = triangles.MakeMesh();
         currentMeshInfo = meshInfo;
         currentMeshFilter.mesh = currentMeshInfo.mesh;
-        hasCreatedMeshs.Add(currentMeshInfo);
+        hasCreatedMeshs.Add(meshInfo);
         hasCreatedLasers.Add(currentMeshFilter);
     }
 
-    private void CreateNewMeshPoint()
+    private void CreateNewMeshPoints()
     {
         var tempX = 0f;
         var tempY = 0f;
@@ -208,25 +211,30 @@ public class LaserMeshGenerator : MonoBehaviour
         newPoint = new Point(newDirection,newPos, LaserSpeed);
         currentMeshInfo.midPoints.Add(newPoint);
 
-        var posArray = new Vector3[currentMeshInfo.points.Count + currentMeshInfo.midPoints.Count];
-        for(int i = 0,j = 0,k = 0; i < currentMeshInfo.points.Count + currentMeshInfo.midPoints.Count; ++i)
+        DynamicChangeMeshPoints(currentMeshInfo);
+    }
+
+    private void DynamicChangeMeshPoints(MeshInfo meshInfo)
+    {
+        var posArray = new Vector3[meshInfo.points.Count + meshInfo.midPoints.Count];
+        for(int i = 0,j = 0,k = 0; i < meshInfo.points.Count + meshInfo.midPoints.Count; ++i)
         {
             if(i % 2 != 0)
             { 
-                if(isDrawTrueClockRotate) posArray[i] = currentMeshInfo.points[j].position;
-                else posArray[i] = currentMeshInfo.midPoints[j].position;
+                if(meshInfo.isDrawClockRotate) posArray[i] = meshInfo.points[j].position;
+                else posArray[i] = meshInfo.midPoints[j].position;
                 j++;
             }
             else
             {
-                if(isDrawTrueClockRotate) posArray[i] = currentMeshInfo.midPoints[k].position;
-                else posArray[i] = currentMeshInfo.points[k].position;
+                if(meshInfo.isDrawClockRotate) posArray[i] = meshInfo.midPoints[k].position;
+                else posArray[i] = meshInfo.points[k].position;
                 k++;
             }
         }
         var triangles = new Triangles(posArray);
-        currentMeshInfo.mesh = triangles.MakeMesh();
-        currentMeshFilter.mesh = currentMeshInfo.mesh;
+        meshInfo.mesh = triangles.MakeMesh();
+        currentMeshFilter.mesh = meshInfo.mesh;
     }
 }
 
