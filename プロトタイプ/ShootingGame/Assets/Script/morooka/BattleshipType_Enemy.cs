@@ -5,6 +5,7 @@
  * 2019/07/08　挟み込み移動と弾を撃つ行動
  * 2019/07/08　まっすぐ移動
  * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
+ * 2019/07/15　奥行対応
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField, Header("マズルセット下")] private Transform[] muzzle_set_Down;
 
 	public int Now_Target { get; set; }					// 現在の移動目標番号
-	public float Y_Move_Facing { get; set; }			// Y軸の移動向き
+	public Vector3 Move_Facing { get; set; }			// Y軸の移動向き
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
@@ -55,46 +56,50 @@ public class BattleshipType_Enemy : character_status
 		// 挟み込み型の挙動
 		if (is_sandwich)
 		{
-			// X軸が移動先に近づいたとき
-			// Y軸が移動先に近づいたとき
+			// 移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
 			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
-				&& Now_Target < moving_change_point.Length - 1)
+				&& Now_Target < moving_change_point.Length - 1 )
 			{
+				// 位置を指定
+				transform.position = moving_change_point[Now_Target];
+
 				// 向きを確認
 				Moving_Facing = moving_change_point[Now_Target + 1] - moving_change_point[Now_Target];
-				// Y軸の向きのみ別途保存
-				Y_Move_Facing = Moving_Facing.y;
-				// Y軸のみ0にする
-				Vector3 temp = Moving_Facing;
-				temp.y = 0;
-				Moving_Facing = temp;
+				// 別途保存
+				Move_Facing = Moving_Facing;
+				// 0にする
+				Moving_Facing = Vector3.zero;
 				// ターゲットを次へ
 				Now_Target++;
 			}
 			// Y軸を少しづつ加算するため
-			if (Moving_Facing.y != Y_Move_Facing)
+			if (Moving_Facing != Move_Facing)
 			{
 				Vector3 temp = Moving_Facing;
-				temp.y += Y_Move_Facing / 20.0f;
+				temp += Move_Facing / 40.0f;
 				Moving_Facing = temp;
 			}
 		}
 
-		Shot_Delay++;
-		if (Shot_Delay > Shot_DelayMax)
+		// 自身のZ軸が0のとき攻撃する
+		if (transform.position.z == 0.0f)
 		{
-			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].right));
-			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].right));
-			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select+2].position, muzzle_set_up[Muzzle_Select+2].right));
-			Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select+2].position, muzzle_set_Down[Muzzle_Select+2].right));
-			Muzzle_Select++;
-			if (Muzzle_Select == 2)
+			Shot_Delay++;
+			if (Shot_Delay > Shot_DelayMax)
 			{
-				Muzzle_Select = 0;
-			}
+				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].right));
+				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].right));
+				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select + 2].position, muzzle_set_up[Muzzle_Select + 2].right));
+				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select + 2].position, muzzle_set_Down[Muzzle_Select + 2].right));
+				Muzzle_Select++;
+				if (Muzzle_Select == 2)
+				{
+					Muzzle_Select = 0;
+				}
 
-			Shot_Delay = 0;
+				Shot_Delay = 0;
+			}
 		}
 
 		// 保管したバレットの確認
@@ -124,10 +129,10 @@ public class BattleshipType_Enemy : character_status
 				if (Child_Scriptes[i].gameObject.activeSelf)
 				{
 					Child_Scriptes[i].Died_Process();
-					//character_status c = transform.GetChild(i).GetComponent<character_status>();
-					//c.Died_Process();
 				}
 			}
+
+			Bullet_Object.Reverse();
 
 			Died_Process();
 		}
@@ -167,9 +172,10 @@ public class BattleshipType_Enemy : character_status
 	private float Vector_Size( Vector3 a, Vector3 b )
 	{
 		float xx = a.x - b.x;
-		float yy = a.y - a.y;
+		float yy = a.y - b.y;
+		float zz = a.z - b.z;
 
-		return Mathf.Sqrt(xx * xx + yy * yy);
+		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
 	}
 
 	/// <summary>
