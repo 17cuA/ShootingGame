@@ -103,6 +103,7 @@ MonoBehaviour:
   activeShield: 0
   saveHP: 0
   saveHP2: 0
+  scale: 0
   scaleNum: 0
   noDamageTime: 0
   isSmall: 0
@@ -204,6 +205,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.198
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212571020632880843, guid: afe2ef87be2ddda4e959e42a8ce3a938,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.661764
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212571020632880843, guid: afe2ef87be2ddda4e959e42a8ce3a938,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.661764
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212571020632880843, guid: afe2ef87be2ddda4e959e42a8ce3a938,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.661764
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afe2ef87be2ddda4e959e42a8ce3a938, type: 3}
