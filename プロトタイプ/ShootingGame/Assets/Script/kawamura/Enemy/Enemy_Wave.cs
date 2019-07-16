@@ -260,15 +260,9 @@ public class Enemy_Wave : character_status
 
 					//speedZ = speedZ_Value;
 					//hsvCon.val += val_Value;
-					v_Value += val_Value;
-
-					if (v_Value > 1.0f)
-					{
-						v_Value = 1.0f;
-					}
-
-					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-					renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					
+					//明るさを変える関数
+					HSV_Change();					
 					
 					//if (hsvCon.val > 1.0f)
 					//{
@@ -485,6 +479,20 @@ public class Enemy_Wave : character_status
 				break;
 		}
 	}
+	//明るさを変える関数
+	void HSV_Change()
+	{
+		v_Value += val_Value;
+
+		if (v_Value > 1.0f)
+		{
+			v_Value = 1.0f;
+		}
+
+		renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+	}
+	
+
 	private void OnTriggerExit(Collider col)
 	{
 		if (col.gameObject.name == "WallLeft")
