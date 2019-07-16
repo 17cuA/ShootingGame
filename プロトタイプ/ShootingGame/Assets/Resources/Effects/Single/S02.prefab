@@ -9666,8 +9666,9 @@ GameObject:
   - component: {fileID: 8509281670120856325}
   - component: {fileID: 8758941211115550921}
   - component: {fileID: 2819232174033311916}
+  - component: {fileID: 6030831865739129328}
   m_Layer: 0
-  m_Name: Effects_006
+  m_Name: S02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14355,3 +14356,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6030831865739129328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960357408132335902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799f0bfbf1c117f439436e669fb2fbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frame_Max: 60

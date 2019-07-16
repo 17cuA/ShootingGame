@@ -12,13 +12,16 @@ public class obj_Off : MonoBehaviour
 	private void Start()
 	{
 		particle = GetComponent<ParticleSystem>();
+		frame = 0;
 	}
 	void Update()
     {
 		frame++;
 		if(frame > frame_Max)
 		{
+			frame = 0;
 			particle.Stop();
+			gameObject.SetActive(false);
 		}
     }
 }

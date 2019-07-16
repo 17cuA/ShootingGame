@@ -67,14 +67,15 @@ MonoBehaviour:
   defaultSpeedY: 7
   addAndSubValue: 0.5
   sin: 0
+  v_Value: 0
   isAddSpeedY: 0
   isSubSpeedY: 0
   once: 1
   isWave: 0
   isStraight: 0
   isOnlyWave: 0
+  haveItem: 0
   isSlerp: 0
-  susumimasu: 1
   isNoSlerp: 1
 --- !u!54 &8922961676002951098
 Rigidbody:
@@ -106,21 +107,6 @@ CapsuleCollider:
   m_Height: 1.3
   m_Direction: 0
   m_Center: {x: 0, y: 0.0068517923, z: 0}
---- !u!114 &6482777393289084986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5339504298700009366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hue: 1
-  sat: 1
-  val: 1
 --- !u!114 &2568530851874597672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +124,22 @@ MonoBehaviour:
   rotaZ: 0
   rotaX_Value: 0
   rotaY_Value: 0
-  rotaZ_Value: 8
+  rotaZ_Value: 4
+--- !u!114 &6482777393289084986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339504298700009366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hue: 1
+  sat: 1
+  val: 1
 --- !u!1001 &5339504298699974966
 PrefabInstance:
   m_ObjectHideFlags: 0
