@@ -189,6 +189,14 @@ public class character_status : MonoBehaviour
 		if (hp < 1 && Remaining < 1) is_died = true;
 		return is_died;
 	}
+
+	//キャラクターが死んでいるかどうかの判定用関数
+	public bool Dead_Check()
+	{
+		bool isDead = false;
+		if (hp < 1 && Remaining > 0) isDead = true;
+		return isDead;
+	}
 	//明るさを変える関数
 	public void HSV_Change()
 	{
