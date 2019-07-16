@@ -40,8 +40,8 @@ public class EnemyGroupManage : MonoBehaviour
 			itemTransform = null;
 			remainingEnemiesCnt = childNum;
 
-			Destroy(this.gameObject);
-			//gameObject.SetActive(false);
+			//Destroy(this.gameObject);
+			gameObject.SetActive(false);
 
 			//isDead = true;
 			//Died_Process();
