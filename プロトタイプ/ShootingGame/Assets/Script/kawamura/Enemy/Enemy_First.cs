@@ -50,7 +50,7 @@ public class Enemy_First : character_status
 		}
 	}
 
-	void Start()
+	new void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
@@ -90,6 +90,8 @@ public class Enemy_First : character_status
 		}
 
 		HP_Setting();
+		base.Start();
+
 	}
 
 	private void OnEnable()

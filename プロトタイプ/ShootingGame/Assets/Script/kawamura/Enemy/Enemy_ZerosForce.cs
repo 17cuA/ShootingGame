@@ -20,7 +20,7 @@ public class Enemy_ZerosForce : character_status
 	public bool isDamage = false;
     public bool isNoDamage;
 
-    void Start()
+    new void Start()
     {
 		isBig = true;
 		isSmall = true;
@@ -37,9 +37,11 @@ public class Enemy_ZerosForce : character_status
 		hpMax = 100;
 		saveHP = hp;
         saveHP2 = hp;
-    }
+		base.Start();
 
-    void Update()
+	}
+
+	void Update()
     {
 		//今のHPが前の状態のHPより低かったら（ダメージを受けていたら）
 		if (saveHP2 > hp)
