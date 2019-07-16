@@ -431,6 +431,25 @@ public class One_Boss_All : character_status
 			}
 			else if (Attack_Step == 2)
 			{
+				for(int i = 0; i < Boss_Option.Length; i++)
+				{
+					if(i < Boss_Option.Length / 2)
+					{
+						if( Boss_Option[i].transform.position.y < Initial_Boss_Option_Pos[i].y + 1.0f)
+						{
+							Vector3 temp = Boss_Option[i].transform.position;
+							temp.y += speed;
+							Boss_Option[i].transform.position = temp;
+						}
+						else if( Boss_Option[i].transform.position.y > Initial_Boss_Option_Pos[i].y - 1.0f)
+						{
+							Vector3 temp = Boss_Option[i].transform.position;
+							temp.y -= speed;
+							Boss_Option[i].transform.position = temp;
+						}
+					}
+				}
+
 				if(Make_Options_Hexagon())
 				{
 					Attack_Step++;
@@ -450,8 +469,19 @@ public class One_Boss_All : character_status
 					}
 					Shot_Delay = 0;
 				}
+
+				if(Boss_Option_Center.localPosition.x < -40.0f)
+				{
+					Boss_Option_Center.rotation = Quaternion.identity;
+					Attack_Step++;
+				}
 			}
 			else if(Attack_Step == 4)
+			{
+				Boss_Option_Center.localPosition = new Vector3(10.0f, 0.0f, 0.0f);
+				Attack_Step++;
+			}
+			else if(Attack_Step == 5)
 			{
 				if (Options_Initial_Position_Move())
 				{
@@ -485,17 +515,43 @@ public class One_Boss_All : character_status
 	/// <returns> 移動したらTRUE </returns>
 	private bool Options_Initial_Position_Move()
 	{
-		bool installation_complete = true;
-		for (int i = 0; i < Boss_Option.Length; i++)
+		bool installation_complete = false;
+		Boss_Option_Center.localPosition = Moving_To_Target(Boss_Option_Center.localPosition, Initial_Boss_Option_Center, speed * 3.0f);
+
+		if(Vector_Size(Boss_Option_Center.localPosition , Initial_Boss_Option_Center) < speed)
 		{
-			if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+			installation_complete = true;
+			Boss_Option_Center.localPosition = Initial_Boss_Option_Center;
+
+			for (int i = 0; i < Boss_Option.Length; i++)
 			{
-				Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 6);
-				installation_complete = false;
+				if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+				{
+					Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 6);
+					installation_complete = false;
+				}
 			}
 		}
 
+		//if (Boss_Option_Center.localPosition )
+
+
 		return installation_complete;
+	}
+
+	/// <summary>
+	/// ベクトルの長さを出す
+	/// </summary>
+	/// <param name="a"> 開始座標 </param>
+	/// <param name="b"> 目標座標 </param>
+	/// <returns></returns>
+	private float Vector_Size(Vector3 a, Vector3 b)
+	{
+		float xx = a.x - b.x;
+		float yy = a.y - b.y;
+		float zz = a.z - b.z;
+
+		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
 	}
 
 	/// <summary>
@@ -526,32 +582,14 @@ public class One_Boss_All : character_status
 	private Vector3 Moving_To_Target(Vector3 origin,Vector3 target, float speed)
 	{
 		Vector3 moving_facing		= Vector3.zero;		// 移動する前のターゲットとの向き
-		Vector3 facing_after_moved	= Vector3.zero;		// 移動した後のターゲットとの向き
 		Vector3 return_pos			= Vector3.zero;		// 返すポジション
 		
-		moving_facing = origin - target;
-		print(moving_facing);
+		moving_facing = target - origin;
 		return_pos = origin + (moving_facing.normalized * speed);
-		print(return_pos);
-		facing_after_moved = return_pos - target;
-		print(facing_after_moved);
 
-		//Vector2 v1 = moving_facing.normalized;
-		//Vector2 v2 = facing_after_moved.normalized;
-
-		float inner_product = Vector3.Dot(moving_facing,facing_after_moved);
-		//float inner_product = v1.x * v2.x + v1.y * v2.y;
-
-		// ターゲットとの向きが移動前と違うとき(ターゲットを超えてしまうとき)
-		if (inner_product <= 0)
+		if(Vector_Size(return_pos, target) <= speed)
 		{
-			// ターゲットの位置を上書き
 			return_pos = target;
-		}
-		else
-		{
-			//Debug.LogWarning(v1 + ":" + v2);
-			Debug.LogError(inner_product);
 		}
 
 		return return_pos;

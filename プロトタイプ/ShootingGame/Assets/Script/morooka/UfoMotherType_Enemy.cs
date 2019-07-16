@@ -66,12 +66,12 @@ public class UfoMotherType_Enemy : character_status
 						// 一度の放出で1体の確率でアイテムを持つエネミーを放出
 						if (Random.Range(0, Sortie_Number * shot_mazle.Length) == 0)
 						{
-							Released_Enemy.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM, shot_mazle[i].position, shot_mazle[i].right));
+							Released_Enemy.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY_ITEM, shot_mazle[i].position, -shot_mazle[i].right));
 						}
 						// 普通のエネミーを放出
 						else
 						{
-							Released_Enemy.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY, shot_mazle[i].position, shot_mazle[i].right));
+							Released_Enemy.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eUFOTYPE_ENEMY, shot_mazle[i].position, -shot_mazle[i].right));
 						}
 					}
 					Shot_Delay = 0;
