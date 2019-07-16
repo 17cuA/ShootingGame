@@ -149,12 +149,13 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = false;
 					speedX = 15;
 					speedZ_Value = 38;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
 					break;
 
 				case State.WaveDown:
@@ -168,12 +169,13 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = false;
 					speedX = 16;
 					speedZ_Value = 38;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 38.0f);
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
 					break;
 
 				case State.WaveOnlyUp:
