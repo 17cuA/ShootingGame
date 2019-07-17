@@ -52,7 +52,7 @@ public class Game_Over_Scene : MonoBehaviour
 			d = 0;
 		}
 
-		if(Input.GetButton("Fire1"))
+		if(Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
 			SceneManager.LoadScene("Title");
 		}
