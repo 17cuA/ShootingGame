@@ -55,7 +55,7 @@ public class Scene_last : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyDown("joystick button 0") || Input.GetButton("Fire1") || Input.GetKeyDown(KeyCode.Space))
 		{
-			SceneManager.LoadScene("TITLE");
+			Scene_Manager.Manager.Screen_Transition_To_Title();
 		}
 	}
 }
