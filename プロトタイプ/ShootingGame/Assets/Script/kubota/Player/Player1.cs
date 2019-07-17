@@ -64,6 +64,7 @@ public class Player1 : character_status
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 
+	private bool Is_Resporn;	//生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	public void Awake()
 	{
 		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
@@ -134,115 +135,122 @@ public class Player1 : character_status
 
 	void Update()
 	{
-		//-------------------------------
-		//デバックの工程
-		if (Input.GetKeyDown(KeyCode.Alpha1))Damege_Process(1);
-		if(Input.GetKeyDown(KeyCode.Alpha2))PowerManager.Instance.Pick();
-		if(Input.GetKeyDown(KeyCode.Alpha3))hp = 1000;
-		if(Input.GetKeyDown(KeyCode.Alpha4))
+		if (Is_Resporn)
 		{
-			Remaining--;
-			ParticleCreation(0);        //爆発のエフェクト発動
-			Reset_Status();             //体力の修正
-			gameObject.transform.position = direction;      //初期位置に戻す
-			if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
-			invincible = false;         //無敵状態にするかどうかの処理
-			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-			bullet_Type = Bullet_Type.Single;
 
 		}
-		if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
-		//---------------------------
-
-		PowerManager.Instance.Update();
-		//ビットン数をパワーマネージャーに更新する
-		PowerManager.Instance.UpdateBit(bitIndex);
-
-		//if(shield < 1)
-		//{
-		//	PowerManager.Instance.ResetShieldPower();
-		//	shield_Effect.Play(false);
-		//}
-		if (hp < 1)
+		else
 		{
-			Remaining--;
-			if (Remaining < 1)
+			//-------------------------------
+			//デバックの工程
+			if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
+			if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+			if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
+			if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
-				//残機がない場合死亡
-				Died_Process();
-			}
-			else
-			{
-				ParticleCreation(0);		//爆発のエフェクト発動
+				Remaining--;
+				ParticleCreation(0);        //爆発のエフェクト発動
 				Reset_Status();             //体力の修正
 				gameObject.transform.position = direction;      //初期位置に戻す
-				if(laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
-				invincible = false;			//無敵状態にするかどうかの処理
+				if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+				invincible = false;         //無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
+
 			}
-		}
-		Invincible();
-		switch (Game_Master.MY.Management_In_Stage)
-		{
-			case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
-				//プレイヤーの移動処理
-				Player_Move();
-				//パワーアップの処理
-				if(Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
-				{
-					PowerManager.Instance.Upgrade();
-				}
-				//体力が０になると死ぬ処理
-				//Died_Judgment();
-				if(bullet_Type == Bullet_Type.Laser)
-				{
-					if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-					{
-						laser.Play();
-						line_beam.shot();
+			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
+			//---------------------------
 
-					}
-					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
-					{
-						laser.Stop();
-					}
-				}
-				//弾の発射（Fire2かSpaceキーで撃てる）
-				if (Shot_Delay > Shot_DelayMax)
-				{
-					Bullet_Create();
-				}
-				if (Input.GetKeyDown(KeyCode.Z))
-				{
-					Damege_Process(1);
-					Debug.Log("Player_HP	" + hp);
-				}
-				break;
-			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-				break;
-			case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-				//プレイヤーの移動処理
-				Player_Move();
-				//体力が０になると死ぬ処理
-				//Died_Judgment();
-				//弾の発射（Fire2かSpaceキーで撃てる）
-				if (Shot_Delay > Shot_DelayMax)
-				{
-					Bullet_Create();
-				}
-				if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
-				break;
-			case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
-				break;
-			default:
-				break;
-		}
+			PowerManager.Instance.Update();
+			//ビットン数をパワーマネージャーに更新する
+			PowerManager.Instance.UpdateBit(bitIndex);
 
-		// 通常のバレットのディレイ計算
-		Shot_Delay++;
-		// ミサイルのディレイ計算
-		missile_dilay_cnt++;
+			//if(shield < 1)
+			//{
+			//	PowerManager.Instance.ResetShieldPower();
+			//	shield_Effect.Play(false);
+			//}
+			if (hp < 1)
+			{
+				Remaining--;
+				if (Remaining < 1)
+				{
+					//残機がない場合死亡
+					Died_Process();
+				}
+				else
+				{
+					ParticleCreation(0);        //爆発のエフェクト発動
+					Reset_Status();             //体力の修正
+					gameObject.transform.position = direction;      //初期位置に戻す
+					if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+					invincible = false;         //無敵状態にするかどうかの処理
+					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+					bullet_Type = Bullet_Type.Single;
+				}
+			}
+			Invincible();
+			switch (Game_Master.MY.Management_In_Stage)
+			{
+				case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
+					//プレイヤーの移動処理
+					Player_Move();
+					//パワーアップの処理
+					if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+					{
+						PowerManager.Instance.Upgrade();
+					}
+					//体力が０になると死ぬ処理
+					//Died_Judgment();
+					if (bullet_Type == Bullet_Type.Laser)
+					{
+						if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+						{
+							laser.Play();
+							line_beam.shot();
+
+						}
+						if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+						{
+							laser.Stop();
+						}
+					}
+					//弾の発射（Fire2かSpaceキーで撃てる）
+					if (Shot_Delay > Shot_DelayMax)
+					{
+						Bullet_Create();
+					}
+					if (Input.GetKeyDown(KeyCode.Z))
+					{
+						Damege_Process(1);
+						Debug.Log("Player_HP	" + hp);
+					}
+					break;
+				case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
+					break;
+				case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
+					//プレイヤーの移動処理
+					Player_Move();
+					//体力が０になると死ぬ処理
+					//Died_Judgment();
+					//弾の発射（Fire2かSpaceキーで撃てる）
+					if (Shot_Delay > Shot_DelayMax)
+					{
+						Bullet_Create();
+					}
+					if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
+					break;
+				case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
+					break;
+				default:
+					break;
+			}
+
+			// 通常のバレットのディレイ計算
+			Shot_Delay++;
+			// ミサイルのディレイ計算
+			missile_dilay_cnt++;
+		}
 	}
 	//コントローラーの操作
 	private void Player_Move()
