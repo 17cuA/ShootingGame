@@ -50,6 +50,8 @@ public class BattleshipType_Enemy : character_status
 
 	void Update()
 	{
+		HSV_Change();
+
 		// 移動したい向きに移動
 		Vector3 velocity = Moving_Facing.normalized * speed;
 		transform.position = transform.position + velocity;
