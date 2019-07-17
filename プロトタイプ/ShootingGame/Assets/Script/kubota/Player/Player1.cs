@@ -37,6 +37,7 @@ public class Player1 : character_status
 	public ParticleSystem particleSystem;							//ジェット噴射自体のパーティクルシステム
 	private ParticleSystem.MainModule particleSystemMain;	//☝の中のメイン部分（としか言いようがない）
 	[SerializeField]private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
+	[SerializeField] private ParticleSystem resporn_Injection;	//復活時のジェット噴射エフェクトを入れる
 	//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
@@ -45,7 +46,7 @@ public class Player1 : character_status
 
 	public float swing_facing;				// 旋回向き
 	public float facing_cnt;					// 旋回カウント
-	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
+	public int shoot_number;                //弾を連続して撃った時の数をカウントするための変数
 
 	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
 	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
@@ -122,6 +123,7 @@ public class Player1 : character_status
 		laser.Stop();		//レーザーのパーティクルを動かさないようにする
 		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
 		Is_Resporn = false;
 		//startTime = Time.time;
@@ -132,13 +134,15 @@ public class Player1 : character_status
 	{
 		if (Is_Resporn)
 		{
+			resporn_Injection.Play();
 			Debug.Log("hei");
 			capsuleCollider.enabled = false;
 			startTime += Time.deltaTime;
 			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
-
+			
 			if (transform.position == direction)
 			{
+				resporn_Injection.Stop();
 				startTime = 0;
 				Is_Resporn = false;
 			}
