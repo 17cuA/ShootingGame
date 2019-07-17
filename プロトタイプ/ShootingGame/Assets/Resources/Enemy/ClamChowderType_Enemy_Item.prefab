@@ -32,7 +32,7 @@ MonoBehaviour:
   rotaZ: 0
   rotaX_Value: 0
   rotaY_Value: 0
-  rotaZ_Value: 8
+  rotaZ_Value: 4
 --- !u!1 &9004055989690382557
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   object_material:
   - {fileID: 4684383279932157002}
   isrend: 0
+  Is_Dead: 0
   eState: 1
   startMarker: {x: 0, y: 0, z: 0}
   endMarker: {x: 0, y: 0, z: 0}
@@ -168,6 +169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9004055989690382559}
     m_Modifications:
+    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bullfight
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -223,10 +228,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bullfight
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_Materials.Array.data[0]
