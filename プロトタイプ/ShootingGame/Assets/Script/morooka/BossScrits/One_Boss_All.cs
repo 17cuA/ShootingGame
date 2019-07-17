@@ -65,7 +65,7 @@ public class One_Boss_All : character_status
 	private int Original_Position_Num { get; set; }							// 移動開始前の位置番号
 	private int Now_Positon_Num { get; set; }								// 移動したい場所の位置番号
 	private int Attack_Step { get; set; }									// 攻撃手順支持
-	private int Procedure_Particular_Attack { get; set; }					// 攻撃関数内の手順支持
+	private int Procedure_In_Function { get; set; }                         // 関数内手順手順支持
 
 	private Vector3 Initial_Boss_Option_Center { get; set; }					// オプションの中心の初期位置
 	private Vector3[] Facing_Hexagonal_Option { get; set; }					// オプションの六角形の向き
@@ -407,7 +407,14 @@ public class One_Boss_All : character_status
 				Hit_Constant_Bullet(10);
 			}
 			else if (Attack_Step == 2)
-			{ Options_Rotation_Attack(); }
+			{
+				Options_Rotation_Attack();
+			}
+
+			if(hp <= 0)
+			{
+
+			}
 		}
 	}
 
@@ -436,6 +443,30 @@ public class One_Boss_All : character_status
 	private bool Options_Initial_Position_Move()
 	{
 		bool installation_complete = false;
+
+		if(Procedure_In_Function == 0)
+		{
+			for(int i = 0; i < Boss_Option.Length; i++)
+			{
+				if(i < Boss_Option.Length / 2)
+				{
+					if(Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+					{
+						Boss_Option[i].transform.localPosition = Moving_To_Target(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 6.0f);
+					}
+				}
+				else
+				{
+					if (Boss_Option[i].transform.localPosition != Initial_Boss_Option_Pos[i])
+					{
+						Boss_Option[i].transform.localPosition = Moving_To_Target(Boss_Option[i].transform.localPosition, Initial_Boss_Option_Pos[i], speed * 6.0f);
+					}
+				}
+
+
+			}
+		}
+
 		Boss_Option_Center.localPosition = Moving_To_Target(Boss_Option_Center.localPosition, Initial_Boss_Option_Center, speed * 3.0f);
 
 		if(Vector_Size(Boss_Option_Center.localPosition , Initial_Boss_Option_Center) < speed)
@@ -552,16 +583,16 @@ public class One_Boss_All : character_status
 	private void Options_Rotation_Attack()
 	{
 		// 順一
-		if (Procedure_Particular_Attack == 0)
+		if (Procedure_In_Function == 0)
 		{
 			// オプション移動(六角形)したら次のステップへ
 			if (Make_Options_Hexagon())
 			{
-				Procedure_Particular_Attack++;
+				Procedure_In_Function++;
 			}
 		}
 		// 順二
-		else if (Procedure_Particular_Attack == 1)
+		else if (Procedure_In_Function == 1)
 		{
 			Boss_Option_Center.localPosition = Boss_Option_Center.localPosition + Through_Direction[(int)MOVING_DISTANCE.eLEFT].normalized * speed;
 			Boss_Option_Center.Rotate(new Vector3(0.0f, 0.0f, rotating_velocity / 10.0f));
@@ -580,23 +611,23 @@ public class One_Boss_All : character_status
 			if (Boss_Option_Center.localPosition.x < -40.0f)
 			{
 				Boss_Option_Center.rotation = Quaternion.identity;
-				Procedure_Particular_Attack++;
+				Procedure_In_Function++;
 			}
 		}
 		// 順三
-		else if (Procedure_Particular_Attack == 2)
+		else if (Procedure_In_Function == 2)
 		{
 			Boss_Option_Center.localPosition = new Vector3(10.0f, 0.0f, 0.0f);
-			Procedure_Particular_Attack++;
+			Procedure_In_Function++;
 		}
 		// 順四
-		else if (Procedure_Particular_Attack == 3)
+		else if (Procedure_In_Function == 3)
 		{
 			// オプションを元の位置にもどす
 			if (Options_Initial_Position_Move())
 			{
 				// リセットをかける
-				Procedure_Particular_Attack = 0;
+				Procedure_In_Function = 0;
 				Attack_Step = 1;
 			}
 		}
