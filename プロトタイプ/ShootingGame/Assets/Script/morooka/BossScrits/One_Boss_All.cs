@@ -58,13 +58,14 @@ public class One_Boss_All : character_status
 	private int Active_Flame { get; set; }									// ボスが起動されてからのフレーム数
 	private int Initial_HP { get; set; }										// ボスの初期HP
 	private Material Core_Material { get; set; }							// コアの色を管理するマテリアル
-	private List<Vector3> Moving_Target_Point { get; set; }		// 移動ターゲットのポジションまとめるリスト
+	private List<Vector3> Moving_Target_Point { get; set; }					// 移動ターゲットのポジションまとめるリスト
 	private Vector3 Now_Target { get; set; }								// 今の移動したい場所
 	private float Rotating_Velocity { get; set; }							// 回転速度
 	private int Beam_Cnt { get; set; }										// ビームの数
-	private int Original_Position_Num { get; set; }						// 移動開始前の位置番号
-	private int Now_Positon_Num { get; set; }							// 移動したい場所の位置番号
-	private int Attack_Step { get; set; }										// 攻撃手順支持
+	private int Original_Position_Num { get; set; }							// 移動開始前の位置番号
+	private int Now_Positon_Num { get; set; }								// 移動したい場所の位置番号
+	private int Attack_Step { get; set; }									// 攻撃手順支持
+	private int Procedure_Particular_Attack { get; set; }					// 攻撃関数内の手順支持
 
 	private Vector3 Initial_Boss_Option_Center { get; set; }					// オプションの中心の初期位置
 	private Vector3[] Facing_Hexagonal_Option { get; set; }					// オプションの六角形の向き
@@ -403,91 +404,10 @@ public class One_Boss_All : character_status
 			// 攻撃開始
 			else if (Attack_Step == 1)
 			{
-				// 10個のバレットを撃つ
-				if (Beam_Cnt < 10)
-				{
-					Shot_Delay++;
-					if (Shot_Delay > Shot_DelayMax)
-					{
-						// プレイヤーにマズルを向ける
-						Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[0].position;
-						Initial_Beam_Mazle[0].right = target_dir;
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[0].position, Initial_Beam_Mazle[0].right);
-
-						// プレイヤーにマズルを向ける
-						target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[1].position;
-						Initial_Beam_Mazle[1].right = target_dir;
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[1].position, Initial_Beam_Mazle[1].right);
-
-						Shot_Delay = 0;
-						Beam_Cnt++;
-					}
-				}
-				else
-				{
-					Beam_Cnt = 0;
-					Attack_Step++;
-				}
+				Hit_Constant_Bullet(10);
 			}
 			else if (Attack_Step == 2)
-			{
-				for(int i = 0; i < Boss_Option.Length; i++)
-				{
-					if(i < Boss_Option.Length / 2)
-					{
-						if( Boss_Option[i].transform.position.y < Initial_Boss_Option_Pos[i].y + 1.0f)
-						{
-							Vector3 temp = Boss_Option[i].transform.position;
-							temp.y += speed;
-							Boss_Option[i].transform.position = temp;
-						}
-						else if( Boss_Option[i].transform.position.y > Initial_Boss_Option_Pos[i].y - 1.0f)
-						{
-							Vector3 temp = Boss_Option[i].transform.position;
-							temp.y -= speed;
-							Boss_Option[i].transform.position = temp;
-						}
-					}
-				}
-
-				if(Make_Options_Hexagon())
-				{
-					Attack_Step++;
-				}
-			}
-			else if(Attack_Step == 3)
-			{
-				Boss_Option_Center.localPosition = Boss_Option_Center.localPosition + Through_Direction[(int)MOVING_DISTANCE.eLEFT].normalized * speed;
-				Boss_Option_Center.Rotate(new Vector3(0.0f, 0.0f, rotating_velocity / 10.0f));
-
-				Shot_Delay++;
-				if(Shot_Delay > Shot_DelayMax)
-				{
-					foreach(One_Boss_Parts obp in Boss_Option)
-					{
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, obp.transform.position, obp.transform.right);
-					}
-					Shot_Delay = 0;
-				}
-
-				if(Boss_Option_Center.localPosition.x < -40.0f)
-				{
-					Boss_Option_Center.rotation = Quaternion.identity;
-					Attack_Step++;
-				}
-			}
-			else if(Attack_Step == 4)
-			{
-				Boss_Option_Center.localPosition = new Vector3(10.0f, 0.0f, 0.0f);
-				Attack_Step++;
-			}
-			else if(Attack_Step == 5)
-			{
-				if (Options_Initial_Position_Move())
-				{
-					Attack_Step = 1;
-				}
-			}
+			{ Options_Rotation_Attack(); }
 		}
 	}
 
@@ -502,7 +422,7 @@ public class One_Boss_All : character_status
 		{
 			if (Boss_Option[i].transform.localPosition != Facing_Hexagonal_Option[i])
 			{
-				Boss_Option[i].transform.localPosition = Vector3.MoveTowards(Boss_Option[i].transform.localPosition, Facing_Hexagonal_Option[i], speed * 6);
+				Boss_Option[i].transform.localPosition = Moving_To_Target(Boss_Option[i].transform.localPosition, Facing_Hexagonal_Option[i], speed * 6);
 				installation_complete = false;
 			}
 		}
@@ -540,6 +460,21 @@ public class One_Boss_All : character_status
 	}
 
 	/// <summary>
+	/// 今と違う位置に移動
+	/// </summary>
+	private void Moving_Target_Change()
+	{
+		// 違う位置になるまで繰り返す
+		do
+		{
+			Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
+		} while (Original_Position_Num == Now_Positon_Num);
+
+		Now_Target = Moving_Target_Point[Now_Positon_Num];
+		Original_Position_Num = Now_Positon_Num;
+	}
+
+	/// <summary>
 	/// ベクトルの長さを出す
 	/// </summary>
 	/// <param name="a"> 開始座標 </param>
@@ -550,26 +485,8 @@ public class One_Boss_All : character_status
 		float xx = a.x - b.x;
 		float yy = a.y - b.y;
 		float zz = a.z - b.z;
-
+	   
 		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
-	}
-
-	/// <summary>
-	/// 今と違う位置に移動
-	/// </summary>
-	private void Moving_Target_Change()
-	{
-		// 同じ位置になるまで繰り返す
-		do
-		{
-			Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
-		} while (Original_Position_Num == Now_Positon_Num);
-		Now_Target = Moving_Target_Point[Now_Positon_Num];
-		Original_Position_Num = Now_Positon_Num;
-		//Now_Positon_Num = Random.Range(0, Moving_Target_Point.Count);
-		//Now_Target = Moving_Target_Point[Now_Positon_Num];
-		////Rotating_Velocity = (Moving_Target_Point[Now_Positon_Num].y - Moving_Target_Point[Original_Position_Num].y) / 360.0f;
-		//Original_Position_Num = Now_Positon_Num;
 	}
 
 	/// <summary>
@@ -593,6 +510,97 @@ public class One_Boss_All : character_status
 		}
 
 		return return_pos;
+	}
+
+	/// <summary>
+	/// 定数バレットを打つ
+	/// </summary>
+	/// <param name="max_bullet_num"> バレットを打ちたい回数 </param>
+	private void Hit_Constant_Bullet(int max_bullet_num)
+	{
+		// 10個のバレットを撃つ
+		if (Beam_Cnt < max_bullet_num)
+		{
+			Shot_Delay++;
+			if (Shot_Delay > Shot_DelayMax)
+			{
+				// プレイヤーにマズルを向ける
+				Vector3 target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[0].position;
+				Initial_Beam_Mazle[0].right = target_dir;
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[0].position, Initial_Beam_Mazle[0].right);
+
+				// プレイヤーにマズルを向ける
+				target_dir = Obj_Storage.Storage_Data.GetPlayer().transform.position - Initial_Beam_Mazle[1].position;
+				Initial_Beam_Mazle[1].right = target_dir;
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, Initial_Beam_Mazle[1].position, Initial_Beam_Mazle[1].right);
+
+				Shot_Delay = 0;
+				Beam_Cnt++;
+			}
+		}
+		else
+		{
+			// リセットして次の動きへ
+			Beam_Cnt = 0;
+			Attack_Step++;
+		}
+	}
+
+	/// <summary>
+	/// オプション回転攻撃
+	/// </summary>
+	private void Options_Rotation_Attack()
+	{
+		// 順一
+		if (Procedure_Particular_Attack == 0)
+		{
+			// オプション移動(六角形)したら次のステップへ
+			if (Make_Options_Hexagon())
+			{
+				Procedure_Particular_Attack++;
+			}
+		}
+		// 順二
+		else if (Procedure_Particular_Attack == 1)
+		{
+			Boss_Option_Center.localPosition = Boss_Option_Center.localPosition + Through_Direction[(int)MOVING_DISTANCE.eLEFT].normalized * speed;
+			Boss_Option_Center.Rotate(new Vector3(0.0f, 0.0f, rotating_velocity / 10.0f));
+
+			Shot_Delay++;
+			if (Shot_Delay > Shot_DelayMax)
+			{
+				foreach (One_Boss_Parts obp in Boss_Option)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, obp.transform.position, obp.transform.right);
+				}
+				Shot_Delay = 0;
+			}
+
+			// Boss期待からある程度離れたとき
+			if (Boss_Option_Center.localPosition.x < -40.0f)
+			{
+				Boss_Option_Center.rotation = Quaternion.identity;
+				Procedure_Particular_Attack++;
+			}
+		}
+		// 順三
+		else if (Procedure_Particular_Attack == 2)
+		{
+			Boss_Option_Center.localPosition = new Vector3(10.0f, 0.0f, 0.0f);
+			Procedure_Particular_Attack++;
+		}
+		// 順四
+		else if (Procedure_Particular_Attack == 3)
+		{
+			// オプションを元の位置にもどす
+			if (Options_Initial_Position_Move())
+			{
+				// リセットをかける
+				Procedure_Particular_Attack = 0;
+				Attack_Step = 1;
+			}
+		}
+
 	}
 
 	private void Boss_Debug()
@@ -623,22 +631,5 @@ public class One_Boss_All : character_status
 				Attack_Step = 0;
 			}
 		}
-	}
-
-	/// <summary>
-	/// ビームを撃つ
-	/// </summary>
-	/// <param name="Muzzle_Number"> マズルの番号 </param>
-	private void Shoot_Beam(int Muzzle_Number)
-	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[Muzzle_Number].position, Initial_Beam_Mazle[Muzzle_Number].right);
-		Muzzle_Facing[Muzzle_Number] = new Vector3(Muzzle_Facing[Muzzle_Number].x, Initial_Beam_Mazle[Muzzle_Number].right.y + 0.4f, Muzzle_Facing[Muzzle_Number].z);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[Muzzle_Number].position, Muzzle_Facing[Muzzle_Number]);
-		Muzzle_Facing[Muzzle_Number] = new Vector3(Muzzle_Facing[Muzzle_Number].x, Initial_Beam_Mazle[Muzzle_Number].right.y + 1, Muzzle_Facing[Muzzle_Number].z);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[Muzzle_Number].position, Muzzle_Facing[Muzzle_Number]);
-		Muzzle_Facing[Muzzle_Number] = new Vector3(Muzzle_Facing[Muzzle_Number].x, Initial_Beam_Mazle[Muzzle_Number].right.y - 0.4f, Muzzle_Facing[Muzzle_Number].z);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[Muzzle_Number].position, Muzzle_Facing[Muzzle_Number]);
-		Muzzle_Facing[Muzzle_Number] = new Vector3(Muzzle_Facing[Muzzle_Number].x, Initial_Beam_Mazle[Muzzle_Number].right.y - 1, Muzzle_Facing[Muzzle_Number].z);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[Muzzle_Number].position, Muzzle_Facing[Muzzle_Number]);
 	}
 }

@@ -515,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 7574051346351118028, guid: 01b689827ca790a498571e39cda6c54a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7574051346351118027, guid: 01b689827ca790a498571e39cda6c54a,
         type: 3}
@@ -571,6 +571,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051346351118029, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: initial_core_color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051346351118029, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: pinch_core_color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051346333242872, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347530955820, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347997956173, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051346316743751, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051346333242870, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347183997456, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347197746672, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347512609541, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051347530955818, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574051348282791946, guid: 01b689827ca790a498571e39cda6c54a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01b689827ca790a498571e39cda6c54a, type: 3}
@@ -1315,7 +1375,7 @@ PrefabInstance:
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
       propertyPath: moving_change_point.Array.data[0].z
-      value: 7.8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
@@ -1335,7 +1395,7 @@ PrefabInstance:
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
       propertyPath: moving_change_point.Array.data[3].z
-      value: 7.8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
@@ -1345,7 +1405,7 @@ PrefabInstance:
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
       propertyPath: initial_position.z
-      value: 7.8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6342699719352104976, guid: 38b16a854da4c214da9eee183f2d94a0,
         type: 3}
@@ -2708,6 +2768,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UfoMotherType_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7236602564015298628, guid: 54b4b1055e40c2244810fed6ed45510e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7236602564015785060, guid: 54b4b1055e40c2244810fed6ed45510e,
         type: 3}
