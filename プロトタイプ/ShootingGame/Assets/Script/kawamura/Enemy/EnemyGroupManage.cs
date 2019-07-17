@@ -19,6 +19,12 @@ public class EnemyGroupManage : MonoBehaviour
 
 	public bool isDead = false;
 	public bool isItemDrop=true;
+
+	private void OnEnable()
+	{
+		//defeatedEnemyCnt = 0;
+		//notDefeatedEnemyCnt = 0;
+	}
 	void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
@@ -39,9 +45,9 @@ public class EnemyGroupManage : MonoBehaviour
 			itemPos = new Vector3(0, 0, 0);
 			itemTransform = null;
 			remainingEnemiesCnt = childNum;
-
-			//Destroy(this.gameObject);
 			gameObject.SetActive(false);
+			//Destroy(this.gameObject);
+			//gameObject.SetActive(false);
 
 			//isDead = true;
 			//Died_Process();
