@@ -41,10 +41,10 @@ public class Player1 : character_status
 	//------------------------------------------------------
 
 	public float swing_facing;				// 旋回向き
-	public float facing_cnt;					// 旋回カウント
+	public float facing_cnt;				// 旋回カウント
 	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
 
-	private List <GameObject> effect_mazlefrash;		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
+	//private List <GameObject> effect_mazlefrash;		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
 	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
@@ -63,6 +63,8 @@ public class Player1 : character_status
 	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
 
+	public ParticleSystem[] mazle_flash = new ParticleSystem[5];
+	private int effect_cnt;
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -118,11 +120,15 @@ public class Player1 : character_status
 		activeMissile = false;
 		laser.Stop();		//レーザーのパーティクルを動かさないようにする
 		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
-		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+		shield_Effect.Stop();	//シールドのエフェクトを動かさないようにする
 		base.Start();
 		Is_Resporn = false;
 		//startTime = Time.time;
 		startTime = 0;
+		for (int i = 0; i < mazle_flash.Length; i++) mazle_flash[i].Stop();
+		effect_cnt = 0;
+		//effect_Prefab = Resources.Load<GameObject>("Effects/Reuse/R01");	//プレイヤーのマズルファイア
+		//mazle_flash = new Object_Pooling(effect_Prefab, 4, "Player_Fire");		//マズルファイアの移動
 	}
 
 	void Update()
@@ -152,8 +158,8 @@ public class Player1 : character_status
 				Remaining--;
 				ParticleCreation(0);        //爆発のエフェクト発動
 				Reset_Status();             //体力の修正
-				gameObject.transform.position = direction;      //初期位置に戻す
-				if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+				gameObject.transform.position = direction;		//初期位置に戻す
+				if (laser.isPlaying) laser.Stop();						//レーザーを稼働状態の時、停止状態にする
 				invincible = false;         //無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
@@ -297,13 +303,13 @@ public class Player1 : character_status
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		if(effect_mazlefrash != null)
-		{
-			for (int i = 0; i < effect_mazlefrash.Count; i++)
-			{
-				effect_mazlefrash[i].transform.position = transform.position;
-			}
-		}
+		//if(effect_mazlefrash != null)
+		//{
+		//	for (int i = 0; i < effect_mazlefrash.Count; i++)
+			//
+//effect_mazlefrash[i].transform.position = transform.position;
+		//	}
+		//}
 
 		//injection.transform.position = Injection_pos;
 	}
@@ -338,7 +344,6 @@ public class Player1 : character_status
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
 			shoot_number++;
-
 			// 連続で4発まで撃てるようにした
 			if (shoot_number < 5)
 			{
@@ -346,11 +351,17 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-						get_MazleEffect();
+						mazle_flash[effect_cnt].Play();
+						if (effect_cnt < mazle_flash.Length) effect_cnt++;
+
+						//get_MazleEffect();
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						get_MazleEffect();
+						mazle_flash[effect_cnt].Play();
+						if (effect_cnt < mazle_flash.Length) effect_cnt++;
+
+						//get_MazleEffect();
 						break;
 					default:
 						break;
@@ -367,6 +378,7 @@ public class Player1 : character_status
 			else if (shoot_number == 15)
 			{
 				shoot_number = 0;
+				effect_cnt = 0;
 			}
 		}
 		else
@@ -500,17 +512,4 @@ public class Player1 : character_status
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
 	
-	private GameObject get_MazleEffect()
-	{
-		for(int i = 0; i < effect_mazlefrash.Count; i++)
-		{
-			if (effect_mazlefrash[i] == null)
-			{
-				effect_mazlefrash[i] = ParticleCreation(2);
-				return effect_mazlefrash[i];
-			}
-		}
-		effect_mazlefrash.Add(ParticleCreation(2));
-		return effect_mazlefrash[effect_mazlefrash.Count];
-	}
 }
