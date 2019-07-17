@@ -4915,6 +4915,15 @@ MonoBehaviour:
   score: 5000
   shield: 0
   activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  object_material:
+  - {fileID: 8828914399101156083}
+  - {fileID: 8828914399101156081}
+  - {fileID: 8828914399101156087}
+  - {fileID: 8828914399101156085}
+  isrend: 0
   type: 0
   advanceBackSpeed: 3.5
   escapeSpeed: 8
@@ -9938,6 +9947,30 @@ GameObject:
 --- !u!4 &8828914399103449107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8828914399103312531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8828914399101156083 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 3c39dfbf1a4001b46a8346a9911887a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8828914399103312531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8828914399101156081 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300002, guid: 3c39dfbf1a4001b46a8346a9911887a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8828914399103312531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8828914399101156087 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300004, guid: 3c39dfbf1a4001b46a8346a9911887a4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8828914399103312531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8828914399101156085 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300006, guid: 3c39dfbf1a4001b46a8346a9911887a4,
     type: 3}
   m_PrefabInstance: {fileID: 8828914399103312531}
   m_PrefabAsset: {fileID: 0}
