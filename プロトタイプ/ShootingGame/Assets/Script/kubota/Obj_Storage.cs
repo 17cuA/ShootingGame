@@ -250,9 +250,6 @@ public class Obj_Storage : MonoBehaviour
 			string line = csv.ReadLine();
 			CsvData.Add(line.Split(','));               //カンマごとに割り振る
 		}
-
-
-	
 	}
 
 	public GameObject GetPlayer()

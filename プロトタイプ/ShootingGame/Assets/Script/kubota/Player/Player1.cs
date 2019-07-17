@@ -8,6 +8,8 @@
 using UnityEngine;
 using Power;
 using StorageReference;
+using System.Collections.Generic;
+
 //using Power;
 public class Player1 : character_status
 {
@@ -27,11 +29,6 @@ public class Player1 : character_status
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
 
-	//[Tooltip("ジェット噴射の位置情報を入れる")]
-	//public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
-	//private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
-	//public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
-	//private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
 
 	[SerializeField]private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
 	public ParticleSystem particleSystem;							//ジェット噴射自体のパーティクルシステム
@@ -47,7 +44,7 @@ public class Player1 : character_status
 	public float facing_cnt;					// 旋回カウント
 	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
 
-	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
+	private List <GameObject> effect_mazlefrash;		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
 	public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
@@ -300,6 +297,14 @@ public class Player1 : character_status
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
+		if(effect_mazlefrash != null)
+		{
+			for (int i = 0; i < effect_mazlefrash.Count; i++)
+			{
+				effect_mazlefrash[i].transform.position = transform.position;
+			}
+		}
+
 		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
@@ -341,11 +346,11 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-						ParticleCreation(2);
+						get_MazleEffect();
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						ParticleCreation(2);
+						get_MazleEffect();
 						break;
 					default:
 						break;
@@ -495,8 +500,17 @@ public class Player1 : character_status
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
 	
-	private void Resporn_Anime()
+	private GameObject get_MazleEffect()
 	{
-
+		for(int i = 0; i < effect_mazlefrash.Count; i++)
+		{
+			if (effect_mazlefrash[i] == null)
+			{
+				effect_mazlefrash[i] = ParticleCreation(2);
+				return effect_mazlefrash[i];
+			}
+		}
+		effect_mazlefrash.Add(ParticleCreation(2));
+		return effect_mazlefrash[effect_mazlefrash.Count];
 	}
 }
