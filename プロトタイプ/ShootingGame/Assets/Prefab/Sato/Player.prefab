@@ -4743,6 +4743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82348e78aca2884e95f6e4693bd8715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 57
 --- !u!120 &7395068376987021085
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5022,10 +5023,29 @@ MonoBehaviour:
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 30
   Shot_Delay: 28
-  Remaining: 0
+  score: 0
+  shield: 0
+  activeShield: 0
+  Direction: {x: 0, y: 0, z: 0, w: 0}
   shot_Mazle: {fileID: 4833136574513117067}
-  energy: 0
-  energy_Max: 0
+  Remaining: 0
+  invincible_time: 0
+  invincible_Max: 0
+  invincible: 0
+  material: {fileID: 0}
+  activeMissile: 0
+  activeLaser: 0
+  activeBullet: 0
+  activeDouble: 0
+  bitIndex: 0
+  Injection_pos: {fileID: 0}
+  Shield_pos: {fileID: 0}
+  swing_facing: 0
+  facing_cnt: 0
+  shoot_number: 0
+  laser: {fileID: 0}
+  missile_dilay_max: 0
+  line_beam: {fileID: 0}
   bullet_Type: 0
 --- !u!114 &6317820645000309325
 MonoBehaviour:
@@ -5040,11 +5060,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bit_First: {fileID: 6738013301264190840, guid: da9e5a33bfa09bd49a6f20a5e5741053,
-    type: 3}
-  bit_Second: {fileID: 5075506711093974042, guid: 03bdb8bc6bdbec840bf9142e4bcba0fb,
-    type: 3}
-  bit_Third: {fileID: 6978535772051833510, guid: 18b8e0068727d694eac166a283ab2382,
-    type: 3}
-  bit_Fourth: {fileID: 3305883224804152574, guid: 5a59272d42615af40bbe85b67d785aab,
     type: 3}
   num: 0

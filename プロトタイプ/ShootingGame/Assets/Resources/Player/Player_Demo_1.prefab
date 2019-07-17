@@ -269,7 +269,6 @@ GameObject:
   - component: {fileID: 8980319411110346728}
   - component: {fileID: 1880910959}
   - component: {fileID: 1880910963}
-  - component: {fileID: 6280496260577320510}
   m_Layer: 0
   m_Name: Player_Demo_1
   m_TagString: Player
@@ -332,6 +331,9 @@ MonoBehaviour:
   Shot_DelayMax: 30
   Shot_Delay: 0
   score: 0
+  shield: 0
+  activeShield: 0
+  Direction: {x: 0, y: 0, z: 0, w: 0}
   shot_Mazle: {fileID: 0}
   Remaining: 3
   invincible_time: 500
@@ -339,25 +341,19 @@ MonoBehaviour:
   invincible: 0
   material: {fileID: 2100000, guid: 7358f0cc48b568a42ae4ea77464d8a77, type: 2}
   activeMissile: 0
+  activeLaser: 0
+  activeBullet: 0
+  activeDouble: 0
   bitIndex: 0
+  Injection_pos: {fileID: 0}
+  Shield_pos: {fileID: 0}
+  swing_facing: 0
+  facing_cnt: 0
+  shoot_number: 0
+  laser: {fileID: 0}
+  missile_dilay_max: 0
+  line_beam: {fileID: 0}
   bullet_Type: 0
---- !u!114 &6280496260577320510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8980319411109979080}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4d89b067911e04c8b92bda9de16876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  speedUpModifier: 1.5
-  missleWaitTime: 0.8
-  activeMissile: 0
-  bitIndex: 0
 --- !u!1 &9203400271402671901
 GameObject:
   m_ObjectHideFlags: 0
