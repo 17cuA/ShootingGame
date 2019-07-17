@@ -44,7 +44,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1867143807157797495}
   - component: {fileID: 1867143807157797488}
-  - component: {fileID: 8157944093981489980}
   - component: {fileID: 400319530}
   - component: {fileID: 400319529}
   m_Layer: 9
@@ -90,6 +89,10 @@ MonoBehaviour:
   score: 100
   shield: 0
   activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  isrend: 0
   eState: 0
   parentObj: {fileID: 0}
   timeCnt: 0
@@ -98,20 +101,7 @@ MonoBehaviour:
   speedX: 5
   speedX_Straight: 1.5
   speedY: 0
---- !u!136 &8157944093981489980
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867143807157797489}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  haveItem: 0
 --- !u!54 &400319530
 Rigidbody:
   m_ObjectHideFlags: 0

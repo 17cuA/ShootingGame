@@ -68,6 +68,7 @@ public class Game_Master : MonoBehaviour
 		ePLAYER_MISSILE,		// プレイヤーのミサイル
 		ePLAYER_LASER,		// プレイヤーのレーザー
 		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
+		ePOWERUP_ITEM,		//パワーアップアイテム
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー

@@ -10,41 +10,29 @@ public class SceneChanger : MonoBehaviour
 	public Enemy_MiddleBoss EMB;
 	private void Start()
 	{
-		//Player = Obj_Storage.Storage_Data.Player;
+		//プレイヤーの情報取得----------------------------------
+		Player = Obj_Storage.Storage_Data.GetPlayer();
+		P1 = Player.GetComponent<Player1>();
+		//----------------------------------------------------
+		//ボスの情報取得---------------------------------------
+		Boss = Obj_Storage.Storage_Data.GetBoss();
+		EMB = Boss.GetComponent<Enemy_MiddleBoss>();
+		//----------------------------------------------------
 	}
 	void Update()
 	{
-		//SceneControl();
+		SceneControl();
 	}
-	public void SceneControl()
+	private void SceneControl()
 	{
-		switch (SceneManager.GetActiveScene().name)
+		if (P1.Died_Judgment())
 		{
-			case "Title":
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Stage");
-				break;
-			case "Stage":
-				if (P1.Died_Judgment())
-				{
-					SceneManager.LoadScene("GameOver");
-				}
-				if (EMB.Died_Judgment())
-				{
-					SceneManager.LoadScene("GameClear");
-				}
-				break;
-			case "GameOver":
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
-				break;
-			case "GameClear":
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
-				break;
+			SceneManager.LoadScene("GameOver");
+		}
+		if (EMB.Died_Judgment())
+		{
+			SceneManager.LoadScene("GameClear");
 		}
 	}
-	public void Chara_Get()
-	{
-		if (SceneManager.GetActiveScene().name == "Stage")
-		{
-		}
-	}
+
 }

@@ -226,6 +226,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreateEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1990893988371133228, guid: cf63f313ba88a8949b8b25f0c77a26ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1990893988371133138, guid: cf63f313ba88a8949b8b25f0c77a26ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7353,7 +7358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e44b0942a32fd64f9083216365c3157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Is_Active: 0
+  Is_Active: 1
   audiosource: {fileID: 0}
 --- !u!20 &1881077409
 Camera:
@@ -10746,7 +10751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65de472647f53df43a94d2b3d145a40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Is_Active: 0
+  Is_Active: 1
   audiosource: {fileID: 0}
 --- !u!1001 &654251939677687133
 PrefabInstance:

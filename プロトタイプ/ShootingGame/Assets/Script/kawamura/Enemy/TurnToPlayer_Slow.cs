@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class TurnToPlayer_Slow : character_status
 {
 	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
+	GameObject item;
+	DropItem dItem;
+
 	List<GameObject> colList = new List<GameObject>();
 
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
@@ -45,8 +49,17 @@ public class TurnToPlayer_Slow : character_status
 	bool isMinus;
 	bool isCCCCC = false;
     bool isDelay = false;
+	bool haveItem = false;
+	private void Awake()
+	{
+		if (gameObject.GetComponent<DropItem>())
+		{
+			DropItem dItem = gameObject.GetComponent<DropItem>();
+			haveItem = true;
+		}
+	}
 
-	private void Start()
+	new private void Start()
 	{
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
@@ -59,6 +72,8 @@ public class TurnToPlayer_Slow : character_status
 		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 
 		HP_Setting();
+		base.Start();
+
 	}
 	void Update()
 	{
@@ -261,6 +276,11 @@ public class TurnToPlayer_Slow : character_status
 
 		if (hp < 1)
 		{
+			if (haveItem)
+			{
+				//Instantiate(item, this.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+			}
 			frameCnt = 0;
 			followTimeCnt = 0;
 			once = true;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_First : character_status
 {
@@ -49,7 +50,7 @@ public class Enemy_First : character_status
 		}
 	}
 
-	void Start()
+	new void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
@@ -62,7 +63,7 @@ public class Enemy_First : character_status
 		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
-			if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			if (parentObj.name == "enemy_UFO_Group")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
@@ -88,15 +89,16 @@ public class Enemy_First : character_status
 			transform.parent = parentObj.transform;
 		}
 
-
 		HP_Setting();
+		base.Start();
+
 	}
 
 	private void OnEnable()
 	{
 		if (parentObj)
 		{
-			if (parentObj.name != "Enemy_UFO_Group(Clone)")
+			if (parentObj.name != "enemy_UFO_Group")
 			{
 				eState = State.Straight;
 				speedX = speedX_Straight;
@@ -121,14 +123,15 @@ public class Enemy_First : character_status
 		{
 			if (haveItem)
 			{
-				Instantiate(item, this.transform.position, transform.rotation);
+				//Instantiate(item, this.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 			}
 
 			if (parentObj == null)
 			{
 
 			}
-			else if (parentObj.name == "Enemy_UFO_Group(Clone)")
+			else if (parentObj.name == "enemy_UFO_Group")
 			{
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
@@ -141,7 +144,8 @@ public class Enemy_First : character_status
 					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 					{
 						//アイテム生成
-						Instantiate(item, this.transform.position, transform.rotation);
+						//Instantiate(item, this.transform.position, transform.rotation);
+						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 					}
 					//一体でも倒されていなかったら
 					else
@@ -150,7 +154,6 @@ public class Enemy_First : character_status
 					}
 					groupManage.itemPos = transform.position;
 					groupManage.itemTransform = this.transform;
-
 				}
 			}
 			//Reset_Status();
@@ -263,7 +266,7 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-				if (parentObj.name == "Enemy_UFO_Group(Clone)")
+				if (parentObj.name == "enemy_UFO_Group")
 				{
 					groupManage.notDefeatedEnemyCnt++;
 					groupManage.remainingEnemiesCnt -= 1;
