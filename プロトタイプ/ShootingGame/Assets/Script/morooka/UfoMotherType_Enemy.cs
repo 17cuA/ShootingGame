@@ -27,7 +27,7 @@ public class UfoMotherType_Enemy : character_status
 	private int Depth_Move_Interval_Cnt { get; set; }			// 奥行移動用インターバルカウント
 	private bool Is_AttackEnd { get; set; }						// 攻撃終了しているかどうか
 
-	void Start()
+	new void Start()
 	{
 		Sortie_Number = 6;
 		Shot_Cnt = Sortie_Number;
@@ -44,8 +44,10 @@ public class UfoMotherType_Enemy : character_status
 		Is_AttackEnd = false;
 	}
 
-	void Update()
+	new void Update()
 	{
+		HSV_Change();
+
 		if(hp < 0)
 		{
 			Died_Process();
