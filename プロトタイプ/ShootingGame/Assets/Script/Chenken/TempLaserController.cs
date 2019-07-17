@@ -23,49 +23,38 @@ public class TempLaserController : MonoBehaviour
         }
     }
 
-    public class Point
+    public class Point : MonoBehaviour
     {
-		public Vector2 pos;
-        public Vector2 direction;
+        public Vector3 direction;
         public float speed;
-        
-        public Point(Vector2 pos, Vector2 direction, float speed)
-        {
-            this.pos = pos;
-            this.direction = direction;
-            this.speed = speed;
-        }
+		private LineRenderer line;
+		public void Start()
+		{
+			this.line = GetComponent<LineRenderer>();
+		}
 
-        public void Move()
+		public void Update()
         {
-			pos += direction * speed * Time.deltaTime;
-        }
-    }
-
-    private Dictionary<LineRenderer,List<Point>> datas;
-    private LineRenderer currentLine;
-	private TrailRenderer currentTrail;
+			transform.position += direction * speed * Time.deltaTime;
+			line.SetPosition(0, transform.position);
+			line.SetPosition(1, transform.position - Vector3.right * speed * Time.fixedDeltaTime);
+		}
+	}
     private Controller controller;
     [Range(0,  0.03f)] public float laserShotInterval;
-    [Range(0.2f,0.5f)]public float waitTime = 0.2f;
+    [Range(0.2f,0.5f)] public float waitTime = 0.2f;
 	public float lineWidth;
 	public float laserSpeed;
 	public int waitLaserLimit = 80;
 	public Material lineMaterial;
-	[Header("------Trail　Setting------")]
-	public float trailTime;
-	public float trailWidth;
-    public Material trailMaterial;
+	public int laserAttack;
 
     public bool rotateLaserControl;
     private float laserShotTime;
-    private int currentPointsCount;
-    private int index;
     private int laserCount;
     
     private void Awake()
     {
-        datas = new Dictionary<LineRenderer, List<Point>>();
         controller = new Controller(new Vector2(0.1f,0));
     }
 
@@ -74,11 +63,6 @@ public class TempLaserController : MonoBehaviour
         if(rotateLaserControl)
         { 
             HandleInput();
-        }
-
-        if((Input.GetKeyDown(KeyCode.Space) && Time.time >= laserShotTime))
-        {
-            CreateNewLaserLine();
         }
 
                 
@@ -93,13 +77,9 @@ public class TempLaserController : MonoBehaviour
 
         if(laserCount >= waitLaserLimit)
         {
-            CreateNewLaserLine();
             laserShotTime = Time.time + waitTime;
             laserCount = 0;
         }
-
-
-        UpdatePoints();
 
 	}
 
@@ -115,23 +95,6 @@ public class TempLaserController : MonoBehaviour
          }
     }
 
-    private void CreateNewLaserLine()
-    {
-         var go = new GameObject("LaserLine");
-         var lineRenderer        = go.AddComponent<LineRenderer>();
-         lineRenderer.material   = lineMaterial;
-         lineRenderer.startWidth = lineWidth;
-         lineRenderer.endWidth   = lineWidth;
-         currentLine = lineRenderer;
-         datas.Add(currentLine, new List<Point>());
-
-		var trail = go.AddComponent<TrailRenderer>();
-		trail.material = trailMaterial;
-		trail.startWidth = trailWidth;
-		trail.endWidth = trailWidth;
-		trail.time = trailTime;
-		currentTrail = trail;
-    }
 
     private void DynamicChangeLine()
     {
@@ -142,37 +105,24 @@ public class TempLaserController : MonoBehaviour
         tempX += controller.pushPos.x;
         tempY += controller.pushPos.y;
 
-		datas[currentLine].Add(new Point(new Vector2(transform.position.x + tempX, transform.position.y * tempY), controller.pushPos, laserSpeed));
-		currentTrail.time += Time.deltaTime;
+		var pointGo = new GameObject("Point");
 
-		 var temp = datas[currentLine].Count;
-         currentLine.positionCount = temp;
-    }
+		var point = pointGo.AddComponent<Point>();
+		point.transform.position = new Vector3(transform.position.x + tempX, transform.position.y * tempY, 0);
+		point.direction = controller.pushPos;
+		point.speed = laserSpeed;
 
-    private void UpdatePoints()
-    {
-        foreach(var data in datas)
-        {
-            var outScreenCount = 0;
-            for(var i = 0; i < data.Value.Count; ++i)
-            {
-                if(data.Value[i].pos.x >= 20 || data.Value[i].pos.x <= -20 || data.Value[i].pos.y >= 7 || data.Value[i].pos.y <= -7)
-                {
-                    outScreenCount++;
-                }
+		var pointCollider = point.gameObject.AddComponent<CapsuleCollider>();
+		pointCollider.direction = 0;
+		pointCollider.height = laserSpeed * Time.fixedDeltaTime;
 
-                data.Value[i].Move();
-                data.Key.SetPosition(i, data.Value[i].pos);
-				data.Key.transform.position = data.Key.GetPosition(0);
-			}
-            if(outScreenCount == data.Value.Count && outScreenCount > 0)
-            {
-                var uselessLineRenderer = data.Key;
-                datas.Remove(data.Key);
-                Destroy(uselessLineRenderer.gameObject);
+		var bullet = pointGo.AddComponent<Player_Bullet>();
+		bullet.tag = "Player_Bullet";
+		bullet.attack_damage = laserAttack;
 
-                break;
-            }
-        }        
+		var line = pointGo.AddComponent<LineRenderer>();
+		line.startWidth = lineWidth;
+		line.endWidth = lineWidth;
+		line.material = lineMaterial;
     }
 }
