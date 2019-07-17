@@ -64,7 +64,8 @@ public class Player1 : character_status
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 
-	private bool Is_Resporn;	//生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
+	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
+	private float startTime = 0.0f;
 	public void Awake()
 	{
 		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
@@ -131,13 +132,21 @@ public class Player1 : character_status
 		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 		base.Start();
+		Is_Resporn = false;
+		//startTime = Time.time;
+		startTime = 0;
 	}
 
 	void Update()
 	{
 		if (Is_Resporn)
 		{
+			Debug.Log("hei");
+			capsuleCollider.enabled = false;
+			startTime += Mathf.Lerp Time.deltaTime;
+			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
 
+			if (transform.position == direction) Is_Resporn = false;
 		}
 		else
 		{
@@ -182,11 +191,12 @@ public class Player1 : character_status
 				{
 					ParticleCreation(0);        //爆発のエフェクト発動
 					Reset_Status();             //体力の修正
-					gameObject.transform.position = direction;      //初期位置に戻す
+					//gameObject.transform.position = direction;      //初期位置に戻す
 					if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 					invincible = false;         //無敵状態にするかどうかの処理
 					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 					bullet_Type = Bullet_Type.Single;
+					Is_Resporn = true;
 				}
 			}
 			Invincible();
@@ -487,5 +497,10 @@ public class Player1 : character_status
 	private void Reset_BulletType()
 	{
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
+	}
+	
+	private void Resporn_Anime()
+	{
+
 	}
 }
