@@ -31,7 +31,7 @@ public class Enemy_Wave : character_status
 	//VisibleCheck vc;
 
 	Vector3 velocity;
-
+	Vector3 defaultPos;
 	//----------
 	public Vector3 startMarker;
 	public Vector3 endMarker;
@@ -80,12 +80,19 @@ public class Enemy_Wave : character_status
 
 	private void Awake()
 	{
+		defaultPos = transform.localPosition;
+
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
 		}
 		//childCnt = transform.childCount;
+	}
+	private void OnEnable()
+	{
+		transform.localPosition = defaultPos;
+
 	}
 
 	new void Start()
@@ -148,7 +155,7 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = true;
 					isAddSpeedY = false;
 					speedX = 15;
-					speedZ_Value = 38;
+					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
@@ -168,7 +175,7 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = true;
 					isSubSpeedY = false;
 					speedX = 16;
-					speedZ_Value = 38;
+					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;

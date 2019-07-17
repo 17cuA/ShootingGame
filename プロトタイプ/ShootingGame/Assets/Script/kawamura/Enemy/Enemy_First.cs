@@ -15,6 +15,7 @@ public class Enemy_First : character_status
 	public State eState;
 
 	Vector3 velocity;
+	public Vector3 defaultPos;
 
 	GameObject item;
 	public GameObject parentObj;
@@ -43,12 +44,39 @@ public class Enemy_First : character_status
 
 	private void Awake()
 	{
+		defaultPos = transform.localPosition;
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
 		}
 	}
+
+	private void OnEnable()
+	{
+		
+		if (parentObj)
+		{
+			if (parentObj.name != "enemy_UFO_Group")
+			{
+				eState = State.Straight;
+				speedX = speedX_Straight;
+			}
+			else if (parentObj.transform.position.y > 0)
+			{
+				transform.localPosition = defaultPos;
+				speedX = 5;
+				eState = State.TurnDown;
+			}
+			else
+			{
+				transform.localPosition = defaultPos;
+				speedX = 5;
+				eState = State.TurnUp;
+			}
+		}
+	}
+
 
 	new void Start()
 	{
@@ -94,27 +122,6 @@ public class Enemy_First : character_status
 
 	}
 
-	private void OnEnable()
-	{
-		if (parentObj)
-		{
-			if (parentObj.name != "enemy_UFO_Group")
-			{
-				eState = State.Straight;
-				speedX = speedX_Straight;
-			}
-			else if (parentObj.transform.position.y > 0)
-			{
-				speedX = 5;
-				eState = State.TurnDown;
-			}
-			else
-			{
-				speedX = 5;
-				eState = State.TurnUp;
-			}
-		}
-	}
 
 	void Update()
 	{
