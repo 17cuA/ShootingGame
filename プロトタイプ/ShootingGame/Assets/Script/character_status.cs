@@ -27,7 +27,7 @@ public class character_status : MonoBehaviour
 	public int Remaining;											//残機（あらかじめ設定）
 	public float v_Value;												//テクスチャの明るさの増える値
 	public int childCnt;
-	Renderer renderer;
+	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 
 	public void Start()
@@ -47,33 +47,33 @@ public class character_status : MonoBehaviour
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
 
-		//レンダラー取得（自分についていたらそれを取得、自分についていなかったら子供を取得して子についていたらそれを取得）
-		if (gameObject.GetComponent<Renderer>())
-		{
-			//レンダラー取得
-			renderer = gameObject.GetComponent<Renderer>();
-			//明るさ変更
-			HSV_Change();
-		}
-		else
-		{
-			//子供がいたら（子供カウントがある）
-			if (transform.childCount > 0)
-			{
-				//子供の数を数える
-				childCnt = transform.childCount;
-				//子供オブジェクト取得
-				GameObject childObj = transform.GetChild(0).gameObject;
-				//子供にレンダラーがついていたら
-				if (childObj.GetComponent<Renderer>())
-				{
-					//レンダラー取得
-					renderer = childObj.GetComponent<Renderer>();
-					//明るさ変更
-					HSV_Change();
-				}
-			}
-		}
+		////レンダラー取得（自分についていたらそれを取得、自分についていなかったら子供を取得して子についていたらそれを取得）
+		//if (gameObject.GetComponent<Renderer>())
+		//{
+		//	//レンダラー取得
+		//	object_material = gameObject.GetComponent<Renderer>();
+		//	//明るさ変更
+		//	HSV_Change();
+		//}
+		//else
+		//{
+		//	//子供がいたら（子供カウントがある）
+		//	if (transform.childCount > 0)
+		//	{
+		//		//子供の数を数える
+		//		childCnt = transform.childCount;
+		//		//子供オブジェクト取得
+		//		GameObject childObj = transform.GetChild(0).gameObject;
+		//		//子供にレンダラーがついていたら
+		//		if (childObj.GetComponent<Renderer>())
+		//		{
+		//			//レンダラー取得
+		//			object_material = childObj.GetComponent<Renderer>();
+		//			//明るさ変更
+		//			HSV_Change();
+		//		}
+		//	}
+		//}
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -207,7 +207,9 @@ public class character_status : MonoBehaviour
 			v_Value = 1.0f;
 		}
 
-		renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+		foreach (Renderer renderer in object_material)
+		{
+			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+		}
 	}
-
 }

@@ -58,6 +58,8 @@ MonoBehaviour:
   Remaining: 0
   v_Value: 0
   childCnt: 0
+  object_material:
+  - {fileID: 5339504298697814358}
   isrend: 0
   eState: 1
   startMarker: {x: 0, y: 0, z: 0}
@@ -225,6 +227,12 @@ GameObject:
 --- !u!4 &5339504298699584438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29,
+    type: 3}
+  m_PrefabInstance: {fileID: 5339504298699974966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5339504298697814358 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29,
     type: 3}
   m_PrefabInstance: {fileID: 5339504298699974966}
   m_PrefabAsset: {fileID: 0}
