@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Scane : MonoBehaviour
+public class Scene_last : MonoBehaviour
 {
-
-	// Use this for initialization
-	void Start()
-	{
-
-	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyDown("joystick button 1"))
+		if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyDown("joystick button 0"))
 		{
 			SceneManager.LoadScene("TITLE");
 		}

@@ -79,9 +79,16 @@ MonoBehaviour:
   score: 0
   shield: 0
   activeShield: 0
+  Remaining: 3
+  v_Value: 0
+  childCnt: 0
+  object_material:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isrend: 0
   Direction: {x: 0, y: 0, z: 0, w: 0}
   shot_Mazle: {fileID: 0}
-  Remaining: 3
   invincible_time: 500
   invincible_Max: 80
   invincible: 0
@@ -722,10 +729,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Name
-      value: VicViper
-      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.325
@@ -782,6 +785,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Name
+      value: VicViper
+      objectReference: {fileID: 0}
     - target: {fileID: 2300010, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -821,16 +828,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
-        type: 3}
-      propertyPath: m_Name
-      value: S05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7157077057684087324, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -885,6 +882,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
+        type: 3}
+      propertyPath: m_Name
+      value: S05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1681867928715826945, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
         type: 3}
