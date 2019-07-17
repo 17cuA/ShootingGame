@@ -8,6 +8,7 @@ public class SceneChanger : MonoBehaviour
 	public Player1 P1;
 	public GameObject Boss;
 	public Enemy_MiddleBoss EMB;
+	public int frame = 0;
 	private void Start()
 	{
 		//プレイヤーの情報取得----------------------------------
@@ -25,13 +26,17 @@ public class SceneChanger : MonoBehaviour
 	}
 	private void SceneControl()
 	{
-		if (P1.Died_Judgment())
+		if (P1.Is_Dead)
 		{
-			SceneManager.LoadScene("GameOver");
+			frame++;
+			if(frame > 60) SceneManager.LoadScene("GameOver");
+
 		}
-		if (EMB.Died_Judgment())
+		if (EMB.Is_Dead)
 		{
-			SceneManager.LoadScene("GameClear");
+			frame++;
+			if(frame > 60) SceneManager.LoadScene("GameClear");
+
 		}
 	}
 

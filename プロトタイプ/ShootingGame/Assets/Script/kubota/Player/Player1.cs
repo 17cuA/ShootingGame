@@ -8,7 +8,6 @@
 using UnityEngine;
 using Power;
 using StorageReference;
-
 //using Power;
 public class Player1 : character_status
 {
@@ -44,8 +43,8 @@ public class Player1 : character_status
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
 	//------------------------------------------------------
 
-	public float swing_facing;              // 旋回向き
-	public float facing_cnt;				// 旋回カウント
+	public float swing_facing;				// 旋回向き
+	public float facing_cnt;					// 旋回カウント
 	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
 
 	private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
@@ -66,15 +65,7 @@ public class Player1 : character_status
 
 	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
-	public void Awake()
-	{
-		//ここでプレイヤーが取得できる全てのパワーをパワーマネージャーに入れとく
-		//PowerManager.Instance.AddPower(new Power_Shield(PowerType.POWER_SHIELD, 3));
-		//PowerManager.Instance.AddPower(new Power_BulletUpgrade(PowerType.POWER_BULLET_UPGRADE, 5));
 
-		////説明は113行目に移行
-		//PowerManager.Instance.GetPower(PowerType.POWER_SHIELD).onPickCallBack += () => { Debug.Log("イベント発生！依頼関数実行"); };
-	}
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -143,10 +134,14 @@ public class Player1 : character_status
 		{
 			Debug.Log("hei");
 			capsuleCollider.enabled = false;
-			startTime += Mathf.Lerp Time.deltaTime;
+			startTime += Time.deltaTime;
 			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
 
-			if (transform.position == direction) Is_Resporn = false;
+			if (transform.position == direction)
+			{
+				startTime = 0;
+				Is_Resporn = false;
+			}
 		}
 		else
 		{
@@ -165,7 +160,7 @@ public class Player1 : character_status
 				invincible = false;         //無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
-
+				Is_Resporn = true;
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 			//---------------------------
@@ -186,6 +181,7 @@ public class Player1 : character_status
 				{
 					//残機がない場合死亡
 					Died_Process();
+
 				}
 				else
 				{

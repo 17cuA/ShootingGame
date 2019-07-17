@@ -3,6 +3,8 @@
  */
 using UnityEngine;
 using Power;
+using UnityEngine.SceneManagement;
+
 public class character_status : MonoBehaviour
 {
 	protected enum Chara_Type
@@ -29,6 +31,7 @@ public class character_status : MonoBehaviour
 	public int childCnt;
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
+	public bool Is_Dead	= false;
 
 	public void Start()
 	{
@@ -102,14 +105,20 @@ public class character_status : MonoBehaviour
 			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[9]);
 			//爆発処理の作成
 			ParticleCreation(4);
+			Is_Dead = true;
+			Reset_Status();
+
 		}
 		else
 		{
 			//爆発処理の作成
 			ParticleCreation(0);
+			Is_Dead = true;
+
+
+			Reset_Status();
 		}
 
-		Reset_Status();
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
