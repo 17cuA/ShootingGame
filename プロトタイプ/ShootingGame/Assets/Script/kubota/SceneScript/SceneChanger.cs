@@ -6,39 +6,49 @@ public class SceneChanger : MonoBehaviour
 {
 	public GameObject Player;
 	public Player1 P1;
+	public MapCreate Map;
 	public GameObject Boss;
-	public Enemy_MiddleBoss EMB;
-	public int frame = 0;
-	private void Start()
-	{
-		//プレイヤーの情報取得----------------------------------
-		Player = Obj_Storage.Storage_Data.GetPlayer();
-		P1 = Player.GetComponent<Player1>();
-		//----------------------------------------------------
-		//ボスの情報取得---------------------------------------
-		Boss = Obj_Storage.Storage_Data.GetBoss();
-		EMB = Boss.GetComponent<Enemy_MiddleBoss>();
-		//----------------------------------------------------
-	}
+	public BossAll BA;
 	void Update()
 	{
-		SceneControl();
+		if(Player != null) SceneControl();
 	}
-	private void SceneControl()
+	public void SceneControl()
 	{
-		if (P1.Is_Dead)
+		switch (SceneManager.GetActiveScene().name)
 		{
-			frame++;
-			//if(frame > 180) SceneManager.LoadScene("GameOver");
-			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
-
-		}
-		if (EMB.Is_Dead)
-		{
-			frame++;
-			//if(frame > 180) SceneManager.LoadScene("GameClear");
-			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+			case "Title":
+				Debug.Log("hollo");
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Stage");
+				break;
+			case "Stage":
+				if (P1.Died_Judgment())
+				{
+					SceneManager.LoadScene("GameOver");
+					//if (Input.GetButtonDown("Fire1")|| Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("GameOver");
+				}
+				if (BA.Is_PartsAlive())
+				{
+					SceneManager.LoadScene("GameClear");
+				}
+				break;
+			case "GameOver":
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
+				break;
+			case "GameClear":
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Title");
+				break;
 		}
 	}
-
+	public void Chara_Get()
+	{
+		if (SceneManager.GetActiveScene().name == "Stage")
+		{
+			Map = gameObject.GetComponent<MapCreate>();
+			//Player = Map.GetPlayer();           //プレイヤーを名前で検索
+			//P1 = Player.GetComponent<Player1>();
+			//Boss = Map.GetBoss();
+			//BA = Boss.GetComponent<BossAll>();
+		}
+	}
 }

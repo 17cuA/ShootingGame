@@ -110,23 +110,8 @@ public class Enemy_MiddleBoss : character_status
 			type = stateManager.Current.StateType;
 		}
 
-		/*
-		* 2019/07/17
-		* 途中経過用の中ボス死亡判定
-		*/
-		if (transform.position.x < -30.0f)
-		{
-			base.hp = 0;
-		}
-
 		if (base.hp < 1)
 		{
-			/*
-			 * 2019/07/17
-			 * 途中経過用の中ボス死亡判定
-			 */
-			base.Died_Judgment();
-			////
 			base.Died_Process();
 		}
 	}

@@ -3,8 +3,6 @@
  */
 using UnityEngine;
 using Power;
-using UnityEngine.SceneManagement;
-
 public class character_status : MonoBehaviour
 {
 	protected enum Chara_Type
@@ -14,69 +12,23 @@ public class character_status : MonoBehaviour
 		None
 	}
 	protected Chara_Type Type;
-	public float speed;												// スピード
-	private float speed_Max;
-	public int hp;														// 体力
+	public float speed;                                         // スピード
+	public int hp;                                            // 体力
 	private int hp_Max;
-	public Vector3 direction;										// 向き
-	public CapsuleCollider capsuleCollider;				// cillider
-	private Rigidbody rigidbody;								//rigitbody
-	public int Shot_DelayMax;									// 弾を打つ時の間隔（最大値::unity側にて設定）
-	public int Shot_Delay;											// 弾を撃つ時の間隔
-	public uint score;													// 保持しているスコア
-	public int shield;													//シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;										//現在シールドが発動しているかどうかの判定用（初期値false）
-	public int Remaining;											//残機（あらかじめ設定）
-	public float v_Value;												//テクスチャの明るさの増える値
-	public int childCnt;
-	public Renderer[] object_material;									// オブジェクトのマテリアル情報
-	public bool isrend = false;
-	public bool Is_Dead	= false;
+	public Vector3 direction;                                   // 向き
+	public CapsuleCollider capsuleCollider;                     // cillider
+	private Rigidbody rigidbody;                                //rigitbody
+	public int Shot_DelayMax;                                   // 弾を打つ時の間隔（最大値::unity側にて設定）
+	public int Shot_Delay;                                 // 弾を撃つ時の間隔
+	public uint score;							// 保持しているスコア
+	public int shield;                                      //シールド（主にプレイヤーのみ使うと思う）
+	public bool activeShield;           //現在シールドが発動しているかどうかの判定用（初期値false）
 
-	public void Start()
+	private void Start()
 	{
-		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
-		if (!gameObject.GetComponent<Rigidbody>())
-		{
-			rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
-			rigidbody.useGravity = false;
-		}
-		//CapsuleColliderがついていたら取得する
-		if (gameObject.GetComponent<CapsuleCollider>())
-		{
-			capsuleCollider = GetComponent<CapsuleCollider>();
-		}
-
-		if (tag == "Player") Remaining = 3;
-		else Remaining = 1;
-
-		////レンダラー取得（自分についていたらそれを取得、自分についていなかったら子供を取得して子についていたらそれを取得）
-		//if (gameObject.GetComponent<Renderer>())
-		//{
-		//	//レンダラー取得
-		//	object_material = gameObject.GetComponent<Renderer>();
-		//	//明るさ変更
-		//	HSV_Change();
-		//}
-		//else
-		//{
-		//	//子供がいたら（子供カウントがある）
-		//	if (transform.childCount > 0)
-		//	{
-		//		//子供の数を数える
-		//		childCnt = transform.childCount;
-		//		//子供オブジェクト取得
-		//		GameObject childObj = transform.GetChild(0).gameObject;
-		//		//子供にレンダラーがついていたら
-		//		if (childObj.GetComponent<Renderer>())
-		//		{
-		//			//レンダラー取得
-		//			object_material = childObj.GetComponent<Renderer>();
-		//			//明るさ変更
-		//			HSV_Change();
-		//		}
-		//	}
-		//}
+		rigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
+		rigidbody.useGravity = false;
+		capsuleCollider = GetComponent<CapsuleCollider>();
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -102,27 +54,22 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[9]);
+			SE_Manager.SE_Obj.SE_Active(9);
 			//爆発処理の作成
-			ParticleCreation(4);
-			Is_Dead = true;
-			Reset_Status();
-
+			ParticleCreation(5);
 		}
 		else
 		{
 			//爆発処理の作成
 			ParticleCreation(0);
-			Is_Dead = true;
-
-
-			Reset_Status();
 		}
 
+		//Debug.Log("hei");
+		Reset_Status();
 		//死んだらゲームオブジェクトを遠くに飛ばす処理
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
-		//Debug.Log(gameObject.transform.parent.name + "	Destroy");
+		Debug.Log(gameObject.transform.parent.name + "	Destroy");
 		gameObject.SetActive(false);
 
 	}
@@ -148,7 +95,7 @@ public class character_status : MonoBehaviour
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
 					PowerManager.Instance.Pick();
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[5]);
+					SE_Manager.SE_Obj.SE_Active(5);
 					col.gameObject.SetActive(false);
 				}
 				else
@@ -189,36 +136,6 @@ public class character_status : MonoBehaviour
 			{
 				Damege_Process(1);
 			}
-		}
-	}
-	//キャラクターが死んだかどうかの判定用関数
-	public bool Died_Judgment()
-	{
-		bool is_died = false;
-		if (hp < 1 && Remaining < 1) is_died = true;
-		return is_died;
-	}
-
-	//キャラクターが死んでいるかどうかの判定用関数
-	public bool Dead_Check()
-	{
-		bool isDead = false;
-		if (hp < 1 && Remaining > 0) isDead = true;
-		return isDead;
-	}
-	//明るさを変える関数
-	public void HSV_Change()
-	{
-		v_Value = 1.0f - transform.position.z * 0.015f;
-
-		if (v_Value > 1.0f)
-		{
-			v_Value = 1.0f;
-		}
-
-		foreach (Renderer renderer in object_material)
-		{
-			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 		}
 	}
 }

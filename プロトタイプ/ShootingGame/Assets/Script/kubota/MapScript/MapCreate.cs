@@ -22,6 +22,7 @@ public class MapCreate : MonoBehaviour
 			//csvフォルダからマップ情報を取得
 			//１列ごとに取得
 			CreateMap();			//マップの作成（各オブジェクトの移動）
+			SC.Chara_Get();
 		}
 	}
 	void CreateMap()

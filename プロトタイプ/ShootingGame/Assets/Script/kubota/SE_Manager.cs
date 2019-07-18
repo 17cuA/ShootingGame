@@ -18,9 +18,8 @@ public class SE_Manager : MonoBehaviour
 		audiosource = GetComponent<AudioSource>();
     }
 
-	public void SE_Active(AudioClip se)
+	public void SE_Active(int se)
 	{
-		if(Is_Active) audiosource.PlayOneShot(se);
-
+		audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[se]);
 	}
 }

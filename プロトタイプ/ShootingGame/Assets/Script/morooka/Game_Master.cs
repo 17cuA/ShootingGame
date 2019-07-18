@@ -68,7 +68,6 @@ public class Game_Master : MonoBehaviour
 		ePLAYER_MISSILE,		// プレイヤーのミサイル
 		ePLAYER_LASER,		// プレイヤーのレーザー
 		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
-		ePOWERUP_ITEM,		//パワーアップアイテム
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
@@ -76,7 +75,6 @@ public class Game_Master : MonoBehaviour
 		ePLAYER,										// プレイヤー
 		eENEMY_NUM1,								// エネミー1番
 		eUFOTYPE_ENEMY,                         // UFOタイプエネミー
-		eUFOTYPE_ENEMY_ITEM,                // UFOタイプエネミーのアイテム落とす版
 		eUFOMOTHERTYPE_ENEMY,			// UFO母艦タイプエネミー
 		eBEELZEBUBTYPE_ENEMY,				// ハエ型エネミー
 		eCLAMCHOWDERTYPE_ENEMY,		// 貝型エネミー

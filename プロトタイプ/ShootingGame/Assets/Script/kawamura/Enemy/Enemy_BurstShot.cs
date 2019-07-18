@@ -4,7 +4,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StorageReference;
 
 public class Enemy_BurstShot : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	void Start()
 	{
 		Enemy_transform = transform.parent;
-		Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
+		Bullet = Resources.Load("Enemy_Bullet") as GameObject;
 		burst_delay = 0;
 		Shot_Delay = 0;
 		burst_Shotshot_Cnt = 0;
@@ -28,8 +27,8 @@ public class Enemy_BurstShot : MonoBehaviour
 
 	void Update()
 	{
-        //親のtransformを代入
-        Enemy_transform = transform.parent;
+		//親のtransformを代入
+		Enemy_transform = transform.parent;
 
 		if (isBurst)
 		{
@@ -50,13 +49,10 @@ public class Enemy_BurstShot : MonoBehaviour
 		{
 			if (burst_delay > burst_Delay_Max)
 			{
-                //弾生成
-                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
-
-                //Instantiate(Bullet, gameObject.transform.position, transform.rotation);
-
-                //発射数カウントプラス
-                ++burst_Shotshot_Cnt;
+				//弾生成
+				Instantiate(Bullet, gameObject.transform.position, Enemy_transform.rotation);
+				//発射数カウントプラス
+				++burst_Shotshot_Cnt;
 				//バースト計測リセット
 				burst_delay = 0;
 			}

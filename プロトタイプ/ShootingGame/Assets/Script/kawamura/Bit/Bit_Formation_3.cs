@@ -1,7 +1,4 @@
-﻿//オプションの位置関係の処理のスクリプト
-//作成者：川村良太
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -78,7 +75,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	{
 		isScaleDec = true;
 		defaultSpeed = 20;
-		speed = defaultSpeed;
+		speed = defaultSpeed ;
 		//値を設定
 		state_Num = 0;
 
@@ -138,9 +135,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 
-		if (followPosObj)
+		if (parentObj)
 		{
-			transform.position = followPosObj.transform.position;
+			transform.position = parentObj.transform.position;
 		}
 
 		alpha_Value += 0.1f;
@@ -182,10 +179,10 @@ public class Bit_Formation_3 : MonoBehaviour
 		//	}
 		//}
 
-		if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
+		if (Input.GetKeyDown(KeyCode.I) || pl1.Died_Judgment())
 		{
 			isDead = true;
-			followPosObj = null;
+			parentObj = null;
 
 			switch (option_OrdinalNum)
 			{
@@ -208,8 +205,35 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		}
 
+		//プレイヤーが死んだかどうか判定
+		if (pl1.Died_Judgment())
+		{
+			isDead = true;
+			parentObj = null;
+
+			switch(option_OrdinalNum)
+			{
+				case 1:
+					FtoPlayer.hasOption = false;
+					break;
+
+				case 2:
+					FtoPBit_Second.hasOption = false;
+					break;
+
+				case 3:
+					FtoPBit_Third.hasOption = false;
+					break;
+
+				case 4:
+					FtoPBit_Fourth.hasOption = false;
+					break;
+			}
+		}
+
 		if (isDead)
 		{
+			
 			velocity = gameObject.transform.rotation * new Vector3(speed, 0, -0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -237,8 +261,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		{
 			isDead = false;
 			isborn = true;
-			followPosObj = null;
-			pl1.bitIndex--;
+			parentObj = null;
 			gameObject.SetActive(false);
 		}
 		//------------------------------------------------
@@ -324,28 +347,28 @@ public class Bit_Formation_3 : MonoBehaviour
 			//	}
 			//	break;
 
-			//case BitState.Follow:
-			//	//b_Shot.isShot = true;
+			case BitState.Follow:
+				//b_Shot.isShot = true;
 
-			//	if (isFollow)
-			//	{
-			//		//親設定解除
-			//		transform.parent = null;
-			//		transform.rotation = Quaternion.Euler(0, 0, 0);
+				if (isFollow)
+				{
+					//親設定解除
+					transform.parent = null;
+					transform.rotation = Quaternion.Euler(0, 0, 0);
 
-			//		//指定したスピードで追従する位置に行く【followPosObjの位置までstepのスピードで】
-			//		transform.position = Vector3.MoveTowards(transform.position, followPosObj.transform.position, step);
-			//		//追従する位置に行ったら
-			//		if (transform.position == followPosObj.transform.position)
-			//		{
-			//			isFollow = false;
+					//指定したスピードで追従する位置に行く【followPosObjの位置までstepのスピードで】
+					transform.position = Vector3.MoveTowards(transform.position, followPosObj.transform.position, step);
+					//追従する位置に行ったら
+					if (transform.position == followPosObj.transform.position)
+					{
+						isFollow = false;
 
-			//			//追従する位置のオブジェクトを親に設定
-			//			transform.parent = followPosObj.transform;
-			//			transform.rotation = followPosObj.transform.rotation;
-			//		}
-			//	}
-			//	break;
+						//追従する位置のオブジェクトを親に設定
+						transform.parent = followPosObj.transform;
+						transform.rotation = followPosObj.transform.rotation;
+					}
+				}
+				break;
 
 			//case BitState.Laser:
 			//	b_Shot.isShot = false;
@@ -359,8 +382,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (!FtoPlayer.hasOption)
 		{
 			FtoPlayer.hasOption = true;
-			followPosObj = followPosFirstObj;
-			transform.position = followPosObj.transform.position;
+			parentObj = followPosFirstObj;
+			transform.position = parentObj.transform.position;
 
 			//transform.parent = followPosFirstObj.transform;
 			//transform.position = followPosFirstObj.transform.position;
@@ -372,8 +395,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Second.hasOption)
 		{
 			FtoPBit_Second.hasOption = true;
-			followPosObj = followPosSecondObj;
-			transform.position = followPosObj.transform.position;
+			parentObj = followPosSecondObj;
+			transform.position = parentObj.transform.position;
 
 			//transform.parent = followPosSecondObj.transform;
 			//transform.position = followPosSecondObj.transform.position;
@@ -385,8 +408,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Third.hasOption)
 		{
 			FtoPBit_Third.hasOption = true;
-			followPosObj = followPosThirdObj;
-			transform.position = followPosObj.transform.position;
+			parentObj = followPosThirdObj;
+			transform.position = parentObj.transform.position;
 
 			//transform.parent = followPosThirdObj.transform;
 			//transform.position = followPosThirdObj.transform.position;
@@ -398,8 +421,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Fourth.hasOption)
 		{
 			FtoPBit_Fourth.hasOption = true;
-			followPosObj = followPosFourthObj;
-			transform.position = followPosObj.transform.position;
+			parentObj = followPosFourthObj;
+			transform.position = parentObj.transform.position;
 
 			//transform.parent = followPosFourthObj.transform;
 			//transform.position = followPosFourthObj.transform.position;
@@ -420,8 +443,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				if (!FtoPlayer.hasOption)
 				{
 					FtoPlayer.hasOption = true;
-					followPosObj = followPosFirstObj;
-					transform.position = followPosObj.transform.position;
+					parentObj = followPosFirstObj;
+					transform.position = parentObj.transform.position;
 
 					//transform.parent = followPosFirstObj.transform;
 					//transform.position = followPosFirstObj.transform.position;
@@ -437,8 +460,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				else if (!FtoPBit_Second.hasOption)
 				{
 					FtoPBit_Second.hasOption = true;
-					followPosObj = followPosSecondObj;
-					transform.position = followPosObj.transform.position;
+					parentObj = followPosSecondObj;
+					transform.position = parentObj.transform.position;
 
 					//transform.parent = followPosSecondObj.transform;
 					//transform.position = followPosSecondObj.transform.position;
@@ -454,8 +477,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				else if (!FtoPBit_Third.hasOption)
 				{
 					FtoPBit_Third.hasOption = true;
-					followPosObj = followPosThirdObj;
-					transform.position = followPosObj.transform.position;
+					parentObj = followPosThirdObj;
+					transform.position = parentObj.transform.position;
 
 					//transform.parent = followPosThirdObj.transform;
 					//transform.position = followPosThirdObj.transform.position;
@@ -471,8 +494,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				else if (!FtoPBit_Fourth.hasOption)
 				{
 					FtoPBit_Fourth.hasOption = true;
-					followPosObj = followPosFourthObj;
-					transform.position = followPosObj.transform.position;
+					parentObj = followPosFourthObj;
+					transform.position = parentObj.transform.position;
 
 					//transform.parent = followPosFourthObj.transform;
 					//transform.position = followPosFourthObj.transform.position;

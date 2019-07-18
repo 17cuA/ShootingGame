@@ -87,7 +87,6 @@ public class FollowToPreviousBit : MonoBehaviour
 		}
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
 		if (pos != previousBitObj.transform.position && !check)
-		//if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
 		{
 			//位置配列にビットの位置を入れる
 			//playerPos[cnt] = playerObj.transform;
@@ -116,13 +115,8 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				//前のビットの座標が動いていないとき
 				if (pos == previousBitObj.transform.position)
-				//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
 				{
 					isMove = false;
-					if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
-					{
-						isMove = true;
-					}
 				}
 				//前のビットの座標が動いていたとき
 				else
@@ -130,6 +124,7 @@ public class FollowToPreviousBit : MonoBehaviour
 					isMove = true;
 					//前のビットのtransform保存
 					pos = previousBitObj.transform.position;
+
 				}
 			}
 
@@ -144,6 +139,7 @@ public class FollowToPreviousBit : MonoBehaviour
 				//自分の位置を移動したのでその位置を今、前のビットのいる位置で更新
 				//playerPos[cnt] = playerObj.transform;
 				previousBitPos[cnt] = previousBitObj.transform.position;
+
 
 				cnt++;
 				if (cnt > array_Num - 1)

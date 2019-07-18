@@ -211,10 +211,6 @@ namespace TextDisplay
 					return 34;
 				case 'Z':
 					return 35;
-				case '?':
-					return 36;
-				case '!':
-					return 37;
 				default:
 					return 39;
 			}

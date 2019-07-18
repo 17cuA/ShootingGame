@@ -6,128 +6,14 @@
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		_Factor("Factor", Range(0, 5)) = 1.0
 
 		_Hue("Hue", Float) = 0
 		_Sat("Saturation", Float) = 1
 		_Val("Value", Float) = 1 }
     SubShader
     {
-
-        Tags { "RenderType"="Opaque" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
-        
-		GrabPass { }
-
-		Pass
-		{
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#pragma fragmentoption ARB_precision_hint_fastest
-
-			#include "UnityCG.cginc"
-
-			struct appdata
-			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-			};
-
-			struct v2f
-			{
-				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-			};
-
-			v2f vert(appdata v)
-			{
-				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
-				o.uv = ComputeGrabScreenPos(o.pos);
-				return o;
-			}
-
-			sampler2D _GrabTexture;
-			float4 _GrabTexture_TexelSize;
-			float _Factor;
-
-			half4 frag(v2f i) : SV_Target
-			{
-
-				half4 pixelCol = half4(0, 0, 0, 0);
-
-				#define ADDPIXEL(weight,kernelX) tex2Dproj(_GrabTexture, UNITY_PROJ_COORD(float4(i.uv.x + _GrabTexture_TexelSize.x * kernelX * _Factor, i.uv.y, i.uv.z, i.uv.w))) * weight
-
-				pixelCol += ADDPIXEL(0.05, 4.0);
-				pixelCol += ADDPIXEL(0.09, 3.0);
-				pixelCol += ADDPIXEL(0.12, 2.0);
-				pixelCol += ADDPIXEL(0.15, 1.0);
-				pixelCol += ADDPIXEL(0.18, 0.0);
-				pixelCol += ADDPIXEL(0.15, -1.0);
-				pixelCol += ADDPIXEL(0.12, -2.0);
-				pixelCol += ADDPIXEL(0.09, -3.0);
-				pixelCol += ADDPIXEL(0.05, -4.0);
-				return pixelCol;
-			}
-			ENDCG
-		}
-		
-		GrabPass { }
-
-		Pass
-		{
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#pragma fragmentoption ARB_precision_hint_fastest
-
-			#include "UnityCG.cginc"
-
-			struct appdata
-			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-			};
-
-			struct v2f
-			{
-				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-			};
-
-			v2f vert(appdata v)
-			{
-				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
-				o.uv = ComputeGrabScreenPos(o.pos);
-				return o;
-			}
-
-			sampler2D _GrabTexture;
-			float4 _GrabTexture_TexelSize;
-			float _Factor;
-
-			fixed4 frag(v2f i) : SV_Target
-			{
-
-				fixed4 pixelCol = fixed4(0, 0, 0, 0);
-
-				#define ADDPIXEL(weight,kernelY) tex2Dproj(_GrabTexture, UNITY_PROJ_COORD(float4(i.uv.x, i.uv.y + _GrabTexture_TexelSize.y * kernelY * _Factor, i.uv.z, i.uv.w))) * weight
-
-				pixelCol += ADDPIXEL(0.05, 4.0);
-				pixelCol += ADDPIXEL(0.09, 3.0);
-				pixelCol += ADDPIXEL(0.12, 2.0);
-				pixelCol += ADDPIXEL(0.15, 1.0);
-				pixelCol += ADDPIXEL(0.18, 0.0);
-				pixelCol += ADDPIXEL(0.15, -1.0);
-				pixelCol += ADDPIXEL(0.12, -2.0);
-				pixelCol += ADDPIXEL(0.09, -3.0);
-				pixelCol += ADDPIXEL(0.05, -4.0);
-				return pixelCol;
-			}
-			ENDCG
-		}
-		LOD 200
+        Tags { "RenderType"="Opaque" }
+        LOD 200
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
@@ -138,8 +24,7 @@
 
         sampler2D _MainTex;
 
-        struct Input
-		{
+        struct Input {
             float2 uv_MainTex;
         };
 
@@ -173,8 +58,7 @@
             
             // S（彩度）
             // 最大値と最小値の差を正規化して求める
-            if (maxValue != 0.0)
-			{
+            if (maxValue != 0.0){
                 hsv.y = delta / maxValue;
             } else {
                 hsv.y = 0.0;
@@ -182,18 +66,12 @@
             
             // H（色相）
             // RGBのうち最大値と最小値の差から求める
-            if (hsv.y > 0.0)
-			{
-                if (rgb.r == maxValue) 
-				{
+            if (hsv.y > 0.0){
+                if (rgb.r == maxValue) {
                     hsv.x = (rgb.g - rgb.b) / delta;
-                }
-				else if (rgb.g == maxValue)
-				{
+                } else if (rgb.g == maxValue) {
                     hsv.x = 2 + (rgb.b - rgb.r) / delta;
-                }
-				else 
-				{
+                } else {
                     hsv.x = 4 + (rgb.r - rgb.g) / delta;
                 }
                 hsv.x /= 6.0;
@@ -211,13 +89,10 @@
         {
             float3 rgb;
 
-            if (hsv.y == 0)
-			{
+            if (hsv.y == 0){
                 // S（彩度）が0と等しいならば無色もしくは灰色
                 rgb.r = rgb.g = rgb.b = hsv.z;
-            } 
-			else 
-			{
+            } else {
                 // 色環のH（色相）の位置とS（彩度）、V（明度）からRGB値を算出する
                 hsv.x *= 6.0;
                 float i = floor (hsv.x);
@@ -225,38 +100,27 @@
                 float aa = hsv.z * (1 - hsv.y);
                 float bb = hsv.z * (1 - (hsv.y * f));
                 float cc = hsv.z * (1 - (hsv.y * (1 - f)));
-                if( i < 1 )
-				{
+                if( i < 1 ) {
                     rgb.r = hsv.z;
                     rgb.g = cc;
                     rgb.b = aa;
-                } 
-				else if( i < 2 ) 
-				{
+                } else if( i < 2 ) {
                     rgb.r = bb;
                     rgb.g = hsv.z;
                     rgb.b = aa;
-                }
-				else if( i < 3 ) 
-				{
+                } else if( i < 3 ) {
                     rgb.r = aa;
                     rgb.g = hsv.z;
                     rgb.b = cc;
-                } 
-				else if( i < 4 ) 
-				{
+                } else if( i < 4 ) {
                     rgb.r = aa;
                     rgb.g = bb;
                     rgb.b = hsv.z;
-                } 
-				else if( i < 5 )
-				{
+                } else if( i < 5 ) {
                     rgb.r = cc;
                     rgb.g = aa;
                     rgb.b = hsv.z;
-                }
-				else
-				{
+                } else {
                     rgb.r = hsv.z;
                     rgb.g = aa;
                     rgb.b = bb;
@@ -283,8 +147,7 @@
             return hsv2rgb(hsv);
         }
 
-        void surf (Input IN, inout SurfaceOutputStandard o) 
-		{
+        void surf (Input IN, inout SurfaceOutputStandard o) {
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
             half3 shift = half3(_Hue, _Sat, _Val);

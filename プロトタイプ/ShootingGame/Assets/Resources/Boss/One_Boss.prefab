@@ -1,41 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &682400916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 682400917}
-  m_Layer: 0
-  m_Name: OT_Center
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &682400917
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682400916}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7574051346333242872}
-  - {fileID: 7574051347512609543}
-  - {fileID: 7574051347197746674}
-  - {fileID: 7574051347530955820}
-  - {fileID: 7574051347183997458}
-  - {fileID: 7574051348282791948}
-  m_Father: {fileID: 7574051346351118027}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7574051346316743752
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,7 +15,7 @@ GameObject:
   - component: {fileID: 7574051346316743749}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,15 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051346333242875
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,11 +132,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051346333242875}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.55000013, y: 0.43333334, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
+  m_Father: {fileID: 7574051346738520880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051346333242868
@@ -254,15 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051346351118028
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +221,7 @@ GameObject:
   - component: {fileID: 7574051346351118029}
   m_Layer: 0
   m_Name: One_Boss
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,7 +243,6 @@ Transform:
   - {fileID: 7574051347997956170}
   - {fileID: 7574051346738520880}
   - {fileID: 7574051347908201291}
-  - {fileID: 682400917}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -320,8 +265,6 @@ MonoBehaviour:
   Shot_DelayMax: 30
   Shot_Delay: 0
   score: 9000
-  shield: 0
-  activeShield: 0
   boss_body: {fileID: 7574051347997956166}
   boss_core: {fileID: 7574051346316743749}
   boss_option:
@@ -337,7 +280,6 @@ MonoBehaviour:
   beam_mazle:
   - {fileID: 7574051347664356067}
   - {fileID: 7574051347345507436}
-  boss_option_center: {fileID: 682400917}
   remaining_hp_percent: 1
   initial_core_color: {r: 0.28773582, g: 0.40587258, b: 1, a: 0}
   pinch_core_color: {r: 0, g: 0, b: 0, a: 0}
@@ -346,8 +288,7 @@ MonoBehaviour:
   in_point: {x: 0, y: 0}
   under_in_point: {x: 0, y: -1.5}
   under_point: {x: 0, y: -3}
-  beam_max: 15
-  rotating_velocity: 6
+  beam_max: 1
 --- !u!1 &7574051346738520887
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +319,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 2.75, z: 0}
   m_LocalScale: {x: 1, y: 3, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7574051346333242872}
+  - {fileID: 7574051347512609543}
+  - {fileID: 7574051347197746674}
   m_Father: {fileID: 7574051346351118027}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -453,15 +397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347183997461
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +411,7 @@ GameObject:
   - component: {fileID: 7574051347183997456}
   - component: {fileID: 7574051347183997459}
   m_Layer: 0
-  m_Name: O5
+  m_Name: O2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,12 +424,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051347183997461}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.5500003, y: 0, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
-  m_RootOrder: 4
+  m_Father: {fileID: 7574051347908201291}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051347183997678
 MeshFilter:
@@ -566,15 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347197746677
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,11 +528,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051347197746677}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3, y: 3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.55000013, y: -0.4333334, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
+  m_Father: {fileID: 7574051346738520880}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051347197746638
@@ -679,15 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347345507439
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,11 +662,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051347512609542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.55000025, y: 0, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
+  m_Father: {fileID: 7574051346738520880}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051347512609539
@@ -822,15 +739,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347530955823
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +753,7 @@ GameObject:
   - component: {fileID: 7574051347530955818}
   - component: {fileID: 7574051347530955821}
   m_Layer: 0
-  m_Name: O4
+  m_Name: O1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,12 +766,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051347530955823}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.5500001, y: 0.43333334, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
-  m_RootOrder: 3
+  m_Father: {fileID: 7574051347908201291}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051347530955816
 MeshFilter:
@@ -935,15 +843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347664356066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +903,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -2.75, z: 0}
   m_LocalScale: {x: 1, y: 3, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7574051347530955820}
+  - {fileID: 7574051347183997458}
+  - {fileID: 7574051348282791948}
   m_Father: {fileID: 7574051346351118027}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -1079,15 +981,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051347997956173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,15 +1085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
 --- !u!1 &7574051348282791951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1099,7 @@ GameObject:
   - component: {fileID: 7574051348282791946}
   - component: {fileID: 7574051348282791949}
   m_Layer: 0
-  m_Name: O6
+  m_Name: O3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,12 +1112,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7574051348282791951}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3, y: -3.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.5500001, y: -0.4333334, z: 0}
+  m_LocalScale: {x: 0.3333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 682400917}
-  m_RootOrder: 5
+  m_Father: {fileID: 7574051347908201291}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7574051348282791944
 MeshFilter:
@@ -1305,12 +1189,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c319ca8c5dc1c5d41af583e16b28654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 0
-  shield: 0
-  activeShield: 0
