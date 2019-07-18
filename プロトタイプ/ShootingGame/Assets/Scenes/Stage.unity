@@ -1210,6 +1210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 9204608175031737187, guid: 6715c00a90fa7d641a9a453e394b1aa1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7333,10 +7338,19 @@ PrefabInstance:
       propertyPath: font_size
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1923940256, guid: f3b78c410f153774abfde65e7e836e22, type: 3}
+      propertyPath: position.x
+      value: -700
+      objectReference: {fileID: 0}
     - target: {fileID: 8233860687442792734, guid: f3b78c410f153774abfde65e7e836e22,
         type: 3}
       propertyPath: font_size
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233860687442792734, guid: f3b78c410f153774abfde65e7e836e22,
+        type: 3}
+      propertyPath: position.x
+      value: -800
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3b78c410f153774abfde65e7e836e22, type: 3}
