@@ -197,6 +197,11 @@ namespace Power
 
 				onResetCallBacks.Remove(resetCallBack);
 			}
+
+            public void ResetUpgradeCount()
+            {
+                upgradeCount = 0;
+            }
 		}
 	
 		//--------------------------------------------------
@@ -214,7 +219,8 @@ namespace Power
 			{ Power.PowerType.DOUBLE,  new Power(Power.PowerType.DOUBLE,  1) },
 			{ Power.PowerType.LASER,     new Power(Power.PowerType.LASER,   1) },
 			{ Power.PowerType.OPTION,   new Power(Power.PowerType.OPTION,  4) },
-			{ Power.PowerType.SHIELD,    new Power(Power.PowerType.SHIELD,  1) }
+			{ Power.PowerType.SHIELD,    new Power(Power.PowerType.SHIELD,  1) },
+            {Power.PowerType.INITSPEED, new Power(Power.PowerType.INITSPEED , 1) },
 		};
 
 		/// <summary>
@@ -346,6 +352,22 @@ namespace Power
 				return;
 
 			CurrentPower.Upgrade();
+            if(CurrentPower.Type == Power.PowerType.SPEEDUP && !CurrentPower.CanUpgrade)
+            {
+                CurrentPower.ResetUpgradeCount();
+                var power = powers[Power.PowerType.SPEEDUP];
+                powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+                powers[Power.PowerType.INITSPEED] = power;
+            }
+
+            if(CurrentPower.Type == Power.PowerType.INITSPEED && !CurrentPower.CanUpgrade)
+            {
+                CurrentPower.ResetUpgradeCount();
+                var power = powers[Power.PowerType.SPEEDUP];
+                powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+                powers[Power.PowerType.INITSPEED] = power;
+            }
+
 			position = -1;
 		}
 
@@ -398,7 +420,7 @@ namespace Power
 		public void Update()
 		{
 			// パワーアップ数に注意
-			for(var i = 0; i < powers.Count; ++i)
+			for(var i = 0; i < powers.Count - 1; ++i)
 			{
 				var power = powers[(Power.PowerType)i];
 				power.Update();
