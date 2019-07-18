@@ -67,8 +67,8 @@ public class Player1 : character_status
 	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
 
-	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];	//マズルファイアのエフェクト（unity側の動き）
-
+	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
+	private int effect_num = 0;
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -131,6 +131,7 @@ public class Player1 : character_status
 		//startTime = Time.time;
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();
+		effect_num = 0;
 	}
 
 	void Update()
@@ -348,11 +349,18 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-						ParticleCreation(2);
+
+						//effect_mazle_fire;
+						//ParticleCreation(2);
+						effect_mazle_fire[effect_num].Play();
+						effect_num++;
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						ParticleCreation(2);
+						//ParticleCreation(2);
+						effect_mazle_fire[effect_num].Play();
+						effect_num++;
+
 						break;
 					default:
 						break;
@@ -369,6 +377,7 @@ public class Player1 : character_status
 			else if (shoot_number == 15)
 			{
 				shoot_number = 0;
+				effect_num = 0;
 			}
 		}
 		else
