@@ -8,7 +8,7 @@ public class Scene_Change : MonoBehaviour
 	private bool isLoaded = false;
 	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.K)|| Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 0"))
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 0"))
 		{
 			isLoaded = !isLoaded;
 			if (isLoaded)
