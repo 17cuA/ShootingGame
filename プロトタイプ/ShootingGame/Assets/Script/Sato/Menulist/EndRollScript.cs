@@ -15,6 +15,7 @@ public class EndRollScript : MonoBehaviour
 	private bool isStopEndRoll;
 	//　シーン移動用コルーチン
 	private Coroutine endRollCoroutine;
+
 	// Update is called once per frame
 	void Update()
 	{
