@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TextDisplay;
 public class EndRollScript : MonoBehaviour
 {
 	//　テキストのスクロールスピード
@@ -15,6 +16,9 @@ public class EndRollScript : MonoBehaviour
 	private bool isStopEndRoll;
 	//　シーン移動用コルーチン
 	private Coroutine endRollCoroutine;
+
+	//private Character_Display 
+
 	// Update is called once per frame
 	void Update()
 	{
