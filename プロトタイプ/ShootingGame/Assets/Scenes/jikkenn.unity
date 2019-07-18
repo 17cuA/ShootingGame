@@ -4909,22 +4909,22 @@ PrefabInstance:
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.025516005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7126881
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.008284878
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70096785
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
@@ -4934,17 +4934,17 @@ PrefabInstance:
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 181.373
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -89.017
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -182.751
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
@@ -4969,6 +4969,16 @@ PrefabInstance:
     - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: TrailModule.generateLightingData
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
