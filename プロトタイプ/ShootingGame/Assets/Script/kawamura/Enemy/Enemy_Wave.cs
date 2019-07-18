@@ -157,6 +157,7 @@ public class Enemy_Wave : character_status
 					speedX = 15;
 					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
@@ -177,6 +178,7 @@ public class Enemy_Wave : character_status
 					speedX = 16;
 					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
@@ -291,6 +293,13 @@ public class Enemy_Wave : character_status
 					//}
 				}
 
+				//if (transform.position.z >= 0)
+				//{
+				//	transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+				//	speedX = 5;
+				//	speedY = defaultSpeedY;
+				//	isWave = true;
+				//}
 				if (transform.position.x > 13)
 				{
 					speedX = 5;
@@ -299,7 +308,7 @@ public class Enemy_Wave : character_status
 				}
 				//else if (transform.position.x > 7)
 				//{
-					
+
 				//	//speedZ = speedZ_Value;
 				//	//hsvCon.val += val_Value;
 				//	v_Value += val_Value;
