@@ -293,19 +293,19 @@ public class Enemy_Wave : character_status
 					//}
 				}
 
-				//if (transform.position.z >= 0)
-				//{
-				//	transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-				//	speedX = 5;
-				//	speedY = defaultSpeedY;
-				//	isWave = true;
-				//}
-				if (transform.position.x > 13)
+				if (transform.position.z <= 0)
 				{
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 					speedX = 5;
 					speedY = defaultSpeedY;
 					isWave = true;
 				}
+				//if (transform.position.x > 13)
+				//{
+				//	speedX = 5;
+				//	speedY = defaultSpeedY;
+				//	isWave = true;
+				//}
 				//else if (transform.position.x > 7)
 				//{
 
