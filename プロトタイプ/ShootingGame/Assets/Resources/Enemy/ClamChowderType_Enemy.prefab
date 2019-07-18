@@ -61,6 +61,7 @@ MonoBehaviour:
   object_material:
   - {fileID: 5339504298697814358}
   isrend: 0
+  Is_Dead: 0
   eState: 1
   startMarker: {x: 0, y: 0, z: 0}
   endMarker: {x: 0, y: 0, z: 0}
@@ -152,6 +153,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3110145218247895068}
     m_Modifications:
+    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bullfight
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -207,10 +212,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bullfight
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_Materials.Array.data[0]
