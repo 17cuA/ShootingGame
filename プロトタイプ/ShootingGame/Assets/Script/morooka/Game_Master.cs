@@ -128,10 +128,10 @@ public class Game_Master : MonoBehaviour
     {
         Frame_Count++;
 
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            Management_In_Stage = CONFIGURATION_IN_STAGE.eBOSS_CUT_IN;
-        }
+        //if(Input.GetKeyDown(KeyCode.C))
+        //{
+        //    Management_In_Stage = CONFIGURATION_IN_STAGE.eBOSS_CUT_IN;
+        //}
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ public class Game_Master : MonoBehaviour
     private void Stage_Start()
     {
         Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
-
+		display_score = 0;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		Is_Completed_For_Warning_Animation = false;
     }

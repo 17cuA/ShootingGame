@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -226,12 +226,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 389607752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4262823d44e986c49948643e018a3d73, type: 3}
+  m_Script: {fileID: 11500000, guid: 129fd52727ef1024ea19c9d86cd2fb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_over_pos: {x: -480, y: 0, z: 0}
-  game_over_size: 1
-  please_push_button_pos: {x: -446, y: -300, z: 0}
+  string_to_display: GAME_OVER
+  game_last_pos: {x: -500, y: 100, z: 0}
+  game_last_size: 1
+  score_pos: {x: 0, y: 0, z: 0}
+  score_size: 0.7
+  please_push_button_pos: {x: -488, y: -200, z: 0}
   please_push_button_size: 0.5
 --- !u!1 &413498920
 GameObject:
@@ -445,8 +448,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129fd52727ef1024ea19c9d86cd2fb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_clear_pos: {x: 0, y: 0, z: 0}
-  game_clear_size: 0
+  string_to_display: 
+  game_last_pos: {x: 0, y: 0, z: 0}
+  game_last_size: 0
+  score_pos: {x: 0, y: 0, z: 0}
+  score_size: 0
   please_push_button_pos: {x: 0, y: 0, z: 0}
   please_push_button_size: 0
 --- !u!1 &714285374
