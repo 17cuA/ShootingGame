@@ -29,14 +29,15 @@ public class SceneChanger : MonoBehaviour
 		if (P1.Is_Dead)
 		{
 			frame++;
-			if(frame > 60) SceneManager.LoadScene("GameOver");
+			//if(frame > 180) SceneManager.LoadScene("GameOver");
+			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 
 		}
 		if (EMB.Is_Dead)
 		{
 			frame++;
-			if(frame > 60) SceneManager.LoadScene("GameClear");
-
+			//if(frame > 180) SceneManager.LoadScene("GameClear");
+			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
 		}
 	}
 

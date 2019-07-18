@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿//作成日2019/07/08
+// シーンマネージャー
+// 作成者:諸岡勇樹
+/*
+ * 2019/07/17 フェードイン、フェードアウトする　シーン遷移
+ * 2019/07/18 フェードアウト後、ディレイを入れる
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,10 +29,14 @@ public class Scene_Manager : MonoBehaviour
 
 	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
 
-	[SerializeField,Header("フェードスピード")]		private float fade_speed;
+	[SerializeField, Header("フェードインスピード")]		private float fade_in_speed;
+	[SerializeField, Header("フェードアウトスピード")]	private float fade_out_speed;
+	[SerializeField, Header("シーン遷移の遅延時間")]		private int transition_deferred;
 
 	private Image[] Renderer_For_Fade { get; set; }					// フェード用SpriteRenderer
-	private float Fade_Quantity { get; set; }						// 1フレームのフェード量
+	private float Fade_In_Quantity { get; set; }					// 1フレームのフェードイン量
+	private float Fade_Out_Quantity { get; set; }					// 1フレームのフェードアウト量
+	private int Transition_Deferred_Cnt{ get; set; }				// シーン遷移の遅延時間カウント
 	public SCENE_NAME Now_Scene{ get; private set; }				// 今のシーン保存用
 	public SCENE_NAME Next_Scene { get; private set; }				// 次のシーン保存用
 	public bool Is_Fade_Finished { get; private set; }				// フェードが終わっているかどうか
@@ -42,10 +54,13 @@ public class Scene_Manager : MonoBehaviour
 		}
 
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
-		Fade_Quantity = fade_speed / 255.0f;
+		Fade_In_Quantity = fade_in_speed / 255.0f;
+		Fade_Out_Quantity = fade_out_speed / 255.0f;
 		Is_Fade_Finished = false;
 		Is_Fade_In_Intermediate = true;
 		Is_Fade_Out_Intermediate = false;
+
+		Transition_Deferred_Cnt = 0;
 	}
 
     // Update is called once per frame
@@ -59,10 +74,14 @@ public class Scene_Manager : MonoBehaviour
 		{
 			if (Fade_Out())
 			{
-				SceneManager.LoadScene((int)Next_Scene);
+				Transition_Deferred_Cnt++;
+				if (Transition_Deferred_Cnt > transition_deferred)
+				{
+					SceneManager.LoadScene((int)Next_Scene);
+				}
 			}
 		}
-    }
+	}
 
 	/// <summary>
 	/// フェードイン
@@ -75,10 +94,10 @@ public class Scene_Manager : MonoBehaviour
 
 		foreach (Image image in Renderer_For_Fade)
 		{
-			if (image.color.a >= 0.0f)
+			if (image.color.a > 0.0f)
 			{
 				Color color_for_fade = image.color;
-				color_for_fade.a -= Fade_Quantity;
+				color_for_fade.a -= Fade_In_Quantity;
 
 				image.color = color_for_fade;
 
@@ -99,10 +118,10 @@ public class Scene_Manager : MonoBehaviour
 
 		foreach (Image image in Renderer_For_Fade)
 		{
-			if (image.color.a <= 1.0f)
+			if (image.color.a < 1.0f)
 			{
 				Color color_for_fade = image.color;
-				color_for_fade.a += Fade_Quantity;
+				color_for_fade.a += Fade_Out_Quantity;
 
 				image.color = color_for_fade;
 
@@ -144,7 +163,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if(!Is_Fade_Out_Intermediate)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 
 		Next_Scene = SCENE_NAME.eMENU;
@@ -157,7 +176,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if(!Is_Fade_Out_Intermediate)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eSTAGE;
 	}
@@ -169,7 +188,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if(!Is_Fade_Out_Intermediate)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 
 		Next_Scene = SCENE_NAME.eGAME_OVER;
@@ -182,7 +201,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if(!Is_Fade_Out_Intermediate)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
@@ -196,7 +215,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if (!Is_Fade_Out_Intermediate)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = name;
 	}
