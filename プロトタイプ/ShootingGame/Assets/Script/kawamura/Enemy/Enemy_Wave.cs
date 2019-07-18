@@ -408,14 +408,8 @@ public class Enemy_Wave : character_status
 				    }
                 }
             }
-			Died_Process();
 
-			speedZ = 0;
-			//hsvCon.val = 0.4f;
-			//v_Value = 0.4f;
-			once = true;
-			isWave = false;
-
+			Enemy_Reset();
 			//Reset_Status();
 			Died_Process();
 		}
@@ -515,7 +509,13 @@ public class Enemy_Wave : character_status
 
 	//	renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 	//}
-	
+
+	void Enemy_Reset()
+	{
+		speedZ = 0;
+		once = true;
+		isWave = false;
+	}
 
 	private void OnTriggerExit(Collider col)
 	{
