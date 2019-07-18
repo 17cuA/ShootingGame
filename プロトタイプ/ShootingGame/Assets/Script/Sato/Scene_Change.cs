@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Scene_Change : MonoBehaviour
 {
 	private bool isLoaded = false;
+	public AudioSource audioSource;	//ユニティ側にて設定
 	public void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 0"))
