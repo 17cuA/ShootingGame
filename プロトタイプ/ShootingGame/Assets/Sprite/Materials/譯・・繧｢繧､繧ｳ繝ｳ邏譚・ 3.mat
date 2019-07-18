@@ -7,7 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u6843\u306E\u30A2\u30A4\u30B3\u30F3\u7D20\u6750  3"
+  m_Name: "\u8B6F\u30FB\u30FB\u7E67\uFF62\u7E67\uFF64\u7E67\uFF73\u7E5D\uFF73\u908F\uF8F0\u8B5A\u30FB
+    3"
   m_Shader: {fileID: 4800000, guid: e4e14c7b37aaa73459dd959a2165506a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -24,12 +25,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Glossiness: 0.5
+    - _Hue: 0
+    - _Metallic: 0
     - _NoiseX: 0
     - _RGBNoise: 0
+    - _Sat: 1
     - _ScanLineSpeed: 100
     - _ScanLineTail: 0.5
     - _SinNoiseOffset: 1
     - _SinNoiseScale: 1
     - _SinNoiseWidth: 1
+    - _Val: 1
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}

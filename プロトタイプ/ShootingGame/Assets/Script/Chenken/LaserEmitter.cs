@@ -22,11 +22,12 @@ public class LaserEmitter : MonoBehaviour
     private float laserCanShotTime;
 
 
+
     private void Awake()
     {
-        this.lasers = new List<ChenkenLaser.Laser>();
+        this.lasers                 = new List<ChenkenLaser.Laser>();
         this.currentLaser      = null;
-        this.fireInterval     = lineLength / (LaserNode.GetComponent<LaserLine>().shot_speed * 60 );
+        this.fireInterval         = lineLength / (LaserNode.GetComponent<LaserLine>().shot_speed * 60 );
     }
 
     public void Update()
@@ -51,10 +52,7 @@ public class LaserEmitter : MonoBehaviour
 
         if(this.laserCurrentNum >= this.laserMaxNum)
         {
-            this.currentLaser.IsFixedPos = false;
-            this.currentLaser.gameObject.SetActive(false);          
-            this.currentLaser.ResetLineRenderer();
-
+            this.currentLaser.IsFixedPos = false;  
             this.LaunchLaserInstance();
 
             this.laserCanShotTime = Time.time + this.overLoadDutarion;
@@ -68,6 +66,8 @@ public class LaserEmitter : MonoBehaviour
         {
             if(!this.lasers[i].gameObject.activeSelf)
             {
+				this.currentLaser.IsFixedPos = false;
+				this.currentLaser = this.lasers[i];
                 this.currentLaser.IsFixedPos = true;
                 this.currentLaser = lasers[i];
                 this.currentLaser.ResetLineRenderer(); 

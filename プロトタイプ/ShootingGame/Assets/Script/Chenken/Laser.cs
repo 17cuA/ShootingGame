@@ -87,7 +87,9 @@ namespace ChenkenLaser
                      this.laserNodes.Remove(laserNodes[i]);
                      if(this.laserNodes.Count == 0)
                      {
-                          this.gameObject.SetActive(false);
+						this.laserNodes.Clear();
+						this.SetLaserRenderer(Vector3.zero, Vector3.zero);
+						this.gameObject.SetActive(false);
                      }
                  }
                  else
