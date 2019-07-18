@@ -875,6 +875,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
 --- !u!1001 &7762875997204225146
@@ -993,6 +997,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: game_last_pos.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: game_last_pos.x
+      value: -488
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: score_size
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}

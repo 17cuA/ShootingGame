@@ -230,10 +230,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   string_to_display: GAME_OVER
-  game_last_pos: {x: -500, y: 100, z: 0}
+  game_last_pos: {x: -488, y: 200, z: 0}
   game_last_size: 1
   score_pos: {x: 0, y: 0, z: 0}
-  score_size: 0.7
+  score_size: 0
   please_push_button_pos: {x: -488, y: -200, z: 0}
   please_push_button_size: 0.5
 --- !u!1 &413498920
@@ -676,6 +676,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
