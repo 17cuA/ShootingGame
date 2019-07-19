@@ -140,30 +140,42 @@ public class EnemyCreate_ : MonoBehaviour
 					break;
 
 				case 3:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group3.transform.position = createPosR4.transform.position;
+					//enemy_UFO_Group3.transform.rotation = transform.rotation;
+
 					GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group3.transform.position = createPosR4.transform.position;
-					enemy_UFO_Group3.transform.rotation = transform.rotation;
+					Create_SetVec(enemy_UFO_Group3, createPosR4);
+
 					break;
 
 				case 4:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group4.transform.position = createPosRm4.transform.position;
+					//enemy_UFO_Group4.transform.rotation = transform.rotation;
+
 					GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group4.transform.position = createPosRm4.transform.position;
-					enemy_UFO_Group4.transform.rotation = transform.rotation;
+					Create_SetVec(enemy_UFO_Group4, createPosRm4);
+
 					break;
 
 				case 5:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroup.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroup.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+					//enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroup.transform.position;
+					//enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+
 					GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
-					enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroup.transform.position;
-					enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+					Create_SetVec(enemy_ClamChowder_Group_Four, createPos_FourGroup);
+
 					break;
 
 				case 6:
@@ -181,160 +193,205 @@ public class EnemyCreate_ : MonoBehaviour
 
 					GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
 					GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					List<GameObject> createObj_Lists = new List<GameObject>() { enemy_UFO_Group5, enemy_UFO_Group6 };
-					List<GameObject> positionObj_Lists = new List<GameObject>() { createPosR4, createPosRm4 };
-					Create_SetVec(createObj_Lists, positionObj_Lists);
+					Create_SetVec(new List<GameObject>() { enemy_UFO_Group5, enemy_UFO_Group6 }, new List<GameObject>() { createPosR4, createPosRm4 });
 
 					break;
 
 				case 7:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_UFO_Group, createPosR1.transform.position, transform.rotation);
-					GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group7.transform.position = createPosR1.transform.position;
-					enemy_UFO_Group7.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_UFO_Group, createPosR1.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group7.transform.position = createPosR1.transform.position;
+					//enemy_UFO_Group7.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_UFO_Group, createPosRm1.transform.position, transform.rotation);
+					////Instantiate(enemy_UFO_Group, createPosRm1.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group8.transform.position = createPosRm1.transform.position;
+					//enemy_UFO_Group8.transform.rotation = transform.rotation;
+
+					GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
 					GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group8.transform.position = createPosRm1.transform.position;
-					enemy_UFO_Group8.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_UFO_Group7, enemy_UFO_Group8 }, new List<GameObject>() { createPosR1, createPosRm1 });
 
 					break;
 
 				case 8:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
-					GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group9.transform.position = createPosR4.transform.position;
-					enemy_UFO_Group9.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group9.transform.position = createPosR4.transform.position;
+					//enemy_UFO_Group9.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+					////Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+					//GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+					//enemy_UFO_Group10.transform.position = createPosRm4.transform.position;
+					//enemy_UFO_Group10.transform.rotation = transform.rotation;
+
+					GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
 					GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-					enemy_UFO_Group10.transform.position = createPosRm4.transform.position;
-					enemy_UFO_Group10.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_UFO_Group9, enemy_UFO_Group10 }, new List<GameObject>() { createPosR4, createPosRm4 });
 
 					break;
 
 				case 9:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroup.transform.position, transform.rotation);
-					GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-					enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroup.transform.position;
-					enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroup.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+					//enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroup.transform.position;
+					//enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroup.transform.position, transform.rotation);
+					////Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroup.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+					//enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroup.transform.position;
+					//enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+					GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
 					GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-					enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroup.transform.position;
-					enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_Two_Top, enemy_ClamChowder_Group_Two_Under },
+						new List<GameObject>() { createPos_FourGroup, createPos_FourGroup });
 
 					break;
 
 				case 10:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+					//enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
+					//enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+
 					GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
-					enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
-					enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+					Create_SetVec(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup);
 
 					break;
 
 				case 11:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+					//enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroup.transform.position;
+					//enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+
 					GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-					enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroup.transform.position;
-					enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+					Create_SetVec(enemy_ClamChowder_Group_Seven, createPos_FourGroup);
 
 					break;
 
 				case 12:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
+					//GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+					//Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+					//Boss_Middle.transform.rotation = transform.rotation;
+
 					GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
-					Boss_Middle.transform.position = createMiddleBossPos.transform.position;
-					Boss_Middle.transform.rotation = transform.rotation;
+					Create_SetVec(Boss_Middle, createMiddleBossPos);
 
 					break;
 
 				case 13:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
+
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
+
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
-
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
-
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_ThreeWaveOnlyUp, enemy_ClamChowder_Group_ThreeWaveOnlyDown },
+						new List<GameObject>() { createPosR3, createPosRm3 });
 
 					break;
 
 				case 14:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
+
+					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_ThreeWaveOnlyUp2, enemy_ClamChowder_Group_ThreeWaveOnlyDown2 },
+						new List<GameObject>() { createPosR3, createPosRm3 });
+
 
 					break;
 
 				case 15:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, createPosR3.transform.position, transform.rotation);
-					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, createPosR3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item, createPosRm3.transform.position, transform.rotation);
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item, createPosRm3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
+
+					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item },
+						new List<GameObject>() { createPosR3, createPosRm3 });
 
 					break;
 
 				case 16:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
+
+					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_ThreeWaveOnlyUp3, enemy_ClamChowder_Group_ThreeWaveOnlyDown3 },
+						new List<GameObject>() { createPosR3, createPosRm3 });
 
 					break;
 
 				case 17:
-					isCreate = false;
-					groupCnt++;
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
+					//isCreate = false;
+					//groupCnt++;
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
 
-					//Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					////Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+					//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
+					//enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
+
+					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
 					GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
-					enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
+					Create_SetVec(new List<GameObject>() { enemy_ClamChowder_Group_ThreeWaveOnlyUp4, enemy_ClamChowder_Group_ThreeWaveOnlyDown4 },
+						new List<GameObject>() { createPosR3, createPosRm3 });
 
 					break;
 
@@ -353,22 +410,22 @@ public class EnemyCreate_ : MonoBehaviour
 	// 単品Ver
 	void Create_SetVec(GameObject createObj, GameObject positionObj)
 	{
-		createObj.transform.position = positionObj.transform.position;
-		createObj.transform.rotation = createObj.transform.rotation;
 		isCreate = false;
 		groupCnt++;
+		createObj.transform.position = positionObj.transform.position;
+		createObj.transform.rotation = createObj.transform.rotation;
 	}
 
 	// 複数Ver
 	void Create_SetVec(List<GameObject> createObj, List<GameObject> positionObj)
 	{
+		isCreate = false;
+		groupCnt++;
 		for (int i = 0; i < createObj.Count; ++i)
 		{
 			createObj[i].transform.position = positionObj[i].transform.position;
 			createObj[i].transform.rotation = createObj[i].transform.rotation;
 		}
-		isCreate = false;
-		groupCnt++;
 	}
 	
 
