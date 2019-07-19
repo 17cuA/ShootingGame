@@ -128,7 +128,8 @@ public class Player1 : character_status
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();
 		effect_num = 0;
 		min_speed = speed;		//初期の速度を保存しておく
-		Laser.SetActive(false);	//レーザーの子供が動かないようにするための変数
+		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
+		PowerManager.Instance.ResetAllPowerUpgradeCount();
 	
 	}
 
