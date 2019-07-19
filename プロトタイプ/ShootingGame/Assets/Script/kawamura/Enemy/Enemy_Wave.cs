@@ -31,7 +31,7 @@ public class Enemy_Wave : character_status
 	//VisibleCheck vc;
 
 	Vector3 velocity;
-
+	Vector3 defaultPos;
 	//----------
 	public Vector3 startMarker;
 	public Vector3 endMarker;
@@ -80,12 +80,19 @@ public class Enemy_Wave : character_status
 
 	private void Awake()
 	{
+		defaultPos = transform.localPosition;
+
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
 		}
 		//childCnt = transform.childCount;
+	}
+	private void OnEnable()
+	{
+		transform.localPosition = defaultPos;
+
 	}
 
 	new void Start()
@@ -148,8 +155,9 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = true;
 					isAddSpeedY = false;
 					speedX = 15;
-					speedZ_Value = 38;
+					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
@@ -168,8 +176,9 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = true;
 					isSubSpeedY = false;
 					speedX = 16;
-					speedZ_Value = 38;
+					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
@@ -284,6 +293,13 @@ public class Enemy_Wave : character_status
 					//}
 				}
 
+				//if (transform.position.z >= 0)
+				//{
+				//	transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+				//	speedX = 5;
+				//	speedY = defaultSpeedY;
+				//	isWave = true;
+				//}
 				if (transform.position.x > 13)
 				{
 					speedX = 5;
@@ -292,7 +308,7 @@ public class Enemy_Wave : character_status
 				}
 				//else if (transform.position.x > 7)
 				//{
-					
+
 				//	//speedZ = speedZ_Value;
 				//	//hsvCon.val += val_Value;
 				//	v_Value += val_Value;

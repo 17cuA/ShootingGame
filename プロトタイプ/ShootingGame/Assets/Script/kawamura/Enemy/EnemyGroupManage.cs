@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyGroupManage : MonoBehaviour
 {
 	public GameObject item;
+	GameObject[] childObjects;
 
 	public int childNum;                    //最初の敵(子供)の総数
 	public int remainingEnemiesCnt;         //残っている敵の数
@@ -20,15 +21,29 @@ public class EnemyGroupManage : MonoBehaviour
 	public bool isDead = false;
 	public bool isItemDrop=true;
 
+	private void Awake()
+	{
+		childNum = transform.childCount;
+		childObjects = new GameObject[childNum];
+
+		for (int i = 0; i < childNum; i++)
+		{
+			childObjects[i] = transform.GetChild(i).gameObject;
+		}
+	}
+
 	private void OnEnable()
 	{
+		for (int i = 0; i < childNum; i++)
+		{
+			childObjects[i].SetActive(enabled);
+		}
 		//defeatedEnemyCnt = 0;
 		//notDefeatedEnemyCnt = 0;
 	}
 	void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
-		childNum = transform.childCount;
 		remainingEnemiesCnt = childNum;
 	}
 
