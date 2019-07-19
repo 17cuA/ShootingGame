@@ -52,10 +52,18 @@ MonoBehaviour:
   capsuleCollider: {fileID: 5582079347219364264}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 0
+  score: 100
   shield: 0
   activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  object_material:
+  - {fileID: 7560823306770748818}
+  isrend: 0
+  Is_Dead: 0
   eState: 0
+  defaultPos: {x: 0, y: 0, z: 0}
   parentObj: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
@@ -63,6 +71,7 @@ MonoBehaviour:
   speedX: 5
   speedX_Straight: 3
   speedY: 0
+  haveItem: 0
 --- !u!136 &5582079347219364264
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -118,6 +127,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6541507908318001150}
     m_Modifications:
+    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     - target: {fileID: 100000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
       propertyPath: m_Name
       value: Enemy_disc_type
@@ -178,10 +191,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
 --- !u!1 &7560823306772941650 stripped
@@ -193,6 +202,12 @@ GameObject:
 --- !u!4 &7560823306773174130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e463bf685487aeb469be78af75eeec80,
+    type: 3}
+  m_PrefabInstance: {fileID: 7560823306773040626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7560823306770748818 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80,
     type: 3}
   m_PrefabInstance: {fileID: 7560823306773040626}
   m_PrefabAsset: {fileID: 0}

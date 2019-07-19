@@ -9424,7 +9424,7 @@ Transform:
   m_GameObject: {fileID: 1827453698218348617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 653789190798862204}
   m_RootOrder: 0
@@ -18958,7 +18958,7 @@ Transform:
   m_GameObject: {fileID: 2848615083201852119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.62, z: 1}
   m_Children: []
   m_Father: {fileID: 653789190798862204}
   m_RootOrder: 7
@@ -23745,7 +23745,7 @@ ParticleSystemRenderer:
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -23803,7 +23803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29fc291dae171944b56948b9ce9ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.1
+  shot_speed: 0.2
   attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
@@ -23817,10 +23817,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.12
-  m_Height: 1.2
+  m_Radius: 0.0806716
+  m_Height: 1.3328876
   m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.011027455, y: 0.010744512, z: 0}
 --- !u!54 &8076603538248685996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -33308,7 +33308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6288129557242626961
 Transform:
   m_ObjectHideFlags: 0
@@ -38015,7 +38015,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7431372402899906382}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.8299999, y: 0, z: 0}
+  m_LocalPosition: {x: 0.968, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 653789190798862204}

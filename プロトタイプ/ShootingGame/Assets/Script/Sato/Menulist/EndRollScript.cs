@@ -15,6 +15,7 @@ public class EndRollScript : MonoBehaviour
 	private bool isStopEndRoll;
 	//　シーン移動用コルーチン
 	private Coroutine endRollCoroutine;
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -28,7 +29,7 @@ public class EndRollScript : MonoBehaviour
 			//　エンドロール用テキストがリミットを越えるまで動かす
 			if (transform.position.y <= limitPosition)
 			{
-				transform.position = new Vector2(transform.position.x, transform.position.y + textScrollSpeed * Time.deltaTime);
+				transform.position = new Vector2(transform.position.x , transform.position.y + textScrollSpeed * Time.deltaTime);
 			}
 			else
 			{

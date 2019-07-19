@@ -12,8 +12,17 @@ public class Enemy_Roll : MonoBehaviour
 	public float rotaY_Value = 0;
 	public float rotaZ_Value = 0;
 
+	Enemy_Wave_Direction ewd;
+
+	bool isWaveEnemy = false;
+
     void Start()
     {
+		if(gameObject.name== "Enemy_Bullfight")
+		{
+			isWaveEnemy = true;
+			ewd = gameObject.GetComponent<Enemy_Wave_Direction>();
+		}
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		rotaZ = transform.eulerAngles.z;
@@ -21,8 +30,15 @@ public class Enemy_Roll : MonoBehaviour
 
     void Update()
     {
-		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
+		if(isWaveEnemy)
+		{
+			transform.rotation = Quaternion.Euler(rotaX, ewd.rotaY, rotaZ);
+		}
+		else
+		{
+			transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 
+		}
 		rotaX += rotaX_Value;
 		rotaY += rotaY_Value;
 		rotaZ += rotaZ_Value;

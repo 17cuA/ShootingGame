@@ -55,6 +55,13 @@ MonoBehaviour:
   score: 0
   shield: 0
   activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  object_material:
+  - {fileID: 1377363440269828502}
+  isrend: 0
+  Is_Dead: 0
   playerObj: {fileID: 0}
   speedX: 2
   rollSpeed: 2.5
@@ -176,6 +183,12 @@ PrefabInstance:
 --- !u!4 &1377363440267535222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bb8e16c2a165ae0468323161046da810,
+    type: 3}
+  m_PrefabInstance: {fileID: 1377363440267934198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1377363440269828502 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: bb8e16c2a165ae0468323161046da810,
     type: 3}
   m_PrefabInstance: {fileID: 1377363440267934198}
   m_PrefabAsset: {fileID: 0}

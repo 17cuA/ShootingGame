@@ -17,23 +17,23 @@ public class Obj_Storage : MonoBehaviour
 
 	//マップ作製に使うプレハブ
 	//リソースフォルダから取得するため、インスペクターは使わない
-	private GameObject Enemy_Prefab;        //敵キャラのプレハブ
-	private GameObject Medium_Enemy_Prefab;	//中型エネミーのプレハブ
-	private GameObject Player_Prefab;       //プレイヤーのプレハブ
-	private GameObject Player_Missile_Prefab;       //プレイヤーのミサイルプレハブ
-	private GameObject Player_Missile_Tow_Way_Prefab;
-	private GameObject Boss_Prefab;			//ボスのプレハブ
-	private GameObject Bullet_Prefab_P;     //弾のPrefab情報
-	private GameObject Bullet_Prefab_E;     //エネミーの弾のPrefab情報
-	private GameObject Beam_Bullet_E_Prefab;        //エネミーのビーム型バレットのプレハブ
-	private GameObject UfoType_Enemy_Prefab;        // UFO型エネミーのプレハブ
-	private GameObject UfoType_Enemy_Item_Prefab;	// UFO型エネミー（アイテムドロップ）
-	private GameObject UfoMotherType_Enemy_Prefab;      // UFO母艦型エネミーのプレハブ
-	private GameObject ClamChowderType_Enemy_Prefab;        // 貝型エネミーのプレハブ
-	private GameObject OctopusType_Enemy_Prefab;        // タコ型エネミーのプレハブ
-	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
-	private GameObject Option_Prefab;                   //オプションのプレハブ
-	private GameObject Item_Prefab;                     //パワーアップのアイテムを入れえるための処理
+	private GameObject Enemy_Prefab;							//敵キャラのプレハブ
+	private GameObject Medium_Enemy_Prefab;				//中型エネミーのプレハブ
+	private GameObject Player_Prefab;							//プレイヤーのプレハブ
+	private GameObject Player_Missile_Prefab;					//プレイヤーのミサイルプレハブ
+	private GameObject Player_Missile_Tow_Way_Prefab;		//プレイヤーのミサイル（上下に行くやつ）
+	private GameObject Boss_Prefab;								//ボスのプレハブ
+	private GameObject Bullet_Prefab_P;							//弾のPrefab情報
+	private GameObject Bullet_Prefab_E;							//エネミーの弾のPrefab情報
+	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
+	private GameObject UfoType_Enemy_Prefab;				// UFO型エネミーのプレハブ
+	private GameObject UfoType_Enemy_Item_Prefab;			// UFO型エネミー（アイテムドロップ）
+	private GameObject UfoMotherType_Enemy_Prefab;		// UFO母艦型エネミーのプレハブ
+	private GameObject ClamChowderType_Enemy_Prefab;	// 貝型エネミーのプレハブ
+	private GameObject OctopusType_Enemy_Prefab;			// タコ型エネミーのプレハブ
+	private GameObject BeelzebubType_Enemy_Prefab;		// ハエ型エネミーのプレハブ
+	private GameObject Option_Prefab;							//オプションのプレハブ
+	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
 	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
 	private GameObject Boss_Middle_Prefab;						//中ボスのプレハブ
 
@@ -109,7 +109,7 @@ public class Obj_Storage : MonoBehaviour
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-		UfoType_Enemy_Prefab = Resources.Load("Enemy/UfoType_Enemy") as GameObject;
+		UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 		UfoType_Enemy_Item_Prefab = Resources.Load("Enemy/UfoType_Enemy_Item") as GameObject;
 		UfoMotherType_Enemy_Prefab = Resources.Load("Enemy/UfoMotherType_Enemy") as GameObject; 
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
@@ -250,9 +250,6 @@ public class Obj_Storage : MonoBehaviour
 			string line = csv.ReadLine();
 			CsvData.Add(line.Split(','));               //カンマごとに割り振る
 		}
-
-
-	
 	}
 
 	public GameObject GetPlayer()

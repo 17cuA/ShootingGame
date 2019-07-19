@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ChangeSelect : MonoBehaviour
 {
+
 	public void SelectSelf()
 	{
 		EventSystem.current.SetSelectedGameObject(gameObject);

@@ -59,7 +59,7 @@ public class TurnToPlayer_Slow : character_status
 		}
 	}
 
-	private void Start()
+	new private void Start()
 	{
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
@@ -72,6 +72,8 @@ public class TurnToPlayer_Slow : character_status
 		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 
 		HP_Setting();
+		base.Start();
+
 	}
 	void Update()
 	{

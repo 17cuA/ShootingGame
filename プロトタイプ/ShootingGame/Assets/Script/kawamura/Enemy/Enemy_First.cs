@@ -15,6 +15,7 @@ public class Enemy_First : character_status
 	public State eState;
 
 	Vector3 velocity;
+	public Vector3 defaultPos;
 
 	GameObject item;
 	public GameObject parentObj;
@@ -31,7 +32,9 @@ public class Enemy_First : character_status
 	float _y;
 	float _z;
 
-	int frame = 0;
+	float frame = 0;
+	float straightFrame;
+	float straightFrame_Default;
 	public float speedX;
 	public float speedX_Straight;
 	public float speedY;
@@ -43,6 +46,9 @@ public class Enemy_First : character_status
 
 	private void Awake()
 	{
+		straightFrame_Default = 300;
+		straightFrame = straightFrame_Default;
+		defaultPos = transform.localPosition;
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
@@ -50,7 +56,37 @@ public class Enemy_First : character_status
 		}
 	}
 
-	void Start()
+	private void OnEnable()
+	{
+		
+		if (parentObj)
+		{
+			if (parentObj.name != "enemy_UFO_Group")
+			{
+				eState = State.Straight;
+				speedX = speedX_Straight;
+			}
+			else
+			{
+				transform.localPosition = defaultPos;
+				if (transform.position.y > 0)
+				{
+					//transform.localPosition = defaultPos;
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					//transform.localPosition = defaultPos;
+					speedX = 5;
+					eState = State.TurnUp;
+				}
+			}
+		}
+	}
+
+
+	new void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
@@ -67,7 +103,7 @@ public class Enemy_First : character_status
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
-				if (parentObj.transform.position.y > 0)
+				if (transform.position.y > 0)
 				{
 					speedX = 5;
 					eState = State.TurnDown;
@@ -90,28 +126,8 @@ public class Enemy_First : character_status
 		}
 
 		HP_Setting();
-	}
+		base.Start();
 
-	private void OnEnable()
-	{
-		if (parentObj)
-		{
-			if (parentObj.name != "enemy_UFO_Group")
-			{
-				eState = State.Straight;
-				speedX = speedX_Straight;
-			}
-			else if (parentObj.transform.position.y > 0)
-			{
-				speedX = 5;
-				eState = State.TurnDown;
-			}
-			else
-			{
-				speedX = 5;
-				eState = State.TurnUp;
-			}
-		}
 	}
 
 	void Update()
@@ -156,8 +172,10 @@ public class Enemy_First : character_status
 			}
 			//Reset_Status();
 			//isDead = true;
-			frame = 0;
-
+			//isTurn = false;
+			//straightFrame = straightFrame_Default;
+			//frame = 0;
+			Enemy_Reset();
 			Died_Process();
 		}
 		//移動関数呼び出し
@@ -174,16 +192,26 @@ public class Enemy_First : character_status
 			case State.TurnUp:
 				if (!isTurn)
 				{
+					straightFrame--;
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
-					if (transform.position.x < 9)
+					if (transform.localPosition.x <= -29)
 					{
-						frame++;
-						if (frame > 180)
-						{
-							isTurn = true;
-						}
+						//frame += Time.deltaTime;
+						//if (frame > 3)
+						//{
+						//	isTurn = true;
+						//}
+						isTurn = true;
 					}
+					//if (transform.position.x < 9)
+					//{
+					//	frame += Time.deltaTime;
+					//	if (frame > 3)
+					//	{
+					//		isTurn = true;
+					//	}
+					//}
 				}
 				else if (isTurn)
 				{
@@ -204,14 +232,24 @@ public class Enemy_First : character_status
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 					gameObject.transform.position += velocity * Time.deltaTime;
-					if (transform.position.x < 9)
+					if (transform.localPosition.x <= -29)
 					{
-						frame++;
-					}
-					if (frame > 180)
-					{
+						//frame += Time.deltaTime;
+						//if (frame > 3)
+						//{
+						//	isTurn = true;
+						//}
 						isTurn = true;
 					}
+
+					//if (transform.position.x < 9)
+					//{
+					//	frame += Time.deltaTime;
+					//}
+					//if (frame > 3)
+					//{
+					//	isTurn = true;
+					//}
 				}
 				else if (isTurn)
 				{
@@ -257,7 +295,12 @@ public class Enemy_First : character_status
 				break;
 		}
 	}
-
+	void Enemy_Reset()
+	{
+		frame = 0;
+		straightFrame = straightFrame_Default;
+		isTurn = false;
+	}
 	private void OnTriggerExit(Collider col)
 	{
 		if (col.gameObject.name == "WallUnder" || col.gameObject.name == "WallTop")
@@ -270,13 +313,15 @@ public class Enemy_First : character_status
 					groupManage.remainingEnemiesCnt -= 1;
 				}
 			}
-			frame = 0;
+			//frame = 0;
+			Enemy_Reset();
 			gameObject.SetActive(false);
 
 		}
 		else if (eState == State.Straight && (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallRight"))
 		{
-			frame = 0;
+			//frame = 0;
+			Enemy_Reset();
 			gameObject.SetActive(false);
 		}
 	}
