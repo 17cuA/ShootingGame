@@ -12,12 +12,9 @@ using StorageReference;
 //using Power;
 public class TempPlayer : MonoBehaviour
 {
-	private Player1 player1;
 
-	public void Awake()
+	public void Start()
 	{
-		player1 = GetComponent<Player1>();
-
 	}
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
@@ -43,9 +40,11 @@ public class TempPlayer : MonoBehaviour
 
 	void Update()
 	{
+
+
+
 		PowerManager.Instance.Update();
 		//ビットン数をパワーマネージャーに更新する
-		PowerManager.Instance.UpdateBit(player1.bitIndex);
 		//---------------------------
 		//パワーマネージャー更新
 		//PowerManager.Instance.OnUpdate(Time.deltaTime)

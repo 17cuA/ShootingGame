@@ -42,7 +42,12 @@ public class LaserEmitter : MonoBehaviour
 
         if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
         {
-            if(Time.time > this.laserCanShotTime)
+			if(this.currentLaser == null)
+			{
+				this.LaunchLaserInstance();
+			}
+
+            if(Time.time > this.laserCanShotTime && currentLaser != null)
             {
                 this.LaunchLaserContinous();
             }
@@ -51,28 +56,29 @@ public class LaserEmitter : MonoBehaviour
         if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
         {
             this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
         }
 
         if(this.laserCurrentNum >= this.laserMaxNum)
         {
-            this.currentLaser.IsFixedPos = false;  
-            this.LaunchLaserInstance();
+            this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
 
-            this.laserCanShotTime = Time.time + this.overLoadDutarion;
+			this.laserCanShotTime = Time.time + this.overLoadDutarion;
             this.laserCurrentNum  = 0;
         }
     }
 
     private void LaunchLaserInstance()
     {
-        for(var i = 0; i < this.lasers.Count; ++i)
+		Debug.Log("レーザーライン生成する。");
+
+		for (var i = 0; i < this.lasers.Count; ++i)
         {
             if(!this.lasers[i].gameObject.activeSelf)
             {
-				this.currentLaser.IsFixedPos = false;
 				this.currentLaser = this.lasers[i];
                 this.currentLaser.IsFixedPos = true;
-                this.currentLaser = lasers[i];
                 this.currentLaser.ResetLineRenderer(); 
                 this.currentLaser.gameObject.SetActive(true);
                 return;
@@ -95,6 +101,7 @@ public class LaserEmitter : MonoBehaviour
 
     private void LaunchLaserContinous()
     {
+		Debug.Log("レーザーポイント生成し続ける。");
         this.currentLaser.Launch();
         this.laserCurrentNum++;
         this.laserCanShotTime = Time.time + fireInterval;
