@@ -4,6 +4,7 @@
 /*
  * 2019/07/17 フェードイン、フェードアウトする　シーン遷移
  * 2019/07/18 フェードアウト後、ディレイを入れる
+ * 2019/07/19 フェードイン中にボタンが押されるとゲームが止まるバグの修正
  */
 
 using System.Collections;
@@ -30,7 +31,7 @@ public class Scene_Manager : MonoBehaviour
 	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
 
 	[SerializeField, Header("フェードインスピード")]		private float fade_in_speed;
-	[SerializeField, Header("フェードアウトスピード")]	private float fade_out_speed;
+	[SerializeField, Header("フェードアウトスピード")]		private float fade_out_speed;
 	[SerializeField, Header("シーン遷移の遅延時間")]		private int transition_deferred;
 
 	private Image[] Renderer_For_Fade { get; set; }					// フェード用SpriteRenderer
@@ -136,19 +137,19 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_ROGO()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = false;
 		}
 		Next_Scene = SCENE_NAME.eROGO;
-			}
+	}
 
 	/// <summary>
 	/// タイトルに移動
 	/// </summary>
 	public void Screen_Transition_To_Title()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -161,7 +162,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Menu()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -174,7 +175,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Stage()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -186,7 +187,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Over()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -199,7 +200,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Clear()
 	{
-		if(!Is_Fade_Out_Intermediate)
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -213,7 +214,7 @@ public class Scene_Manager : MonoBehaviour
 	/// <param name="name"> シーンの名前 </param>
 	public void Scene_Transition(SCENE_NAME name)
 	{
-		if (!Is_Fade_Out_Intermediate)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
