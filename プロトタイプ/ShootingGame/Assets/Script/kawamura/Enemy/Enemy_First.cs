@@ -66,17 +66,21 @@ public class Enemy_First : character_status
 				eState = State.Straight;
 				speedX = speedX_Straight;
 			}
-			else if (parentObj.transform.position.y > 0)
-			{
-				transform.localPosition = defaultPos;
-				speedX = 5;
-				eState = State.TurnDown;
-			}
 			else
 			{
 				transform.localPosition = defaultPos;
-				speedX = 5;
-				eState = State.TurnUp;
+				if (transform.position.y > 0)
+				{
+					//transform.localPosition = defaultPos;
+					speedX = 5;
+					eState = State.TurnDown;
+				}
+				else
+				{
+					//transform.localPosition = defaultPos;
+					speedX = 5;
+					eState = State.TurnUp;
+				}
 			}
 		}
 	}
@@ -99,7 +103,7 @@ public class Enemy_First : character_status
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
 
-				if (parentObj.transform.position.y > 0)
+				if (transform.position.y > 0)
 				{
 					speedX = 5;
 					eState = State.TurnDown;
@@ -125,7 +129,6 @@ public class Enemy_First : character_status
 		base.Start();
 
 	}
-
 
 	void Update()
 	{
