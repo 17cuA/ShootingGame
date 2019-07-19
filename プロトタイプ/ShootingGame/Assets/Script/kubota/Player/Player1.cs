@@ -102,10 +102,8 @@ public class Player1 : character_status
 	}
 	new void Start()
 	{
-		//OS =GameObject.Find("GameMaster").GetComponent 
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
-		//transform.eulerAngles = new Vector3(-30, 0, 0);
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
@@ -129,8 +127,9 @@ public class Player1 : character_status
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();
 		effect_num = 0;
-		min_speed = speed;
-		Laser.SetActive(false);
+		min_speed = speed;		//初期の速度を保存しておく
+		Laser.SetActive(false);	//レーザーの子供が動かないようにするための変数
+	
 	}
 
 	void Update()
