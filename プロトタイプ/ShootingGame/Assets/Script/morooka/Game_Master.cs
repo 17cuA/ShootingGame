@@ -85,7 +85,7 @@ public class Game_Master : MonoBehaviour
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
-    public uint display_score{private set; get;}                // 表示スコア
+    public static uint display_score{private set; get;}                // 表示スコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
@@ -95,7 +95,7 @@ public class Game_Master : MonoBehaviour
 
 	private void Awake()
 	{
-		if(Name_List == null)
+		if (Name_List == null)
 		{
 			Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
 			Name_List = new string[database_.Database_Array.GetLength(0)];
@@ -105,7 +105,10 @@ public class Game_Master : MonoBehaviour
 		{
 			Boss_Data = new Database_Manager("Boss/Boss_Data");
 		}
-		MY = GetComponent<Game_Master>();
+		if (MY == null)
+		{
+			MY = GetComponent<Game_Master>();
+		}
 	}
 
 	void Start()
