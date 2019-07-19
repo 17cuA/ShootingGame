@@ -39,7 +39,7 @@ public class Scene_last : MonoBehaviour
 		score_parent = new GameObject();
 		score_parent.transform.parent = transform;
 		score = new Character_Display(10, "morooka/SS", score_parent, score_pos);
-		score.Character_Preference(Game_Master.MY.display_score.ToString("D10"));
+		score.Character_Preference(Game_Master.display_score.ToString("D10"));
 		score.Size_Change(new Vector3(score_size, score_size, score_size));
 		score.Centering();
 
