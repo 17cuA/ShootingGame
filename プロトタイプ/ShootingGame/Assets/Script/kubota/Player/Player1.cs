@@ -27,11 +27,6 @@ public class Player1 : character_status
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
 
-	//[Tooltip("ジェット噴射の位置情報を入れる")]
-	//public GameObject Injection_pos;			//ジェット噴射の位置情報を入れる変数(unity側にて設定)
-	//private GameObject injection;               //ジェット噴射のエフェクトをオブジェクトとして取得するための変数（生成時に取得）（移動などをするときに使用）
-	//public GameObject Shield_pos;				//シールドの位置情報を入れる変数（unity側にて設定）
-	//private GameObject Shield_Effect;			//シールドのエフェクトを移動するためのにオブジェクトとして取得 （移動などをするときに使用）
 
 	[SerializeField]private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
 	public ParticleSystem particleSystem;							//ジェット噴射自体のパーティクルシステム
@@ -68,7 +63,8 @@ public class Player1 : character_status
 	private float startTime = 0.0f;
 
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
-	private int effect_num = 0;
+	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
+	private float min_speed;		//初期の速度を保存しておくよう変数
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -81,7 +77,7 @@ public class Player1 : character_status
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { laser.Stop(); Reset_BulletType(); });
@@ -96,11 +92,11 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
 		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Debug.Log("スピードアップリセット"); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { Debug.Log("ミサイルリセット"); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Debug.Log("ダブルリセット"); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { /*activeDouble = false;*/ });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { activeShield = false; shield_Effect.Stop(); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { laser.Stop(); Reset_BulletType(); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	new void Start()
 	{
@@ -128,10 +124,10 @@ public class Player1 : character_status
 		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
 		Is_Resporn = false;
-		//startTime = Time.time;
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();
 		effect_num = 0;
+		min_speed = speed;
 	}
 
 	void Update()
@@ -273,7 +269,7 @@ public class Player1 : character_status
 			y = Input.GetAxis("Vertical");
 
 		//プレイヤーの移動に上下左右制限を設ける
-		if (transform.position.y >= 4.0f && y > 0)		y = 0;
+		if (transform.position.y >= 4.5f && y > 0)		y = 0;
 		if (transform.position.y <= -4.5f && y < 0)		y = 0;
 		if (transform.position.x >= 17.0f && x>0)		x = 0;
 		if (transform.position.x <= -17.0f && x < 0)	x = 0;
@@ -305,6 +301,10 @@ public class Player1 : character_status
 		{
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+		}
+		else if (x == 0)
+		{
+			particleSystemMain.startLifetime = baseInjectionAmount;
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
@@ -509,10 +509,5 @@ public class Player1 : character_status
 	private void Reset_BulletType()
 	{
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
-	}
-	
-	private void Resporn_Anime()
-	{
-
 	}
 }
