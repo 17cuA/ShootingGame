@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// テキストや画像を点滅させる
+// 作成者:佐藤翼
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
