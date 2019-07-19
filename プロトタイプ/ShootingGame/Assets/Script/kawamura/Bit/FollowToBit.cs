@@ -29,8 +29,6 @@ public class FollowToBit : MonoBehaviour
 		{
 			previousBitObj = GameObject.Find("FollowPosFirst");
 		}
-
-		int cnt = 0;
 		array_Num = 8;
 		previousBitPos = new Vector3[array_Num];
 

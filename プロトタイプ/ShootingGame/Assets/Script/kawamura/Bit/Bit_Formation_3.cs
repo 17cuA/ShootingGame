@@ -42,7 +42,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	FollowToPreviousBit FtoPBit_Fourth;
 
 
-	Renderer renderer;
+	new Renderer renderer;
 	public MeshRenderer meshrender;
 	Color bit_Color;
 	float alpha_Value = 0;

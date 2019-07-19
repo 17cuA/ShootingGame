@@ -10,7 +10,7 @@ public class ColorTest : MonoBehaviour
 	public float irokawarimasu_V = 0.4f;
 
 	public Slider H, S, V;
-	Renderer renderer;
+	new Renderer renderer;
 	public Color testColor;
     // Start is called before the first frame update
     void Start()

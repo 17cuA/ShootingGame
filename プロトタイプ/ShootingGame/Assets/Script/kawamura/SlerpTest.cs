@@ -14,8 +14,8 @@ public class SlerpTest : MonoBehaviour
 
 	void Start()
     {
-		startMarker = new Vector3(5.0f, transform.position.y, 40.0f);
-		endMarker = new Vector3(5.0f, transform.position.y, 0);
+		//startMarker = new Vector3(5.0f, transform.position.y, 40.0f);
+		//endMarker = new Vector3(5.0f, transform.position.y, 0);
 		distance_two = Vector3.Distance(startMarker, endMarker);
 
 	}

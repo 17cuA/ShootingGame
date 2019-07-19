@@ -22,7 +22,6 @@ public class Enemy_First : character_status
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
-	VisibleCheck vc;
 
 	//Renderer renderer;
 
@@ -91,7 +90,6 @@ public class Enemy_First : character_status
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
-		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
 		//speedX = 5.0f;
