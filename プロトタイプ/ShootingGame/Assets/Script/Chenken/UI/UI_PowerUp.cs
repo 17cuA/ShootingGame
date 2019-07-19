@@ -40,7 +40,7 @@ public class UI_PowerUp : MonoBehaviour
 				current.gameObject.SetActive(true);
 
 			//現在位置に合わせる
-			if (current.gameObject.transform.position != displays[PowerManager.Instance.Position].transform.position) 
+			if (current.gameObject.transform.position != displays[PowerManager.Instance.Position].transform.position && PowerManager.Instance.Position != -1) 
 			{
 				current.gameObject.transform.position = displays[PowerManager.Instance.Position].transform.position;
 				current.gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);

@@ -427,6 +427,11 @@ namespace Power
 			}
 		}
 
+		public void ClearPosition()
+		{
+			position = -1;
+		}
+
 		//後消す
 		public void ResetShieldPower() { }
 		public void ResetAllPower() { }
