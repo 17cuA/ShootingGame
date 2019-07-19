@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//プレイヤーを追従する敵（ハエ型）のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;

@@ -1,5 +1,5 @@
-﻿//ビットの攻撃スクリプト
-//作成者:川村良太
+﻿//作成者：川村良太
+//ビットの攻撃スクリプト
 
 using System.Collections;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
-﻿//オプションの位置関係の処理のスクリプト
-//作成者：川村良太
+﻿//作成者：川村良太
+//オプションの位置関係の処理のスクリプト
 
 using System.Collections;
 using System.Collections.Generic;

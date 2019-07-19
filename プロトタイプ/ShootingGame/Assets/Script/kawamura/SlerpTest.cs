@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//Slerpの動き確認用スクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

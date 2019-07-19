@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//シェーダーのHSVを変えるスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

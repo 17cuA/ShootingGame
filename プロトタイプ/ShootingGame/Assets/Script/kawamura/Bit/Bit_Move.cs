@@ -1,4 +1,5 @@
-﻿//ビットの円運動をするスクリプト
+﻿//作成者：川村良太
+//ビットの円運動をするスクリプト
 
 using System.Collections;
 using System.Collections.Generic;

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//4つのオプションの追従位置オブジェクトの親スクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

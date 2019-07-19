@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//オブジェクトの回転スクリプト　名前はEnemyだけど他でも使えると思う
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

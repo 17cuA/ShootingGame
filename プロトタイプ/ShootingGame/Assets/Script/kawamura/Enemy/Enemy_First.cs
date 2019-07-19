@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//円盤形の敵のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;

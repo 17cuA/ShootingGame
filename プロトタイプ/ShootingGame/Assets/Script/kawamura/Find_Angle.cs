@@ -1,4 +1,5 @@
-﻿//対象の方を向くスクリプト
+﻿//作成者：川村良太
+//対象の方を向くスクリプト
 
 using System.Collections;
 using System.Collections.Generic;

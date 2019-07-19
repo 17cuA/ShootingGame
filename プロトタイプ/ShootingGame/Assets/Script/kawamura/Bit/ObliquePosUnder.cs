@@ -1,4 +1,6 @@
-﻿//ビットン（下のビットン）の斜め撃ちでの角度を変えるスクリプト
+﻿//作成者：川村良太
+//ビットン（下のビットン）の斜め撃ちでの角度を変えるスクリプト
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
