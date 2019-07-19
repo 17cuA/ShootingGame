@@ -11,6 +11,7 @@
 // 2019/05/24：文字の完全削除
 // 2019/05/24：オブジェクトの親子関係の修正
 // 2019/05/27：表示非表示の選択追加
+// 2019/07/19：文字のポジション中央揃え化
 //----------------------------------------------------------------------------------------------
 //
 // 私を読んで
@@ -291,5 +292,20 @@ namespace TextDisplay
                 image.enabled = _enable;
             }
         }
+
+		/// <summary>
+		/// 中央揃え
+		/// </summary>
+		public void Centering()
+		{
+			float MovingDistance = (100.0f * Word_Count) / 2.0f;
+			for(int i = 0; i < Character_Object.Count;i++)
+			{
+				Vector3 temp = Character_Object[i].transform.localPosition;
+				temp.x -= MovingDistance;
+
+				Character_Object[i].transform.localPosition = temp;
+			}
+		}
     }
 }
