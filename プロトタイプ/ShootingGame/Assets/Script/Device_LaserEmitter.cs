@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ChenkenLaser;
 using UnityEngine;
 
 class Device_LaserEmitter : MonoBehaviour
 {
+	/// <summary>
+	/// 回転装置
+	/// </summary>
 	public class EmitterRotateCore
 	{
-		public float theta;
+		public float theta;					
 		public Vector3 pushPosition;
 
 		public EmitterRotateCore(Vector3 pushPosition)
@@ -25,17 +29,16 @@ class Device_LaserEmitter : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 発射装置
+	/// </summary>
 	public class EmitterLaunchCore
 	{
 		public ILaunchDevice currentLaunchDevice;
-		public ChenkenLaser.Laser currentLaser;
-		public List<ChenkenLaser.Laser> lasers;
 
 		public EmitterLaunchCore(ILaunchDevice defaultLaunchDevice)
 		{
 			this.currentLaunchDevice = defaultLaunchDevice;
-			this.currentLaser = null;
-			this.lasers = new List<ChenkenLaser.Laser>();
 		}
 
 		public void SetDevice(ILaunchDevice newLaunchDevice)
@@ -55,8 +58,13 @@ class Device_LaserEmitter : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// 発射専用部品インタフェース
+	/// </summary>
 	public interface ILaunchDevice
 	{
+		ChenkenLaser.Laser CurrentLaser { get; set; }
+		 List<ChenkenLaser.Laser> Lasers { get; set; }
 		int PointMax { get; }
 		int PointCount { get; set; }
 		float OverloadDuration { get; }
@@ -65,6 +73,9 @@ class Device_LaserEmitter : MonoBehaviour
 		void ResetLaunchDevice();
 	}
 
+	/// <summary>
+	/// 直線発射部品
+	/// </summary>
 	public class StraightLaunchDevice : ILaunchDevice
 	{
 		private int pointMax;
@@ -74,10 +85,12 @@ class Device_LaserEmitter : MonoBehaviour
 		public int PointCount { get; set; }
 		public float OverloadDuration { get { return overLoadDuration; } }
 		public float CanLaunchTime { get; set; }
+		public ChenkenLaser.Laser CurrentLaser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public List<ChenkenLaser.Laser> Lasers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public void LaunchPoint()
 		{
-
+			this.PointCount++;
 		}
 
 		public void ResetLaunchDevice()
