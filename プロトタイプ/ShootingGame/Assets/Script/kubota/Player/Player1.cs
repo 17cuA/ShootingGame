@@ -461,10 +461,12 @@ public class Player1 : character_status
 	{
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
+		//プレイヤーパワーアップ時のエフェクト発動処理----------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
+		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 		Laser.SetActive(true);
 	}
