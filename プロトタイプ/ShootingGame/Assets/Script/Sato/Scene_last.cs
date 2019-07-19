@@ -34,18 +34,21 @@ public class Scene_last : MonoBehaviour
 		game_last = new Character_Display(string_to_display.Length, "morooka/SS", game_last_parent, game_last_pos);
 		game_last.Character_Preference(string_to_display);
 		game_last.Size_Change(new Vector3(game_last_size, game_last_size, game_last_size));
+		game_last.Centering();
 
 		score_parent = new GameObject();
 		score_parent.transform.parent = transform;
 		score = new Character_Display(10, "morooka/SS", score_parent, score_pos);
 		score.Character_Preference(Game_Master.MY.display_score.ToString("D10"));
 		score.Size_Change(new Vector3(score_size, score_size, score_size));
+		score.Centering();
 
 		please_push_button_parent = new GameObject();
 		please_push_button_parent.transform.parent = transform;
 		please_push_button = new Character_Display(16, "morooka/SS", please_push_button_parent, please_push_button_pos);
 		please_push_button.Character_Preference("PRESS_ANY_BUTTON");
 		please_push_button.Size_Change(new Vector3(please_push_button_size, please_push_button_size, please_push_button_size));
+		please_push_button.Centering();
 
 		mu = new Color(1.0f,1.0f,1.0f,0.0f);
 		ari = new Color(1.0f, 1.0f, 1.0f, 1.0f);
