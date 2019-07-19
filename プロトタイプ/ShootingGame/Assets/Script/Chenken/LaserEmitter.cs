@@ -5,37 +5,33 @@ using ChenkenLaser;
 
 public class LaserEmitter : MonoBehaviour
 {
-    public Material lineMaterial;
+	public Material lineMaterial;
     private List<ChenkenLaser.Laser> lasers;
     private ChenkenLaser.Laser currentLaser;
+	[Header("--------生成するレーザー設定-------")]
     public float lineWidth = 0.2f;
     public float lineLength = 0.5f;
     public float shotSpeed = 0.8f;
+	public int laserMaxNum;
+	public float overLoadDutarion;
 
+	[Header("--------回転プロパティ--------")]
+	public bool canRotateControl;
+	public float rotateDivisor = 12;
+
+	[Header("-------レーザーポイントオブジェクト--------")]
     public GameObject LaserNode;
-    public int laserMaxNum;
-    public float overLoadDutarion;
 
     private float fireInterval;
-    private Vector3 emitterPosition;
-
     private int laserCurrentNum;
     private float laserCanShotTime  = 0f;
 
-
-
     private void Awake()
     {
-        this.lasers               = new List<ChenkenLaser.Laser>();
-        this.currentLaser         = null;
-        
-    }
-
-    private void Start()
-    {
-        this.fireInterval         = lineLength / (shotSpeed * 60 );
-       
-    }
+        this.lasers         = new List<ChenkenLaser.Laser>();
+        this.currentLaser   = null;
+		this.fireInterval   = lineLength / (shotSpeed * 60);
+	}
 
     public void Update()
     {
@@ -93,7 +89,8 @@ public class LaserEmitter : MonoBehaviour
         laserGo.transform.SetParent(this.transform);
         laserGo.transform.localPosition = Vector3.zero;
         this.currentLaser =  newLaser;
-        this.lasers.Add(currentLaser);      
+        this.lasers.Add(currentLaser); 
+		
     }
 
     private void LaunchLaserContinous()
@@ -102,6 +99,5 @@ public class LaserEmitter : MonoBehaviour
         this.laserCurrentNum++;
         this.laserCanShotTime = Time.time + fireInterval;
         this.currentLaser.IsFixedPos = true;
-
     }
 }

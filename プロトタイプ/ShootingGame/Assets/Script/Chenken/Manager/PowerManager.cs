@@ -434,6 +434,12 @@ namespace Power
 
 		//後消す
 		public void ResetShieldPower() { }
-		public void ResetAllPower() { }
+		public void ResetAllPowerUpgradeCount()
+		{
+			for(var i = 0; i < powers.Count; ++i)
+			{
+				powers[(PowerManager.Power.PowerType)i].ResetUpgradeCount();
+			}
+		}
 	}	
 }
