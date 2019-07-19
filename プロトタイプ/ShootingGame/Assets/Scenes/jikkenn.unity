@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &712651678
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -217,8 +217,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df7212a6ad6525f40953dd9006471081, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 6563c38d317844841876b13f72857e09, type: 2}
+  - {fileID: 2100000, guid: 123ac6dc79004e54b8b352a7e64acdca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -269,7 +269,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712651677}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 10
   stopAction: 0
   cullingMode: 0
@@ -344,7 +344,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -397,7 +397,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 20
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -512,8 +512,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 2
+      minMaxState: 3
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -565,7 +565,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -618,7 +618,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1094,7 +1094,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1524,7 +1524,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1532,8 +1532,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 1, g: 1, b: 1, a: 0.627451}
+        key1: {r: 0, g: 0.81646967, b: 1, a: 0.47058824}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4052,7 +4052,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
@@ -4112,8 +4112,8 @@ ParticleSystem:
     textureMode: 0
     ribbonCount: 1
     shadowBias: 0.5
-    worldSpace: 0
-    dieWithParticles: 1
+    worldSpace: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -4873,13 +4873,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712651677}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.7, y: 0, z: 0}
+  m_LocalPosition: {x: -9.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1001 &726227349
+--- !u!1001 &1026451032
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4891,15 +4891,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lasers_shadow
       objectReference: {fileID: 0}
+    - target: {fileID: 4173079087734581474, guid: 7797716e90cb29a4d9a95b94bb111206,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.6
+      value: -8.2
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.49
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
@@ -4944,41 +4949,6 @@ PrefabInstance:
     - target: {fileID: 4173079087734581477, guid: 7797716e90cb29a4d9a95b94bb111206,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: TrailModule.sizeAffectsWidth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: TrailModule.inheritParticleColor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: TrailModule.widthOverTrail.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: TrailModule.shadowBias
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: TrailModule.generateLightingData
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: ShapeModule.type
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4173079087734581476, guid: 7797716e90cb29a4d9a95b94bb111206,
-        type: 3}
-      propertyPath: ShapeModule.radiusThickness
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
