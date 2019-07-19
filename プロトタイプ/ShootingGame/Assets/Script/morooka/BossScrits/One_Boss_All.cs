@@ -411,10 +411,10 @@ public class One_Boss_All : character_status
 				Options_Rotation_Attack();
 			}
 
-			if(hp <= 0)
-			{
+			//if(hp <= 0)
+			//{
 
-			}
+			//}
 		}
 	}
 
