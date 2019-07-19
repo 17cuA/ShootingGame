@@ -39,6 +39,7 @@ public class Enemy_First : character_status
 	public float speedX_Straight;
 	public float speedY;
 
+	bool once = true;
 	bool isTurn;
 	bool isAddition = false;
 	bool isDead = false;
@@ -59,30 +60,30 @@ public class Enemy_First : character_status
 	private void OnEnable()
 	{
 		
-		if (parentObj)
-		{
-			if (parentObj.name != "enemy_UFO_Group")
-			{
-				eState = State.Straight;
-				speedX = speedX_Straight;
-			}
-			else
-			{
-				transform.localPosition = defaultPos;
-				if (transform.position.y > 0)
-				{
-					//transform.localPosition = defaultPos;
-					speedX = 5;
-					eState = State.TurnDown;
-				}
-				else
-				{
-					//transform.localPosition = defaultPos;
-					speedX = 5;
-					eState = State.TurnUp;
-				}
-			}
-		}
+		//if (parentObj)
+		//{
+		//	if (parentObj.name != "enemy_UFO_Group")
+		//	{
+		//		eState = State.Straight;
+		//		speedX = speedX_Straight;
+		//	}
+		//	else
+		//	{
+		//		transform.localPosition = defaultPos;
+		//		if (transform.position.y > 0)
+		//		{
+		//			//transform.localPosition = defaultPos;
+		//			speedX = 5;
+		//			eState = State.TurnDown;
+		//		}
+		//		else
+		//		{
+		//			//transform.localPosition = defaultPos;
+		//			speedX = 5;
+		//			eState = State.TurnUp;
+		//		}
+		//	}
+		//}
 	}
 
 
@@ -132,6 +133,38 @@ public class Enemy_First : character_status
 
 	void Update()
 	{
+		if(once)
+		{
+			if (parentObj)
+			{
+				if (parentObj.name != "enemy_UFO_Group")
+				{
+					eState = State.Straight;
+					speedX = speedX_Straight;
+				}
+				else
+				{
+					transform.localPosition = defaultPos;
+					if (transform.position.y > 0)
+					{
+						//transform.localPosition = defaultPos;
+						speedX = 5;
+						eState = State.TurnDown;
+					}
+					else
+					{
+						//transform.localPosition = defaultPos;
+						speedX = 5;
+						eState = State.TurnUp;
+					}
+				}
+			}
+			once = false;
+		}
+
+		//移動関数呼び出し
+		Move();
+
 		//倒されたとき
 		if (hp < 1)
 		{
@@ -178,8 +211,6 @@ public class Enemy_First : character_status
 			Enemy_Reset();
 			Died_Process();
 		}
-		//移動関数呼び出し
-		Move();
 	}
 
 	//---------ここから関数--------------
@@ -299,6 +330,7 @@ public class Enemy_First : character_status
 	{
 		frame = 0;
 		straightFrame = straightFrame_Default;
+		once = true;
 		isTurn = false;
 	}
 	private void OnTriggerExit(Collider col)
