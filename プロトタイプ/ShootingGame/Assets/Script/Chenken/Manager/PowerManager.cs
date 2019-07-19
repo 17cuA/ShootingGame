@@ -386,7 +386,7 @@ namespace Power
 		{
 			position++;
 
-			position %= powers.Count;
+			position %= powers.Count - 1;
 		}
 
 		/// <summary>
