@@ -225,63 +225,63 @@ public class Player1 : character_status
 				}
 			}
 			Invincible();
-			switch (Game_Master.MY.Management_In_Stage)
-			{
-				case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
-					//プレイヤーの移動処理
-					Player_Move();
-					//パワーアップの処理
-					if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
-					{
-						PowerManager.Instance.Upgrade();
-					}
-					//体力が０になると死ぬ処理
-					//Died_Judgment();
-					if (bullet_Type == Bullet_Type.Laser)
-					{
-						if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-						{
-							//laser.Play();
-							Laser.SetActive(true);
-							//line_beam.shot();
+			//switch (Game_Master.MY.Management_In_Stage)
+			//{
+			//	case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
+			//		//プレイヤーの移動処理
+			//		Player_Move();
+			//		//パワーアップの処理
+			//		if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+			//		{
+			//			PowerManager.Instance.Upgrade();
+			//		}
+			//		//体力が０になると死ぬ処理
+			//		//Died_Judgment();
+			//		if (bullet_Type == Bullet_Type.Laser)
+			//		{
+			//			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			//			{
+			//				//laser.Play();
+			//				Laser.SetActive(true);
+			//				//line_beam.shot();
 
-						}
-						if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
-						{
-							Laser.SetActive(false);
-							//laser.Stop();
-						}
-					}
-					//弾の発射（Fire2かSpaceキーで撃てる）
-					if (Shot_Delay > Shot_DelayMax)
-					{
-						Bullet_Create();
-					}
-					if (Input.GetKeyDown(KeyCode.Z))
-					{
-						Damege_Process(1);
-						Debug.Log("Player_HP	" + hp);
-					}
-					break;
-				case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-					break;
-				case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-					//プレイヤーの移動処理
-					Player_Move();
-					//体力が０になると死ぬ処理
-					//Died_Judgment();
-					//弾の発射（Fire2かSpaceキーで撃てる）
-					if (Shot_Delay > Shot_DelayMax)
-					{
-						Bullet_Create();
-					}
-					if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
-					break;
-				case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
-					break;
-				default:
-					break;
-			}
+			//			}
+			//			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+			//			{
+			//				Laser.SetActive(false);
+			//				//laser.Stop();
+			//			}
+			//		}
+			//		//弾の発射（Fire2かSpaceキーで撃てる）
+			//		if (Shot_Delay > Shot_DelayMax)
+			//		{
+			//			Bullet_Create();
+			//		}
+			//		if (Input.GetKeyDown(KeyCode.Z))
+			//		{
+			//			Damege_Process(1);
+			//			Debug.Log("Player_HP	" + hp);
+			//		}
+			//		break;
+			//	case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
+			//		break;
+			//	case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
+			//		//プレイヤーの移動処理
+			//		Player_Move();
+			//		//体力が０になると死ぬ処理
+			//		//Died_Judgment();
+			//		//弾の発射（Fire2かSpaceキーで撃てる）
+			//		if (Shot_Delay > Shot_DelayMax)
+			//		{
+			//			Bullet_Create();
+			//		}
+			//		if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
+			//		break;
+			//	case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
+			//		break;
+			//	default:
+			//		break;
+			//}
 
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
