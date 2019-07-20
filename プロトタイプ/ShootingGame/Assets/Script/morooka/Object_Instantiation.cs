@@ -139,6 +139,7 @@ namespace StorageReference
 				#endregion
 				#region Plauyer_Laser
 				case Game_Master.OBJECT_NAME.ePLAYER_LASER:
+					obj = Obj_Storage.Storage_Data.Laser_Line.Active_Obj();
 					break;
 				#endregion
 				#region Enemy_Bullet
