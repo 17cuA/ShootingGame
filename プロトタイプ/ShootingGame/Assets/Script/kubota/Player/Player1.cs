@@ -93,10 +93,6 @@ public class Player1 : character_status
 		 */
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
 			Reset_BulletType();
-			if (!Laser.activeSelf)
-			{
-				Laser.SetActive(false);
-			}
 		});
 		///////////////////////
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
@@ -211,6 +207,8 @@ public class Player1 : character_status
 			//}
 			if (hp < 1)
 			{
+				if (Laser.activeSelf) { Laser.SetActive(false); }
+
 				Remaining--;
 				if (Remaining < 1)
 				{
