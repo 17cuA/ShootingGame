@@ -14,9 +14,9 @@ public class StartUpProgram : MonoBehaviour
 	{
 		if (instance) { return; }
 		Cursor.visible = false;
-		Screen.SetResolution(1920, 1080, true);
+		//Screen.SetResolution(1920, 1080, true);
 		Application.targetFrameRate = 60;
-		CameraSetUp.DualCameraSetUp cameraSetup = new CameraSetUp.DualCameraSetUp();
+		//CameraSetUp.DualCameraSetUp cameraSetup = new CameraSetUp.DualCameraSetUp();
 		instance = FindObjectOfType<StartUpProgram>();
 	}
 }

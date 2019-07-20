@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChenkenLaser;
 
+ [DefaultExecutionOrder(599)]
 public class LaserEmitter : MonoBehaviour
 {
 	public Material lineMaterial;
@@ -53,19 +54,25 @@ public class LaserEmitter : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space)  && this.currentLaser != null)
         {
             this.currentLaser.IsFixedPos = false;
 			this.currentLaser = null;
         }
 
-        if(this.laserCurrentNum >= this.laserMaxNum)
+        if(this.laserCurrentNum >= this.laserMaxNum && this.currentLaser != null)
         {
             this.currentLaser.IsFixedPos = false;
 			this.currentLaser = null;
 
 			this.laserCanShotTime = Time.time + this.overLoadDutarion;
             this.laserCurrentNum  = 0;
+        }
+
+        if(!this.transform.parent.gameObject.activeSelf && this.currentLaser != null)
+        {
+            this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
         }
     }
 
@@ -78,8 +85,8 @@ public class LaserEmitter : MonoBehaviour
             if(!this.lasers[i].gameObject.activeSelf)
             {
 				this.currentLaser = this.lasers[i];
-                this.currentLaser.IsFixedPos = true;
                 this.currentLaser.ResetLineRenderer(); 
+                this.currentLaser.IsFixedPos = true;
                 this.currentLaser.gameObject.SetActive(true);
                 return;
             }
