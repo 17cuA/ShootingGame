@@ -194,11 +194,19 @@ public class Enemy_MiddleBoss : character_status
 			stateManager.ChangeState(StateType.STOP);
 			return;
 		}
-			
-		if (moveDirection == Vector3.down)
-			transform.Rotate(Vector3.left * (180.0f / (moveDuration / Time.deltaTime)));
-		if (moveDirection == Vector3.up)
-			transform.Rotate(Vector3.right * (180.0f / (moveDuration / Time.deltaTime)));
+
+        //if (moveDirection == Vector3.down)
+        //	transform.Rotate(Vector3.left * (180.0f / (moveDuration / Time.deltaTime)));
+        //if (moveDirection == Vector3.up)
+        //	transform.Rotate(Vector3.right * (180.0f / (moveDuration / Time.deltaTime)));
+
+
+        if (moveDirection == Vector3.down)
+              transform.localEulerAngles = Vector3.Slerp(new Vector3(180, 0 ,0), new Vector3(0, 0, 0), (moveDuration -  stateManager.Current.Timer)/ moveDuration);
+
+        if (moveDirection == Vector3.up)
+              transform.localEulerAngles = Vector3.Slerp(new Vector3(0, 0 ,0), new Vector3(180, 0, 0), (moveDuration -  stateManager.Current.Timer) / moveDuration);
+
 
 		transform.position += speed  * moveDirection * Time.deltaTime;
 	}
@@ -252,6 +260,15 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Escape_Enter()
 	{
+        //-------------------------7/20修正--------------------------
+        //逃亡時コライダー修正
+        //実はコアの部分を大きくする
+        //細かく調整が必要あるが、今はこれで
+        //-----------------------------------------------------------
+        capsuleCollider.height = 8;
+        capsuleCollider.center = new Vector2(1.5f,0.09f);
+
+
 		moveDirection = Vector3.left;
 		base.hp = 10000;
 	}
