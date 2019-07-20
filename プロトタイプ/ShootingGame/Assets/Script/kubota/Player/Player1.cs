@@ -91,7 +91,13 @@ public class Player1 : character_status
 		 * もし直していて、マージで元に戻ったバグならごめんなさい。
 		 * 以上 諸岡 2019/07/20
 		 */
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
+			Reset_BulletType();
+			if (!Laser.activeSelf)
+			{
+				Laser.SetActive(false);
+			}
+		});
 		///////////////////////
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
@@ -107,7 +113,7 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); Laser.SetActive(false); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	new void Start()
@@ -390,15 +396,11 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-
-						//effect_mazle_fire;
-						//ParticleCreation(2);
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						//ParticleCreation(2);
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
 
