@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 namespace ChenkenLaser
 { 
@@ -118,8 +119,12 @@ namespace ChenkenLaser
 
          public void Launch()
          {
-             var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
-            node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+            　//------------------------7/20修正-----------------------------
+           　 //Laserlineプーリング化され、生成し方を変更する
+           　 //-------------------------------------------------------------
+             //var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
+             var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, transform.position,Quaternion.identity);
+             node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
              this.laserNodes.Add(node);
          }
 
