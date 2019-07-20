@@ -53,19 +53,25 @@ public class LaserEmitter : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space)  && this.currentLaser != null)
         {
             this.currentLaser.IsFixedPos = false;
 			this.currentLaser = null;
         }
 
-        if(this.laserCurrentNum >= this.laserMaxNum)
+        if(this.laserCurrentNum >= this.laserMaxNum && this.currentLaser != null)
         {
             this.currentLaser.IsFixedPos = false;
 			this.currentLaser = null;
 
 			this.laserCanShotTime = Time.time + this.overLoadDutarion;
             this.laserCurrentNum  = 0;
+        }
+
+        if(!this.transform.parent.gameObject.activeSelf && this.currentLaser != null)
+        {
+            this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
         }
     }
 
@@ -78,8 +84,8 @@ public class LaserEmitter : MonoBehaviour
             if(!this.lasers[i].gameObject.activeSelf)
             {
 				this.currentLaser = this.lasers[i];
-                this.currentLaser.IsFixedPos = true;
                 this.currentLaser.ResetLineRenderer(); 
+                this.currentLaser.IsFixedPos = true;
                 this.currentLaser.gameObject.SetActive(true);
                 return;
             }
@@ -92,8 +98,8 @@ public class LaserEmitter : MonoBehaviour
         newLaser.LaserNode     = LaserNode;
         newLaser.IsFixedPos = true;
         newLaser.ShotSpeed     = this.shotSpeed;
-        laserGo.transform.SetParent(this.transform);
-        laserGo.transform.localPosition = Vector3.zero;
+        laserGo.transform.SetParent(this.transform.parent);
+        laserGo.transform.position = this.transform.position;
         this.currentLaser =  newLaser;
         this.lasers.Add(currentLaser); 
 		
