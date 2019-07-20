@@ -12,8 +12,4 @@ public class VisibleCheck : MonoBehaviour
 		renderer = gameObject.GetComponent<Renderer>();
     }
 
-    void Update()
-    {
-        
-    }
 }

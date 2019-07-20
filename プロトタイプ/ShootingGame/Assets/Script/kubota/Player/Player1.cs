@@ -82,7 +82,7 @@ public class Player1 : character_status
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); Laser.SetActive(false); });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -97,7 +97,7 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); Laser.SetActive(false); });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	new void Start()
@@ -159,15 +159,16 @@ public class Player1 : character_status
 			if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 			if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
+				hp = 0;
 				Remaining--;
+				Debug.Log("hei");
 				ParticleCreation(0);        //爆発のエフェクト発動
 				Reset_Status();             //体力の修正
-				gameObject.transform.position = direction;      //初期位置に戻す
-				Laser.SetActive(false);               //レーザーを稼働状態の時、停止状態にする
 				invincible = false;         //無敵状態にするかどうかの処理
 				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 				bullet_Type = Bullet_Type.Single;
 				Is_Resporn = true;
+				Laser.SetActive(false);
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 			//---------------------------
@@ -461,10 +462,12 @@ public class Player1 : character_status
 	{
 		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
+		//プレイヤーパワーアップ時のエフェクト発動処理----------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
+		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 		Laser.SetActive(true);
 	}

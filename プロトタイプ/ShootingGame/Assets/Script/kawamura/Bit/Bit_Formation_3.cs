@@ -281,8 +281,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	void Bit_Move()
 	{
 		//ビットンの移動
-		switch (bState)
-		{
+		//switch (bState)
+		//{
 			//case BitState.Circular:
 			//	b_Shot.isShot = true;
 
@@ -350,7 +350,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			//case BitState.Laser:
 			//	b_Shot.isShot = false;
 			//	break;
-		}
+		//}
 	}
 
 	//生成(画面に表示された時のポジション設定)
