@@ -19,6 +19,7 @@ public class Enemy_First : character_status
 
 	Vector3 velocity;
 	public Vector3 defaultPos;
+    public Vector3 defaultPos_PlusZ;
 
 	GameObject item;
 	public GameObject parentObj;
@@ -40,6 +41,9 @@ public class Enemy_First : character_status
 	public float speedX;
 	public float speedX_Straight;
 	public float speedY;
+    public float speedZ;
+    public float speedZ_Value;
+         
 
 	bool once = true;
 	bool isTurn;
@@ -52,6 +56,7 @@ public class Enemy_First : character_status
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
 		defaultPos = transform.localPosition;
+        defaultPos_PlusZ = defaultPos + new Vector3(0, 0, 20);
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
@@ -104,9 +109,10 @@ public class Enemy_First : character_status
 			if (parentObj.name == "enemy_UFO_Group")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
-
+                transform.position = defaultPos_PlusZ;
 				if (transform.position.y > 0)
 				{
+
 					speedX = 5;
 					eState = State.TurnDown;
 				}
@@ -145,8 +151,11 @@ public class Enemy_First : character_status
 				}
 				else
 				{
-					transform.localPosition = defaultPos;
-					if (transform.position.y > 0)
+                    transform.localPosition = defaultPos;
+                    //transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
+                    //transform.localPosition = defaultPos_PlusZ;
+
+                    if (transform.position.y > 0)
 					{
 						//transform.localPosition = defaultPos;
 						speedX = 5;
