@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// メニューから選択でのシーン移動
+// 作成者:佐藤翼
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //ボタンを使用するためUIとSceneManagerを使用ためSceneManagementを追加
