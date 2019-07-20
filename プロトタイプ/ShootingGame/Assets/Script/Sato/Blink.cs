@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// テキストや画像を点滅させる
+// 作成者:佐藤翼
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,8 +44,8 @@ public class Blink : MonoBehaviour
 
 		please_push_button_parent = new GameObject();
 		please_push_button_parent.transform.parent = transform;
-		please_push_button = new Character_Display(16, "morooka/SS", please_push_button_parent, please_push_button_pos);
-		please_push_button.Character_Preference("PRESS_ANY_BUTTON");
+		please_push_button = new Character_Display(12, "morooka/SS", please_push_button_parent, please_push_button_pos);
+		please_push_button.Character_Preference("PRESS_BUTTON");
 		please_push_button.Size_Change(new Vector3(please_push_button_size, please_push_button_size, please_push_button_size));
 		please_push_button.Centering();
 	}

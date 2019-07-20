@@ -34,7 +34,7 @@ public class Scene_Manager : MonoBehaviour
 	[SerializeField, Header("フェードアウトスピード")]		private float fade_out_speed;
 	[SerializeField, Header("シーン遷移の遅延時間")]		private int transition_deferred;
 
-	private Image[] Renderer_For_Fade { get; set; }					// フェード用SpriteRenderer
+	private Image Renderer_For_Fade { get; set; }					// フェード用SpriteRenderer
 	private float Fade_In_Quantity { get; set; }					// 1フレームのフェードイン量
 	private float Fade_Out_Quantity { get; set; }					// 1フレームのフェードアウト量
 	private int Transition_Deferred_Cnt{ get; set; }				// シーン遷移の遅延時間カウント
@@ -48,11 +48,11 @@ public class Scene_Manager : MonoBehaviour
     {
 		Manager = GetComponent<Scene_Manager>();
 
-		Renderer_For_Fade = new Image[2];
-		for(int i = 0;i<Renderer_For_Fade.Length;i++)
-		{
-			Renderer_For_Fade[i] = transform.GetChild(i).GetChild(0).GetComponent<Image>();
-		}
+		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+		//for (int i = 0;i<Renderer_For_Fade.Length;i++)
+		//{
+		//	Renderer_For_Fade[i] = transform.GetChild(i).GetChild(0).GetComponent<Image>();
+		//}
 
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
 		Fade_In_Quantity = fade_in_speed / 255.0f;
@@ -93,19 +93,19 @@ public class Scene_Manager : MonoBehaviour
 		Is_Fade_Finished = true;
 		Is_Fade_In_Intermediate = false;
 
-		foreach (Image image in Renderer_For_Fade)
+		//foreach (Image image in Renderer_For_Fade)
+		//{
+		if (Renderer_For_Fade.color.a > 0.0f)
 		{
-			if (image.color.a > 0.0f)
-			{
-				Color color_for_fade = image.color;
+			Color color_for_fade = Renderer_For_Fade.color;
 				color_for_fade.a -= Fade_In_Quantity;
 
-				image.color = color_for_fade;
+		Renderer_For_Fade.color = color_for_fade;
 
 				Is_Fade_Finished = false;
 				Is_Fade_In_Intermediate = true;
-			}
 		}
+		//}
 		return Is_Fade_Finished;
 	}
 
@@ -117,18 +117,18 @@ public class Scene_Manager : MonoBehaviour
 	{
 		Is_Fade_Finished = true;
 
-		foreach (Image image in Renderer_For_Fade)
+		//foreach (Image image in Renderer_For_Fade)
+		//{
+		if (Renderer_For_Fade.color.a < 1.0f)
 		{
-			if (image.color.a < 1.0f)
-			{
-				Color color_for_fade = image.color;
+			Color color_for_fade = Renderer_For_Fade.color;
 				color_for_fade.a += Fade_Out_Quantity;
 
-				image.color = color_for_fade;
+		Renderer_For_Fade.color = color_for_fade;
 
 				Is_Fade_Finished = false;
-			}
 		}
+		//}
 		return Is_Fade_Finished;
 	}
 
@@ -154,7 +154,6 @@ public class Scene_Manager : MonoBehaviour
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eTITLE;
-		
 	}
 
 	/// <summary>

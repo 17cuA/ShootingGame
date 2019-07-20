@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// レーザーSphereCast当たり判定型
+// 作成者:佐藤翼
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 

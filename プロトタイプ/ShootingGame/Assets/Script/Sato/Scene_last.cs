@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// エンディングシーンからの移動
+// 作成者:佐藤翼
+// 変更者:諸岡
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TextDisplay;
@@ -33,8 +36,8 @@ public class Scene_last : MonoBehaviour
 	private void Start()
 	{
 		Game_Last_String = string_to_display;
-		Score_String = "TOTALSCORE_" + Game_Master.display_score.ToString("D10");
-		Please_Push_Button_String = "PRESS_ANY_BUTTON";
+		Score_String = "TOTALSCORE__" + Game_Master.display_score.ToString("D10");
+		Please_Push_Button_String = "PRESS__BUTTON";
 
 		game_last_parent = new GameObject();
 		game_last_parent.transform.parent = transform;

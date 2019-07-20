@@ -441,5 +441,14 @@ namespace Power
 				powers[(PowerManager.Power.PowerType)i].ResetUpgradeCount();
 			}
 		}
+
+        /// <summary>
+        /// 07/20追加　原因：プレイヤーが死んだら選択がリセットされない
+        /// 選択だけリセット
+        /// </summary>
+        public void ResetSelect()
+        {
+            position = -1;
+        }
 	}	
 }
