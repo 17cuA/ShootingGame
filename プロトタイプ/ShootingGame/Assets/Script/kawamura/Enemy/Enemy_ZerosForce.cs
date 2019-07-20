@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//ゼロスフォースのスクリプト（未完成）ゲームに入れないけど一応残しておく
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -140,7 +140,7 @@ public class character_status : MonoBehaviour
 	//自分以外の玉と当たった時にダメージを食らう
 	private void OnTriggerEnter(Collider col)
 	{
-		if (gameObject.tag == "Player")
+		if (gameObject.tag == "Player" || tag == "Invincible")
 		{
 			if (col.tag == "Item")
 			{
@@ -198,6 +198,9 @@ public class character_status : MonoBehaviour
 		if (hp < 1 && Remaining < 1) is_died = true;
 		return is_died;
 	}
+	/* 
+	 * 
+	 */
 
 	//キャラクターが死んでいるかどうかの判定用関数
 	public bool Dead_Check()

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//円盤形の敵のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
@@ -22,7 +25,6 @@ public class Enemy_First : character_status
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
-	VisibleCheck vc;
 
 	//Renderer renderer;
 
@@ -91,7 +93,6 @@ public class Enemy_First : character_status
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
-		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
 		//speedX = 5.0f;

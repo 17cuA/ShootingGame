@@ -1,5 +1,5 @@
-﻿//画面奥から来たり上下移動をしながら来る敵
-//その敵のテクスチャの明るさ変更もする
+﻿//作成者：川村良太
+//画面奥から来たり上下移動をしながら来る敵（闘牛型）のスクリプト
 
 using System.Collections;
 using System.Collections.Generic;
