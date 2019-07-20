@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 namespace ChenkenLaser
 { 
+     [DefaultExecutionOrder(598)]
      [RequireComponent(typeof(LineRenderer))]
      public class Laser : MonoBehaviour
      {
@@ -81,25 +83,12 @@ namespace ChenkenLaser
         private void Update()
          {
 
-             if(laserNodes.Count > 2)
-             { 
-                if(this.IsFixedPos)
-                { 
-                     this.SetLaserRenderer (new Vector3(laserNodes[0].transform.position.x,transform.position.y, 0)
-                                          , new Vector3(laserNodes[laserNodes.Count - 1].transform.position.x,transform.position.y,0));
-                }
-                else
-                {
-                    this.SetLaserRenderer (new Vector3(laserNodes[0].transform.position.x,laserNodes[0].transform.position.y, 0)
-                                         , new Vector3(laserNodes[laserNodes.Count - 1].transform.position.x,laserNodes[laserNodes.Count - 1].transform.position.y,0));
-                }
-             }
-
              for(var i = 0; i < this.laserNodes.Count; ++i)
              {
                  if(!this.laserNodes[i].gameObject.activeSelf)
                  {
                      this.laserNodes.Remove(laserNodes[i]);
+                     i--;
                      if(this.laserNodes.Count == 0)
                      {
 						this.laserNodes.Clear();
@@ -113,13 +102,28 @@ namespace ChenkenLaser
                          this.laserNodes[i].transform.position = new Vector3(this.laserNodes[i].transform.position.x,transform.position.y, 0);
                  }
              }
-           
+
+             if(laserNodes.Count >= 2)
+             { 
+                if(this.IsFixedPos)
+                { 
+                     this.SetLaserRenderer (new Vector3(laserNodes[0].transform.position.x,transform.position.y, 0)
+                                          , new Vector3(laserNodes[laserNodes.Count - 1].transform.position.x,transform.position.y,0));
+                }
+                else
+                {
+                    this.SetLaserRenderer (new Vector3(laserNodes[0].transform.position.x,laserNodes[0].transform.position.y, 0)
+                                         , new Vector3(laserNodes[laserNodes.Count - 1].transform.position.x,laserNodes[laserNodes.Count - 1].transform.position.y,0));
+                }
+             }
+
          }
 
          public void Launch()
          {
              var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
-            node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+             //var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, transform.position, Quaternion.identity);
+             node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
              this.laserNodes.Add(node);
          }
 

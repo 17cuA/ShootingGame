@@ -1,5 +1,5 @@
-﻿//オプションの位置関係の処理のスクリプト
-//作成者：川村良太
+﻿//作成者：川村良太
+//オプションの位置関係の処理のスクリプト
 
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	FollowToPreviousBit FtoPBit_Fourth;
 
 
-	Renderer renderer;
+	new Renderer renderer;
 	public MeshRenderer meshrender;
 	Color bit_Color;
 	float alpha_Value = 0;
@@ -281,8 +281,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	void Bit_Move()
 	{
 		//ビットンの移動
-		switch (bState)
-		{
+		//switch (bState)
+		//{
 			//case BitState.Circular:
 			//	b_Shot.isShot = true;
 
@@ -350,7 +350,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			//case BitState.Laser:
 			//	b_Shot.isShot = false;
 			//	break;
-		}
+		//}
 	}
 
 	//生成(画面に表示された時のポジション設定)

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//プレイヤーと同じ動きで追従するオプションの位置用オブジェクト（1つ目のオプション）のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

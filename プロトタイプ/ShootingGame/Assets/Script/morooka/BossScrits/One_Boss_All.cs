@@ -176,8 +176,6 @@ public class One_Boss_All : character_status
 		// 一定HP以上のとき
 		if (now_percent > remaining_hp_percent / 100.0f)
 		{
-			//Boss_Body.transform.Rotate(new Vector3(rotating_velocity,0.0f,0.0f));
-
 			// 移動したい場所が今の位置と違うとき
 			if (transform.position != Now_Target)
 			{
@@ -187,105 +185,6 @@ public class One_Boss_All : character_status
 			else if (transform.position == Now_Target)
 			{
 				Shot_Delay++;
-				#region 保留
-				//// 一定時間たったとき
-				//if (Shot_Delay > Shot_DelayMax)
-				//{
-				//	// 一拍おく
-				//	if (Attack_Step == 0)
-				//	{
-				//		Attack_Step++;
-				//		Shot_Delay = 0;
-				//	}
-				//	// ビーム攻撃上
-				//	else if (Attack_Step == 1 || Attack_Step == 3)
-				//	{
-				//		if (Beam_Cnt < beam_max)
-				//		{
-				//			Shoot_Beam(0);
-				//			Beam_Cnt++;
-				//			Shot_Delay /= 20;
-				//		}
-				//		else
-				//		{
-				//			Beam_Cnt = 0;
-				//			Attack_Step++;
-				//			Shot_Delay /= 2;
-				//		}
-				//	}
-				//	// ビーム攻撃下
-				//	else if (Attack_Step == 2 || Attack_Step == 4)
-				//	{
-				//		if (Beam_Cnt < beam_max)
-				//		{
-				//			Shoot_Beam(1);
-				//			Beam_Cnt++;
-				//			Shot_Delay /= 20;
-				//		}
-				//		else
-				//		{
-				//			Beam_Cnt = 0;
-				//			Attack_Step++;
-				//			Shot_Delay /= 2;
-				//		}
-				//	}
-				//	// 次の位置決定
-				//	else if (Attack_Step == 5)
-				//	{
-				//		Now_Target = Moving_Target_Point[Random.Range(0, Moving_Target_Point.Count)];
-				//		Rotation_Speed_Change();
-				//		Shot_Delay = 0;
-				//		Beam_Cnt = 0;
-
-				//		if (Random.Range(0, 2) == 0)
-				//		{
-				//			Attack_Step = 7;
-				//		}
-				//		else
-				//		{
-				//			Attack_Step = 0;
-				//		}
-				//	}
-
-				//	else if (Attack_Step == 7)
-				//	{
-				//		if (Now_Target != Moving_Target_Point[0])
-				//		{
-				//			Now_Target = Moving_Target_Point[0];
-				//		}
-				//		else
-				//		{
-				//			Shoot_Beam(0);
-				//			Shoot_Beam(1);
-
-				//			Vector3 temp_right = Beam_Mazle[0].right;
-				//			temp_right.y++;
-				//			Beam_Mazle[0].right = temp_right;
-
-				//			temp_right = Beam_Mazle[1].right;
-				//			temp_right.y--;
-				//			Beam_Mazle[1].right = temp_right;
-
-				//			Shot_Delay /= 3;
-				//			Beam_Cnt++;
-				//		}
-
-				//		if (Beam_Cnt == 3)
-				//		{
-				//			Debug.Log("asdfg");
-				//			Attack_Step = 5;
-				//			Shot_Delay = 0;
-				//			Vector3 temp_right = Beam_Mazle[0].right;
-				//			temp_right.y -= 3.0f;
-				//			Beam_Mazle[0].right = temp_right;
-
-				//			temp_right = Beam_Mazle[1].right;
-				//			temp_right.y += 3.0f;
-				//			Beam_Mazle[1].right = temp_right;
-				//		}
-				//	}
-				//}
-				#endregion
 
 				// 攻撃可能のとき
 				if (Shot_Delay > Shot_DelayMax)
@@ -311,7 +210,6 @@ public class One_Boss_All : character_status
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[0].transform.position, Initial_Beam_Mazle[0].transform.right);
 						Initial_Beam_Mazle[0].transform.Rotate(new Vector3(0.0f, 0.0f, -Rotating_Velocity));
 
-						//Shoot_Beam(1);
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Initial_Beam_Mazle[1].transform.position, Initial_Beam_Mazle[1].transform.right);
 						Initial_Beam_Mazle[1].transform.Rotate(new Vector3(0.0f, 0.0f, Rotating_Velocity));
 
@@ -409,11 +307,6 @@ public class One_Boss_All : character_status
 			else if (Attack_Step == 2)
 			{
 				Options_Rotation_Attack();
-			}
-
-			if(hp <= 0)
-			{
-
 			}
 		}
 	}
@@ -529,8 +422,8 @@ public class One_Boss_All : character_status
 	/// <returns> 移動後のポジション </returns>
 	private Vector3 Moving_To_Target(Vector3 origin,Vector3 target, float speed)
 	{
-		Vector3 moving_facing		= Vector3.zero;		// 移動する前のターゲットとの向き
-		Vector3 return_pos			= Vector3.zero;		// 返すポジション
+		Vector3 moving_facing = Vector3.zero;		// 移動する前のターゲットとの向き
+		Vector3 return_pos	 = Vector3.zero;				// 返すポジション
 		
 		moving_facing = target - origin;
 		return_pos = origin + (moving_facing.normalized * speed);
@@ -640,7 +533,15 @@ public class One_Boss_All : character_status
 		{
 			if (Input.GetKey(KeyCode.H))
 			{
-				hp = Initial_HP / 2;
+				//hp = Initial_HP / 2;
+
+				//// のこりHPの確認
+				//float now_percent = (float)Boss_Core.hp / (float)Initial_HP;
+				//// 一定HP以上のとき
+				//if (now_percent > remaining_hp_percent / 100.0f)
+
+				Boss_Core.hp =  (int)((float)Boss_Core.hp * (remaining_hp_percent / 100.0f));
+
 				Debug.Log("Boss_HP_Harf");
 			}
 			else if (Input.GetKey(KeyCode.Z))

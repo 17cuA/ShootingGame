@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//Slerpの動き確認用スクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,8 +17,8 @@ public class SlerpTest : MonoBehaviour
 
 	void Start()
     {
-		startMarker = new Vector3(5.0f, transform.position.y, 40.0f);
-		endMarker = new Vector3(5.0f, transform.position.y, 0);
+		//startMarker = new Vector3(5.0f, transform.position.y, 40.0f);
+		//endMarker = new Vector3(5.0f, transform.position.y, 0);
 		distance_two = Vector3.Distance(startMarker, endMarker);
 
 	}

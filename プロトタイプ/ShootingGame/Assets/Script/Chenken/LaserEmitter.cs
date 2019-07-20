@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChenkenLaser;
 
+ [DefaultExecutionOrder(599)]
 public class LaserEmitter : MonoBehaviour
 {
 	public Material lineMaterial;
@@ -42,38 +43,50 @@ public class LaserEmitter : MonoBehaviour
 
         if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
         {
-            if(Time.time > this.laserCanShotTime)
+			if(this.currentLaser == null)
+			{
+				this.LaunchLaserInstance();
+			}
+
+            if(Time.time > this.laserCanShotTime && currentLaser != null)
             {
                 this.LaunchLaserContinous();
             }
         }
 
-        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space)  && this.currentLaser != null)
         {
             this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
         }
 
-        if(this.laserCurrentNum >= this.laserMaxNum)
+        if(this.laserCurrentNum >= this.laserMaxNum && this.currentLaser != null)
         {
-            this.currentLaser.IsFixedPos = false;  
-            this.LaunchLaserInstance();
+            this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
 
-            this.laserCanShotTime = Time.time + this.overLoadDutarion;
+			this.laserCanShotTime = Time.time + this.overLoadDutarion;
             this.laserCurrentNum  = 0;
+        }
+
+        if(!this.transform.parent.gameObject.activeSelf && this.currentLaser != null)
+        {
+            this.currentLaser.IsFixedPos = false;
+			this.currentLaser = null;
         }
     }
 
     private void LaunchLaserInstance()
     {
-        for(var i = 0; i < this.lasers.Count; ++i)
+		Debug.Log("レーザーライン生成する。");
+
+		for (var i = 0; i < this.lasers.Count; ++i)
         {
             if(!this.lasers[i].gameObject.activeSelf)
             {
-				this.currentLaser.IsFixedPos = false;
 				this.currentLaser = this.lasers[i];
-                this.currentLaser.IsFixedPos = true;
-                this.currentLaser = lasers[i];
                 this.currentLaser.ResetLineRenderer(); 
+                this.currentLaser.IsFixedPos = true;
                 this.currentLaser.gameObject.SetActive(true);
                 return;
             }
@@ -94,6 +107,7 @@ public class LaserEmitter : MonoBehaviour
 
     private void LaunchLaserContinous()
     {
+		Debug.Log("レーザーポイント生成し続ける。");
         this.currentLaser.Launch();
         this.laserCurrentNum++;
         this.laserCanShotTime = Time.time + fireInterval;

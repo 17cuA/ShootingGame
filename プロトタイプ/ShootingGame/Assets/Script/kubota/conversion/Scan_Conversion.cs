@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+ * 久保田達己
+ * アナログテレビのような表現をおこなうためのスクリプト
+
+ *  */
+ using UnityEngine;
 using System.Collections;
 
 [ExecuteInEditMode()]

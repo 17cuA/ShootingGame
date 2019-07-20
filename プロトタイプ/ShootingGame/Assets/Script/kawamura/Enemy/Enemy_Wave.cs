@@ -1,5 +1,5 @@
-﻿//画面奥から来たり上下移動をしながら来る敵
-//その敵のテクスチャの明るさ変更もする
+﻿//作成者：川村良太
+//画面奥から来たり上下移動をしながら来る敵（闘牛型）のスクリプト
 
 using System.Collections;
 using System.Collections.Generic;
@@ -94,15 +94,15 @@ public class Enemy_Wave : character_status
 	private void OnEnable()
 	{
 		transform.localPosition = defaultPos;
-		startMarker = new Vector3(11.5f, transform.position.y, 40.0f);
-		endMarker = new Vector3(11.5f, transform.position.y, 0);
+		startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
+		endMarker = new Vector3(12.0f, transform.position.y, 0);
 
 	}
 
 	new void Start()
 	{
-		startMarker = new Vector3(11.5f, transform.position.y, 40.0f);
-		endMarker = new Vector3(11.5f, transform.position.y, 0);
+		startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
+		endMarker = new Vector3(12.0f, transform.position.y, 0);
 		distance_two= Vector3.Distance(startMarker, endMarker);
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
@@ -282,7 +282,11 @@ public class Enemy_Wave : character_status
 				//{
 				present_Location = (Time.time * testSpeed) / distance_two;
 				transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
-				startTime += Time.deltaTime;
+				startTime += 0.012f;
+				if(startTime>1)
+				{
+					startTime = 1;
+				}
 				//startTime++;
 				HSV_Change();
 

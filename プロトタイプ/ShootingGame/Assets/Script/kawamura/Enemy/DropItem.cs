@@ -1,4 +1,5 @@
-﻿//単体でアイテムを落とす敵用のスクリプト
+﻿//作成者：川村良太
+//単体でアイテムを落とす敵用のスクリプト
 
 using System.Collections;
 using System.Collections.Generic;

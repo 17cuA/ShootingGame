@@ -48,16 +48,16 @@ public class Game_Master : MonoBehaviour
         eEFFECT					// エフェクト
     }
 
-	/// <summary>
-	/// ステージ内のセグメント管理
-	/// </summary>
-    public enum CONFIGURATION_IN_STAGE
-    {
-        eNORMAL,	
-        eBOSS_CUT_IN,
-        eBOSS_BUTTLE,
-        eCLEAR,
-    }
+	///// <summary>
+	///// ステージ内のセグメント管理
+	///// </summary>
+ //   public enum CONFIGURATION_IN_STAGE
+ //   {
+ //       eNORMAL,	
+ //       eBOSS_CUT_IN,
+ //       eBOSS_BUTTLE,
+ //       eCLEAR,
+ //   }
 
 	/// <summary>
 	/// 生成オブジェクトの指定用
@@ -85,17 +85,17 @@ public class Game_Master : MonoBehaviour
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
-    public uint display_score{private set; get;}                // 表示スコア
+    public static uint display_score{private set; get;}                // 表示スコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
-    public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
+    //public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
     public Score_Display _Display{private set; get;}			// スコア表示をするため用
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 	public string[] Name_List {  get; private set; }
 
 	private void Awake()
 	{
-		if(Name_List == null)
+		if (Name_List == null)
 		{
 			Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
 			Name_List = new string[database_.Database_Array.GetLength(0)];
@@ -105,7 +105,10 @@ public class Game_Master : MonoBehaviour
 		{
 			Boss_Data = new Database_Manager("Boss/Boss_Data");
 		}
-		MY = GetComponent<Game_Master>();
+		if (MY == null)
+		{
+			MY = GetComponent<Game_Master>();
+		}
 	}
 
 	void Start()
@@ -149,7 +152,7 @@ public class Game_Master : MonoBehaviour
     /// </summary>
     private void Stage_Start()
     {
-        Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
+        //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
 		display_score = 0;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		Is_Completed_For_Warning_Animation = false;

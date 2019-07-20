@@ -1,5 +1,5 @@
-﻿//ビットの攻撃スクリプト
-//作成者:川村良太
+﻿//作成者：川村良太
+//ビットの攻撃スクリプト
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ public class Bit_Shot : MonoBehaviour
 	public GameObject playerObj;
     public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	GameObject laserObj;
-
+	public GameObject laser_Obj;
 
 	public ParticleSystem laser;            //レーザーのパーティクルを取得するための変数
 	public Line_Beam line_beam;
@@ -59,6 +59,8 @@ public class Bit_Shot : MonoBehaviour
         Direction = transform.rotation;
         shotDelayMax = 5;
 		laser.Stop();
+		laser_Obj.SetActive(false); //レーザーの子供が動かないようにするための変数
+
 	}
 
 	void Update()
@@ -70,6 +72,15 @@ public class Bit_Shot : MonoBehaviour
             pl1 = playerObj.GetComponent<Player1>();
 
         }
+
+		if(pl1.bullet_Type == Player1.Bullet_Type.Laser)
+		{
+			laser_Obj.SetActive(true);
+		}
+		else
+		{
+			laser_Obj.SetActive(false);
+		}
         if (!bf.isDead)
 		{
 			if (isShot)
@@ -79,18 +90,28 @@ public class Bit_Shot : MonoBehaviour
 					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
 					{
 						//line_beam.disableEffect();
-						laser.Stop();
-					}
+						//laser.Stop();
+						laser_Obj.SetActive(false);
 
+					}
 					else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 					{
-						laser.Play();
-						line_beam.shot();
-						//laser.Play();
-						//line_beam.shot();
+						laser_Obj.SetActive(true);
+                        if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+                        {
+                            if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+                            {
+                                Missile_Fire();
+                            }
+                        }
 
-					}
-				}
+                        //laser.Play();
+                        //line_beam.shot();
+                        //laser.Play();
+                        //line_beam.shot();
+
+                    }
+                }
 
 				else if (shot_Delay > shotDelayMax)
 				{

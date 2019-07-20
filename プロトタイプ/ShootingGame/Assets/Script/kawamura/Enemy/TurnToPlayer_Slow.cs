@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//プレイヤーを追従する敵（ハエ型）のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
@@ -43,11 +46,11 @@ public class TurnToPlayer_Slow : character_status
 	bool once;
 	bool isInc = false;
 	bool isDec = false;
-	bool isPositive;
-	bool isNegative;
+	//bool isPositive;
+	//bool isNegative;
 	bool isPlus;
 	bool isMinus;
-	bool isCCCCC = false;
+	//bool isCCCCC = false;
     bool isDelay = false;
 	bool haveItem = false;
 	private void Awake()
@@ -151,30 +154,30 @@ public class TurnToPlayer_Slow : character_status
 			//角度を増やす
 			transform.Rotate(0, 0, rollSpeed);
 
-            if (transform.eulerAngles.z <= 180)
-            {
-                isPositive = true;
-                isNegative = false;
-            }
-            else if (transform.eulerAngles.z > 180)
-            {
-                isNegative = true;
-                isPositive = false;
-            }
+            //if (transform.eulerAngles.z <= 180)
+            //{
+            //    isPositive = true;
+            //    isNegative = false;
+            //}
+            //else if (transform.eulerAngles.z > 180)
+            //{
+            //    isNegative = true;
+            //    isPositive = false;
+            //}
         }
         else if (isDec)
 		{
 			transform.Rotate(0, 0, -rollSpeed);
-            if (transform.eulerAngles.z <= 180)
-			{
-				isPositive = true;
-				isNegative = false;
-			}
-			else if (transform.eulerAngles.z > 180)
-			{
-				isNegative = true;
-				isPositive = false;
-			}
+			//if (transform.eulerAngles.z <= 180)
+			//{
+			//	isPositive = true;
+			//	isNegative = false;
+			//}
+			//else if (transform.eulerAngles.z > 180)
+			//{
+			//	isNegative = true;
+			//	isPositive = false;
+			//}
         }
 
 		rotationZ_Inc = transform.eulerAngles.z + 3;

@@ -1,4 +1,5 @@
-﻿//敵群を管理する(群の中の敵の数)
+﻿//作成者：川村良太
+//敵群を管理する(群の中の敵の数)
 
 using System.Collections;
 using System.Collections.Generic;

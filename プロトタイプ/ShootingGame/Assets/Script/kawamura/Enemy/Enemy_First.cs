@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//円盤形の敵のスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
@@ -22,7 +25,6 @@ public class Enemy_First : character_status
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
-	VisibleCheck vc;
 
 	//Renderer renderer;
 
@@ -39,6 +41,7 @@ public class Enemy_First : character_status
 	public float speedX_Straight;
 	public float speedY;
 
+	bool once = true;
 	bool isTurn;
 	bool isAddition = false;
 	bool isDead = false;
@@ -59,30 +62,30 @@ public class Enemy_First : character_status
 	private void OnEnable()
 	{
 		
-		if (parentObj)
-		{
-			if (parentObj.name != "enemy_UFO_Group")
-			{
-				eState = State.Straight;
-				speedX = speedX_Straight;
-			}
-			else
-			{
-				transform.localPosition = defaultPos;
-				if (transform.position.y > 0)
-				{
-					//transform.localPosition = defaultPos;
-					speedX = 5;
-					eState = State.TurnDown;
-				}
-				else
-				{
-					//transform.localPosition = defaultPos;
-					speedX = 5;
-					eState = State.TurnUp;
-				}
-			}
-		}
+		//if (parentObj)
+		//{
+		//	if (parentObj.name != "enemy_UFO_Group")
+		//	{
+		//		eState = State.Straight;
+		//		speedX = speedX_Straight;
+		//	}
+		//	else
+		//	{
+		//		transform.localPosition = defaultPos;
+		//		if (transform.position.y > 0)
+		//		{
+		//			//transform.localPosition = defaultPos;
+		//			speedX = 5;
+		//			eState = State.TurnDown;
+		//		}
+		//		else
+		//		{
+		//			//transform.localPosition = defaultPos;
+		//			speedX = 5;
+		//			eState = State.TurnUp;
+		//		}
+		//	}
+		//}
 	}
 
 
@@ -90,7 +93,6 @@ public class Enemy_First : character_status
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
-		vc = childObj.GetComponent<VisibleCheck>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
 		//speedX = 5.0f;
@@ -132,6 +134,38 @@ public class Enemy_First : character_status
 
 	void Update()
 	{
+		if(once)
+		{
+			if (parentObj)
+			{
+				if (parentObj.name != "enemy_UFO_Group")
+				{
+					eState = State.Straight;
+					speedX = speedX_Straight;
+				}
+				else
+				{
+					transform.localPosition = defaultPos;
+					if (transform.position.y > 0)
+					{
+						//transform.localPosition = defaultPos;
+						speedX = 5;
+						eState = State.TurnDown;
+					}
+					else
+					{
+						//transform.localPosition = defaultPos;
+						speedX = 5;
+						eState = State.TurnUp;
+					}
+				}
+			}
+			once = false;
+		}
+
+		//移動関数呼び出し
+		Move();
+
 		//倒されたとき
 		if (hp < 1)
 		{
@@ -178,8 +212,6 @@ public class Enemy_First : character_status
 			Enemy_Reset();
 			Died_Process();
 		}
-		//移動関数呼び出し
-		Move();
 	}
 
 	//---------ここから関数--------------
@@ -299,6 +331,7 @@ public class Enemy_First : character_status
 	{
 		frame = 0;
 		straightFrame = straightFrame_Default;
+		once = true;
 		isTurn = false;
 	}
 	private void OnTriggerExit(Collider col)

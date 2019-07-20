@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//固定砲台のスクリプト　今は特に動きがないので死ぬ処理だけ
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
