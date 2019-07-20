@@ -225,6 +225,20 @@ public class Player1 : character_status
 				}
 			}
 			Invincible();
+			//プレイヤーの移動処理
+			Player_Move();
+			//体力が０になると死ぬ処理
+			//Died_Judgment();
+			//弾の発射（Fire2かSpaceキーで撃てる）
+			if (Shot_Delay > Shot_DelayMax)
+			{
+				Bullet_Create();
+			}
+			if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+			{
+				PowerManager.Instance.Upgrade();
+			}
+
 			//switch (Game_Master.MY.Management_In_Stage)
 			//{
 			//	case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
