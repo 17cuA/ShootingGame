@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &158748759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
+    type: 3}
+  m_PrefabInstance: {fileID: 260280007}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +381,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 8175564570435099509}
     m_Modifications:
     - target: {fileID: 9204608175031737187, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
@@ -405,27 +411,27 @@ PrefabInstance:
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.089702465
       objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.90947866
       objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.2701252
       objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.30304205
       objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2695362086263733121, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
@@ -594,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 3069264954416727105, guid: 36b6091bbac56154c89389fa88adf929,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3069264954416727105, guid: 36b6091bbac56154c89389fa88adf929,
         type: 3}
@@ -2761,6 +2767,7 @@ Transform:
   m_Children:
   - {fileID: 8175564570463470245}
   - {fileID: 8175564570906543821}
+  - {fileID: 158748759}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 33.073, y: 216.868, z: 0.038000003}

@@ -161,7 +161,7 @@ MonoBehaviour:
   score_pos: {x: -960, y: 0, z: 0}
   score_size: 0.7
   please_push_button_pos: {x: -960, y: -200, z: 0}
-  please_push_button_size: 0.2
+  please_push_button_size: 0.24
 --- !u!1 &389607752
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   score_pos: {x: 960, y: 0, z: 0}
   score_size: 0.7
   please_push_button_pos: {x: 960, y: -200, z: 0}
-  please_push_button_size: 0.2
+  please_push_button_size: 0.24
 --- !u!1 &413498920
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,19 +589,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 8017909930401400057, guid: efe19314eb7af6f42a8b98c74b122544,
+        type: 3}
+      propertyPath: m_Text
+      value: "<color=red><size=50>Producer</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n<color=red><size=50>Program</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n<color=red><size=50>Sound</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8300453997595359190, guid: efe19314eb7af6f42a8b98c74b122544,
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017909930401400057, guid: efe19314eb7af6f42a8b98c74b122544,
-        type: 3}
-      propertyPath: m_Text
-      value: "<color=red><size=50>Producer</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n<color=red><size=50>Program</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n<color=red><size=50>Sound</size></color>\r\n\u30B9\u30BF\u30C3\u30D5\r\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\u30B9\u30BF\u30C3\u30D5\n\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5093300214620648295, guid: efe19314eb7af6f42a8b98c74b122544,
         type: 3}
@@ -628,6 +624,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
