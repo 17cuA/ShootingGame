@@ -36,23 +36,6 @@ public class Score_Display : MonoBehaviour
         Object_To_Display.Size_Change(new Vector3(font_size, font_size, font_size));
     }
 
-    void Update()
-    {
-        switch (Game_Master.MY.Management_In_Stage)
-        {
-            case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
-                break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-                break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-                break;
-            case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
-                break;
-            default:
-                break;
-        }
-    }
-
     /// <summary>
     /// 表示数値の設定
     /// </summary>
