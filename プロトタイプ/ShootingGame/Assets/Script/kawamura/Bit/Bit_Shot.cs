@@ -97,14 +97,21 @@ public class Bit_Shot : MonoBehaviour
 					else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 					{
 						laser_Obj.SetActive(true);
+                        if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+                        {
+                            if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+                            {
+                                Missile_Fire();
+                            }
+                        }
 
-						//laser.Play();
-						//line_beam.shot();
-						//laser.Play();
-						//line_beam.shot();
+                        //laser.Play();
+                        //line_beam.shot();
+                        //laser.Play();
+                        //line_beam.shot();
 
-					}
-				}
+                    }
+                }
 
 				else if (shot_Delay > shotDelayMax)
 				{
