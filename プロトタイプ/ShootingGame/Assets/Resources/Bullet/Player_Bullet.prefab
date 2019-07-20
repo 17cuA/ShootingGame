@@ -4803,20 +4803,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6763658474058333981}
     m_Modifications:
-    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_Name
-      value: Player_Bullet_Eff
-      objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.172
       objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.011
       objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
@@ -4862,6 +4857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_Bullet_Eff
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d429fc415f53eeb438c409999c3d49f1, type: 3}

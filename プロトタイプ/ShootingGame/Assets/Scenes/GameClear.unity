@@ -798,7 +798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: game_last_pos.y
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: game_last_pos.x
@@ -818,7 +818,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: please_push_button_size
-      value: 0.2
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: score_pos.y
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: please_push_button_pos.y
+      value: -360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
@@ -1207,10 +1215,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8300453997595359190, guid: efe19314eb7af6f42a8b98c74b122544,
         type: 3}
       propertyPath: m_IsActive
@@ -1218,6 +1222,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6848255007459815305, guid: efe19314eb7af6f42a8b98c74b122544,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654495729, guid: efe19314eb7af6f42a8b98c74b122544, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1342,7 +1350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: game_last_pos.y
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: game_last_pos.x
@@ -1362,7 +1370,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
       propertyPath: please_push_button_size
-      value: 0.2
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: score_pos.y
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: please_push_button_pos.y
+      value: -360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
