@@ -82,7 +82,17 @@ public class Player1 : character_status
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); Laser.SetActive(false); });
+		/*
+		 * 2週目 + 死んだとき
+		 * 以上の条件でプレイヤーが動かなくなるバグの修正(応急処置)
+		 * Laser.SetActive(false); をコメントアウト
+		 *
+		 * バグの原因は不明
+		 * もし直していて、マージで元に戻ったバグならごめんなさい。
+		 * 以上 諸岡 2019/07/20
+		 */
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		///////////////////////
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
@@ -169,6 +179,17 @@ public class Player1 : character_status
 				bullet_Type = Bullet_Type.Single;
 				Is_Resporn = true;
 				Laser.SetActive(false);
+				/*
+				 * 画面左端にいるとき + 左移動の入力をしているとき + 破壊されたとき
+				 * 以上の条件でゲームが止まるバグの修正(応急処置)
+				 * return; を入れて void Update() を抜ける
+				 * 
+				 * バグの原因は自身が死んだ時の処理後に、
+				 * 生存時用の左移動用のエフェクトが呼び出される処理が呼び出されてしまうため。
+				 * 以上 諸岡 2019/07/20
+				 */
+				return;
+				////////////////////////////////////////
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 			//---------------------------
