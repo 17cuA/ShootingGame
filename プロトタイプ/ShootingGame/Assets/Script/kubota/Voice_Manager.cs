@@ -15,7 +15,7 @@ public class Voice_Manager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		audiosource = GetComponent<AudioSource>();
+		//audiosource = GetComponent<AudioSource>();
 	}
 
 	public void Voice_Active(AudioClip voice)
