@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChenkenLaser;
 
+ [DefaultExecutionOrder(599)]
 public class LaserEmitter : MonoBehaviour
 {
 	public Material lineMaterial;
@@ -98,8 +99,8 @@ public class LaserEmitter : MonoBehaviour
         newLaser.LaserNode     = LaserNode;
         newLaser.IsFixedPos = true;
         newLaser.ShotSpeed     = this.shotSpeed;
-        laserGo.transform.SetParent(this.transform.parent);
-        laserGo.transform.position = this.transform.position;
+        laserGo.transform.SetParent(this.transform);
+        laserGo.transform.localPosition = Vector3.zero;
         this.currentLaser =  newLaser;
         this.lasers.Add(currentLaser); 
 		
