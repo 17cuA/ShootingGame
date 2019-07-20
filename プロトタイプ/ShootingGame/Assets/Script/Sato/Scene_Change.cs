@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// タイトルからのシーン移動
+// 作成者:佐藤翼
+// 変更者:諸岡
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;

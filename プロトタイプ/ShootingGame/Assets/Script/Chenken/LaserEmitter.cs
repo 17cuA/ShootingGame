@@ -103,7 +103,6 @@ public class LaserEmitter : MonoBehaviour
         laserGo.transform.localPosition = Vector3.zero;
         this.currentLaser =  newLaser;
         this.lasers.Add(currentLaser); 
-		
     }
 
     private void LaunchLaserContinous()

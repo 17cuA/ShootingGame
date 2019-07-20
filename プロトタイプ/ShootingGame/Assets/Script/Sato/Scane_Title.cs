@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// タイトルに戻るだけ
+// 作成者:佐藤翼
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
