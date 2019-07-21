@@ -98,7 +98,17 @@ public class character_status : MonoBehaviour
 	/// </summary>
 	public void Died_Process()
 	{
-		if (gameObject.tag != "Player")
+		if (transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
+		{
+			//スコア
+			Game_Master.MY.Score_Addition(score);
+			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[7]);
+			//爆発処理の作成
+			ParticleCreation(7);
+			Is_Dead = true;
+			Reset_Status();
+		}
+		else if (gameObject.tag != "Player")
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
@@ -108,16 +118,6 @@ public class character_status : MonoBehaviour
 			Is_Dead = true;
 			Reset_Status();
 
-		}
-		else if(transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
-		{
-			//スコア
-			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[7]);
-			//爆発処理の作成
-			ParticleCreation(7);
-			Is_Dead = true;
-			Reset_Status();
 		}
 		else
 		{
