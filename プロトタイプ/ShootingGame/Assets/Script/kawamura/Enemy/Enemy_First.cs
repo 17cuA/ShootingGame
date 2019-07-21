@@ -152,6 +152,7 @@ public class Enemy_First : character_status
 				else
 				{
                     transform.localPosition = defaultPos;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                     //transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
                     //transform.localPosition = defaultPos_PlusZ;
 
@@ -174,7 +175,7 @@ public class Enemy_First : character_status
 
 		//移動関数呼び出し
 		Move();
-
+		HSV_Change();
 		//倒されたとき
 		if (hp < 1)
 		{
@@ -234,9 +235,21 @@ public class Enemy_First : character_status
 				if (!isTurn)
 				{
 					straightFrame--;
-					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
-					if (transform.localPosition.x <= -29)
+
+					if (transform.position.z < 0)
+					{
+						transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+						speedZ = 0;
+						speedZ_Value = 0;
+					}
+
+					if (transform.localPosition.x <= -12.0f)
+					{
+						speedZ = speedZ_Value;
+					}
+					if (transform.localPosition.x <= -32)
 					{
 						//frame += Time.deltaTime;
 						//if (frame > 3)
@@ -271,9 +284,22 @@ public class Enemy_First : character_status
 			case State.TurnDown:
 				if (!isTurn)
 				{
-					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
-					if (transform.localPosition.x <= -29)
+
+					if (transform.position.z < 0)
+					{
+						transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+						speedZ = 0;
+						speedZ_Value = 0;
+					}
+
+					if (transform.position.x <= -12.0f)
+					{
+						speedZ = speedZ_Value;
+					}
+
+					if (transform.localPosition.x <= -32)
 					{
 						//frame += Time.deltaTime;
 						//if (frame > 3)
@@ -340,6 +366,7 @@ public class Enemy_First : character_status
 	{
 		frame = 0;
 		straightFrame = straightFrame_Default;
+		speedZ_Value = 50;
 		once = true;
 		isTurn = false;
 	}
