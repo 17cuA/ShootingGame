@@ -24,14 +24,14 @@ public class Scene_Manager : MonoBehaviour
 		eTITLE,
 		eMENU,
 
-         //------------------7/21追加-----------------
-         //勝手にいじっちゃて申し訳ない
-         //説明シーン列挙型追加
-         //-------------------------------------------
-        //eINSTRUCTION, 
+        //------------------7/21追加-----------------
+        //勝手にいじっちゃて申し訳ない
+        //説明シーン列挙型追加
+        //-------------------------------------------
+        eINSTRUCTION,
 
 
-		eSTAGE,
+        eSTAGE,
 		eGAME_OVER,
 		eGAME_CLEAR,
 	}
@@ -221,21 +221,21 @@ public class Scene_Manager : MonoBehaviour
     /// ゲーム説明に移動
     /// ------------------------------------------
     /// </summary>
- //   public void Screen_Transition_To_Instruction()
-	//{
-	//	if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-	//	{
-	//		Is_Fade_Out_Intermediate = true;
-	//	}
+    public void Screen_Transition_To_Instruction()
+    {
+        if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+        {
+            Is_Fade_Out_Intermediate = true;
+        }
 
-	//	Next_Scene = SCENE_NAME.eINSTRUCTION;
-	//}
+        Next_Scene = SCENE_NAME.eINSTRUCTION;
+    }
 
-	/// <summary>
-	/// 任意のシーンに移動
-	/// </summary>
-	/// <param name="name"> シーンの名前 </param>
-	public void Scene_Transition(SCENE_NAME name)
+    /// <summary>
+    /// 任意のシーンに移動
+    /// </summary>
+    /// <param name="name"> シーンの名前 </param>
+    public void Scene_Transition(SCENE_NAME name)
 	{
 		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
