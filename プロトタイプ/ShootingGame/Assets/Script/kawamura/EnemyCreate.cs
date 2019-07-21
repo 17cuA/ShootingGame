@@ -122,7 +122,7 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group.transform.position = createPosR4.transform.position;
+                    enemy_UFO_Group.transform.position = createPosR3.transform.position;
                     enemy_UFO_Group.transform.rotation = transform.rotation;
                     break;
 
@@ -131,7 +131,7 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group2.transform.position = createPosRm4.transform.position;
+                    enemy_UFO_Group2.transform.position = createPosRm3.transform.position;
                     enemy_UFO_Group2.transform.rotation = transform.rotation;
                     break;
 
@@ -140,7 +140,7 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group3.transform.position = createPosR4.transform.position;
+                    enemy_UFO_Group3.transform.position = createPosR3.transform.position;
                     enemy_UFO_Group3.transform.rotation = transform.rotation;
                     break;
 
@@ -149,7 +149,7 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group4.transform.position = createPosRm4.transform.position;
+                    enemy_UFO_Group4.transform.position = createPosRm3.transform.position;
                     enemy_UFO_Group4.transform.rotation = transform.rotation;
                     break;
 
@@ -167,12 +167,12 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group5.transform.position = createPosR4.transform.position;
+                    enemy_UFO_Group5.transform.position = createPosR3.transform.position;
                     enemy_UFO_Group5.transform.rotation = transform.rotation;
 
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group6.transform.position = createPosRm4.transform.position;
+                    enemy_UFO_Group6.transform.position = createPosRm3.transform.position;
                     enemy_UFO_Group6.transform.rotation = transform.rotation;
 
                     break;
@@ -197,12 +197,12 @@ public class EnemyCreate : MonoBehaviour
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group9.transform.position = createPosR4.transform.position;
+                    enemy_UFO_Group9.transform.position = createPosR3.transform.position;
                     enemy_UFO_Group9.transform.rotation = transform.rotation;
 
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-                    enemy_UFO_Group10.transform.position = createPosRm4.transform.position;
+                    enemy_UFO_Group10.transform.position = createPosRm3.transform.position;
                     enemy_UFO_Group10.transform.rotation = transform.rotation;
 
                     break;
