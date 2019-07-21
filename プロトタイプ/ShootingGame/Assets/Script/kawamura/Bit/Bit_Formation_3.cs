@@ -23,16 +23,17 @@ public class Bit_Formation_3 : MonoBehaviour
 	//[SerializeField]
 	//BitState previous_state;				//ビットンの前の状態（レーザーを解除したときに使う）
 
-	GameObject playerObj;					//プレイヤーのオブジェクト
+	public GameObject playerObj;					//プレイヤーのオブジェクト
 	public GameObject parentObj;			//親のオブジェクト
 	public GameObject followPosObj;         //プレイヤーを追従するときの位置オブジェクト
-	GameObject followPosFirstObj;
-	GameObject followPosSecondObj;
-	GameObject followPosThirdObj;
-	GameObject followPosFourthObj;
-
+	public GameObject followPosFirstObj;
+	public GameObject followPosSecondObj;
+	public GameObject followPosThirdObj;
+	public GameObject followPosFourthObj;
 	GameObject obliquePosObj;				//斜めうち状態の座標用オブジェクト
-	GameObject laserPos;					//レーザー時の座標用オブジェクト
+	GameObject laserPos;                    //レーザー時の座標用オブジェクト
+	public GameObject effectObj;
+	public ParticleSystem option_Particle;            //レーザーのパーティクルを取得するための変数
 
 	Bit_Shot b_Shot;                        //ビットンの攻撃スクリプト情報
 	Player1 pl1;
@@ -41,20 +42,22 @@ public class Bit_Formation_3 : MonoBehaviour
 	FollowToPreviousBit FtoPBit_Third;
 	FollowToPreviousBit FtoPBit_Fourth;
 
-
+	//Material effect;
+	public Renderer effectRenderer;
 	new Renderer renderer;
 	public MeshRenderer meshrender;
 	Color bit_Color;
+	Color effect_Color;
 	float alpha_Value = 0;
+	float alpha_Value_eff = 0;
 	public float scale_value = 0.5f;
-	public float aaaaaaaaaaaaaaaaa;
 
 	float speed;                        //ビットンの移動スピード
 	public float defaultSpeed;
 	float step;                             //スピードを計算して入れる
 	int collectDelay;                       //死亡時当たり判定にディレイを持たせる
 	int scaleDelay;
-
+	int effectDelay;
 
 	int state_Num;                          //ビットンの状態を変えるための数字		
 	int option_OrdinalNum;
@@ -66,17 +69,20 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	Vector3 velocity;		
 
-	bool isCircular = false;
+	//bool isCircular = false;
 	bool isFollow = false;          //プレイヤーを追従する位置に向かっているかどうか
-	bool once = true;
-	bool isScaleInc = false;
-	bool isScaleDec = false;
+	//bool once = true;
+	//bool isScaleInc = false;
+	//bool isScaleDec = false;
 	bool isPlayerDieCheck;
-	bool isborn=true;
+	public bool isborn=true;
 	public bool isDead = false;
+	bool isCollection = false;      //回収されたときに使う
+	bool isPlay = true;
 	void Start()
 	{
-		isScaleDec = true;
+		isborn = true;
+		//isScaleDec = true;
 		defaultSpeed = 20;
 		speed = defaultSpeed;
 		//値を設定
@@ -91,6 +97,13 @@ public class Bit_Formation_3 : MonoBehaviour
 		bit_Color = renderer.material.color;
 		bit_Color.a = alpha_Value;
 		renderer.material.color = bit_Color;
+
+		//effectRenderer = effectObj.GetComponent<Renderer>();
+		//effect_Color = effectRenderer.material.color;
+		//effect_Color.a = alpha_Value_eff;
+		effect_Color = option_Particle.startColor;
+
+		Color ef_Color = GetComponent<Renderer>().material.color;
 
 		//meshrender.material.color = new Color(0, 0, 0, 0);
 
@@ -134,6 +147,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (isborn)
 		{
 			SetParent();
+			option_Particle.Play();
 			isborn = false;
 		}
 
@@ -143,13 +157,76 @@ public class Bit_Formation_3 : MonoBehaviour
 			transform.position = followPosObj.transform.position;
 		}
 
-		alpha_Value += 0.1f;
-		if (alpha_Value >= 1.0f)
+		if (isCollection)
 		{
-			alpha_Value = 1.0f;
+			//effectDelay++;
+			//if (effectDelay > 5)
+			//{
+			//	effectDelay = 0;
+
+			//	option_Particle.Play();
+			//	isCollection = false;
+
+			//}
+			option_Particle.Play();
+			isCollection = false;
+
 		}
-		bit_Color.a = alpha_Value;
-		renderer.material.color = bit_Color;
+
+		if (Input.GetKeyDown(KeyCode.O))
+		{
+			//alpha_Value_eff += 0.04f;
+			//alpha_Value_eff = 0;
+			//if (alpha_Value_eff > 1.0f)
+			//{
+			//	alpha_Value_eff = 1.0f;
+			//}
+			//effect_Color.a = alpha_Value_eff;
+			//option_Particle.startColor = effect_Color;
+			option_Particle.Play();
+			//effect_Color = Color.blue;
+		}
+
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			if(isPlay)
+			{
+				//alpha_Value_eff = 0;
+				//effect_Color.a = alpha_Value_eff;
+				//effectRenderer.material.color = effect_Color;
+
+				option_Particle.Stop();
+				isPlay = false;
+			}
+			else
+			{
+				//alpha_Value_eff = 1;
+				//effect_Color.a = alpha_Value_eff;
+				//effectRenderer.material.color = effect_Color;
+
+				option_Particle.Play();
+				isPlay = true;
+			}
+		}
+
+
+		//alpha_Value_eff += 0.04f;
+		//if (alpha_Value_eff > 1.0f)
+		//{
+		//	alpha_Value_eff = 1.0f;
+		//}
+		//effect_Color.a = alpha_Value_eff;
+		//option_Particle.startColor = effect_Color;
+		//effectRenderer.material.color = effect_Color;
+
+		//alpha_Value += 0.1f;
+		//if (alpha_Value >= 1.0f)
+		//{
+		//	alpha_Value = 1.0f;
+		//}
+		//bit_Color.a = alpha_Value;
+		//renderer.material.color = bit_Color;
+
 		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
 
 		//オプションの縮小試し
@@ -417,8 +494,12 @@ public class Bit_Formation_3 : MonoBehaviour
 		{
 			if (col.gameObject.name == "Player")
 			{
+				option_Particle.Stop();
+
 				if (!FtoPlayer.hasOption)
 				{
+					isCollection = true;
+					//option_Particle.Stop();
 					FtoPlayer.hasOption = true;
 					followPosObj = followPosFirstObj;
 					transform.position = followPosObj.transform.position;
@@ -431,11 +512,16 @@ public class Bit_Formation_3 : MonoBehaviour
 					alpha_Value = 0;
 					bit_Color.a = alpha_Value;
 					renderer.material.color = bit_Color;
-
-					collectDelay = 0;
+					alpha_Value_eff = 0;
+					//effect_Color.a = alpha_Value_eff;
+					//effectRenderer.material.color = effect_Color;
+					//option_Particle.startColor = effect_Color;
+					//collectDelay = 0;
 				}
 				else if (!FtoPBit_Second.hasOption)
 				{
+					isCollection = true;
+					//option_Particle.Stop();
 					FtoPBit_Second.hasOption = true;
 					followPosObj = followPosSecondObj;
 					transform.position = followPosObj.transform.position;
@@ -447,12 +533,19 @@ public class Bit_Formation_3 : MonoBehaviour
 					option_OrdinalNum = 2;
 					alpha_Value = 0;
 					bit_Color.a = alpha_Value;
+					alpha_Value_eff = 0;
 					renderer.material.color = bit_Color;
+					//alpha_Value_eff = 0;
+					//effect_Color.a = alpha_Value_eff;
+					////effectRenderer.material.color = effect_Color;
+					//option_Particle.startColor = effect_Color;
 
 					collectDelay = 0;
 				}
 				else if (!FtoPBit_Third.hasOption)
 				{
+					isCollection = true;
+					//option_Particle.Stop();
 					FtoPBit_Third.hasOption = true;
 					followPosObj = followPosThirdObj;
 					transform.position = followPosObj.transform.position;
@@ -464,12 +557,19 @@ public class Bit_Formation_3 : MonoBehaviour
 					option_OrdinalNum = 3;
 					alpha_Value = 0;
 					bit_Color.a = alpha_Value;
+					alpha_Value_eff = 0;
 					renderer.material.color = bit_Color;
+					//alpha_Value_eff = 0;
+					//effect_Color.a = alpha_Value_eff;
+					////effectRenderer.material.color = effect_Color;
+					//option_Particle.startColor = effect_Color;
 
 					collectDelay = 0;
 				}
 				else if (!FtoPBit_Fourth.hasOption)
 				{
+					isCollection = true;
+					//option_Particle.Stop();
 					FtoPBit_Fourth.hasOption = true;
 					followPosObj = followPosFourthObj;
 					transform.position = followPosObj.transform.position;
@@ -481,7 +581,12 @@ public class Bit_Formation_3 : MonoBehaviour
 					option_OrdinalNum = 4;
 					alpha_Value = 0;
 					bit_Color.a = alpha_Value;
+					alpha_Value_eff = 0;
 					renderer.material.color = bit_Color;
+					//alpha_Value_eff = 0;
+					//effect_Color.a = alpha_Value_eff;
+					////effectRenderer.material.color = effect_Color;
+					//option_Particle.startColor = effect_Color;
 
 					collectDelay = 0;
 				}

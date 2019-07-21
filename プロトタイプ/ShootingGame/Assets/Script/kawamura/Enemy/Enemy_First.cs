@@ -109,7 +109,7 @@ public class Enemy_First : character_status
 			if (parentObj.name == "enemy_UFO_Group")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
-                transform.position = defaultPos_PlusZ;
+                //transform.position = defaultPos_PlusZ;
 				if (transform.position.y > 0)
 				{
 
