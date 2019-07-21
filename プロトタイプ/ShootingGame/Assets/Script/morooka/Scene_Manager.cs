@@ -23,18 +23,17 @@ public class Scene_Manager : MonoBehaviour
 		eROGO,
 		eTITLE,
 		eMENU,
-
-         //------------------7/21追加-----------------
-         //勝手にいじっちゃて申し訳ない
-         //説明シーン列挙型追加
-         //-------------------------------------------
-        //eINSTRUCTION, 
-
-
 		eSTAGE,
 		eGAME_OVER,
 		eGAME_CLEAR,
 	}
+
+	//------------------7/21追加-----------------
+	//勝手にいじっちゃて申し訳ない
+	//説明シーン列挙型追加
+	//-------------------------------------------
+	//eINSTRUCTION, 
+
 
 	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
 
