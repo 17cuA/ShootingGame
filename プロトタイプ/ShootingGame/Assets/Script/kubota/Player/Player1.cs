@@ -91,7 +91,9 @@ public class Player1 : character_status
 		 * もし直していて、マージで元に戻ったバグならごめんなさい。
 		 * 以上 諸岡 2019/07/20
 		 */
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
+			Reset_BulletType();
+		});
 		///////////////////////
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
@@ -107,7 +109,7 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); Laser.SetActive(false); });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
 	}
 	new void Start()
@@ -139,7 +141,8 @@ public class Player1 : character_status
 		effect_num = 0;
 		min_speed = speed;		//初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();
+		PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
+		PowerManager.Instance.ResetSelect();			//プレイヤーのアイテム取得回数をリセットするメソッド
 	
 	}
 
@@ -179,15 +182,8 @@ public class Player1 : character_status
 				bullet_Type = Bullet_Type.Single;
 				Is_Resporn = true;
 				Laser.SetActive(false);
-				/*
-				 * 画面左端にいるとき + 左移動の入力をしているとき + 破壊されたとき
-				 * 以上の条件でゲームが止まるバグの修正(応急処置)
-				 * return; を入れて void Update() を抜ける
-				 * 
-				 * バグの原因は自身が死んだ時の処理後に、
-				 * 生存時用の左移動用のエフェクトが呼び出される処理が呼び出されてしまうため。
-				 * 以上 諸岡 2019/07/20
-				 */
+
+
 				return;
 				////////////////////////////////////////
 			}
@@ -205,13 +201,17 @@ public class Player1 : character_status
 			//}
 			if (hp < 1)
 			{
-				Remaining--;
+				if (Laser.activeSelf) { Laser.SetActive(false); }	//もし、レーザーが稼働状態であるならば、非アクティブにする
+				PowerManager.Instance.ResetSelect();				//アイテム取得回数をリセットする
+				Remaining--;										//残機を1つ減らす
+				//残機が残っていなければ
 				if (Remaining < 1)
 				{
 					//残機がない場合死亡
 					Died_Process();
 
 				}
+				//残機が残っていたら
 				else
 				{
 					ParticleCreation(0);        //爆発のエフェクト発動
@@ -220,83 +220,27 @@ public class Player1 : character_status
 					//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 					invincible = false;         //無敵状態にするかどうかの処理
 					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-					bullet_Type = Bullet_Type.Single;
-					Is_Resporn = true;
+					bullet_Type = Bullet_Type.Single;		//撃つ弾の種類を変更する
+					Is_Resporn = true;						//復活用の処理を行う
 				}
 			}
+			//無敵時間の開始
 			Invincible();
 			//プレイヤーの移動処理
 			Player_Move();
-			//体力が０になると死ぬ処理
-			//Died_Judgment();
+
 			//弾の発射（Fire2かSpaceキーで撃てる）
 			if (Shot_Delay > Shot_DelayMax)
 			{
+				//弾を射出
 				Bullet_Create();
 			}
+			//パワーアップ処理
 			if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 			{
+				//アイテムを規定数所持していたらその値と同じものの効果を得る
 				PowerManager.Instance.Upgrade();
 			}
-
-			//switch (Game_Master.MY.Management_In_Stage)
-			//{
-			//	case Game_Master.CONFIGURATION_IN_STAGE.eNORMAL:
-			//		//プレイヤーの移動処理
-			//		Player_Move();
-			//		//パワーアップの処理
-			//		if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
-			//		{
-			//			PowerManager.Instance.Upgrade();
-			//		}
-			//		//体力が０になると死ぬ処理
-			//		//Died_Judgment();
-			//		if (bullet_Type == Bullet_Type.Laser)
-			//		{
-			//			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-			//			{
-			//				//laser.Play();
-			//				Laser.SetActive(true);
-			//				//line_beam.shot();
-
-			//			}
-			//			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
-			//			{
-			//				Laser.SetActive(false);
-			//				//laser.Stop();
-			//			}
-			//		}
-			//		//弾の発射（Fire2かSpaceキーで撃てる）
-			//		if (Shot_Delay > Shot_DelayMax)
-			//		{
-			//			Bullet_Create();
-			//		}
-			//		if (Input.GetKeyDown(KeyCode.Z))
-			//		{
-			//			Damege_Process(1);
-			//			Debug.Log("Player_HP	" + hp);
-			//		}
-			//		break;
-			//	case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_CUT_IN:
-			//		break;
-			//	case Game_Master.CONFIGURATION_IN_STAGE.eBOSS_BUTTLE:
-			//		//プレイヤーの移動処理
-			//		Player_Move();
-			//		//体力が０になると死ぬ処理
-			//		//Died_Judgment();
-			//		//弾の発射（Fire2かSpaceキーで撃てる）
-			//		if (Shot_Delay > Shot_DelayMax)
-			//		{
-			//			Bullet_Create();
-			//		}
-			//		if (Input.GetKeyDown(KeyCode.Z)) Damege_Process(1);
-			//		break;
-			//	case Game_Master.CONFIGURATION_IN_STAGE.eCLEAR:
-			//		break;
-			//	default:
-			//		break;
-			//}
-
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
 			// ミサイルのディレイ計算
@@ -306,8 +250,8 @@ public class Player1 : character_status
 	//コントローラーの操作
 	private void Player_Move()
 	{
-			x = Input.GetAxis("Horizontal");
-			y = Input.GetAxis("Vertical");
+			x = Input.GetAxis("Horizontal");			//x軸の入力
+			y = Input.GetAxis("Vertical");				//y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0)		y = 0;
@@ -315,7 +259,7 @@ public class Player1 : character_status
 		if (transform.position.x >= 17.0f && x>0)		x = 0;
 		if (transform.position.x <= -17.0f && x < 0)	x = 0;
 		
-		vector3 = new Vector3(x, y, 0);
+		vector3 = new Vector3(x, y, 0);		//移動のベクトルをvector3に入れる
 		// プレイヤー機体の旋回
 		// プレイヤーの向き(Y軸の正負)で角度算出
 		if (transform.eulerAngles.x != (swing_facing * y))
@@ -345,6 +289,7 @@ public class Player1 : character_status
 		}
 		else if (x == 0)
 		{
+			//噴射量を規定の値に戻す
 			particleSystemMain.startLifetime = baseInjectionAmount;
 		}
 		//位置情報の更新
@@ -366,7 +311,7 @@ public class Player1 : character_status
 		else
 		{
 			material.color = first_color;	//初期の色に戻す
-			capsuleCollider.enabled = true;	//
+			capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
 		}
 	}
 	//プレイヤーの方向転換
@@ -390,15 +335,11 @@ public class Player1 : character_status
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
-
-						//effect_mazle_fire;
-						//ParticleCreation(2);
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
-						//ParticleCreation(2);
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
 
@@ -485,6 +426,7 @@ public class Player1 : character_status
 	private void ActiveDouble()
 	{
 		Debug.Log("ダブル導入");
+		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
@@ -518,7 +460,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 		shield_Effect.Play();
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
 
 	}
 	//オプションをアクティブに

@@ -109,6 +109,16 @@ public class character_status : MonoBehaviour
 			Reset_Status();
 
 		}
+		else if(transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
+		{
+			//スコア
+			Game_Master.MY.Score_Addition(score);
+			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[7]);
+			//爆発処理の作成
+			ParticleCreation(7);
+			Is_Dead = true;
+			Reset_Status();
+		}
 		else
 		{
 			//爆発処理の作成
