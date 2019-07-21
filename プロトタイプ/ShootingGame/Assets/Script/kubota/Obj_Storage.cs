@@ -67,7 +67,7 @@ public class Obj_Storage : MonoBehaviour
 	private int column;                                         //配列の列を入れる変数
 
 	public AudioClip[] audio_se = new AudioClip[16];    //ＳＥを読み込むための配列
-	public AudioClip[] audio_voice = new AudioClip[25]; //VOICEを読み込むための配列
+	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 
 	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
 	public GameObject enemy_UFO_Group_prefab;
@@ -182,7 +182,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_23");
 		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_24");
 		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_25");
-
+		audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_18_cut");
 		//--------------------------------------------------------------------------------------------------------
 		enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
 		enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;

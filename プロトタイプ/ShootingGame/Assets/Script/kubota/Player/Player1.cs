@@ -311,7 +311,7 @@ public class Player1 : character_status
 		else
 		{
 			material.color = first_color;	//初期の色に戻す
-			capsuleCollider.enabled = true;	//
+			capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
 		}
 	}
 	//プレイヤーの方向転換
@@ -426,6 +426,7 @@ public class Player1 : character_status
 	private void ActiveDouble()
 	{
 		Debug.Log("ダブル導入");
+		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
@@ -459,7 +460,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 		shield_Effect.Play();
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
 
 	}
 	//オプションをアクティブに
