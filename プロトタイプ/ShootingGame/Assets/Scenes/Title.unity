@@ -1142,6 +1142,7 @@ GameObject:
   - component: {fileID: 2036491521}
   - component: {fileID: 2036491520}
   - component: {fileID: 2036491523}
+  - component: {fileID: 2036491524}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1204,11 +1205,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036491519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 280976cffb8d1cf43a8b7e425290a775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 8175564570435099510}
+  audioClip: {fileID: 8300000, guid: b9405f2ace3ea1b4e846b111be5eb0e9, type: 3}
+--- !u!114 &2036491524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036491519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84b1853ba5d225409715bf39542e715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 3
   audioSource: {fileID: 8175564570435099510}
   audioClip: {fileID: 8300000, guid: b9405f2ace3ea1b4e846b111be5eb0e9, type: 3}
 --- !u!1 &946326503952814028

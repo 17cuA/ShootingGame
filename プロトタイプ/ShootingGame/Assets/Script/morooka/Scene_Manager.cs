@@ -23,6 +23,14 @@ public class Scene_Manager : MonoBehaviour
 		eROGO,
 		eTITLE,
 		eMENU,
+
+         //------------------7/21追加-----------------
+         //勝手にいじっちゃて申し訳ない
+         //説明シーン列挙型追加
+         //-------------------------------------------
+        eINSTRUCTION, 
+
+
 		eSTAGE,
 		eGAME_OVER,
 		eGAME_CLEAR,
@@ -205,6 +213,22 @@ public class Scene_Manager : MonoBehaviour
 		}
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
+	}
+
+    /// <summary>
+    /// ----------------7/21追加------------------
+    /// 作成者：陳
+    /// ゲーム説明に移動
+    /// ------------------------------------------
+    /// </summary>
+    public void Screen_Transition_To_Instruction()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+
+		Next_Scene = SCENE_NAME.eINSTRUCTION;
 	}
 
 	/// <summary>
