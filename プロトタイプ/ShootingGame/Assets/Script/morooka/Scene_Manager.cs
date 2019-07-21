@@ -28,7 +28,7 @@ public class Scene_Manager : MonoBehaviour
          //勝手にいじっちゃて申し訳ない
          //説明シーン列挙型追加
          //-------------------------------------------
-        eINSTRUCTION, 
+        //eINSTRUCTION, 
 
 
 		eSTAGE,
@@ -221,15 +221,15 @@ public class Scene_Manager : MonoBehaviour
     /// ゲーム説明に移動
     /// ------------------------------------------
     /// </summary>
-    public void Screen_Transition_To_Instruction()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
+ //   public void Screen_Transition_To_Instruction()
+	//{
+	//	if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+	//	{
+	//		Is_Fade_Out_Intermediate = true;
+	//	}
 
-		Next_Scene = SCENE_NAME.eINSTRUCTION;
-	}
+	//	Next_Scene = SCENE_NAME.eINSTRUCTION;
+	//}
 
 	/// <summary>
 	/// 任意のシーンに移動
