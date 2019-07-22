@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5068087178034757352
+--- !u!114 &316432669563120736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,6 +8,24 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84610916388901426}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706a33c7ee74b6d4a94856f4404a834d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  straightLaserShotSpeed: 0.8
+  straightLaserWidth: 0.05
+  straightLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  straightLaserNodeMax: 50
+  straightLaserOverloadDuration: 0.4
+  straightLaserLaunchInterval: 0.01
+--- !u!114 &5068087178034757352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84610916388901426}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38b0d4d28b41f234cb6e07983f268b24, type: 3}
   m_Name: 
@@ -638,15 +656,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7268150438815896196, guid: 3517bbfe0d70d9e4c8ed482fd60c2173, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3517bbfe0d70d9e4c8ed482fd60c2173, type: 3}
---- !u!4 &905111437375214262 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
-    type: 3}
-  m_PrefabInstance: {fileID: 2866947712465385226}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &84610916388901426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+    type: 3}
+  m_PrefabInstance: {fileID: 2866947712465385226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &905111437375214262 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
     type: 3}
   m_PrefabInstance: {fileID: 2866947712465385226}
   m_PrefabAsset: {fileID: 0}

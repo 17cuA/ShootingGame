@@ -5,7 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class LaserLine : Player_Bullet
 {
-	public TrailRenderer trailRenderer;
+	private TrailRenderer trailRenderer;
+	public TrailRenderer TrailRenderer
+	{
+		get
+		{
+			return trailRenderer;
+		}
+	}
 
     private void Awake()
     {
@@ -17,32 +24,11 @@ public class LaserLine : Player_Bullet
 
     }
 
-
 	private new void Update()
     {
-        if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
-			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
-		{
-			this.gameObject.SetActive(false);
-		}
+		base.Update();
 
         base.Moving_To_Travelling_Direction();
 
     }
-
-	private new void OnTriggerEnter(Collider col)
-	{
-		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player") || (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy"))
-		{
-
-			this.gameObject.SetActive(false);
-			//add:0513_takada 爆発エフェクトのテスト
-			//AddExplosionProcess();
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
-		}
-	}
 }

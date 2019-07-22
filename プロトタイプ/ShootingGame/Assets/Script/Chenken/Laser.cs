@@ -124,7 +124,7 @@ namespace ChenkenLaser
              //var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
              var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, transform.position, Quaternion.identity);
              node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-			 node.GetComponent<LaserLine>().trailRenderer.Clear();
+			 node.GetComponent<LaserLine>().TrailRenderer.Clear();
              this.laserNodes.Add(node);
          }
 
