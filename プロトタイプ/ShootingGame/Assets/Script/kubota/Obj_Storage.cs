@@ -106,7 +106,7 @@ public class Obj_Storage : MonoBehaviour
 		Enemy_Prefab = Resources.Load("Enemy/Enemy2") as GameObject;
 		Medium_Enemy_Prefab = Resources.Load("Enemy/Medium_Size_Enemy") as GameObject;
 		//Boss_Prefab = Resources.Load("Boss/Boss_Test") as GameObject;
-		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet") as GameObject;
+		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_2") as GameObject;
 		Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
