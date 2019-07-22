@@ -44,13 +44,9 @@ public class Bit_Formation_3 : MonoBehaviour
 	FollowToPreviousBit FtoPBit_Fourth;			//四番目の位置のスクリプト情報
 	Option_Scale os;							//パーティクルのスケール変更クリプト
 
-	public Renderer particleRenderer;				//オプションの見た目のパーティクル用レンダラー
 	new Renderer renderer;						//レンダラー　3Dオブジェクトの時使う
-	public MeshRenderer meshrender;				//メッシュ　　3Dオブジェクトの時使う
 	Color bit_Color;							//オプションの色　3Dオブジェクトの時使う
 	Color particle_Color;							//パーティクルのカラー
-	float alpha_Value = 0;						//3Dオブジェクトのアルファ値（透明度）を入れる
-	float alpha_Value_Par = 0;					//パーティクルのアルファ値
 	public float scale_value = 0.5f;			//オプションのスケールの値
 
 	float speed;								//オプションの移動スピード（プレイヤー死亡時の処理に使う）
@@ -76,7 +72,6 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isborn = true;					//オプションが出現したときupdateで一回だけ行う処理用
 	public bool isDead = false;					//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
 	public bool isCollection = false;					//回収されたときに使う
-	bool isPlay = true;							//見た目のパーティクルのON/OFFデバッグ用
 	void Start()
 	{
 		isborn = true;					//出現時の処理をするように
@@ -90,21 +85,6 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();			//レンダラー取得
-		meshrender = gameObject.GetComponent<MeshRenderer>();   //メッシュ取得
-
-		//下三行は3Dオブジェクト用
-		//bit_Color = renderer.material.color;					//カラー取得
-		//bit_Color.a = alpha_Value;							//アルファ値（透明度）代入　ここでは0を入れている
-		//renderer.material.color = bit_Color;					//カラー更新
-
-		//particleRenderer = particleObj.GetComponent<Renderer>();
-		//particle_Color = particleRenderer.material.color;
-		//particle_Color.a = alpha_Value_Par;
-		//particle_Color = option_Particle.startColor;
-
-		//Color ef_Color = GetComponent<Renderer>().material.color;
-
-		//meshrender.material.color = new Color(0, 0, 0, 0);
 
 		//4つの追従位置とそれぞれのスクリプト取得
 		followPosFirstObj = GameObject.Find("FollowPosFirst");
@@ -164,49 +144,6 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		}
 
-		//オプションのパーティクルデバッグ用
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			if(isPlay)
-			{
-				//alpha_Value_Par = 0;
-				//particle_Color.a = alpha_Value_Par;
-				//particleRenderer.material.color = particle_Color;
-
-				option_Particle.Stop();
-				isPlay = false;
-			}
-			else
-			{
-				//alpha_Value_Par = 1;
-				//particle_Color.a = alpha_Value_Par;
-				//particleRenderer.material.color = particle_Color;
-
-				option_Particle.Play();
-				isPlay = true;
-			}
-		}
-
-
-		//alpha_Value_Par += 0.04f;
-		//if (alpha_Value_Par > 1.0f)
-		//{
-		//	alpha_Value_Par = 1.0f;
-		//}
-		//particle_Color.a = alpha_Value_Par;
-		//option_Particle.startColor = particle_Color;
-		//particleRenderer.material.color = particle_Color;
-
-		//alpha_Value += 0.1f;
-		//if (alpha_Value >= 1.0f)
-		//{
-		//	alpha_Value = 1.0f;
-		//}
-		//bit_Color.a = alpha_Value;
-		//renderer.material.color = bit_Color;
-
-		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
-
 		//プレイヤー死亡時の処理
 		if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
 		{
@@ -254,13 +191,6 @@ public class Bit_Formation_3 : MonoBehaviour
 			collectDelay++;
 		}
 
-		//isPlayerDieCheck = pl1.Died_Judgment();
-
-		//スピード計算
-		//step = speed * Time.deltaTime;
-
-		//入力の関数呼び出し
-		//Bit_Input();
 
 		//オプションの移動関数呼び出し
 		//Bit_Move();

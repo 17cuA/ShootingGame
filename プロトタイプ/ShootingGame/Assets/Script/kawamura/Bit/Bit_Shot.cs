@@ -24,10 +24,10 @@ public class Bit_Shot : MonoBehaviour
     int missileDelayCnt = 0;
     int shotDelayMax;
 
-	bool activeLaser = true;
+	//bool activeLaser = true;
 
-	bool activeDouble = false;
-	bool activeBullet = false;
+	//bool activeDouble = false;
+	//bool activeBullet = false;
 
 
 	private void OnEnable()
@@ -188,9 +188,9 @@ public class Bit_Shot : MonoBehaviour
 
 	private void ActiveLaser()
 	{
-		activeLaser = true;
-		activeDouble = false;
-		activeBullet = false;
+		//activeLaser = true;
+		//activeDouble = false;
+		//activeBullet = false;
 		Debug.Log("レーザーに変更");
 		//bullet_Type = Bullet_Type.Laser;
 	}
