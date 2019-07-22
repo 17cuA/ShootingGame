@@ -250,6 +250,7 @@ public class EnemyCreate : MonoBehaviour
 				case 11:					//戦艦を2体出す
 					isCreate = false;
 					groupCnt++;
+					//GameObject Battle_Ship2 = enemy_BattleShip2;
 					GameObject Battle_Ship2 = enemy_BattleShip2;
 					Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
 
@@ -363,74 +364,74 @@ public class EnemyCreate : MonoBehaviour
     void CreateCheck()
     {
 		//groupCntが18の時のを出すタイミング
-		if (frameCnt == 3760.0f + plusNum + plusNum2 + plusNum3)
+		if (frameCnt == 3940.0f)
         {
             isCreate = true;
         }
 		//groupCntが17の時のを出すタイミング
-		else if (frameCnt == 3580.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 3580.0f)
         {
             isCreate = true;
         }
 		//groupCntが16の時のを出すタイミング
-		else if (frameCnt == 3400.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 3580.0f)
         {
             isCreate = true;
         }
 		//groupCntが15の時のを出すタイミング
-		else if (frameCnt == 3220.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 3400.0f)
         {
             isCreate = true;
         }
 		//groupCntが14の時のを出すタイミング
-		else if (frameCnt == 3040.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 3220.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが13の時のを出すタイミング
-		else if (frameCnt == 2800.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 2980.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが12の時のを出すタイミング
-		else if (frameCnt == 2350.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 2530.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが11の時のを出すタイミング
-		else if (frameCnt == 1560.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 1760.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが10の時のを出すタイミング
-		else if (frameCnt == 1470.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 1650.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが9の時のを出すタイミング
-		else if (frameCnt == 1380.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 1560.0f)
         {
             isCreate = true;
         }
 		//groupCntが8の時のを出すタイミング
-		else if (frameCnt == 1200.0f + plusNum + plusNum2 + plusNum3)
+		else if (frameCnt == 1380.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが7の時のを出すタイミング
-		else if (frameCnt == 1140.0f + plusNum + plusNum2)
+		else if (frameCnt == 1260.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが6の時のを出すタイミング
-		else if (frameCnt == 1080.0f + plusNum)
+		else if (frameCnt == 1140.0f)
         {
             isCreate = true;
 

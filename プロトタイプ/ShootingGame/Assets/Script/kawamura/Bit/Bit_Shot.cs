@@ -113,6 +113,7 @@ public class Bit_Shot : MonoBehaviour
                 // 連続で4発まで撃てるようにした
                 if (shotNum < 5)
                 {
+					//プレイヤーの弾のタイプによって撃てるのが変わる
 					switch(pl1.bullet_Type)
 					{
 						case Player1.Bullet_Type.Single:
@@ -155,6 +156,8 @@ public class Bit_Shot : MonoBehaviour
 		}
 		missileDelayCnt++;
     }
+
+	//-----------ここから関数----------------
 	public void Bullet_Create()
 	{
 		//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
@@ -164,6 +167,7 @@ public class Bit_Shot : MonoBehaviour
 		//}
 	}
 
+	//単発発射関数
 	private void Single_Fire()
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
@@ -179,6 +183,7 @@ public class Bit_Shot : MonoBehaviour
 		}
 	}
 
+	//ダブル発射関数
 	private void Double_Fire()
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
