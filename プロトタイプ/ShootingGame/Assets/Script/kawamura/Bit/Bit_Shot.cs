@@ -9,13 +9,10 @@ using StorageReference;
 
 public class Bit_Shot : MonoBehaviour
 {
-	public GameObject playerObj;
-    public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
-	GameObject laserObj;
-	public GameObject laser_Obj;
-
-	public ParticleSystem laser;            //レーザーのパーティクルを取得するための変数
-	public Line_Beam line_beam;
+	public GameObject playerObj;		//プレイヤーオブジェクト
+    public GameObject shot_Mazle;		//弾を放つための地点を指定するためのオブジェクト
+	GameObject laserObj;				//レーザーオブジェクト
+	public GameObject laser_Obj;		
 
 	Player1 pl1;
 	Bit_Formation_3 bf;
@@ -37,7 +34,6 @@ public class Bit_Shot : MonoBehaviour
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		Power.PowerManager.Instance.AddFunction(Power.PowerManager.Power.PowerType.LASER, ActiveLaser);
-		laser.Stop();
 
 	}
 	private void OnDisable()
@@ -48,17 +44,12 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
-
-		laserObj= transform.Find("Lasers").gameObject;
-		line_beam = laserObj.GetComponent<Line_Beam>();
-
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 
 		bf = gameObject.GetComponent<Bit_Formation_3>();
         //shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
         Direction = transform.rotation;
         shotDelayMax = 5;
-		laser.Stop();
 		laser_Obj.SetActive(false); //レーザーの子供が動かないようにするための変数
 
 	}
@@ -73,14 +64,14 @@ public class Bit_Shot : MonoBehaviour
 
         }
 
-		if(pl1.bullet_Type == Player1.Bullet_Type.Laser)
-		{
-			laser_Obj.SetActive(true);
-		}
-		else
-		{
-			laser_Obj.SetActive(false);
-		}
+		//if(pl1.bullet_Type == Player1.Bullet_Type.Laser)
+		//{
+		//	laser_Obj.SetActive(true);
+		//}
+		//else
+		//{
+		//	laser_Obj.SetActive(false);
+		//}
         if (!bf.isDead)
 		{
 			if (isShot)
@@ -89,8 +80,6 @@ public class Bit_Shot : MonoBehaviour
 				{
 					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
 					{
-						//line_beam.disableEffect();
-						//laser.Stop();
 						laser_Obj.SetActive(false);
 
 					}
@@ -104,12 +93,6 @@ public class Bit_Shot : MonoBehaviour
                                 Missile_Fire();
                             }
                         }
-
-                        //laser.Play();
-                        //line_beam.shot();
-                        //laser.Play();
-                        //line_beam.shot();
-
                     }
                 }
 
@@ -159,7 +142,6 @@ public class Bit_Shot : MonoBehaviour
 		}
 		else if(bf.isDead)
 		{
-			laser.Stop();
 		}
 		missileDelayCnt++;
     }
