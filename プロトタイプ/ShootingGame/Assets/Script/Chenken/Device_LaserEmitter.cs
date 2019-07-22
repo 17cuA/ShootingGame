@@ -8,14 +8,25 @@ using UnityEngine;
  [DefaultExecutionOrder(599)]
 class Device_LaserEmitter : MonoBehaviour
 {
-	[SerializeField] private float straightLaserShotSpeed = 0.8f;
-	[SerializeField] private float straightLaserWidth = 0.2f;
+	//--------------------------- 直線型レーザー（タイプ１） ----------------------------------
+	[Header("--------直線型レーザー--------")]
+	[SerializeField] [Range(0.5f,1.2f)]   private float straightLaserShotSpeed        = 0.8f;
+	[SerializeField] [Range(0.1f,0.025f)] private float straightLaserWidth            = 0.05f;
+	[SerializeField] [Range(20,70)]       private int straightLaserNodeMax            = 50;
+	[SerializeField] [Range(0.2f,0.6f)]   private float straightLaserOverloadDuration = 0.4f;
+	[SerializeField] [Range(0.005f,0.05f)]private float straightLaserLaunchInterval   = 0.01f;
 	[SerializeField] private Material straightLaserMaterial;
-	[SerializeField] private int straightLaserNodeMax = 50;
-	[SerializeField] private float straightLaserOverloadDuration = 0.4f;
-	[SerializeField] private float straightLaserLaunchInterval = 0.1f;
 	private GameObject straightLaserGeneratorParent;
 
+	//---------------------------曲線型レーザー（タイプ２）------------------------------------
+	[Header("--------曲線型レーザー--------")]
+	[SerializeField] private float rotateLaserShotSpeed = 0.8f;
+	[SerializeField] private float rotateLaserWidth     = 0.05f;
+	[SerializeField] private int rotateLaserNodeMax     = 60;
+	[SerializeField] private float rotateLaserOverloadDuration = 0.3f;
+	[SerializeField] private float rotateLaserLaunchInterval   = 0.01f;
+	[SerializeField] private Material rotateLaserMaterial;
+	private GameObject rotateLaserGeneratorParent;
 
 	/// <summary>
 	/// 回転装置
@@ -111,7 +122,7 @@ class Device_LaserEmitter : MonoBehaviour
 
 		public void GenerateLine(float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
 		{
-			Debug.Log("LaserGeneratorアクティブ");
+			Debug.Log("StraightLaserGeneratorアクティブ");
 			for(var i = 0; i < this.generators.Count; ++i)
 			{
 				if(!this.generators[i].gameObject.activeSelf)
@@ -144,6 +155,62 @@ class Device_LaserEmitter : MonoBehaviour
 		}
 	}
 
+	public class RotateLaunchDevice : ILaunchDevice
+	{
+		public Instance_Laser_Node_Generator CurrentGenerator { get; set; }
+		public List<Instance_Laser_Node_Generator> generators { get; set; }
+		public float OverloadDuration     { get; set; }
+		public float LaunchInterval       { get; set; }
+		public float CanLaunchTime        { get; set; }
+		public GameObject EmitterInstance { get; set;}
+
+		public RotateLaunchDevice(float overloadDuration, float launchInterval,GameObject emitterInstance)
+		{
+			this.OverloadDuration = overloadDuration;
+			this.LaunchInterval   = launchInterval;
+			this.CanLaunchTime    = 0f;
+			this.EmitterInstance  = emitterInstance;
+
+			this.CurrentGenerator = null;
+			this.generators       = new List<Instance_Laser_Node_Generator>();
+		}
+
+		public void GenerateLine(float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
+		{
+			Debug.Log("RotateLaserGeneratorアクティブ");
+			for(var i = 0; i < this.generators.Count; ++i)
+			{
+				if(!this.generators[i].gameObject.activeSelf)
+				{
+					this.CurrentGenerator = this.generators[i];
+					this.CurrentGenerator.ResetLineRenderer();
+					this.CurrentGenerator.IsFixed = false;
+					this.CurrentGenerator.gameObject.SetActive(true);
+					return;
+				}
+			}
+
+			var generatorGo = new GameObject("Generator");
+			var generator = generatorGo.AddComponent<Instance_Laser_Node_Generator>();
+
+			generator.Setting(laserShotSpeed, laserWidth, laserMaterial, pointMax);
+			generator.IsFixed = false;
+
+
+			generatorGo.transform.SetParent(EmitterInstance.transform);
+			generatorGo.transform.localPosition = Vector3.zero;
+
+			this.CurrentGenerator = generator;
+			this.generators.Add(generator);
+		}
+
+		public void LaunchNode()
+		{
+			this.CurrentGenerator.LaunchNode();
+			this.CanLaunchTime = Time.time + LaunchInterval;
+		}
+	}
+
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
 
@@ -154,6 +221,10 @@ class Device_LaserEmitter : MonoBehaviour
 		straightLaserParent.transform.localPosition = Vector3.zero;
 		this.straightLaserGeneratorParent = straightLaserParent;
 
+		var rotateLaserParent = new GameObject("Device_RotateLaserParnt");
+		rotateLaserParent.transform.SetParent(this.transform);
+		rotateLaserParent.transform.localPosition = Vector3.zero;
+		this.rotateLaserGeneratorParent = rotateLaserParent;
 
 		this.emitterRotateCore = new EmitterRotateCore(this.transform.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
@@ -189,7 +260,9 @@ class Device_LaserEmitter : MonoBehaviour
 			launchDevice.CurrentGenerator = null;
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
+		
 
+		//------------------------------------------------------------レーザー発射装置使いすぎ------------------------------------------------------
 		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.IsOverLoad)
 		{
 			launchDevice.CurrentGenerator.ResetGenerator();
@@ -199,11 +272,27 @@ class Device_LaserEmitter : MonoBehaviour
 
 			launchDevice.CanLaunchTime = Time.time + launchDevice.OverloadDuration;		
 		}
+		//------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 		if(!this.transform.parent.gameObject.activeSelf && launchDevice.CurrentGenerator != null)
 		{
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
+		}
+
+		if(Input.GetKey(KeyCode.LeftControl))
+		{
+			if (emitterLaunchCore.currentLaunchDevice is StraightLaunchDevice)
+				emitterLaunchCore.SetDevice(new RotateLaunchDevice(this.rotateLaserOverloadDuration,this.rotateLaserLaunchInterval,this.rotateLaserGeneratorParent));
+			if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice)
+				emitterLaunchCore.SetDevice(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
+		}
+
+		if(emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice && Input.GetKey(KeyCode.LeftShift))
+		{
+			this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
 		}
 	}
 }
