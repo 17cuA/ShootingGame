@@ -25,9 +25,10 @@ public class BattleshipType_Enemy : character_status
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
-	public List<BattleshipType_Battery> Child_Scriptes { get; set; }
+	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
+	public List<MeshRenderer> Parts_Renderer { get; set; }					// パーツたちのレンダー
 
-	void Start()
+	private new void Start()
 	{
 		transform.position = initial_position;
 		Now_Target = 0;
@@ -44,11 +45,12 @@ public class BattleshipType_Enemy : character_status
 			if (b != null)
 			{
 				Child_Scriptes.Add(b);
+				Parts_Renderer.Add(Child_Scriptes[i].GetComponent<MeshRenderer>());
 			}
 		}
 	}
 
-	void Update()
+	private new void Update()
 	{
 		HSV_Change();
 
