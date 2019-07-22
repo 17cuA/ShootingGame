@@ -24,7 +24,7 @@ public class character_status : MonoBehaviour
 	public int Shot_DelayMax;									// 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;											// 弾を撃つ時の間隔
 	public uint score;													// 保持しているスコア
-	public int shield;													//シールド（主にプレイヤーのみ使うと思う）
+	private int shield;													//シールド（主にプレイヤーのみ使うと思う）
 	public bool activeShield;										//現在シールドが発動しているかどうかの判定用（初期値false）
 	public int Remaining;											//残機（あらかじめ設定）
 	public float v_Value;												//テクスチャの明るさの増える値
@@ -32,7 +32,7 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-
+	public MeshRenderer self_renderer;						//自身に設定してあるMeshRendererを設定（複数ある場合は別途）
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -50,33 +50,7 @@ public class character_status : MonoBehaviour
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
 
-		////レンダラー取得（自分についていたらそれを取得、自分についていなかったら子供を取得して子についていたらそれを取得）
-		//if (gameObject.GetComponent<Renderer>())
-		//{
-		//	//レンダラー取得
-		//	object_material = gameObject.GetComponent<Renderer>();
-		//	//明るさ変更
-		//	HSV_Change();
-		//}
-		//else
-		//{
-		//	//子供がいたら（子供カウントがある）
-		//	if (transform.childCount > 0)
-		//	{
-		//		//子供の数を数える
-		//		childCnt = transform.childCount;
-		//		//子供オブジェクト取得
-		//		GameObject childObj = transform.GetChild(0).gameObject;
-		//		//子供にレンダラーがついていたら
-		//		if (childObj.GetComponent<Renderer>())
-		//		{
-		//			//レンダラー取得
-		//			object_material = childObj.GetComponent<Renderer>();
-		//			//明るさ変更
-		//			HSV_Change();
-		//		}
-		//	}
-		//}
+		if (self_renderer == null) self_renderer = GetComponent<MeshRenderer>();
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -221,10 +195,6 @@ public class character_status : MonoBehaviour
 		if (hp < 1 && Remaining < 1) is_died = true;
 		return is_died;
 	}
-	/* 
-	 * 
-	 */
-
 	//キャラクターが死んでいるかどうかの判定用関数
 	public bool Dead_Check()
 	{
@@ -246,5 +216,20 @@ public class character_status : MonoBehaviour
 		{
 			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 		}
+	}
+	//ダメージを食らうとダメージエフェクトが走るように
+	public void Damege_Effect()
+	{
+
+	}
+	//シールドの値を取得する
+	public int Get_Shield()
+	{
+		return shield;
+	}
+	//シールドの値設定
+	public void Set_Shield(int setnum)
+	{
+		shield = setnum;
 	}
 }

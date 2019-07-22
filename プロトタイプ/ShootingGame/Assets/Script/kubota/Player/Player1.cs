@@ -95,7 +95,7 @@ public class Player1 : character_status
 			Reset_BulletType();
 		});
 		///////////////////////
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
+		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
@@ -110,7 +110,7 @@ public class Player1 : character_status
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return shield < 1; }, () => { shield = 3; activeShield = false; });
+		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
@@ -125,7 +125,7 @@ public class Player1 : character_status
         bullet_Type = Bullet_Type.Single;	//初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
-		shield = 3;                                     //シールドに防御可能回数文の値を入れる
+		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = particleSystem.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
@@ -452,14 +452,16 @@ public class Player1 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		shield = 3;
+		Set_Shield(3);
 		shield_Effect.Play();				//パーティクルの稼働
 		Debug.Log("シールド発動");
+		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 		shield_Effect.Play();
+		//------------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
 
 	}
