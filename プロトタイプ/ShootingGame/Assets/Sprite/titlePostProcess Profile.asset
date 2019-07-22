@@ -30,26 +30,26 @@ MonoBehaviour:
     m_Settings:
       excludeSkybox: 1
   antialiasing:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       method: 0
       fxaaSettings:
-        preset: 2
+        preset: 4
       taaSettings:
         jitterSpread: 0.75
         sharpen: 0.3
         stationaryBlending: 0.95
         motionBlending: 0.85
   ambientOcclusion:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      intensity: 1
-      radius: 0.3
-      sampleCount: 10
+      intensity: 3.46
+      radius: 1.5
+      sampleCount: 16
       downsampling: 1
       forceForwardCompatibility: 0
       ambientOnly: 0
-      highPrecision: 0
+      highPrecision: 1
   screenSpaceReflection:
     m_Enabled: 0
     m_Settings:
@@ -72,48 +72,48 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 3.63
-      aperture: 2.4
-      focalLength: 54.9
+      focusDistance: 10
+      aperture: 5.6
+      focalLength: 50
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
     m_Enabled: 1
     m_Settings:
-      shutterAngle: 217.5
+      shutterAngle: 119
       sampleCount: 25
-      frameBlending: 0
+      frameBlending: 0.106
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
-      minLuminance: -5
+      lowPercent: 3.8619106
+      highPercent: 47.320435
+      minLuminance: -50
       maxLuminance: 1
       keyValue: 0.25
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -10
+      logMax: 11
   bloom:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
-        threshold: 1.1
-        softKnee: 0.5
-        radius: 4
-        antiFlicker: 0
+        intensity: 1.95
+        threshold: 1.9
+        softKnee: 0.678
+        radius: 6.49
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
-        intensity: 3
+        intensity: 3.56
   colorGrading:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       tonemapping:
-        tonemapper: 2
+        tonemapper: 1
         neutralBlackIn: 0.02
         neutralWhiteIn: 10
         neutralBlackOut: 0
@@ -122,22 +122,22 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: 0
-        tint: 0
-        hueShift: 0
-        saturation: 1
-        contrast: 1
+        temperature: -15
+        tint: -10
+        hueShift: -2
+        saturation: 1.45
+        contrast: 1.19
       channelMixer:
-        red: {x: 1, y: 0, z: 0}
+        red: {x: 0.94, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 1, b: 1, a: 0}
-          power: {r: 1, g: 1, b: 1, a: 0}
-          offset: {r: 1, g: 1, b: 1, a: 0}
+          slope: {r: 0.88614047, g: 1, b: 0.93606776, a: 0}
+          power: {r: 1, g: 0.8399683, b: 0.8198185, a: 0}
+          offset: {r: 0.9620468, g: 1, b: 0.97868925, a: 0}
         linear:
           lift: {r: 0, g: 0, b: 0, a: 0}
           gamma: {r: 0, g: 0, b: 0, a: 0}
@@ -306,29 +306,29 @@ MonoBehaviour:
       lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       spectralTexture: {fileID: 0}
-      intensity: 0.1
+      intensity: 0.507
   grain:
     m_Enabled: 1
     m_Settings:
       colored: 1
-      intensity: 0.104
+      intensity: 0.048
       size: 1
       luminanceContribution: 0.8
   vignette:
     m_Enabled: 1
     m_Settings:
       mode: 0
-      color: {r: 0.049261317, g: 0.05508654, b: 0.084905684, a: 1}
+      color: {r: 0.2735849, g: 0.27120298, b: 0.26971343, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.336
+      intensity: 0.271
       smoothness: 1
-      roundness: 1
+      roundness: 0.721
       mask: {fileID: 0}
-      opacity: 1
-      rounded: 0
+      opacity: 0.261
+      rounded: 1
   dithering:
     m_Enabled: 0
   monitors:
