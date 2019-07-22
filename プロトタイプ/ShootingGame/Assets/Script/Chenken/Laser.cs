@@ -5,7 +5,7 @@ using StorageReference;
 
 namespace ChenkenLaser
 { 
-     [DefaultExecutionOrder(598)]
+     [DefaultExecutionOrder(590)]
      [RequireComponent(typeof(LineRenderer))]
      public class Laser : MonoBehaviour
      {
@@ -121,9 +121,10 @@ namespace ChenkenLaser
 
          public void Launch()
          {
-             var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
-             //var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, transform.position, Quaternion.identity);
+             //var node = GameObject.Instantiate(laserNode, this.transform.position , Quaternion.identity);
+             var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, transform.position, Quaternion.identity);
              node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+			 node.GetComponent<LaserLine>().trailRenderer.Clear();
              this.laserNodes.Add(node);
          }
 
