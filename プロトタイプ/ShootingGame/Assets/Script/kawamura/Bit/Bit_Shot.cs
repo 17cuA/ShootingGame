@@ -21,13 +21,12 @@ public class Bit_Shot : MonoBehaviour
 		
 	public bool isShot = true;			//撃てるか
     int missileDelayCnt = 0;			//ミサイルのディレイ
-    int shotDelayMax;					//ショットの間隔
+    int shotDelayMax;                   //ショットの間隔
 
 	//bool activeLaser = true;
 
 	//bool activeDouble = false;
 	//bool activeBullet = false;
-
 
 	private void OnEnable()
 	{

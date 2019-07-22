@@ -10,7 +10,7 @@ using StorageReference;
 public class Enemy_BurstShot : MonoBehaviour
 {
 	float Shot_Delay;                       //バーストとバーストの間隔時間を計る
-	public int Shot_Delay_Max;                     //１つのバーストの間隔
+	public float Shot_Delay_Max;                     //１つのバーストの間隔
 	float burst_delay;                      //バーストの1発1発の間隔時間を計る
 	public float burst_Delay_Max;           //バーストの1発1発の間隔
 	public int burst_Num;                   //撃つバースト数

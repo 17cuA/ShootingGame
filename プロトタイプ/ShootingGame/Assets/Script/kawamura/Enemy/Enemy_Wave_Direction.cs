@@ -14,12 +14,12 @@ public class Enemy_Wave_Direction : MonoBehaviour
 	private void Awake()
 	{
 		parentObj = transform.parent.gameObject;
-		rotaY = (parentObj.transform.position.z * 4.5f) - 90.0f;
+		rotaY = (parentObj.transform.position.z * 4.5f) + 270.0f;
 	}
 
 	private void OnEnable()
 	{
-		rotaY = (parentObj.transform.position.z * 4.5f) - 90.0f;
+		rotaY = (parentObj.transform.position.z * 4.5f) + 270.0f;
 
 	}
 	void Start()
@@ -31,7 +31,7 @@ public class Enemy_Wave_Direction : MonoBehaviour
     void Update()
     {
 		zzzzz = parentObj.transform.position.z;
-		rotaY = (parentObj.transform.position.z * -4.5f) - 90.0f;
+		rotaY = (parentObj.transform.position.z * -4.5f) + 270.0f;
 		//transform.rotation = new Quaternion(0, rotaY, 0, 0);
 		transform.rotation = Quaternion.Euler(0, rotaY, 0);
 	}
