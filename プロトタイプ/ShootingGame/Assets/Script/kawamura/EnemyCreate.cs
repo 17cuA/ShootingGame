@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//敵を出すスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCreate : MonoBehaviour
 {
-    public GameObject createPosR5;
+	//生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
+    public GameObject createPosR5;				
     public GameObject createPosR4;
     public GameObject createPosR3;
     public GameObject createPosR2;
@@ -16,6 +20,7 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createPosRm4;
     public GameObject createPosRm5;
 
+	//生成位置左側
     public GameObject createPosL5;
     public GameObject createPosL4;
     public GameObject createPosL3;
@@ -29,6 +34,7 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createPosLm4;
     public GameObject createPosLm5;
 
+	//中ボス位置と戦艦位置
     public GameObject createMiddleBossPos;
     public GameObject createBattleShipPos;
 
@@ -46,16 +52,17 @@ public class EnemyCreate : MonoBehaviour
     public GameObject enemy_BattleShip;
     public GameObject enemy_BattleShip2;
 
-    public int frameCnt = 0;
-    public int groupCnt = 1;
-    float plusNum = 60;
-    float plusNum2 = 60;
-    float plusNum3 = 60;
+    public int frameCnt = 0;	//フレームカウント：これの値で生成のタイミングをはかる
+    public int groupCnt = 1;	//画面に出す群れのカウント
+    float plusNum = 60;			//
+    float plusNum2 = 60;		//この三つは強引に表示のフレームをずらすために使ったので消した方がいいけど面倒
+    float plusNum3 = 60;		//
 
-    public bool isCreate;
+    public bool isCreate;		//表示するときにtrueにする
 
     void Start()
     {
+		//位置オブジェクト取得
         createPosR5 = GameObject.Find("CreatePos_Right_5");
         createPosR4 = GameObject.Find("CreatePos_Right_4");
         createPosR3 = GameObject.Find("CreatePos_Right_3");
@@ -98,6 +105,7 @@ public class EnemyCreate : MonoBehaviour
         enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
         enemy_BattleShip2 = Resources.Load("Enemy/BattleshipType_Enemy (1)") as GameObject;
 
+		//群れカウント初期化
         groupCnt = 1;
     }
 
@@ -110,14 +118,16 @@ public class EnemyCreate : MonoBehaviour
         frameCnt++;
     }
 
-    //--------------------------------------------------------------------
-    void CreateEnemyGroup()
+	//--------------------------------------------------------------------
+
+	//敵を出す関数
+	void CreateEnemyGroup()
     {
         if (isCreate)
         {
             switch (groupCnt)
             {
-                case 1:
+                case 1:						//円盤の群れを１つ右上から出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
@@ -125,8 +135,8 @@ public class EnemyCreate : MonoBehaviour
                     enemy_UFO_Group.transform.position = createPosR3.transform.position;
                     enemy_UFO_Group.transform.rotation = transform.rotation;
                     break;
-
-                case 2:
+					
+                case 2:						//円盤の群れを１つ右下から出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
@@ -135,8 +145,8 @@ public class EnemyCreate : MonoBehaviour
                     enemy_UFO_Group2.transform.rotation = transform.rotation;
                     break;
 
-                case 3:
-                    isCreate = false;
+                case 3:						//円盤の群れを１つ右上から出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
@@ -144,8 +154,8 @@ public class EnemyCreate : MonoBehaviour
                     enemy_UFO_Group3.transform.rotation = transform.rotation;
                     break;
 
-                case 4:
-                    isCreate = false;
+                case 4:						//円盤の群れを１つ右下から出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
@@ -153,7 +163,7 @@ public class EnemyCreate : MonoBehaviour
                     enemy_UFO_Group4.transform.rotation = transform.rotation;
                     break;
 
-                case 5:
+                case 5:						//奥からくる斜めに並んだ闘牛型の群れを出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroup.transform.position, transform.rotation);
@@ -162,7 +172,7 @@ public class EnemyCreate : MonoBehaviour
                     enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
                     break;
 
-                case 6:
+                case 6:						//円盤の群れを右上と右下から１つずつ出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
@@ -177,7 +187,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 7:
+                case 7:						//円盤の群れを右側から中央寄りで2つ出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR1.transform.position, transform.rotation);
@@ -192,8 +202,8 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 8:
-                    isCreate = false;
+                case 8:						//円盤の群れを右上と右下から１つずつ出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
                     GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
@@ -207,7 +217,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 9:
+                case 9:						//奥からくる闘牛型が縦に2つ並んだ敵の群れを２つ出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroup.transform.position, transform.rotation);
@@ -222,22 +232,34 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 10:
-                    isCreate = false;
+                case 10:					//奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵）
+					isCreate = false;
                     groupCnt++;
-                    GameObject Battle_Ship2 = enemy_BattleShip2;
-                    Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
+                    //GameObject Battle_Ship2 = enemy_BattleShip2;
+                    //Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
 
-                    GameObject Battle_Ship1 = enemy_BattleShip;
-                    Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-                    ////Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
-                    //GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
-                    //enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
-                    //enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+                    //GameObject Battle_Ship1 = enemy_BattleShip;
+                    //Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					//Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
+					GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+					enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
+					enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
 
-                    break;
+					break;
 
-                case 11:
+				case 11:					//戦艦を2体出す
+					isCreate = false;
+					groupCnt++;
+					//GameObject Battle_Ship2 = enemy_BattleShip2;
+					GameObject Battle_Ship2 = enemy_BattleShip2;
+					Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
+
+					GameObject Battle_Ship1 = enemy_BattleShip;
+					Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+
+					break;
+
+                case 12:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
@@ -247,7 +269,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 12:
+                case 13:					//中ボス出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
@@ -257,7 +279,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 13:
+                case 14:					//右上と右下に闘牛型が3つ縦に並んだ群れを出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
@@ -273,8 +295,8 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 14:
-                    isCreate = false;
+                case 15:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
                     GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
@@ -288,8 +310,8 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 15:
-                    isCreate = false;
+                case 16:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す（アイテム落とす敵入り）
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, createPosR3.transform.position, transform.rotation);
                     GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
@@ -303,8 +325,8 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 16:
-                    isCreate = false;
+                case 17:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
                     GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
@@ -318,8 +340,8 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 17:
-                    isCreate = false;
+                case 18:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+					isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
                     GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
@@ -341,86 +363,104 @@ public class EnemyCreate : MonoBehaviour
     //---------------------------------------------------------------------
     void CreateCheck()
     {
-        if (frameCnt == 3520.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが18の時のを出すタイミング
+		if (frameCnt == 3940.0f)
         {
             isCreate = true;
         }
-        else if (frameCnt == 3340.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが17の時のを出すタイミング
+		else if (frameCnt == 3580.0f)
         {
             isCreate = true;
         }
-        else if (frameCnt == 3160.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが16の時のを出すタイミング
+		else if (frameCnt == 3580.0f)
         {
             isCreate = true;
         }
-        else if (frameCnt == 2980.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが15の時のを出すタイミング
+		else if (frameCnt == 3400.0f)
         {
             isCreate = true;
         }
-        else if (frameCnt == 2800.0f + plusNum + plusNum2 + plusNum3)
-        {
-            isCreate = true;
-
-        }
-        else if (frameCnt == 2560.0f + plusNum + plusNum2 + plusNum3)
-        {
-            isCreate = true;
-
-        }
-        else if (frameCnt == 2350.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが14の時のを出すタイミング
+		else if (frameCnt == 3220.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 1560.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが13の時のを出すタイミング
+		else if (frameCnt == 2980.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 1470.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが12の時のを出すタイミング
+		else if (frameCnt == 2530.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 1380.0f + plusNum + plusNum2 + plusNum3)
-        {
-            isCreate = true;
-        }
-        else if (frameCnt == 1200.0f + plusNum + plusNum2 + plusNum3)
+		//groupCntが11の時のを出すタイミング
+		else if (frameCnt == 1760.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 1140.0f + plusNum + plusNum2)
+		//groupCntが10の時のを出すタイミング
+		else if (frameCnt == 1650.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 1080.0f + plusNum)
+		//groupCntが9の時のを出すタイミング
+		else if (frameCnt == 1560.0f)
+        {
+            isCreate = true;
+        }
+		//groupCntが8の時のを出すタイミング
+		else if (frameCnt == 1380.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 780.0f)
+		//groupCntが7の時のを出すタイミング
+		else if (frameCnt == 1260.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 660.0f)
+		//groupCntが6の時のを出すタイミング
+		else if (frameCnt == 1140.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 480.0f)
+		//groupCntが5の時のを出すタイミング
+		else if (frameCnt == 780.0f)
         {
             isCreate = true;
 
         }
-        else if (frameCnt == 300.0f)
+		//groupCntが4の時のを出すタイミング
+		else if (frameCnt == 660.0f)
         {
             isCreate = true;
 
         }
+		//groupCntが3の時のを出すタイミング
+		else if (frameCnt == 480.0f)
+        {
+            isCreate = true;
+
+        }
+		//groupCntが2の時のを出すタイミング
+		else if (frameCnt == 300.0f)
+        {
+            isCreate = true;
+
+        }
+		//groupCntが1の時のを出すタイミング
         else if (frameCnt == 120.0f)
         {
             isCreate = true;

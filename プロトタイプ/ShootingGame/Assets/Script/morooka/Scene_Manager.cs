@@ -5,6 +5,7 @@
  * 2019/07/17 フェードイン、フェードアウトする　シーン遷移
  * 2019/07/18 フェードアウト後、ディレイを入れる
  * 2019/07/19 フェードイン中にボタンが押されるとゲームが止まるバグの修正
+ * 2019/07/21 説明シーン追加
  */
 
 using System.Collections;
@@ -23,14 +24,7 @@ public class Scene_Manager : MonoBehaviour
 		eROGO,
 		eTITLE,
 		eMENU,
-
-        //------------------7/21追加-----------------
-        //勝手にいじっちゃて申し訳ない
-        //説明シーン列挙型追加
-        //-------------------------------------------
         eINSTRUCTION,
-
-
         eSTAGE,
 		eGAME_OVER,
 		eGAME_CLEAR,
@@ -57,11 +51,6 @@ public class Scene_Manager : MonoBehaviour
 		Manager = GetComponent<Scene_Manager>();
 
 		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-		//for (int i = 0;i<Renderer_For_Fade.Length;i++)
-		//{
-		//	Renderer_For_Fade[i] = transform.GetChild(i).GetChild(0).GetComponent<Image>();
-		//}
-
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
 		Fade_In_Quantity = fade_in_speed / 255.0f;
 		Fade_Out_Quantity = fade_out_speed / 255.0f;
@@ -72,7 +61,6 @@ public class Scene_Manager : MonoBehaviour
 		Transition_Deferred_Cnt = 0;
 	}
 
-    // Update is called once per frame
     void Update()
     {
 		if(Is_Fade_In_Intermediate && !Is_Fade_Out_Intermediate)
@@ -101,8 +89,6 @@ public class Scene_Manager : MonoBehaviour
 		Is_Fade_Finished = true;
 		Is_Fade_In_Intermediate = false;
 
-		//foreach (Image image in Renderer_For_Fade)
-		//{
 		if (Renderer_For_Fade.color.a > 0.0f)
 		{
 			Color color_for_fade = Renderer_For_Fade.color;
@@ -113,7 +99,6 @@ public class Scene_Manager : MonoBehaviour
 				Is_Fade_Finished = false;
 				Is_Fade_In_Intermediate = true;
 		}
-		//}
 		return Is_Fade_Finished;
 	}
 
@@ -125,8 +110,6 @@ public class Scene_Manager : MonoBehaviour
 	{
 		Is_Fade_Finished = true;
 
-		//foreach (Image image in Renderer_For_Fade)
-		//{
 		if (Renderer_For_Fade.color.a < 1.0f)
 		{
 			Color color_for_fade = Renderer_For_Fade.color;
@@ -136,7 +119,6 @@ public class Scene_Manager : MonoBehaviour
 
 				Is_Fade_Finished = false;
 		}
-		//}
 		return Is_Fade_Finished;
 	}
 
@@ -216,10 +198,7 @@ public class Scene_Manager : MonoBehaviour
 	}
 
     /// <summary>
-    /// ----------------7/21追加------------------
-    /// 作成者：陳
     /// ゲーム説明に移動
-    /// ------------------------------------------
     /// </summary>
     public void Screen_Transition_To_Instruction()
     {

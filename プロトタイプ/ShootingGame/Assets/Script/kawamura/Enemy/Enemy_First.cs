@@ -35,7 +35,7 @@ public class Enemy_First : character_status
 	float _y;
 	float _z;
 
-	float frame = 0;
+	//float frame = 0;
 	float straightFrame;
 	float straightFrame_Default;
 	public float speedX;
@@ -47,8 +47,8 @@ public class Enemy_First : character_status
 
 	bool once = true;
 	bool isTurn;
-	bool isAddition = false;
-	bool isDead = false;
+	//bool isAddition = false;
+	//bool isDead = false;
 	public bool haveItem = false;
 
 	private void Awake()
@@ -364,7 +364,7 @@ public class Enemy_First : character_status
 	}
 	void Enemy_Reset()
 	{
-		frame = 0;
+		//frame = 0;
 		straightFrame = straightFrame_Default;
 		speedZ_Value = 50;
 		once = true;
