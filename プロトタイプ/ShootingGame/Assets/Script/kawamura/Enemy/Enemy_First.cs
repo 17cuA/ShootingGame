@@ -160,12 +160,14 @@ public class Enemy_First : character_status
 					{
 						//transform.localPosition = defaultPos;
 						speedX = 5;
+                        speedY = 5;
 						eState = State.TurnDown;
 					}
 					else
 					{
 						//transform.localPosition = defaultPos;
 						speedX = 5;
+                        speedY = 5;
 						eState = State.TurnUp;
 					}
 				}
@@ -249,13 +251,18 @@ public class Enemy_First : character_status
 					{
 						speedZ = speedZ_Value;
 					}
+                    //if (transform.localPosition.x < -18)
+                    //{
+                    //    speedX += 0.12f;
+                    //}
 					if (transform.localPosition.x <= -32)
 					{
-						//frame += Time.deltaTime;
-						//if (frame > 3)
-						//{
-						//	isTurn = true;
-						//}
+                        //frame += Time.deltaTime;
+                        //if (frame > 3)
+                        //{
+                        //	isTurn = true;
+                        //}
+                        speedX = 5;
 						isTurn = true;
 					}
 					//if (transform.position.x < 9)
@@ -274,12 +281,17 @@ public class Enemy_First : character_status
 
 					speedX -= 0.12f;
 
-					if (speedX < -5.0f)
-					{
-						speedX = -5.0f;
-					}
-				}
-				break;
+                    if (transform.position.y > 0.5)
+                    {
+                        speedX -= 0.36f;
+                        speedY += 0.36f;
+                    }
+                    if (speedX < -12.0f)
+                    {
+                        speedX = -12.0f;
+                    }
+                }
+                break;
 
 			case State.TurnDown:
 				if (!isTurn)
@@ -298,14 +310,19 @@ public class Enemy_First : character_status
 					{
 						speedZ = speedZ_Value;
 					}
+                    //if (transform.localPosition.x < -18)
+                    //{
+                    //    speedX += 0.12f;
+                    //}
 
-					if (transform.localPosition.x <= -32)
+                    if (transform.localPosition.x <= -32)
 					{
-						//frame += Time.deltaTime;
-						//if (frame > 3)
-						//{
-						//	isTurn = true;
-						//}
+                        //frame += Time.deltaTime;
+                        //if (frame > 3)
+                        //{
+                        //	isTurn = true;
+                        //}
+                        speedX = 5;
 						isTurn = true;
 					}
 
@@ -325,9 +342,14 @@ public class Enemy_First : character_status
 
 					speedX -= 0.12f;
 
-					if (speedX < -5.0f)
+                    if (transform.position.y < -0.5)
+                    {
+                        speedX -= 0.36f;
+                        speedY += 0.36f;
+                    }
+					if (speedX < -12.0f)
 					{
-						speedX = -5.0f;
+						speedX = -12.0f;
 					}
 				}
 				break;
@@ -341,7 +363,7 @@ public class Enemy_First : character_status
 		}
 	}
 
-	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
+	//状態を変える(主に出現時に曲がらせたくないときに使うと思われます)
 	public void SetState(int num)
 	{
 		switch (num)

@@ -23,7 +23,7 @@ public class Enemy_Wave : character_status
 	GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
 
-	//Renderer renderer;			//レンダラー
+	Renderer renderer;			//レンダラー
 	//HSVColorController hsvCon;	//シェーダー用
 	//Color hsvColor;
 	//BlurController blurCon;
@@ -78,6 +78,8 @@ public class Enemy_Wave : character_status
 	//public bool susumimasu=true;
 	public bool isNoSlerp=false;
 	bool isSonicPlay = false;
+    public bool utsuttemasuyo=false;
+    bool isWaveStart = false;
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
@@ -109,9 +111,9 @@ public class Enemy_Wave : character_status
 		distance_two= Vector3.Distance(startMarker, endMarker);
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
-		//childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
+		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
 		//childCnt = transform.childCount;
-		//renderer = childObj.GetComponent<Renderer>();
+		renderer = childObj.GetComponent<Renderer>();
 		//hsvColor = childObj.GetComponent<Renderer>().material.color;
 		//hsvCon = childObj.GetComponent<HSVColorController>();
 		//val_Value = 0.025f;
@@ -143,6 +145,14 @@ public class Enemy_Wave : character_status
 
 	void Update()
 	{
+        if(renderer.isVisible)
+        {
+            utsuttemasuyo = true;
+        }
+        else
+        {
+            utsuttemasuyo = false;
+        }
 		//if (transform.childCount == 0)
 		//{
 		//	Destroy(this.gameObject);
@@ -200,7 +210,8 @@ public class Enemy_Wave : character_status
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY;
+                    //speedY = defaultSpeedY;
+                    speedY = 0;
 					amplitude = 0.1f;
 					speedX = 5;
 					speedZ_Value = 0;
@@ -220,7 +231,8 @@ public class Enemy_Wave : character_status
 					{
 						defaultSpeedY *= -1;
 					}
-					speedY = defaultSpeedY;
+                    //speedY = defaultSpeedY;
+                    speedY = 0;
 					amplitude = -0.1f;
 					speedX = 5;
 					speedZ_Value = 0;
@@ -249,171 +261,200 @@ public class Enemy_Wave : character_status
 		}
 
 
-		if(isStraight)
+        if (isStraight)
+        {
+            velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+            gameObject.transform.position += velocity * Time.deltaTime;
+
+
+        }
+        else if (isOnlyWave)
+        {
+            
+            speedX = 5;
+            //sin =posY + Mathf.Sin(Time.time*5);
+
+
+            if (transform.position.x < 20 && transform.position.z == 0)
+            {
+
+                if(!isWaveStart)
+                {
+                    speedY = defaultSpeedY;
+                    isWaveStart = true;
+                }
+
+            }
+
+            if(isWaveStart)
+            {
+                SpeedY_Check();
+                SpeedY_Calculation();
+
+            }
+            else
+            {
+                speedY = 0;
+            }
+            //transform.position = new Vector3(transform.position.x, startPosY + Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
+            velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+
+            //velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+            gameObject.transform.position += velocity * Time.deltaTime;
+
+        }
+        else if (!isWave)
+        {
+            //if(!isSlerp)
+            //{
+            //	velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+            //	gameObject.transform.position += velocity * Time.deltaTime;
+            //}
+            if (isSlerp)
+            {
+                //if (transform.position.x < 12)
+                //{
+                //	velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+                //	gameObject.transform.position += velocity * Time.deltaTime;
+                //	if (transform.position.x >= 12)
+                //	{
+                //		transform.position = new Vector3(12.0f, transform.position.y, 40.0f);
+                //	}
+                //}
+                //else if(transform.position.x>=12.0f)
+                //{
+                if (isSonicPlay)
+                {
+                    //sonicBoom.Stop();
+                    isSonicPlay = false;
+                }
+                present_Location = (Time.time * testSpeed) / distance_two;
+                transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
+                startTime += 0.012f;
+                if (startTime > 1)
+                {
+                    startTime = 1;
+                }
+                //startTime++;
+                HSV_Change();
+
+                if (transform.position == endMarker)
+                {
+                    isWave = true;
+                    speedX = 5;
+                    speedY = defaultSpeedY;
+
+                }
+                //}
+            }
+            else if (isNoSlerp)
+            {
+                velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+                gameObject.transform.position += velocity * Time.deltaTime;
+                if (transform.position.z < 0)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                }
+
+                if (transform.position.x >= 12)
+                {
+                    isSlerp = true;
+                    //sonicBoom.Play();
+                    isSonicPlay = true;
+                }
+
+                if (transform.position.x > 7)
+                {
+                    //speedX -= 0.25f;
+                    //speedX *= 0.965f;
+
+                    //speedZ = speedZ_Value;
+                    //hsvCon.val += val_Value;
+
+                    //明るさを変える関数
+                    HSV_Change();
+
+                    //if (hsvCon.val > 1.0f)
+                    //{
+                    //	hsvCon.val = 1.0f;
+                    //}
+
+                    //blurCon.sigma -= sigma_Value;
+                    //if (blurCon.sigma <= 0)
+                    //{
+                    //	blurCon.sigma = 0.1f;
+                    //}
+                }
+                if (transform.position.z <= 0)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                    speedX = 5;
+                    speedY = defaultSpeedY;
+                    isWave = true;
+                }
+
+                //if (transform.position.x > 13)
+                //{
+                //	speedX = 5;
+                //	speedY = defaultSpeedY;
+                //	isWave = true;
+                //}
+                //else if (transform.position.x > 7)
+                //{
+
+                //	//speedZ = speedZ_Value;
+                //	//hsvCon.val += val_Value;
+                //	v_Value += val_Value;
+
+                //	if (val_Value > 1.0f)
+                //	{
+                //		v_Value = 1.0f;
+                //	}
+
+                //	//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+                //	renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+
+                //	//if (hsvCon.val > 1.0f)
+                //	//{
+                //	//	hsvCon.val = 1.0f;
+                //	//}
+
+                //	//blurCon.sigma -= sigma_Value;
+                //	//if (blurCon.sigma <= 0)
+                //	//{
+                //	//	blurCon.sigma = 0.1f;
+                //	//}
+                //}
+                else if (transform.position.x > 1)
+                {
+                    //blurCon.sigma -= sigma_Value;
+                    //speedZ = speedZ_Value;
+                }
+            }
+            //else if(isSlerp)
+            //{
+            //	if(susumimasu)
+            //	{
+            //		velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
+            //		gameObject.transform.position += velocity * Time.deltaTime;
+            //		if (transform.position.x > -26)
+            //		{
+            //			susumimasu = false;
+            //		}
+            //	}
+            //	else
+            //	{
+            //		// 現在の位置
+            //		float present_Location = (Time.time * testSpeed) / distance_two;
+
+            //		// オブジェクトの移動(ここだけ変わった！)
+            //		transform.position = Vector3.Slerp(startMarker, endMarker, present_Location);
+            //	}
+            //}
+        }
+        else if (isWave && !renderer.isVisible)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-			gameObject.transform.position += velocity * Time.deltaTime;
-
-
-		}
-		else if (isOnlyWave)
-		{
-			transform.position = new Vector3(transform.position.x, startPosY + Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
-			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-			gameObject.transform.position += velocity * Time.deltaTime;
-
-		}
-		else if (!isWave)
-		{
-			//if(!isSlerp)
-			//{
-			//	velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-			//	gameObject.transform.position += velocity * Time.deltaTime;
-			//}
-			if(isSlerp)
-			{
-				//if (transform.position.x < 12)
-				//{
-				//	velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-				//	gameObject.transform.position += velocity * Time.deltaTime;
-				//	if (transform.position.x >= 12)
-				//	{
-				//		transform.position = new Vector3(12.0f, transform.position.y, 40.0f);
-				//	}
-				//}
-				//else if(transform.position.x>=12.0f)
-				//{
-				if(isSonicPlay)
-				{
-					//sonicBoom.Stop();
-					isSonicPlay = false;
-				}
-				present_Location = (Time.time * testSpeed) / distance_two;
-				transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
-				startTime += 0.012f;
-				if(startTime>1)
-				{
-					startTime = 1;
-				}
-				//startTime++;
-				HSV_Change();
-
-				if (transform.position == endMarker)
-					{
-						isWave = true;
-						speedX = 5;
-						speedY = defaultSpeedY;
-
-					}
-				//}
-			}
-			else if (isNoSlerp)
-			{
-				velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-				gameObject.transform.position += velocity * Time.deltaTime;
-				if (transform.position.z < 0)
-				{
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-				}
-
-				if (transform.position.x >= 12)
-				{
-					isSlerp = true;
-					//sonicBoom.Play();
-					isSonicPlay = true;
-				}
-
-				if (transform.position.x > 7)
-				{
-					//speedX -= 0.25f;
-					//speedX *= 0.965f;
-
-					//speedZ = speedZ_Value;
-					//hsvCon.val += val_Value;
-					
-					//明るさを変える関数
-					HSV_Change();	
-					
-					//if (hsvCon.val > 1.0f)
-					//{
-					//	hsvCon.val = 1.0f;
-					//}
-
-					//blurCon.sigma -= sigma_Value;
-					//if (blurCon.sigma <= 0)
-					//{
-					//	blurCon.sigma = 0.1f;
-					//}
-				}
-				if (transform.position.z <= 0)
-				{
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					speedX = 5;
-					speedY = defaultSpeedY;
-					isWave = true;
-				}
-
-				//if (transform.position.x > 13)
-				//{
-				//	speedX = 5;
-				//	speedY = defaultSpeedY;
-				//	isWave = true;
-				//}
-				//else if (transform.position.x > 7)
-				//{
-
-				//	//speedZ = speedZ_Value;
-				//	//hsvCon.val += val_Value;
-				//	v_Value += val_Value;
-
-				//	if (val_Value > 1.0f)
-				//	{
-				//		v_Value = 1.0f;
-				//	}
-
-				//	//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-				//	renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-
-				//	//if (hsvCon.val > 1.0f)
-				//	//{
-				//	//	hsvCon.val = 1.0f;
-				//	//}
-
-				//	//blurCon.sigma -= sigma_Value;
-				//	//if (blurCon.sigma <= 0)
-				//	//{
-				//	//	blurCon.sigma = 0.1f;
-				//	//}
-				//}
-				else if (transform.position.x > 1)
-				{
-					//blurCon.sigma -= sigma_Value;
-					//speedZ = speedZ_Value;
-				}
-			}
-			//else if(isSlerp)
-			//{
-			//	if(susumimasu)
-			//	{
-			//		velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-			//		gameObject.transform.position += velocity * Time.deltaTime;
-			//		if (transform.position.x > -26)
-			//		{
-			//			susumimasu = false;
-			//		}
-			//	}
-			//	else
-			//	{
-			//		// 現在の位置
-			//		float present_Location = (Time.time * testSpeed) / distance_two;
-
-			//		// オブジェクトの移動(ここだけ変わった！)
-			//		transform.position = Vector3.Slerp(startMarker, endMarker, present_Location);
-			//	}
-			//}
-		}
-		else if(isWave)
-		{
+            
 			speedX = 5;
 			//sin =posY + Mathf.Sin(Time.time*5);
 
