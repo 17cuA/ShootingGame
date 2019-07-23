@@ -23,8 +23,8 @@ public class FollowToPreviousBit : MonoBehaviour
 
 	public string myName;
 
-	bool one = true;
-	bool once = true;
+	//bool one = true;
+	//bool once = true;
 	public bool check = false;      //配列すべてに値が入っているかの判定
 	public bool isMove = false;
 	public bool hasOption = false;
@@ -46,7 +46,7 @@ public class FollowToPreviousBit : MonoBehaviour
 			previousBitObj = GameObject.Find("FollowPosThird");
 		}
 
-		int cnt = 0;
+		//int cnt = 0;
 		array_Num = 12;
 		previousBitPos = new Vector3[array_Num];
 

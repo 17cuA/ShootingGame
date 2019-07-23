@@ -1,18 +1,30 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//オプションのパーティクルの見た目の大きさ変更スクリプト
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Option_Scale : MonoBehaviour
 {
+	Bit_Formation_3 bf;
+
 	int scaleDelay;
 	float scale_value;
+	public float scale_Collect;
 
 	bool isScaleInc = false;
 	bool isScaleDec=false;
-    // Start is called before the first frame update
-    void Start()
+	public bool isCollectInc = true;
+	// Start is called before the first frame update
+
+	private void Awake()
+	{
+		bf = transform.parent.gameObject.GetComponent<Bit_Formation_3>();
+	}
+	void Start()
     {
 		scale_value = 1.5f;
+		scale_Collect = 0;
 		isScaleInc = true;
 		//isScaleInc = true;
     }
@@ -22,7 +34,20 @@ public class Option_Scale : MonoBehaviour
     {
 		//オプションの縮小試し
 		scaleDelay++;
-		if (scaleDelay > 5)
+		if (isCollectInc)
+		{
+			scale_Collect += 0.1f;
+			if(scale_Collect>1.5f)
+			{
+				scale_Collect = 1.5f;
+				isScaleDec = true;
+				isScaleInc = false;
+				isCollectInc = false;
+			}
+			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
+
+		}
+		else if(scaleDelay > 5)
 		{
 			if (isScaleInc)
 			{
@@ -49,6 +74,11 @@ public class Option_Scale : MonoBehaviour
 			transform.localScale = new Vector3(scale_value, scale_value, 0);
 			scaleDelay = 0;
 		}
-
+		if(bf.isCollection)
+		{
+			scale_Collect = 0;
+			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
+			isCollectInc = true;
+		}
 	}
 }

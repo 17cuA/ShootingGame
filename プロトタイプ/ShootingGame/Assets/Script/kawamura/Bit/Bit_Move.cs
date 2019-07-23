@@ -21,7 +21,7 @@ public class Bit_Move : MonoBehaviour
 	float _y;
 	float _z;
 
-	bool isStart = true;                            //生成直後の処理用
+	//bool isStart = true;                            //生成直後の処理用
 
 	void Start()
 	{

@@ -27,8 +27,8 @@ public class Enemy_Wave : character_status
 	//HSVColorController hsvCon;	//シェーダー用
 	//Color hsvColor;
 	//BlurController blurCon;
-	EnemyGroupManage groupManage;		//群れの時の親スクリプト
-	//VisibleCheck vc;
+	EnemyGroupManage groupManage;			//群れの時の親スクリプト
+	//public ParticleSystem sonicBoom;			//ジェット噴射の衝撃波のようなパーティクル
 
 	Vector3 velocity;
 	Vector3 defaultPos;
@@ -77,11 +77,14 @@ public class Enemy_Wave : character_status
 	public bool isSlerp = false;
 	//public bool susumimasu=true;
 	public bool isNoSlerp=false;
+	bool isSonicPlay = false;
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
 	private void Awake()
 	{
+		//sonicBoom.Stop();
+		isSonicPlay = false;
 		defaultPos = transform.localPosition;
 
 		if (gameObject.GetComponent<DropItem>())
@@ -280,6 +283,11 @@ public class Enemy_Wave : character_status
 				//}
 				//else if(transform.position.x>=12.0f)
 				//{
+				if(isSonicPlay)
+				{
+					//sonicBoom.Stop();
+					isSonicPlay = false;
+				}
 				present_Location = (Time.time * testSpeed) / distance_two;
 				transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
 				startTime += 0.012f;
@@ -311,6 +319,8 @@ public class Enemy_Wave : character_status
 				if (transform.position.x >= 12)
 				{
 					isSlerp = true;
+					//sonicBoom.Play();
+					isSonicPlay = true;
 				}
 
 				if (transform.position.x > 7)
