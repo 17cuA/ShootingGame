@@ -16,20 +16,22 @@ public class BattleshipType_Enemy : character_status
 {
 	[SerializeField, Header("初期位置")] private Vector3 initial_position;
 	[SerializeField, Header("移動変更ポイント")] private Vector3[] moving_change_point;
-	[SerializeField, Header("はさみ込むタイプはTrue")] private bool is_sandwich;
+	[SerializeField, Header("はさみ込むタイプはTrue")] public bool is_sandwich;
 	[SerializeField, Header("マズルセット上")] private Transform[] muzzle_set_up;
 	[SerializeField, Header("マズルセット下")] private Transform[] muzzle_set_Down;
 
+	public Vector3 Original_Position { get; set; }		// 元の位置
 	public int Now_Target { get; set; }					// 現在の移動目標番号
 	public Vector3 Move_Facing { get; set; }			// Y軸の移動向き
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
-	public List<BattleshipType_Battery> Child_Scriptes { get; set; }
+	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
+	public List<MeshRenderer> Parts_Renderer { get; set; }					// パーツたちのレンダー
 
-	void Start()
+	private new void Start()
 	{
-		transform.position = initial_position;
+		Original_Position = transform.position = initial_position;
 		Now_Target = 0;
 		// 初期位置と目標位置のX軸の中間
 		Moving_Facing = new Vector3(-1.0f, 0.0f,0.0f);
@@ -37,6 +39,7 @@ public class BattleshipType_Enemy : character_status
 		Shot_Delay = Shot_DelayMax / 3;
 		Bullet_Object = new List<GameObject>();
 		Child_Scriptes = new List<BattleshipType_Battery>();
+		Parts_Renderer = new List<MeshRenderer>();
 
 		for (int i = 0; i < transform.childCount; i++)
 		{
@@ -44,15 +47,16 @@ public class BattleshipType_Enemy : character_status
 			if (b != null)
 			{
 				Child_Scriptes.Add(b);
+				Parts_Renderer.Add(Child_Scriptes[i].GetComponent<MeshRenderer>());
 			}
 		}
 	}
 
-	void Update()
+	private void Update()
 	{
 		HSV_Change();
 
-		// 移動したい向きに移動
+		//// 移動したい向きに移動
 		Vector3 velocity = Moving_Facing.normalized * speed;
 		transform.position = transform.position + velocity;
 		// 挟み込み型の挙動
@@ -60,21 +64,28 @@ public class BattleshipType_Enemy : character_status
 		{
 			// 移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
+			//if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
+			//	&& Now_Target < moving_change_point.Length - 1 )
 			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
 				&& Now_Target < moving_change_point.Length - 1 )
 			{
 				// 位置を指定
-				transform.position = moving_change_point[Now_Target];
+				Original_Position = transform.position = moving_change_point[Now_Target];
 
 				// 向きを確認
 				Moving_Facing = moving_change_point[Now_Target + 1] - moving_change_point[Now_Target];
 				// 別途保存
 				Move_Facing = Moving_Facing;
-				// 0にする
-				Moving_Facing = Vector3.zero;
+				//// 0にする
+				//Moving_Facing = Vector3.zero;
 				// ターゲットを次へ
 				Now_Target++;
 			}
+			//else
+			//{
+			//	transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed / 5.0f);
+
+			//}
 			// Y軸を少しづつ加算するため
 			if (Moving_Facing != Move_Facing)
 			{
@@ -112,7 +123,7 @@ public class BattleshipType_Enemy : character_status
 			{
 				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
 				Vector3 pos = Bullet_Object[i].transform.position;
-				pos.x += velocity.x;
+				//pos.x += velocity.x;
 				Bullet_Object[i].transform.position = pos;
 			}
 			// 起動していないとき
@@ -204,5 +215,28 @@ public class BattleshipType_Enemy : character_status
 			default:
 				break;
 		}
+	}
+
+	/// <summary>
+	/// ターゲットに移動
+	/// </summary>
+	/// <param name="origin"> 元の位置 </param>
+	/// <param name="target"> ターゲットの位置 </param>
+	/// <param name="speed"> 1フレームごとの移動速度 </param>
+	/// <returns> 移動後のポジション </returns>
+	private Vector3 Moving_To_Target(Vector3 origin,Vector3 target, float speed)
+	{
+		Vector3 direction = Vector3.zero;		// 移動する前のターゲットとの向き
+		Vector3 return_pos	 = Vector3.zero;				// 返すポジション
+		
+		direction = target - origin;
+		return_pos = origin + (direction.normalized * speed);
+
+		if (Vector_Size(return_pos, target) <= speed)
+		{
+			return_pos = target;
+		}
+
+		return return_pos;
 	}
 }
