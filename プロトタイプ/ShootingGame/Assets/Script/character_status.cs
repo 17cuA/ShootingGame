@@ -108,6 +108,7 @@ public class character_status : MonoBehaviour
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
 		//Debug.Log(gameObject.transform.parent.name + "	Destroy");
+		material_Reset();
 		gameObject.SetActive(false);
 
 	}
@@ -176,11 +177,12 @@ public class character_status : MonoBehaviour
 		}
 		if (tag == "Enemy")
 		{
-			Damege_Effect();
 			if (col.tag == "Player_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
+				Damege_Effect();
+
 			}
 			else if(col.gameObject.name == "Player")
 			{
