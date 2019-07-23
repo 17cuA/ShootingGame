@@ -117,7 +117,7 @@ public class EnemyCreate : MonoBehaviour
         {
             switch (groupCnt)
             {
-                case 12:
+                case 1:
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
@@ -247,7 +247,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 1:
+                case 12:
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
