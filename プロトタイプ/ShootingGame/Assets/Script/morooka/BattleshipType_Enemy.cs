@@ -57,8 +57,8 @@ public class BattleshipType_Enemy : character_status
 		HSV_Change();
 
 		//// 移動したい向きに移動
-		//Vector3 velocity = Moving_Facing.normalized * speed;
-		//transform.position = transform.position + velocity;
+		Vector3 velocity = Moving_Facing.normalized * speed;
+		transform.position = transform.position + velocity;
 		// 挟み込み型の挙動
 		if (is_sandwich)
 		{
@@ -81,18 +81,18 @@ public class BattleshipType_Enemy : character_status
 				// ターゲットを次へ
 				Now_Target++;
 			}
-			else
-			{
-				transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed / 5.0f);
-
-			}
-			//// Y軸を少しづつ加算するため
-			//if (Moving_Facing != Move_Facing)
+			//else
 			//{
-			//	Vector3 temp = Moving_Facing;
-			//	temp += Move_Facing / 40.0f;
-			//	Moving_Facing = temp;
+			//	transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed / 5.0f);
+
 			//}
+			// Y軸を少しづつ加算するため
+			if (Moving_Facing != Move_Facing)
+			{
+				Vector3 temp = Moving_Facing;
+				temp += Move_Facing / 40.0f;
+				Moving_Facing = temp;
+			}
 		}
 
 		// 自身のZ軸が0のとき攻撃する
