@@ -15,6 +15,7 @@ class Device_LaserEmitter : MonoBehaviour
 	[SerializeField] [Range(20,70)]       private int straightLaserNodeMax            = 50;
 	[SerializeField] [Range(0.2f,0.6f)]   private float straightLaserOverloadDuration = 0.4f;
 	[SerializeField] [Range(0.005f,0.05f)]private float straightLaserLaunchInterval   = 0.01f;
+	[SerializeField] private float straightTrailWidth = 0.1f;
 	[SerializeField] private Material straightLaserMaterial;
 	private GameObject straightLaserGeneratorParent;
 
@@ -25,6 +26,7 @@ class Device_LaserEmitter : MonoBehaviour
 	[SerializeField] private int rotateLaserNodeMax     = 60;
 	[SerializeField] private float rotateLaserOverloadDuration = 0.3f;
 	[SerializeField] private float rotateLaserLaunchInterval   = 0.01f;
+	[SerializeField] private float rotateTrailWidth = 0.1f;
 	[SerializeField] private Material rotateLaserMaterial;
 	private GameObject rotateLaserGeneratorParent;
 
@@ -72,9 +74,9 @@ class Device_LaserEmitter : MonoBehaviour
 			currentLaunchDevice.GenerateLine(laserShotSpeed, laserWidth, laserMaterial, pointMax);
 		}
 
-		public void LaunchNode()
+		public void LaunchNode(float trailWidth)
 		{
-			currentLaunchDevice.LaunchNode();
+			currentLaunchDevice.LaunchNode(trailWidth);
 		}
 
 	}
@@ -93,7 +95,7 @@ class Device_LaserEmitter : MonoBehaviour
 		GameObject EmitterInstance      { get; set; }
 
 		void GenerateLine(float laserShotSpeed, float laserWidth, Material laserMaterial,int pointMax);
-		void LaunchNode();
+		void LaunchNode(float trailWidth);
 	}
 
 	/// <summary>
@@ -148,9 +150,9 @@ class Device_LaserEmitter : MonoBehaviour
 			this.generators.Add(generator);
 		}
 
-		public void LaunchNode()
+		public void LaunchNode(float trailWidth)
 		{
-			this.CurrentGenerator.LaunchNode();
+			this.CurrentGenerator.LaunchNode(trailWidth);
 			this.CanLaunchTime = Time.time + LaunchInterval;
 		}
 	}
@@ -184,6 +186,7 @@ class Device_LaserEmitter : MonoBehaviour
 				{
 					this.CurrentGenerator = this.generators[i];
 					this.CurrentGenerator.ResetLineRenderer();
+					this.CurrentGenerator.Setting(laserShotSpeed, laserWidth, laserMaterial, pointMax);
 					this.CurrentGenerator.IsFixed = false;
 					this.CurrentGenerator.gameObject.SetActive(true);
 					return;
@@ -193,20 +196,22 @@ class Device_LaserEmitter : MonoBehaviour
 			var generatorGo = new GameObject("Generator");
 			var generator = generatorGo.AddComponent<Instance_Laser_Node_Generator>();
 
-			generator.Setting(laserShotSpeed, laserWidth, laserMaterial, pointMax);
-			generator.IsFixed = false;
-
 
 			generatorGo.transform.SetParent(EmitterInstance.transform);
 			generatorGo.transform.localPosition = Vector3.zero;
+
+			generator.IsFixed = false;
+			generator.Setting(laserShotSpeed, laserWidth, laserMaterial, pointMax);
+
+
 
 			this.CurrentGenerator = generator;
 			this.generators.Add(generator);
 		}
 
-		public void LaunchNode()
+		public void LaunchNode(float trailWidth)
 		{
-			this.CurrentGenerator.LaunchNode();
+			this.CurrentGenerator.LaunchNode(trailWidth);
 			this.CanLaunchTime = Time.time + LaunchInterval;
 		}
 	}
@@ -237,20 +242,28 @@ class Device_LaserEmitter : MonoBehaviour
 		//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
 		if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 		{
-			if(launchDevice is StraightLaunchDevice)
-				this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed,straightLaserWidth,straightLaserMaterial,straightLaserNodeMax);
+			if (launchDevice is StraightLaunchDevice)
+				this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+			else
+				this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 		}
 
 		if(Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
 			if(launchDevice.CurrentGenerator == null)
 			{
-				this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed,straightLaserWidth,straightLaserMaterial,straightLaserNodeMax);
+				if (launchDevice is StraightLaunchDevice)
+					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+				else
+					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 			}
 
 			if(Time.time > launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
 			{
-				this.emitterLaunchCore.LaunchNode();
+				if (launchDevice is StraightLaunchDevice)
+					this.emitterLaunchCore.LaunchNode(straightTrailWidth);
+				else
+					this.emitterLaunchCore.LaunchNode(rotateTrailWidth);
 			}
 		}
 
@@ -282,17 +295,18 @@ class Device_LaserEmitter : MonoBehaviour
 			launchDevice.CurrentGenerator = null;
 		}
 
-		if(Input.GetKey(KeyCode.LeftControl))
+		if(Input.GetKeyDown(KeyCode.Z))
 		{
 			if (emitterLaunchCore.currentLaunchDevice is StraightLaunchDevice)
 				emitterLaunchCore.SetDevice(new RotateLaunchDevice(this.rotateLaserOverloadDuration,this.rotateLaserLaunchInterval,this.rotateLaserGeneratorParent));
-			if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice)
+			else if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice)
 				emitterLaunchCore.SetDevice(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
 		}
 
 		if(emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice && Input.GetKey(KeyCode.LeftShift))
 		{
-			this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
+			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
+			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 200f);       
 		}
 	}
 }

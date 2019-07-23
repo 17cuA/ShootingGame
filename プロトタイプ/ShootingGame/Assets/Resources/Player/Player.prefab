@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   straightLaserShotSpeed: 0.8
   straightLaserWidth: 0.05
-  straightLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   straightLaserNodeMax: 50
   straightLaserOverloadDuration: 0.4
   straightLaserLaunchInterval: 0.01
+  straightTrailWidth: 0.1
+  straightLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  rotateLaserShotSpeed: 0.8
+  rotateLaserWidth: 0.05
+  rotateLaserNodeMax: 200
+  rotateLaserOverloadDuration: 0.15
+  rotateLaserLaunchInterval: 0
+  rotateTrailWidth: 5
+  rotateLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &5068087178034757352
 MonoBehaviour:
   m_ObjectHideFlags: 0

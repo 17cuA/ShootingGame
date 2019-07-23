@@ -7,6 +7,7 @@ using UnityEngine;
 public class Instance_Laser_Node_Generator : MonoBehaviour
 {
 	private float shotSpeed;
+	private GameObject emitter;
 
 	private bool isFixed;
 	public bool IsFixed { get { return isFixed; } set { isFixed = value;} }
@@ -31,6 +32,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		this.isFixed      = true;
 		this.lineRenderer = GetComponent<LineRenderer>();
 		this.nodes        = new List<GameObject>();
+		this.emitter      = GameObject.Find("LaserEmitter");
 	}
 
 	private void Update()
@@ -50,6 +52,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				if(this.nodes.Count == 0)
 				{
 					this.nodes.Clear();                               //念のため、管理リストクリアする
+			
 					this.SetLineRenderer(Vector3.zero,Vector3.zero);  //レーザーのレンダリングもリセット
 					this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
 				}
@@ -69,10 +72,21 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 		//----------------------------------------レーザー　線　レンダリング--------------------------------------------------------------------------
 
-		if (this.nodes.Count >= 2)
+		//if (this.nodes.Count >= 2)
+		//{
+		//	this.SetLineRenderer(new Vector3(this.nodes[0].transform.position.x, this.nodes[0].transform.position.y, 0)
+		//						, new Vector3(this.nodes[nodes.Count - 1].transform.position.x, this.nodes[nodes.Count - 1].transform.position.y, 0));
+		//}
+
+		if (this.nodes.Count > 2)
 		{
-			this.SetLineRenderer(new Vector3(this.nodes[0].transform.position.x, this.nodes[0].transform.position.y, 0)
-								, new Vector3(this.nodes[nodes.Count - 1].transform.position.x, this.nodes[nodes.Count - 1].transform.position.y, 0));
+
+			this.lineRenderer.positionCount = this.nodes.Count;
+
+			for (var i = 0; i < this.nodes.Count; ++i)
+			{
+				this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
+			}
 		}
 		
 		//---------------------------------------------------------------------------------------------------------------------------------------------	
@@ -97,11 +111,15 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	/// <summary>
 	/// レーザー連結点発射（生成）する
 	/// </summary>
-	public void LaunchNode()
+	public void LaunchNode(float trailWidth)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, this.transform.position, Quaternion.identity);
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+		node.transform.localRotation = this.emitter.transform.localRotation;
+		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
+		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
+		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
 
 		//管理するように
 		this.nodes.Add(node);
