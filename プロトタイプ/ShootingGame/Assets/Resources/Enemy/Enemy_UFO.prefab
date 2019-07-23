@@ -53,7 +53,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 100
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -62,6 +61,8 @@ MonoBehaviour:
   - {fileID: 7560823306770748818}
   isrend: 0
   Is_Dead: 0
+  self_material:
+  - {fileID: 0}
   eState: 0
   defaultPos: {x: 0, y: 0, z: 0}
   defaultPos_PlusZ: {x: 0, y: 0, z: 0}
