@@ -50,9 +50,10 @@ public class BattleshipType_Enemy : character_status
 				Parts_Renderer.Add(Child_Scriptes[i].GetComponent<MeshRenderer>());
 			}
 		}
+		base.Start();
 	}
 
-	private void Update()
+	private new void Update()
 	{
 		HSV_Change();
 
@@ -149,7 +150,7 @@ public class BattleshipType_Enemy : character_status
 
 			Died_Process();
 		}
-
+		base.Update();
 	}
 
 	void OnEnable()

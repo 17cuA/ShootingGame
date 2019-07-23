@@ -32,8 +32,11 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-	public Material[] self_material;									//初期マテリアル保存用
-	private Material white_material;									//ダメージくらったときに一瞬のホワイト
+	private Material[] self_material;									//初期マテリアル保存用
+	[Header("ダメージ用material設定")]
+	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
+	private int framecnt;
+	private bool check;
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -50,10 +53,31 @@ public class character_status : MonoBehaviour
 
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
-		white_material = Resources.Load<Material>("Material/Damege_Effect");
+		white_material = Resources.Load<Material>("Material/Damege_Effect") as Material;
+		white_material = new Material(white_material);
 		self_material = new Material[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
 		HP_Setting();
+		framecnt = 0;
+		check = false;
+	}
+	public void Update()
+	{
+		for (int i = 0; i < object_material.Length; i++)
+		{
+			if (check)
+			{
+				if (framecnt > 1)
+				{
+					material_Reset();
+					framecnt = 0;
+					check = false;
+					return;
+				}
+				framecnt++;
+			}
+		}
+
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -175,7 +199,7 @@ public class character_status : MonoBehaviour
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
-				//Damege_Effect();
+				Damege_Effect();
 
 			}
 			else if(col.gameObject.name == "Player")
@@ -216,12 +240,22 @@ public class character_status : MonoBehaviour
 	//ダメージを食らうとダメージエフェクトが走るように
 	private void Damege_Effect()
 	{
-		for (int i = 0; i < object_material.Length; i++) object_material[i].material = white_material;
+		for (int i = 0; i < object_material.Length; i++)
+		{
+			object_material[i].material = new Material(white_material);
+			check = true;
+			//object_material[i].enabled = false;
+		}
 	}
 	//ダメージを受けた時のエフェクトが元のエフェクトに戻すための関数
 	public void material_Reset()
 	{
-		for (int i = 0; i < object_material.Length; i++) object_material[i].material = self_material[i];
+		for (int i = 0; i < object_material.Length; i++)
+		{
+			object_material[i].material = self_material[i];
+			//object_material[i].enabled = true;
+
+		}
 	}
 	//シールドの値を取得する
 	public int Get_Shield()
