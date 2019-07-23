@@ -32,7 +32,8 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-	public MeshRenderer self_renderer;						//自身に設定してあるMeshRendererを設定（複数ある場合は別途）
+	private Renderer mesh_renderer;									//マテリアルを変更する用レンダラー
+	private Material white_material;								//ダメージくらったときに一瞬のホワイト
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -49,8 +50,7 @@ public class character_status : MonoBehaviour
 
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
-
-		if (self_renderer == null) self_renderer = GetComponent<MeshRenderer>();
+		white_material = Resources.Load <Material>("Material/Damege_Effect");
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -129,8 +129,6 @@ public class character_status : MonoBehaviour
 		Vector3 temp = new Vector3(Random.Range(-range, range), Random.Range(-range, range),0.0f);
 		effect.transform.position = transform.position + temp.normalized;
 		/*********************************************************/
-
-		//effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		return effect;
 	}
@@ -220,7 +218,7 @@ public class character_status : MonoBehaviour
 	//ダメージを食らうとダメージエフェクトが走るように
 	public void Damege_Effect()
 	{
-
+		//Renderer 
 	}
 	//シールドの値を取得する
 	public int Get_Shield()
@@ -231,5 +229,9 @@ public class character_status : MonoBehaviour
 	public void Set_Shield(int setnum)
 	{
 		shield = setnum;
+	}
+	public uint Get_Score()
+	{
+		return score;
 	}
 }
