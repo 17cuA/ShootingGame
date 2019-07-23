@@ -54,7 +54,6 @@ public class character_status : MonoBehaviour
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
 		white_material = Resources.Load<Material>("Material/Damege_Effect") as Material;
-		white_material = new Material(white_material);
 		self_material = new Material[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
 		HP_Setting();
@@ -242,7 +241,7 @@ public class character_status : MonoBehaviour
 	{
 		for (int i = 0; i < object_material.Length; i++)
 		{
-			object_material[i].material = new Material(white_material);
+			object_material[i].material = white_material;
 			check = true;
 			//object_material[i].enabled = false;
 		}
