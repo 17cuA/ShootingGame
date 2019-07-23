@@ -14,25 +14,26 @@ public class character_status : MonoBehaviour
 		None
 	}
 	protected Chara_Type Type;
-	public float speed;												// スピード
+	public float speed;													// スピード
 	private float speed_Max;
 	public int hp;														// 体力
 	private int hp_Max;
-	public Vector3 direction;										// 向き
-	public CapsuleCollider capsuleCollider;				// cillider
-	private Rigidbody rigidbody;								//rigitbody
-	public int Shot_DelayMax;									// 弾を打つ時の間隔（最大値::unity側にて設定）
-	public int Shot_Delay;											// 弾を撃つ時の間隔
+	public Vector3 direction;											// 向き
+	public CapsuleCollider capsuleCollider;								// cillider
+	private Rigidbody rigidbody;										//rigitbody
+	public int Shot_DelayMax;											// 弾を打つ時の間隔（最大値::unity側にて設定）
+	public int Shot_Delay;												// 弾を撃つ時の間隔
 	public uint score;													// 保持しているスコア
-	public int shield;													//シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;										//現在シールドが発動しているかどうかの判定用（初期値false）
-	public int Remaining;											//残機（あらかじめ設定）
+	private int shield;													//シールド（主にプレイヤーのみ使うと思う）
+	public bool activeShield;											//現在シールドが発動しているかどうかの判定用（初期値false）
+	public int Remaining;												//残機（あらかじめ設定）
 	public float v_Value;												//テクスチャの明るさの増える値
 	public int childCnt;
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-
+	public Material[] self_material;									//初期マテリアル保存用
+	private Material white_material;									//ダメージくらったときに一瞬のホワイト
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -49,34 +50,10 @@ public class character_status : MonoBehaviour
 
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
-
-		////レンダラー取得（自分についていたらそれを取得、自分についていなかったら子供を取得して子についていたらそれを取得）
-		//if (gameObject.GetComponent<Renderer>())
-		//{
-		//	//レンダラー取得
-		//	object_material = gameObject.GetComponent<Renderer>();
-		//	//明るさ変更
-		//	HSV_Change();
-		//}
-		//else
-		//{
-		//	//子供がいたら（子供カウントがある）
-		//	if (transform.childCount > 0)
-		//	{
-		//		//子供の数を数える
-		//		childCnt = transform.childCount;
-		//		//子供オブジェクト取得
-		//		GameObject childObj = transform.GetChild(0).gameObject;
-		//		//子供にレンダラーがついていたら
-		//		if (childObj.GetComponent<Renderer>())
-		//		{
-		//			//レンダラー取得
-		//			object_material = childObj.GetComponent<Renderer>();
-		//			//明るさ変更
-		//			HSV_Change();
-		//		}
-		//	}
-		//}
+		white_material = Resources.Load<Material>("Material/Damege_Effect");
+		self_material = new Material[object_material.Length];
+		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
+		HP_Setting();
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -124,8 +101,6 @@ public class character_status : MonoBehaviour
 			//爆発処理の作成
 			ParticleCreation(0);
 			Is_Dead = true;
-
-
 			Reset_Status();
 		}
 
@@ -133,6 +108,7 @@ public class character_status : MonoBehaviour
 		transform.position = new Vector3(0, 800.0f, 0);
 		//稼働しないようにする
 		//Debug.Log(gameObject.transform.parent.name + "	Destroy");
+		material_Reset();
 		gameObject.SetActive(false);
 
 	}
@@ -144,19 +120,11 @@ public class character_status : MonoBehaviour
 		GameObject effect = Obj_Storage.Storage_Data.Effects[particleID].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 
-		/*
-		 * 2019/07/22
-		 * from 諸岡 to たつ乙 : ごめんなさい。勝手にいじります。
-		 * 爆発の位置のランダム化
-		 * X軸にランダムで -1.0f～1.0f、
-		 * Y軸にランダムで -1.0f~1.0f の値を加える処理を追加
-		 */
+		//爆発の位置をランダムに変更
 		float range = 1.0f;
 		Vector3 temp = new Vector3(Random.Range(-range, range), Random.Range(-range, range),0.0f);
 		effect.transform.position = transform.position + temp.normalized;
 		/*********************************************************/
-
-		//effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		return effect;
 	}
@@ -201,12 +169,14 @@ public class character_status : MonoBehaviour
 				}
 			}
 		}
-		if (gameObject.tag == "Enemy")
+		if (tag == "Enemy")
 		{
 			if (col.tag == "Player_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
+				//Damege_Effect();
+
 			}
 			else if(col.gameObject.name == "Player")
 			{
@@ -221,10 +191,6 @@ public class character_status : MonoBehaviour
 		if (hp < 1 && Remaining < 1) is_died = true;
 		return is_died;
 	}
-	/* 
-	 * 
-	 */
-
 	//キャラクターが死んでいるかどうかの判定用関数
 	public bool Dead_Check()
 	{
@@ -246,5 +212,30 @@ public class character_status : MonoBehaviour
 		{
 			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 		}
+	}
+	//ダメージを食らうとダメージエフェクトが走るように
+	private void Damege_Effect()
+	{
+		for (int i = 0; i < object_material.Length; i++) object_material[i].material = white_material;
+	}
+	//ダメージを受けた時のエフェクトが元のエフェクトに戻すための関数
+	public void material_Reset()
+	{
+		for (int i = 0; i < object_material.Length; i++) object_material[i].material = self_material[i];
+	}
+	//シールドの値を取得する
+	public int Get_Shield()
+	{
+		return shield;
+	}
+	//シールドの値設定
+	public void Set_Shield(int setnum)
+	{
+		shield = setnum;
+	}
+	//キャラクタの設定してある体力を取得するための関数
+	public uint Get_Score()
+	{
+		return score;
 	}
 }
