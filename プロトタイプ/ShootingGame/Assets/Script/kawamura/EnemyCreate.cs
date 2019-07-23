@@ -250,10 +250,10 @@ public class EnemyCreate : MonoBehaviour
                 case 12:
                     isCreate = false;
                     groupCnt++;
-                    //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
-                    GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
-                    Boss_Middle.transform.position = createMiddleBossPos.transform.position;
-                    Boss_Middle.transform.rotation = transform.rotation;
+                    ////Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
+                    //GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+                    //Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+                    //Boss_Middle.transform.rotation = transform.rotation;
 
                     break;
 
