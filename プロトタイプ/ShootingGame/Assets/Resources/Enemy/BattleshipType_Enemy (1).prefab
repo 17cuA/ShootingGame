@@ -111,7 +111,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -119,6 +118,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135687
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -238,6 +237,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135781
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +426,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -434,6 +433,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135795
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +545,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -553,6 +552,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135799
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,23 +676,15 @@ MonoBehaviour:
   Shot_DelayMax: 30
   Shot_Delay: 0
   score: 1000
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
   childCnt: 0
   object_material:
-  - {fileID: 1677240788316062263}
-  - {fileID: 1677240788316062257}
-  - {fileID: 1677240788316062259}
-  - {fileID: 1677240788316062269}
-  - {fileID: 1677240788316062271}
-  - {fileID: 1677240788316062265}
-  - {fileID: 1677240788316062267}
-  - {fileID: 1677240788316062405}
   - {fileID: 1677240788316062245}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   initial_position: {x: 25, y: -5, z: 0}
   moving_change_point:
   - {x: 16, y: -5, z: 0}
@@ -821,7 +813,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -829,6 +820,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135803
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +932,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -948,6 +939,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,7 +1051,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -1067,6 +1058,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &1677240788314135807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1170,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -1186,6 +1177,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1001 &1855377261474469542
 PrefabInstance:
   m_ObjectHideFlags: 0
