@@ -29,7 +29,7 @@ public class BattleshipType_Enemy : character_status
 	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
 	public List<MeshRenderer> Parts_Renderer { get; set; }					// パーツたちのレンダー
 
-	private new void Start()
+	private void Start()
 	{
 		Original_Position = transform.position = initial_position;
 		Now_Target = 0;
@@ -149,7 +149,6 @@ public class BattleshipType_Enemy : character_status
 
 			Died_Process();
 		}
-
 	}
 
 	void OnEnable()
