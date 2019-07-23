@@ -452,7 +452,7 @@ public class Enemy_Wave : character_status
             //	}
             //}
         }
-        else if (isWave && !renderer.isVisible)
+        else if (isWave)
 		{
             
 			speedX = 5;

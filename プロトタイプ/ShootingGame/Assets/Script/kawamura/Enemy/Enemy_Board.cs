@@ -2,17 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Board : MonoBehaviour
+public class Enemy_Board : character_status
 {
-    // Start is called before the first frame update
-    void Start()
+	GameObject parentObj;
+	Enemy_Board_Parent ebp;
+
+	private void Awake()
+	{
+		parentObj = transform.parent.gameObject;
+		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
+	}
+
+	new void Start()
     {
-        
+		HP_Setting();
+		base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+		if (hp < 1)
+		{
+			ebp.isDead = true;
+			Died_Process();
+		}
     }
+
+	void Enemy_Reset()
+	{
+
+	}
 }

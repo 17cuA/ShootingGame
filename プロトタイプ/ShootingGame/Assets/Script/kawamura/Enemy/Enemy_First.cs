@@ -251,19 +251,29 @@ public class Enemy_First : character_status
 					{
 						speedZ = speedZ_Value;
 					}
-                    //if (transform.localPosition.x < -18)
-                    //{
-                    //    speedX += 0.12f;
-                    //}
 					if (transform.localPosition.x <= -32)
 					{
-                        //frame += Time.deltaTime;
-                        //if (frame > 3)
-                        //{
-                        //	isTurn = true;
-                        //}
-                        speedX = 5;
+						//frame += Time.deltaTime;
+						//if (frame > 3)
+						//{
+						//	isTurn = true;
+						//}
+						speedX = 5;
 						isTurn = true;
+					}
+
+					else if (transform.localPosition.x < -21)
+					{
+						speedX -= 0.36f;
+						if (speedX < 5)
+						{
+							speedX = 5;
+						}
+
+					}
+					else if (transform.localPosition.x < -9)
+					{
+						speedX += 0.12f;
 					}
 					//if (transform.position.x < 9)
 					//{
@@ -310,20 +320,29 @@ public class Enemy_First : character_status
 					{
 						speedZ = speedZ_Value;
 					}
-                    //if (transform.localPosition.x < -18)
-                    //{
-                    //    speedX += 0.12f;
-                    //}
 
-                    if (transform.localPosition.x <= -32)
+					if (transform.localPosition.x <= -32)
 					{
-                        //frame += Time.deltaTime;
-                        //if (frame > 3)
-                        //{
-                        //	isTurn = true;
-                        //}
-                        speedX = 5;
+						//frame += Time.deltaTime;
+						//if (frame > 3)
+						//{
+						//	isTurn = true;
+						//}
+						speedX = 5;
 						isTurn = true;
+					}
+					else if (transform.localPosition.x < -21)
+					{
+						speedX -= 0.36f;
+						if (speedX < 5)
+						{
+							speedX = 5;
+						}
+					}
+
+					else if (transform.localPosition.x < -9)
+					{
+						speedX += 0.12f;
 					}
 
 					//if (transform.position.x < 9)
