@@ -120,13 +120,7 @@ public class character_status : MonoBehaviour
 		GameObject effect = Obj_Storage.Storage_Data.Effects[particleID].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 
-		/*
-		 * 2019/07/22
-		 * from 諸岡 to たつ乙 : ごめんなさい。勝手にいじります。
-		 * 爆発の位置のランダム化
-		 * X軸にランダムで -1.0f～1.0f、
-		 * Y軸にランダムで -1.0f~1.0f の値を加える処理を追加
-		 */
+		//爆発の位置をランダムに変更
 		float range = 1.0f;
 		Vector3 temp = new Vector3(Random.Range(-range, range), Random.Range(-range, range),0.0f);
 		effect.transform.position = transform.position + temp.normalized;
@@ -181,7 +175,7 @@ public class character_status : MonoBehaviour
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
 				Damege_Process((int)BS.attack_damage);
-				Damege_Effect();
+				//Damege_Effect();
 
 			}
 			else if(col.gameObject.name == "Player")
@@ -229,7 +223,6 @@ public class character_status : MonoBehaviour
 	{
 		for (int i = 0; i < object_material.Length; i++) object_material[i].material = self_material[i];
 	}
-	//public 
 	//シールドの値を取得する
 	public int Get_Shield()
 	{
