@@ -18,97 +18,73 @@ public class Bit_Formation_3 : MonoBehaviour
 	}
 
 	[SerializeField]
-	BitState bState;						//ビットンの状態
+	BitState bState;							//オプションの状態
 
 	//[SerializeField]
-	//BitState previous_state;				//ビットンの前の状態（レーザーを解除したときに使う）
+	//BitState previous_state;					//オプションの前の状態（レーザーを解除したときに使う）
 
-	public GameObject playerObj;					//プレイヤーのオブジェクト
-	public GameObject parentObj;			//親のオブジェクト
-	public GameObject followPosObj;         //プレイヤーを追従するときの位置オブジェクト
-	public GameObject followPosFirstObj;
-	public GameObject followPosSecondObj;
-	public GameObject followPosThirdObj;
-	public GameObject followPosFourthObj;
-	GameObject obliquePosObj;				//斜めうち状態の座標用オブジェクト
-	GameObject laserPos;                    //レーザー時の座標用オブジェクト
-	public GameObject effectObj;
-	public ParticleSystem option_Particle;            //レーザーのパーティクルを取得するための変数
+	public GameObject playerObj;				//プレイヤーのオブジェクト
+	public GameObject parentObj;				//親のオブジェクト
+	public GameObject followPosObj;				//プレイヤーを追従するときの位置オブジェクト
+	public GameObject followPosFirstObj;		//プレイヤーに一番近い追従位置オブジェクト
+	public GameObject followPosSecondObj;		//二番目
+	public GameObject followPosThirdObj;		//三番目
+	public GameObject followPosFourthObj;		//四番目
+	//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
+	GameObject laserPos;						//レーザー時の座標用オブジェクト
+	public GameObject particleObj;
 
-	Bit_Shot b_Shot;                        //ビットンの攻撃スクリプト情報
-	Player1 pl1;
-	FollowToPlayer_SameMotion FtoPlayer;
-	FollowToPreviousBit FtoPBit_Second;
-	FollowToPreviousBit FtoPBit_Third;
-	FollowToPreviousBit FtoPBit_Fourth;
+	public ParticleSystem option_Particle;		//レーザーのパーティクルを取得するための変数
 
-	//Material effect;
-	public Renderer effectRenderer;
-	new Renderer renderer;
-	public MeshRenderer meshrender;
-	Color bit_Color;
-	Color effect_Color;
-	float alpha_Value = 0;
-	float alpha_Value_eff = 0;
-	public float scale_value = 0.5f;
+	Bit_Shot b_Shot;							//オプションの攻撃スクリプト情報
+	Player1 pl1;								//プレイヤースクリプト情報
+	FollowToPlayer_SameMotion FtoPlayer;		//プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
+	FollowToPreviousBit FtoPBit_Second;			//二番目の位置のスクリプト情報
+	FollowToPreviousBit FtoPBit_Third;			//三番目の位置のスクリプト情報
+	FollowToPreviousBit FtoPBit_Fourth;			//四番目の位置のスクリプト情報
+	Option_Scale os;							//パーティクルのスケール変更クリプト
 
-	float speed;                        //ビットンの移動スピード
-	public float defaultSpeed;
-	float step;                             //スピードを計算して入れる
-	int collectDelay;                       //死亡時当たり判定にディレイを持たせる
-	int scaleDelay;
-	int effectDelay;
+	new Renderer renderer;						//レンダラー　3Dオブジェクトの時使う
+	Color bit_Color;							//オプションの色　3Dオブジェクトの時使う
+	Color particle_Color;							//パーティクルのカラー
+	public float scale_value = 0.5f;			//オプションのスケールの値
 
-	int state_Num;                          //ビットンの状態を変えるための数字		
-	int option_OrdinalNum;
+	float speed;								//オプションの移動スピード（プレイヤー死亡時の処理に使う）
+	public float defaultSpeed;					//プレイヤーが死んだときのオプションの初速を入れておく
+	float step;									//スピードを計算して入れる
+	int collectDelay;							//死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
+	//int state_Num;							//オプションの状態を変えるための数字		
+	int option_OrdinalNum;						//オプション自身がどの何番目の追従位置にいるのかの番号
 
 	[SerializeField]
-	string myName;							//自分の名前を入れる
-	private Quaternion Direction;			//オブジェクトの向きを変更する時に使う
+	string myName;								//自分の名前を入れる
+	private Quaternion Direction;				//オブジェクトの向きを変更する時に使う
 
-	Vector3 velocity;		
+	Vector3 velocity;                           //ベロシティ
 
 	//bool isCircular = false;
-	bool isFollow = false;          //プレイヤーを追従する位置に向かっているかどうか
+	//bool isFollow = false;					//プレイヤーを追従する位置に向かっているかどうか
 	//bool once = true;
 	//bool isScaleInc = false;
 	//bool isScaleDec = false;
-	bool isPlayerDieCheck;
-	public bool isborn=true;
-	public bool isDead = false;
-	bool isCollection = false;      //回収されたときに使う
-	bool isPlay = true;
+	//bool isPlayerDieCheck;					
+	public bool isborn = true;					//オプションが出現したときupdateで一回だけ行う処理用
+	public bool isDead = false;					//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
+	public bool isCollection = false;					//回収されたときに使う
 	void Start()
 	{
-		isborn = true;
+		isborn = true;					//出現時の処理をするように
 		//isScaleDec = true;
-		defaultSpeed = 20;
-		speed = defaultSpeed;
+		defaultSpeed = 20;				//死んだときの初速設定
+		speed = defaultSpeed;           //初速を代入
 		//値を設定
-		state_Num = 0;
+		//state_Num = 0;				//状態の判別番号
 
-		//状態の初期設定
-		bState = BitState.Follow;
+		//bState = BitState.Follow;		//状態の初期設定
 
-		renderer = gameObject.GetComponent<Renderer>();
-		meshrender = gameObject.GetComponent<MeshRenderer>();
-
-		bit_Color = renderer.material.color;
-		bit_Color.a = alpha_Value;
-		renderer.material.color = bit_Color;
-
-		//effectRenderer = effectObj.GetComponent<Renderer>();
-		//effect_Color = effectRenderer.material.color;
-		//effect_Color.a = alpha_Value_eff;
-		effect_Color = option_Particle.startColor;
-
-		Color ef_Color = GetComponent<Renderer>().material.color;
-
-		//meshrender.material.color = new Color(0, 0, 0, 0);
-
-		//プレイヤーオブジェクト取得
-		//playerObj = GameObject.FindGameObjectWithTag("Player");
+		os = particleObj.GetComponent<Option_Scale>();
+		renderer = gameObject.GetComponent<Renderer>();			//レンダラー取得
 
 		//4つの追従位置とそれぞれのスクリプト取得
 		followPosFirstObj = GameObject.Find("FollowPosFirst");
@@ -124,17 +100,18 @@ public class Bit_Formation_3 : MonoBehaviour
 		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
 
 
-		//親のオブジェクト取得
-		//parentObj = transform.parent.gameObject;
-		//自分の名前取得
-		myName = gameObject.name;
-		//攻撃の情報取得
-		//b_Shot = gameObject.GetComponent<Bit_Shot>();
+		//parentObj = transform.parent.gameObject;			//親のオブジェクト取得
+
+		myName = gameObject.name;							//自分の名前取得
+
+		//b_Shot = gameObject.GetComponent<Bit_Shot>();		//攻撃の情報取得
+
 
 	}
 
 	void Update()
 	{
+		//プレイヤーオブジェクトを取得していなかったら取得してプレイヤーのスクリプトも取得
 		if (playerObj == null)
 		{
 			playerObj = GameObject.Find("Player");
@@ -146,124 +123,36 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
-			SetParent();
-			option_Particle.Play();
-			isborn = false;
+			SetFollowPos();				//追従位置設定
+			option_Particle.Play();		//オプションの見た目パーティクルを起動
+			isborn = false;				//生成時処理をしないようにする
 		}
 
-
+		//追従位置を取得していらその位置にする
 		if (followPosObj)
 		{
 			transform.position = followPosObj.transform.position;
 		}
 
+		//回収されたとき
 		if (isCollection)
 		{
-			//effectDelay++;
-			//if (effectDelay > 5)
-			//{
-			//	effectDelay = 0;
-
-			//	option_Particle.Play();
-			//	isCollection = false;
-
-			//}
+			//オプションの見た目パーティクル起動
 			option_Particle.Play();
+			//回収判定false
 			isCollection = false;
 
 		}
 
-		if (Input.GetKeyDown(KeyCode.O))
-		{
-			//alpha_Value_eff += 0.04f;
-			//alpha_Value_eff = 0;
-			//if (alpha_Value_eff > 1.0f)
-			//{
-			//	alpha_Value_eff = 1.0f;
-			//}
-			//effect_Color.a = alpha_Value_eff;
-			//option_Particle.startColor = effect_Color;
-			option_Particle.Play();
-			//effect_Color = Color.blue;
-		}
-
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			if(isPlay)
-			{
-				//alpha_Value_eff = 0;
-				//effect_Color.a = alpha_Value_eff;
-				//effectRenderer.material.color = effect_Color;
-
-				option_Particle.Stop();
-				isPlay = false;
-			}
-			else
-			{
-				//alpha_Value_eff = 1;
-				//effect_Color.a = alpha_Value_eff;
-				//effectRenderer.material.color = effect_Color;
-
-				option_Particle.Play();
-				isPlay = true;
-			}
-		}
-
-
-		//alpha_Value_eff += 0.04f;
-		//if (alpha_Value_eff > 1.0f)
-		//{
-		//	alpha_Value_eff = 1.0f;
-		//}
-		//effect_Color.a = alpha_Value_eff;
-		//option_Particle.startColor = effect_Color;
-		//effectRenderer.material.color = effect_Color;
-
-		//alpha_Value += 0.1f;
-		//if (alpha_Value >= 1.0f)
-		//{
-		//	alpha_Value = 1.0f;
-		//}
-		//bit_Color.a = alpha_Value;
-		//renderer.material.color = bit_Color;
-
-		//meshrender.material.color = new Color(0, 0, 0, alpha_Value);
-
-		//オプションの縮小試し
-		//scaleDelay++;
-		//if (scaleDelay > 5)
-		//{
-		//	scale_value = Mathf.Sin(Time.frameCount) / 12.5f + 0.42f;
-		//	transform.localScale = new Vector3(scale_value, scale_value, scale_value);
-		//	scaleDelay = 0;
-		//}
-
-		//if(isScaleInc)
-		//{
-		//	scale_value += 0.01f;
-		//	if (scale_value > 0.5)
-		//	{
-		//		scale_value = 0.5f;
-		//		isScaleInc = false;
-		//		isScaleDec = true;
-		//	}
-		//}
-		//else if(isScaleDec)
-		//{
-		//	scale_value -= 0.01f;
-		//	if (scale_value < 0.35f)
-		//	{
-		//		scale_value = 0.35f;
-		//		isScaleDec = false;
-		//		isScaleInc = true;
-		//	}
-		//}
-
+		//プレイヤー死亡時の処理
 		if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
 		{
+			//死んだ判定true
 			isDead = true;
+			//追従位置の参照を外す
 			followPosObj = null;
 
+			//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
 			switch (option_OrdinalNum)
 			{
 				case 1:
@@ -282,57 +171,49 @@ public class Bit_Formation_3 : MonoBehaviour
 					FtoPBit_Fourth.hasOption = false;
 					break;
 			}
-
 		}
 
+		//死んでいたら
 		if (isDead)
 		{
+			//未回収状態の時の移動
 			velocity = gameObject.transform.rotation * new Vector3(speed, 0, -0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
+			//初速からスピードを遅くする
 			speed -= 0.5f;
+			//スピードは-1.5よりは遅くならない
 			if (speed < -1.5f)
 			{
 				speed = -1.5f;
 			}
+			//回収の当たり判定のディレイをプラス
 			collectDelay++;
 		}
 
-		//isPlayerDieCheck = pl1.Died_Judgment();
 
-		//スピード計算
-		//step = speed * Time.deltaTime;
-
-		//入力の関数呼び出し
-		//Bit_Input();
-
-		//ビットンの移動関数呼び出し
+		//オプションの移動関数呼び出し
 		//Bit_Move();
 		//----------------------------------------------
-		//画面外に出たら、オフにする
+		//未回収状態で画面外に出たら、オフにする
 		if (!renderer.isVisible && isDead)
 		{
-			isDead = false;
-			isborn = true;
-			followPosObj = null;
-			pl1.bitIndex--;
-			gameObject.SetActive(false);
+			isDead = false;					//死んでいる判定false
+			isborn = true;					//出現時処理できるように
+			followPosObj = null;			//追従オブジェクト参照をなくす
+			pl1.bitIndex--;					//ゲームに出ているオプション総数カウントを減らす
+			gameObject.SetActive(false);	//オブジェクトをオフにする
 		}
 		//------------------------------------------------
 	}
 
 	//------------------ここから関数------------------
-	void Bit_Input()
-	{
 
-	}
-
-
-	//ビットンの状態切り替え関数
+	//オプションの状態切り替え関数
 	void ChangeState()
 	{
-		switch(state_Num)
-		{
+		//switch(state_Num)
+		//{
 			//case 0:
 			//	bState = BitState.Circular;
 			//	previous_state = bState;
@@ -345,19 +226,19 @@ public class Bit_Formation_3 : MonoBehaviour
 			//	isOblique = true;
 			//	break;
 
-			case 0:
-				bState = BitState.Follow;
-				//previous_state = bState;
-				isFollow = true;
-				break;
+			//case 0:
+			//	bState = BitState.Follow;
+			//	//previous_state = bState;
+			//	isFollow = true;
+			//	break;
 
-		}
+		//}
 	}
 
-	//ビットンの移動関数
+	//オプションの移動関数
 	void Bit_Move()
 	{
-		//ビットンの移動
+		//オプションの移動
 		//switch (bState)
 		//{
 			//case BitState.Circular:
@@ -431,56 +312,68 @@ public class Bit_Formation_3 : MonoBehaviour
 	}
 
 	//生成(画面に表示された時のポジション設定)
-	void SetParent()
+	void SetFollowPos()
 	{
+		//プレイヤーに一番近い追従オブジェクトのオプション所持判定がなかった時
 		if (!FtoPlayer.hasOption)
 		{
+			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
 			transform.position = followPosObj.transform.position;
 
 			//transform.parent = followPosFirstObj.transform;
 			//transform.position = followPosFirstObj.transform.position;
-			isDead = false;
+
+			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
 			option_OrdinalNum = 1;
 			collectDelay = 0;
 		}
+		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
+			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
 			transform.position = followPosObj.transform.position;
 
 			//transform.parent = followPosSecondObj.transform;
 			//transform.position = followPosSecondObj.transform.position;
-			isDead = false;
+
+			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
 			option_OrdinalNum = 2;
 			collectDelay = 0;
 		}
+		//三番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Third.hasOption)
 		{
+			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
 			transform.position = followPosObj.transform.position;
 
 			//transform.parent = followPosThirdObj.transform;
 			//transform.position = followPosThirdObj.transform.position;
-			isDead = false;
+
+			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
 			option_OrdinalNum = 3;
 			collectDelay = 0;
 		}
+		//四番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Fourth.hasOption)
 		{
+			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
 			transform.position = followPosObj.transform.position;
 
 			//transform.parent = followPosFourthObj.transform;
 			//transform.position = followPosFourthObj.transform.position;
-			isDead = false;
+
+			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
 			option_OrdinalNum = 4;
 			collectDelay = 0;
@@ -490,105 +383,125 @@ public class Bit_Formation_3 : MonoBehaviour
 	//オプション回収の処理
 	private void OnTriggerEnter(Collider col)
 	{
+		//死んでいる状態で、回収の当たり判定ディレイが10fより大きかったら
 		if(isDead && collectDelay>10)
 		{
-			if (col.gameObject.name == "Player")
+			//プレイヤータグのオブジェクトに当たったら
+			if (col.gameObject.tag == "Player")
 			{
+				//オプションパーティクルストップ
 				option_Particle.Stop();
 
+				//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 				if (!FtoPlayer.hasOption)
 				{
+					//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 					isCollection = true;
-					//option_Particle.Stop();
 					FtoPlayer.hasOption = true;
 					followPosObj = followPosFirstObj;
 					transform.position = followPosObj.transform.position;
 
-					//transform.parent = followPosFirstObj.transform;
-					//transform.position = followPosFirstObj.transform.position;
+					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 					isDead = false;
 					speed = defaultSpeed;
 					option_OrdinalNum = 1;
-					alpha_Value = 0;
-					bit_Color.a = alpha_Value;
-					renderer.material.color = bit_Color;
-					alpha_Value_eff = 0;
-					//effect_Color.a = alpha_Value_eff;
-					//effectRenderer.material.color = effect_Color;
-					//option_Particle.startColor = effect_Color;
-					//collectDelay = 0;
+					collectDelay = 0;
+
+					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+					os.isCollectInc = true;
+					os.scale_Collect = 0;
+
+					//alpha_Value = 0;
+					//bit_Color.a = alpha_Value;
+					//renderer.material.color = bit_Color;
+					//alpha_Value_Par = 0;
+					//particle_Color.a = alpha_Value_Par;
+					//particleRenderer.material.color = particle_Color;
+					//option_Particle.startColor = particle_Color;
 				}
+				//二番目の追従位置オブジェクトがオプションを持っていなかったら
 				else if (!FtoPBit_Second.hasOption)
 				{
+					//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 					isCollection = true;
-					//option_Particle.Stop();
 					FtoPBit_Second.hasOption = true;
 					followPosObj = followPosSecondObj;
 					transform.position = followPosObj.transform.position;
 
-					//transform.parent = followPosSecondObj.transform;
-					//transform.position = followPosSecondObj.transform.position;
+					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 					isDead = false;
 					speed = defaultSpeed;
 					option_OrdinalNum = 2;
-					alpha_Value = 0;
-					bit_Color.a = alpha_Value;
-					alpha_Value_eff = 0;
-					renderer.material.color = bit_Color;
-					//alpha_Value_eff = 0;
-					//effect_Color.a = alpha_Value_eff;
-					////effectRenderer.material.color = effect_Color;
-					//option_Particle.startColor = effect_Color;
-
 					collectDelay = 0;
+
+					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+					os.isCollectInc = true;
+					os.scale_Collect = 0;
+
+					//alpha_Value = 0;
+					//bit_Color.a = alpha_Value;
+					//alpha_Value_Par = 0;
+					//renderer.material.color = bit_Color;
+					//alpha_Value_Par = 0;
+					//particle_Color.a = alpha_Value_Par;
+					////particleRenderer.material.color = particle_Color;
+					//option_Particle.startColor = particle_Color;
 				}
+				//三番目の追従位置オブジェクトがオプションを持っていなかったら
 				else if (!FtoPBit_Third.hasOption)
 				{
+					//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 					isCollection = true;
-					//option_Particle.Stop();
 					FtoPBit_Third.hasOption = true;
 					followPosObj = followPosThirdObj;
 					transform.position = followPosObj.transform.position;
 
-					//transform.parent = followPosThirdObj.transform;
-					//transform.position = followPosThirdObj.transform.position;
+					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 					isDead = false;
 					speed = defaultSpeed;
 					option_OrdinalNum = 3;
-					alpha_Value = 0;
-					bit_Color.a = alpha_Value;
-					alpha_Value_eff = 0;
-					renderer.material.color = bit_Color;
-					//alpha_Value_eff = 0;
-					//effect_Color.a = alpha_Value_eff;
-					////effectRenderer.material.color = effect_Color;
-					//option_Particle.startColor = effect_Color;
-
 					collectDelay = 0;
+
+					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+					os.isCollectInc = true;
+					os.scale_Collect = 0;
+
+					//alpha_Value = 0;
+					//bit_Color.a = alpha_Value;
+					//alpha_Value_Par = 0;
+					//renderer.material.color = bit_Color;
+					//alpha_Value_Par = 0;
+					//particle_Color.a = alpha_Value_Par;
+					////particleRenderer.material.color = particle_Color;
+					//option_Particle.startColor = particle_Color;
 				}
+				//四番目の追従位置オブジェクトがオプションを持っていなかったら
 				else if (!FtoPBit_Fourth.hasOption)
 				{
+					//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 					isCollection = true;
-					//option_Particle.Stop();
 					FtoPBit_Fourth.hasOption = true;
 					followPosObj = followPosFourthObj;
 					transform.position = followPosObj.transform.position;
 
-					//transform.parent = followPosFourthObj.transform;
-					//transform.position = followPosFourthObj.transform.position;
+					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 					isDead = false;
 					speed = defaultSpeed;
 					option_OrdinalNum = 4;
-					alpha_Value = 0;
-					bit_Color.a = alpha_Value;
-					alpha_Value_eff = 0;
-					renderer.material.color = bit_Color;
-					//alpha_Value_eff = 0;
-					//effect_Color.a = alpha_Value_eff;
-					////effectRenderer.material.color = effect_Color;
-					//option_Particle.startColor = effect_Color;
-
 					collectDelay = 0;
+
+					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+					os.isCollectInc = true;
+					os.scale_Collect = 0;
+
+					//alpha_Value = 0;
+					//bit_Color.a = alpha_Value;
+					//alpha_Value_Par = 0;
+					//renderer.material.color = bit_Color;
+					//alpha_Value_Par = 0;
+					//particle_Color.a = alpha_Value_Par;
+					////particleRenderer.material.color = particle_Color;
+					//option_Particle.startColor = particle_Color;
 				}
 			}
 		}
