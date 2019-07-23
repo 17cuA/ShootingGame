@@ -143,7 +143,20 @@ public class character_status : MonoBehaviour
 		//Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
 		GameObject effect = Obj_Storage.Storage_Data.Effects[particleID].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-		effect.transform.position = gameObject.transform.position;
+
+		/*
+		 * 2019/07/22
+		 * from 諸岡 to たつ乙 : ごめんなさい。勝手にいじります。
+		 * 爆発の位置のランダム化
+		 * X軸にランダムで -1.0f～1.0f、
+		 * Y軸にランダムで -1.0f~1.0f の値を加える処理を追加
+		 */
+		float range = 1.0f;
+		Vector3 temp = new Vector3(Random.Range(-range, range), Random.Range(-range, range),0.0f);
+		effect.transform.position = transform.position + temp.normalized;
+		/*********************************************************/
+
+		//effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		return effect;
 	}
