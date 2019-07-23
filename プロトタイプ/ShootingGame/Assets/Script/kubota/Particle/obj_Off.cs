@@ -19,7 +19,7 @@ public class obj_Off : MonoBehaviour
 	void Update()
     {
 		Vector3 temp = transform.position;
-		temp.x += speed;
+		temp.x -= speed;
 		transform.position = temp;
 
 		frame++;

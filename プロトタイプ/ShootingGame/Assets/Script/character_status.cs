@@ -32,7 +32,7 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-	private Material[] self_material;									//初期マテリアル保存用
+	public Material[] self_material;									//初期マテリアル保存用
 	private Material white_material;									//ダメージくらったときに一瞬のホワイト
 	public void Start()
 	{
