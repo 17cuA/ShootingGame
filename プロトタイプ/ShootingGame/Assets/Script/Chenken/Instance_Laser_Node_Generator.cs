@@ -87,7 +87,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			{
 				this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
 			}
+
+			for (var i = 0; i < this.nodes.Count - 1; ++i)
+			{
+				if(i == 0)
+				{
+					continue;
+				}
+
+				var distance = Vector3.Distance(this.nodes[i].transform.position, this.nodes[i + 1].transform.position);
+			}
 		}
+
+	
 		
 		//---------------------------------------------------------------------------------------------------------------------------------------------	
 	}
