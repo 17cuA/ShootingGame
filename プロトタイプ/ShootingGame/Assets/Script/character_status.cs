@@ -32,7 +32,7 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;									// オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead	= false;
-	private Renderer mesh_renderer;									//マテリアルを変更する用レンダラー
+	private Material[] self_material;									//初期マテリアル保存用
 	private Material white_material;								//ダメージくらったときに一瞬のホワイト
 	public void Start()
 	{
@@ -51,6 +51,12 @@ public class character_status : MonoBehaviour
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
 		white_material = Resources.Load <Material>("Material/Damege_Effect");
+		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
+		HP_Setting();
+	}
+	public void OnDisable()
+	{
+		Reset_Status();
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -98,8 +104,6 @@ public class character_status : MonoBehaviour
 			//爆発処理の作成
 			ParticleCreation(0);
 			Is_Dead = true;
-
-
 			Reset_Status();
 		}
 
@@ -216,10 +220,11 @@ public class character_status : MonoBehaviour
 		}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
-	public void Damege_Effect()
+	private void Damege_Effect()
 	{
-		//Renderer 
+		for (int i = 0; i < object_material.Length; i++) object_material[i].material = self_material[i];
 	}
+	//public 
 	//シールドの値を取得する
 	public int Get_Shield()
 	{
