@@ -1,4 +1,5 @@
 ﻿/*
+/*
  * 2019/05/27   Rigidbodyの削除
  */
 using UnityEngine;
