@@ -186,11 +186,11 @@ public class character_status : MonoBehaviour
 			{
 				if (activeShield && shield != 0)
 				{
-					shield--;
+					shield -= 3;
 				}
 				else
 				{
-					Damege_Process(1);
+					Damege_Process(3);
 				}
 			}
 		}
@@ -205,7 +205,7 @@ public class character_status : MonoBehaviour
 			}
 			else if(col.gameObject.name == "Player")
 			{
-				Damege_Process(1);
+				Damege_Process(3);
 			}
 		}
 	}

@@ -48,14 +48,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 1
+  hp: 3
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
   playerObj: {fileID: 0}
   speedX: 2
   rollSpeed: 2.5

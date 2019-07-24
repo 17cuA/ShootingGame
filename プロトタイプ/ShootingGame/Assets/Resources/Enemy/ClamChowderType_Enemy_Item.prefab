@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 1
+  hp: 3
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 5160957342397473597}
   Shot_DelayMax: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   - {fileID: 4684383279932157002}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   eState: 1
   startMarker: {x: 0, y: 0, z: 0}
