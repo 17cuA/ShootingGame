@@ -49,20 +49,20 @@ public class Enemy_Board_Quater_Parent : MonoBehaviour
 			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
 			//Instantiate(quarterObj, transform.position, randRota_BottomRight);
 
-			//saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			//saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
 			//saveQuaterObj.transform.localScale = new Vector3(1, 0.5f, 0.5f);
 
-			//saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			//saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
 			//saveQuaterObj.transform.localScale = new Vector3(1, 0.5f, 0.5f);
 
-			//saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			//saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
 			//saveQuaterObj.transform.localScale = new Vector3(1, 0.5f, 0.5f);
 
-			//saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			//saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
 			//saveQuaterObj.transform.localScale = new Vector3(1, 0.5f, 0.5f);
 
 			isDead = false;

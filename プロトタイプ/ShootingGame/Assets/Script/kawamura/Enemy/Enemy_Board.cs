@@ -5,17 +5,17 @@ using UnityEngine;
 public class Enemy_Board : character_status
 {
 	GameObject parentObj;
-	Enemy_Board_Parent ebp;
+	public Enemy_Board_Parent ebp;
 
 	private void Awake()
 	{
 		parentObj = transform.parent.gameObject;
 		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
 	}
-	private void OnEnable()
-	{
-		Reset_Status();
-	}
+	//private void OnEnable()
+	//{
+	//	hp = 10;
+	//}
 	new void Start()
     {
 		HP_Setting();

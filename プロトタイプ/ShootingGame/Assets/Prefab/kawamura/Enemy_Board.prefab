@@ -127,6 +127,7 @@ MonoBehaviour:
   isrend: 0
   Is_Dead: 0
   white_material: {fileID: 0}
+  ebp: {fileID: 0}
 --- !u!136 &3595554876798197833
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -218,7 +219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a558945941d0d24f91b7d7fcf585ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quarterObj: {fileID: 7073840493618067158}
+  quarterObj: {fileID: 7681755344043487628, guid: 62c40248719d2bf47ad4e414c547d617,
+    type: 3}
+  quarter_OneSixteenthObj: {fileID: 7590061401401449565, guid: 2018f60b887139e4496c61d531156da3,
+    type: 3}
   saveQuaterObj: {fileID: 0}
   randRota_TopLeft: {x: 0, y: 0, z: 0, w: 0}
   randRota_TopRight: {x: 0, y: 0, z: 0, w: 0}
@@ -227,5 +231,6 @@ MonoBehaviour:
   ebp: {fileID: 0}
   divisionCnt: 0
   speedX: 15
+  myName: 
   isDead: 0
   isCreate: 0

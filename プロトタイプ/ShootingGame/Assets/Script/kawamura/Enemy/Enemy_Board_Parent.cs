@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy_Board_Parent : MonoBehaviour
 {
-	public GameObject quarterObj;
+	public GameObject quarterObj;					//4分の1オブジェクト
+	public GameObject quarter_OneSixteenthObj;		//16分の1オブジェクト
 
 	public GameObject saveQuaterObj;
 
@@ -21,7 +22,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	public int divisionCnt = 0;
 	public float speedX;
 
-	string myName;
+	public string myName;
 
 	float rotaZ;
 
@@ -30,7 +31,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	private void Awake()
 	{
 		myName = gameObject.name;
-		//speedX = 20;
+		//speedX = 15;
 	}
 	void Start()
     {
@@ -58,82 +59,312 @@ public class Enemy_Board_Parent : MonoBehaviour
 		randRota_BottomRight = new Quaternion(0, 0, Random.Range(90, 180), 0);
 		if (isDead)
 		{
-			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
-			//Instantiate(quarterObj, transform.position, randRota_TopLeft);
-			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
-			//Instantiate(quarterObj, transform.position, randRota_TopRight);
-			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
-			//Instantiate(quarterObj, transform.position, randRota_BottomLeft);
-			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
-			//Instantiate(quarterObj, transform.position, randRota_BottomRight);
+			for (int i = 0; i < 4; i++)
+			{
+				switch(i)
+				{
+					case 0:
+						if (myName == "Enemy_Board")
+						{
+							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj = null;
 
+						}
+						else if (myName == "Enemy_Board_Quarter(Clone)")
+						{
+							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj = null;
+							//isDead = false;
+
+							//gameObject.SetActive(false);
+
+						}
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						{
+							//なにもしない
+						}
+
+						break;
+					case 1:
+						//左上に生成
+						if (myName == "Enemy_Board")
+						{
+							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+							saveQuaterObj = null;
+
+						}
+						else if (myName == "Enemy_Board_Quarter(Clone)")
+						{
+							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+							saveQuaterObj = null;
+
+						}
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						{
+							//なにもしない
+						}
+
+						break;
+					case 2:
+						//左下に生成
+						if (myName == "Enemy_Board")
+						{
+							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+							saveQuaterObj = null;
+
+						}
+						else if (myName == "Enemy_Board_Quarter(Clone)")
+						{
+							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+							saveQuaterObj = null;
+						}
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						{
+							//なにもしない
+						}
+
+						break;
+					case 3:
+						//右下に生成
+						if (myName == "Enemy_Board")
+						{
+							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+							saveQuaterObj = null;
+
+						}
+						else if (myName == "Enemy_Board_Quarter(Clone)")
+						{
+							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+							//ebp.divisionCnt = 1;
+							ebp.isCreate = true;
+							ebp.speedX = 15;
+							ebp = null;
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+							saveQuaterObj = null;
+						}
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						{
+							//なにもしない
+						}
+						//ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+
+						break;
+
+				}
+
+			}
+
+			//for文じゃないほう
 			//右上に生成
-			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-			saveQuaterObj.transform.rotation = Quaternion.Euler(0,0, Random.Range(180, 270));
-			ebp.divisionCnt = 1;
-			ebp.isCreate = true;
-			ebp = null;
-			if (divisionCnt == 0)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			}
-			else if(divisionCnt == 1)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-			}
-			saveQuaterObj = null;
+			//if(myName=="Enemy_Board")
+			//{
+			//	saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj = null;
 
-			//左上に生成
-			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-			ebp.divisionCnt = 1;
-			ebp.isCreate = true;
-			ebp = null;
-			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
-			if (divisionCnt == 0)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			}
-			else if (divisionCnt == 1)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-			}
-			saveQuaterObj = null;
+			//}
+			//else if(myName== "Enemy_Board_Quarter(Clone)")
+			//{
+			//	saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj = null;
 
-			//左下に生成
-			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-			ebp.divisionCnt = 1;
-			ebp.isCreate = true;
-			ebp = null;
-			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
-			if (divisionCnt == 0)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			}
-			else if (divisionCnt == 1)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-			}
-			saveQuaterObj = null;
+			//}
+			//else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+			//{
+			//	//なにもしない
+			//}
+			////ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			////saveQuaterObj.transform.rotation = Quaternion.Euler(0,0, Random.Range(180, 270));
+			//////ebp.divisionCnt = 1;
+			////ebp.isCreate = true;
+			////ebp = null;
+			////if (divisionCnt == 0)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			////}
+			////else if(divisionCnt == 1)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+			////}
+			////saveQuaterObj = null;
 
-			//右下に生成
-			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
-			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-			ebp.divisionCnt = 1;
-			ebp.isCreate = true;
-			ebp = null;
-			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
-			if (divisionCnt == 0)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			}
-			else if (divisionCnt == 1)
-			{
-				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-			}
-			saveQuaterObj = null;
+			////左上に生成
+			//if (myName == "Enemy_Board")
+			//{
+			//	saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if (myName == "Enemy_Board_Quarter(Clone)")
+			//{
+			//	saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if(myName== "Enemy_Board_OneSixteenth(Clone)")
+			//{
+			//	//なにもしない
+			//}
+			////ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//////ebp.divisionCnt = 1;
+			////ebp.isCreate = true;
+			////ebp = null;
+			////saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+			////if (divisionCnt == 0)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			////}
+			////else if (divisionCnt == 1)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+			////}
+			////saveQuaterObj = null;
+
+			////左下に生成
+			//if (myName == "Enemy_Board")
+			//{
+			//	saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if (myName == "Enemy_Board_Quarter(Clone)")
+			//{
+			//	saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+			//{
+			//	//なにもしない
+			//}
+			////ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//////ebp.divisionCnt = 1;
+			////ebp.isCreate = true;
+			////ebp = null;
+			////saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+			////if (divisionCnt == 0)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			////}
+			////else if (divisionCnt == 1)
+			////{
+			////	saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+			////}
+			////saveQuaterObj = null;
+
+			////右下に生成
+			//if (myName == "Enemy_Board")
+			//{
+			//	saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if (myName == "Enemy_Board_Quarter(Clone)")
+			//{
+			//	saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+			//	ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			//	//ebp.divisionCnt = 1;
+			//	ebp.isCreate = true;
+			//	ebp = null;
+			//	saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+			//	saveQuaterObj = null;
+
+			//}
+			//else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+			//{
+			//	//なにもしない
+			//}
+			//ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			////ebp.divisionCnt = 1;
+			//ebp.isCreate = true;
+			//ebp = null;
+			//saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+			//if (divisionCnt == 0)
+			//{
+			//	saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			//}
+			//else if (divisionCnt == 1)
+			//{
+			//	saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+			//}
+			//saveQuaterObj = null;
 
 			isDead = false;
 
