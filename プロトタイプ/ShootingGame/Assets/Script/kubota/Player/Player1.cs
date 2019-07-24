@@ -43,8 +43,6 @@ public class Player1 : character_status
 	public float facing_cnt;					// 旋回カウント
 	public int shoot_number;                //弾を連続して撃った時の数をカウントするための変数
 
-	//private GameObject[] effect_mazlefrash = new GameObject[3];		//マズルフラッシュのエフェクトをオブジェクトとして取得するための変数
-	//public ParticleSystem laser;			//レーザーのパーティクルを取得するための変数
 	public GameObject Laser;				//レーザーのobjectをOnにするために行う処理
 
 	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
@@ -82,15 +80,6 @@ public class Player1 : character_status
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		/*
-		 * 2週目 + 死んだとき
-		 * 以上の条件でプレイヤーが動かなくなるバグの修正(応急処置)
-		 * Laser.SetActive(false); をコメントアウト
-		 *
-		 * バグの原因は不明
-		 * もし直していて、マージで元に戻ったバグならごめんなさい。
-		 * 以上 諸岡 2019/07/20
-		 */
 		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
 			Reset_BulletType();
 		});
@@ -130,15 +119,14 @@ public class Player1 : character_status
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
-		//laser.Stop();		//レーザーのパーティクルを動かさないようにする
 		injection.Play();   //ジェット噴射のパーティクルを稼働状態に
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
 		Is_Resporn = false;
 		startTime = 0;
-		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();
-		effect_num = 0;
+		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();	//複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
+		effect_num = 0;			
 		min_speed = speed;		//初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
 		PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
@@ -146,7 +134,7 @@ public class Player1 : character_status
 	
 	}
 
-	void Update()
+	new void Update()
 	{
 		if (Is_Resporn)
 		{

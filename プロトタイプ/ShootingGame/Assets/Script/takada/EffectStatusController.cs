@@ -15,7 +15,8 @@ public class EffectStatusController : MonoBehaviour
 	public Color[] collarList = new Color[3]  {
 		new Color(54f/255f, 83f/255f, 255f/255f,255f/255f),
 		new Color(255f/255f, 255f/255f, 24f/255f,255f/255f),
-		new Color(255f/255f, 50f/255f, 50f/255f,255f/255f) };
+		new Color(255f/255f, 50f/255f, 50f/255f,255f/255f)
+	};
 
 	public float[] rateList = new float[3] { 300.0f, 200.0f, 100.0f };
 
