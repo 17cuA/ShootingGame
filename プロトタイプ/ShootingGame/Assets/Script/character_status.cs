@@ -239,7 +239,7 @@ public class character_status : MonoBehaviour
 		}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
-	private void Damege_Effect()
+	public void Damege_Effect()
 	{
 		for (int i = 0; i < object_material.Length; i++)
 		{
@@ -269,5 +269,9 @@ public class character_status : MonoBehaviour
 	public uint Get_Score()
 	{
 		return score;
+	}
+	public Material Get_self_material(int num)
+	{
+		return self_material[num];
 	}
 }
