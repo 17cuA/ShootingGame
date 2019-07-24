@@ -87,16 +87,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			{
 				this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
 			}
-
-			for (var i = 0; i < this.nodes.Count - 1; ++i)
-			{
-				if(i == 0)
-				{
-					continue;
-				}
-
-				var distance = Vector3.Distance(this.nodes[i].transform.position, this.nodes[i + 1].transform.position);
-			}
 		}
 
 	
@@ -125,13 +115,16 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	/// </summary>
 	public void LaunchNode(float trailWidth)
 	{
-		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, this.transform.position, Quaternion.identity);
-		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		node.transform.localRotation = this.emitter.transform.localRotation;
-		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
-		node.GetComponent<LaserLine>().TrailRenderer.Clear();
-		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
-		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
+		GameObject node = null;
+		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth);
+
+		//if (nodes.Count != 0)
+		//{
+		//	var last = this.nodes[this.nodes.Count - 1];
+		//	var pos = (last.transform.position + transform.position) / 2;
+		//	var rotation = Average(new Quaternion[] { last.transform.localRotation, transform.localRotation });
+		//	node = CreateNode(pos, rotation, trailWidth);
+		//}
 
 		//管理するように
 		this.nodes.Add(node);
@@ -158,6 +151,64 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	public void ResetGenerator()
 	{
 		pointCount = 0;
+	}
+
+	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth)
+	{
+		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
+		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+		node.transform.localRotation = rotation;
+		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
+		node.GetComponent<LaserLine>().TrailRenderer.Clear();
+		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
+		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
+
+		return node;
+	}
+
+
+	public static Quaternion Average(Quaternion[] quatArray)
+	{
+		var result = new Quaternion();
+		var count = quatArray.Length;
+		var error = 0;
+
+		while (count > 1)
+		{
+			if (error >= 10000) break;
+			error++;
+			var k = 0;
+			for (int i = 0; i + 1 < count; i += 2)
+			{
+				var a = quatArray[i];
+				var b = quatArray[i + 1];
+
+				if (Quaternion.Dot(a, a) < Quaternion.kEpsilon)
+					a = Quaternion.identity;
+
+				if (Quaternion.Dot(b, b) < Quaternion.kEpsilon)
+					b = Quaternion.identity;
+
+				var avgQuat = Quaternion.LerpUnclamped(a, b, 0.5f);
+
+				quatArray[k] = avgQuat;
+				k++;
+			}
+
+			var lastCount = count;
+			count = k;
+
+			if ((lastCount & 1) == 1)
+			{
+				k++;
+				count++;
+				quatArray[k] = quatArray[lastCount - 1];
+			}
+		}
+
+		result = quatArray[0];
+
+		return result;
 	}
 }
 

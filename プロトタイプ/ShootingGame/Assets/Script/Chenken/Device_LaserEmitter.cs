@@ -258,7 +258,7 @@ class Device_LaserEmitter : MonoBehaviour
 					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 			}
 
-			if(Time.time > launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+			if(Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
 			{
 				if (launchDevice is StraightLaunchDevice)
 					this.emitterLaunchCore.LaunchNode(straightTrailWidth);

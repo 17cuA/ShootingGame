@@ -19,12 +19,12 @@ MonoBehaviour:
   straightLaserLaunchInterval: 0.01
   straightTrailWidth: 1
   straightLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  rotateLaserShotSpeed: 0.5
+  rotateLaserShotSpeed: 0.8
   rotateLaserWidth: 0.05
   rotateLaserNodeMax: 200
   rotateLaserOverloadDuration: 0.15
   rotateLaserLaunchInterval: 0
-  rotateTrailWidth: 1
+  rotateTrailWidth: 10
   rotateLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &5068087178034757352
 MonoBehaviour:
@@ -596,16 +596,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserEmitter
-      objectReference: {fileID: 0}
-    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -660,6 +650,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserEmitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7268150438815896196, guid: 3517bbfe0d70d9e4c8ed482fd60c2173, type: 3}
@@ -1093,6 +1093,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Name
+      value: VicViper
+      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.325
@@ -1149,10 +1153,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Name
-      value: VicViper
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1192,6 +1192,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
+    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
+        type: 3}
+      propertyPath: m_Name
+      value: S05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7157077057684087324, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1246,16 +1256,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
-        type: 3}
-      propertyPath: m_Name
-      value: S05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6793409194761146823, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1681867928715826945, guid: 97d6606e9c1dfdd4e8a9905b4e70da7c,
         type: 3}
