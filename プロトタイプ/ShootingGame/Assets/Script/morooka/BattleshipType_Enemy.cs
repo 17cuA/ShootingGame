@@ -29,9 +29,12 @@ public class BattleshipType_Enemy : character_status
 	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
 	public List<MeshRenderer> Parts_Renderer { get; set; }					// パーツたちのレンダー
 
-	private void Start()
+	public bool Is_up { get; set; }
+
+	private new void Start()
 	{
-		Original_Position = transform.position = initial_position;
+		base.Start();
+		 
 		Now_Target = 0;
 		// 初期位置と目標位置のX軸の中間
 		Moving_Facing = new Vector3(-1.0f, 0.0f,0.0f);
@@ -50,10 +53,22 @@ public class BattleshipType_Enemy : character_status
 				Parts_Renderer.Add(Child_Scriptes[i].GetComponent<MeshRenderer>());
 			}
 		}
+
+		if(!Is_up)
+		{
+			initial_position.y *= -1.0f;
+			for(int i = 0; i < moving_change_point.Length; i++)
+			{
+				moving_change_point[i].y *= -1.0f;
+			}
+		}
+		Original_Position = transform.position = initial_position;
 	}
 
 	private void Update()
 	{
+		base.Update();
+
 		HSV_Change();
 
 		//// 移動したい向きに移動

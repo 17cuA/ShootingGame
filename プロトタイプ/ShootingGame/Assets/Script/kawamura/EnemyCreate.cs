@@ -50,7 +50,6 @@ public class EnemyCreate : MonoBehaviour
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
     public GameObject enemy_BattleShip;
-    public GameObject enemy_BattleShip2;
 
     public int frameCnt = 0;	//フレームカウント：これの値で生成のタイミングをはかる
     public int groupCnt = 1;	//画面に出す群れのカウント
@@ -103,7 +102,6 @@ public class EnemyCreate : MonoBehaviour
         //enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
         //enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
         enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
-        enemy_BattleShip2 = Resources.Load("Enemy/BattleshipType_Enemy (1)") as GameObject;
 
 		//群れカウント初期化
         groupCnt = 1;
@@ -251,11 +249,13 @@ public class EnemyCreate : MonoBehaviour
 					isCreate = false;
 					groupCnt++;
 					//GameObject Battle_Ship2 = enemy_BattleShip2;
-					GameObject Battle_Ship2 = enemy_BattleShip2;
-					Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
+					GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+					b1.Is_up = false;
 
-					GameObject Battle_Ship1 = enemy_BattleShip;
-					Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+					b2.Is_up = true;
 
 					break;
 
@@ -263,11 +263,13 @@ public class EnemyCreate : MonoBehaviour
 					isCreate = false;
 					groupCnt++;
 					//GameObject Battle_Ship2 = enemy_BattleShip2;
-					GameObject Battle_Ship4 = enemy_BattleShip2;
-					Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
+					GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					BattleshipType_Enemy b3 = Battle_Ship3.GetComponent<BattleshipType_Enemy>();
+					b3.Is_up = false;
 
-					GameObject Battle_Ship3 = enemy_BattleShip;
-					Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+					BattleshipType_Enemy b4 = Battle_Ship4.GetComponent<BattleshipType_Enemy>();
+					b4.Is_up = true;
 
 					break;
 
