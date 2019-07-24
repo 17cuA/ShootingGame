@@ -4928,6 +4928,7 @@ MonoBehaviour:
   type: 0
   advanceBackSpeed: 3.5
   escapeSpeed: 8
+  escapeSpeedIncrease: 5
   advanceActionSlot: 0200000007000000
   excapeActionSlot: 10
   waitDuration: 0.5
@@ -10122,7 +10123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalRotation.y
@@ -10130,7 +10131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10150,7 +10151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3c39dfbf1a4001b46a8346a9911887a4, type: 3}
       propertyPath: m_LocalScale.x
