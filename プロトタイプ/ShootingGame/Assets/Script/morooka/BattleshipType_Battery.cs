@@ -15,7 +15,7 @@ public class BattleshipType_Battery : character_status
 	private Vector3 Initial_Position { get; set; }		// 自身の初期位置
 	private GameObject Muzzle { get; set; }				// 弾が発射される位置
 
-	private void Start()
+	private new void Start()
 	{
 		hp = 5;
 		score = 100;
@@ -27,9 +27,10 @@ public class BattleshipType_Battery : character_status
 		//{
 		//	Muzzle = transform.GetChild(0).gameObject;
 		//}
+		base.Start();
 	}
 
-	private void Update()
+	private new void Update()
 	{
 		// HPが0以下のとき
 		if (hp <= 0)
@@ -52,6 +53,7 @@ public class BattleshipType_Battery : character_status
 			//transform.position = new Vector3(0, 800.0f, 0);
 			//gameObject.SetActive(false);
 		}
+		base.Update();
 	}
 
 	/// <summary>

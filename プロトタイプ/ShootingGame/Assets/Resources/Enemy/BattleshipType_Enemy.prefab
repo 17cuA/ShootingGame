@@ -111,7 +111,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -119,6 +118,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008354
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -238,6 +237,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008356
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,6 @@ MonoBehaviour:
   Shot_DelayMax: 30
   Shot_Delay: 0
   score: 1000
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -378,6 +377,16 @@ MonoBehaviour:
   - {fileID: 6342699719349805174}
   isrend: 0
   Is_Dead: 0
+  self_material:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   initial_position: {x: 25, y: 5, z: 0}
   moving_change_point:
   - {x: 16, y: 5, z: 0}
@@ -506,7 +515,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -514,6 +522,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008362
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,9 +550,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6342699719352008362}
-  m_LocalRotation: {x: -0.000000053385083, y: 0.7071068, z: 0.7071068, w: 0.000000053385083}
-  m_LocalPosition: {x: 0.5222934, y: 0.05307539, z: 0.7620508}
-  m_LocalScale: {x: 3.5, y: 3, z: 3}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0.5222933, y: 0.053075314, z: 0.762051}
+  m_LocalScale: {x: 3.5000029, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 6342699719352230532}
   m_RootOrder: 4
@@ -565,7 +574,7 @@ MeshRenderer:
   m_GameObject: {fileID: 6342699719352008362}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -625,7 +634,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -633,6 +641,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008364
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +753,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -752,6 +760,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008366
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +872,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -871,6 +879,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,7 +1068,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -1067,6 +1075,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1 &6342699719352008406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1187,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -1186,6 +1194,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
 --- !u!1001 &3996265320850508021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1193,11 +1202,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1268,6 +1272,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -1293,11 +1302,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1368,6 +1372,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -1393,11 +1402,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1468,6 +1472,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -1493,11 +1502,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E
-      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1567,6 +1571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E
       objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
