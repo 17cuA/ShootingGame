@@ -104,7 +104,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		myName = gameObject.name;							//自分の名前取得
 
-		//b_Shot = gameObject.GetComponent<Bit_Shot>();		//攻撃の情報取得
+		b_Shot = gameObject.GetComponent<Bit_Shot>();		//攻撃の情報取得
 
 
 	}
@@ -149,6 +149,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		{
 			//死んだ判定true
 			isDead = true;
+			b_Shot.isShot = false;
+			b_Shot.laser_Obj.SetActive(false);
+
 			//追従位置の参照を外す
 			followPosObj = null;
 
@@ -391,7 +394,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				//オプションパーティクルストップ
 				option_Particle.Stop();
-
+				b_Shot.isShot = true;
 				//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 				if (!FtoPlayer.hasOption)
 				{
