@@ -21,9 +21,7 @@ MonoBehaviour:
   - {fileID: 114556006129759394}
   - {fileID: 114380049869583032}
   - {fileID: 114328357558051372}
-  - {fileID: 114403413442570570}
-  - {fileID: 114166671017567560}
-  - {fileID: 114040168624737066}
+  - {fileID: 114008482913296396}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -4021,6 +4019,29 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &114008482913296396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1544527758, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: Debris
+  m_EditorClassIdentifier: 
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_AnimClip: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children:
+  - {fileID: 114403413442570570}
+  - {fileID: 114166671017567560}
+  - {fileID: 114040168624737066}
+  m_Clips: []
+  m_Version: 2
 --- !u!114 &114026058883380136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4050,7 +4071,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 114008482913296396}
   m_Children: []
   m_Clips:
   - m_Start: 0
@@ -4331,6 +4352,26 @@ MonoBehaviour:
     m_Version: 1
   m_Version: 2
   m_PostPlaybackState: 3
+--- !u!114 &114045431100023966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1095772578, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: Control Track
+  m_EditorClassIdentifier: 
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_AnimClip: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Version: 2
 --- !u!114 &114061485914501460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4479,7 +4520,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 114008482913296396}
   m_Children: []
   m_Clips:
   - m_Start: 0
@@ -5136,7 +5177,7 @@ MonoBehaviour:
   m_Muted: 1
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 74556601169646090}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 114406702902277026}
   m_Children: []
   m_Clips: []
   m_Version: 2
@@ -5228,7 +5269,7 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 0}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 114008482913296396}
   m_Children: []
   m_Clips:
   - m_Start: 17.448284995928407
