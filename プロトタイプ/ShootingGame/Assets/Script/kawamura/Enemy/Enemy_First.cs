@@ -26,7 +26,7 @@ public class Enemy_First : character_status
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
-
+	//Renderer renderer;
 	//Renderer renderer;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
@@ -53,6 +53,8 @@ public class Enemy_First : character_status
 
 	private void Awake()
 	{
+		//renderer = childObj.GetComponent<Renderer>();
+
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
 		defaultPos = transform.localPosition;
@@ -153,8 +155,8 @@ public class Enemy_First : character_status
 				{
                     transform.localPosition = defaultPos;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    //transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
-                    //transform.localPosition = defaultPos_PlusZ;
+                    transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
+                    transform.localPosition = defaultPos_PlusZ;
 
                     if (transform.position.y > 0)
 					{
@@ -239,6 +241,7 @@ public class Enemy_First : character_status
 					straightFrame--;
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
+					//HSV_Change();
 
 					if (transform.position.z < 0)
 					{
@@ -259,7 +262,7 @@ public class Enemy_First : character_status
 						//	isTurn = true;
 						//}
 						speedX = 5;
-						isTurn = true;
+						//isTurn = true;
 					}
 
 					else if (transform.localPosition.x < -21)
@@ -308,7 +311,7 @@ public class Enemy_First : character_status
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
-
+					//HSV_Change();
 					if (transform.position.z < 0)
 					{
 						transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
@@ -316,7 +319,7 @@ public class Enemy_First : character_status
 						speedZ_Value = 0;
 					}
 
-					if (transform.position.x <= -12.0f)
+					if (transform.localPosition.x <= -12.0f)
 					{
 						speedZ = speedZ_Value;
 					}
@@ -329,7 +332,7 @@ public class Enemy_First : character_status
 						//	isTurn = true;
 						//}
 						speedX = 5;
-						isTurn = true;
+						//isTurn = true;
 					}
 					else if (transform.localPosition.x < -21)
 					{
