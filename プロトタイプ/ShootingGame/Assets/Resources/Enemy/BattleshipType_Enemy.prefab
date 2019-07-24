@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c690db84315c8eb418576aafaed8707f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.03
+  speed: 0.05
   hp: 20
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
@@ -397,7 +397,7 @@ MonoBehaviour:
   - {x: 16, y: 5, z: 0}
   - {x: 11, y: 2.8, z: 0}
   - {x: -11, y: 2.8, z: 0}
-  - {x: -16, y: 5, z: 0}
+  - {x: -32, y: 10, z: 0}
   is_sandwich: 1
   muzzle_set_up:
   - {fileID: 6342699719352230538}
