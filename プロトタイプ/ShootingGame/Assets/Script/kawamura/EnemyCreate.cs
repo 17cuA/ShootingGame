@@ -427,25 +427,25 @@ public class EnemyCreate : MonoBehaviour
 
 		}     
 		//groupCntが15の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470+80)
+		else if (frameCnt == 2980.0f + 470+80-120)
 		{
 			isCreate = true;
 
 		}
 		//groupCntが14の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470+40)
+		else if (frameCnt == 2980.0f + 470+40-120)
 		{
 			isCreate = true;
 
 		}
 		//groupCntが13の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470)
+		else if (frameCnt == 2980.0f + 470-120)
         {
             isCreate = true;
 
         }
 		//groupCntが12の時のを出すタイミング
-		else if (frameCnt == 2530.0f + 470 - 800)
+		else if (frameCnt == 2530.0f + 470 - 700)
         {
             isCreate = true;
 
