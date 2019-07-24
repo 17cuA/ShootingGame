@@ -119,7 +119,6 @@ MonoBehaviour:
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -127,6 +126,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  white_material: {fileID: 0}
 --- !u!136 &3595554876798197833
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -219,9 +219,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quarterObj: {fileID: 7073840493618067158}
+  saveQuaterObj: {fileID: 0}
   randRota_TopLeft: {x: 0, y: 0, z: 0, w: 0}
   randRota_TopRight: {x: 0, y: 0, z: 0, w: 0}
   randRota_BottomLeft: {x: 0, y: 0, z: 0, w: 0}
   randRota_BottomRight: {x: 0, y: 0, z: 0, w: 0}
+  ebp: {fileID: 0}
+  divisionCnt: 0
+  speedX: 15
   isDead: 0
   isCreate: 0

@@ -6,17 +6,20 @@ public class Enemy_Board_Parent : MonoBehaviour
 {
 	public GameObject quarterObj;
 
-	GameObject saveQuaterObj;
+	public GameObject saveQuaterObj;
 
 	public Quaternion randRota_TopLeft;
 	public Quaternion randRota_TopRight;
 	public Quaternion randRota_BottomLeft;
 	public Quaternion randRota_BottomRight;
 
-	Enemy_Board_Parent ebp;
+	public Enemy_Board_Parent ebp;
+
+
 
 	Vector3 velocity;
-	float speedX;
+	public int divisionCnt = 0;
+	public float speedX;
 
 	string myName;
 
@@ -27,7 +30,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	private void Awake()
 	{
 		myName = gameObject.name;
-		speedX = 20;
+		//speedX = 20;
 	}
 	void Start()
     {
@@ -64,57 +67,73 @@ public class Enemy_Board_Parent : MonoBehaviour
 			//randRota_TopLeft = new Quaternion(0, 0, Random.Range(0, 360), 0);
 			//Instantiate(quarterObj, transform.position, randRota_BottomRight);
 
+			//右上に生成
 			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
 			saveQuaterObj.transform.rotation = Quaternion.Euler(0,0, Random.Range(180, 270));
-			if (myName == "Enemy_Board")
+			ebp.divisionCnt = 1;
+			ebp.isCreate = true;
+			ebp = null;
+			if (divisionCnt == 0)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
-			else if(myName=="Enemy_Board_Quater")
+			else if(divisionCnt == 1)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 			}
-			ebp.isCreate = true;
+			saveQuaterObj = null;
 
+			//左上に生成
 			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			ebp.divisionCnt = 1;
+			ebp.isCreate = true;
+			ebp = null;
 			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
-			if (myName == "Enemy_Board")
+			if (divisionCnt == 0)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
-			else if (myName == "Enemy_Board_Quater")
+			else if (divisionCnt == 1)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 			}
-			ebp.isCreate = true;
+			saveQuaterObj = null;
 
+			//左下に生成
 			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			ebp.divisionCnt = 1;
+			ebp.isCreate = true;
+			ebp = null;
 			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
-			if (myName == "Enemy_Board")
+			if (divisionCnt == 0)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
-			else if (myName == "Enemy_Board_Quater")
+			else if (divisionCnt == 1)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 			}
-			ebp.isCreate = true;
+			saveQuaterObj = null;
 
+			//右下に生成
 			saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 			ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
+			ebp.divisionCnt = 1;
+			ebp.isCreate = true;
+			ebp = null;
 			saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
-			if (myName == "Enemy_Board")
+			if (divisionCnt == 0)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
-			else if (myName == "Enemy_Board_Quater")
+			else if (divisionCnt == 1)
 			{
 				saveQuaterObj.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 			}
-			ebp.isCreate = true;
+			saveQuaterObj = null;
 
 			isDead = false;
 

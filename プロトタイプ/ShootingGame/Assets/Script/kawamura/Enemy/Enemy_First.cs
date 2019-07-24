@@ -138,7 +138,7 @@ public class Enemy_First : character_status
 
 	}
 
-	void Update()
+	new void Update()
 	{
 		if(once)
 		{

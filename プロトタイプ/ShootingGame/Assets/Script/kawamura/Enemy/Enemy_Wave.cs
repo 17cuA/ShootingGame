@@ -143,7 +143,7 @@ public class Enemy_Wave : character_status
 		base.Start();
 	}
 
-	void Update()
+	new void Update()
 	{
         if(renderer.isVisible)
         {
