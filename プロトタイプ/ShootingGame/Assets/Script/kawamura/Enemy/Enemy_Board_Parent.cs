@@ -40,19 +40,26 @@ public class Enemy_Board_Parent : MonoBehaviour
 
     void Update()
     {
-		if(isCreate)
+		if (isCreate)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 			speedX -= 1.0f;
+			if (speedX == 0)
+			{
+				//speedX = 0;
+				isCreate = false;
+			}
+		}
+		if (speedX > 0)
+		{
+			speedX -= 1.0f;
 			if (speedX < 0)
 			{
 				speedX = 0;
-				isCreate = false;
 			}
-
-
 		}
+
 		randRota_TopLeft = new Quaternion(0, 0, Random.Range(180, 270), 0);
 		randRota_TopRight = new Quaternion(0, 0, Random.Range(270, 360), 0);
 		randRota_BottomLeft = new Quaternion(0, 0, Random.Range(0, 90), 0);

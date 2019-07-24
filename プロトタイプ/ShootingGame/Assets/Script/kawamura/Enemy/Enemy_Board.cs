@@ -9,7 +9,7 @@ public class Enemy_Board : character_status
 
 	private void Awake()
 	{
-		parentObj = transform.parent.gameObject;
+		parentObj = transform.parent.parent.gameObject;
 		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
 	}
 	//private void OnEnable()
