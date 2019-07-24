@@ -253,7 +253,6 @@ public class character_status : MonoBehaviour
 		{
 			object_material[i].material = self_material[i];
 			//object_material[i].enabled = true;
-
 		}
 	}
 	//シールドの値を取得する
