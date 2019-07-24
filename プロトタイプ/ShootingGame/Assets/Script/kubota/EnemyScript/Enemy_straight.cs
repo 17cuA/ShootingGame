@@ -9,14 +9,19 @@ using UnityEngine;
 
 public class Enemy_straight : character_status
 {
-    // Update is called once per frame
-    void Update()
+	private new void Start()
+	{
+		base.Start();
+	}
+	// Update is called once per frame
+	public new void Update()
     {
 		if (hp < 1)
 		{
 			Died_Process();
 		}
 		Enemy_Move();
+		base.Update();
 	}
 
 	private void Enemy_Move()

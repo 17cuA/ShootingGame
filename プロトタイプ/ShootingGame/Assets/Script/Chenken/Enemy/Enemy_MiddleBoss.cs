@@ -102,10 +102,11 @@ public class Enemy_MiddleBoss : character_status
 
 		player = GameObject.Find("Player").transform.GetChild(0).transform;
 		stateManager.Start(StateType.WAIT);
+		base.Start();
 	}
 
 	// Update is called once per frame
-	private void Update()
+	private new void Update()
     {
 		if (player)
 		{
@@ -132,6 +133,7 @@ public class Enemy_MiddleBoss : character_status
 			////
 			base.Died_Process();
 		}
+		base.Update();
 	}
 
 	private void OnTriggerExit(Collider other)
