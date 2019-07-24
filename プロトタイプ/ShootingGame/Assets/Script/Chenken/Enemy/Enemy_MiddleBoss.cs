@@ -11,6 +11,9 @@ public class Enemy_MiddleBoss : character_status
 	[Header("移動パラメータ（単位：Unit/秒）")]
 	public float advanceBackSpeed;
 	public float escapeSpeed;
+
+	public float escapeSpeedIncrease = 25;
+
 	[Header("何回目行動時　突撃行動　（単位：回目）")]
 	public List<int> advanceActionSlot = new List<int>();
 	[Header("何回目行動時　逃走行動　（単位：回目）")]
@@ -93,7 +96,7 @@ public class Enemy_MiddleBoss : character_status
 	}
 
 	// Start is called before the first frame update
-	private void Start()
+	private new void Start()
     {
 		base.HP_Setting();
 
@@ -185,11 +188,36 @@ public class Enemy_MiddleBoss : character_status
 	private void Move_Enter()
 	{
 		currentSlot++;
+
+		if (transform.position.y > limitYUp)
+		{
+			animator.Play("RotateDown");
+			moveDirection = Vector3.down;
+			return;
+		}
+
+		if (transform.position.y < limitYDown)
+		{
+			animator.Play("RotateUp");
+			moveDirection = Vector3.up;
+			return;
+		}
+
+		if (player.transform.position.y >= transform.position.y)
+		{
+			animator.Play("RotateUp");
+			moveDirection = Vector3.up;
+		}
+		else
+		{
+			animator.Play("RotateDown");
+			moveDirection = Vector3.down;
+		}
 	}
 
 	private void Move_Update()
 	{
-		if (stateManager.Current.IsDone)
+		if (stateManager.Current.IsDone && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 		{
 			stateManager.ChangeState(StateType.STOP);
 			return;
@@ -201,11 +229,11 @@ public class Enemy_MiddleBoss : character_status
         //	transform.Rotate(Vector3.right * (180.0f / (moveDuration / Time.deltaTime)));
 
 
-        if (moveDirection == Vector3.down)
-              transform.localEulerAngles = Vector3.Slerp(new Vector3(180, 0 ,0), new Vector3(0, 0, 0), (moveDuration -  stateManager.Current.Timer)/ moveDuration);
+        //if (moveDirection == Vector3.down)
+        //      transform.localEulerAngles = Vector3.Slerp(new Vector3(180, 0 ,0), new Vector3(0, 0, 0), (moveDuration -  stateManager.Current.Timer)/ moveDuration);
 
-        if (moveDirection == Vector3.up)
-              transform.localEulerAngles = Vector3.Slerp(new Vector3(0, 0 ,0), new Vector3(180, 0, 0), (moveDuration -  stateManager.Current.Timer) / moveDuration);
+        //if (moveDirection == Vector3.up)
+        //      transform.localEulerAngles = Vector3.Slerp(new Vector3(0, 0 ,0), new Vector3(180, 0, 0), (moveDuration -  stateManager.Current.Timer) / moveDuration);
 
 
 		transform.position += speed  * moveDirection * Time.deltaTime;
@@ -213,10 +241,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Move_Exit()
 	{
-		if (moveDirection == Vector3.down)
-			transform.localEulerAngles = new Vector3(180.0f, 0, 0);
-		if (moveDirection == Vector3.up)
-			transform.localEulerAngles = new Vector3(0, 0, 0);
+		animator.Play("None");
 	}
 
 	private void AdvanceBack_Enter()
@@ -268,6 +293,7 @@ public class Enemy_MiddleBoss : character_status
         capsuleCollider.height = 8;
         capsuleCollider.center = new Vector2(1.5f,0.09f);
 
+		animator.Play("Escape");
 
 		moveDirection = Vector3.left;
 		base.hp = 10000;
@@ -276,7 +302,11 @@ public class Enemy_MiddleBoss : character_status
 	private void Escape_Update()
 	{
 		transform.position += escapeSpeed * moveDirection * Time.deltaTime;
-		transform.Rotate(Vector3.left * (180.0f / (escapeDuration * 60f)));
+
+		if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.1f)
+		{
+			escapeSpeed += escapeSpeedIncrease * Time.deltaTime;
+		}
 	}
 
 	private void Stop_Enter()
@@ -319,21 +349,6 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Stop_Exit()
 	{
-		if (transform.position.y > limitYUp)
-		{
-			moveDirection = Vector3.down;
-			return;
-		}
-
-		if (transform.position.y < limitYDown)
-		{
-			moveDirection = Vector3.up;
-			return;
-		}
-
-		if (player.transform.position.y >= transform.position.y)
-			moveDirection = Vector3.up;
-		else
-			moveDirection = Vector3.down;
+		
 	}
 }

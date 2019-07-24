@@ -14,25 +14,25 @@ public class character_status : MonoBehaviour
 		None
 	}
 	protected Chara_Type Type;
-	public float speed;													// スピード
+	public float speed;                                                 // スピード
 	private float speed_Max;
-	public int hp;														// 体力
+	public int hp;                                                      // 体力
 	private int hp_Max;
-	public Vector3 direction;											// 向き
-	public CapsuleCollider capsuleCollider;								// cillider
-	private Rigidbody rigidbody;										//rigitbody
-	public int Shot_DelayMax;											// 弾を打つ時の間隔（最大値::unity側にて設定）
-	public int Shot_Delay;												// 弾を撃つ時の間隔
-	public uint score;													// 保持しているスコア
-	private int shield;													//シールド（主にプレイヤーのみ使うと思う）
-	public bool activeShield;											//現在シールドが発動しているかどうかの判定用（初期値false）
-	public int Remaining;												//残機（あらかじめ設定）
-	public float v_Value;												//テクスチャの明るさの増える値
+	public Vector3 direction;                                           // 向き
+	public CapsuleCollider capsuleCollider;                             // cillider
+	private Rigidbody rigidbody;                                        //rigitbody
+	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
+	public int Shot_Delay;                                              // 弾を撃つ時の間隔
+	public uint score;                                                  // 保持しているスコア
+	private int shield;                                                 //シールド（主にプレイヤーのみ使うと思う）
+	public bool activeShield;                                           //現在シールドが発動しているかどうかの判定用（初期値false）
+	public int Remaining;                                               //残機（あらかじめ設定）
+	public float v_Value;                                               //テクスチャの明るさの増える値
 	public int childCnt;
-	public Renderer[] object_material;									// オブジェクトのマテリアル情報
+	public Renderer[] object_material;                                  // オブジェクトのマテリアル情報
 	public bool isrend = false;
-	public bool Is_Dead	= false;
-	private Material[] self_material;									//初期マテリアル保存用
+	public bool Is_Dead = false;
+	[SerializeField] private Material[] self_material;									//初期マテリアル保存用
 	[Header("ダメージ用material設定")]
 	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
 	private int framecnt;
@@ -62,21 +62,23 @@ public class character_status : MonoBehaviour
 	}
 	public void Update()
 	{
-		for (int i = 0; i < object_material.Length; i++)
+		if (check)
 		{
-			if (check)
+			for (int i = 0; i < object_material.Length; i++)
 			{
+
 				if (framecnt > 1)
 				{
 					material_Reset();
 					framecnt = 0;
 					check = false;
+					Debug.Log("fack");
 					return;
 				}
-				framecnt++;
 			}
-		}
+			framecnt++;
 
+		}
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -207,7 +209,7 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
-	//キャラクターが死んだかどうかの判定用関数
+	//キャラクターが死んだか(残機とHP両方)どうかの判定用関数
 	public bool Died_Judgment()
 	{
 		bool is_died = false;
@@ -242,8 +244,7 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < object_material.Length; i++)
 		{
 			object_material[i].material = white_material;
-			check = true;
-			//object_material[i].enabled = false;
+			if(!check) check = true;
 		}
 	}
 	//ダメージを受けた時のエフェクトが元のエフェクトに戻すための関数
@@ -252,7 +253,6 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < object_material.Length; i++)
 		{
 			object_material[i].material = self_material[i];
-			//object_material[i].enabled = true;
 		}
 	}
 	//シールドの値を取得する
