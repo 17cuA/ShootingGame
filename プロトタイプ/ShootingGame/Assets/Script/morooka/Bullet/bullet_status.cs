@@ -47,7 +47,18 @@ public class bullet_status : MonoBehaviour
 	protected void OnTriggerEnter(Collider col)
 	{
 		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player") || (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy"))
+		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		{
+			gameObject.SetActive(false);
+			//add:0513_takada 爆発エフェクトのテスト
+			//AddExplosionProcess();
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+
+		}
+		else if(gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
 			gameObject.SetActive(false);
 			//add:0513_takada 爆発エフェクトのテスト
@@ -57,6 +68,8 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
+		else if(gameObject.tag == "Enemy_Bullet" && gameObject.tag == "Player_Bullet")
+		{ }
 	}
 
 	/// <summary>

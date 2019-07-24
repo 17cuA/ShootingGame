@@ -27,7 +27,10 @@ public class BattleshipType_Enemy : character_status
 	public int Muzzle_Select { get; set; }				// マズル指定
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
 	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
-	public List<MeshRenderer> Parts_Renderer { get; set; }					// パーツたちのレンダー
+	public List<MeshRenderer> Parts_Renderer { get; set; }                  // パーツたちのレンダー
+
+	public float initial_speed;
+	public float Deceleration_Distance { get; set; }
 
 	public bool Is_up { get; set; }
 
@@ -63,6 +66,10 @@ public class BattleshipType_Enemy : character_status
 			}
 		}
 		Original_Position = transform.position = initial_position;
+
+		initial_speed = speed / 60.0f;
+
+
 	}
 
 	private new void Update()
@@ -253,5 +260,19 @@ public class BattleshipType_Enemy : character_status
 		}
 
 		return return_pos;
+	}
+
+	private void BASE_F(Vector3 start, Vector3 target, float speed)
+	{
+		// 起動時速度=目標速度/10
+		float initial_speed = speed / 10.0f;
+		// 加速区間移動量=(起動速度pps+目標速度pps)×加速時間Sec/2
+		// 減速区間移動量=(起動速度pps+目標速度pps)×加速時間Sec/2
+		float acceleration_zone_movement_amount = (initial_speed + speed) * 60.0f / 2.0f;
+		float travel_distance_of_deceleratin_section = acceleration_zone_movement_amount;
+		if(Vector_Size(start,target) < acceleration_zone_movement_amount)
+		{
+
+		}
 	}
 }
