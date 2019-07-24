@@ -51,6 +51,8 @@ public class Enemy_MiddleBoss : character_status
 	private Animator animator;
 	private bool canAdvanceAttack;
 
+	private float rotateSpeedAngle;
+
 	private void Awake()
 	{
 		stateManager = new StateManager<StateType>();
@@ -222,11 +224,13 @@ public class Enemy_MiddleBoss : character_status
 		}
 
 		var rotatePreFrame = 180.0f / (moveDuration / Time.deltaTime);
-
+		var smoothStepRotate =  Mathf.SmoothStep(0, 2 * rotatePreFrame, (moveDuration - stateManager.Current.Timer) / (moveDuration));
 		if (moveDirection == Vector3.down)
-			transform.Rotate(Vector3.left * rotatePreFrame);
+			transform.Rotate(Vector3.left * smoothStepRotate);
 		if (moveDirection == Vector3.up)
-			transform.Rotate(Vector3.right * rotatePreFrame);
+			transform.Rotate(Vector3.right * smoothStepRotate);
+
+
 
 		//if (moveDirection == Vector3.down)
 		//      transform.localEulerAngles = Vector3.Slerp(new Vector3(180, 0 ,0), new Vector3(0, 0, 0), (moveDuration -  stateManager.Current.Timer)/ moveDuration);
@@ -235,7 +239,10 @@ public class Enemy_MiddleBoss : character_status
 		//      transform.localEulerAngles = Vector3.Slerp(new Vector3(0, 0 ,0), new Vector3(180, 0, 0), (moveDuration -  stateManager.Current.Timer) / moveDuration);
 
 
-		transform.position += speed  * moveDirection * Time.deltaTime;
+		var movePreFrame = speed * moveDirection * Time.deltaTime / moveDuration;
+		var SmoothStepMove = Mathf.SmoothStep(0, 2 * movePreFrame.y, (moveDuration - stateManager.Current.Timer) / (moveDuration));
+
+		transform.position += new Vector3(0, SmoothStepMove, 0);
 	}
 
 	private void Move_Exit()
