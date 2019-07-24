@@ -65,7 +65,7 @@ public class BattleshipType_Enemy : character_status
 		Original_Position = transform.position = initial_position;
 	}
 
-	private void Update()
+	private new void Update()
 	{
 		base.Update();
 
@@ -164,6 +164,7 @@ public class BattleshipType_Enemy : character_status
 
 			Died_Process();
 		}
+		base.Update();
 	}
 
 	void OnEnable()

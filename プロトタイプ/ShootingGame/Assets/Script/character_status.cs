@@ -62,21 +62,23 @@ public class character_status : MonoBehaviour
 	}
 	public void Update()
 	{
-		for (int i = 0; i < object_material.Length; i++)
+		if (check)
 		{
-			if (check)
+			for (int i = 0; i < object_material.Length; i++)
 			{
+
 				if (framecnt > 1)
 				{
 					material_Reset();
 					framecnt = 0;
 					check = false;
+					Debug.Log("fack");
 					return;
 				}
-				framecnt++;
 			}
-		}
+			framecnt++;
 
+		}
 	}
 	//初期の体力を保存
 	public void HP_Setting()
@@ -207,7 +209,7 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
-	//キャラクターが死んだかどうかの判定用関数
+	//キャラクターが死んだか(残機とHP両方)どうかの判定用関数
 	public bool Died_Judgment()
 	{
 		bool is_died = false;
@@ -242,8 +244,7 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < object_material.Length; i++)
 		{
 			object_material[i].material = white_material;
-			check = true;
-			//object_material[i].enabled = false;
+			if(!check) check = true;
 		}
 	}
 	//ダメージを受けた時のエフェクトが元のエフェクトに戻すための関数
@@ -252,7 +253,6 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < object_material.Length; i++)
 		{
 			object_material[i].material = self_material[i];
-			//object_material[i].enabled = true;
 		}
 	}
 	//シールドの値を取得する
