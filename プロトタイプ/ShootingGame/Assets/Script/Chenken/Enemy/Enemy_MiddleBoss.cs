@@ -170,15 +170,17 @@ public class Enemy_MiddleBoss : character_status
 			return;
 		}
 
+
 	}
 
 	private void Debut_Exit()
 	{
-		animator.Play("None");
-		transform.position = transform.GetChild(0).transform.position;
+		transform.position = transform.GetChild(0).position;
 		transform.GetChild(0).localPosition = Vector3.zero;
 
-		 for(var i = 0; i < childsCapsuleColliders.Length; ++i)
+		animator.Play("None");
+
+		for (var i = 0; i < childsCapsuleColliders.Length; ++i)
         {
             childsCapsuleColliders[i].enabled = true;
         }

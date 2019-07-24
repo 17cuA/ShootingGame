@@ -118,17 +118,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		GameObject node = null;
 		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth);
 
+		//管理するように
+		this.nodes.Add(node);
+		this.pointCount++;
+
 		//if (nodes.Count != 0)
 		//{
 		//	var last = this.nodes[this.nodes.Count - 1];
 		//	var pos = (last.transform.position + transform.position) / 2;
 		//	var rotation = Average(new Quaternion[] { last.transform.localRotation, transform.localRotation });
 		//	node = CreateNode(pos, rotation, trailWidth);
+		//	this.nodes.Add(node);
+		//	this.pointCount++;
 		//}
-
-		//管理するように
-		this.nodes.Add(node);
-		this.pointCount++;
 	}
 
 	/// <summary>
