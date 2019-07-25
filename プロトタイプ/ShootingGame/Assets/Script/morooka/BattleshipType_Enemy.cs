@@ -83,6 +83,11 @@ public class BattleshipType_Enemy : character_status
 
 		HSV_Change();
 
+		if(transform.position == moving_change_point[moving_change_point.Length - 1])
+		{
+			gameObject.SetActive(false);
+		}
+
 		//// 移動したい向きに移動
 		//Vector3 velocity = Moving_Facing.normalized * speed;
 		//transform.position = transform.position + velocity;
