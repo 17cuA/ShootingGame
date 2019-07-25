@@ -14,7 +14,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	private LineRenderer lineRenderer;
 
-	public List<GameObject> nodes;
+	public List<LaserLine> nodes;
 
 	private int pointMax;
 	private int pointCount;
@@ -32,7 +32,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	{
 		this.isFixed      = true;
 		this.lineRenderer = GetComponent<LineRenderer>();
-		this.nodes        = new List<GameObject>();
+		this.nodes        = new List<LaserLine>();
 		this.emitter      = GameObject.Find("LaserEmitter");
 	}
 
@@ -94,6 +94,38 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			ResetLineRenderer();
 		}
 
+
+		//補間
+
+
+
+
+		//var count = nodes.Count - 1;
+		////オブジェクト追加
+		//for (var i = 0; i < count; ++i)
+		//{
+		//	if(!nodes[i].isRotateLaser)
+		//	{
+		//		return;
+		//	}
+		//	if(Vector3.Distance(nodes[i].transform.position, nodes[i + 1].transform.position) > 1.5f)
+		//	{
+		//		var pos = (nodes[i].transform.position + nodes[i + 1].transform.position) / 2f;
+		//		var direction = ((nodes[i].transform.position - transform.position) + (nodes[i + 1].transform.position - transform.position)) / 2f;
+		//		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
+		//		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
+		//		node.GetComponent<bullet_status>().Travelling_Direction = direction.normalized;
+		//		node.GetComponent<LaserLine>().TrailRenderer.Clear();
+		//		node.GetComponent<LaserLine>().TrailRenderer.endWidth = 2;
+		//		node.GetComponent<LaserLine>().TrailRenderer.startWidth = 2;
+		//		node.GetComponent<LaserLine>().isRotateLaser = true;
+		//		this.nodes.Insert(i + 1, node.GetComponent<LaserLine>());
+		//		this.pointCount++;
+		//		i++;
+		//		count++;
+		//	}
+		//}
+
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
 		//{
 		//	if(this.nodes.Count == 0)
@@ -130,7 +162,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isRotateLaser);
 
 		//管理するように
-		this.nodes.Add(node);
+		this.nodes.Add(node.GetComponent<LaserLine>());
 		this.pointCount++;
 
 		//if (nodes.Count != 0)
