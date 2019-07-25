@@ -301,8 +301,6 @@ class Device_LaserEmitter : MonoBehaviour
 		//------------------------------------------------------------レーザー発射装置使いすぎ------------------------------------------------------
 		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.IsOverLoad)
 		{
-			launchDevice.CurrentGenerator.ResetGenerator();
-
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
 
