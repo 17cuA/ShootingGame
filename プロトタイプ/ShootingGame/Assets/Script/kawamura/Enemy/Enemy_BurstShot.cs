@@ -21,6 +21,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	[Header("バーストで撃つ数")]
 	public int burst_Num;                   //撃つバースト数
 	int burst_Shotshot_Cnt;                 //何発撃ったかのカウント
+	public bool isShot = false;
 	bool isBurst = false;                   //バーストを撃つかどうか
 	void Start()
 	{
@@ -37,7 +38,7 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent;
 
-		if (sc.isShot && transform.position.z == 0)
+		if (isShot && transform.position.z == 0)
 		{
 			if (isBurst)
 			{

@@ -36,6 +36,7 @@ public class Enemy_Wave : character_status
 	public Vector3 startMarker;
 	public Vector3 endMarker;
 	float startTime;
+	public float slaep_IncValue;
 	float present_Location;
 	public float testSpeed = 1.0f;
 
@@ -330,7 +331,7 @@ public class Enemy_Wave : character_status
                 }
                 present_Location = (Time.time * testSpeed) / distance_two;
                 transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
-                startTime += 0.018f;
+                startTime += slaep_IncValue;
                 if (startTime > 1)
                 {
                     startTime = 1;
@@ -504,7 +505,6 @@ public class Enemy_Wave : character_status
 				    }
                 }
             }
-
 			Enemy_Reset();
 			//Reset_Status();
 			Died_Process();

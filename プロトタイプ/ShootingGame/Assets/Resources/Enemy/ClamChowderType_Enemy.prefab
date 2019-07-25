@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &399201533014088894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 574340994391240975}
+  - component: {fileID: 6201967320946072662}
+  - component: {fileID: 8390895507895468876}
+  m_Layer: 0
+  m_Name: Shot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &574340994391240975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399201533014088894}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3110145218247895068}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6201967320946072662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399201533014088894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cfab6570762f240835101a66ba4f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  degree: 0
+--- !u!114 &8390895507895468876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399201533014088894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Shot_Delay_Max: 2
+  burst_Delay_Max: 0
+  burst_Num: 1
+  isShot: 1
 --- !u!1 &656109226426990347
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +107,7 @@ MonoBehaviour:
   Shot_Delay_Max: 1.5
   burst_Delay_Max: 1
   burst_Num: 1
+  isShot: 0
 --- !u!1 &3110145218247895070
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,9 +117,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3110145218247895068}
-  - component: {fileID: 3110145218247895071}
   - component: {fileID: 8120069279966960545}
   - component: {fileID: 568205021845882238}
+  - component: {fileID: 8971610331925534156}
   m_Layer: 9
   m_Name: ClamChowderType_Enemy
   m_TagString: Enemy
@@ -78,60 +140,10 @@ Transform:
   m_Children:
   - {fileID: 5339504298699584438}
   - {fileID: 3961132783817858862}
+  - {fileID: 574340994391240975}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3110145218247895071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110145218247895070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbe2b1fb2fcd6e448743022c894a1b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  hp: 1
-  direction: {x: 0, y: 0, z: 0}
-  capsuleCollider: {fileID: 568205021845882238}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  score: 200
-  activeShield: 0
-  Remaining: 0
-  v_Value: 0
-  childCnt: 0
-  object_material:
-  - {fileID: 5339504298697814358}
-  isrend: 0
-  Is_Dead: 0
-  self_material: []
-  white_material: {fileID: 0}
-  eState: 1
-  startMarker: {x: 0, y: 0, z: 0}
-  endMarker: {x: 0, y: 0, z: 0}
-  testSpeed: 1
-  speedX: 5
-  speedY: 0
-  speedZ: 0
-  speedZ_Value: 32
-  amplitude: 0
-  defaultSpeedY: 7
-  addAndSubValue: 0.5
-  sin: 0
-  isAddSpeedY: 0
-  isSubSpeedY: 0
-  once: 1
-  isWave: 0
-  isStraight: 0
-  isOnlyWave: 0
-  haveItem: 0
-  isSlerp: 0
-  isNoSlerp: 1
-  utsuttemasuyo: 0
 --- !u!54 &8120069279966960545
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,6 +174,57 @@ CapsuleCollider:
   m_Height: 1.3
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8971610331925534156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110145218247895070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbe2b1fb2fcd6e448743022c894a1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 1
+  direction: {x: 0, y: 0, z: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  eState: 0
+  startMarker: {x: 0, y: 0, z: 0}
+  endMarker: {x: 0, y: 0, z: 0}
+  slaep_IncValue: 0.018
+  testSpeed: 1
+  speedX: 5
+  speedY: 0
+  speedZ: 0
+  speedZ_Value: 32
+  amplitude: 0
+  defaultSpeedY: 7
+  addAndSubValue: 0.5
+  sin: 0
+  isAddSpeedY: 0
+  isSubSpeedY: 0
+  once: 1
+  isWave: 0
+  isStraight: 0
+  isOnlyWave: 0
+  haveItem: 0
+  isSlerp: 0
+  isNoSlerp: 1
+  utsuttemasuyo: 0
 --- !u!114 &1073099217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,11 +386,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E
-      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -398,6 +456,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2500006
       objectReference: {fileID: 0}
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E
+      objectReference: {fileID: 0}
     - target: {fileID: 2128431737358376410, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,10 +500,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3110145218247895068}
     m_Modifications:
-    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bullfight
-      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fbd05bac2bff1944a636a0df79eb652, type: 2}
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -497,10 +560,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8fbd05bac2bff1944a636a0df79eb652, type: 2}
+    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bullfight
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
 --- !u!1 &5339504298700009366 stripped
@@ -512,12 +575,6 @@ GameObject:
 --- !u!4 &5339504298699584438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29,
-    type: 3}
-  m_PrefabInstance: {fileID: 5339504298699974966}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5339504298697814358 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29,
     type: 3}
   m_PrefabInstance: {fileID: 5339504298699974966}
   m_PrefabAsset: {fileID: 0}
