@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706a33c7ee74b6d4a94856f4404a834d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isClose: 0
   straightLaserShotSpeed: 0.9
   straightLaserWidth: 0.05
   straightLaserNodeMax: 50
@@ -24,7 +25,7 @@ MonoBehaviour:
   rotateLaserNodeMax: 200
   rotateLaserOverloadDuration: 0.15
   rotateLaserLaunchInterval: 0
-  rotateTrailWidth: 10
+  rotateTrailWidth: 2
   rotateLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &5068087178034757352
 MonoBehaviour:

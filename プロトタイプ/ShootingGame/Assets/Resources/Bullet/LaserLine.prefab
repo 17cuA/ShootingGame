@@ -46,7 +46,7 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.15
   m_Height: 0.15
-  m_Direction: 0
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6580657217836235303
 MonoBehaviour:
@@ -67,6 +67,10 @@ MonoBehaviour:
   trailMaxTime: 0.6
   trailMinTime: 0.1
   lifeTime: 0.8
+  trailMaxWidth: 25
+  trailMinWidth: 0
+  isRotateLaser: 0
+  ischangLaserWidth: 0
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
