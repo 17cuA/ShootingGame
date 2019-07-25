@@ -42,11 +42,11 @@ public class DropItem : MonoBehaviour
 	}
 	private void OnDisable()
 	{
-		if(!isQuitting)
-        {
+		//if(!isQuitting)
+  //      {
             //Instantiate(item, itemPos, transform.rotation);
             //Object_Instantiation.Object_Reboot("PowerUP_Item", itemPos, transform.rotation);
-        }
+        //}
     }
 
 }

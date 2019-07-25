@@ -1,12 +1,13 @@
 ﻿//作成者：川村良太
-//画面奥から来たり上下移動をしながら来る敵（闘牛型）のスクリプト
+//闘牛型の動きのみスクリプト
+
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
 
-public class Enemy_Wave : character_status
+public class Enemy_Bullfight_Move :MonoBehaviour
 {
 	public enum State
 	{
@@ -18,12 +19,12 @@ public class Enemy_Wave : character_status
 	}
 	public State eState;
 
-	GameObject childObj;		//子供入れる
+	//GameObject childObj;		//子供入れる
 	GameObject item;			//アイテム入れる
-	GameObject parentObj;		//親入れる（群れの時のため）
+	//GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
 
-	Renderer renderer;			//レンダラー
+	//Renderer renderer;			//レンダラー
 	//HSVColorController hsvCon;	//シェーダー用
 	//Color hsvColor;
 	//BlurController blurCon;
@@ -42,6 +43,7 @@ public class Enemy_Wave : character_status
 	private float distance_two;
 	//----------
 
+	int childNum;
 	public float speedX;			//Xスピード
 	public float speedY;			//Yスピード
 	public float speedZ;			//Zスピード（移動時）
@@ -94,7 +96,7 @@ public class Enemy_Wave : character_status
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
 		}
-		//childCnt = transform.childCount;
+		childNum = transform.childCount;
 	}
 	private void OnEnable()
 	{
@@ -104,16 +106,23 @@ public class Enemy_Wave : character_status
 
 	}
 
-	new void Start()
+	void Start()
 	{
 		//startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
 		endMarker = new Vector3(12.0f, transform.position.y, 0);
 		distance_two= Vector3.Distance(startMarker, endMarker);
-		item = Resources.Load("Item/Item_Test") as GameObject;
+		//item = Resources.Load("Item/Item_Test") as GameObject;
 
-		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
+		GameObject[] childObj = new GameObject[childNum];
+		Renderer[] renderer = new Renderer[childNum];
+		for (int i = 0; i < childNum; i++)
+		{
+			childObj[i] = transform.GetChild(i).gameObject;
+			renderer[i] = childObj[i].GetComponent<Renderer>();
+		}
+		//childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
 		//childCnt = transform.childCount;
-		renderer = childObj.GetComponent<Renderer>();
+		//renderer = childObj.GetComponent<Renderer>();
 		//hsvColor = childObj.GetComponent<Renderer>().material.color;
 		//hsvCon = childObj.GetComponent<HSVColorController>();
 		//val_Value = 0.025f;
@@ -124,13 +133,13 @@ public class Enemy_Wave : character_status
 
 		if (transform.parent)
 		{
-			parentObj = transform.parent.gameObject;
-			groupManage = parentObj.GetComponent<EnemyGroupManage>();
+			//parentObj = transform.parent.gameObject;
+			//groupManage = parentObj.GetComponent<EnemyGroupManage>();
 		}
         else
         {
-            parentObj = GameObject.Find("TemporaryParent");
-            transform.parent = parentObj.transform;
+            //parentObj = GameObject.Find("TemporaryParent");
+            //transform.parent = parentObj.transform;
         }
 
         speedZ = 0;
@@ -139,20 +148,20 @@ public class Enemy_Wave : character_status
 		//posZ = -5.0f;
 		//defPosX = (13.0f - transform.position.x) / 120.0f;         //13.0fはとりあえず敵が右へ向かう限界の座標
 		startTime = 0.0f;
-		HP_Setting();
-		base.Start();
+		//HP_Setting();
+		//base.Start();
 	}
 
-	new void Update()
+	void Update()
 	{
-        if(renderer.isVisible)
-        {
-            utsuttemasuyo = true;
-        }
-        else
-        {
-            utsuttemasuyo = false;
-        }
+        //if(renderer.isVisible)
+        //{
+        //    utsuttemasuyo = true;
+        //}
+        //else
+        //{
+        //    utsuttemasuyo = false;
+        //}
 		//if (transform.childCount == 0)
 		//{
 		//	Destroy(this.gameObject);
@@ -180,7 +189,7 @@ public class Enemy_Wave : character_status
 					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-					HSV_Change();
+					//HSV_Change();
 					break;
 
 				case State.WaveDown:
@@ -201,7 +210,7 @@ public class Enemy_Wave : character_status
 					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-					HSV_Change();
+					//HSV_Change();
 					break;
 
 				case State.WaveOnlyUp:
@@ -222,7 +231,7 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					HSV_Change();
+					//HSV_Change();
 					break;
 
 				case State.WaveOnlyDown:
@@ -243,7 +252,7 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					HSV_Change();
+					//HSV_Change();
 					break;
 
 				case State.Straight:
@@ -254,7 +263,7 @@ public class Enemy_Wave : character_status
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					HSV_Change();
+					//HSV_Change();
 					break;
 			}
 			once = false;
@@ -265,8 +274,6 @@ public class Enemy_Wave : character_status
         {
             velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
             gameObject.transform.position += velocity * Time.deltaTime;
-
-
         }
         else if (isOnlyWave)
         {
@@ -274,23 +281,19 @@ public class Enemy_Wave : character_status
             speedX = 5;
             //sin =posY + Mathf.Sin(Time.time*5);
 
-
             if (transform.position.x < 20 && transform.position.z == 0)
             {
-
                 if(!isWaveStart)
                 {
                     speedY = defaultSpeedY;
                     isWaveStart = true;
                 }
-
             }
 
             if(isWaveStart)
             {
                 SpeedY_Check();
                 SpeedY_Calculation();
-
             }
             else
             {
@@ -336,7 +339,7 @@ public class Enemy_Wave : character_status
                     startTime = 1;
                 }
                 //startTime++;
-                HSV_Change();
+                //HSV_Change();
 
                 if (transform.position == endMarker)
                 {
@@ -360,8 +363,6 @@ public class Enemy_Wave : character_status
                 {
                     isSlerp = true;
 					startMarker = transform.position;
-                    //sonicBoom.Play();
-                    isSonicPlay = true;
                 }
 
                 if (transform.position.x > 7)
@@ -373,7 +374,7 @@ public class Enemy_Wave : character_status
                     //hsvCon.val += val_Value;
 
                     //明るさを変える関数
-                    HSV_Change();
+                    //HSV_Change();
 
                     //if (hsvCon.val > 1.0f)
                     //{
@@ -466,48 +467,6 @@ public class Enemy_Wave : character_status
 			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.1f), transform.position.z);
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
-		}
-
-		if (hp < 1)
-		{
-			if (haveItem)
-			{
-				//Instantiate(item, this.transform.position, transform.rotation);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
-
-			}
-			if (parentObj)
-			{
-                if(parentObj.name!= "TemporaryParent")
-                {
-				    //群を管理している親の残っている敵カウントマイナス
-				    groupManage.remainingEnemiesCnt--;
-				    //倒された敵のカウントプラス
-				    groupManage.defeatedEnemyCnt++;
-				    //群に残っている敵がいなくなったとき
-				    if (groupManage.remainingEnemiesCnt == 0)
-				    {
-					    //倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
-					    if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
-					    {
-							//アイテム生成
-							//Instantiate(item, this.transform.position, transform.rotation);
-							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
-						}
-						//一体でも倒されていなかったら
-						else
-					    {
-						    //なにもしない
-					    }
-					    groupManage.itemPos = transform.position;
-					    groupManage.itemTransform = this.transform;
-				    }
-                }
-            }
-
-			Enemy_Reset();
-			//Reset_Status();
-			Died_Process();
 		}
 	}
 	//-------------ここから関数------------------
@@ -616,11 +575,11 @@ public class Enemy_Wave : character_status
 
 	private void OnTriggerExit(Collider col)
 	{
-		if (col.gameObject.name == "WallLeft")
-		{
-			groupManage.notDefeatedEnemyCnt++;
-			groupManage.remainingEnemiesCnt -= 1;
-			gameObject.SetActive(false);
-		}
+		//if (col.gameObject.name == "WallLeft")
+		//{
+			//groupManage.notDefeatedEnemyCnt++;
+			//groupManage.remainingEnemiesCnt -= 1;
+			//gameObject.SetActive(false);
+		//}
 	}
 }
