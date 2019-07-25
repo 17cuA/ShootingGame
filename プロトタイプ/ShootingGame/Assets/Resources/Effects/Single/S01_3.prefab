@@ -4984,8 +4984,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2.5
-      minScalar: 2
+      scalar: 1.5
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9671,7 +9671,7 @@ Transform:
   m_GameObject: {fileID: 5899335770046010877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 8890632826959605603}
   - {fileID: 8898690123489384719}
@@ -14362,7 +14362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.15
-  frame_Max: 60
+  frame_Max: 120
 --- !u!1 &6182975352754217032
 GameObject:
   m_ObjectHideFlags: 0
@@ -47642,7 +47642,7 @@ PrefabInstance:
     - target: {fileID: 421398824033505383, guid: b07bfd41fff485a42a1030d69d90e27c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6363908969009723087, guid: b07bfd41fff485a42a1030d69d90e27c,
         type: 3}
