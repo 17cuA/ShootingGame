@@ -342,6 +342,7 @@ public class Enemy_Wave : character_status
                 if (transform.position == endMarker)
                 {
                     isWave = true;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                     speedX = 5;
                     speedY = defaultSpeedY;
 
