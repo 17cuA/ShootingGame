@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.03
-  hp: 20
+  hp: 60
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 30
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -1249,6 +1249,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1318,11 +1323,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
@@ -1394,6 +1394,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1463,11 +1468,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (3)
       objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
@@ -1544,6 +1544,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1614,11 +1619,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -1684,6 +1684,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6342699719352230532}
     m_Modifications:
+    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
+        type: 3}
+      propertyPath: m_Name
+      value: L00_E
+      objectReference: {fileID: 0}
     - target: {fileID: 7227297075842636002, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1753,11 +1758,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6361895163812285685, guid: a4d94e4cfc7221148a3169fc4a46c69e,
-        type: 3}
-      propertyPath: m_Name
-      value: L00_E
       objectReference: {fileID: 0}
     - target: {fileID: 2044645349186077761, guid: a4d94e4cfc7221148a3169fc4a46c69e,
         type: 3}

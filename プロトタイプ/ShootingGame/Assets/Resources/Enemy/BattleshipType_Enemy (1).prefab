@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135687
 GameObject:
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -237,6 +238,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135781
 GameObject:
@@ -420,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -433,6 +435,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135795
 GameObject:
@@ -539,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -552,6 +555,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135799
 GameObject:
@@ -670,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.03
-  hp: 20
+  hp: 60
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 30
@@ -692,6 +696,7 @@ MonoBehaviour:
   - {fileID: 1677240788316062245}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   initial_position: {x: 25, y: -5, z: 0}
   moving_change_point:
@@ -815,7 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -828,6 +833,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135803
 GameObject:
@@ -934,7 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -947,6 +953,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135805
 GameObject:
@@ -1053,7 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -1066,6 +1073,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1 &1677240788314135807
 GameObject:
@@ -1172,7 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 5
+  hp: 15
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -1185,6 +1193,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
 --- !u!1001 &1855377261474469542
 PrefabInstance:
