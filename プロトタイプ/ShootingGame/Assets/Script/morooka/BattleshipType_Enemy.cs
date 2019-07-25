@@ -6,6 +6,7 @@
  * 2019/07/08　まっすぐ移動
  * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
  * 2019/07/15　奥行対応
+ * 2019/07/25　加減速適応
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -82,6 +83,11 @@ public class BattleshipType_Enemy : character_status
 		base.Update();
 
 		HSV_Change();
+
+		if(transform.position == moving_change_point[moving_change_point.Length - 1])
+		{
+			gameObject.SetActive(false);
+		}
 
 		//// 移動したい向きに移動
 		//Vector3 velocity = Moving_Facing.normalized * speed;

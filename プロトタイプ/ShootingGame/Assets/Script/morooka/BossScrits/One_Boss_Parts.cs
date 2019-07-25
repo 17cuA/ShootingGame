@@ -13,11 +13,11 @@ public class One_Boss_Parts : character_status
 
 	private Vector3 Initial_Position { get; set; }
 
-	void Start()
+	private new void Start()
     {
 		Initial_Position = transform.position;
     }
-    void Update()
+    private new void Update()
     {
         
     }
