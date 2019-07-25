@@ -63,7 +63,9 @@ public class Player1 : character_status
 
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
-	private float min_speed;		//初期の速度を保存しておくよう変数
+	private float min_speed;        //初期の速度を保存しておくよう変数
+	private int cnt;
+	public bool Is_Change;
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -103,6 +105,7 @@ public class Player1 : character_status
 	}
 	new void Start()
 	{
+		base.Start();
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
         shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		vector3 = Vector3.zero;
@@ -130,16 +133,17 @@ public class Player1 : character_status
 		min_speed = speed;		//初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
 		PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
-		PowerManager.Instance.ResetSelect();			//プレイヤーのアイテム取得回数をリセットするメソッド
-	
+		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		Is_Change = false;
 	}
 
 	new void Update()
 	{
+		//復活時のアニメーション
 		if (Is_Resporn)
 		{
 			resporn_Injection.Play();
-			Debug.Log("hei");
+			//Debug.Log("hei");
 			capsuleCollider.enabled = false;
 			startTime += Time.deltaTime;
 			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
@@ -170,10 +174,7 @@ public class Player1 : character_status
 				bullet_Type = Bullet_Type.Single;
 				Is_Resporn = true;
 				Laser.SetActive(false);
-
-
 				return;
-				////////////////////////////////////////
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 			//---------------------------
@@ -206,10 +207,10 @@ public class Player1 : character_status
 					Reset_Status();             //体力の修正
 					//gameObject.transform.position = direction;      //初期位置に戻す
 					//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
-					invincible = false;         //無敵状態にするかどうかの処理
+					invincible = true;         //無敵状態にするかどうかの処理
 					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 					bullet_Type = Bullet_Type.Single;		//撃つ弾の種類を変更する
-					Is_Resporn = true;						//復活用の処理を行う
+					Is_Resporn = true;                      //復活用の処理を行う
 				}
 			}
 			//無敵時間の開始
@@ -282,26 +283,35 @@ public class Player1 : character_status
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
 	{
-		//既定の時間より短ければ点滅を
-		if (invincible_time <= invincible_Max)
+		if (invincible)
 		{
+			if (invincible_time > invincible_Max)
+			{
+				invincible = false;
+			}
+			else
+			{
+				Change_Material(2);
+			}
 			invincible_time++;          //フレーム管理
-			capsuleCollider.enabled = false;	//規定のコライダーをオフに変更
-			if (invincible_time % 5 == 0) invincible = !invincible;	//透明にするかしないかの判定用変数を変える
-			if (!invincible) material.color = Color.clear;				//色を透明に
-			else material.color = first_color;							//初期の色に変更
+			if(capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
 		}
 		else
 		{
-			material.color = first_color;	//初期の色に戻す
-			capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
+			for (int i = 0; i < object_material.Length; i++)
+			{
+
+				object_material[i].material = Get_self_material(i);
+			}
+
+			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
 		}
 	}
+
 	//プレイヤーの方向転換
 	private void Change_In_Direction()
 	{
@@ -378,10 +388,6 @@ public class Player1 : character_status
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0,0,45));
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
-	//private void Laser_Fire()
-	//{
-		//laser.Play();
-	//}
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
@@ -489,5 +495,37 @@ public class Player1 : character_status
 	private void Reset_BulletType()
 	{
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
+	}
+	//----------------------------------------------------------
+	private void Change_Material(int j)
+	{
+		if(cnt > j)
+		{
+
+			if (Is_Change == false)
+			//if (!object_material[i].enabled)
+			{
+				for (int i = 0; i < object_material.Length; i++)
+				{
+
+					object_material[i].material = white_material;
+				}
+				Is_Change = true;
+			}
+			else
+			{
+				for (int i = 0; i < object_material.Length; i++)
+				{
+
+					object_material[i].material = Get_self_material(i);
+				}
+				Is_Change = false;
+				Debug.Log("uhyooooo");
+
+
+			}
+			cnt = 0;
+		}
+		cnt++;
 	}
 }

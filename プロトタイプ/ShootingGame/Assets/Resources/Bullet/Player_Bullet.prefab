@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shot_speed: 0.3
-  attack_damage: 1
+  attack_damage: 3
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
 --- !u!212 &9129527418790738204
@@ -4803,6 +4803,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6763658474058333981}
     m_Modifications:
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_Bullet_Eff
+      objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4857,11 +4862,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_Name
-      value: Player_Bullet_Eff
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d429fc415f53eeb438c409999c3d49f1, type: 3}

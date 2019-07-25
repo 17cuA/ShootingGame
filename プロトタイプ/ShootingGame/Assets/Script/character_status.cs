@@ -1,4 +1,5 @@
 ﻿/*
+/*
  * 2019/05/27   Rigidbodyの削除
  */
 using UnityEngine;
@@ -53,7 +54,8 @@ public class character_status : MonoBehaviour
 
 		if (tag == "Player") Remaining = 3;
 		else Remaining = 1;
-		white_material = Resources.Load<Material>("Material/Damege_Effect") as Material;
+		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
+		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		self_material = new Material[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
 		HP_Setting();
@@ -186,11 +188,11 @@ public class character_status : MonoBehaviour
 			{
 				if (activeShield && shield != 0)
 				{
-					shield--;
+					shield -= 3;
 				}
 				else
 				{
-					Damege_Process(1);
+					Damege_Process(3);
 				}
 			}
 		}
@@ -205,7 +207,7 @@ public class character_status : MonoBehaviour
 			}
 			else if(col.gameObject.name == "Player")
 			{
-				Damege_Process(1);
+				Damege_Process(3);
 			}
 		}
 	}
@@ -239,7 +241,7 @@ public class character_status : MonoBehaviour
 		}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
-	private void Damege_Effect()
+	public void Damege_Effect()
 	{
 		for (int i = 0; i < object_material.Length; i++)
 		{
@@ -269,5 +271,9 @@ public class character_status : MonoBehaviour
 	public uint Get_Score()
 	{
 		return score;
+	}
+	public Material Get_self_material(int num)
+	{
+		return self_material[num];
 	}
 }

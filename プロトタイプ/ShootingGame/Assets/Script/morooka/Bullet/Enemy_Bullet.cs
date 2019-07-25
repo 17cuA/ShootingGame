@@ -7,7 +7,7 @@ public class Enemy_Bullet : bullet_status
 	private new void Start()
 	{
 		base.Start();
-		Tag_Change("Enemy");
+		Tag_Change("Enemy_Bullet");
 	}
 	private new void Update()
     {

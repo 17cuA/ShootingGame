@@ -26,12 +26,14 @@ public class Enemy_First : character_status
 	GameObject childObj;
 
 	EnemyGroupManage groupManage;
-
+	//Renderer renderer;
 	//Renderer renderer;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
 	public float radius = 1.0f;             //回転する円の大きさ
+	[Header("Zポジションの移動開始位置")]
+	public float ZMovePos;
 	float _y;
 	float _z;
 
@@ -53,6 +55,8 @@ public class Enemy_First : character_status
 
 	private void Awake()
 	{
+		//renderer = childObj.GetComponent<Renderer>();
+
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
 		defaultPos = transform.localPosition;
@@ -138,7 +142,7 @@ public class Enemy_First : character_status
 
 	}
 
-	void Update()
+	new void Update()
 	{
 		if(once)
 		{
@@ -153,19 +157,21 @@ public class Enemy_First : character_status
 				{
                     transform.localPosition = defaultPos;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    //transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
-                    //transform.localPosition = defaultPos_PlusZ;
+                    transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
+                    transform.localPosition = defaultPos_PlusZ;
 
                     if (transform.position.y > 0)
 					{
 						//transform.localPosition = defaultPos;
 						speedX = 5;
+                        speedY = 5;
 						eState = State.TurnDown;
 					}
 					else
 					{
 						//transform.localPosition = defaultPos;
 						speedX = 5;
+                        speedY = 5;
 						eState = State.TurnUp;
 					}
 				}
@@ -237,6 +243,7 @@ public class Enemy_First : character_status
 					straightFrame--;
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
+					//HSV_Change();
 
 					if (transform.position.z < 0)
 					{
@@ -245,7 +252,7 @@ public class Enemy_First : character_status
 						speedZ_Value = 0;
 					}
 
-					if (transform.localPosition.x <= -12.0f)
+					if (transform.localPosition.x <= ZMovePos)
 					{
 						speedZ = speedZ_Value;
 					}
@@ -256,7 +263,22 @@ public class Enemy_First : character_status
 						//{
 						//	isTurn = true;
 						//}
-						isTurn = true;
+						speedX = 5;
+						//isTurn = true;
+					}
+
+					else if (transform.localPosition.x < -21)
+					{
+						speedX -= 0.36f;
+						if (speedX < 5)
+						{
+							speedX = 5;
+						}
+
+					}
+					else if (transform.localPosition.x < -9)
+					{
+						speedX += 0.12f;
 					}
 					//if (transform.position.x < 9)
 					//{
@@ -274,19 +296,24 @@ public class Enemy_First : character_status
 
 					speedX -= 0.12f;
 
-					if (speedX < -5.0f)
-					{
-						speedX = -5.0f;
-					}
-				}
-				break;
+                    if (transform.position.y > 0.5)
+                    {
+                        speedX -= 0.36f;
+                        speedY += 0.36f;
+                    }
+                    if (speedX < -12.0f)
+                    {
+                        speedX = -12.0f;
+                    }
+                }
+                break;
 
 			case State.TurnDown:
 				if (!isTurn)
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
-
+					//HSV_Change();
 					if (transform.position.z < 0)
 					{
 						transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
@@ -294,7 +321,7 @@ public class Enemy_First : character_status
 						speedZ_Value = 0;
 					}
 
-					if (transform.position.x <= -12.0f)
+					if (transform.localPosition.x <= ZMovePos)
 					{
 						speedZ = speedZ_Value;
 					}
@@ -306,7 +333,21 @@ public class Enemy_First : character_status
 						//{
 						//	isTurn = true;
 						//}
-						isTurn = true;
+						speedX = 5;
+						//isTurn = true;
+					}
+					else if (transform.localPosition.x < -21)
+					{
+						speedX -= 0.36f;
+						if (speedX < 5)
+						{
+							speedX = 5;
+						}
+					}
+
+					else if (transform.localPosition.x < -9)
+					{
+						speedX += 0.12f;
 					}
 
 					//if (transform.position.x < 9)
@@ -325,9 +366,14 @@ public class Enemy_First : character_status
 
 					speedX -= 0.12f;
 
-					if (speedX < -5.0f)
+                    if (transform.position.y < -0.5)
+                    {
+                        speedX -= 0.36f;
+                        speedY += 0.36f;
+                    }
+					if (speedX < -12.0f)
 					{
-						speedX = -5.0f;
+						speedX = -12.0f;
 					}
 				}
 				break;
@@ -341,7 +387,7 @@ public class Enemy_First : character_status
 		}
 	}
 
-	//状態を変える(主に生成時に曲がらせたくないときに使うと思われます)
+	//状態を変える(主に出現時に曲がらせたくないときに使うと思われます)
 	public void SetState(int num)
 	{
 		switch (num)

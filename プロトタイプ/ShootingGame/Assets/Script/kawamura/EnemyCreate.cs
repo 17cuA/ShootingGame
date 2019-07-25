@@ -396,115 +396,115 @@ public class EnemyCreate : MonoBehaviour
     void CreateCheck()
     {
 		// 21
-		if(frameCnt == 3940.0f + 470 + 180 + 300)
+		if(frameCnt == 4300.0f + 470 + 180 + 300)
 		{
 			isCreate = true;
 		}
 		//groupCntが20の時のを出すタイミング
-		if (frameCnt == 3940.0f + 470 + 300)
+		if (frameCnt == 4300.0f + 470 + 300)
         {
             isCreate = true;
         }
 		//groupCntが19の時のを出すタイミング
-		else if (frameCnt == 3580.0f + 470 + 300)
+		else if (frameCnt == 3820.0f + 470 + 300)
         {
             isCreate = true;
         }
 		//groupCntが18の時のを出すタイミング
-		else if (frameCnt == 3580.0f + 470 + 300)
+		else if (frameCnt == 3820.0f + 470 + 300)
         {
             isCreate = true;
         }
 		//groupCntが17の時のを出すタイミング
-		else if (frameCnt == 3400.0f + 470 + 300)
+		else if (frameCnt == 3640 + 470 + 300)
         {
             isCreate = true;
         }
 		//groupCntが16の時のを出すタイミング
-		else if (frameCnt == 3220.0f + 470 +300)
+		else if (frameCnt == 3460.0f + 470 +300)
         {
             isCreate = true;
 
 		}     
 		//groupCntが15の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470+80-120)
+		else if (frameCnt == 3430.0f + 470+80-120)
 		{
 			isCreate = true;
 
 		}
 		//groupCntが14の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470+40-120)
+		else if (frameCnt == 3430.0f + 470+40-120)
 		{
 			isCreate = true;
 
 		}
 		//groupCntが13の時のを出すタイミング
-		else if (frameCnt == 2980.0f + 470-120)
+		else if (frameCnt == 3430.0f + 470-120)
         {
             isCreate = true;
 
         }
 		//groupCntが12の時のを出すタイミング
-		else if (frameCnt == 2530.0f + 470 - 700)
+		else if (frameCnt == 2890.0f + 470 - 700)
         {
             isCreate = true;
 
         }
 		//groupCntが11の時のを出すタイミング
-		else if (frameCnt == 1760.0f - 260)
+		else if (frameCnt == 2120.0f - 260)
         {
             isCreate = true;
 
         }
 		//groupCntが10の時のを出すタイミング
-		else if (frameCnt == 1650.0f)
+		else if (frameCnt == 2010.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが9の時のを出すタイミング
-		else if (frameCnt == 1560.0f)
+		else if (frameCnt == 1920.0f)
         {
             isCreate = true;
         }
 		//groupCntが8の時のを出すタイミング
-		else if (frameCnt == 1380.0f)
+		else if (frameCnt == 1740.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが7の時のを出すタイミング
-		else if (frameCnt == 1260.0f)
+		else if (frameCnt == 1620.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが6の時のを出すタイミング
-		else if (frameCnt == 1140.0f)
+		else if (frameCnt == 1500.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが5の時のを出すタイミング
-		else if (frameCnt == 780.0f)
+		else if (frameCnt == 1140.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが4の時のを出すタイミング
-		else if (frameCnt == 660.0f)
+		else if (frameCnt == 1020.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが3の時のを出すタイミング
-		else if (frameCnt == 480.0f)
+		else if (frameCnt == 720.0f)
         {
             isCreate = true;
 
         }
 		//groupCntが2の時のを出すタイミング
-		else if (frameCnt == 300.0f)
+		else if (frameCnt == 420.0f)
         {
             isCreate = true;
 
