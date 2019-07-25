@@ -26,9 +26,13 @@ public class LaserLine : Player_Bullet
 
 	private new void Update()
     {
-		base.Update();
+		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
+		|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
+		{
+			gameObject.SetActive(false);
+		}
 
-        base.Moving_To_Travelling_Direction();
+		base.Moving_To_Travelling_Direction();
 
     }
 }

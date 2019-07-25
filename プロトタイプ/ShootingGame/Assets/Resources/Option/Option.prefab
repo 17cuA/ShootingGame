@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2419781268061700928}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.885, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 6738013301264190844}
@@ -251,8 +251,6 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   shot_Mazle: {fileID: 0}
   laser_Obj: {fileID: 864329427793611800}
-  laser: {fileID: 3389010809034891152}
-  line_beam: {fileID: 744224643659546928}
   Direction: {x: 0, y: 0, z: 0, w: 0}
   isShot: 1
 --- !u!114 &7460965518547293182
@@ -277,8 +275,6 @@ MonoBehaviour:
   followPosFourthObj: {fileID: 0}
   particleObj: {fileID: 7341999617241064926}
   option_Particle: {fileID: 2435869252828245354}
-  particleRenderer: {fileID: 0}
-  meshrender: {fileID: 0}
   scale_value: 0.5
   defaultSpeed: 20
   myName: 
@@ -330,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.38
+      value: -1.519
       objectReference: {fileID: 0}
     - target: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
@@ -403,35 +399,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6738013301264190844}
     m_Modifications:
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: simulationSpeed
-      value: 50
+      propertyPath: m_Name
+      value: Lasers
       objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: looping
-      value: 1
+      propertyPath: m_TagString
+      value: Player_Bullet
       objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: moveWithTransform
+      propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: TriggerModule.enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
@@ -503,20 +484,35 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: m_Name
-      value: Lasers
+      propertyPath: simulationSpeed
+      value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: m_TagString
-      value: Player_Bullet
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860314, guid: ca6fcdcfea37464478f69064879fe3c9,
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: moveWithTransform
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860315, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
@@ -542,12 +538,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4294681276106370700}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3389010809034891152 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4294681276106370700}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8945972260518476261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -555,6 +545,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6738013301264190844}
     m_Modifications:
+    - target: {fileID: 1856186317575461947, guid: 7a2c792710446a94abebec368d69cb12,
+        type: 3}
+      propertyPath: m_Name
+      value: option_test
+      objectReference: {fileID: 0}
     - target: {fileID: 2722151134463117356, guid: 7a2c792710446a94abebec368d69cb12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -619,11 +614,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856186317575461947, guid: 7a2c792710446a94abebec368d69cb12,
-        type: 3}
-      propertyPath: m_Name
-      value: option_test
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2c792710446a94abebec368d69cb12, type: 3}
