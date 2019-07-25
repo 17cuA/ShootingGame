@@ -139,10 +139,11 @@ public class Player1 : character_status
 
 	new void Update()
 	{
+		//復活時のアニメーション
 		if (Is_Resporn)
 		{
 			resporn_Injection.Play();
-			Debug.Log("hei");
+			//Debug.Log("hei");
 			capsuleCollider.enabled = false;
 			startTime += Time.deltaTime;
 			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
@@ -173,10 +174,7 @@ public class Player1 : character_status
 				bullet_Type = Bullet_Type.Single;
 				Is_Resporn = true;
 				Laser.SetActive(false);
-
-
 				return;
-				////////////////////////////////////////
 			}
 			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 			//---------------------------
@@ -285,30 +283,35 @@ public class Player1 : character_status
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-		//injection.transform.position = Injection_pos;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
 	{
 		if (invincible)
 		{
-			if (invincible_time >= invincible_Max)
+			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
 			}
 			else
 			{
-				Change_Material(1);
+				Change_Material(2);
 			}
 			invincible_time++;          //フレーム管理
 			if(capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
 		}
 		else
 		{
-			//base.Update();
-			capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
+			for (int i = 0; i < object_material.Length; i++)
+			{
+
+				object_material[i].material = Get_self_material(i);
+			}
+
+			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
 		}
 	}
+
 	//プレイヤーの方向転換
 	private void Change_In_Direction()
 	{
@@ -493,38 +496,33 @@ public class Player1 : character_status
 	{
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
+	//----------------------------------------------------------
 	private void Change_Material(int j)
 	{
 		if(cnt > j)
 		{
 
-			for (int i = 0; i < object_material.Length; i++)
+			if (Is_Change == false)
+			//if (!object_material[i].enabled)
 			{
-				//if(Is_Change)
-				//{
-				//	//object_material[i].material = white_material;
-				//	object_material[i].enabled = true;
-				//	Is_Change = false;
-				//	Debug.Log("久保田" + Is_Change);
-
-				//}
-				//else
-				//{
-				//	//object_material[i].material = Get_self_material(i);
-				//	object_material[i].enabled = false;
-				//	Is_Change = true;
-				//	Debug.Log("達己" + Is_Change);
-				//}
-
-				if(object_material[i] == Get_self_material(i))
-				//if (!object_material[i].enabled)
+				for (int i = 0; i < object_material.Length; i++)
 				{
+
 					object_material[i].material = white_material;
 				}
-				else if(object_material[i] != Get_self_material(i))
+				Is_Change = true;
+			}
+			else
+			{
+				for (int i = 0; i < object_material.Length; i++)
 				{
+
 					object_material[i].material = Get_self_material(i);
 				}
+				Is_Change = false;
+				Debug.Log("uhyooooo");
+
+
 			}
 			cnt = 0;
 		}
