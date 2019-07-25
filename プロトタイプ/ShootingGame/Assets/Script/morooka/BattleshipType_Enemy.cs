@@ -6,6 +6,7 @@
  * 2019/07/08　まっすぐ移動
  * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
  * 2019/07/15　奥行対応
+ * 2019/07/25　加減速適応
  */
 using System.Collections;
 using System.Collections.Generic;

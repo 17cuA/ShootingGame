@@ -25,7 +25,13 @@ public class UfoMotherType_Enemy : character_status
 	private List<GameObject> Released_Enemy { get; set; }		// 放出した後のエネミーの保存
 	private Vector3 Moving_Direction { get; set; }				// 機体の移動方向
 	private int Depth_Move_Interval_Cnt { get; set; }			// 奥行移動用インターバルカウント
-	private bool Is_AttackEnd { get; set; }						// 攻撃終了しているかどうか
+	private bool Is_AttackEnd { get; set; }                     // 攻撃終了しているかどうか
+
+	public float Initial_Speed { get; set; }                // 初速(最低速度)
+	public float Max_Speed { get; set; }                    // 最大速度
+	public float Deceleration_Distance { get; set; }        // 加減速開始移動量
+	public Vector3 Original_Position { get; set; }      // 元の位置
+	public Vector3 Target_Position { get; set; }		// 次の位置
 
 	new void Start()
 	{
@@ -39,9 +45,18 @@ public class UfoMotherType_Enemy : character_status
 		{
 			Vector3 temp = transform.position;
 			temp.z = safety_position;
-			transform.position = temp;
+			Original_Position = transform.position = temp;
 		}
 		Is_AttackEnd = false;
+
+		// 加減速用初期化群
+		Max_Speed = speed;
+		speed = Initial_Speed = speed / 60.0f;
+		for (int i = 0; i < 60; i++)
+		{
+			Deceleration_Distance += speed;
+			speed += Initial_Speed;
+		}
 	}
 
 	new void Update()
@@ -83,6 +98,10 @@ public class UfoMotherType_Enemy : character_status
 			}
 			else if (Shot_Cnt == Sortie_Number)
 			{
+				Vector3 temp = Original_Position = transform.position;
+				temp.z = safety_position;
+				Target_Position = temp;
+
 				Is_AttackEnd = true;
 			}
 		}
@@ -91,16 +110,24 @@ public class UfoMotherType_Enemy : character_status
 		{
 			if (Interval_Cnt < release_interval)
 			{
-				Vector3 temp_2 = transform.position;
-				temp_2.z = safety_position;
-
-				if (transform.position != temp_2)
+				if (transform.position != Original_Position)
 				{
-					transform.position = Vector3.MoveTowards(transform.position, temp_2, speed * 5.0f);
+					//transform.position = Vector3.MoveTowards(transform.position, temp_2, speed * 5.0f);
+
+					if (Vector_Size(transform.position, Original_Position) < Deceleration_Distance)
+					{
+						if (speed < Max_Speed) speed += Initial_Speed;
+					}
+					else if (Vector_Size(transform.position, Target_Position) < Deceleration_Distance)
+					{
+						if (speed > Initial_Speed) speed -= Initial_Speed;
+					}
+					transform.position = Moving_To_Target(transform.position, Target_Position, speed);
 				}
-				if (transform.position == temp_2)
+				if (transform.position == Target_Position)
 				{
 					Interval_Cnt++;
+					speed = Initial_Speed;
 				}
 			}
 			//インターバルを超えたとき
@@ -111,13 +138,25 @@ public class UfoMotherType_Enemy : character_status
 				temp_1.z = 0.0f;
 				if (transform.position != temp_1)
 				{
-					transform.position = Vector3.MoveTowards(transform.position, temp_1, speed * 5.0f);
+					//transform.position = Vector3.MoveTowards(transform.position, temp_1, speed * 5.0f);
+
+					if (Vector_Size(transform.position, Original_Position) < Deceleration_Distance)
+					{
+						if (speed < Max_Speed) speed += Initial_Speed;
+					}
+					else if (Vector_Size(transform.position, temp_1) < Deceleration_Distance)
+					{
+						if (speed > Initial_Speed) speed -= Initial_Speed;
+					}
+					transform.position = Moving_To_Target(transform.position, temp_1, speed);
 				}
 				if (transform.position == temp_1)
 				{
 					Interval_Cnt = 0;
 					Shot_Cnt = 0;
+					Original_Position = transform.position;
 					Is_AttackEnd = false;
+					speed = Initial_Speed;
 				}
 			}
 		}
@@ -143,5 +182,43 @@ public class UfoMotherType_Enemy : character_status
 				Released_Enemy.RemoveAt(i);
 			}
 		}
+	}
+
+	/// <summary>
+	/// ベクトルの長さを出す
+	/// </summary>
+	/// <param name="a"> 開始座標 </param>
+	/// <param name="b"> 目標座標 </param>
+	/// <returns></returns>
+	private float Vector_Size(Vector3 a, Vector3 b)
+	{
+		float xx = a.x - b.x;
+		float yy = a.y - b.y;
+		float zz = a.z - b.z;
+
+		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
+	}
+
+	/// <summary>
+	/// ターゲットに移動
+	/// </summary>
+	/// <param name="origin"> 元の位置 </param>
+	/// <param name="target"> ターゲットの位置 </param>
+	/// <param name="speed"> 1フレームごとの移動速度 </param>
+	/// <returns> 移動後のポジション </returns>
+	private Vector3 Moving_To_Target(Vector3 origin, Vector3 target, float speed)
+	{
+		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
+		Vector3 return_pos = Vector3.zero;              // 返すポジション
+
+		direction = target - origin;
+		return_pos = origin + (direction.normalized * speed);
+
+		if (Vector_Size(return_pos, target) <= speed)
+		{
+			return_pos = target;
+		}
+
+		return return_pos;
 	}
 }
