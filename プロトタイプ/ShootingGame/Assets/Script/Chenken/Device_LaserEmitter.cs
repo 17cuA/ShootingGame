@@ -8,6 +8,7 @@ using UnityEngine;
  [DefaultExecutionOrder(599)]
 class Device_LaserEmitter : MonoBehaviour
 {
+	public bool isClose = false;
 	//--------------------------- 直線型レーザー（タイプ１） ----------------------------------
 	[Header("--------直線型レーザー--------")]
 	[SerializeField] [Range(0.5f,1.2f)]   private float straightLaserShotSpeed        = 0.8f;
@@ -219,6 +220,11 @@ class Device_LaserEmitter : MonoBehaviour
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
 
+	private void OnEnable()
+	{
+		this.isClose = false;
+	}
+
 	private void Awake()
 	{
 		var straightLaserParent = new GameObject("Device_StrightLaserParent");
@@ -271,6 +277,22 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
+		}
+
+		if(this.isClose)
+		{
+			if(launchDevice is StraightLaunchDevice)
+			{
+				var num = transform.GetChild(0).childCount;
+				for(var i = 0; i < num; ++i)
+				{
+					if(transform.GetChild(0).GetChild(i).gameObject.activeSelf)
+					{
+						return;
+					}
+				}
+				this.gameObject.SetActive(false);
+			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
 		
