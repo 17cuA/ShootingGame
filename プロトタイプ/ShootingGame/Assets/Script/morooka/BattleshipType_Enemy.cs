@@ -29,9 +29,9 @@ public class BattleshipType_Enemy : character_status
 	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
 	public List<MeshRenderer> Parts_Renderer { get; set; }                  // パーツたちのレンダー
 
-	public float initial_speed;
-	public float Deceleration_Distance { get; set; }
-
+	public float Initial_Speed { get; set; }				// 初速(最低速度)
+	public float Max_Speed { get; set; }					// 最大速度
+	public float Deceleration_Distance { get; set; }		// 加減速開始移動量
 	public bool Is_up { get; set; }
 
 	private new void Start()
@@ -67,9 +67,14 @@ public class BattleshipType_Enemy : character_status
 		}
 		Original_Position = transform.position = initial_position;
 
-		initial_speed = speed / 60.0f;
-
-
+		// 加減速用初期化群
+	   Max_Speed = speed;
+		speed = Initial_Speed = speed / 60.0f;
+		for (int i = 0; i < 60; i++)
+		{
+			Deceleration_Distance += speed;
+			speed += Initial_Speed;
+		}
 	}
 
 	private new void Update()
@@ -79,41 +84,33 @@ public class BattleshipType_Enemy : character_status
 		HSV_Change();
 
 		//// 移動したい向きに移動
-		Vector3 velocity = Moving_Facing.normalized * speed;
-		transform.position = transform.position + velocity;
+		//Vector3 velocity = Moving_Facing.normalized * speed;
+		//transform.position = transform.position + velocity;
 		// 挟み込み型の挙動
 		if (is_sandwich)
 		{
 			// 移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
-			//if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
-			//	&& Now_Target < moving_change_point.Length - 1 )
-			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed
-				&& Now_Target < moving_change_point.Length - 1 )
+			if(Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed && Now_Target < moving_change_point.Length - 1)
 			{
 				// 位置を指定
 				Original_Position = transform.position = moving_change_point[Now_Target];
 
-				// 向きを確認
-				Moving_Facing = moving_change_point[Now_Target + 1] - moving_change_point[Now_Target];
-				// 別途保存
-				Move_Facing = Moving_Facing;
-				//// 0にする
-				//Moving_Facing = Vector3.zero;
-				// ターゲットを次へ
 				Now_Target++;
-			}
-			//else
-			//{
-			//	transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed / 5.0f);
 
-			//}
-			// Y軸を少しづつ加算するため
-			if (Moving_Facing != Move_Facing)
+				speed = Initial_Speed;
+			}
+			else
 			{
-				Vector3 temp = Moving_Facing;
-				temp += Move_Facing / 40.0f;
-				Moving_Facing = temp;
+				if (Vector_Size(transform.position, Original_Position) < Deceleration_Distance)
+				{
+					if (speed < Max_Speed) speed += Initial_Speed;
+				}
+				else if (Vector_Size(transform.position, moving_change_point[Now_Target]) < Deceleration_Distance)
+				{
+					if (speed > Initial_Speed) speed -= Initial_Speed;
+				}
+				transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
 			}
 		}
 
@@ -171,7 +168,6 @@ public class BattleshipType_Enemy : character_status
 
 			Died_Process();
 		}
-		base.Update();
 	}
 
 	void OnEnable()
@@ -188,11 +184,6 @@ public class BattleshipType_Enemy : character_status
 				if (!Child_Scriptes[i].gameObject.activeSelf)
 				{
 					Child_Scriptes[i].ReBoot();
-
-					//Child_Scriptes[i].gameObject.SetActive(true);
-
-					//character_status c = transform.GetChild(i).GetComponent<character_status>();
-					//c.Died_Process();
 				}
 			}
 		}
@@ -260,19 +251,5 @@ public class BattleshipType_Enemy : character_status
 		}
 
 		return return_pos;
-	}
-
-	private void BASE_F(Vector3 start, Vector3 target, float speed)
-	{
-		// 起動時速度=目標速度/10
-		float initial_speed = speed / 10.0f;
-		// 加速区間移動量=(起動速度pps+目標速度pps)×加速時間Sec/2
-		// 減速区間移動量=(起動速度pps+目標速度pps)×加速時間Sec/2
-		float acceleration_zone_movement_amount = (initial_speed + speed) * 60.0f / 2.0f;
-		float travel_distance_of_deceleratin_section = acceleration_zone_movement_amount;
-		if(Vector_Size(start,target) < acceleration_zone_movement_amount)
-		{
-
-		}
 	}
 }

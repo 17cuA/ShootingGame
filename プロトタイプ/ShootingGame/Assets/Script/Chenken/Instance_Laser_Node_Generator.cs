@@ -49,15 +49,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				//検索位置調整する
 				i--;
 				//管理オブジェクト個数を調べ、管理個数は0の場合
-				if(this.nodes.Count == 0)
-				{
-					this.nodes.Clear();                               //念のため、管理リストクリアする
-					this.ResetGenerator();
-					this.ResetLineRenderer();
-			
-					this.SetLineRenderer(Vector3.zero,Vector3.zero);  //レーザーのレンダリングもリセット
-					this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
-				}
 			}
 			//アクティブ状態の場合
 			else
@@ -65,6 +56,15 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				//位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
 				if (this.isFixed)
 					this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
+			}
+
+			if (this.nodes.Count == 0)
+			{
+				this.nodes.Clear();                               //念のため、管理リストクリアする
+				this.ResetGenerator();
+				this.ResetLineRenderer();
+
+				this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
 			}
 		}
 		//------------------------------------------------------------------------------------------------------------------------------
@@ -90,9 +90,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
 			}
 		}
+		else
+		{
+			ResetLineRenderer();
+		}
 
-	
-		
+		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
+		//{
+		//	if(this.nodes.Count == 0)
+		//		this.gameObject.SetActive(false);
+			
+		//}
+
+
 		//---------------------------------------------------------------------------------------------------------------------------------------------	
 	}
 
@@ -149,8 +159,10 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	public void ResetLineRenderer()
     {
-        this.lineRenderer.positionCount = 2;       
-    }
+        this.lineRenderer.positionCount = 2;
+		this.lineRenderer.SetPosition(0, Vector3.zero);
+		this.lineRenderer.SetPosition(1, Vector3.zero);
+	}
 
 	public void ResetGenerator()
 	{

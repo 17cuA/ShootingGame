@@ -8,6 +8,7 @@ using UnityEngine;
  [DefaultExecutionOrder(599)]
 class Device_LaserEmitter : MonoBehaviour
 {
+	public bool isClose = false;
 	//--------------------------- 直線型レーザー（タイプ１） ----------------------------------
 	[Header("--------直線型レーザー--------")]
 	[SerializeField] [Range(0.5f,1.2f)]   private float straightLaserShotSpeed        = 0.8f;
@@ -219,6 +220,11 @@ class Device_LaserEmitter : MonoBehaviour
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
 
+	private void OnEnable()
+	{
+		this.isClose = false;
+	}
+
 	private void Awake()
 	{
 		var straightLaserParent = new GameObject("Device_StrightLaserParent");
@@ -231,26 +237,32 @@ class Device_LaserEmitter : MonoBehaviour
 		rotateLaserParent.transform.localPosition = Vector3.zero;
 		this.rotateLaserGeneratorParent = rotateLaserParent;
 
-		this.emitterRotateCore = new EmitterRotateCore(this.transform.position);
+		this.emitterRotateCore = new EmitterRotateCore(this.transform.parent.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
 	}
 
 	private void Update()
 	{
 		var launchDevice = emitterLaunchCore.currentLaunchDevice;
-
-		//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
-		if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+		if (this.isClose)
 		{
-			if (launchDevice is StraightLaunchDevice)
-				this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
-			else
-				this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+			if(launchDevice is StraightLaunchDevice)
+			{
+				var num = transform.GetChild(0).childCount;
+				for(var i = 0; i < num; ++i)
+				{
+					if(transform.GetChild(0).GetChild(i).gameObject.activeSelf)
+					{
+						return;
+					}
+				}
+				this.gameObject.SetActive(false);
+			}
 		}
-
-		if(Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		else
 		{
-			if(launchDevice.CurrentGenerator == null)
+			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 			{
 				if (launchDevice is StraightLaunchDevice)
 					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
@@ -258,19 +270,30 @@ class Device_LaserEmitter : MonoBehaviour
 					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 			}
 
-			if(Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 			{
-				if (launchDevice is StraightLaunchDevice)
-					this.emitterLaunchCore.LaunchNode(straightTrailWidth);
-				else
-					this.emitterLaunchCore.LaunchNode(rotateTrailWidth);
-			}
-		}
+				if (launchDevice.CurrentGenerator == null)
+				{
+					if (launchDevice is StraightLaunchDevice)
+						this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+					else
+						this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+				}
 
-		if(Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space) && launchDevice.CurrentGenerator != null)
-		{
-			launchDevice.CurrentGenerator.IsFixed = false;
-			launchDevice.CurrentGenerator = null;
+				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+				{
+					if (launchDevice is StraightLaunchDevice)
+						this.emitterLaunchCore.LaunchNode(straightTrailWidth);
+					else
+						this.emitterLaunchCore.LaunchNode(rotateTrailWidth);
+				}
+			}
+
+			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space) && launchDevice.CurrentGenerator != null)
+			{
+				launchDevice.CurrentGenerator.IsFixed = false;
+				launchDevice.CurrentGenerator = null;
+			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
 		
@@ -278,8 +301,6 @@ class Device_LaserEmitter : MonoBehaviour
 		//------------------------------------------------------------レーザー発射装置使いすぎ------------------------------------------------------
 		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.IsOverLoad)
 		{
-			launchDevice.CurrentGenerator.ResetGenerator();
-
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
 
@@ -307,6 +328,11 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
 			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 200f);       
+		}
+
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			this.isClose = !this.isClose;
 		}
 	}
 }
