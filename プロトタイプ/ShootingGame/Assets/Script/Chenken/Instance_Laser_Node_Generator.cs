@@ -54,8 +54,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 					this.nodes.Clear();                               //念のため、管理リストクリアする
 					this.ResetGenerator();
 					this.ResetLineRenderer();
-			
-					this.SetLineRenderer(Vector3.zero,Vector3.zero);  //レーザーのレンダリングもリセット
+		
 					this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
 				}
 			}
@@ -149,8 +148,10 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	public void ResetLineRenderer()
     {
-        this.lineRenderer.positionCount = 2;       
-    }
+        this.lineRenderer.positionCount = 2;
+		this.lineRenderer.SetPosition(0, Vector3.zero);
+		this.lineRenderer.SetPosition(1, Vector3.zero);
+	}
 
 	public void ResetGenerator()
 	{
