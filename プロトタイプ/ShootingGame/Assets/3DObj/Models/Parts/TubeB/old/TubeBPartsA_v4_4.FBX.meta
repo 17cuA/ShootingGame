@@ -17,7 +17,17 @@ ModelImporter:
     3300002: TubeBPartA_B
     4300000: TubeBPartA_B
     4300002: TubeBPartA_A
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #3'
+    second: {fileID: 2100000, guid: 65c94ae38233a6a46aae018b535ac64a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #4'
+    second: {fileID: 2100000, guid: 195c47f2722b8cd4bbd0a69bf22f7255, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
