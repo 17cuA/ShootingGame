@@ -333,7 +333,7 @@ class Device_LaserEmitter : MonoBehaviour
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftShift))
+		if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftShift) && launchDevice.CurrentGenerator != null)
 		{
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
