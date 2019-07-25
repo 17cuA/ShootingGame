@@ -244,42 +244,7 @@ class Device_LaserEmitter : MonoBehaviour
 	private void Update()
 	{
 		var launchDevice = emitterLaunchCore.currentLaunchDevice;
-
-		//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
-		if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
-		{
-			if (launchDevice is StraightLaunchDevice)
-				this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
-			else
-				this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
-		}
-
-		if(Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-		{
-			if(launchDevice.CurrentGenerator == null)
-			{
-				if (launchDevice is StraightLaunchDevice)
-					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
-				else
-					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
-			}
-
-			if(Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
-			{
-				if (launchDevice is StraightLaunchDevice)
-					this.emitterLaunchCore.LaunchNode(straightTrailWidth);
-				else
-					this.emitterLaunchCore.LaunchNode(rotateTrailWidth);
-			}
-		}
-
-		if(Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space) && launchDevice.CurrentGenerator != null)
-		{
-			launchDevice.CurrentGenerator.IsFixed = false;
-			launchDevice.CurrentGenerator = null;
-		}
-
-		if(this.isClose)
+		if (this.isClose)
 		{
 			if(launchDevice is StraightLaunchDevice)
 			{
@@ -292,6 +257,42 @@ class Device_LaserEmitter : MonoBehaviour
 					}
 				}
 				this.gameObject.SetActive(false);
+			}
+		}
+		else
+		{
+			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			{
+				if (launchDevice is StraightLaunchDevice)
+					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+				else
+					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+			}
+
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				if (launchDevice.CurrentGenerator == null)
+				{
+					if (launchDevice is StraightLaunchDevice)
+						this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+					else
+						this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+				}
+
+				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+				{
+					if (launchDevice is StraightLaunchDevice)
+						this.emitterLaunchCore.LaunchNode(straightTrailWidth);
+					else
+						this.emitterLaunchCore.LaunchNode(rotateTrailWidth);
+				}
+			}
+
+			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space) && launchDevice.CurrentGenerator != null)
+			{
+				launchDevice.CurrentGenerator.IsFixed = false;
+				launchDevice.CurrentGenerator = null;
 			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -329,6 +330,11 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
 			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 200f);       
+		}
+
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			this.isClose = !this.isClose;
 		}
 	}
 }
