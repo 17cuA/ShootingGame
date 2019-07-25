@@ -57,10 +57,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shot_Delay: 0
   Shot_Delay_Max: 2
+  burst_delay: 0
   burst_Delay_Max: 0
   burst_Num: 1
+  burst_Shotshot_Cnt: 0
   isShot: 0
+  isBurst: 0
 --- !u!114 &4845257256005712397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,9 +152,11 @@ MonoBehaviour:
   - {fileID: 0}
   white_material: {fileID: 0}
   eState: 0
+  parentObj: {fileID: 0}
   defaultPos: {x: 0, y: 0, z: 0}
   defaultPos_PlusZ: {x: 0, y: 0, z: 0}
-  parentObj: {fileID: 0}
+  diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
+  diedAttack_Transform: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
@@ -160,7 +166,10 @@ MonoBehaviour:
   speedY: 0
   speedZ: 0
   speedZ_Value: 50
+  diedAttack_RotaZ: 15
+  diedAttack_RotaValue: 0
   haveItem: 0
+  Died_Attack: 0
 --- !u!136 &5582079347219364264
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -24,6 +24,12 @@ public class Enemy_BurstShot : MonoBehaviour
 	public int burst_Shotshot_Cnt;                 //何発撃ったかのカウント
 	public bool isShot = false;
 	public bool isBurst = false;                   //バーストを撃つかどうか
+
+	private void OnDisable()
+	{
+		Shot_Reset();
+	}
+
 	void Start()
 	{
 		Enemy_transform = transform.parent;
@@ -81,5 +87,8 @@ public class Enemy_BurstShot : MonoBehaviour
 			burst_Shotshot_Cnt = 0;
 		}
 	}
-
+	void Shot_Reset()
+	{
+		Shot_Delay = 0;
+	}
 }
