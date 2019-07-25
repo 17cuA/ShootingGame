@@ -167,6 +167,7 @@ MonoBehaviour:
   timeCnt: 0
   circleSpeed: 10
   radius: 1
+  ZMovePos: -10
   speedX: 5
   speedX_Straight: 3
   speedY: 0
@@ -338,10 +339,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     - target: {fileID: 400000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -398,6 +395,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
 --- !u!1 &7560823306772941650 stripped

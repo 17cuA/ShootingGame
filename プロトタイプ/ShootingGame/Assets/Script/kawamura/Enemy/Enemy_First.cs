@@ -32,6 +32,8 @@ public class Enemy_First : character_status
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
 	public float circleSpeed = 10.0f;             //移動速度
 	public float radius = 1.0f;             //回転する円の大きさ
+	[Header("Zポジションの移動開始位置")]
+	public float ZMovePos;
 	float _y;
 	float _z;
 
@@ -250,7 +252,7 @@ public class Enemy_First : character_status
 						speedZ_Value = 0;
 					}
 
-					if (transform.localPosition.x <= -12.0f)
+					if (transform.localPosition.x <= ZMovePos)
 					{
 						speedZ = speedZ_Value;
 					}
@@ -319,7 +321,7 @@ public class Enemy_First : character_status
 						speedZ_Value = 0;
 					}
 
-					if (transform.localPosition.x <= -12.0f)
+					if (transform.localPosition.x <= ZMovePos)
 					{
 						speedZ = speedZ_Value;
 					}

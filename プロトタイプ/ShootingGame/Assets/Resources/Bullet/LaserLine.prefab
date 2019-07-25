@@ -64,6 +64,9 @@ MonoBehaviour:
   attack_damage: 1
   Travelling_Direction: {x: 1, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
+  trailMaxTime: 0.6
+  trailMinTime: 0.1
+  lifeTime: 0.8
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
@@ -103,7 +106,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.6
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
