@@ -25,7 +25,6 @@ public class Enemy_BurstShot : MonoBehaviour
 	bool isBurst = false;                   //バーストを撃つかどうか
 	void Start()
 	{
-		sc = gameObject.GetComponent<ShotCheck>();
 		Enemy_transform = transform.parent;
 		Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		burst_delay = 0;
