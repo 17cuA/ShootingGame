@@ -52,6 +52,8 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				if(this.nodes.Count == 0)
 				{
 					this.nodes.Clear();                               //念のため、管理リストクリアする
+					this.ResetGenerator();
+					this.ResetLineRenderer();
 			
 					this.SetLineRenderer(Vector3.zero,Vector3.zero);  //レーザーのレンダリングもリセット
 					this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
