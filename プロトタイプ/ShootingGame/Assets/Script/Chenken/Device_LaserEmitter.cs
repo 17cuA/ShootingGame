@@ -231,7 +231,7 @@ class Device_LaserEmitter : MonoBehaviour
 		rotateLaserParent.transform.localPosition = Vector3.zero;
 		this.rotateLaserGeneratorParent = rotateLaserParent;
 
-		this.emitterRotateCore = new EmitterRotateCore(this.transform.position);
+		this.emitterRotateCore = new EmitterRotateCore(this.transform.parent.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
 	}
 
