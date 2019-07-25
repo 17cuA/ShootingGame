@@ -14,8 +14,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	private LineRenderer lineRenderer;
 
-	[SerializeField]
-	private List<GameObject> nodes;
+	public List<GameObject> nodes;
 
 	private int pointMax;
 	private int pointCount;
@@ -26,6 +25,8 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			return this.pointCount > this.pointMax;
 		}
 	}
+
+	private float s_width;
 
 	private void Awake()
 	{
@@ -68,8 +69,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			}
 		}
 		//------------------------------------------------------------------------------------------------------------------------------
-
-
 
 
 		//----------------------------------------レーザー　線　レンダリング--------------------------------------------------------------------------
@@ -125,10 +124,10 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	/// <summary>
 	/// レーザー連結点発射（生成）する
 	/// </summary>
-	public void LaunchNode(float trailWidth)
+	public void LaunchNode(float trailWidth, bool isRotateLaser)
 	{
 		GameObject node = null;
-		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth);
+		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isRotateLaser);
 
 		//管理するように
 		this.nodes.Add(node);
@@ -169,7 +168,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		pointCount = 0;
 	}
 
-	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth)
+	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
@@ -178,7 +177,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
-
+		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
 		return node;
 	}
 

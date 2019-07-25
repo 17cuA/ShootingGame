@@ -51,6 +51,11 @@ class Device_LaserEmitter : MonoBehaviour
 			this.pushPosition.x = Mathf.Cos(this.theta);
 			this.pushPosition.y = Mathf.Sin(this.theta);
 		}
+
+		public void Reset()
+		{
+			theta = 0;
+		}
 	}
 
 	/// <summary>
@@ -153,7 +158,7 @@ class Device_LaserEmitter : MonoBehaviour
 
 		public void LaunchNode(float trailWidth)
 		{
-			this.CurrentGenerator.LaunchNode(trailWidth);
+			this.CurrentGenerator.LaunchNode(trailWidth,false);
 			this.CanLaunchTime = Time.time + LaunchInterval;
 		}
 	}
@@ -212,13 +217,14 @@ class Device_LaserEmitter : MonoBehaviour
 
 		public void LaunchNode(float trailWidth)
 		{
-			this.CurrentGenerator.LaunchNode(trailWidth);
+			this.CurrentGenerator.LaunchNode(trailWidth,true);
 			this.CanLaunchTime = Time.time + LaunchInterval;
 		}
 	}
 
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
+
 
 	private void OnEnable()
 	{
@@ -319,15 +325,45 @@ class Device_LaserEmitter : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Z))
 		{
 			if (emitterLaunchCore.currentLaunchDevice is StraightLaunchDevice)
-				emitterLaunchCore.SetDevice(new RotateLaunchDevice(this.rotateLaserOverloadDuration,this.rotateLaserLaunchInterval,this.rotateLaserGeneratorParent));
+				emitterLaunchCore.SetDevice(new RotateLaunchDevice(this.rotateLaserOverloadDuration, this.rotateLaserLaunchInterval, this.rotateLaserGeneratorParent));
 			else if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice)
+			{
+				emitterRotateCore.Reset();
 				emitterLaunchCore.SetDevice(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftShift) && launchDevice.CurrentGenerator != null)
+		{
+			launchDevice.CurrentGenerator.IsFixed = false;
+			launchDevice.CurrentGenerator = null;
 		}
 
 		if(emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice && Input.GetKey(KeyCode.LeftShift))
 		{
 			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
-			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 200f);       
+			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 250);
+			
+			for(var i = 0;i < emitterLaunchCore.currentLaunchDevice.CurrentGenerator?.nodes.Count; ++i)
+			{
+				emitterLaunchCore.currentLaunchDevice.CurrentGenerator.nodes[i].GetComponent<LaserLine>().ischangLaserWidth = true;
+			}
+		}
+
+		if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice && Input.GetKey(KeyCode.LeftControl))
+		{
+			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
+			this.transform.gameObject.transform.Rotate(-Vector3.forward * Time.deltaTime * 250);
+
+			for (var i = 0; i < emitterLaunchCore.currentLaunchDevice.CurrentGenerator?.nodes.Count; ++i)
+			{
+				emitterLaunchCore.currentLaunchDevice.CurrentGenerator.nodes[i].GetComponent<LaserLine>().ischangLaserWidth = true;
+			}
+		}
+
+		if (emitterLaunchCore.currentLaunchDevice is StraightLaunchDevice)
+		{
+			this.transform.gameObject.transform.localEulerAngles = Vector3.zero;
 		}
 
 		if(Input.GetKeyDown(KeyCode.Q))
