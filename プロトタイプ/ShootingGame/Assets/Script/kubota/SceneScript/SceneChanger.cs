@@ -7,7 +7,8 @@ public class SceneChanger : MonoBehaviour
 	public GameObject Player;
 	public Player1 P1;
 	public GameObject Boss;
-	public Enemy_MiddleBoss EMB;
+	public One_Boss One_Boss_Script;
+	public Two_Boss Two_Boss_Script;
 	public int frame = 0;
 	private void Start()
 	{
@@ -17,8 +18,10 @@ public class SceneChanger : MonoBehaviour
 		//----------------------------------------------------
 		//ボスの情報取得---------------------------------------
 		Boss = Obj_Storage.Storage_Data.GetBoss();
-		EMB = Boss.GetComponent<Enemy_MiddleBoss>();
+		if (Boss.GetComponent<One_Boss>() != null)			One_Boss_Script = Boss.GetComponent<One_Boss>();
+		else if(Boss.GetComponent<Two_Boss>() != null)	Two_Boss_Script = Boss.GetComponent<Two_Boss>();
 		//----------------------------------------------------
+
 	}
 	void Update()
 	{
@@ -32,11 +35,23 @@ public class SceneChanger : MonoBehaviour
 			//if(frame > 180) SceneManager.LoadScene("GameOver");
 			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 		}
-		if (EMB.Is_Dead)
+		if (One_Boss_Script != null)
 		{
-			frame++;
-			//if(frame > 180) SceneManager.LoadScene("GameClear");
-			if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+			if (One_Boss_Script.Is_Dead)
+			{
+				frame++;
+				//if(frame > 180) SceneManager.LoadScene("GameClear");
+				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Stage_02();
+			}
+		}
+		if(Two_Boss_Script != null)
+		{
+			if(Two_Boss_Script.Is_Dead)
+			{
+				frame++;
+				//if(frame > 180) SceneManager.LoadScene("GameClear");
+				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Stage_02();
+			}
 		}
 	}
 
