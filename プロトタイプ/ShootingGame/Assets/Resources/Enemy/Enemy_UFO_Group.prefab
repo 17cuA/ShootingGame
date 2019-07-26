@@ -142,10 +142,35 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Died_Attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaValue
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
@@ -237,6 +262,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
 --- !u!4 &5494663586668470368 stripped
@@ -327,6 +367,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Died_Attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaValue
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
 --- !u!4 &7528605274288311313 stripped
@@ -416,6 +486,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -512,10 +592,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
-    - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
@@ -607,6 +697,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Died_Attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaValue
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
 --- !u!4 &1100671174441330791 stripped
@@ -696,6 +816,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Died_Attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaValue
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -791,6 +936,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Died_Attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: diedAttack_RotaValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: isShot
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}

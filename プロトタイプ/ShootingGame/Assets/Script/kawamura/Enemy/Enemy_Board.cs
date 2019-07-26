@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//バキュラの3Dオブジェクトにつける
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -18,7 +18,8 @@ public class Enemy_Wave : character_status
 	}
 	public State eState;
 
-	GameObject childObj;		//子供入れる
+	GameObject childObj;        //子供入れる
+	public GameObject childObj_Shot;
 	GameObject item;			//アイテム入れる
 	GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
@@ -28,14 +29,19 @@ public class Enemy_Wave : character_status
 	//Color hsvColor;
 	//BlurController blurCon;
 	EnemyGroupManage groupManage;			//群れの時の親スクリプト
+	Find_Angle fd;
+
 	//public ParticleSystem sonicBoom;			//ジェット噴射の衝撃波のようなパーティクル
 
 	Vector3 velocity;
 	Vector3 defaultPos;
+	public Quaternion diedAttackRota;
+
 	//----------
 	public Vector3 startMarker;
 	public Vector3 endMarker;
 	float startTime;
+	public float slaep_IncValue;
 	float present_Location;
 	public float testSpeed = 1.0f;
 
@@ -54,6 +60,9 @@ public class Enemy_Wave : character_status
 	public float addAndSubValue;        //Yスピードを増減させる値
 
 	public float sin;
+	[Header("死亡時の弾発射の角度範囲()")]
+	public float diedAttack_RotaValue;
+
 	//float posX;
 	//float posY;
 	//float posZ;
@@ -80,6 +89,8 @@ public class Enemy_Wave : character_status
 	bool isSonicPlay = false;
     public bool utsuttemasuyo=false;
     bool isWaveStart = false;
+	public bool Died_Attack = false;
+
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
@@ -112,8 +123,10 @@ public class Enemy_Wave : character_status
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
+		childObj_Shot = transform.GetChild(1).gameObject;
 		//childCnt = transform.childCount;
 		renderer = childObj.GetComponent<Renderer>();
+		fd = childObj_Shot.GetComponent<Find_Angle>();
 		//hsvColor = childObj.GetComponent<Renderer>().material.color;
 		//hsvCon = childObj.GetComponent<HSVColorController>();
 		//val_Value = 0.025f;
@@ -145,14 +158,6 @@ public class Enemy_Wave : character_status
 
 	new void Update()
 	{
-        if(renderer.isVisible)
-        {
-            utsuttemasuyo = true;
-        }
-        else
-        {
-            utsuttemasuyo = false;
-        }
 		//if (transform.childCount == 0)
 		//{
 		//	Destroy(this.gameObject);
@@ -330,7 +335,7 @@ public class Enemy_Wave : character_status
                 }
                 present_Location = (Time.time * testSpeed) / distance_two;
                 transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
-                startTime += 0.018f;
+                startTime += slaep_IncValue;
                 if (startTime > 1)
                 {
                     startTime = 1;
@@ -341,6 +346,7 @@ public class Enemy_Wave : character_status
                 if (transform.position == endMarker)
                 {
                     isWave = true;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                     speedX = 5;
                     speedY = defaultSpeedY;
 
@@ -476,6 +482,13 @@ public class Enemy_Wave : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
 
 			}
+			if(Died_Attack)
+			{
+				diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
+			}
+
 			if (parentObj)
 			{
                 if(parentObj.name!= "TemporaryParent")
@@ -504,7 +517,6 @@ public class Enemy_Wave : character_status
 				    }
                 }
             }
-
 			Enemy_Reset();
 			//Reset_Status();
 			Died_Process();

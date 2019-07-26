@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426914709008694507}
-  - component: {fileID: 2955725997610504746}
   - component: {fileID: 4458431610905463306}
   - component: {fileID: 6761423790994251535}
   m_Layer: 0
@@ -33,19 +32,6 @@ Transform:
   m_Father: {fileID: 6541507908318001150}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2955725997610504746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671689818790491946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d644723d77471438eeee629432793e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isShot: 0
 --- !u!114 &4458431610905463306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cfab6570762f240835101a66ba4f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObj: {fileID: 0}
+  imasuyo: 0
   degree: 0
 --- !u!114 &6761423790994251535
 MonoBehaviour:
@@ -71,9 +59,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  Shot_Delay: 0
   Shot_Delay_Max: 2
+  burst_delay: 0
   burst_Delay_Max: 0
   burst_Num: 1
+  burst_Shotshot_Cnt: 0
+  isShot: 0
+  isBurst: 0
 --- !u!114 &4845257256005712397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,9 +155,11 @@ MonoBehaviour:
   - {fileID: 0}
   white_material: {fileID: 0}
   eState: 0
+  parentObj: {fileID: 0}
   defaultPos: {x: 0, y: 0, z: 0}
   defaultPos_PlusZ: {x: 0, y: 0, z: 0}
-  parentObj: {fileID: 0}
+  diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
+  diedAttack_Transform: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1
@@ -173,7 +169,10 @@ MonoBehaviour:
   speedY: 0
   speedZ: 0
   speedZ_Value: 50
+  diedAttack_RotaZ: 15
+  diedAttack_RotaValue: 0
   haveItem: 0
+  Died_Attack: 0
 --- !u!136 &5582079347219364264
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -343,10 +342,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6541507908318001150}
     m_Modifications:
-    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     - target: {fileID: 100000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
       propertyPath: m_Name
       value: Enemy_disc_type
@@ -411,6 +406,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f42b2a812c4535040a168a1f8d9efc98, type: 2}
     - target: {fileID: 2300000, guid: e463bf685487aeb469be78af75eeec80, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

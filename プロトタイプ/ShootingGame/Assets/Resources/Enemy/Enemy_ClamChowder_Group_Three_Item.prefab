@@ -62,6 +62,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3637326965437197271}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117,10 +122,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
+      propertyPath: eState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: slaep_IncValue
+      value: 0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: isShot
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
@@ -137,10 +152,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3637326965437197271}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -192,10 +212,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
+      propertyPath: eState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: slaep_IncValue
+      value: 0.016
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
@@ -220,7 +245,7 @@ PrefabInstance:
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.51
+      value: 3.32
       objectReference: {fileID: 0}
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
@@ -275,6 +300,16 @@ PrefabInstance:
     - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: eState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: slaep_IncValue
+      value: 0.022
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: isShot
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

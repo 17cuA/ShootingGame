@@ -468,6 +468,10 @@ public class Enemy_Bullfight_Move :MonoBehaviour
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 		}
+		if (transform.childCount == 0)
+		{
+			Enemy_Reset();
+		}
 	}
 	//-------------ここから関数------------------
 

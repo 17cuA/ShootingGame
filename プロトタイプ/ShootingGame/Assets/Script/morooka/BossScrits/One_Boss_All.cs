@@ -75,7 +75,7 @@ public class One_Boss_All : character_status
 	private List<Vector3> Muzzle_Facing { get; set; }							// マズルの初期の向き
 	private List<Vector3> Through_Direction { get; set; }						// 直進方向
 
-	void Start()
+	private new void Start()
     {
 		Through_Direction = new List<Vector3>();
 		Through_Direction.Add(new Vector3(1.0f,0.0f,0.0f));
@@ -161,7 +161,7 @@ public class One_Boss_All : character_status
 		}
 	}
 
-	void Update()
+	private new void Update()
 	{
 
 		Boss_Debug();
