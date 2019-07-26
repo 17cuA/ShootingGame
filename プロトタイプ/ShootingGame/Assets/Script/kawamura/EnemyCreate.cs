@@ -51,7 +51,8 @@ public class EnemyCreate : MonoBehaviour
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
     public GameObject enemy_BattleShip;
 
-    public int frameCnt = 0;	//フレームカウント：これの値で生成のタイミングをはかる
+	public int PreviousCount = 0;
+	public int frameCnt = 0;	//フレームカウント：これの値で生成のタイミングをはかる
     public int groupCnt = 1;	//画面に出す群れのカウント
     float plusNum = 60;			//
     float plusNum2 = 60;		//この三つは強引に表示のフレームをずらすために使ったので消した方がいいけど面倒
@@ -89,19 +90,18 @@ public class EnemyCreate : MonoBehaviour
 
         createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
         createBattleShipPos = GameObject.Find("CreateBattleshipPos");
-
-        //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
-        //enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
-        //enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
-        //enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
-        //enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-        //enemy_ClamChowder_Group_Seven = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-        //enemy_MiddleBoss_Father = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
-        //enemy_ClamChowder_Group_ThreeWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
-        //enemy_ClamChowder_Group_ThreeWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
-        //enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
-        //enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
-        enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
+		//enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+		//enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
+		//enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+		//enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+		//enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+		//enemy_ClamChowder_Group_Seven = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+		//enemy_MiddleBoss_Father = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		//enemy_ClamChowder_Group_ThreeWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
+		//enemy_ClamChowder_Group_ThreeWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
+		//enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
+		//enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
+		enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 
 		//群れカウント初期化
         groupCnt = 1;
@@ -109,11 +109,12 @@ public class EnemyCreate : MonoBehaviour
 
     void Update()
     {
-        CreateCheck();
-
+		PreviousCount = frameCnt;
+		frameCnt++;
+		CreateCheck();
         CreateEnemyGroup();
 
-        frameCnt++;
+		Debug.LogWarning(frameCnt);
     }
 
 	//--------------------------------------------------------------------
@@ -389,7 +390,8 @@ public class EnemyCreate : MonoBehaviour
 				case 22:
 					isCreate = false;
 					groupCnt++;
-					Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+					GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+					Boss_01.transform.position = Vector3.zero;
 					break;
             }
         }
@@ -399,129 +401,115 @@ public class EnemyCreate : MonoBehaviour
     //---------------------------------------------------------------------
     void CreateCheck()
     {
-		if(frameCnt == 4300.0f + 470 + 180 + 300 + 100)
+		if(frameCnt >= 4300 + 470 + 180 + 300 + 200 && 4300 + 470 + 180 + 300 + 200 >= PreviousCount)
 		{
 			isCreate = true;
 		}
 		// 21
-		if(frameCnt == 4300.0f + 470 + 180 + 300)
+		else if (frameCnt >= 4300 + 470 + 180 + 300 && 4300 + 470 + 180 + 300 >= PreviousCount)
 		{
 			isCreate = true;
 		}
 		//groupCntが20の時のを出すタイミング
-		if (frameCnt == 4300.0f + 470 + 300)
+		else if (frameCnt >= 4300 + 470 + 300 && 4300 + 470 + 300 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが19の時のを出すタイミング
-		else if (frameCnt == 3820.0f + 470 + 300)
+		else if (frameCnt >= 3820 + 470 + 300 && 3820 + 470 + 300 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが18の時のを出すタイミング
-		else if (frameCnt == 3820.0f + 470 + 300)
+		else if (frameCnt >= 3820 + 470 + 300 && 3820 + 470 + 300 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが17の時のを出すタイミング
-		else if (frameCnt == 3640 + 470 + 300)
+		else if (frameCnt >= 3640 + 470 + 300 && 3640 + 470 + 300 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが16の時のを出すタイミング
-		else if (frameCnt == 3460.0f + 470 +300)
+		else if (frameCnt >= 3460 + 470 +300 && 3460 + 470 + 300 >= PreviousCount)
         {
             isCreate = true;
-
-		}     
+		}
 		//groupCntが15の時のを出すタイミング
-		else if (frameCnt == 3430.0f + 470+80-120)
+		else if (frameCnt >= 3430 + 470+80-120 && 3430 + 470 + 80 - 120 >= PreviousCount)
 		{
 			isCreate = true;
-
 		}
 		//groupCntが14の時のを出すタイミング
-		else if (frameCnt == 3430.0f + 470+40-120)
+		else if (frameCnt >= 3430 + 470+40-120 && 3430 + 470 + 40 - 120 >= PreviousCount)
 		{
 			isCreate = true;
-
 		}
 		//groupCntが13の時のを出すタイミング
-		else if (frameCnt == 3430.0f + 470-120)
+		else if (frameCnt >= 3430 + 470-120 && 3430 + 470 - 120 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが12の時のを出すタイミング
-		else if (frameCnt == 2890.0f + 470 - 700)
+		else if (frameCnt >= 2890 + 470 - 700 && 2890 + 470 - 700 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが11の時のを出すタイミング
-		else if (frameCnt == 2120.0f - 260)
+		else if (frameCnt >= 2120 - 260 && 2120 - 260 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが10の時のを出すタイミング
-		else if (frameCnt == 2010.0f)
+		else if (frameCnt >= 2010 && 2010 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが9の時のを出すタイミング
-		else if (frameCnt == 1920.0f)
+		else if (frameCnt >= 1920 && 1920 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが8の時のを出すタイミング
-		else if (frameCnt == 1740.0f)
+		else if (frameCnt >= 1740 && 1740 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが7の時のを出すタイミング
-		else if (frameCnt == 1620.0f)
+		else if (frameCnt >= 1620 && 1620 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが6の時のを出すタイミング
-		else if (frameCnt == 1500.0f)
+		else if (frameCnt >= 1500 && 1500 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが5の時のを出すタイミング
-		else if (frameCnt == 1140.0f)
+		else if (frameCnt >= 1140 && 1140 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが4の時のを出すタイミング
-		else if (frameCnt == 1020.0f)
+		else if (frameCnt >= 1020 && 1020 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが3の時のを出すタイミング
-		else if (frameCnt == 720.0f)
+		else if (frameCnt >= 720 && 720 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
 		//groupCntが2の時のを出すタイミング
-		else if (frameCnt == 420.0f)
+		else if (frameCnt >= 420 && 420 >= PreviousCount)
         {
             isCreate = true;
-        }
+		}
 		//groupCntが1の時のを出すタイミング
-        else if (frameCnt == 120.0f)
+		else if (frameCnt >= 120 && 120 >= PreviousCount)
         {
             isCreate = true;
-
-        }
+		}
     }
     //---------------------------------------------------------------------
 }
