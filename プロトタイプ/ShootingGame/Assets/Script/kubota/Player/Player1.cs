@@ -229,6 +229,8 @@ public class Player1 : character_status
 			{
 				//アイテムを規定数所持していたらその値と同じものの効果を得る
 				PowerManager.Instance.Upgrade();
+				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 			}
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
