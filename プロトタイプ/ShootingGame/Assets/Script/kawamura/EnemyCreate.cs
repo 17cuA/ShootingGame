@@ -384,9 +384,13 @@ public class EnemyCreate : MonoBehaviour
                     GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
                     enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
                     enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
-
                     break;
 
+				case 22:
+					isCreate = false;
+					groupCnt++;
+					//Obj_Storage.Storage_Data.
+					break;
             }
         }
     }
@@ -395,6 +399,10 @@ public class EnemyCreate : MonoBehaviour
     //---------------------------------------------------------------------
     void CreateCheck()
     {
+		if(frameCnt == 4300.0f + 470 + 180 + 300 + 100)
+		{
+			isCreate = true;
+		}
 		// 21
 		if(frameCnt == 4300.0f + 470 + 180 + 300)
 		{
