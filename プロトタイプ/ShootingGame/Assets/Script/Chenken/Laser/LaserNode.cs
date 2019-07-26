@@ -45,11 +45,11 @@ namespace Laser
 			}
 		}
 
-		public bool IsActive
+		public bool IsOutScreen
 		{
 			get
 			{
-				return this.gameObject.activeSelf;
+				return transform.position.x >= 25.0f || transform.position.x <= -25.0f || transform.position.y >= 8.5f || transform.position.y <= -8.5f;
 			}
 		}
 		private LineRenderer lineRenderer;
@@ -76,49 +76,43 @@ namespace Laser
 		private new void Update()
 		{
 			//画面外
-			if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
-			|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
+			if (IsOutScreen)
 			{
-				SwitchComponent(true);
-				gameObject.SetActive(false);
+				SwitchComponent(false);
+				this.lifeTimer = 0;
+			}
+			else
+			{
+				this.lifeTimer += Time.deltaTime;
+				this.Trail.startWidth = Mathf.Lerp(0, 28, this.lifeTimer / lifeTime);
+				this.Trail.endWidth = Mathf.Lerp(0, 28, this.lifeTimer / lifeTime);
+				this.trailRenderer.time = Mathf.Lerp(0.6f, -0.6f, lifeTimer / lifeTime);
 			}
 
-			base.Moving_To_Travelling_Direction();
+	     	base.Moving_To_Travelling_Direction();
 		}
 
 		private new void OnTriggerEnter(Collider col)
 		{
-			//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-			if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		    if (col.gameObject.tag == "Enemy")
 			{
 				SwitchComponent(false);
+				this.lifeTimer = 0;
 				//add:0513_takada 爆発エフェクトのテスト
 				//AddExplosionProcess();
 				GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 				effect.transform.position = gameObject.transform.position;
 				particle.Play();
+			}
 
-			}
-			else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
-			{
-				SwitchComponent(false);
-				//add:0513_takada 爆発エフェクトのテスト
-				//AddExplosionProcess();
-				GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-				effect.transform.position = gameObject.transform.position;
-				particle.Play();
-			}
-			else if (gameObject.tag == "Enemy_Bullet" && gameObject.tag == "Player_Bullet")
-			{ }
 		}
 
 		/// <summary>
 		/// コンポーネントだけ操作する
 		/// </summary>
 		/// <param name="flag"></param>
-		private void SwitchComponent(bool flag)
+		public void SwitchComponent(bool flag)
 		{
 			this.lineRenderer.enabled = flag;
 			this.capsuleCollider.enabled = flag;

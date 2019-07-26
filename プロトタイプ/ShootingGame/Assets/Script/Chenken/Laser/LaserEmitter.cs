@@ -31,6 +31,7 @@ namespace Laser
 		public LaserType s_laserType;
 
 		[Header("----------タイプ2----------")]
+		public float rotateSpdDivisor;
 		public float r_laserSpd;
 		public float r_laserWidth;
 		public int r_laserNodeMax;
@@ -40,6 +41,8 @@ namespace Laser
 		public Material r_laserLineMaterial;
 		public Material r_laserTrailMaterial;
 		public LaserType r_laserType;
+
+
 
 		private RotateCore rotateDevice;
 		private LaunchCore currentLaunchDevice;
@@ -55,6 +58,8 @@ namespace Laser
 			this.r_laser_launch_device = new LaunchCore(r_laserType,transform.position,r_laserNodeMax, r_laserSpd, r_laserWidth, r_laserOverloadDuration,
 				                                        r_laserLaunchInterval, r_laserLineMaterial,r_laserTrailWidth, r_laserTrailMaterial);
 
+			this.rotateDevice = new RotateCore(this.transform.position, rotateSpdDivisor);
+
 			//選択によって発射装置を設定される
 			switch(this.selectLaserType)
 			{
@@ -67,11 +72,23 @@ namespace Laser
 		{
 			if (isDebug)
 			{
-				currentLaunchDevice.Update(true);
+				this.currentLaunchDevice.Update(true);
+				this.currentLaunchDevice.SetDirection(rotateDevice.Direction);
+
+				if (this.currentLaunchDevice.Type == LaserType.TYPE2)
+				{
+					this.rotateDevice.Update(true);
+				}
 			}
 			else
 			{
-				currentLaunchDevice.Update(false);
+				this.currentLaunchDevice.Update();
+				this.currentLaunchDevice.SetDirection(rotateDevice.Direction);
+
+				if (this.currentLaunchDevice.Type == LaserType.TYPE2)
+				{
+					this.rotateDevice.Update();
+				}
 			}
 		}
 	}
@@ -83,26 +100,78 @@ namespace Laser
 	{
 		private float theta;
 		private Vector3 pushPos;
+		private Vector3 originPos;
+		public Vector3 Direction
+		{
+			get
+			{
+				return this.pushPos - this.originPos;
+			}
+		}
+		private float rotateSpdDivisor;
 
 		/// <summary>
 		/// セットアップ
 		/// </summary>
 		/// <param name="pushPos"> 発射位置 </param>
-		public RotateCore(Vector3 pushPos)
+		public RotateCore(Vector3 pushPos,float rotateSpdDivisor)
 		{
 			this.pushPos = pushPos;
+			this.originPos = pushPos;
 			this.theta = 0;
+			this.rotateSpdDivisor = rotateSpdDivisor;
 		}
 
 		/// <summary>
 		/// 回転
 		/// </summary>
 		/// <param name="angle"></param>
-		public void Rotate(float angle)
+		private void Rotate(float angle)
 		{
 			this.theta += angle;
 			this.pushPos.x = Mathf.Cos(this.theta);
-			this.pushPos.x = Mathf.Sin(this.theta);
+			this.pushPos.y = Mathf.Sin(this.theta);
+		}
+
+		public void Update(bool isDebug)
+		{
+			InputHandle(isDebug);
+		}
+
+		public void Update()
+		{		
+			Update(false);
+		}
+
+		private void InputHandle(bool isDebug)
+		{
+			if (isDebug)
+			{
+				var isChange = false;
+				if (Input.GetKey(KeyCode.Space))
+				{
+					isChange = true;
+				}
+				if(isChange)
+				{
+					Rotate(Mathf.PI / rotateSpdDivisor * Mathf.Deg2Rad);
+				}
+				else
+				{
+					Rotate(-Mathf.PI / rotateSpdDivisor * Mathf.Deg2Rad);
+				}
+			}
+			else
+			{
+				if (Input.GetKey(KeyCode.LeftShift))
+				{
+					Rotate(Mathf.PI / rotateSpdDivisor * Mathf.Deg2Rad);
+				}
+				if (Input.GetKey(KeyCode.LeftControl))
+				{
+					Rotate(-Mathf.PI / rotateSpdDivisor * Mathf.Deg2Rad);
+				}
+			}
 		}
 	}
 
@@ -112,7 +181,15 @@ namespace Laser
 	public class LaunchCore
 	{
 		private LaserType laserType;
+		public LaserType Type
+		{
+			get
+			{
+				return this.laserType;
+			}
+		}
 		private Vector3 laserLaunchPos;
+		private Vector3 laserDirection;
 		private float laserSpd;
 		private float laserWidth;
 		private float overloadDuration;
@@ -168,8 +245,8 @@ namespace Laser
 				ResetAndNew();
 			}
 
-			ClearCheck();
 			AdjustNodesRendering();
+			ClearCheck();
 		}
 
 		public void Update()
@@ -195,12 +272,15 @@ namespace Laser
 				this.canLaunchTime = Time.time + this.launchInterval;
 			}
 			//攻撃ボタンRelease
-			if(Input.GetKeyUp(KeyCode.Space) || Input.GetButton("Fire1"))
+			if(Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire1"))
 			{
 				ResetAndNew();
 			}
 		}
 
+		/// <summary>
+		/// レーザー再生成準備
+		/// </summary>
 		private void ResetAndNew()
 		{
 			this.laserCount = 0;
@@ -214,15 +294,19 @@ namespace Laser
 		/// <returns></returns>
 		private LaserNode Launch()
 		{
-			var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, laserLaunchPos, Quaternion.identity);
+			var node = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, laserLaunchPos, Quaternion.identity);	
 			var s_node = node.GetComponent<LaserNode>();
+
 			s_node.NeedFixed = (this.laserType == LaserType.TYPE1) ? true : false;
 			s_node.shot_speed = this.laserSpd;
-			s_node.Travelling_Direction = s_node.transform.right;
+			s_node.Travelling_Direction = this.laserDirection;
+			s_node.Trail.Clear();
 			s_node.Trail.startWidth = this.laserTrailWidth;
 			s_node.Trail.endWidth = this.laserTrailWidth;
+			s_node.Trail.material = this.laserTrailMaterial;
 			s_node.Line.startWidth = this.laserWidth;
 			s_node.Line.endWidth = this.laserWidth;
+			s_node.Line.material = this.laserlineMaterial;
 			this.laserCount++;
 			return s_node;
 		}
@@ -232,13 +316,14 @@ namespace Laser
 		/// </summary>
 		private void ClearCheck()
 		{
-			for(var i = 0; i < this.laserNodes.Count; ++i)
+			var removekeyNums = new List<int>();
+			foreach(var tempLaserNodes in laserNodes)
 			{
-				var checkList = this.laserNodes[i];
+				var checkList = tempLaserNodes.Value;
 				var count = 0;
 				for(var j = 0; j < checkList.Count; ++j)
 				{
-					if(!checkList[j].IsActive)
+					if(checkList[j].IsOutScreen)
 					{
 						count++;
 					}
@@ -247,10 +332,21 @@ namespace Laser
 						break;
 					}
 				}
-				if(count == checkList.Count)
+				if(count  == checkList.Count)
 				{
-					this.laserNodes.Remove(i);
+					Debug.Log("レーザーリセット　：ALL False");
+					for (var j = 0; j < checkList.Count; ++j)
+					{
+						checkList[j].SwitchComponent(true);
+						checkList[j].gameObject.SetActive(false);
+					}
+					removekeyNums.Add(tempLaserNodes.Key);
 				}
+			}
+
+			for(var i = 0; i < removekeyNums.Count; ++i)
+			{
+				this.laserNodes.Remove(removekeyNums[i]);
 			}
 		}
 
@@ -259,12 +355,12 @@ namespace Laser
 		/// </summary>
 		private void AdjustNodesRendering()
 		{
-			for (var i = 0; i < this.laserNodes.Count; ++i)
+			foreach (var tempLaserNodes in laserNodes)
 			{
-				var adjustList = this.laserNodes[i];
+				var adjustList = tempLaserNodes.Value;
 				for(var j = 0; j <adjustList.Count; ++j)
 				{
-					if(!adjustList[j].IsActive)
+					if(adjustList[j].IsOutScreen)
 					{
 						continue;
 					}
@@ -275,10 +371,19 @@ namespace Laser
 					else
 					{
 						adjustList[j].Line.SetPosition(0, adjustList[j - 1].transform.position);
-						adjustList[j].Line.SetPosition(0, adjustList[j].transform.position);
+						adjustList[j].Line.SetPosition(1, adjustList[j].transform.position);
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// 方向設定
+		/// </summary>
+		/// <param name="direction"></param>
+		public void SetDirection(Vector3 direction)
+		{
+			this.laserDirection = direction;
 		}
 	}
 }
