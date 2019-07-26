@@ -62,6 +62,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1018761117412073051}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117,17 +122,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: eState
       value: 2
@@ -147,6 +147,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1018761117412073051}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -202,17 +207,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: eState
       value: 2
@@ -300,7 +300,7 @@ PrefabInstance:
     - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: isShot
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5b812d75561c346a41137d0a6c8a1c, type: 3}

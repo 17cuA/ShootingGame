@@ -20,7 +20,7 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField, Header("はさみ込むタイプはTrue")] public bool is_sandwich;
 	[SerializeField, Header("マズルセット上")] private Transform[] muzzle_set_up;
 	[SerializeField, Header("マズルセット下")] private Transform[] muzzle_set_Down;
-
+	public GameObject pure;
 	public Vector3 Original_Position { get; set; }		// 元の位置
 	public int Now_Target { get; set; }					// 現在の移動目標番号
 	public Vector3 Move_Facing { get; set; }			// Y軸の移動向き
@@ -129,10 +129,15 @@ public class BattleshipType_Enemy : character_status
 			Shot_Delay++;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, -muzzle_set_up[Muzzle_Select].right));
-				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, -muzzle_set_Down[Muzzle_Select].right));
-				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select + 2].position, -muzzle_set_up[Muzzle_Select + 2].right));
-				Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select + 2].position, -muzzle_set_Down[Muzzle_Select + 2].right));
+				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, -muzzle_set_up[Muzzle_Select].right));
+				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, -muzzle_set_Down[Muzzle_Select].right));
+				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select + 2].position, -muzzle_set_up[Muzzle_Select + 2].right));
+				Bullet_Object.Add(Instantiate(pure, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].rotation));
+				Bullet_Object.Add(Instantiate(pure, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].rotation));
+				Bullet_Object.Add(Instantiate(pure, muzzle_set_up[Muzzle_Select + 2].position, muzzle_set_up[Muzzle_Select + 2].rotation));
+				Bullet_Object.Add(Instantiate(pure, muzzle_set_Down[Muzzle_Select+2].position, muzzle_set_Down[Muzzle_Select+2].rotation));
+
+
 				Muzzle_Select++;
 				if (Muzzle_Select == 2)
 				{

@@ -10,7 +10,8 @@ using StorageReference;
 public class Enemy_BurstShot : MonoBehaviour
 {
 	private Transform Enemy_transform;  //自身のtransform
-	private GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
+	public GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
+	GameObject parentObj;
 	ShotCheck sc;
 	[Header("バーストとバーストの間隔を計る")]
 	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
@@ -29,11 +30,25 @@ public class Enemy_BurstShot : MonoBehaviour
 	{
 		Shot_Reset();
 	}
-
+	private void Awake()
+	{
+		parentObj = transform.parent.gameObject;
+	}
 	void Start()
 	{
 		Enemy_transform = transform.parent;
-		Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
+		//if (parentObj.name == "ClamChowderType_Enemy")
+		//{
+		//	Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		//}
+		//else if (parentObj.name == "ClamChowderType_Enemy_Item")
+		//{
+		//	Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		//}
+		//else
+		//{
+		//	Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
+		//}
 		burst_delay = 0;
 		Shot_Delay = 0;
 		burst_Shotshot_Cnt = 0;
@@ -68,9 +83,9 @@ public class Enemy_BurstShot : MonoBehaviour
 		if (burst_delay > burst_Delay_Max)
 		{
 			//弾生成
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
+			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
 
-			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+			Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 
 			//発射数カウントプラス
 			++burst_Shotshot_Cnt;

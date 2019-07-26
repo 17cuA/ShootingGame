@@ -69,7 +69,7 @@ PrefabInstance:
     - target: {fileID: 9004055989690382557, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: m_Name
-      value: ClamChowderType_Enemy_Item (1)
+      value: ClamChowderType_Enemy_Item
       objectReference: {fileID: 0}
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
@@ -126,6 +126,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: isShot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5b812d75561c346a41137d0a6c8a1c, type: 3}
 --- !u!4 &7025509638720158057 stripped
@@ -141,6 +146,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863215982626103457}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -196,10 +206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (3)
+      propertyPath: isShot
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
@@ -216,6 +226,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863215982626103457}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -271,11 +286,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (4)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &7605119136850465217 stripped
@@ -291,6 +301,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863215982626103457}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -346,11 +361,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (6)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &7605119137708651558 stripped
@@ -366,6 +376,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863215982626103457}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -421,11 +436,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &7605119137779419545 stripped
@@ -441,6 +451,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 863215982626103457}
     m_Modifications:
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -495,11 +510,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
@@ -574,6 +584,11 @@ PrefabInstance:
     - target: {fileID: 9004055989690382559, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: isShot
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

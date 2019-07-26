@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cfab6570762f240835101a66ba4f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObj: {fileID: 0}
+  imasuyo: 0
   degree: 0
 --- !u!114 &6761423790994251535
 MonoBehaviour:
@@ -57,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
   Shot_Delay: 0
   Shot_Delay_Max: 2
   burst_delay: 0
@@ -234,6 +237,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -298,14 +309,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 506200f2911c5af4a89dfdf7c7520fdc, type: 2}
-    - target: {fileID: 100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
 --- !u!1 &5907183190632230086 stripped
