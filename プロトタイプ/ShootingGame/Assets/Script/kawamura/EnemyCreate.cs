@@ -125,7 +125,7 @@ public class EnemyCreate : MonoBehaviour
         {
             switch (groupCnt)
             {
-                case 1:						//円盤の群れを１つ右上から出す
+                case 16:						//円盤の群れを１つ右上から出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
@@ -301,7 +301,7 @@ public class EnemyCreate : MonoBehaviour
 
                     break;
 
-                case 16:					//中ボス出す
+                case 1:					//中ボス出す
                     isCreate = false;
                     groupCnt++;
                     //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
