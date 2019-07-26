@@ -25,6 +25,6 @@ public class SE_Manager : MonoBehaviour
 	}
 	public void SE_Active_2(AudioClip se)
 	{
-		if (Is_Active) audiosource1.PlayOneShot(se);
+		if (Is_Active) audioSource2.PlayOneShot(se);
 	}
 }
