@@ -14,8 +14,8 @@ using StorageReference;
 
 public class UfoMotherType_Enemy : character_status
 {
-	[SerializeField,Header("回転速度")]				private float rotating_velocity;		// 回転速度
-	[SerializeField,Header("エネミー放出孔")]			private Transform[] shot_mazle;			// エネミーを放出するための穴
+	[SerializeField,Header("回転速度")]				private float rotating_velocity;				// 回転速度
+	[SerializeField,Header("エネミー放出孔")]			private Transform[] shot_mazle;		// エネミーを放出するための穴
 	[SerializeField,Header("放出のインターバル")]		private int release_interval;			// エネミーの放出のインターバル
 	[SerializeField, Header("安全位置_Z軸のみ")]		private float safety_position;			// 安全位置_Z軸のみ
 
