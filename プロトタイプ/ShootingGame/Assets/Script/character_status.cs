@@ -20,7 +20,7 @@ public class character_status : MonoBehaviour
 	public int hp;                                                      // 体力
 	private int hp_Max;
 	public Vector3 direction;                                           // 向き
-	public CapsuleCollider capsuleCollider;                             // cillider
+	public Collider capsuleCollider;                             // cillider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
@@ -47,9 +47,9 @@ public class character_status : MonoBehaviour
 			rigidbody.useGravity = false;
 		}
 		//CapsuleColliderがついていたら取得する
-		if (gameObject.GetComponent<CapsuleCollider>())
+		if (gameObject.GetComponent<Collider>())
 		{
-			capsuleCollider = GetComponent<CapsuleCollider>();
+			capsuleCollider = GetComponent<Collider>();
 		}
 
 		if (tag == "Player") Remaining = 3;

@@ -85,7 +85,7 @@ public class Enemy_BurstShot : MonoBehaviour
 			//弾生成
 			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
 
-			Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 
 			//発射数カウントプラス
 			++burst_Shotshot_Cnt;

@@ -296,8 +296,8 @@ public class Enemy_MiddleBoss : character_status
         //実はコアの部分を大きくする
         //細かく調整が必要あるが、今はこれで
         //-----------------------------------------------------------
-        capsuleCollider.height = 8;
-        capsuleCollider.center = new Vector2(1.5f,0.09f);
+        //capsuleCollider.height = 8;
+        //capsuleCollider.center = new Vector2(1.5f,0.09f);
 
 		animator.enabled = true;
 		animator.Play("Escape");
