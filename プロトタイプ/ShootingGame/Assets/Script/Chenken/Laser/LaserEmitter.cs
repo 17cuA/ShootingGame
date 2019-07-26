@@ -29,7 +29,6 @@ namespace Laser
 		public Material s_laserLineMaterial;
 		public Material s_laserTrailMaterial;
 		public LaserType s_laserType;
-		public int s_laserMax;
 
 		[Header("----------タイプ2----------")]
 		public float r_laserSpd;
@@ -41,7 +40,6 @@ namespace Laser
 		public Material r_laserLineMaterial;
 		public Material r_laserTrailMaterial;
 		public LaserType r_laserType;
-		public int r_laserMax;
 
 		private RotateCore rotateDevice;
 		private LaunchCore currentLaunchDevice;
@@ -51,10 +49,10 @@ namespace Laser
 
 		private void Awake()
 		{
-			this.s_laser_launch_device = new LaunchCore(s_laserType,transform.position,s_laserMax, s_laserSpd, s_laserWidth, s_laserOverloadDuration, 
+			this.s_laser_launch_device = new LaunchCore(s_laserType,transform.position,s_laserNodeMax, s_laserSpd, s_laserWidth, s_laserOverloadDuration, 
 				                                        s_laserLaunchInterval, s_laserLineMaterial,s_laserTrailWidth, s_laserTrailMaterial);
 
-			this.r_laser_launch_device = new LaunchCore(r_laserType,transform.position,r_laserMax, r_laserSpd, r_laserWidth, r_laserOverloadDuration,
+			this.r_laser_launch_device = new LaunchCore(r_laserType,transform.position,r_laserNodeMax, r_laserSpd, r_laserWidth, r_laserOverloadDuration,
 				                                        r_laserLaunchInterval, r_laserLineMaterial,r_laserTrailWidth, r_laserTrailMaterial);
 
 			//選択によって発射装置を設定される
@@ -261,7 +259,26 @@ namespace Laser
 		/// </summary>
 		private void AdjustNodesRendering()
 		{
-
+			for (var i = 0; i < this.laserNodes.Count; ++i)
+			{
+				var adjustList = this.laserNodes[i];
+				for(var j = 0; j <adjustList.Count; ++j)
+				{
+					if(!adjustList[j].IsActive)
+					{
+						continue;
+					}
+					if(j == 0)
+					{
+						continue;
+					}
+					else
+					{
+						adjustList[j].Line.SetPosition(0, adjustList[j - 1].transform.position);
+						adjustList[j].Line.SetPosition(0, adjustList[j].transform.position);
+					}
+				}
+			}
 		}
 	}
 }

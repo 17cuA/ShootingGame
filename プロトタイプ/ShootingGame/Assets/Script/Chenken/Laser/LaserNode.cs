@@ -7,12 +7,9 @@ namespace Laser
 	[RequireComponent(typeof(LineRenderer))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(TrailRenderer))]
-	public class LaserNode : bullet_status
+	public class LaserNode : Player_Bullet
 	{
-		private LineRenderer lineRenderer;
-		private  CapsuleCollider capsuleCollider;
-		private TrailRenderer trailRenderer;
-		private bool needFixed = false;
+		public float lifeTime;
 		public bool NeedFixed
 		{
 			get
@@ -55,13 +52,79 @@ namespace Laser
 				return this.gameObject.activeSelf;
 			}
 		}
+		private LineRenderer lineRenderer;
+		private CapsuleCollider capsuleCollider;
+		private TrailRenderer trailRenderer;
+		private bool needFixed = false;
+		private float lifeTimer;
+		
 
 		private void Awake()
 		{
 			this.lineRenderer = GetComponent<LineRenderer>();
 			this.capsuleCollider = GetComponent<CapsuleCollider>();
 			this.trailRenderer = GetComponent<TrailRenderer>();
+
+			base.attack_damage = 1;
 		}
+
+		private new void Start()
+		{
+			base.Start();
+		}
+
+		private new void Update()
+		{
+			//画面外
+			if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
+			|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
+			{
+				SwitchComponent(true);
+				gameObject.SetActive(false);
+			}
+
+			base.Moving_To_Travelling_Direction();
+		}
+
+		private new void OnTriggerEnter(Collider col)
+		{
+			//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
+			if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+			{
+				SwitchComponent(false);
+				//add:0513_takada 爆発エフェクトのテスト
+				//AddExplosionProcess();
+				GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+				effect.transform.position = gameObject.transform.position;
+				particle.Play();
+
+			}
+			else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
+			{
+				SwitchComponent(false);
+				//add:0513_takada 爆発エフェクトのテスト
+				//AddExplosionProcess();
+				GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+				effect.transform.position = gameObject.transform.position;
+				particle.Play();
+			}
+			else if (gameObject.tag == "Enemy_Bullet" && gameObject.tag == "Player_Bullet")
+			{ }
+		}
+
+		/// <summary>
+		/// コンポーネントだけ操作する
+		/// </summary>
+		/// <param name="flag"></param>
+		private void SwitchComponent(bool flag)
+		{
+			this.lineRenderer.enabled = flag;
+			this.capsuleCollider.enabled = flag;
+			this.trailRenderer.enabled = flag;
+		}
+
 	}
 }
 
