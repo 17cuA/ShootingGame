@@ -6,10 +6,12 @@ public class SceneChanger : MonoBehaviour
 {
 	public GameObject Player;
 	public Player1 P1;
-	public GameObject Boss;
+	public GameObject[] Boss = new GameObject[2];
 	public One_Boss One_Boss_Script;
 	public Two_Boss Two_Boss_Script;
 	public int frame = 0;
+	[Header("呼び出すボスのID設定"),Tooltip("何ステージ目なのかを入れればよい")]
+	public int BossID;
 	private void Start()
 	{
 		//プレイヤーの情報取得----------------------------------
@@ -17,9 +19,10 @@ public class SceneChanger : MonoBehaviour
 		P1 = Player.GetComponent<Player1>();
 		//----------------------------------------------------
 		//ボスの情報取得---------------------------------------
-		Boss = Obj_Storage.Storage_Data.GetBoss();
-		if (Boss.GetComponent<One_Boss>() != null)			One_Boss_Script = Boss.GetComponent<One_Boss>();
-		else if(Boss.GetComponent<Two_Boss>() != null)	Two_Boss_Script = Boss.GetComponent<Two_Boss>();
+		Boss[0] = Obj_Storage.Storage_Data.GetBoss(1);
+		Boss[1] = Obj_Storage.Storage_Data.GetBoss(2);
+		if (Boss[1] != null)			One_Boss_Script = Boss[1].GetComponent<One_Boss>();
+		if(Boss[2] != null)	Two_Boss_Script = Boss[2].GetComponent<Two_Boss>();
 		//----------------------------------------------------
 
 	}
