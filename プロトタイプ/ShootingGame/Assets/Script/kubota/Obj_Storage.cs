@@ -146,7 +146,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/06_gradius_SE_Player_Bullet");
-		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_powerup");	//アイテム取得音
+		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_botton get_item");	//アイテム取得音
 		audio_se[6] = Resources.Load<AudioClip>("Sound/SE/09_gradius_se_zakoenemy_Destroyed");
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/07_gradius_SE_Explosion_Small");	//敵の爆発音

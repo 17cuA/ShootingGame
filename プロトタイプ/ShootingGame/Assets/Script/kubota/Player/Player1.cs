@@ -229,8 +229,6 @@ public class Player1 : character_status
 			{
 				//アイテムを規定数所持していたらその値と同じものの効果を得る
 				PowerManager.Instance.Upgrade();
-				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 			}
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
@@ -412,6 +410,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//ミサイルをアクティブに
@@ -424,6 +423,8 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	private void ActiveDouble()
 	{
@@ -435,6 +436,8 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -448,6 +451,8 @@ public class Player1 : character_status
 		particle.Play();
 		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 		Laser.SetActive(true);
 	}
 	//シールドの発動
@@ -465,6 +470,7 @@ public class Player1 : character_status
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//オプションをアクティブに
@@ -498,6 +504,8 @@ public class Player1 : character_status
 	private void Init_speed()
 	{
 		speed = min_speed;
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更
 	private void Reset_BulletType()
@@ -505,35 +513,36 @@ public class Player1 : character_status
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
 	//----------------------------------------------------------
+	//プレイヤーの無敵表現（チカチカ光る感じ）
 	private void Change_Material(int j)
 	{
+		//規定フレームを越したら動くように
 		if(cnt > j)
 		{
-
+			//元のmaterialか白に変更するかどうかの判定
 			if (Is_Change == false)
-			//if (!object_material[i].enabled)
 			{
+				//主人公機のmaterialを白に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
-
 					object_material[i].material = white_material;
 				}
 				Is_Change = true;
 			}
 			else
 			{
+				//主人公機のmaterialを元の色に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
 
 					object_material[i].material = Get_self_material(i);
 				}
 				Is_Change = false;
-				Debug.Log("uhyooooo");
-
-
 			}
+			//countをもとに戻す
 			cnt = 0;
 		}
+		//フレーム加算
 		cnt++;
 	}
 }
