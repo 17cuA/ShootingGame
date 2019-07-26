@@ -265,6 +265,7 @@ public class Obj_Storage : MonoBehaviour
 	}
 	public GameObject GetBoss(int bossID)
 	{
+		Debug.Log("こ");
 		GameObject boss = null;
 		switch(bossID)
 		{

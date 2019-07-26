@@ -117,7 +117,7 @@ public class Game_Master : MonoBehaviour
         {
             case "Title":
                 break;
-            case "Stage":
+            case "Stage_01":
                 Stage_Start();
                 break;
             case "GameOver":

@@ -21,8 +21,8 @@ public class SceneChanger : MonoBehaviour
 		//ボスの情報取得---------------------------------------
 		Boss[0] = Obj_Storage.Storage_Data.GetBoss(1);
 		Boss[1] = Obj_Storage.Storage_Data.GetBoss(2);
-		if (Boss[1] != null)			One_Boss_Script = Boss[1].GetComponent<One_Boss>();
-		if(Boss[2] != null)	Two_Boss_Script = Boss[2].GetComponent<Two_Boss>();
+		if (Boss[0] != null)	One_Boss_Script = Boss[0].GetComponent<One_Boss>();
+		if(Boss[1] != null)	Two_Boss_Script = Boss[1].GetComponent<Two_Boss>();
 		//----------------------------------------------------
 
 	}
