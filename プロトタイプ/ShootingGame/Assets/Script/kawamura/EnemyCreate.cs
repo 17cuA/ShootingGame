@@ -389,7 +389,7 @@ public class EnemyCreate : MonoBehaviour
 				case 22:
 					isCreate = false;
 					groupCnt++;
-					//Obj_Storage.Storage_Data.
+					Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 					break;
             }
         }
