@@ -397,7 +397,7 @@ public class Player1 : character_status
 	//プレイヤーの速度上昇
 	private void SpeedUp()
 	{
-		speed *= 1.3f;
+		speed *= 1.1f;
 		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
