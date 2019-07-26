@@ -17,12 +17,26 @@ public class Target_Mark : MonoBehaviour
 
 	void Start()
 	{
+		//CameraControlerオブジェクトをプレイヤーの位置へ
+		transform.position = PlayerObj.transform.position;
+
+		//カメラの位置調整と、角度をプレイヤーへ向かせる
+		Camera.main.transform.position = new Vector3(0.0f, 5.0f, -10.0f);
+		Camera.main.transform.LookAt(PlayerObj.transform);
+
+		//ロックオン対象を決め、その方に向く
+		TargetObj = EnemyObj[0];
+		transform.LookAt(TargetObj.transform);
+
 		//ロックオンマーカーの表示ON
 		LockOnObj.SetActive(true);
 	}
 
 	void Update()
 	{
+		//CameraControlerオブジェクトをプレイヤーの位置へ
+		transform.position = PlayerObj.transform.position;
+
 		//右にいる敵にロックオンを切り替える
 		if (Input.GetKeyDown(KeyCode.D))
 		{
@@ -33,6 +47,10 @@ public class Target_Mark : MonoBehaviour
 		{
 			F("left");
 		}
+
+		//ロックオン対象の方にカメラを旋回させる
+		transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(TargetObj.transform.position - transform.position), 0.1f);
+
 		//ロックオンマーカーの座標更新
 		LockOnObj.transform.GetComponent<RectTransform>().localPosition = ToScreenPositionCaseScreenSpaceCamera(TargetObj.transform.position, mainCanvas);
 	}
