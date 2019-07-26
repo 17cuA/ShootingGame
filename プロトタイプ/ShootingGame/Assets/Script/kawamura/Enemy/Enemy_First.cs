@@ -22,7 +22,7 @@ public class Enemy_First : character_status
 	private GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
 
 	Vector3 velocity;
-	public Vector3 defaultPos;
+	public Vector3 defaultPos_Local;
     public Vector3 defaultPos_PlusZ;
 	public Quaternion diedAttackRota;
 	public Transform diedAttack_Transform;
@@ -40,6 +40,10 @@ public class Enemy_First : character_status
 	float _y;
 	float _z;
 
+	public float defaultPosY_World;
+	public float defaultPosY_Local;
+	public float endPosY_Local;
+	public float localPosY;
 	//float frame = 0;
 	float straightFrame;
 	float straightFrame_Default;
@@ -65,8 +69,8 @@ public class Enemy_First : character_status
 
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
-		defaultPos = transform.localPosition;
-        defaultPos_PlusZ = defaultPos + new Vector3(0, 0, 20);
+		defaultPos_Local = transform.localPosition;
+        defaultPos_PlusZ = defaultPos_Local + new Vector3(0, 0, 20);
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
@@ -86,16 +90,16 @@ public class Enemy_First : character_status
 		//	}
 		//	else
 		//	{
-		//		transform.localPosition = defaultPos;
+		//		transform.localPosition = defaultPos_Local;
 		//		if (transform.position.y > 0)
 		//		{
-		//			//transform.localPosition = defaultPos;
+		//			//transform.localPosition = defaultPos_Local;
 		//			speedX = 5;
 		//			eState = State.TurnDown;
 		//		}
 		//		else
 		//		{
-		//			//transform.localPosition = defaultPos;
+		//			//transform.localPosition = defaultPos_Local;
 		//			speedX = 5;
 		//			eState = State.TurnUp;
 		//		}
@@ -163,21 +167,34 @@ public class Enemy_First : character_status
 				}
 				else
 				{
-                    transform.localPosition = defaultPos;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    transform.localPosition = new Vector3(defaultPos.x, defaultPos.y, 20.0f);
-                    transform.localPosition = defaultPos_PlusZ;
+					defaultPosY_World = transform.position.y;
+					defaultPosY_Local = transform.localPosition.y;
+
+					endPosY_Local = defaultPosY_World * -0.29f;
+
+					//if (eState == State.TurnDown)
+					//{
+					//	endPosY_Local = defaultPosY_World * -0.29f;
+					//}
+					//else if (eState == State.TurnUp)
+					//{
+					//	endPosY_Local = defaultPosY_World * 0.29f;
+					//}
+                    //transform.localPosition = defaultPos_Local;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                    transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
+                    //transform.localPosition = defaultPos_PlusZ;
 
                     if (transform.position.y > 0)
 					{
-						//transform.localPosition = defaultPos;
+						//transform.localPosition = defaultPos_Local;
 						speedX = 5;
                         speedY = 5;
 						eState = State.TurnDown;
 					}
 					else
 					{
-						//transform.localPosition = defaultPos;
+						//transform.localPosition = defaultPos_Local;
 						speedX = 5;
                         speedY = 5;
 						eState = State.TurnUp;
@@ -258,9 +275,11 @@ public class Enemy_First : character_status
 			case State.TurnUp:
 				if (!isTurn)
 				{
-					straightFrame--;
+					//straightFrame--;
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
+					localPosY = transform.localPosition.z * (-endPosY_Local / 20.0f) + endPosY_Local;
+					gameObject.transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY_Local + localPosY, transform.localPosition.z);
 					//HSV_Change();
 
 					if (transform.position.z < 0)
@@ -331,6 +350,9 @@ public class Enemy_First : character_status
 				{
 					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
 					gameObject.transform.position += velocity * Time.deltaTime;
+					localPosY = transform.localPosition.z * (-endPosY_Local / 20.0f) + endPosY_Local;
+					gameObject.transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY_Local + localPosY, transform.localPosition.z);
+
 					//HSV_Change();
 					if (transform.position.z < 0)
 					{
