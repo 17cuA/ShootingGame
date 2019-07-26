@@ -229,6 +229,8 @@ public class Player1 : character_status
 			{
 				//アイテムを規定数所持していたらその値と同じものの効果を得る
 				PowerManager.Instance.Upgrade();
+				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 			}
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
@@ -324,8 +326,6 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-			shoot_number++;
-
 			// 連続で4発まで撃てるようにした
 			if (shoot_number < 5)
 			{
@@ -335,11 +335,14 @@ public class Player1 : character_status
 						Single_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
+						shoot_number++;
+
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
+						shoot_number++;
 
 						break;
 					default:
@@ -358,6 +361,11 @@ public class Player1 : character_status
 			{
 				shoot_number = 0;
 				effect_num = 0;
+			}
+			else
+			{
+				shoot_number++;
+
 			}
 		}
 		else

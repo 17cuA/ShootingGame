@@ -7,7 +7,8 @@ public class SE_Manager : MonoBehaviour
 	public static SE_Manager SE_Obj;
 	[Header("音を鳴らすかどうか")]
 	public bool Is_Active;
-	public AudioSource audiosource;
+	public AudioSource audiosource1;
+	public AudioSource audioSource2;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -20,7 +21,10 @@ public class SE_Manager : MonoBehaviour
 
 	public void SE_Active(AudioClip se)
 	{
-		if(Is_Active) audiosource.PlayOneShot(se);
-
+		if(Is_Active) audiosource1.PlayOneShot(se);
+	}
+	public void SE_Active_2(AudioClip se)
+	{
+		if (Is_Active) audiosource1.PlayOneShot(se);
 	}
 }
