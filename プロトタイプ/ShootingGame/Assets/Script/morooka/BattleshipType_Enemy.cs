@@ -29,6 +29,7 @@ public class BattleshipType_Enemy : character_status
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
 	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
 	public List<MeshRenderer> Parts_Renderer { get; set; }                  // パーツたちのレンダー
+	public float velocity;
 
 	public float Initial_Speed { get; set; }				// 初速(最低速度)
 	public float Max_Speed { get; set; }					// 最大速度
@@ -116,7 +117,9 @@ public class BattleshipType_Enemy : character_status
 				{
 					if (speed > Initial_Speed) speed -= Initial_Speed;
 				}
-				transform.position = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+				Vector3 temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+				velocity = transform.position.x - temp.x;
+				transform.position = temp;
 			}
 		}
 
@@ -148,7 +151,7 @@ public class BattleshipType_Enemy : character_status
 			{
 				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
 				Vector3 pos = Bullet_Object[i].transform.position;
-				//pos.x += velocity.x;
+				pos.x -= velocity;
 				Bullet_Object[i].transform.position = pos;
 			}
 			// 起動していないとき
