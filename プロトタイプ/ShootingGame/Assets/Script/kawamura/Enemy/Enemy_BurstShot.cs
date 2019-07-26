@@ -12,19 +12,26 @@ public class Enemy_BurstShot : MonoBehaviour
 	private Transform Enemy_transform;  //自身のtransform
 	private GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
 	ShotCheck sc;
-	float Shot_Delay;                       //バーストとバーストの間隔時間を計る
+	[Header("バーストとバーストの間隔を計る")]
+	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
 	[Header("バーストとバーストの間隔")]
 	public float Shot_Delay_Max;                     //１つのバーストの間隔
-	float burst_delay;                      //バーストの1発1発の間隔時間を計る
+	public float burst_delay;                      //バーストの1発1発の間隔時間を計る
 	[Header("バースト内の弾の間隔")]
 	public float burst_Delay_Max;           //バーストの1発1発の間隔
 	[Header("バーストで撃つ数")]
 	public int burst_Num;                   //撃つバースト数
-	int burst_Shotshot_Cnt;                 //何発撃ったかのカウント
-	bool isBurst = false;                   //バーストを撃つかどうか
+	public int burst_Shotshot_Cnt;                 //何発撃ったかのカウント
+	public bool isShot = false;
+	public bool isBurst = false;                   //バーストを撃つかどうか
+
+	private void OnDisable()
+	{
+		Shot_Reset();
+	}
+
 	void Start()
 	{
-		sc = gameObject.GetComponent<ShotCheck>();
 		Enemy_transform = transform.parent;
 		Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		burst_delay = 0;
@@ -37,7 +44,7 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent;
 
-		if (sc.isShot && transform.position.z == 0)
+		if (isShot && transform.position.z == 0)
 		{
 			if (isBurst)
 			{
@@ -45,7 +52,7 @@ public class Enemy_BurstShot : MonoBehaviour
 				BurstShot();
 			}
 
-			else if (Shot_Delay > Shot_Delay_Max && transform.position.x < 9)
+			else if (Shot_Delay > Shot_Delay_Max)
 			{
 				isBurst = true;
 				Shot_Delay = 0;
@@ -54,30 +61,34 @@ public class Enemy_BurstShot : MonoBehaviour
 			{
 				Shot_Delay += Time.deltaTime;
 			}
-			void BurstShot()
-			{
-				if (burst_delay > burst_Delay_Max)
-				{
-					//弾生成
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
-
-					//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
-
-					//発射数カウントプラス
-					++burst_Shotshot_Cnt;
-					//バースト計測リセット
-					burst_delay = 0;
-				}
-				//バースト計測プラス
-				burst_delay += Time.deltaTime;
-				//バーストを指定の数撃ち切ったら
-				if (burst_Shotshot_Cnt == burst_Num)
-				{
-					//バーストをfalse、発射数リセット
-					isBurst = false;
-					burst_Shotshot_Cnt = 0;
-				}
-			}
 		}
+	}
+	void BurstShot()
+	{
+		if (burst_delay > burst_Delay_Max)
+		{
+			//弾生成
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
+
+			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+
+			//発射数カウントプラス
+			++burst_Shotshot_Cnt;
+			//バースト計測リセット
+			burst_delay = 0;
+		}
+		//バースト計測プラス
+		burst_delay += Time.deltaTime;
+		//バーストを指定の数撃ち切ったら
+		if (burst_Shotshot_Cnt == burst_Num)
+		{
+			//バーストをfalse、発射数リセット
+			isBurst = false;
+			burst_Shotshot_Cnt = 0;
+		}
+	}
+	void Shot_Reset()
+	{
+		Shot_Delay = 0;
 	}
 }

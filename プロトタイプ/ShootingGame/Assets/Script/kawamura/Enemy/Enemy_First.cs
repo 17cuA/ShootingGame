@@ -16,17 +16,20 @@ public class Enemy_First : character_status
 	}
 
 	public State eState;
+	GameObject item;
+	public GameObject parentObj;
+	GameObject childObj;
+	private GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
 
 	Vector3 velocity;
 	public Vector3 defaultPos;
     public Vector3 defaultPos_PlusZ;
-
-	GameObject item;
-	public GameObject parentObj;
-	GameObject childObj;
+	public Quaternion diedAttackRota;
+	public Transform diedAttack_Transform;
 
 	EnemyGroupManage groupManage;
-	//Renderer renderer;
+	Find_Angle fd;
+	Enemy_BurstShot ebs;
 	//Renderer renderer;
 
 	public float timeCnt = 0;                   //回転の度合い（0～59）で周期
@@ -45,17 +48,20 @@ public class Enemy_First : character_status
 	public float speedY;
     public float speedZ;
     public float speedZ_Value;
-         
-
+	public float diedAttack_RotaZ;
+	[Header("死亡時の弾発射の角度範囲()")]
+	public float diedAttack_RotaValue;
 	bool once = true;
 	bool isTurn;
 	//bool isAddition = false;
 	//bool isDead = false;
 	public bool haveItem = false;
+	public bool Died_Attack = false;
 
 	private void Awake()
 	{
 		//renderer = childObj.GetComponent<Renderer>();
+		Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
@@ -102,6 +108,8 @@ public class Enemy_First : character_status
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
 		childObj = transform.GetChild(0).gameObject;
+		fd = childObj.GetComponent<Find_Angle>();
+		ebs = childObj.GetComponent<Enemy_BurstShot>();
 		//renderer = gameObject.GetComponent<Renderer>();
 
 		//speedX = 5.0f;
@@ -189,6 +197,16 @@ public class Enemy_First : character_status
 			{
 				//Instantiate(item, this.transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+			}
+
+			if(Died_Attack)
+			{
+				//diedAttack_Transform = childObj.transform;
+				//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+				//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+				diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
 			}
 
 			if (parentObj == null)

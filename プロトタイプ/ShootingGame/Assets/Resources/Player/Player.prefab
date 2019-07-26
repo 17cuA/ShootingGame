@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706a33c7ee74b6d4a94856f4404a834d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isClose: 0
   straightLaserShotSpeed: 0.8
   straightLaserWidth: 0.05
   straightLaserNodeMax: 50
   straightLaserOverloadDuration: 0.4
   straightLaserLaunchInterval: 0.01
-  straightTrailWidth: 1
+  straightTrailWidth: 2
   straightLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  rotateLaserShotSpeed: 0.8
+  rotateLaserShotSpeed: 0.9
   rotateLaserWidth: 0.05
-  rotateLaserNodeMax: 200
+  rotateLaserNodeMax: 100
   rotateLaserOverloadDuration: 0.15
   rotateLaserLaunchInterval: 0
-  rotateTrailWidth: 10
+  rotateTrailWidth: 2
   rotateLaserMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &5068087178034757352
 MonoBehaviour:
@@ -170,6 +171,7 @@ MonoBehaviour:
   - {fileID: 4875746011975313016}
   - {fileID: 4046727526381711968}
   - {fileID: 4463846512339435176}
+  Is_Change: 0
 --- !u!1 &230934739483769455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1189,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Name
+      value: VicViper
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.325
@@ -1243,14 +1277,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Name
-      value: VicViper
-      objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1275,30 +1301,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bcb22efed05d8ed46a622438c921bd20, type: 2}
-    - target: {fileID: 100000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100010, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
 --- !u!4 &9021348456005968551 stripped
