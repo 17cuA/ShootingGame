@@ -507,7 +507,6 @@ public class EnemyCreate : MonoBehaviour
 		else if (frameCnt == 420.0f)
         {
             isCreate = true;
-
         }
 		//groupCntが1の時のを出すタイミング
         else if (frameCnt == 120.0f)

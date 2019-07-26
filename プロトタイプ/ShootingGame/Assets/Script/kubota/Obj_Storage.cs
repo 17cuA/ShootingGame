@@ -143,12 +143,12 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
-		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/07_gradius_se_Shot");
+		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/06_gradius_SE_Player_Bullet");
 		audio_se[5] = Resources.Load<AudioClip>("Sound/SE/08_gradius_se_ItemGet");
 		audio_se[6] = Resources.Load<AudioClip>("Sound/SE/09_gradius_se_zakoenemy_Destroyed");
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");
-		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/11_gradius_se_Explosion");
-		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/12_gradius_se_BossExplosion");
+		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/07_gradius_SE_Explosion_Small");	//敵の爆発音
+		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/12_gradius_se_BossExplosion");	//ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
 		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/13_gradius_se_SpeedUp");			//スピードアップの声
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/14_gradius_se_LASER");			//レーザー攻撃の声
