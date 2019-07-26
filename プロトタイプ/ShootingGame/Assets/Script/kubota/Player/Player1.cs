@@ -324,8 +324,6 @@ public class Player1 : character_status
 	{
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
-			shoot_number++;
-
 			// 連続で4発まで撃てるようにした
 			if (shoot_number < 5)
 			{
@@ -335,11 +333,14 @@ public class Player1 : character_status
 						Single_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
+						shoot_number++;
+
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
+						shoot_number++;
 
 						break;
 					default:
@@ -358,6 +359,11 @@ public class Player1 : character_status
 			{
 				shoot_number = 0;
 				effect_num = 0;
+			}
+			else
+			{
+				shoot_number++;
+
 			}
 		}
 		else
