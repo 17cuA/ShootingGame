@@ -13,6 +13,8 @@ public class Enemy_BurstShot : MonoBehaviour
 	public GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
 	GameObject parentObj;
 	ShotCheck sc;
+
+	public string myName;
 	[Header("バーストとバーストの間隔を計る")]
 	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
 	[Header("バーストとバーストの間隔")]
@@ -33,22 +35,23 @@ public class Enemy_BurstShot : MonoBehaviour
 	private void Awake()
 	{
 		parentObj = transform.parent.gameObject;
+		myName = parentObj.name;
 	}
 	void Start()
 	{
 		Enemy_transform = transform.parent;
-		//if (parentObj.name == "ClamChowderType_Enemy")
-		//{
-		//	Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-		//}
-		//else if (parentObj.name == "ClamChowderType_Enemy_Item")
-		//{
-		//	Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-		//}
-		//else
-		//{
-		//	Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
-		//}
+		if (myName == "ClamChowderType_Enemy")
+		{
+			Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		}
+		else if (myName == "ClamChowderType_Enemy_Item")
+		{
+			Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		}
+		else
+		{
+			Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
+		}
 		burst_delay = 0;
 		Shot_Delay = 0;
 		burst_Shotshot_Cnt = 0;
@@ -82,8 +85,23 @@ public class Enemy_BurstShot : MonoBehaviour
 	{
 		if (burst_delay > burst_Delay_Max)
 		{
-			//弾生成
-			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
+			if (myName == "ClamChowderType_Enemy")
+			{
+				Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+			}
+			else if (myName == "ClamChowderType_Enemy_Item")
+			{
+				Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+			}
+			else
+			{
+				//弾生成
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
+			}
+
 
 			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 
