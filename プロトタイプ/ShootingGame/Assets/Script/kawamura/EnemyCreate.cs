@@ -116,15 +116,23 @@ public class EnemyCreate : MonoBehaviour
 		PreviousCount = frameCnt;
 		frameCnt++;
 		//CreateCheck();
-        CreateEnemyGroup();
-
-		Debug.LogWarning(frameCnt);
+		switch(Scene_Manager.Manager.Now_Scene)
+		{
+			case Scene_Manager.SCENE_NAME.eSTAGE_01:
+				CreateEnemyGroup_01();
+				break;
+			case Scene_Manager.SCENE_NAME.eSTAGE_02:
+				CreateEnemyGroup_02();
+				break;
+			default:
+				break;
+		}
     }
 
 	//--------------------------------------------------------------------
 
 	//敵を出す関数
-	void CreateEnemyGroup()
+	void CreateEnemyGroup_01()
 	{
 		#region 保留
 		//if (isCreate)
@@ -632,7 +640,7 @@ public class EnemyCreate : MonoBehaviour
 			enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
 			enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
 
-			Next_Condition(1000);
+			Next_Condition(600);
 		}
 		// 22 ラスボス
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
@@ -641,6 +649,44 @@ public class EnemyCreate : MonoBehaviour
 			Boss_01.transform.position = Vector3.zero;
 
 			Next_Condition(340);
+		}
+	}
+
+	void CreateEnemyGroup_02()
+	{
+		//円盤の群れを１つ右上から出す		
+		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
+		{
+			GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group.transform.position = createPosR3.transform.position;
+			enemy_UFO_Group.transform.rotation = transform.rotation;
+
+			Next_Condition(240);
+		}
+		//円盤の群れを１つ右上から出す		
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
+		{
+			GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group.transform.position = createPosR3.transform.position;
+			enemy_UFO_Group.transform.rotation = transform.rotation;
+
+			Next_Condition(240);
+		}
+		//円盤の群れを１つ右上から出す		
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
+		{
+			GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group.transform.position = createPosR3.transform.position;
+			enemy_UFO_Group.transform.rotation = transform.rotation;
+
+			Next_Condition(240);
+		}
+
+		//ボス仮置きを出す
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
+		{
+			Obj_Storage.Storage_Data.Boss_2.Active_Obj();
+			Next_Condition(240);
 		}
 	}
 	//---------------------------------------------------------------------
