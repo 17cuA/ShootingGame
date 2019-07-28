@@ -337,6 +337,8 @@ public class Player1 : character_status
 		{
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 			{
+				Shot_Delay = 0;
+
 				switch (bullet_Type)
 				{
 					case Bullet_Type.Single:
@@ -352,12 +354,17 @@ public class Player1 : character_status
 					default:
 						break;
 				}
+				if(effect_num > 4)
+				{
+					effect_num = 0;
+				}
 			}
 		}
 		else
 		{
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 			{
+				shoot_number++;
 				// 連続で4発まで撃てるようにした
 				if (shoot_number < 5)
 				{
@@ -367,24 +374,24 @@ public class Player1 : character_status
 							Single_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
 							break;
 						default:
 							break;
 					}
 				}
-				// 4発撃った後、10フレーム程置く
+				// 5発撃った後、10フレーム程置く
 				else if (shoot_number > 15)
 				{
 					shoot_number = 0;
 					effect_num = 0;
 				}
+				Shot_Delay = 0;
+
 			}
 			//Shot_Delay = 0;
 		}
