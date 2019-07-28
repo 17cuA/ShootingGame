@@ -23,6 +23,14 @@ public class MapCreate : MonoBehaviour
 			//１列ごとに取得
 			CreateMap();			//マップの作成（各オブジェクトの移動）
 		}
+		if (SceneManager.GetActiveScene().name == "Stage_02")
+		{
+			SC = GetComponent<SceneChanger>();
+			//OC = GetComponent<Object_Creation>();
+			//csvフォルダからマップ情報を取得
+			//１列ごとに取得
+			CreateMap();            //マップの作成（各オブジェクトの移動）
+		}
 	}
 	void CreateMap()
 	{

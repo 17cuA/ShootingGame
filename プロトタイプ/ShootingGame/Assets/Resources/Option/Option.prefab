@@ -318,6 +318,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6738013301264190844}
     m_Modifications:
+    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserEmitter
+      objectReference: {fileID: 0}
     - target: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -373,11 +378,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserEmitter
-      objectReference: {fileID: 0}
     - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: straightLaserShotSpeed
@@ -418,6 +418,16 @@ PrefabInstance:
       propertyPath: rotateLaserMaterial
       value: 
       objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: straightLaserOverloadDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: straightLaserLaunchInterval
+      value: 0.005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3517bbfe0d70d9e4c8ed482fd60c2173, type: 3}
 --- !u!1 &864329427793611800 stripped
@@ -453,36 +463,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: simulationSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
-        type: 3}
-      propertyPath: TriggerModule.enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860317, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
@@ -554,6 +534,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482223853234860316, guid: ca6fcdcfea37464478f69064879fe3c9,
+        type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1482223853234860315, guid: ca6fcdcfea37464478f69064879fe3c9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -585,6 +595,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6738013301264190844}
     m_Modifications:
+    - target: {fileID: 1856186317575461947, guid: 7a2c792710446a94abebec368d69cb12,
+        type: 3}
+      propertyPath: m_Name
+      value: option_test
+      objectReference: {fileID: 0}
     - target: {fileID: 2722151134463117356, guid: 7a2c792710446a94abebec368d69cb12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -649,11 +664,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856186317575461947, guid: 7a2c792710446a94abebec368d69cb12,
-        type: 3}
-      propertyPath: m_Name
-      value: option_test
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2c792710446a94abebec368d69cb12, type: 3}

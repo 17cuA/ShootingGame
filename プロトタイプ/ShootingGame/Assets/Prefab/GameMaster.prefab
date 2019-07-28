@@ -60,9 +60,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   P1: {fileID: 0}
-  Map: {fileID: 0}
-  Boss: {fileID: 0}
-  BA: {fileID: 0}
+  Boss:
+  - {fileID: 0}
+  - {fileID: 0}
+  One_Boss_Script: {fileID: 0}
+  Two_Boss_Script: {fileID: 0}
+  frame: 0
+  BossID: 1
 --- !u!114 &541882102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,3 +92,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0, z: 0}
+  audio_se:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  audio_voice:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemy_UFO_Group_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Four_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Two_Top_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Two_Under_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Three_Item_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Seven_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab: {fileID: 0}

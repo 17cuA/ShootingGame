@@ -412,6 +412,15 @@ public class Player1 : character_status
 
 				}
 			}
+			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				shoot_number = 0;
+			}
+			if (effect_num > 4)
+			{
+				effect_num = 0;
+			}
+
 		}
 	}
 
