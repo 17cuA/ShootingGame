@@ -1769,6 +1769,7 @@ GameObject:
   - component: {fileID: 2036491520}
   - component: {fileID: 2036491523}
   - component: {fileID: 2036491524}
+  - component: {fileID: 2036491525}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1845,12 +1846,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036491519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a84b1853ba5d225409715bf39542e715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 4
+  audioSource: {fileID: 8175564570435099510}
+  audioClip: {fileID: 8300000, guid: 4a760769e05297141b2acc5a51e063fe, type: 3}
+--- !u!114 &2036491525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036491519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614044c232635ae4b96ee80c68e7c40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   audioSource: {fileID: 8175564570435099510}
   audioClip: {fileID: 8300000, guid: 4a760769e05297141b2acc5a51e063fe, type: 3}
 --- !u!1001 &2054722625
@@ -2616,8 +2631,8 @@ GameObject:
   - component: {fileID: 8175564570435099508}
   - component: {fileID: 8175564570435099507}
   - component: {fileID: 8175564570435099510}
-  - component: {fileID: 8175564570435099511}
   - component: {fileID: 8175564570435099512}
+  - component: {fileID: 8175564570435099511}
   m_Layer: 13
   m_Name: BackgroundCamera
   m_TagString: Untagged
@@ -2709,7 +2724,8 @@ AudioSource:
   m_GameObject: {fileID: 8175564570435099506}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243498247437247738, guid: ced3c9c5de18cdc438f8373c13da2f97,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.15
@@ -2818,7 +2834,8 @@ AudioSource:
   m_GameObject: {fileID: 8175564570435099506}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243240623616706310, guid: ced3c9c5de18cdc438f8373c13da2f97,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 0d3569447431e1b4ba5203996d94691b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
