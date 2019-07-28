@@ -21,7 +21,7 @@ public class Enemy_Wave : character_status
 
 	GameObject childObj;        //子供入れる
 	public GameObject childObj_Shot;
-	GameObject childObj_Angle;
+	public GameObject childObj_Angle;
 	GameObject item;			//アイテム入れる
 	GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
@@ -32,7 +32,7 @@ public class Enemy_Wave : character_status
 	//BlurController blurCon;
 	EnemyGroupManage groupManage;			//群れの時の親スクリプト
 	Find_Angle fd;
-	Find_Angle fd_Rush;
+	public Find_Angle fd_Rush;
 	//public ParticleSystem sonicBoom;			//ジェット噴射の衝撃波のようなパーティクル
 
 	Vector3 velocity;
@@ -57,9 +57,12 @@ public class Enemy_Wave : character_status
 	float startPosY;                //最初のY座標値
 	float rotaY;					//Y角度
 	public float amplitude;         //画面奥から出てこない時の上下の振れ幅
-	float rushStayCnt;
+	public float rushStayCnt;
+	[Header("突進角度が変わり始めるまでの秒")]
 	public float rushStayCntMax;
-
+	public float saverushRotaZ;
+	public float rushRotaZ;
+	public float rushRotaZ_Value;
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
 	public float addAndSubValue;        //Yスピードを増減させる値
 
@@ -93,6 +96,8 @@ public class Enemy_Wave : character_status
 	bool isSonicPlay = false;
     public bool utsuttemasuyo=false;
     bool isWaveStart = false;
+	bool isRushStart = false;
+	bool isRush = false;
 	public bool Died_Attack = false;
 
 	//float present_Location = 0;
@@ -482,10 +487,59 @@ public class Enemy_Wave : character_status
 		{
 			if (eState == State.Rush)
 			{
-				rushStayCnt++;
-				if (rushStayCnt > rushStayCntMax)
+				if (isRush)
 				{
-					
+					rushStayCnt += Time.deltaTime;
+					if (rushStayCnt>3)
+					{
+						speedX = 13;
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+						gameObject.transform.position += velocity * Time.deltaTime;
+
+					}
+				}
+				else if(isRushStart)
+				{
+					if (rushRotaZ_Value > 0)
+					{
+						rushRotaZ += 0.5f;
+						if (rushRotaZ > rushRotaZ_Value)
+						{
+							rushRotaZ = rushRotaZ_Value;
+							isRush = true;
+						}
+						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y,rushRotaZ);
+					}
+					else if (rushRotaZ_Value < 0)
+					{
+						rushRotaZ -= 0.5f;
+						if (rushRotaZ < rushRotaZ_Value)
+						{
+							rushRotaZ = rushRotaZ_Value;
+							isRush = true;
+						}
+						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+					}
+				}
+				else if(!isRush && !isRushStart)
+				{
+					rushStayCnt += Time.deltaTime;
+
+					if (rushStayCnt > rushStayCntMax)
+					{
+						isRushStart = true;
+						saverushRotaZ = fd_Rush.degree;
+
+						if (saverushRotaZ > 0)
+						{
+							rushRotaZ_Value = saverushRotaZ - 180;
+						}
+						else if (saverushRotaZ < 0)
+						{
+							rushRotaZ_Value = saverushRotaZ + 180;
+						}
+					}
+
 				}
 			}
 			else

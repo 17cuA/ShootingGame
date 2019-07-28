@@ -15,8 +15,11 @@ public class Bit_Shot : MonoBehaviour
 
 	Player1 pl1;						//プレイヤースクリプト
 	Bit_Formation_3 bf;					//オプションの全般のスクリプト
-    public Quaternion Direction;		//オブジェクトの向きを変更する時に使う  
-    int shotNum;						//撃った数
+    public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
+	public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
+
+	int shotNum;                        //撃った数
+	int effectNum;
     float shot_Delay;					//撃つディレイ
 		
 	public bool isShot = true;			//撃てるか
@@ -105,55 +108,61 @@ public class Bit_Shot : MonoBehaviour
 				laser_Obj.SetActive(false);
 			}
 
-			//ディレイカウントがディレイの最大値より大きくなったら撃てる
-			if (shot_Delay > shotDelayMax)
+			if (shot_Delay > pl1.Shot_DelayMax)
 			{
+				//弾を射出
+				Bullet_Create();
+			}
 
-                //shotNum++;
+			//ディレイカウントがディレイの最大値より大きくなったら撃てる
+			//if (shot_Delay > shotDelayMax)
+			//{
 
-                // 連続で4発まで撃てるようにした
-                if (shotNum < 5)
-                {
-					//プレイヤーの弾のタイプによって撃てるのが変わる
-					switch(pl1.bullet_Type)
-					{
-						case Player1.Bullet_Type.Single:
-							Single_Fire();
-							shotNum++;
-							//Bullet_Create();
+   //             //shotNum++;
 
-							break;
-						case Player1.Bullet_Type.Double:
-							Double_Fire();
-							shotNum++;
-							break;
-						case Player1.Bullet_Type.Laser:
-							//laser.Stop();
-							break;
-						default:
-							break;
-					}
-                    // ミサイルは別途ディレイの計算と分岐をする
-                    if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
-                    {
-						if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-						{
-							Missile_Fire();
-						}
-						//missileDelayCnt = 0;
-					}
-					shot_Delay = 0;
-                }
-                // 4発撃った後、10フレーム程置く
-                else if (shotNum == 15)
-                {
-                    shotNum = 0;
-                }
-				else
-				{
-					shotNum++;
-				}
-            }				
+   //             // 連続で4発まで撃てるようにした
+   //             if (shotNum < 5)
+   //             {
+			//		//プレイヤーの弾のタイプによって撃てるのが変わる
+			//		switch(pl1.bullet_Type)
+			//		{
+			//			case Player1.Bullet_Type.Single:
+			//				Single_Fire();
+			//				shotNum++;
+			//				//Bullet_Create();
+
+			//				break;
+			//			case Player1.Bullet_Type.Double:
+			//				Double_Fire();
+			//				shotNum++;
+			//				break;
+			//			case Player1.Bullet_Type.Laser:
+			//				//laser.Stop();
+			//				break;
+			//			default:
+			//				break;
+			//		}
+   //                 // ミサイルは別途ディレイの計算と分岐をする
+   //                 if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+   //                 {
+			//			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			//			{
+			//				Missile_Fire();
+			//			}
+			//			//missileDelayCnt = 0;
+			//		}
+			//		shot_Delay = 0;
+   //             }
+   //             // 4発撃った後、10フレーム程置く
+   //             else if (shotNum == 15)
+   //             {
+   //                 shotNum = 0;
+   //             }
+			//	else
+			//	{
+			//		shotNum++;
+			//	}
+   //         }				
 			
 			shot_Delay++;
 		}
@@ -166,11 +175,95 @@ public class Bit_Shot : MonoBehaviour
 	//-----------ここから関数----------------
 	public void Bullet_Create()
 	{
-		//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-		//{
-		//	Single_Fire();
-		//	shot_Delay = 0;
-		//}
+
+		if (!pl1.Is_Change_Auto)
+		{
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			{
+				shot_Delay = 0;
+
+				switch (pl1.bullet_Type)
+				{
+					case Player1.Bullet_Type.Single:
+						Single_Fire();
+						effect_Mazle_Fire[effectNum].Play();
+						effectNum++;
+						break;
+					case Player1.Bullet_Type.Double:
+						Double_Fire();
+						effect_Mazle_Fire[effectNum].Play();
+						effectNum++;
+						break;
+					default:
+						break;
+				}
+				if (effectNum > 4)
+				{
+					effectNum = 0;
+				}
+				if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+				{
+					Missile_Fire();
+					missileDelayCnt = 0;
+				}
+
+			}
+		}
+		else
+		{
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				// 連続で4発まで撃てるようにした
+				if (shotNum < 5)
+				{
+					switch (pl1.bullet_Type)
+					{
+						case Player1.Bullet_Type.Single:
+							Single_Fire();
+							effect_Mazle_Fire[effectNum].Play();
+							effectNum++;
+							shotNum++;
+
+							break;
+						case Player1.Bullet_Type.Double:
+							Double_Fire();
+							effect_Mazle_Fire[effectNum].Play();
+							effectNum++;
+							shotNum++;
+
+							break;
+						default:
+							break;
+					}
+					if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+					{
+						Missile_Fire();
+						missileDelayCnt = 0;
+					}
+					shot_Delay = 0;
+
+				}
+				// 4発撃った後、10フレーム程置く
+				else if (shotNum == 15)
+				{
+					shotNum = 0;
+					effectNum = 0;
+				}
+				else
+				{
+					shotNum++;
+				}
+			}
+			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				shotNum = 0;
+			}
+			if (effectNum > 4)
+			{
+				effectNum = 0;
+			}
+
+		}
 	}
 
 	//単発発射関数

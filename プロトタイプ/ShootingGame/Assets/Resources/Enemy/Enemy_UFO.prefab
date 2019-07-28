@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
-  imasuyo: 0
+  imasuyo: 1
+  isPlayerActive: 1
   degree: 0
 --- !u!114 &6761423790994251535
 MonoBehaviour:
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  myName: 
   Shot_Delay: 0
   Shot_Delay_Max: 2
   burst_delay: 0
@@ -154,9 +156,9 @@ MonoBehaviour:
   self_material:
   - {fileID: 0}
   white_material: {fileID: 0}
-  eState: 0
+  eState: 2
   parentObj: {fileID: 0}
-  defaultPos: {x: 0, y: 0, z: 0}
+  defaultPos_Local: {x: 0, y: 0, z: 0}
   defaultPos_PlusZ: {x: 0, y: 0, z: 0}
   diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
   diedAttack_Transform: {fileID: 0}
@@ -164,6 +166,10 @@ MonoBehaviour:
   circleSpeed: 10
   radius: 1
   ZMovePos: -10
+  defaultPosY_World: 0
+  defaultPosY_Local: 0
+  endPosY_Local: 0
+  localPosY: 0
   speedX: 5
   speedX_Straight: 3
   speedY: 0

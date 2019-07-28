@@ -91,6 +91,7 @@ public class character_status : MonoBehaviour
 	public void Reset_Status()
 	{
 		hp = hp_Max;
+		Is_Dead = false;
 	}
 	//ダメージを与える関数
 	public void Damege_Process(int damege)
@@ -166,7 +167,7 @@ public class character_status : MonoBehaviour
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
 					PowerManager.Instance.Pick();
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[5]);
+					SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
 					col.gameObject.SetActive(false);
 				}
 				else

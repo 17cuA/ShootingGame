@@ -16,56 +16,60 @@ public class Player1 : character_status
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
-    public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
+	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
-	
+
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
-	public Material material;			//この機体のマテリアル（これをいじくって透明化等を行う）
-	private Color first_color;			//初期の色を保存しておくようの画像
+	public Material material;           //この機体のマテリアル（これをいじくって透明化等を行う）
+	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
 
 
-	[SerializeField]private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	public ParticleSystem particleSystem;							//ジェット噴射自体のパーティクルシステム
-	private ParticleSystem.MainModule particleSystemMain;	//☝の中のメイン部分（としか言いようがない）
-	[SerializeField]private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
-	[SerializeField] private ParticleSystem resporn_Injection;	//復活時のジェット噴射エフェクトを入れる
-	//ジェット噴射用の数値-------------------------------
+	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
+	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
+	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
+	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
+	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
+																//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-	//------------------------------------------------------
+															//------------------------------------------------------
 
-	public float swing_facing;				// 旋回向き
-	public float facing_cnt;					// 旋回カウント
+	public float swing_facing;              // 旋回向き
+	public float facing_cnt;                    // 旋回カウント
 	public int shoot_number;                //弾を連続して撃った時の数をカウントするための変数
 
-	public GameObject Laser;				//レーザーのobjectをOnにするために行う処理
+	public GameObject Laser;                //レーザーのobjectをOnにするために行う処理
 
-	private int missile_dilay_cnt;				// ミサイルの発射間隔カウンター
+	private int missile_dilay_cnt;              // ミサイルの発射間隔カウンター
 	public int missile_dilay_max;               // ミサイルの発射間隔
 
 	//public Line_Beam line_beam;
 
-	public enum Bullet_Type　　//弾の種類
+	public enum Bullet_Type  //弾の種類
 	{
 		Single,
 		Double,
 		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
-
+									//リスポーン時に使用する変数---------------------------------------------------------------------
 	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
-
+	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-	private int cnt;
-	public bool Is_Change;
+									//復活時のエフェクト用変数-------------------------------------
+	private int cnt;                        // マテリアルを切り替えるに使用する
+	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
+										//--------------------------------------------------------
+
+	public bool Is_Change_Auto;
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -107,14 +111,14 @@ public class Player1 : character_status
 	{
 		base.Start();
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
-        shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
+		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
 		HP_Setting();
 		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
-        bullet_Type = Bullet_Type.Single;	//初期状態をsingleに
+		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
 		first_color = material.color;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
@@ -128,13 +132,14 @@ public class Player1 : character_status
 		base.Start();
 		Is_Resporn = false;
 		startTime = 0;
-		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop();	//複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
-		effect_num = 0;			
-		min_speed = speed;		//初期の速度を保存しておく
+		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
+		effect_num = 0;
+		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
+		PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
+		Is_Change_Auto = false;
 	}
 
 	new void Update()
@@ -146,8 +151,8 @@ public class Player1 : character_status
 			//Debug.Log("hei");
 			capsuleCollider.enabled = false;
 			startTime += Time.deltaTime;
-			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction,startTime);
-			
+			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction, startTime);
+
 			if (transform.position == direction)
 			{
 				resporn_Injection.Stop();
@@ -190,10 +195,10 @@ public class Player1 : character_status
 			//}
 			if (hp < 1)
 			{
-				if (Laser.activeSelf) { Laser.SetActive(false); }	//もし、レーザーが稼働状態であるならば、非アクティブにする
-				PowerManager.Instance.ResetSelect();				//アイテム取得回数をリセットする
-				Remaining--;										//残機を1つ減らす
-				//残機が残っていなければ
+				if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
+				PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+				Remaining--;                                        //残機を1つ減らす
+																	//残機が残っていなければ
 				if (Remaining < 1)
 				{
 					//残機がない場合死亡
@@ -205,11 +210,11 @@ public class Player1 : character_status
 				{
 					ParticleCreation(0);        //爆発のエフェクト発動
 					Reset_Status();             //体力の修正
-					//gameObject.transform.position = direction;      //初期位置に戻す
-					//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+												//gameObject.transform.position = direction;      //初期位置に戻す
+												//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 					invincible = true;         //無敵状態にするかどうかの処理
 					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-					bullet_Type = Bullet_Type.Single;		//撃つ弾の種類を変更する
+					bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 					Is_Resporn = true;                      //復活用の処理を行う
 				}
 			}
@@ -229,8 +234,6 @@ public class Player1 : character_status
 			{
 				//アイテムを規定数所持していたらその値と同じものの効果を得る
 				PowerManager.Instance.Upgrade();
-				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 			}
 			// 通常のバレットのディレイ計算
 			Shot_Delay++;
@@ -241,18 +244,18 @@ public class Player1 : character_status
 	//コントローラーの操作
 	private void Player_Move()
 	{
-			x = Input.GetAxis("Horizontal");			//x軸の入力
-			y = Input.GetAxis("Vertical");				//y軸の入力
+		x = Input.GetAxis("Horizontal");            //x軸の入力
+		y = Input.GetAxis("Vertical");              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
-		if (transform.position.y >= 4.5f && y > 0)		y = 0;
-		if (transform.position.y <= -4.5f && y < 0)		y = 0;
-		if (transform.position.x >= 17.0f && x>0)		x = 0;
-		if (transform.position.x <= -17.0f && x < 0)	x = 0;
-		
-		vector3 = new Vector3(x, y, 0);		//移動のベクトルをvector3に入れる
-		// プレイヤー機体の旋回
-		// プレイヤーの向き(Y軸の正負)で角度算出
+		if (transform.position.y >= 4.5f && y > 0) y = 0;
+		if (transform.position.y <= -4.5f && y < 0) y = 0;
+		if (transform.position.x >= 17.0f && x > 0) x = 0;
+		if (transform.position.x <= -17.0f && x < 0) x = 0;
+
+		vector3 = new Vector3(x, y, 0);     //移動のベクトルをvector3に入れる
+											// プレイヤー機体の旋回
+											// プレイヤーの向き(Y軸の正負)で角度算出
 		if (transform.eulerAngles.x != (swing_facing * y))
 		{
 			// 参考にしたURL↓
@@ -300,7 +303,7 @@ public class Player1 : character_status
 				Change_Material(2);
 			}
 			invincible_time++;          //フレーム管理
-			if(capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
+			if (capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
 		}
 		else
 		{
@@ -310,7 +313,7 @@ public class Player1 : character_status
 				object_material[i].material = Get_self_material(i);
 			}
 
-			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;	//カプセルコライダーをオンにする
+			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
 		}
 	}
 
@@ -318,74 +321,110 @@ public class Player1 : character_status
 	private void Change_In_Direction()
 	{
 		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1,0, 0);
+		Direction *= new Quaternion(0, -1, 0, 0);
 		transform.rotation = Direction;
 	}
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		if (Input.GetButtonDown("Fire3"))
 		{
-			// 連続で4発まで撃てるようにした
-			if (shoot_number < 5)
+			Debug.Log("モードチェンジ");
+			Is_Change_Auto = !Is_Change_Auto;
+		}
+
+		if (!Is_Change_Auto)
+		{
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 			{
+				Shot_Delay = 0;
+
 				switch (bullet_Type)
 				{
 					case Bullet_Type.Single:
 						Single_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
-						shoot_number++;
-
 						break;
 					case Bullet_Type.Double:
 						Double_Fire();
 						effect_mazle_fire[effect_num].Play();
 						effect_num++;
-						shoot_number++;
-
 						break;
 					default:
 						break;
 				}
-				// ミサイルは別途ディレイの計算と分岐をする
+				if(effect_num > 4)
+				{
+					effect_num = 0;
+				}
 				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 				{
 					Missile_Fire();
 					missile_dilay_cnt = 0;
 				}
-				Shot_Delay = 0;
-			}
-			// 4発撃った後、10フレーム程置く
-			else if (shoot_number == 15)
-			{
-				shoot_number = 0;
-				effect_num = 0;
-			}
-			else
-			{
-				shoot_number++;
 
 			}
 		}
 		else
 		{
-			switch (bullet_Type)
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 			{
-				case Bullet_Type.Single:
-					break;
-				case Bullet_Type.Double:
-					break;
-				case Bullet_Type.Laser:
-					//laser.Stop();
-					break;
-				default:
-					break;
+				// 連続で4発まで撃てるようにした
+				if (shoot_number < 5)
+				{
+					switch (bullet_Type)
+					{
+						case Bullet_Type.Single:
+							Single_Fire();
+							effect_mazle_fire[effect_num].Play();
+							effect_num++;
+							shoot_number++;
+
+							break;
+						case Bullet_Type.Double:
+							Double_Fire();
+							effect_mazle_fire[effect_num].Play();
+							effect_num++;
+							shoot_number++;
+
+							break;
+						default:
+							break;
+					}
+					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+					{
+						Missile_Fire();
+						missile_dilay_cnt = 0;
+					}
+					Shot_Delay = 0;
+
+				}
+				// 4発撃った後、10フレーム程置く
+				else if (shoot_number == 15)
+				{
+					shoot_number = 0;
+					effect_num = 0;
+				}
+				else
+				{
+					shoot_number++;
+
+				}
 			}
+			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				shoot_number = 0;
+			}
+			if (effect_num > 4)
+			{
+				effect_num = 0;
+			}
+
 		}
 	}
 
-    private void Single_Fire()
+	private void Single_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
@@ -393,7 +432,7 @@ public class Player1 : character_status
 	private void Double_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0,0,45));
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	//	ミサイルの発射
@@ -412,6 +451,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//ミサイルをアクティブに
@@ -424,6 +464,8 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	private void ActiveDouble()
 	{
@@ -435,6 +477,8 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -448,6 +492,8 @@ public class Player1 : character_status
 		particle.Play();
 		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 		Laser.SetActive(true);
 	}
 	//シールドの発動
@@ -455,7 +501,7 @@ public class Player1 : character_status
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
 		Set_Shield(3);
-		shield_Effect.Play();				//パーティクルの稼働
+		shield_Effect.Play();               //パーティクルの稼働
 		Debug.Log("シールド発動");
 		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
@@ -465,6 +511,7 @@ public class Player1 : character_status
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//オプションをアクティブに
@@ -498,6 +545,8 @@ public class Player1 : character_status
 	private void Init_speed()
 	{
 		speed = min_speed;
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更
 	private void Reset_BulletType()
@@ -505,35 +554,36 @@ public class Player1 : character_status
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
 	}
 	//----------------------------------------------------------
+	//プレイヤーの無敵表現（チカチカ光る感じ）
 	private void Change_Material(int j)
 	{
-		if(cnt > j)
+		//規定フレームを越したら動くように
+		if (cnt > j)
 		{
-
+			//元のmaterialか白に変更するかどうかの判定
 			if (Is_Change == false)
-			//if (!object_material[i].enabled)
 			{
+				//主人公機のmaterialを白に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
-
 					object_material[i].material = white_material;
 				}
 				Is_Change = true;
 			}
 			else
 			{
+				//主人公機のmaterialを元の色に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
 
 					object_material[i].material = Get_self_material(i);
 				}
 				Is_Change = false;
-				Debug.Log("uhyooooo");
-
-
 			}
+			//countをもとに戻す
 			cnt = 0;
 		}
+		//フレーム加算
 		cnt++;
 	}
 }
