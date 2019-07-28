@@ -358,13 +358,18 @@ public class Player1 : character_status
 				{
 					effect_num = 0;
 				}
+				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+				{
+					Missile_Fire();
+					missile_dilay_cnt = 0;
+				}
+
 			}
 		}
 		else
 		{
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 			{
-				shoot_number++;
 				// 連続で4発まで撃てるようにした
 				if (shoot_number < 5)
 				{
@@ -374,32 +379,39 @@ public class Player1 : character_status
 							Single_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
+							shoot_number++;
+
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
+							shoot_number++;
+
 							break;
 						default:
 							break;
 					}
+					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+					{
+						Missile_Fire();
+						missile_dilay_cnt = 0;
+					}
+					Shot_Delay = 0;
+
 				}
-				// 5発撃った後、10フレーム程置く
-				else if (shoot_number > 15)
+				// 4発撃った後、10フレーム程置く
+				else if (shoot_number == 15)
 				{
 					shoot_number = 0;
 					effect_num = 0;
 				}
-				Shot_Delay = 0;
+				else
+				{
+					shoot_number++;
 
+				}
 			}
-			//Shot_Delay = 0;
-		}
-		// ミサイルは別途ディレイの計算と分岐をする
-		if (activeMissile && missile_dilay_cnt > missile_dilay_max)
-		{
-			Missile_Fire();
-			missile_dilay_cnt = 0;
 		}
 	}
 
