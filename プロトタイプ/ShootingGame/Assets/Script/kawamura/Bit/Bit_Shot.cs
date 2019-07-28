@@ -109,7 +109,7 @@ public class Bit_Shot : MonoBehaviour
 			if (shot_Delay > shotDelayMax)
 			{
 
-                shotNum++;
+                //shotNum++;
 
                 // 連続で4発まで撃てるようにした
                 if (shotNum < 5)
@@ -119,12 +119,13 @@ public class Bit_Shot : MonoBehaviour
 					{
 						case Player1.Bullet_Type.Single:
 							Single_Fire();
+							shotNum++;
 							//Bullet_Create();
 
 							break;
 						case Player1.Bullet_Type.Double:
 							Double_Fire();
-
+							shotNum++;
 							break;
 						case Player1.Bullet_Type.Laser:
 							//laser.Stop();
@@ -148,6 +149,10 @@ public class Bit_Shot : MonoBehaviour
                 {
                     shotNum = 0;
                 }
+				else
+				{
+					shotNum++;
+				}
             }				
 			
 			shot_Delay++;
