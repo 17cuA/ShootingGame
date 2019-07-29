@@ -21,10 +21,15 @@ public class LaserLine : Player_Bullet
 	public float trailMaxWidth = 5;
 	public float trailMinWidth;
 
+	public float colliderMaxSize = 5;
+	public float colliderMinSize;
+
 	public bool isRotateLaser = false;
 	public bool ischangLaserWidth = false;
 
 	private float lifeTimer = 0f;
+
+	private CapsuleCollider capsuleCollider;
 
     private void Awake()
     {
@@ -34,6 +39,8 @@ public class LaserLine : Player_Bullet
 
 		this.trailRenderer = GetComponent<TrailRenderer>();
 		this.trailMinWidth = 0;
+		this.capsuleCollider = GetComponent<CapsuleCollider>();
+		this.capsuleCollider.direction = 0;
 	}
 
 	private new void Update()

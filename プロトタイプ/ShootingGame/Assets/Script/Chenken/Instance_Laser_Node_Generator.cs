@@ -159,11 +159,25 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	public void LaunchNode(float trailWidth, bool isRotateLaser)
 	{
 		GameObject node = null;
-		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isRotateLaser);
+		node = CreateNode(transform.position, this.emitter.transform.localEulerAngles, trailWidth, isRotateLaser);
 
 		//管理するように
 		this.nodes.Add(node.GetComponent<LaserLine>());
 		this.pointCount++;
+
+		if (nodes.Count > 1 && isRotateLaser && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl)))
+		{
+			var last = this.nodes[this.nodes.Count - 1];
+			var lastlast = this.nodes[this.nodes.Count - 2];
+			var pos = (last.transform.position + lastlast.transform.position) / 2;
+			var rotation = (last.transform.localEulerAngles + lastlast.transform.localEulerAngles) / 2f;
+
+			node = CreateNode(pos, rotation, trailWidth,isRotateLaser);
+			node.GetComponent<LaserLine>().lifeTime = (last.lifeTime + lastlast.lifeTime) / 2f;
+			node.GetComponent<LaserLine>().ischangLaserWidth = true;
+			//this.nodes.Insert(this.nodes.Count - 1, node.GetComponent<LaserLine>());
+			//this.pointCount++;
+		}
 
 		//if (nodes.Count != 0)
 		//{
@@ -200,16 +214,26 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		pointCount = 0;
 	}
 
-	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isRotateLaser)
+	private GameObject CreateNode(Vector3 pos, Vector3 rotation, float trailWidth, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		node.transform.localRotation = rotation;
+		node.transform.localEulerAngles = rotation;
 		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
 		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
+
+		if(isRotateLaser)
+		{
+			node.transform.GetChild(0).gameObject.SetActive(false);
+		}
+		else
+		{
+			node.transform.GetChild(0).gameObject.SetActive(true);
+		}
+
 		return node;
 	}
 
