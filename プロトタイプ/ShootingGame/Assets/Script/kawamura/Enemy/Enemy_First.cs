@@ -12,6 +12,7 @@ public class Enemy_First : character_status
 	{
 		TurnUp,         //上に曲がる
 		TurnDown,       //下に曲がる
+		defaultStraight,
 		Straight,       //生成された時(曲がらない)
 	}
 
@@ -125,18 +126,19 @@ public class Enemy_First : character_status
 			if (parentObj.name == "enemy_UFO_Group")
 			{
 				groupManage = parentObj.GetComponent<EnemyGroupManage>();
-                //transform.position = defaultPos_PlusZ;
-				if (transform.position.y > 0)
-				{
+				//transform.position = defaultPos_PlusZ;
+				speedX = 5;
+				//if (transform.position.y > 0)
+				//{
 
-					speedX = 5;
-					eState = State.TurnDown;
-				}
-				else
-				{
-					speedX = 5;
-					eState = State.TurnUp;
-				}
+				//	speedX = 5;
+				//	eState = State.TurnDown;
+				//}
+				//else
+				//{
+				//	speedX = 5;
+				//	eState = State.TurnUp;
+				//}
 			}
 			else
 			{
@@ -167,38 +169,36 @@ public class Enemy_First : character_status
 				}
 				else
 				{
+					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
+
 					defaultPosY_World = transform.position.y;
 					defaultPosY_Local = transform.localPosition.y;
 
 					endPosY_Local = defaultPosY_World * -0.29f;
 
-					//if (eState == State.TurnDown)
-					//{
-					//	endPosY_Local = defaultPosY_World * -0.29f;
-					//}
-					//else if (eState == State.TurnUp)
-					//{
-					//	endPosY_Local = defaultPosY_World * 0.29f;
-					//}
-                    //transform.localPosition = defaultPos_Local;
+					//transform.localPosition = defaultPos_Local;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
-                    //transform.localPosition = defaultPos_PlusZ;
+					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
 
-                    if (transform.position.y > 0)
-					{
-						//transform.localPosition = defaultPos_Local;
-						speedX = 5;
-                        speedY = 5;
-						eState = State.TurnDown;
-					}
-					else
-					{
-						//transform.localPosition = defaultPos_Local;
-						speedX = 5;
-                        speedY = 5;
-						eState = State.TurnUp;
-					}
+					//transform.localPosition = new Vector3(0, 0, 20.0f);
+					//transform.localPosition = defaultPos_PlusZ;
+					//transform.localPosition = defaultPos_Local;
+
+					speedX = 5;
+     //               if (transform.position.y > 0)
+					//{
+					//	//transform.localPosition = defaultPos_Local;
+					//	speedX = 5;
+     //                   speedY = 5;
+					//	eState = State.TurnDown;
+					//}
+					//else
+					//{
+					//	//transform.localPosition = defaultPos_Local;
+					//	speedX = 5;
+     //                   speedY = 5;
+					//	eState = State.TurnUp;
+					//}
 				}
 			}
 			once = false;
@@ -272,7 +272,7 @@ public class Enemy_First : character_status
 	{
 		switch (eState)
 		{
-			case State.TurnUp:
+			case State.defaultStraight:
 				if (!isTurn)
 				{
 					//straightFrame--;
@@ -333,90 +333,163 @@ public class Enemy_First : character_status
 
 					speedX -= 0.12f;
 
-                    if (transform.position.y > 0.5)
-                    {
-                        speedX -= 0.36f;
-                        speedY += 0.36f;
-                    }
-                    if (speedX < -12.0f)
-                    {
-                        speedX = -12.0f;
-                    }
-                }
-                break;
-
-			case State.TurnDown:
-				if (!isTurn)
-				{
-					velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
-					gameObject.transform.position += velocity * Time.deltaTime;
-					localPosY = transform.localPosition.z * (-endPosY_Local / 20.0f) + endPosY_Local;
-					gameObject.transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY_Local + localPosY, transform.localPosition.z);
-
-					//HSV_Change();
-					if (transform.position.z < 0)
-					{
-						transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-						speedZ = 0;
-						speedZ_Value = 0;
-					}
-
-					if (transform.localPosition.x <= ZMovePos)
-					{
-						speedZ = speedZ_Value;
-					}
-
-					if (transform.localPosition.x <= -32)
-					{
-						//frame += Time.deltaTime;
-						//if (frame > 3)
-						//{
-						//	isTurn = true;
-						//}
-						speedX = 5;
-						//isTurn = true;
-					}
-					else if (transform.localPosition.x < -21)
+					if (transform.position.y > 0.5)
 					{
 						speedX -= 0.36f;
-						if (speedX < 5)
-						{
-							speedX = 5;
-						}
+						speedY += 0.36f;
 					}
-
-					else if (transform.localPosition.x < -9)
-					{
-						speedX += 0.12f;
-					}
-
-					//if (transform.position.x < 9)
-					//{
-					//	frame += Time.deltaTime;
-					//}
-					//if (frame > 3)
-					//{
-					//	isTurn = true;
-					//}
-				}
-				else if (isTurn)
-				{
-					velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
-					gameObject.transform.position += velocity * Time.deltaTime;
-
-					speedX -= 0.12f;
-
-                    if (transform.position.y < -0.5)
-                    {
-                        speedX -= 0.36f;
-                        speedY += 0.36f;
-                    }
 					if (speedX < -12.0f)
 					{
 						speedX = -12.0f;
 					}
 				}
 				break;
+
+			//case State.TurnUp:
+			//	if (!isTurn)
+			//	{
+			//		//straightFrame--;
+			//		velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
+			//		gameObject.transform.position += velocity * Time.deltaTime;
+			//		localPosY = transform.localPosition.z * (-endPosY_Local / 20.0f) + endPosY_Local;
+			//		gameObject.transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY_Local + localPosY, transform.localPosition.z);
+			//		//HSV_Change();
+
+			//		if (transform.position.z < 0)
+			//		{
+			//			transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+			//			speedZ = 0;
+			//			speedZ_Value = 0;
+			//		}
+
+			//		if (transform.localPosition.x <= ZMovePos)
+			//		{
+			//			speedZ = speedZ_Value;
+			//		}
+			//		if (transform.localPosition.x <= -32)
+			//		{
+			//			//frame += Time.deltaTime;
+			//			//if (frame > 3)
+			//			//{
+			//			//	isTurn = true;
+			//			//}
+			//			speedX = 5;
+			//			//isTurn = true;
+			//		}
+
+			//		else if (transform.localPosition.x < -21)
+			//		{
+			//			speedX -= 0.36f;
+			//			if (speedX < 5)
+			//			{
+			//				speedX = 5;
+			//			}
+
+			//		}
+			//		else if (transform.localPosition.x < -9)
+			//		{
+			//			speedX += 0.12f;
+			//		}
+			//		//if (transform.position.x < 9)
+			//		//{
+			//		//	frame += Time.deltaTime;
+			//		//	if (frame > 3)
+			//		//	{
+			//		//		isTurn = true;
+			//		//	}
+			//		//}
+			//	}
+			//	else if (isTurn)
+			//	{
+			//		velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+			//		gameObject.transform.position += velocity * Time.deltaTime;
+
+			//		speedX -= 0.12f;
+
+			//                 if (transform.position.y > 0.5)
+			//                 {
+			//                     speedX -= 0.36f;
+			//                     speedY += 0.36f;
+			//                 }
+			//                 if (speedX < -12.0f)
+			//                 {
+			//                     speedX = -12.0f;
+			//                 }
+			//             }
+			//             break;
+
+			//case State.TurnDown:
+			//	if (!isTurn)
+			//	{
+			//		velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, -speedZ);
+			//		gameObject.transform.position += velocity * Time.deltaTime;
+			//		localPosY = transform.localPosition.z * (-endPosY_Local / 20.0f) + endPosY_Local;
+			//		gameObject.transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY_Local + localPosY, transform.localPosition.z);
+
+			//		//HSV_Change();
+			//		if (transform.position.z < 0)
+			//		{
+			//			transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+			//			speedZ = 0;
+			//			speedZ_Value = 0;
+			//		}
+
+			//		if (transform.localPosition.x <= ZMovePos)
+			//		{
+			//			speedZ = speedZ_Value;
+			//		}
+
+			//		if (transform.localPosition.x <= -32)
+			//		{
+			//			//frame += Time.deltaTime;
+			//			//if (frame > 3)
+			//			//{
+			//			//	isTurn = true;
+			//			//}
+			//			speedX = 5;
+			//			//isTurn = true;
+			//		}
+			//		else if (transform.localPosition.x < -21)
+			//		{
+			//			speedX -= 0.36f;
+			//			if (speedX < 5)
+			//			{
+			//				speedX = 5;
+			//			}
+			//		}
+
+			//		else if (transform.localPosition.x < -9)
+			//		{
+			//			speedX += 0.12f;
+			//		}
+
+			//		//if (transform.position.x < 9)
+			//		//{
+			//		//	frame += Time.deltaTime;
+			//		//}
+			//		//if (frame > 3)
+			//		//{
+			//		//	isTurn = true;
+			//		//}
+			//	}
+			//	else if (isTurn)
+			//	{
+			//		velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+			//		gameObject.transform.position += velocity * Time.deltaTime;
+
+			//		speedX -= 0.12f;
+
+   //                 if (transform.position.y < -0.5)
+   //                 {
+   //                     speedX -= 0.36f;
+   //                     speedY += 0.36f;
+   //                 }
+			//		if (speedX < -12.0f)
+			//		{
+			//			speedX = -12.0f;
+			//		}
+			//	}
+			//	break;
 
 			case State.Straight:
 				speedX = speedX_Straight;
@@ -455,6 +528,7 @@ public class Enemy_First : character_status
 		speedZ_Value = 50;
 		once = true;
 		isTurn = false;
+		Is_Dead = false;
 	}
 	private void OnTriggerExit(Collider col)
 	{
@@ -469,6 +543,21 @@ public class Enemy_First : character_status
 				}
 			}
 			//frame = 0;
+			Enemy_Reset();
+			gameObject.SetActive(false);
+
+		}
+		else if(eState==State.defaultStraight&& col.gameObject.name == "WallLeft")
+		{
+			if (parentObj)
+			{
+				if (parentObj.name == "enemy_UFO_Group")
+				{
+					groupManage.notDefeatedEnemyCnt++;
+					groupManage.remainingEnemiesCnt -= 1;
+				}
+			}
+
 			Enemy_Reset();
 			gameObject.SetActive(false);
 

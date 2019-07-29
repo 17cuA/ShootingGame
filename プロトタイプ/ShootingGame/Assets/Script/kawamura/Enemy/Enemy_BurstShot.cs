@@ -23,8 +23,11 @@ public class Enemy_BurstShot : MonoBehaviour
 	[Header("バースト内の弾の間隔")]
 	public float burst_Delay_Max;           //バーストの1発1発の間隔
 	[Header("バーストで撃つ数")]
-	public int burst_Num;                   //撃つバースト数
-	public int burst_Shotshot_Cnt;                 //何発撃ったかのカウント
+	public int burst_ShotNum;                   //撃つバースト数
+	[Header("バーストを撃つ回数")]
+	public int burst_Times;
+	public int burst_Num;					//バーストを撃った回数
+	public int burst_Shot_Cnt;                 //何発撃ったかのカウント
 	public bool isShot = false;
 	public bool isBurst = false;                   //バーストを撃つかどうか
 
@@ -54,7 +57,7 @@ public class Enemy_BurstShot : MonoBehaviour
 		}
 		burst_delay = 0;
 		Shot_Delay = 0;
-		burst_Shotshot_Cnt = 0;
+		burst_Shot_Cnt = 0;
 	}
 
 	void Update()
@@ -67,7 +70,10 @@ public class Enemy_BurstShot : MonoBehaviour
 			if (isBurst)
 			{
 				//バーストショット関数呼び出し
-				BurstShot();
+				if (burst_Times > burst_Num)
+				{
+					BurstShot();
+				}
 			}
 
 			else if (Shot_Delay > Shot_Delay_Max)
@@ -83,6 +89,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	}
 	void BurstShot()
 	{
+		//撃つ
 		if (burst_delay > burst_Delay_Max)
 		{
 			if (myName == "ClamChowderType_Enemy")
@@ -98,7 +105,7 @@ public class Enemy_BurstShot : MonoBehaviour
 			else
 			{
 				//弾生成
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
 			}
 
@@ -106,22 +113,25 @@ public class Enemy_BurstShot : MonoBehaviour
 			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 
 			//発射数カウントプラス
-			++burst_Shotshot_Cnt;
+			++burst_Shot_Cnt;
 			//バースト計測リセット
 			burst_delay = 0;
 		}
 		//バースト計測プラス
 		burst_delay += Time.deltaTime;
 		//バーストを指定の数撃ち切ったら
-		if (burst_Shotshot_Cnt == burst_Num)
+		if (burst_Shot_Cnt == burst_ShotNum)
 		{
 			//バーストをfalse、発射数リセット
 			isBurst = false;
-			burst_Shotshot_Cnt = 0;
+			burst_Shot_Cnt = 0;
+			burst_Num++;
 		}
 	}
 	void Shot_Reset()
 	{
 		Shot_Delay = 0;
+		burst_delay = 0;
+		burst_Num = 0;
 	}
 }
