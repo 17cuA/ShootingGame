@@ -10,10 +10,11 @@ public class SE_Manager : MonoBehaviour
 	[Header("基本的なSEたち")]
 	public AudioSource audiosource1;
 	[Header("パワーアップ時になるSE")]
-	public AudioSource audioSource2;
+	public AudioSource Power_Up;
 	[Header("アイテムを取得するときになるSE")]
-	public AudioSource audioSource3;
-
+	public AudioSource Item_Up;
+	[Header("爆発のSE")]
+	public AudioSource Explosion;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -26,11 +27,16 @@ public class SE_Manager : MonoBehaviour
 	//先生からもらったもののSE
 	public void SE_Active_2(AudioClip se)
 	{
-		if (Is_Active) audioSource2.PlayOneShot(se);
+		if (Is_Active) Power_Up.PlayOneShot(se);
 	}
-	public void SE_Active_3(AudioClip se)
+	public void SE_Item_Catch(AudioClip se)
 	{
-		if (Is_Active) audioSource3.PlayOneShot(se);
+		if (Item_Up.isPlaying) Item_Up.Stop();
+		if (Is_Active) Item_Up.Play();
+	}
+	public void SE_Explosion(AudioClip se)
+	{
+		if (Is_Active) Explosion.PlayOneShot(se);
 	}
 
 }
