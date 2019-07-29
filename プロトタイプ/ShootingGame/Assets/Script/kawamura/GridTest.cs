@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class GridTest : MonoBehaviour
 {
-
 	Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
 	public float x;            //x軸の入力
@@ -108,7 +107,7 @@ public class Grid : MonoBehaviour
 	}
 	void MoveX()
 	{
-													//プレイヤーの移動に上下左右制限を設ける
+		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
 		if (transform.position.y <= -4.5f && y < 0) y = 0;
 		if (transform.position.x >= 17.0f && x > 0) x = 0;
@@ -118,6 +117,5 @@ public class Grid : MonoBehaviour
 
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-
 	}
 }
