@@ -60,6 +60,8 @@ public class Enemy_Wave : character_status
 	public float rushStayCnt;
 	[Header("突進角度が変わり始めるまでの秒")]
 	public float rushStayCntMax;
+	[Header("角度が変え終わって突進するまでの秒")]
+	public float rushStartTime;
 	public float saverushRotaZ;
 	public float rushRotaZ;
 	public float rushRotaZ_Value;
@@ -487,10 +489,12 @@ public class Enemy_Wave : character_status
 		{
 			if (eState == State.Rush)
 			{
+				//突進
 				if (isRush)
 				{
 					rushStayCnt += Time.deltaTime;
-					if (rushStayCnt>3)
+					//画面手前に来てからの時間。向きを変えて突進するまでの時間
+					if (rushStayCnt > rushStartTime)
 					{
 						speedX = 13;
 						velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
@@ -498,8 +502,10 @@ public class Enemy_Wave : character_status
 
 					}
 				}
+				//ここは向きを変える処理
 				else if(isRushStart)
 				{
+					//向きを変える　変え終わったら突進へ
 					if (rushRotaZ_Value > 0)
 					{
 						rushRotaZ += 0.5f;
@@ -524,10 +530,12 @@ public class Enemy_Wave : character_status
 				else if(!isRush && !isRushStart)
 				{
 					rushStayCnt += Time.deltaTime;
-
+					//向きを変え始めるまでの時間がCntMax
 					if (rushStayCnt > rushStayCntMax)
 					{
 						isRushStart = true;
+						rushStayCnt = 0;
+						//向く角度を決める
 						saverushRotaZ = fd_Rush.degree;
 
 						if (saverushRotaZ > 0)

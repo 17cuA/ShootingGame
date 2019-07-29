@@ -133,6 +133,36 @@ PrefabInstance:
       propertyPath: eState
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: rushStayCntMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: rushStartTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &390348979101741424 stripped
@@ -216,12 +246,37 @@ PrefabInstance:
     - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: rushStayCntMax
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: rushStartTime
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_Num
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5b812d75561c346a41137d0a6c8a1c, type: 3}
@@ -316,12 +371,37 @@ PrefabInstance:
     - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: rushStayCntMax
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971610331925534156, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: rushStartTime
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_Num
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
@@ -406,12 +486,37 @@ PrefabInstance:
     - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: rushStayCntMax
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004055989690382556, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: rushStartTime
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: Shot_Delay_Max
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_Num
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642324875048929534, guid: aa5b812d75561c346a41137d0a6c8a1c,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5b812d75561c346a41137d0a6c8a1c, type: 3}
