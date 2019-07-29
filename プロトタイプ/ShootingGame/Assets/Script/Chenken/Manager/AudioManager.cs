@@ -5,11 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public struct AudioInfo
 {
-	public AudioType audioType;
+	public C_AudioType audioType;
 	public AudioClip audio;
 }
 
-public enum BGMType
+public enum C_AudioType
 {
 	BGM_Ending,
 	BGM_Opening_01,
@@ -59,8 +59,21 @@ public class AudioManager : MonoBehaviour
 	[Header("デフォルト設定")]
 	public float defaultBgmVolume = 1.0f;
 	public float defaultSeVolume = 1.0f;
-	public float audioFadeInOutTime = 1f;
-	public float audioFadeInOutVolume = 0.6f;
+	public float audioFadeInOutDefaultTime = 1f;
+	public float audioFadeInDefaultVolume = 1f;
+
+	private float audioFadeInTarget;
+	private bool isAudioFadeIn = false;
+	private float audioFadeInTime;
+	private float audioFadeInCount;
+
+	private bool isAudioFadeOut = false;
+	private float audioFadeOutStart;
+	private float audioFadeOutTime;
+	private float audioFadeOutCount;
+
+	private bool prepartToPause = false;
+	private bool prepartToStop = false;
 
 	private void Awake()
 	{
@@ -76,13 +89,90 @@ public class AudioManager : MonoBehaviour
 		sePlayer = transform.Find("Se").GetComponent<AudioSource>();
 	}
 
+	
+	private void Update()
+	{
+		if(isAudioFadeIn)
+		{
+			bgmPlayer.volume = Mathf.Lerp(0, audioFadeInTarget, audioFadeInCount / audioFadeInTime);
+			audioFadeInCount += Time.deltaTime;
+			if(bgmPlayer.volume >= 1)
+			{
+				isAudioFadeIn = false;
+			}
+		}
+
+		if(isAudioFadeOut)
+		{
+			bgmPlayer.volume = Mathf.Lerp(audioFadeOutStart, 0, audioFadeOutCount / audioFadeOutTime);
+			audioFadeOutCount += Time.deltaTime;
+			if(bgmPlayer.volume <= 0)
+			{
+				isAudioFadeOut = false;
+				if(prepartToPause)
+				{
+					PauseBGM();
+					prepartToPause = false;
+				}
+				if(prepartToStop)
+				{
+					StopCurrentAudioPlayer();
+					prepartToStop = false;
+				}
+			}
+		}
+	}
+
+	private void OnGUI()
+	{
+		if(GUI.Button (new Rect (60,60,100,80),"Fade In再生,Opening"))
+		{
+			PlayBGMFadeIn(C_AudioType.BGM_Opening_01);
+		}
+
+		if(GUI.Button (new Rect (60,180,100,80),"再生,Opening"))
+		{
+			PlayBGM(C_AudioType.BGM_Opening_01);
+		}
+
+		if(GUI.Button (new Rect (60,300,100,80),"停止,Opening"))
+		{
+			StopCurrentAudioPlayer();
+		}
+
+		if(GUI.Button (new Rect (60,420,100,80),"Fade Out停止,Opening"))
+		{
+			StopCurrentAudioPlayerFadeOut();
+		}
+
+		if(GUI.Button (new Rect (60,540,100,80),"一時停止,Opening"))
+		{
+			PauseBGM();
+		}
+
+		if(GUI.Button (new Rect (60,660,100,80),"Fade Out 一時停止,Opening"))
+		{
+			PauseBGMFadeOut();
+		}
+
+		if(GUI.Button (new Rect (60,780,100,80),"再開,Opening"))
+		{
+			ResumeBGM();
+		}
+
+		if(GUI.Button (new Rect (60,900,100,80),"Fade In再開,Opening"))
+		{
+			ResumeBGMFadeIn();
+		}
+	}
+
 	/// <summary>
 	/// BGM再生1
 	/// </summary>
 	/// <param name="type"></param>
 	/// <param name="volume"></param>
 	/// <param name="isLoop"></param>
-	public void PlayBGM(AudioType type,float volume, bool isLoop)
+	public void PlayBGM(C_AudioType type,float volume, bool isLoop)
 	{
 		AudioClip tempBgmChip = null;
 		for(var i = 0; i < bgms.Count; ++i)
@@ -110,7 +200,7 @@ public class AudioManager : MonoBehaviour
 	/// </summary>
 	/// <param name="type"></param>
 	/// <param name="volume"></param>
-	public void PlayBGM(AudioType type, float volume)
+	public void PlayBGM(C_AudioType type, float volume)
 	{
 		PlayBGM(type, volume, true);
 	}
@@ -119,7 +209,7 @@ public class AudioManager : MonoBehaviour
 	/// BGM再生3
 	/// </summary>
 	/// <param name="type"></param>
-	public void PlayBGM(AudioType type)
+	public void PlayBGM(C_AudioType type)
 	{
 		PlayBGM(type, defaultBgmVolume, true);
 	}
@@ -129,7 +219,7 @@ public class AudioManager : MonoBehaviour
 	/// </summary>
 	/// <param name="type"></param>
 	/// <param name="volume"></param>
-    public void PlaySE(AudioType type,float volume)
+    public void PlaySE(C_AudioType type,float volume)
 	{
 		AudioClip tempSeChip = null;
 		for(var i = 0; i < ses.Count; ++i)
@@ -156,7 +246,7 @@ public class AudioManager : MonoBehaviour
 	/// SE再生2
 	/// </summary>
 	/// <param name="type"></param>
-	public void PlaySE(AudioType type)
+	public void PlaySE(C_AudioType type)
 	{
 		PlaySE(type, defaultSeVolume);
 	}
@@ -166,7 +256,7 @@ public class AudioManager : MonoBehaviour
 	/// </summary>
 	/// <param name="type"></param>
 	/// <param name="volume"></param>
-	public void PlaySEOneShot(AudioType type,float volume)
+	public void PlaySEOneShot(C_AudioType type,float volume)
 	{
 		AudioClip tempSeChip = null;
 		for(var i = 0; i < ses.Count; ++i)
@@ -191,7 +281,7 @@ public class AudioManager : MonoBehaviour
 	/// SE　Play One shot2
 	/// </summary>
 	/// <param name="type"></param>
-	public void PlaySEOneShot(AudioType type)
+	public void PlaySEOneShot(C_AudioType type)
 	{
 		PlaySEOneShot(type, defaultSeVolume);
 	}
@@ -202,6 +292,18 @@ public class AudioManager : MonoBehaviour
 	/// <param name="isPause"></param>
 	public void PauseAndResumeBGM(bool isPause)
 	{
+		if(bgmPlayer.isPlaying　&& !isPause)
+		{
+			Debug.Log("再生中、再生再開処理は実行しない");
+			return;
+		}
+
+		if(!bgmPlayer.isPlaying　&& isPause)
+		{
+			Debug.Log("再生しないため、再生一時停止処理は実行しない");
+			return;
+		}
+
 		if (isPause) bgmPlayer.Pause();
 		else	     bgmPlayer.UnPause();
 	}
@@ -209,6 +311,31 @@ public class AudioManager : MonoBehaviour
 	public void PauseBGM()
 	{
 		PauseAndResumeBGM(true);
+	}
+
+	public void PauseBGMFadeOut()
+	{
+		PlayBGMFadeOut();
+		prepartToPause = true;
+	}
+
+	public void ResumeBGMFadeIn(float targetVolume,float fadeTime)
+	{
+		if(bgmPlayer.isPlaying)
+		{
+			Debug.Log("再生中、再生再開処理は実行しない");
+			return;
+		}
+
+		bgmPlayer.Pause();
+		isAudioFadeIn = true;
+		audioFadeInTarget = targetVolume;
+		audioFadeInTime = fadeTime;
+	}
+
+	public void ResumeBGMFadeIn()
+	{
+		ResumeBGMFadeIn(audioFadeInDefaultVolume, audioFadeInOutDefaultTime);
 	}
 
 	public void ResumeBGM()
@@ -241,4 +368,71 @@ public class AudioManager : MonoBehaviour
 		bgmPlayer.Stop();
 		sePlayer.Stop();
 	}
+
+	public void StopCurrentAudioPlayerFadeOut(float fadeTime)
+	{
+		PlayBGMFadeOut(fadeTime);
+		prepartToStop = true;
+	}
+
+	public void StopCurrentAudioPlayerFadeOut()
+	{
+		StopCurrentAudioPlayerFadeOut(audioFadeInOutDefaultTime);
+	}
+
+	public void PlayBGMFadeIn(C_AudioType type, float targetVolume,float fadeTime)
+	{
+		if(bgmPlayer.isPlaying)
+		{
+			Debug.Log("再生中、Fade in処理は実行しない");
+			return;
+		}
+
+		isAudioFadeIn = true;
+		audioFadeInTarget = targetVolume;
+		audioFadeInTime = fadeTime;
+		
+		AudioClip tempBgmChip = null;
+		for(var i = 0; i < bgms.Count; ++i)
+		{
+			if(bgms[i].audioType == type)
+			{
+				tempBgmChip = bgms[i].audio;
+				break;
+			}
+		}
+		if(tempBgmChip == null)
+		{
+			Debug.LogError("再生するBGMタイプは存在しない");
+			return;
+		}
+		bgmPlayer.clip = tempBgmChip;
+		bgmPlayer.Play();
+	}
+
+	public void PlayBGMFadeIn(C_AudioType type)
+	{
+		PlayBGMFadeIn(type, audioFadeInDefaultVolume, audioFadeInOutDefaultTime);
+	}
+
+	private void PlayBGMFadeOut(float fadeTime)
+	{
+		if(!bgmPlayer.isPlaying)
+		{
+			Debug.Log("再生しないため、再生一時停止処理は実行しない");
+			return;
+		}
+
+
+		isAudioFadeOut = true;
+		audioFadeOutStart = bgmPlayer.volume;
+		audioFadeOutTime = fadeTime;
+
+	}
+
+	private void PlayBGMFadeOut()
+	{
+		PlayBGMFadeOut(audioFadeInOutDefaultTime);
+	}
+
 }
