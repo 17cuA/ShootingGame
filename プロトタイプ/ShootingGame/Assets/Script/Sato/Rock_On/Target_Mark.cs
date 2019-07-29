@@ -5,13 +5,13 @@ using UnityEngine;
 public class Target_Mark : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject PlayerObj;   //プレイヤーのゲームオブジェクト
+	public GameObject PlayerObj;   //プレイヤーのゲームオブジェクト
 	[SerializeField]
-	private GameObject[] EnemyObj;  //敵のゲームオブジェクト
+	public GameObject[] EnemyObj;  //敵のゲームオブジェクト
 	[SerializeField]
-	private GameObject LockOnObj;   //ロックオンのゲームオブジェクト
+	public GameObject LockOnObj;   //ロックオンのゲームオブジェクト
 	[SerializeField]
-	private Canvas mainCanvas;      //キャンバス
+	public Canvas mainCanvas;      //キャンバス
 
 	private GameObject TargetObj;   //ロックオン対象のゲームオブジェクト
 

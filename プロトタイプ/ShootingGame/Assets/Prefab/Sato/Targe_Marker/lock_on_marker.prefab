@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4126856677412754549}
   - component: {fileID: 4126856677412754551}
   - component: {fileID: 4126856677412754548}
+  - component: {fileID: 7186261309309867927}
   m_Layer: 5
   m_Name: marker
   m_TagString: Untagged
@@ -173,3 +174,17 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &7186261309309867927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126856677412754538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69457090e38ce2418d7b1aeefcb71a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 1
+  rot: 1

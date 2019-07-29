@@ -1,50 +1,27 @@
-﻿/*====================================================*/
-// 内容        ：画像の色を徐々に変えるスクリプト
-// ファイル    ：SpriteColorController.cs
-//
-// Copyright (C) 齋藤　優剛 All Rights Reserved.
-/*----------------------------------------------------*/
-//〔更新履歴〕
-// 2018/10/18 〔齋藤　優剛〕新規作成
-/*----------------------------------------------------*/
-//        デバッグ地蔵様を安置致します。
-//        バグやエラーが起こりませんように……
-//              ,＿＿＿,
-//            ／     ／＼
-//          ／     ／_＿ ＼
-//        ／_____／（´ｰ｀）＼
-//        ￣||||||  |っ￠||￣
-//          ||||||  /,,|ゝii
-//         |￣￣￣|  ~~凸（￣）凸
-/*====================================================*/
+﻿//画像の色を変更するスクリプト
+//佐藤翼
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-/*-----------*/
-//　色の情報　//
-/*-----------*/
+//　色の情報　
 [Serializable]
 public struct ColorState
 {
-	public float chengeTime;	//!< 次の色に変わるまでにかかる時間[s]
-	public float waitTime;		//!< 色が変わった後に待つ時間[s]
-	public Color chengeColor;	//!< 次に変わる色
+	public float chengeTime;	// 次の色に変わるまでにかかる時間
+	public float waitTime;		//色が変わった後に待つ時間
+	public Color chengeColor;	// 次に変わる色
 }
 
 public class SpriteColorController : MonoBehaviour
 {
-	/*-----------*/
-	//　変数宣言　//
-	/*-----------*/
+	//　変数宣言　
 	SpriteRenderer sprite = null;
-	[SerializeField] bool isRoop = false;		//!< ループさせるか
+	[SerializeField] bool isRoop = false;		//ループさせるか
 	[SerializeField] List<ColorState> colorState;
 
-	/*-----------*/
-	//　関数宣言　//
-	/*-----------*/
+	//　関数宣言　
 	void Start()
 	{
 		sprite = GetComponent<SpriteRenderer>();
@@ -52,7 +29,7 @@ public class SpriteColorController : MonoBehaviour
 	}
 
 
-	/*----------次の色や時間を指定------------*/
+	//次の色や時間を指定
 	IEnumerator ChangeCameraColor()
 	{
 		while (isRoop)
@@ -64,9 +41,8 @@ public class SpriteColorController : MonoBehaviour
 			}
 		}
 	}
-	/*--------------------------------------*/
 
-	/*----------色を変えるメソッド------------*/
+	//色を変えるメソッド
 	IEnumerator ChangeColor(Color toColor, float duration)
 	{
 		Color fromColor = sprite.color;
@@ -88,5 +64,4 @@ public class SpriteColorController : MonoBehaviour
 
 		yield break;
 	}
-	/*--------------------------------------*/
 }
