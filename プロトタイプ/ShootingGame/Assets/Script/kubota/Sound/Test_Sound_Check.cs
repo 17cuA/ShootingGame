@@ -29,7 +29,7 @@ public class Test_Sound_Check : MonoBehaviour
 		}
 		else
 		{
-			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[8]);
+			SE_Manager.SE_Obj.SE_Explosion_smole(Obj_Storage.Storage_Data.audio_se[8]);
 			is_explosion = !is_explosion;
 
 		}
