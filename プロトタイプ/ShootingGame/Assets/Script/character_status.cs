@@ -91,7 +91,6 @@ public class character_status : MonoBehaviour
 	public void Reset_Status()
 	{
 		hp = hp_Max;
-		Is_Dead = false;
 	}
 	//ダメージを与える関数
 	public void Damege_Process(int damege)
