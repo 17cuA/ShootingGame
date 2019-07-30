@@ -91,7 +91,6 @@ public class character_status : MonoBehaviour
 	public void Reset_Status()
 	{
 		hp = hp_Max;
-		Is_Dead = false;
 	}
 	//ダメージを与える関数
 	public void Damege_Process(int damege)
@@ -117,7 +116,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[8]);
+			SE_Manager.SE_Obj.SE_Explosion_smole(Obj_Storage.Storage_Data.audio_se[8]);
 			//爆発処理の作成
 			ParticleCreation(4);
 			Is_Dead = true;
