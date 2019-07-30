@@ -413,7 +413,7 @@ public class EnemyCreate : MonoBehaviour
 		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 		{
 			GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group.transform.position = createPosR3.transform.position;
+			enemy_UFO_Group.transform.position = createPosR5.transform.position;
 			enemy_UFO_Group.transform.rotation = transform.rotation;
 
 			Next_Condition(240);
