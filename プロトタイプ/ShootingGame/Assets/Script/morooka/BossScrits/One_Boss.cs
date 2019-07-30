@@ -22,6 +22,7 @@ public class One_Boss : character_status
 	//-----------------------------------------------------------------------------------------------------------------------------//
 
 	[SerializeField] private GameObject core;
+	[SerializeField] private GameObject[] arm_parts;
 	[SerializeField] private GameObject[] Muzzles;
 
 	private One_Boss_Parts Core { get; set; }
@@ -30,6 +31,12 @@ public class One_Boss : character_status
 	public float Now_Speed { get; set; }
 	public float Lowest_Speed { get; set; }
 	public float Speed​_Change_Distance {get;set;}
+
+	private Vector3[] Arm_Closed_Position { get; set; }		// アーム閉じいている位置
+	private Vector3[] Arm_Open_Position { get; set; }		// アーム開いてる位置
+
+
+
 
 	public GameObject Player_Data { get; private set; }		// プレイヤーのデータ
     // Start is called before the first frame update
@@ -49,6 +56,9 @@ public class One_Boss : character_status
 		Now_Speed = Lowest_Speed;
 
 		Target = transform.position = Vector3.zero;
+
+		Arm_Closed_Position[0] = new Vector3(0.12f, 1.75f, 0.0f);
+		Arm_Closed_Position[1] = new Vector3(0.12f, -1.75f, 0.0f);
     }
 
     // Update is called once per frame
