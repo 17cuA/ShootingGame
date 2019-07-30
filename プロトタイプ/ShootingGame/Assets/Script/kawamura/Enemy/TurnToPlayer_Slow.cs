@@ -78,7 +78,7 @@ public class TurnToPlayer_Slow : character_status
 		base.Start();
 
 	}
-	void Update()
+	new void Update()
 	{
 		frameCnt++;
 		if(frameCnt> followStartTime)
