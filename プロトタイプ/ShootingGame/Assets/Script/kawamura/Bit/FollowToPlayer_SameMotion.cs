@@ -46,7 +46,10 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
             {
                 playerPos[i] += defPos;
             }
-        }
+			defPos = new Vector3(0, 0, 0);
+			savePos = transform.position;
+
+		}
         else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 		{
 			isFreeze = true;
