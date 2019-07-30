@@ -67,7 +67,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[17];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[18];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 
 	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
@@ -145,12 +145,12 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
-		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/06_gradius_SE_Player_Bullet");
+		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_botton get_item");	//アイテム取得音
 		audio_se[6] = Resources.Load<AudioClip>("Sound/SE/09_gradius_se_zakoenemy_Destroyed");
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");
-		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/07_gradius_SE_Explosion_Small");	//敵の爆発音
-		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/12_gradius_se_BossExplosion");	//ボスの爆発音
+		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
+		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
 		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/13_gradius_se_SpeedUp");			//スピードアップの声
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/14_gradius_se_LASER");			//レーザー攻撃の声
@@ -159,6 +159,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/17_gradius_se_OPTION");			//オプションの声
 		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/18_gradius_se_FORCE_FIELD");		//フォースフィールド（シールド）
 		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_powerup");			//
+		audio_se[17] = Resources.Load<AudioClip>("Sound/Teacher_SE/gradius_SE_Player_Laser");	//レーザーの発射音
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
@@ -177,7 +178,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");		//アイテム使用時のボイス（ダブル）
 		audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");		//アイテム使用時のボイス（レーザー）
 		audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_17");		//アイテム使用時のボイス（オプション）
-		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_18");		//アイテム使用時のボイス（フォースフィールド）
+		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");		//アイテム使用時のボイス（フォースフィールド）
 		audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");		//アイテム使用時のボイス（マックススピード）
 		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20");		//アイテム使用時のボイス（イニットスピード）
 		audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_21");
