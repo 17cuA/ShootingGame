@@ -14,7 +14,7 @@ public class ShootingStarTLClip : PlayableAsset, ITimelineClipAsset
 	{
 		ScriptPlayable<ShootingStarTLBehaviour> playable = ScriptPlayable<ShootingStarTLBehaviour>.Create(graph);
 		ShootingStarTLBehaviour behaviour = playable.GetBehaviour();
-		behaviour.shootingStarAnimator = owner.GetComponent<ShootingStarAnimator>();
+		behaviour.shootingStarAnimator = FindObjectOfType<ShootingStarAnimator>();
 		return playable;
 	}
 }

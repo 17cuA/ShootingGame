@@ -28,25 +28,29 @@ public class Find_Angle : MonoBehaviour
 	void Update()
 	{
 		//プレイヤー（向く対象）情報が入っていないなら入れる
-		if (playerObj == null)
+		if (playerObj == null && isPlayerActive)
 		{
 			playerObj = GameObject.FindGameObjectWithTag("Player");
 		}
 		
-		if(isPlayerActive)
+		if(playerObj)
 		{
-			if (playerObj.activeInHierarchy)
+			if (isPlayerActive)
 			{
-				//imasuyo = true;
-			}
-			else
-			{
-				isPlayerActive = false;
-			}
+				if (playerObj.activeInHierarchy)
+				{
+					//imasuyo = true;
+				}
+				else
+				{
+					playerObj = null;
+					isPlayerActive = false;
+				}
 
+			}
 		}
 		//プレイヤー（向く対象）の座標を入れる
-		if (playerObj.activeInHierarchy)
+		if (playerObj)
 		{
 			playerPos = playerObj.transform.position;
 		}
