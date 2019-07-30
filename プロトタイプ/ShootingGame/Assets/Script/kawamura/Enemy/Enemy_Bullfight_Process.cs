@@ -21,7 +21,7 @@ public class Enemy_Bullfight_Process : character_status
 	GameObject parent_ParentObj;		//親の親入れる（群れの時のため）
 	//GameObject blurObj;
 
-	Renderer renderer;			//レンダラー
+	new Renderer renderer;			//レンダラー
 	//HSVColorController hsvCon;	//シェーダー用
 	//Color hsvColor;
 	//BlurController blurCon;

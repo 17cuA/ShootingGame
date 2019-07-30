@@ -5,14 +5,12 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
 
-	//Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
 
 	public float step = 2f;     // 移動速度
 	Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
 	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-
-
 
 	// Use this for initialization
 	void Start()
@@ -41,34 +39,24 @@ public class Grid : MonoBehaviour
 		//if (Input.GetKey(KeyCode.RightArrow))
 		//{
 		//	target = transform.position + MOVEX;
-		//	SetAnimationParam(1);
 		//	return;
 		//}
 		//if (Input.GetKey(KeyCode.LeftArrow))
 		//{
 		//	target = transform.position - MOVEX;
-		//	SetAnimationParam(2);
 		//	return;
 		//}
-		if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxis("Vertical") > 0)
+		if (Input.GetKey(KeyCode.UpArrow))
 		{
 			target = transform.position + MOVEY;
-			//SetAnimationParam(3);
 			return;
 		}
-		if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxis("Vertical") < 0)
+		if (Input.GetKey(KeyCode.DownArrow))
 		{
 			target = transform.position - MOVEY;
-			//SetAnimationParam(0);
 			return;
 		}
 	}
-
-	// WalkParam  0;下移動　1;右移動　2:左移動　3:上移動
-	//void SetAnimationParam(int param)
-	//{
-	//	animator.SetInteger("WalkParam", param);
-	//}
 
 	// ③ 目的地へ移動する
 	void Move()
