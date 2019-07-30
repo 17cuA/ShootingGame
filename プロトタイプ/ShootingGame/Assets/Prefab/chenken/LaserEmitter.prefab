@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3118439069478725052}
-  - component: {fileID: 7268150438815896196}
+  - component: {fileID: 3494266671149189961}
   m_Layer: 0
   m_Name: LaserEmitter
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7268150438815896196
+--- !u!114 &3494266671149189961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,16 +40,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2802902456980546872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b0d4d28b41f234cb6e07983f268b24, type: 3}
+  m_Script: {fileID: 11500000, guid: 706a33c7ee74b6d4a94856f4404a834d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  lineWidth: 0.05
-  lineLength: 0.2
-  shotSpeed: 0.8
-  laserMaxNum: 50
-  overLoadDutarion: 0.2
-  canRotateControl: 0
-  rotateDivisor: 12
-  LaserNode: {fileID: 6580657217836235302, guid: 3137c8dff29decf48ad600f895ea89ad,
-    type: 3}
+  straightLaserShotSpeed: 0.8
+  straightLaserWidth: 0.05
+  straightLaserNodeMax: 50
+  straightLaserOverloadDuration: 0.4
+  straightLaserLaunchInterval: 0.01
+  straightTrailWidth: 0.1
+  straightLaserMaterial: {fileID: 0}
+  rotateLaserShotSpeed: 0.8
+  rotateLaserWidth: 0.05
+  rotateLaserNodeMax: 60
+  rotateLaserOverloadDuration: 0.3
+  rotateLaserLaunchInterval: 0.01
+  rotateTrailWidth: 0.1
+  rotateLaserMaterial: {fileID: 0}

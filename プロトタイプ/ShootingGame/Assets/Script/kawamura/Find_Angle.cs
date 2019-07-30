@@ -8,11 +8,13 @@ using System;
 
 public class Find_Angle : MonoBehaviour
 {
-	GameObject playerObj;   //プレイヤー（向く対象）情報を入れる変数
+	public GameObject playerObj;   //プレイヤー（向く対象）情報を入れる変数
 	Vector3 playerPos;      //プレイヤー（向く対象）の座標を入れる変数
 	Vector3 midBossPos;     //自分の座標を入れる変数
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
 
+	public bool imasuyo = false;
+	public bool isPlayerActive=true;
 	float radian;           //ラジアン
 	public float degree;    //角度
 
@@ -30,9 +32,24 @@ public class Find_Angle : MonoBehaviour
 		{
 			playerObj = GameObject.FindGameObjectWithTag("Player");
 		}
+		
+		if(isPlayerActive)
+		{
+			if (playerObj.activeInHierarchy)
+			{
+				//imasuyo = true;
+			}
+			else
+			{
+				isPlayerActive = false;
+			}
 
+		}
 		//プレイヤー（向く対象）の座標を入れる
-		playerPos = playerObj.transform.position;
+		if (playerObj.activeInHierarchy)
+		{
+			playerPos = playerObj.transform.position;
+		}
 		//自分の座標を入れる
 		midBossPos = this.transform.position;
 

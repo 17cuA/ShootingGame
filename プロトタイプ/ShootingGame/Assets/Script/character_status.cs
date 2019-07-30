@@ -20,7 +20,7 @@ public class character_status : MonoBehaviour
 	public int hp;                                                      // 体力
 	private int hp_Max;
 	public Vector3 direction;                                           // 向き
-	public CapsuleCollider capsuleCollider;                             // cillider
+	public Collider capsuleCollider;                             // cillider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
@@ -47,9 +47,9 @@ public class character_status : MonoBehaviour
 			rigidbody.useGravity = false;
 		}
 		//CapsuleColliderがついていたら取得する
-		if (gameObject.GetComponent<CapsuleCollider>())
+		if (gameObject.GetComponent<Collider>())
 		{
-			capsuleCollider = GetComponent<CapsuleCollider>();
+			capsuleCollider = GetComponent<Collider>();
 		}
 
 		if (tag == "Player") Remaining = 3;
@@ -106,7 +106,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[7]);
+			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[9]);
 			//爆発処理の作成
 			ParticleCreation(7);
 			Is_Dead = true;
@@ -116,7 +116,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[9]);
+			SE_Manager.SE_Obj.SE_Explosion_smole(Obj_Storage.Storage_Data.audio_se[8]);
 			//爆発処理の作成
 			ParticleCreation(4);
 			Is_Dead = true;
@@ -166,7 +166,7 @@ public class character_status : MonoBehaviour
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
 					PowerManager.Instance.Pick();
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[5]);
+					SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
 					col.gameObject.SetActive(false);
 				}
 				else

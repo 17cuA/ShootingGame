@@ -73,17 +73,20 @@ public class Remaining_Display : MonoBehaviour
 			}
 
 			// 「1P」の文字作製と設置
+			// アンダーバーはスペース部分、1P　と　ＬＩＦＥの間にスコア表示
 			Temp_String = "1P______________LIFE";
 			Object_To_Display = new Character_Display(Temp_String.Length, "morooka/SS", oya[0], position);
 			Object_To_Display.Character_Preference(Temp_String);
 			Object_To_Display.Size_Change(new Vector3(font_size, font_size, font_size));
 
+			// Ｘは小さく
 			Life = new Character_Display[2];
 			Temp_String = "_X_";
 			Life[0] = new Character_Display(Temp_String.Length, "morooka/SS", oya[1], lifePosition);
 			Life[0].Character_Preference(Temp_String);
 			Life[0].Size_Change(new Vector3(font_size / 3.0f * 2.0f, font_size / 3.0f * 2.0f, font_size / 3.0f * 2.0f));
 
+			// プレイヤーの残機数表示
 			Life[1] = new Character_Display(1, "morooka/SS", oya[2],xRPosition);
 			Life[1].Character_Preference(Remaining_Num.ToString());
 			Life[1].Size_Change(new Vector3(font_size, font_size, font_size));

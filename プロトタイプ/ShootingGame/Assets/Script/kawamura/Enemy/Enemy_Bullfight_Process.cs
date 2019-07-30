@@ -62,9 +62,18 @@ public class Enemy_Bullfight_Process : character_status
 	}
 	private void OnEnable()
 	{
-
+		if (transform.parent.parent)
+		{
+			parent_ParentObj = transform.parent.parent.gameObject;
+			groupManage = parent_ParentObj.GetComponent<EnemyGroupManage>();
+			groupManage.childNum++;
+		}
+        else
+        {
+            parent_ParentObj = GameObject.Find("TemporaryParent");
+            transform.parent = parent_ParentObj.transform;
+        }
 	}
-
 	new void Start()
 	{
 		item = Resources.Load("Item/Item_Test") as GameObject;
@@ -75,16 +84,16 @@ public class Enemy_Bullfight_Process : character_status
 		parentObj = transform.parent.gameObject;
 		ebm = parentObj.GetComponent<Enemy_Bullfight_Move>();
 
-		if (transform.parent.parent)
-		{
-			parent_ParentObj = transform.parent.parent.gameObject;
-			groupManage = parent_ParentObj.GetComponent<EnemyGroupManage>();
-		}
-        else
-        {
-            parent_ParentObj = GameObject.Find("TemporaryParent");
-            transform.parent = parent_ParentObj.transform;
-        }
+		//if (transform.parent.parent)
+		//{
+		//	parent_ParentObj = transform.parent.parent.gameObject;
+		//	groupManage = parent_ParentObj.GetComponent<EnemyGroupManage>();
+		//}
+  //      else
+  //      {
+  //          parent_ParentObj = GameObject.Find("TemporaryParent");
+  //          transform.parent = parent_ParentObj.transform;
+  //      }
 
 		HP_Setting();
 		base.Start();
@@ -169,10 +178,10 @@ public class Enemy_Bullfight_Process : character_status
 
 	void Enemy_Reset()
 	{
-		ebm.speedZ = 0;
+		//ebm.speedZ = 0;
 		once = true;
-		ebm.isSlerp = false;
-		ebm.isWave = false;
+		//ebm.isSlerp = false;
+		//ebm.isWave = false;
 	}
 
 	private void OnTriggerExit(Collider col)

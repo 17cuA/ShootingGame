@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//バキュラの親にするからオブジェクトのスクリプト
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,11 +73,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 				switch(i)
 				{
 					case 0:
-						if (myName == "Enemy_Board")
+						if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
 						{
 							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(195, 255));
 							//ebp.divisionCnt = 1;
 							ebp.isCreate = true;
 							ebp.speedX = 15;
@@ -83,11 +85,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 							saveQuaterObj = null;
 
 						}
-						else if (myName == "Enemy_Board_Quarter(Clone)")
+						else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
 						{
 							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(180, 270));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(195, 255));
 							//ebp.divisionCnt = 1;
 							ebp.isCreate = true;
 							ebp.speedX = 15;
@@ -98,15 +100,19 @@ public class Enemy_Board_Parent : MonoBehaviour
 							//gameObject.SetActive(false);
 
 						}
-						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						else
 						{
-							//なにもしない
+
 						}
+						//else if (myName == "Enemy_Board_OneSixteenth(Clone)" || myName == "Enemy_Bacula_OneSixteenth(Clone)")
+						//{
+						//	//なにもしない
+						//}
 
 						break;
 					case 1:
 						//左上に生成
-						if (myName == "Enemy_Board")
+						if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
 						{
 							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -114,11 +120,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(285, 345));
 							saveQuaterObj = null;
 
 						}
-						else if (myName == "Enemy_Board_Quarter(Clone)")
+						else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
 						{
 							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -126,11 +132,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(270, 360));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(285, 345));
 							saveQuaterObj = null;
 
 						}
-						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)" || myName == "Enemy_Bacula_OneSixteenth(Clone)")
 						{
 							//なにもしない
 						}
@@ -138,7 +144,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 						break;
 					case 2:
 						//左下に生成
-						if (myName == "Enemy_Board")
+						if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
 						{
 							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -146,11 +152,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(15, 75));
 							saveQuaterObj = null;
 
 						}
-						else if (myName == "Enemy_Board_Quarter(Clone)")
+						else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
 						{
 							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -158,10 +164,10 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 90));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(15, 75));
 							saveQuaterObj = null;
 						}
-						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)" || myName == "Enemy_Bacula_OneSixteenth(Clone)")
 						{
 							//なにもしない
 						}
@@ -169,7 +175,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 						break;
 					case 3:
 						//右下に生成
-						if (myName == "Enemy_Board")
+						if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
 						{
 							saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -177,11 +183,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(105, 165));
 							saveQuaterObj = null;
 
 						}
-						else if (myName == "Enemy_Board_Quarter(Clone)")
+						else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
 						{
 							saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
 							ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -189,19 +195,17 @@ public class Enemy_Board_Parent : MonoBehaviour
 							ebp.isCreate = true;
 							ebp.speedX = 15;
 							ebp = null;
-							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(90, 180));
+							saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(105, 165));
 							saveQuaterObj = null;
 						}
-						else if (myName == "Enemy_Board_OneSixteenth(Clone)")
+						else if (myName == "Enemy_Board_OneSixteenth(Clone)" || myName == "Enemy_Bacula_OneSixteenth(Clone)")
 						{
 							//なにもしない
 						}
 						//ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
 
 						break;
-
 				}
-
 			}
 
 			//for文じゃないほう

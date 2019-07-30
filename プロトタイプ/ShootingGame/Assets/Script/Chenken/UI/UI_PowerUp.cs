@@ -10,7 +10,6 @@ using TextDisplay;
 public class UI_PowerUp : MonoBehaviour
 {
 	public Image current;      //現在選択Image
-	public ParticleSystem flash; //選択エフェクト
 	public Dictionary<int, GameObject> displays = new Dictionary<int, GameObject>();
     public Sprite initSpeed;
     public Sprite speedUp;
@@ -29,7 +28,6 @@ public class UI_PowerUp : MonoBehaviour
 			displays.Add(number, transform.GetChild(i - start).gameObject);
 		}
 		current.name = "Cursor";
-		flash.name = "flash";
 	}
 
 	private void Update()
@@ -42,9 +40,6 @@ public class UI_PowerUp : MonoBehaviour
 			//選択画像無効の場合　　->　有効にする
 			if (!current.gameObject.activeSelf)
 				current.gameObject.SetActive(true);
-			//選択画像無効の場合　　->　有効にする
-			if (!flash.gameObject.activeSelf)
-				flash.gameObject.SetActive(true);
 
 			//現在位置に合わせる
 			if (current.gameObject.transform.position != displays[PowerManager.Instance.Position].transform.position && PowerManager.Instance.Position != -1) 
@@ -60,27 +55,11 @@ public class UI_PowerUp : MonoBehaviour
 						displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
 				}
 			}
-			//現在位置に合わせる
-			if (flash.gameObject.transform.position != displays[PowerManager.Instance.Position].transform.position && PowerManager.Instance.Position != -1)
-			{
-				flash.gameObject.SetActive(false);
-				flash.gameObject.transform.position = displays[PowerManager.Instance.Position].transform.position;
-				flash.gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-				displays[PowerManager.Instance.Position].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-
-				for (var i = start; i < end; ++i)
-				{
-					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != PowerManager.Instance.Position)
-						displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
-				}
-			}
 		}
 		else
 		{
 			if (current.gameObject.activeSelf)
 				current.gameObject.SetActive(false);
-			if (flash.gameObject.activeSelf)
-				flash.gameObject.SetActive(false);
 
 			for (var i = start; i < end; ++i)
 			{

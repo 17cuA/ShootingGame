@@ -25,7 +25,8 @@ public class Scene_Manager : MonoBehaviour
 		eTITLE,
 		eMENU,
         eINSTRUCTION,
-        eSTAGE,
+        eSTAGE_01,
+		eSTAGE_02,
 		eGAME_OVER,
 		eGAME_CLEAR,
 	}
@@ -160,15 +161,27 @@ public class Scene_Manager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ステージに移動
+	/// ステージ_01 に移動
 	/// </summary>
-	public void Screen_Transition_To_Stage()
+	public void Screen_Transition_To_Stage_01()
 	{
 		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
-		Next_Scene = SCENE_NAME.eSTAGE;
+		Next_Scene = SCENE_NAME.eSTAGE_01;
+	}
+
+	/// <summary>
+	/// ステージ_02 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_02()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_02;
 	}
 
 	/// <summary>

@@ -13,18 +13,20 @@ public class Enemy_Wave_Direction : MonoBehaviour
 
 	private void Awake()
 	{
-		parentObj = transform.parent.gameObject;
-		rotaY = (parentObj.transform.position.z * 4.5f) + 270.0f;
 	}
 
 	private void OnEnable()
 	{
+		parentObj = transform.parent.gameObject;
+
 		rotaY = (parentObj.transform.position.z * 4.5f) + 270.0f;
 
 	}
 	void Start()
     {
-        
+        parentObj = transform.parent.gameObject;
+		rotaY = (parentObj.transform.position.z * 4.5f) + 270.0f;
+
     }
 
     // Update is called once per frame

@@ -116,8 +116,12 @@ public class Game_Master : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
+				display_score = 0;
+				break;
+            case "Stage_01":
+                Stage_Start();
                 break;
-            case "Stage":
+            case "Stage_02":
                 Stage_Start();
                 break;
             case "GameOver":
@@ -153,7 +157,6 @@ public class Game_Master : MonoBehaviour
     private void Stage_Start()
     {
         //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
-		display_score = 0;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		Is_Completed_For_Warning_Animation = false;
     }

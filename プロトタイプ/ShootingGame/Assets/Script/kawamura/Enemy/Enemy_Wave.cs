@@ -14,11 +14,14 @@ public class Enemy_Wave : character_status
 		WaveDown,
 		WaveOnlyUp,
 		WaveOnlyDown,
+		Rush,
 		Straight,
 	}
 	public State eState;
 
-	GameObject childObj;		//子供入れる
+	GameObject childObj;        //子供入れる
+	public GameObject childObj_Shot;
+	public GameObject childObj_Angle;
 	GameObject item;			//アイテム入れる
 	GameObject parentObj;		//親入れる（群れの時のため）
 	//GameObject blurObj;
@@ -28,14 +31,19 @@ public class Enemy_Wave : character_status
 	//Color hsvColor;
 	//BlurController blurCon;
 	EnemyGroupManage groupManage;			//群れの時の親スクリプト
+	Find_Angle fd;
+	public Find_Angle fd_Rush;
 	//public ParticleSystem sonicBoom;			//ジェット噴射の衝撃波のようなパーティクル
 
 	Vector3 velocity;
 	Vector3 defaultPos;
+	public Quaternion diedAttackRota;
+
 	//----------
 	public Vector3 startMarker;
 	public Vector3 endMarker;
 	float startTime;
+	public float slaep_IncValue;
 	float present_Location;
 	public float testSpeed = 1.0f;
 
@@ -48,12 +56,22 @@ public class Enemy_Wave : character_status
 	public float speedZ_Value;		//Zスピードの値だけ
 	float startPosY;                //最初のY座標値
 	float rotaY;					//Y角度
-	public float amplitude;			//画面奥から出てこない時の上下の振れ幅
-
+	public float amplitude;         //画面奥から出てこない時の上下の振れ幅
+	public float rushStayCnt;
+	[Header("突進角度が変わり始めるまでの秒")]
+	public float rushStayCntMax;
+	[Header("角度が変え終わって突進するまでの秒")]
+	public float rushStartTime;
+	public float saverushRotaZ;
+	public float rushRotaZ;
+	public float rushRotaZ_Value;
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
 	public float addAndSubValue;        //Yスピードを増減させる値
 
 	public float sin;
+	[Header("死亡時の弾発射の角度範囲()")]
+	public float diedAttack_RotaValue;
+
 	//float posX;
 	//float posY;
 	//float posZ;
@@ -80,6 +98,10 @@ public class Enemy_Wave : character_status
 	bool isSonicPlay = false;
     public bool utsuttemasuyo=false;
     bool isWaveStart = false;
+	bool isRushStart = false;
+	bool isRush = false;
+	public bool Died_Attack = false;
+
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
@@ -112,8 +134,12 @@ public class Enemy_Wave : character_status
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
+		childObj_Shot = transform.GetChild(1).gameObject;
+		childObj_Angle = transform.GetChild(2).gameObject;
 		//childCnt = transform.childCount;
 		renderer = childObj.GetComponent<Renderer>();
+		fd = childObj_Shot.GetComponent<Find_Angle>();
+		fd_Rush = childObj_Angle.GetComponent<Find_Angle>();
 		//hsvColor = childObj.GetComponent<Renderer>().material.color;
 		//hsvCon = childObj.GetComponent<HSVColorController>();
 		//val_Value = 0.025f;
@@ -145,14 +171,6 @@ public class Enemy_Wave : character_status
 
 	new void Update()
 	{
-        if(renderer.isVisible)
-        {
-            utsuttemasuyo = true;
-        }
-        else
-        {
-            utsuttemasuyo = false;
-        }
 		//if (transform.childCount == 0)
 		//{
 		//	Destroy(this.gameObject);
@@ -246,6 +264,22 @@ public class Enemy_Wave : character_status
 					HSV_Change();
 					break;
 
+				case State.Rush:
+					isStraight = false;
+					isOnlyWave = false;
+					speedX = 18;
+					speedZ_Value = 40;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
+					//hsvCon.val = 0.4f;
+					//v_Value = 0.4f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
+
+					break;
+
 				case State.Straight:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
@@ -261,14 +295,16 @@ public class Enemy_Wave : character_status
 		}
 
 
-        if (isStraight)
-        {
-            velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-            gameObject.transform.position += velocity * Time.deltaTime;
+		if (eState == State.Straight)
+		{
+			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+		}
+		//else if (eState == State.Rush)
+		//{
 
-
-        }
-        else if (isOnlyWave)
+		//}
+		else if (eState == State.WaveOnlyUp || eState == State.WaveOnlyDown)
         {
             
             speedX = 5;
@@ -305,11 +341,6 @@ public class Enemy_Wave : character_status
         }
         else if (!isWave)
         {
-            //if(!isSlerp)
-            //{
-            //	velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-            //	gameObject.transform.position += velocity * Time.deltaTime;
-            //}
             if (isSlerp)
             {
                 //if (transform.position.x < 12)
@@ -323,14 +354,14 @@ public class Enemy_Wave : character_status
                 //}
                 //else if(transform.position.x>=12.0f)
                 //{
-                if (isSonicPlay)
-                {
-                    //sonicBoom.Stop();
-                    isSonicPlay = false;
-                }
+                //if (isSonicPlay)
+                //{
+                //    //sonicBoom.Stop();
+                //    isSonicPlay = false;
+                //}
                 present_Location = (Time.time * testSpeed) / distance_two;
                 transform.position = Vector3.Slerp(startMarker, endMarker, startTime);
-                startTime += 0.018f;
+                startTime += slaep_IncValue;
                 if (startTime > 1)
                 {
                     startTime = 1;
@@ -341,6 +372,7 @@ public class Enemy_Wave : character_status
                 if (transform.position == endMarker)
                 {
                     isWave = true;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                     speedX = 5;
                     speedY = defaultSpeedY;
 
@@ -455,17 +487,82 @@ public class Enemy_Wave : character_status
         }
         else if (isWave)
 		{
-            
-			speedX = 5;
-			//sin =posY + Mathf.Sin(Time.time*5);
+			if (eState == State.Rush)
+			{
+				//突進
+				if (isRush)
+				{
+					rushStayCnt += Time.deltaTime;
+					//画面手前に来てからの時間。向きを変えて突進するまでの時間
+					if (rushStayCnt > rushStartTime)
+					{
+						speedX = 13;
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+						gameObject.transform.position += velocity * Time.deltaTime;
 
-			SpeedY_Check();
-			SpeedY_Calculation();
+					}
+				}
+				//ここは向きを変える処理
+				else if(isRushStart)
+				{
+					//向きを変える　変え終わったら突進へ
+					if (rushRotaZ_Value > 0)
+					{
+						rushRotaZ += 0.5f;
+						if (rushRotaZ > rushRotaZ_Value)
+						{
+							rushRotaZ = rushRotaZ_Value;
+							isRush = true;
+						}
+						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y,rushRotaZ);
+					}
+					else if (rushRotaZ_Value < 0)
+					{
+						rushRotaZ -= 0.5f;
+						if (rushRotaZ < rushRotaZ_Value)
+						{
+							rushRotaZ = rushRotaZ_Value;
+							isRush = true;
+						}
+						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+					}
+				}
+				else if(!isRush && !isRushStart)
+				{
+					rushStayCnt += Time.deltaTime;
+					//向きを変え始めるまでの時間がCntMax
+					if (rushStayCnt > rushStayCntMax)
+					{
+						isRushStart = true;
+						rushStayCnt = 0;
+						//向く角度を決める
+						saverushRotaZ = fd_Rush.degree;
 
-			//this.transform.position = new Vector3(transform.position.x, sin, 0);
-			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.1f), transform.position.z);
-			velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
-			gameObject.transform.position += velocity * Time.deltaTime;
+						if (saverushRotaZ > 0)
+						{
+							rushRotaZ_Value = saverushRotaZ - 180;
+						}
+						else if (saverushRotaZ < 0)
+						{
+							rushRotaZ_Value = saverushRotaZ + 180;
+						}
+					}
+
+				}
+			}
+			else
+			{
+				speedX = 5;
+				//sin =posY + Mathf.Sin(Time.time*5);
+
+				SpeedY_Check();
+				SpeedY_Calculation();
+
+				//this.transform.position = new Vector3(transform.position.x, sin, 0);
+				//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.1f), transform.position.z);
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+			}
 		}
 
 		if (hp < 1)
@@ -476,6 +573,13 @@ public class Enemy_Wave : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
 
 			}
+			if(Died_Attack)
+			{
+				diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
+			}
+
 			if (parentObj)
 			{
                 if(parentObj.name!= "TemporaryParent")
@@ -504,7 +608,6 @@ public class Enemy_Wave : character_status
 				    }
                 }
             }
-
 			Enemy_Reset();
 			//Reset_Status();
 			Died_Process();
