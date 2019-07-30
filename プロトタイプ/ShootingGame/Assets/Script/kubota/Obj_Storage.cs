@@ -124,22 +124,22 @@ public class Obj_Storage : MonoBehaviour
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 
-		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Single/S00");	//プレイヤー爆発
-		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Reuse/R00");	//プレイヤー登場時に使用するジェット噴射
-		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Reuse/R01");	//プレイヤーのマズルファイア
-		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Effects_004");  //none
-		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Single/S01_3");	//敵キャラの爆発エフェクト
-		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Single/S02");	//敵キャラコアシールドの破壊エフェクト
-		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Reuse/R02");	//プレイヤーパワーアップエフェクト
-		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Single/S03_2");	//ボス爆発
-		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Effects_009");		//none
-		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Loop/L01");			//敵の粒子
-		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Single/S04");		//大爆発
-		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Reuse/R03");		//プレイヤーの弾の着弾時のエフェクト
-		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Single/S06");		//ボス登場時のエフェクト
-		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Effects_014");        //none
-		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Effects_015");        //none
-		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Effects_016");        //none
+		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001");	//プレイヤー爆発
+		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
+		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");	//プレイヤーのマズルファイア
+		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Explosion/E001");  //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Explosion/E100");	//敵キャラの爆発エフェクト
+		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Explosion/E201");	//敵キャラコアシールドの破壊エフェクト
+		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");	//プレイヤーパワーアップエフェクト
+		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");	//中ボス爆発
+		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");      //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Attachment/A110");			//敵の粒子
+		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");		//戦艦型の爆発
+		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");		//プレイヤーの弾の着弾時のエフェクト
+		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");		//ボス登場時のエフェクト
+		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
@@ -231,7 +231,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");					//ボス死亡時のエフェクト
 		Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");				//プレイヤーのパワーアップした弾（使用してない）
 		Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");						//敵の粒子
-		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Big_explosion");					//大爆発
+		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");			//戦艦の爆発
 		Effects[11] = new Object_Pooling(Effects_Prefab[11], 4, "Player_Bullet_impact");			//プレイヤーの弾の着弾時のエフェクト
 		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");					//ボス登場時のエフェクト
 		Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Boss_Bullet1");					//ボスの弾その１
