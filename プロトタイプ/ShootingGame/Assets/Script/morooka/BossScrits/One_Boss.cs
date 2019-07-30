@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class One_Boss : character_status
 {
@@ -23,7 +24,7 @@ public class One_Boss : character_status
 
 	[SerializeField] private GameObject core;
 	[SerializeField] private GameObject[] arm_parts;
-	[SerializeField] private GameObject[] Muzzles;
+	[SerializeField] private GameObject[] muzzles;
 
 	private One_Boss_Parts Core { get; set; }
 
@@ -35,7 +36,7 @@ public class One_Boss : character_status
 	private Vector3[] Arm_Closed_Position { get; set; }		// アーム閉じいている位置
 	private Vector3[] Arm_Open_Position { get; set; }		// アーム開いてる位置
 
-
+	private int Attack_Step { get; set; }
 
 
 	public GameObject Player_Data { get; private set; }		// プレイヤーのデータ
@@ -56,9 +57,14 @@ public class One_Boss : character_status
 		Now_Speed = Lowest_Speed;
 
 		Target = transform.position = Vector3.zero;
+		Arm_Closed_Position = new Vector3[arm_parts.Length];
+		Arm_Open_Position = new Vector3[arm_parts.Length];
 
 		Arm_Closed_Position[0] = new Vector3(0.12f, 1.75f, 0.0f);
 		Arm_Closed_Position[1] = new Vector3(0.12f, -1.75f, 0.0f);
+		Arm_Open_Position[0] = new Vector3(0.12f, 2.75f, 0.0f);
+		Arm_Open_Position[1] = new Vector3(0.12f, -2.75f, 0.0f);
+		Attack_Step = 0;
     }
 
     // Update is called once per frame
@@ -74,42 +80,100 @@ public class One_Boss : character_status
 		Player_Tracking_Movement_Attack();
 	}
 
+	/// <summary>
+	/// プレイヤーを追従しレーザー攻撃
+	/// </summary>
 	private void Player_Tracking_Movement_Attack()
 	{
-		Vector3 temp = transform.position;
-		temp.y = Player_Data.transform.position.y;
-
-		if(Player_Data.transform.position.y != transform.position.y)
+		// プレイヤー追従移動
+		if (Attack_Step == 0)
 		{
-			if(Target == transform.position)
+			Vector3 temp = transform.position;
+			temp.y = Player_Data.transform.position.y;
+			if (Vector_Size(temp, transform.position) > 1.0f)
 			{
-				Prev_Pos = Target;
-				if(transform.position.y > Player_Data.transform.position.y)
+				if (Target == transform.position)
 				{
-					Target = transform.position - MOVEY;
+					Prev_Pos = Target;
+					if (transform.position.y > Player_Data.transform.position.y)
+					{
+						Target = transform.position - MOVEY;
+					}
+					else if (transform.position.y < Player_Data.transform.position.y)
+					{
+						Target = transform.position + MOVEY;
+					}
 				}
-				else if(transform.position.y < Player_Data.transform.position.y)
-				{
-					Target = transform.position + MOVEY;
-				}
-			}
 
-			if (Vector_Size(temp, transform.position) < Speed_Change_Distance)
-			{
-				if(Now_Speed > Lowest_Speed)	Now_Speed -= Lowest_Speed;
+				if (Vector_Size(temp, transform.position) < Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(temp, transform.position) >= Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+				transform.position = Moving_To_Target(transform.position, Target, Now_Speed);
+
 			}
-			else if(Vector_Size(temp, transform.position) >= Speed_Change_Distance)
+			else if (Vector_Size(temp, transform.position) <= 1.0f)
 			{
-				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				Attack_Step++;
 			}
-			transform.position = Moving_To_Target(transform.position, Target, Now_Speed);
 		}
-		else if(Player_Data.transform.position.y == transform.position.y)
+		// 開く
+		else if (Attack_Step == 1)
 		{
+			bool[] b = new bool[arm_parts.Length];
+			for (int i = 0; i < arm_parts.Length; i++)
+			{
+				if (arm_parts[i].transform.localPosition != Arm_Open_Position[i] && !b[i])
+				{
+					arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Open_Position[i], speed * 2.0f);
+					b[i] = false;
+				}
+				else if (arm_parts[i].transform.localPosition == Arm_Open_Position[i])
+				{
+					b[i] = true;
+				}
+			}
+			if (b[0] && b[1])
+			{
+				Attack_Step++;
+			}
+		}
+		// 攻撃
+		else if (Attack_Step == 2)
+		{
+			foreach (GameObject Muzzle in muzzles)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Muzzle.transform.position, Muzzle.transform.right);
+			}
 
+			Attack_Step++;
+		}
+		// 閉じる
+		else if (Attack_Step == 3)
+		{
+			bool[] b = new bool[arm_parts.Length];
+			for (int i = 0; i < arm_parts.Length; i++)
+			{
+				if (arm_parts[i].transform.localPosition != Arm_Closed_Position[i] && !b[i])
+				{
+					arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Closed_Position[i], speed * 2.0f);
+					b[i] = false;
+				}
+				else if (arm_parts[i].transform.localPosition == Arm_Closed_Position[i])
+				{
+					b[i] = true;
+				}
+			}
+			if (b[0] && b[1])
+			{
+				Attack_Step = 0;
+			}
 		}
 	}
-
 	/// <summary>
 	/// ターゲットに移動
 	/// </summary>
