@@ -98,6 +98,7 @@ public class AudioManager : MonoBehaviour
 			audioFadeInCount += Time.deltaTime;
 			if(bgmPlayer.volume >= 1)
 			{
+				audioFadeInCount = 0;
 				isAudioFadeIn = false;
 			}
 		}
@@ -109,6 +110,7 @@ public class AudioManager : MonoBehaviour
 			if(bgmPlayer.volume <= 0)
 			{
 				isAudioFadeOut = false;
+				audioFadeOutCount = 0;
 				if(prepartToPause)
 				{
 					PauseBGM();
@@ -125,42 +127,42 @@ public class AudioManager : MonoBehaviour
 
 	private void OnGUI()
 	{
-		if(GUI.Button (new Rect (60,60,100,80),"Fade In再生,Opening"))
+		if(GUI.Button (new Rect (60,60,240,120),"Fade In再生,Opening"))
 		{
 			PlayBGMFadeIn(C_AudioType.BGM_Opening_01);
 		}
 
-		if(GUI.Button (new Rect (60,180,100,80),"再生,Opening"))
+		if(GUI.Button (new Rect (60,180,240,120),"再生,Opening"))
 		{
 			PlayBGM(C_AudioType.BGM_Opening_01);
 		}
 
-		if(GUI.Button (new Rect (60,300,100,80),"停止,Opening"))
+		if(GUI.Button (new Rect (60,300,240,120),"停止,Opening"))
 		{
 			StopCurrentAudioPlayer();
 		}
 
-		if(GUI.Button (new Rect (60,420,100,80),"Fade Out停止,Opening"))
+		if(GUI.Button (new Rect (60,420,240,120),"Fade Out停止,Opening"))
 		{
 			StopCurrentAudioPlayerFadeOut();
 		}
 
-		if(GUI.Button (new Rect (60,540,100,80),"一時停止,Opening"))
+		if(GUI.Button (new Rect (60,540,240,120),"一時停止,Opening"))
 		{
 			PauseBGM();
 		}
 
-		if(GUI.Button (new Rect (60,660,100,80),"Fade Out 一時停止,Opening"))
+		if(GUI.Button (new Rect (60,660,240,120),"Fade Out 一時停止,Opening"))
 		{
 			PauseBGMFadeOut();
 		}
 
-		if(GUI.Button (new Rect (60,780,100,80),"再開,Opening"))
+		if(GUI.Button (new Rect (60,780,240,120),"再開,Opening"))
 		{
 			ResumeBGM();
 		}
 
-		if(GUI.Button (new Rect (60,900,100,80),"Fade In再開,Opening"))
+		if(GUI.Button (new Rect (60,900,240,120),"Fade In再開,Opening"))
 		{
 			ResumeBGMFadeIn();
 		}
@@ -174,6 +176,12 @@ public class AudioManager : MonoBehaviour
 	/// <param name="isLoop"></param>
 	public void PlayBGM(C_AudioType type,float volume, bool isLoop)
 	{
+		if(bgmPlayer.isPlaying)
+		{
+			Debug.Log("再生中、他の再生処理は実行しない");
+			return;
+		}
+
 		AudioClip tempBgmChip = null;
 		for(var i = 0; i < bgms.Count; ++i)
 		{
@@ -327,7 +335,7 @@ public class AudioManager : MonoBehaviour
 			return;
 		}
 
-		bgmPlayer.Pause();
+		bgmPlayer.UnPause();
 		isAudioFadeIn = true;
 		audioFadeInTarget = targetVolume;
 		audioFadeInTime = fadeTime;
