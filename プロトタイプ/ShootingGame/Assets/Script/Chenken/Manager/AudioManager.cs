@@ -82,12 +82,18 @@ public class AudioManager : MonoBehaviour
 	private bool isSePausing = false;
 	private void Awake()
 	{
-		instance = this;
 		DontDestroyOnLoad(this.gameObject);
 
-		if(Instance != this)
+		if(Instance == null)
 		{
-			Destroy(this.gameObject);
+			instance = this;
+		}
+		else
+		{
+			if(Instance != this)
+			{
+				Destroy(this.gameObject);
+			}
 		}
 
 		bgmPlayer = transform.Find("Bgm").GetComponent<AudioSource>();
