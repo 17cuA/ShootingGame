@@ -1,9 +1,26 @@
-﻿using System.Collections;
+﻿//作成日2019/07/30
+// 一面のボス本番
+// 作成者:諸岡勇樹
+/*
+ * 2019/07/30　グリッド移動の適応
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class One_Boss : character_status
 {
+	/*
+	 * 2019/07/30　グリッド移動
+	 */
+	//-----------------------------------------------------------------------------------------------------------------------------//
+	Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
+	Vector3 Target { get; set; }     // 入力受付時、移動後の位置を算出して保存 
+	Vector3 Prev_Pos { get; set; }     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
+	//-----------------------------------------------------------------------------------------------------------------------------//
+
 	[SerializeField] private GameObject core;
 	[SerializeField] private GameObject[] Muzzles;
 
@@ -24,12 +41,14 @@ public class One_Boss : character_status
 		Player_Data = Obj_Storage.Storage_Data.GetPlayer();
 
 		Max_Speed = speed;
-		Now_Speed = Lowest_Speed = Max_Speed / 60.0f;
+		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
 		for(;Now_Speed <= Max_Speed ;Now_Speed += Lowest_Speed )
 		{
 			Speed​_Change_Distance += Now_Speed;
 		}
 		Now_Speed = Lowest_Speed;
+
+		Target = transform.position = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -50,17 +69,34 @@ public class One_Boss : character_status
 		Vector3 temp = transform.position;
 		temp.y = Player_Data.transform.position.y;
 
-		if(temp != transform.position)
+		if(Player_Data.transform.position.y != transform.position.y)
 		{
-			if (Vector_Size(Player_Data.transform.position, transform.position) <= Speed_Change_Distance)
+			if(Target == transform.position)
 			{
-				Now_Speed = Lowest_Speed;
+				Prev_Pos = Target;
+				if(transform.position.y > Player_Data.transform.position.y)
+				{
+					Target = transform.position - MOVEY;
+				}
+				else if(transform.position.y < Player_Data.transform.position.y)
+				{
+					Target = transform.position + MOVEY;
+				}
 			}
-			else if(Vector_Size(Player_Data.transform.position, transform.position) > Speed_Change_Distance)
+
+			if (Vector_Size(temp, transform.position) < Speed_Change_Distance)
 			{
-				Now_Speed = Max_Speed;
+				if(Now_Speed > Lowest_Speed)	Now_Speed -= Lowest_Speed;
 			}
-			transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+			else if(Vector_Size(temp, transform.position) >= Speed_Change_Distance)
+			{
+				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			}
+			transform.position = Moving_To_Target(transform.position, Target, Now_Speed);
+		}
+		else if(Player_Data.transform.position.y == transform.position.y)
+		{
+
 		}
 	}
 

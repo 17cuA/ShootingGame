@@ -11,6 +11,7 @@ using UnityEngine;
 public class One_Boss_Parts : character_status
 {
 
+
 	private Vector3 Initial_Position { get; set; }
 
 	private new void Start()

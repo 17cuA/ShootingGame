@@ -67,9 +67,10 @@ public class Player1 : character_status
 									//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
-										//--------------------------------------------------------
+	//--------------------------------------------------------
 
 	public bool Is_Change_Auto;
+	public bool IS_Active;
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -144,101 +145,112 @@ public class Player1 : character_status
 
 	new void Update()
 	{
-		//復活時のアニメーション
-		if (Is_Resporn)
-		{
-			resporn_Injection.Play();
-			//Debug.Log("hei");
-			capsuleCollider.enabled = false;
-			startTime += Time.deltaTime;
-			transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction, startTime);
+		//デバックキー
+		if (Input.GetKeyDown(KeyCode.Alpha6)) IS_Active = !IS_Active;
 
-			if (transform.position == direction)
+		//稼働状態なら動かす
+		if (IS_Active)
+		{
+			//復活時のアニメーション
+			if (Is_Resporn)
 			{
-				resporn_Injection.Stop();
-				startTime = 0;
-				Is_Resporn = false;
+				resporn_Injection.Play();
+				//Debug.Log("hei");
+				capsuleCollider.enabled = false;
+				startTime += Time.deltaTime;
+				transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction, startTime);
+
+				if (transform.position == direction)
+				{
+					resporn_Injection.Stop();
+					startTime = 0;
+					Is_Resporn = false;
+				}
+			}
+			else
+			{
+				//-------------------------------
+				//デバックの工程
+				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
+				if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
+				if (Input.GetKeyDown(KeyCode.Alpha4))
+				{
+					hp = 0;
+					Remaining--;
+					Debug.Log("hei");
+					ParticleCreation(0);        //爆発のエフェクト発動
+					Reset_Status();             //体力の修正
+					invincible = false;         //無敵状態にするかどうかの処理
+					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+					bullet_Type = Bullet_Type.Single;
+					Is_Resporn = true;
+					Laser.SetActive(false);
+					return;
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
+				//---------------------------
+
+				PowerManager.Instance.Update();
+				//ビットン数をパワーマネージャーに更新する
+				PowerManager.Instance.UpdateBit(bitIndex);
+
+				//if(shield < 1)
+				//{
+				//	PowerManager.Instance.ResetShieldPower();
+				//	shield_Effect.Play(false);
+				//}
+				if (hp < 1)
+				{
+					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
+					PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					Remaining--;                                        //残機を1つ減らす
+																		//残機が残っていなければ
+					if (Remaining < 1)
+					{
+						//残機がない場合死亡
+						Died_Process();
+
+					}
+					//残機が残っていたら
+					else
+					{
+						ParticleCreation(0);        //爆発のエフェクト発動
+						Reset_Status();             //体力の修正
+													//gameObject.transform.position = direction;      //初期位置に戻す
+													//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
+						invincible = true;         //無敵状態にするかどうかの処理
+						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
+						Is_Resporn = true;                      //復活用の処理を行う
+					}
+				}
+				//無敵時間の開始
+				Invincible();
+				//プレイヤーの移動処理
+				Player_Move();
+
+				//弾の発射（Fire2かSpaceキーで撃てる）
+				if (Shot_Delay > Shot_DelayMax)
+				{
+					//弾を射出
+					Bullet_Create();
+				}
+				//パワーアップ処理
+				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+				{
+					//アイテムを規定数所持していたらその値と同じものの効果を得る
+					PowerManager.Instance.Upgrade();
+				}
+				// 通常のバレットのディレイ計算
+				Shot_Delay++;
+				// ミサイルのディレイ計算
+				missile_dilay_cnt++;
 			}
 		}
 		else
 		{
-			//-------------------------------
-			//デバックの工程
-			if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-			if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
-			if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-			{
-				hp = 0;
-				Remaining--;
-				Debug.Log("hei");
-				ParticleCreation(0);        //爆発のエフェクト発動
-				Reset_Status();             //体力の修正
-				invincible = false;         //無敵状態にするかどうかの処理
-				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-				bullet_Type = Bullet_Type.Single;
-				Is_Resporn = true;
-				Laser.SetActive(false);
-				return;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
-			//---------------------------
-
-			PowerManager.Instance.Update();
-			//ビットン数をパワーマネージャーに更新する
-			PowerManager.Instance.UpdateBit(bitIndex);
-
-			//if(shield < 1)
-			//{
-			//	PowerManager.Instance.ResetShieldPower();
-			//	shield_Effect.Play(false);
-			//}
-			if (hp < 1)
-			{
-				if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-				PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
-				Remaining--;                                        //残機を1つ減らす
-																	//残機が残っていなければ
-				if (Remaining < 1)
-				{
-					//残機がない場合死亡
-					Died_Process();
-
-				}
-				//残機が残っていたら
-				else
-				{
-					ParticleCreation(0);        //爆発のエフェクト発動
-					Reset_Status();             //体力の修正
-												//gameObject.transform.position = direction;      //初期位置に戻す
-												//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
-					invincible = true;         //無敵状態にするかどうかの処理
-					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-					bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
-					Is_Resporn = true;                      //復活用の処理を行う
-				}
-			}
-			//無敵時間の開始
-			Invincible();
-			//プレイヤーの移動処理
-			Player_Move();
-
-			//弾の発射（Fire2かSpaceキーで撃てる）
-			if (Shot_Delay > Shot_DelayMax)
-			{
-				//弾を射出
-				Bullet_Create();
-			}
-			//パワーアップ処理
-			if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
-			{
-				//アイテムを規定数所持していたらその値と同じものの効果を得る
-				PowerManager.Instance.Upgrade();
-			}
-			// 通常のバレットのディレイ計算
-			Shot_Delay++;
-			// ミサイルのディレイ計算
-			missile_dilay_cnt++;
+			capsuleCollider.enabled = false;
 		}
 	}
 	//コントローラーの操作
