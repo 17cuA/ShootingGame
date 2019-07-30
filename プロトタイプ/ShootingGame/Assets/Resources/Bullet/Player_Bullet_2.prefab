@@ -4808,6 +4808,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Bullet_Eff
       objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4863,16 +4873,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3519265721906395721, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.019
-      objectReference: {fileID: 0}
-    - target: {fileID: 3519265721906395721, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.441
-      objectReference: {fileID: 0}
     - target: {fileID: 7482309386382772914, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -4922,6 +4922,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3519265721906395721, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 3519265721906395721, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.441
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333792703205228242, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2915147977179049639, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042998651700464954, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 533396994882467108, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101474251155847885, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928232454659726380, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674457753132283719, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674457753132283719, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2923388905959968972, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
@@ -5163,15 +5213,15 @@ PrefabInstance:
       propertyPath: ShapeModule.radiusThickness
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4674457753132283719, guid: d429fc415f53eeb438c409999c3d49f1,
+    - target: {fileID: 5094294071741871387, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
-      propertyPath: ColorModule.enabled
-      value: 0
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 4674457753132283719, guid: d429fc415f53eeb438c409999c3d49f1,
+    - target: {fileID: 5177081882465104526, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 1
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1309242569136013860, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
