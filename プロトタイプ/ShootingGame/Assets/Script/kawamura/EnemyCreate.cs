@@ -685,7 +685,8 @@ public class EnemyCreate : MonoBehaviour
 		//ボス仮置きを出す
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
 		{
-			Obj_Storage.Storage_Data.Boss_2.Active_Obj();
+			GameObject Boss = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
+			Boss.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
 			Next_Condition(240);
 		}
 	}
