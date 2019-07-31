@@ -174,6 +174,7 @@ public class One_Boss : character_status
 			}
 		}
 	}
+
 	/// <summary>
 	/// ターゲットに移動
 	/// </summary>
