@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//2019/07/29 変更者：佐藤翼
+//変更点：particle発光に対応
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +27,6 @@ public class UI_PowerUp : MonoBehaviour
 			transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 			displays.Add(number, transform.GetChild(i - start).gameObject);
 		}
-		
 		current.name = "Cursor";
 	}
 
@@ -35,6 +36,7 @@ public class UI_PowerUp : MonoBehaviour
 		//現在選択パワー存在
 		if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 		{
+			
 			//選択画像無効の場合　　->　有効にする
 			if (!current.gameObject.activeSelf)
 				current.gameObject.SetActive(true);
@@ -42,6 +44,7 @@ public class UI_PowerUp : MonoBehaviour
 			//現在位置に合わせる
 			if (current.gameObject.transform.position != displays[PowerManager.Instance.Position].transform.position && PowerManager.Instance.Position != -1) 
 			{
+				current.gameObject.SetActive(false);
 				current.gameObject.transform.position = displays[PowerManager.Instance.Position].transform.position;
 				current.gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 				displays[PowerManager.Instance.Position].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
@@ -51,7 +54,7 @@ public class UI_PowerUp : MonoBehaviour
 					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != PowerManager.Instance.Position)
 						displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
 				}
-			}			
+			}
 		}
 		else
 		{

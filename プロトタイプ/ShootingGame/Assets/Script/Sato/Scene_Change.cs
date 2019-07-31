@@ -44,7 +44,6 @@ public class Scene_Change : MonoBehaviour
 		else
 		{
 			Scene_Manager.Manager.Screen_Transition_To_Stage_01();
-
 		}
 	}
 }
