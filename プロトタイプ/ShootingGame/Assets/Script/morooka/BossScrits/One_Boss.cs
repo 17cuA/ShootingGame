@@ -60,10 +60,10 @@ public class One_Boss : character_status
 		Arm_Closed_Position = new Vector3[arm_parts.Length];
 		Arm_Open_Position = new Vector3[arm_parts.Length];
 
-		Arm_Closed_Position[0] = new Vector3(0.12f, 1.75f, 0.0f);
-		Arm_Closed_Position[1] = new Vector3(0.12f, -1.75f, 0.0f);
-		Arm_Open_Position[0] = new Vector3(0.12f, 2.75f, 0.0f);
-		Arm_Open_Position[1] = new Vector3(0.12f, -2.75f, 0.0f);
+		Arm_Closed_Position[0] = new Vector3(0.12f, 2.75f, 0.0f);
+		Arm_Closed_Position[1] = new Vector3(0.12f, -2.75f, 0.0f);
+		Arm_Open_Position[0] = new Vector3(0.12f, 3.5f, 0.0f);
+		Arm_Open_Position[1] = new Vector3(0.12f, -3.5f, 0.0f);
 		Attack_Step = 0;
     }
 
@@ -170,10 +170,11 @@ public class One_Boss : character_status
 			}
 			if (b[0] && b[1])
 			{
-				Attack_Step = 0;
+				Attack_Step=0;
 			}
 		}
 	}
+
 	/// <summary>
 	/// ターゲットに移動
 	/// </summary>
