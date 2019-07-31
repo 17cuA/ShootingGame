@@ -7,6 +7,7 @@
  * 2019/07/09　バレットの打ち出しタイミングの変更(ベリーイージー → ノーマル)
  * 2019/07/15　奥行対応
  * 2019/07/25　加減速適応
+ * 2019/07/30　弾の打ち方変更
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField, Header("初期位置")] private Vector3 initial_position;
 	[SerializeField, Header("移動変更ポイント")] private Vector3[] moving_change_point;
 	[SerializeField, Header("はさみ込むタイプはTrue")] public bool is_sandwich;
-	[SerializeField, Header("マズルセット上")] private Transform[] muzzle_set_up;
-	[SerializeField, Header("マズルセット下")] private Transform[] muzzle_set_Down;
+	[SerializeField, Header("マズルパーツ")] private BattleshipType_Battery[] muzzle_parts_scriptes;
+	[SerializeField, Header("本体パーツ")] private BattleshipType_Battery body_scriptes;
+	[SerializeField] private uint parts_score;
+
 	public GameObject pure;
 	public Vector3 Original_Position { get; set; }		// 元の位置
 	public int Now_Target { get; set; }					// 現在の移動目標番号
@@ -27,9 +30,9 @@ public class BattleshipType_Enemy : character_status
 	public Vector3 Moving_Facing { get; set; }		// 移動向き
 	public int Muzzle_Select { get; set; }				// マズル指定
 	public List<GameObject> Bullet_Object { get; set; } // 自身が発射した弾の情報の保存
-	public List<BattleshipType_Battery> Child_Scriptes { get; set; }		// 子供のスクリプト
 	public List<MeshRenderer> Parts_Renderer { get; set; }                  // パーツたちのレンダー
 	public float velocity;
+	public List<bool> Is_Muzzle_Active { get; set; }
 
 	public float Initial_Speed { get; set; }				// 初速(最低速度)
 	public float Max_Speed { get; set; }					// 最大速度
@@ -46,17 +49,11 @@ public class BattleshipType_Enemy : character_status
 		Muzzle_Select = 0;
 		Shot_Delay = Shot_DelayMax / 3;
 		Bullet_Object = new List<GameObject>();
-		Child_Scriptes = new List<BattleshipType_Battery>();
 		Parts_Renderer = new List<MeshRenderer>();
 
-		for (int i = 0; i < transform.childCount; i++)
+		for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 		{
-			BattleshipType_Battery b = transform.GetChild(i).GetComponent<BattleshipType_Battery>();
-			if (b != null)
-			{
-				Child_Scriptes.Add(b);
-				Parts_Renderer.Add(Child_Scriptes[i].GetComponent<MeshRenderer>());
-			}
+			Parts_Renderer.Add(muzzle_parts_scriptes[i].GetComponent<MeshRenderer>());
 		}
 
 		if(!Is_up)
@@ -85,7 +82,7 @@ public class BattleshipType_Enemy : character_status
 
 		HSV_Change();
 
-		if(transform.position == moving_change_point[moving_change_point.Length - 1])
+		if (transform.position == moving_change_point[moving_change_point.Length - 1])
 		{
 			gameObject.SetActive(false);
 		}
@@ -98,7 +95,7 @@ public class BattleshipType_Enemy : character_status
 		{
 			// 移動先に近づいたとき
 			// ターゲット番号が要素数を超えていないとき
-			if(Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed && Now_Target < moving_change_point.Length - 1)
+			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed && Now_Target < moving_change_point.Length - 1)
 			{
 				// 位置を指定
 				Original_Position = transform.position = moving_change_point[Now_Target];
@@ -129,14 +126,10 @@ public class BattleshipType_Enemy : character_status
 			Shot_Delay++;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select].position, -muzzle_set_up[Muzzle_Select].right));
-				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_Down[Muzzle_Select].position, -muzzle_set_Down[Muzzle_Select].right));
-				//Bullet_Object.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle_set_up[Muzzle_Select + 2].position, -muzzle_set_up[Muzzle_Select + 2].right));
-				Bullet_Object.Add(Instantiate(pure, muzzle_set_up[Muzzle_Select].position, muzzle_set_up[Muzzle_Select].rotation));
-				Bullet_Object.Add(Instantiate(pure, muzzle_set_Down[Muzzle_Select].position, muzzle_set_Down[Muzzle_Select].rotation));
-				Bullet_Object.Add(Instantiate(pure, muzzle_set_up[Muzzle_Select + 2].position, muzzle_set_up[Muzzle_Select + 2].rotation));
-				Bullet_Object.Add(Instantiate(pure, muzzle_set_Down[Muzzle_Select+2].position, muzzle_set_Down[Muzzle_Select+2].rotation));
-
+				if (muzzle_parts_scriptes[Muzzle_Select + 0].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 0].Attack_Instruction_Receiving());
+				if (muzzle_parts_scriptes[Muzzle_Select + 2].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 2].Attack_Instruction_Receiving());
+				if (muzzle_parts_scriptes[Muzzle_Select + 4].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 4].Attack_Instruction_Receiving());
+				if (muzzle_parts_scriptes[Muzzle_Select + 6].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 6].Attack_Instruction_Receiving());
 
 				Muzzle_Select++;
 				if (Muzzle_Select == 2)
@@ -149,12 +142,11 @@ public class BattleshipType_Enemy : character_status
 		}
 
 		// 保管したバレットの確認
-		for (int i = 0; i< Bullet_Object.Count;i++)
+		for (int i = 0; i < Bullet_Object.Count; i++)
 		{
 			// バレットが起動しているとき
 			if (Bullet_Object[i].activeSelf)
 			{
-				
 
 				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
 				Vector3 pos = Bullet_Object[i].transform.position;
@@ -172,18 +164,30 @@ public class BattleshipType_Enemy : character_status
 		// 本体がHP０以下のとき
 		if (hp <= 0)
 		{
-			for (int i = 0; i < Child_Scriptes.Count; i++)
+			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 			{
-				if (Child_Scriptes[i].gameObject.activeSelf)
+				if (muzzle_parts_scriptes[i].gameObject.activeSelf)
 				{
-					Child_Scriptes[i].Died_Process();
+					muzzle_parts_scriptes[i].Died_Process();
 				}
 			}
 
+			if (body_scriptes.gameObject.activeSelf)
+			{
+				body_scriptes.Died_Process();
+			}
 			Bullet_Object.Reverse();
 
 			Died_Process();
 		}
+
+		Is_Muzzle_Active = new List<bool>();
+		for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+		{
+			Is_Muzzle_Active.Add(muzzle_parts_scriptes[i].gameObject.activeSelf);
+		}
+
+		func();
 	}
 
 	void OnEnable()
@@ -192,16 +196,22 @@ public class BattleshipType_Enemy : character_status
 		Now_Target = 0;
 		Shot_Delay = 0;
 
-		if (Child_Scriptes != null)
+		if (muzzle_parts_scriptes != null)
 		{
 			// 子供が不能のとき、再起動
-			for (int i = 0; i < Child_Scriptes.Count; i++)
+			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 			{
-				if (!Child_Scriptes[i].gameObject.activeSelf)
+				if (!muzzle_parts_scriptes[i].gameObject.activeSelf)
 				{
-					Child_Scriptes[i].ReBoot();
+					muzzle_parts_scriptes[i].ReBoot();
+					Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
 				}
 			}
+		}
+
+		if (body_scriptes.gameObject.activeSelf)
+		{
+			body_scriptes.ReBoot();
 		}
 	}
 
@@ -267,5 +277,20 @@ public class BattleshipType_Enemy : character_status
 		}
 
 		return return_pos;
+	}
+
+	private void func()
+	{
+		for(int i=0;i<Is_Muzzle_Active.Count;i++)
+		{
+			if(Is_Muzzle_Active[i])
+			{
+				if(!muzzle_parts_scriptes[i].gameObject.activeSelf)
+				{
+					Game_Master.MY.Score_Addition(parts_score);
+					Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
+				}
+			}
+		}
 	}
 }
