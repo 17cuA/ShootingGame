@@ -21,6 +21,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 	[SerializeField]  private float straightTrailWidth = 0.1f;
 	[SerializeField]  private Material straightLaserMaterial;
 	[SerializeField]  private Game_Master.OBJECT_NAME laserName;
+    public GameObject laserLinePrefab;
 
 	[SerializeField] private bool isFire;
 	public bool IsFire
@@ -81,9 +82,9 @@ public class Enemy_LaserEmitter : MonoBehaviour
 			this.currentLaunchDevice = newLaunchDevice;
 		}
 
-		public void GenerateLine(Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
+		public void GenerateLine(GameObject laserLinePrefab, Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
 		{
-			currentLaunchDevice.GenerateLine(laserName,laserShotSpeed, laserWidth, laserMaterial, pointMax);
+			currentLaunchDevice.GenerateLine(laserLinePrefab, laserName, laserShotSpeed, laserWidth, laserMaterial, pointMax);
 		}
 
 		public void LaunchNode(float trailWidth)
@@ -106,7 +107,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 		float CanLaunchTime { get; set; }
 		GameObject EmitterInstance { get; set; }
 
-		void GenerateLine(Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax);
+		void GenerateLine(GameObject laserLinePrefab, Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax);
 		void LaunchNode(float trailWidth);
 	}
 
@@ -134,7 +135,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 			this.generators = new List<Enemy_LaserGenerator>();
 		}
 
-		public void GenerateLine(Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
+		public void GenerateLine(GameObject laserLinePrefab, Game_Master.OBJECT_NAME laserName, float laserShotSpeed, float laserWidth, Material laserMaterial, int pointMax)
 		{
 			Debug.Log("StraightLaserGeneratorアクティブ");
 			for (var i = 0; i < this.generators.Count; ++i)
@@ -152,7 +153,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 			var generatorGo = new GameObject("Generator");
 			var generator = generatorGo.AddComponent<Enemy_LaserGenerator>();
 
-			generator.Setting(laserShotSpeed, laserWidth, laserMaterial, pointMax);
+			generator.Setting(laserLinePrefab,laserName, laserShotSpeed, laserWidth, laserMaterial, pointMax);
 			generator.IsFixed = true;
 
 			generatorGo.transform.SetParent(EmitterInstance.transform);
@@ -185,9 +186,13 @@ public class Enemy_LaserEmitter : MonoBehaviour
 		straightLaserParent.transform.SetParent(this.transform);
 		straightLaserParent.transform.localPosition = Vector3.zero;
 		this.straightLaserGeneratorParent = straightLaserParent;
-
 		this.emitterRotateCore = new EmitterRotateCore(this.transform.parent.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
+	}
+
+	private void Start()
+	{
+	
 	}
 
 	private void Update()
@@ -210,24 +215,26 @@ public class Enemy_LaserEmitter : MonoBehaviour
 		}
 		else
 		{
-
-			if (isFire)
+			if (launchDevice != null)
 			{
-				if (launchDevice.CurrentGenerator == null)
+				if (isFire)
 				{
-						this.emitterLaunchCore.GenerateLine(laserName, straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
-				}
+					if (launchDevice.CurrentGenerator == null)
+					{
+						this.emitterLaunchCore.GenerateLine(laserLinePrefab, laserName, straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+					}
 
-				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
-				{
+					if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+					{
 						this.emitterLaunchCore.LaunchNode(straightTrailWidth);
+					}
 				}
-			}
 
-			if (!isFire && launchDevice.CurrentGenerator != null)
-			{
-				launchDevice.CurrentGenerator.IsFixed = false;
-				launchDevice.CurrentGenerator = null;
+				if (!isFire && launchDevice.CurrentGenerator != null)
+				{
+					launchDevice.CurrentGenerator.IsFixed = false;
+					launchDevice.CurrentGenerator = null;
+				}
 			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -251,7 +258,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
-			this.isClose = !this.isClose;
+			IsFire = !IsFire;
 		}
 	}
 }

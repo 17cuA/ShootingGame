@@ -14,6 +14,7 @@ public class Enemy_LaserGenerator : MonoBehaviour
 
 	private LineRenderer lineRenderer;
 	private Game_Master.OBJECT_NAME laserName;
+	private GameObject laserLinePrefab;
 	public List<GameObject> nodes;
 
 	private int pointMax;
@@ -33,7 +34,7 @@ public class Enemy_LaserGenerator : MonoBehaviour
 		this.isFixed = true;
 		this.lineRenderer = GetComponent<LineRenderer>();
 		this.nodes = new List<GameObject>();
-		this.emitter = GameObject.Find("LaserEmitter");
+		this.emitter = GameObject.Find("Boss_LaserEmitter");
 	}
 
 	private void Update()
@@ -112,9 +113,11 @@ public class Enemy_LaserGenerator : MonoBehaviour
 	/// <param name="lineWidth"> レーザー線太さ          </param>
 	/// <param name="nodePrefab">レーザー連結点プレハブ  </param>
 	/// <param name="material">  レーザー線マテリアル    </param>
-	public void Setting(float shotSpeed, float lineWidth, Material material, int pointMax)
+	public void Setting(GameObject laserLinePrefab, Game_Master.OBJECT_NAME laserName, float shotSpeed, float lineWidth, Material material, int pointMax)
 	{
 		this.shotSpeed = shotSpeed;
+		this.laserLinePrefab = laserLinePrefab;
+		this.laserName = laserName;
 		this.lineRenderer.startWidth = lineWidth;
 		this.lineRenderer.endWidth = lineWidth;
 		this.lineRenderer.material = material;
@@ -170,60 +173,19 @@ public class Enemy_LaserGenerator : MonoBehaviour
 
 	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isRotateLaser)
 	{
-		var node = StorageReference.Object_Instantiation.Object_Reboot(laserName, pos, Quaternion.identity);
+		var node = Instantiate(laserLinePrefab, pos, Quaternion.identity);
+		if(node == null)
+		{
+			node = StorageReference.Object_Instantiation.Object_Reboot(laserName, pos, Quaternion.identity);
+		}
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
 		node.transform.localRotation = rotation;
 		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
-		node.GetComponent<LaserLine>().TrailRenderer.Clear();
-		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
-		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
-		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
+		node.GetComponent<Enemy_LaserLine>().TrailRenderer.Clear();
+		node.GetComponent<Enemy_LaserLine>().TrailRenderer.endWidth = trailWidth;
+		node.GetComponent<Enemy_LaserLine>().TrailRenderer.startWidth = trailWidth;
 		return node;
 	}
 
-
-	public static Quaternion Average(Quaternion[] quatArray)
-	{
-		var result = new Quaternion();
-		var count = quatArray.Length;
-		var error = 0;
-
-		while (count > 1)
-		{
-			if (error >= 10000) break;
-			error++;
-			var k = 0;
-			for (int i = 0; i + 1 < count; i += 2)
-			{
-				var a = quatArray[i];
-				var b = quatArray[i + 1];
-
-				if (Quaternion.Dot(a, a) < Quaternion.kEpsilon)
-					a = Quaternion.identity;
-
-				if (Quaternion.Dot(b, b) < Quaternion.kEpsilon)
-					b = Quaternion.identity;
-
-				var avgQuat = Quaternion.LerpUnclamped(a, b, 0.5f);
-
-				quatArray[k] = avgQuat;
-				k++;
-			}
-
-			var lastCount = count;
-			count = k;
-
-			if ((lastCount & 1) == 1)
-			{
-				k++;
-				count++;
-				quatArray[k] = quatArray[lastCount - 1];
-			}
-		}
-
-		result = quatArray[0];
-
-		return result;
-	}
 }
 
