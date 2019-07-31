@@ -170,7 +170,16 @@ public class One_Boss : character_status
 			}
 			if (b[0] && b[1])
 			{
-				Attack_Step = 0;
+				Attack_Step++;
+			}
+		}
+		else if(Attack_Step == 4)
+		{
+			if(transform.position.y > 0.0f)
+			{
+				Vector3 temp = new Vector3(0.0f, 5.0f, 0.0f);
+				
+
 			}
 		}
 	}
