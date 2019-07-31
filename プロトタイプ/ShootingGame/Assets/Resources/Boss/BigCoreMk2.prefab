@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 10000
+  hp: 100
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
@@ -304,7 +304,7 @@ Transform:
   - {fileID: 4809849171175293145}
   - {fileID: 9051573755106936828}
   - {fileID: 9051573755106936830}
-  - {fileID: 893337965552563039}
+  - {fileID: 7312062075821537251}
   - {fileID: 4709224921559166722}
   m_Father: {fileID: 9051573755106936824}
   m_RootOrder: 4
@@ -528,8 +528,14 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   core: {fileID: 2424706955617710135}
-  arm_parts: []
-  muzzles: []
+  arm_parts:
+  - {fileID: 9051573755106712540}
+  - {fileID: 9051573755106712542}
+  muzzles:
+  - {fileID: 2438126635802557721}
+  - {fileID: 2768037984632471737}
+  - {fileID: 832080053087033644}
+  - {fileID: 3205767984282569052}
 --- !u!1 &9051573755106712538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01b689827ca790a498571e39cda6c54a, type: 3}
---- !u!4 &893337965552563039 stripped
+--- !u!4 &7312062075821537251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7574051346351118027, guid: 01b689827ca790a498571e39cda6c54a,
     type: 3}
