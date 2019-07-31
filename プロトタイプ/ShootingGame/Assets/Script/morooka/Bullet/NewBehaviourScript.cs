@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class NewBehaviourScript : bullet_status
 {
-    // Start is called before the first frame update
-    new void Start()
+	public GameObject Person_Who_Shot { get; set; }
+	// Start is called before the first frame update
+	new void Start()
     {
 		base.Start();
     }
@@ -18,6 +19,9 @@ public class NewBehaviourScript : bullet_status
 
 	new private void OnTriggerEnter(Collider other)
 	{
-		gameObject.SetActive(false);
+		if (other.gameObject != Person_Who_Shot)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 }

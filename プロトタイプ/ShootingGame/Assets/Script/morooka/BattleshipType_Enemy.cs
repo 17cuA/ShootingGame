@@ -154,6 +154,8 @@ public class BattleshipType_Enemy : character_status
 			// バレットが起動しているとき
 			if (Bullet_Object[i].activeSelf)
 			{
+				
+
 				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
 				Vector3 pos = Bullet_Object[i].transform.position;
 				pos.x -= velocity;
