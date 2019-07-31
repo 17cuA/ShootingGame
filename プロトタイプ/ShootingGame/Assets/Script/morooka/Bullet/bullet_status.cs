@@ -68,8 +68,6 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
-
-		gameObject.SetActive(false);
 	}
 
 	/// <summary>
