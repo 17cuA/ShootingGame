@@ -131,7 +131,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eCAUTION;
 	}
@@ -143,7 +143,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eROGO;
 	}
