@@ -9,40 +9,38 @@ public class Helper_SceneTranslation : MonoBehaviour
     private bool isLoaded;
 	public AudioSource audioSource; //ユニティ側にて設定
 	public AudioClip audioClip;         //unity側から設定
+
+	public int Set_Step { get; private set; }
+
 	private void Start()
 	{
 		isLoaded = false;
+		Set_Step = 0;
 	}
 	public void Update()
 	{
-		if (!isLoaded)
+		if (Set_Step == 0)
 		{
-			if (/*Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("joystick button 0")*/
-				Input.anyKey && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 			{
-				//isLoaded = !isLoaded;
-				//if (isLoaded)
-				//{
-				//             //Application.LoadLevelAdditive("MENU");
-				//             SceneManager.LoadScene("MENU", LoadSceneMode.Additive); // OK
-				//             //SceneManager.UnloadSceneAsync("Title");
-				//             gameObject.SetActive(false);
-
-				//         }
-				//else
-				//{
-				//             SceneManager.UnloadSceneAsync("Title");
-				//             Resources.UnloadUnusedAssets();
-				//             gameObject.SetActive(true);
-				//         }
 				audioSource?.PlayOneShot(audioClip);
-				isLoaded = true;
+				Set_Step++;
 			}
 		}
-		else
+		else if(Set_Step==1)
+		{
+			if(Input.GetButtonDown("Fire1"))
+			{
+				Set_Step++;
+			}
+			else if(Input.GetButtonDown("Fire2"))
+			{
+				Set_Step--;
+			}
+		}
+		else if(Set_Step == 2)
 		{
 			Scene_Manager.Manager.Scene_Transition(sceneName);
-
 		}
 	}
 }

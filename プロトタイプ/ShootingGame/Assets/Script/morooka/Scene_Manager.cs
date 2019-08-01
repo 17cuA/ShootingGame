@@ -21,6 +21,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public enum SCENE_NAME
 	{
+		eCAUTION,
 		eROGO,
 		eTITLE,
 		eMENU,
@@ -121,6 +122,18 @@ public class Scene_Manager : MonoBehaviour
 				Is_Fade_Finished = false;
 		}
 		return Is_Fade_Finished;
+	}
+
+	/// <summary>
+	/// 注意書きシーンへ移動
+	/// </summary>
+	public void Screen_Transition_To_Caution()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = false;
+		}
+		Next_Scene = SCENE_NAME.eCAUTION;
 	}
 
 	/// <summary>
