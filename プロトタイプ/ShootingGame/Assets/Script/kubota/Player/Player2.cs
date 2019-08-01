@@ -237,7 +237,7 @@ public class Player2 : character_status
 					Bullet_Create();
 				}
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
+				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("P2_Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					PowerManager.Instance.Upgrade();
@@ -256,8 +256,8 @@ public class Player2 : character_status
 	//コントローラーの操作
 	private void Player_Move()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
+		y = Input.GetAxis("P2_Vertical");              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -339,7 +339,7 @@ public class Player2 : character_status
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (Input.GetButtonDown("Fire3"))
+		if (Input.GetButtonDown("P2_Fire3"))
 		{
 			Debug.Log("モードチェンジ");
 			Is_Change_Auto = !Is_Change_Auto;
@@ -348,7 +348,7 @@ public class Player2 : character_status
 		if (!Is_Change_Auto)
 		{
 			//マニュアル操作
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
 			{
 				Shot_Delay = 0;
 
@@ -382,7 +382,7 @@ public class Player2 : character_status
 		else
 		{
 			//オート操作
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 			{
 				// 連続で4発まで撃てるようにした
 				if (shoot_number < 5)
@@ -425,7 +425,7 @@ public class Player2 : character_status
 
 				}
 			}
-			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
 			{
 				shoot_number = 0;
 			}
