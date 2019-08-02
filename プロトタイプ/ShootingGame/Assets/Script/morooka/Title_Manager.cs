@@ -18,6 +18,10 @@ public class Title_Manager : MonoBehaviour
 	[SerializeField, Tooltip("ロゴ")]			private Image lorgo_writing;
 	[SerializeField, Tooltip("伝説")]			private Image legend_writing;
 
+	private RectTransform Caution_Transform { get; set; }		// 注意書きのトランスフォーム
+	private RectTransform Lorgo_Transform { get; set; }		// ロゴのトランスフォーム
+	private RectTransform Legend_Transform { get; set; }		// 伝説のトランスフォーム
+
 	public TITLE_MODE Mode { get; private set; }
 
 	void Start()
