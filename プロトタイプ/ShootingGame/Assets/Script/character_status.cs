@@ -165,9 +165,18 @@ public class character_status : MonoBehaviour
 				var item = col.GetComponent<Item>();
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
-					PowerManager.Instance.Pick();
-					SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
-					col.gameObject.SetActive(false);
+					if(gameObject.name == "Player")
+					{
+						P1_PowerManager.Instance.Pick();
+						SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
+						col.gameObject.SetActive(false);
+					}
+					else
+					{
+						P2_PowerManager.Instance.Pick();
+						SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
+						col.gameObject.SetActive(false);
+					}
 				}
 				else
 					PowerManager.Instance.Annihilate();
