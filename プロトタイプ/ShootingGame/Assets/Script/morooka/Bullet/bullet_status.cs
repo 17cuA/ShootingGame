@@ -68,8 +68,6 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
-		else if(gameObject.tag == "Enemy_Bullet" && gameObject.tag == "Player_Bullet")
-		{ }
 	}
 
 	/// <summary>
@@ -127,4 +125,5 @@ public class bullet_status : MonoBehaviour
 	{
 		gameObject.tag = tag_name;
 	}
+
 }
