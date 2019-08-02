@@ -21,6 +21,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public enum SCENE_NAME
 	{
+		eCAUTION,
 		eROGO,
 		eTITLE,
 		eMENU,
@@ -53,8 +54,8 @@ public class Scene_Manager : MonoBehaviour
 
 		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
-		Fade_In_Quantity = fade_in_speed / 255.0f;
-		Fade_Out_Quantity = fade_out_speed / 255.0f;
+		Fade_In_Quantity = (255.0f / fade_in_speed) / 255.0f;
+		Fade_Out_Quantity = (255.0f / fade_out_speed) / 255.0f;
 		Is_Fade_Finished = false;
 		Is_Fade_In_Intermediate = true;
 		Is_Fade_Out_Intermediate = false;
@@ -124,13 +125,25 @@ public class Scene_Manager : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 注意書きシーンへ移動
+	/// </summary>
+	public void Screen_Transition_To_Caution()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eCAUTION;
+	}
+
+	/// <summary>
 	/// ロゴシーンに移動
 	/// </summary>
 	public void Screen_Transition_To_ROGO()
 	{
 		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
-			Is_Fade_Out_Intermediate = false;
+			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eROGO;
 	}
