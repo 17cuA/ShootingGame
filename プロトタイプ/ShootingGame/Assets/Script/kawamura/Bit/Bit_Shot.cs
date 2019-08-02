@@ -34,12 +34,12 @@ public class Bit_Shot : MonoBehaviour
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
-		Power.PowerManager.Instance.AddFunction(Power.PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 	private void OnDisable()
 	{
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 

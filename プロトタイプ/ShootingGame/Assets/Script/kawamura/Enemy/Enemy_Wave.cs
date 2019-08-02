@@ -170,7 +170,7 @@ public class Enemy_Wave : character_status
 	}
 	private void OnEnable()
 	{
-		transform.localPosition = defaultPos;
+		//transform.localPosition = defaultPos;
 		//startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
 		//endMarker = new Vector3(12.0f, transform.position.y, 0);
 
