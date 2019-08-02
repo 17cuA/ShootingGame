@@ -11,7 +11,7 @@ public class Enemy_BurstShot : MonoBehaviour
 {
 	private Transform Enemy_transform;  //自身のtransform
 	public GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
-	GameObject parentObj;
+	public GameObject parentObj;
 	ShotCheck sc;
 
 	public string myName;
@@ -38,7 +38,15 @@ public class Enemy_BurstShot : MonoBehaviour
 	private void Awake()
 	{
 		parentObj = transform.parent.gameObject;
-		myName = parentObj.transform.parent.gameObject.name;
+		myName = parentObj.name;
+		if(parentObj.name== "Enemy_UFO(Clone)")
+		{
+			myName = parentObj.name;
+		}
+		else
+		{
+			myName = parentObj.transform.parent.gameObject.name;
+		}
 	}
 	void Start()
 	{
