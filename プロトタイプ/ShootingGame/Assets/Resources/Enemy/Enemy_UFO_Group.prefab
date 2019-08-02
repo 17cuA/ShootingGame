@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8716967869282642050}
   - component: {fileID: 219028465060381852}
+  - component: {fileID: 1331589200630968228}
   m_Layer: 9
   m_Name: Enemy_UFO_Group
   m_TagString: Untagged
@@ -60,6 +61,18 @@ MonoBehaviour:
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
   isItemDrop: 1
+--- !u!114 &1331589200630968228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8716967869282642049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &945873761785589627
 PrefabInstance:
   m_ObjectHideFlags: 0

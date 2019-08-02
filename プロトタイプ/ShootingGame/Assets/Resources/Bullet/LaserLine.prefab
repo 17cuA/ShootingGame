@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6580657217836235300}
   - component: {fileID: 6580657217836235303}
   - component: {fileID: 927928307}
+  - component: {fileID: 8969257955919657618}
   m_Layer: 14
   m_Name: LaserLine
   m_TagString: Untagged
@@ -167,6 +168,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &8969257955919657618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580657217836235302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7556076953521740979
 GameObject:
   m_ObjectHideFlags: 0

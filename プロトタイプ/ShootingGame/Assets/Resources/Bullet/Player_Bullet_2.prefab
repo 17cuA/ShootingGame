@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9068044568320447983}
   - component: {fileID: 7191011485523257233}
   - component: {fileID: 643061647653681472}
+  - component: {fileID: 2632473441362830632}
   m_Layer: 14
   m_Name: Player_Bullet_2
   m_TagString: Player_Bullet
@@ -33,7 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1551473254672786996}
+  - {fileID: 2921759104094937584}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4796,6 +4797,80 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2632473441362830632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447282625670911483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4947216615185226861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 3408076066728186120}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2921759104094937584}
+  m_Layer: 0
+  m_Name: Player_Bullet_Eff (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2921759104094937584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 3408076066728186120}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947216615185226861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1551473254672786996}
+  m_Father: {fileID: 4490792971955488655}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5341586973582633424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 3408076066728186120}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1551473254672786996}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1551473254672786996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3408076066728186120}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341586973582633424}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2921759104094937584}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3408076066728186120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4803,21 +4878,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4490792971955488655}
     m_Modifications:
-    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_Name
-      value: Player_Bullet_Eff
-      objectReference: {fileID: 0}
-    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4871,6 +4931,21 @@ PrefabInstance:
     - target: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_Bullet_Eff
+      objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 548749704015671974, guid: d429fc415f53eeb438c409999c3d49f1,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7482309386382772914, guid: d429fc415f53eeb438c409999c3d49f1,
@@ -5230,9 +5305,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d429fc415f53eeb438c409999c3d49f1, type: 3}
---- !u!4 &1551473254672786996 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4236791673051576124, guid: d429fc415f53eeb438c409999c3d49f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 3408076066728186120}
-  m_PrefabAsset: {fileID: 0}

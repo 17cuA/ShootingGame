@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8965281764124025285}
   - component: {fileID: 6017758271860862522}
+  - component: {fileID: 6493911351893422834}
   m_Layer: 9
   m_Name: Enemy_ClamChowder_Group_ThreeWaveOnlyUp
   m_TagString: Untagged
@@ -55,6 +56,18 @@ MonoBehaviour:
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
   isItemDrop: 0
+--- !u!114 &6493911351893422834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8965281764124025282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8965281763924384419
 PrefabInstance:
   m_ObjectHideFlags: 0

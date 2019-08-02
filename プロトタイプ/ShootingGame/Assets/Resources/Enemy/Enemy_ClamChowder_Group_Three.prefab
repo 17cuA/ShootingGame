@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2828207219547881259}
   - component: {fileID: 3311926378582056458}
+  - component: {fileID: 8798610970407308039}
   m_Layer: 9
   m_Name: Enemy_ClamChowder_Group_Three
   m_TagString: Untagged
@@ -55,6 +56,18 @@ MonoBehaviour:
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
   isItemDrop: 0
+--- !u!114 &8798610970407308039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828207219547881260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2828207218470065790
 PrefabInstance:
   m_ObjectHideFlags: 0
