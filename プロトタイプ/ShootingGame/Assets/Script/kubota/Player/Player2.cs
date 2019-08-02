@@ -75,37 +75,37 @@ public class Player2 : character_status
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		//パワーアップの処理が行われる際に読み込まれる関数
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.INITSPEED, Init_speed);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.INITSPEED, Init_speed);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
 		Reset_BulletType();
 		});
 		///////////////////////
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
 	{
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
