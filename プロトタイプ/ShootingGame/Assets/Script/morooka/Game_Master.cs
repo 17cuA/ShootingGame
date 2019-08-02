@@ -129,7 +129,7 @@ public class Game_Master : MonoBehaviour
         {
             case "Title":
 				display_score = 0;
-				Number_Of_People = PLAYER_NUM.eUNDECIDED;
+				Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 				break;
             case "Stage_01":
 				Debug.Log(Number_Of_People);
