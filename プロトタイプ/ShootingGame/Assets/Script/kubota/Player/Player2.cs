@@ -22,7 +22,6 @@ public class Player2 : character_status
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
-	public Material material;           //この機体のマテリアル（これをいじくって透明化等を行う）
 	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
@@ -121,7 +120,6 @@ public class Player2 : character_status
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		first_color = material.color;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = particleSystem.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
