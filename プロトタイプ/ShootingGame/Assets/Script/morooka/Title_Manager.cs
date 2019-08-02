@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Title_Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+	enum TITLE_MODE
+	{
+		eCAUTION,		// 注意書き
+		eROGO,				// ロゴ
+		eLEGEND,			// 伝説
+		eTITLE,				// タイトル
+		eSELECT,			// 人数の選択
+	}
+
+	private TITLE_MODE Mode { get; set; }
+
+
+	void Start()
     {
-        
+		Mode = TITLE_MODE.eCAUTION;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        s
     }
 }
