@@ -135,10 +135,11 @@ public class Player1 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
+		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = false;
+		Is_Change_Auto = true;
+		IS_Active = true;
 	}
 
 	new void Update()
@@ -170,7 +171,7 @@ public class Player1 : character_status
 				//-------------------------------
 				//デバックの工程
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha2)) P1_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 				if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
@@ -189,9 +190,9 @@ public class Player1 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
-				PowerManager.Instance.Update();
+				P1_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
-				PowerManager.Instance.UpdateBit(bitIndex);
+				P1_PowerManager.Instance.UpdateBit(bitIndex);
 
 				//if(shield < 1)
 				//{
@@ -201,7 +202,7 @@ public class Player1 : character_status
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-					PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 																		//残機が残っていなければ
 					if (Remaining < 1)
@@ -238,7 +239,7 @@ public class Player1 : character_status
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
-					PowerManager.Instance.Upgrade();
+					P1_PowerManager.Instance.Upgrade();
 				}
 				// 通常のバレットのディレイ計算
 				Shot_Delay++;
