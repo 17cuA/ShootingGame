@@ -27,7 +27,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
 	[SerializeField, Tooltip("ビームまずる")] private GameObject[] muzzles;
-	[SerializeField, Tooltip("レーザーのまずる")] private Enemy_LaserEmitter laser_muzzle;
+	[SerializeField, Tooltip("レーザーのまずる")] private Enemy_LaserEmitter[] laser_muzzle;
 
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }						// 最大速度
@@ -41,6 +41,8 @@ public class One_Boss : character_status
 	private int Attack_Step { get; set; }		// 攻撃ステップ
 
 	public GameObject Player_Data { get; private set; }     // プレイヤーのデータ
+
+	int IIIIII;
 
 	private new void Start()
     {
@@ -66,19 +68,28 @@ public class One_Boss : character_status
 		Arm_Open_Position[0] = new Vector3(0.12f, 3.5f, 0.0f);
 		Arm_Open_Position[1] = new Vector3(0.12f, -3.5f, 0.0f);
 		Attack_Step = 0;
-    }
 
-    // Update is called once per frame
-    private new void Update()
-    {
+		laser_muzzle[0].IsFire = false;
+		laser_muzzle[1].IsFire = false;
+	}
+
+	// Update is called once per frame
+	private new void Update()
+	{
 		base.Update();
 		if (Core.hp < 1)
 		{
 			base.Died_Judgment();
 			base.Died_Process();
 		}
-
-		Player_Tracking_Movement_Attack();
+		if (IIIIII < 4)
+		{
+			Player_Tracking_Movement_Attack();
+		}
+		else
+		{
+			Laser_Clearing();
+		}
 	}
 
 	/// <summary>
@@ -89,25 +100,34 @@ public class One_Boss : character_status
 		// アーム分離
 		if (Attack_Step == 0)
 		{
-			bool[] b = new bool[arm_parts.Length];
+			bool[] b = new bool[arm_parts.Length + 1];
 			for (int i = 0; i < arm_parts.Length; i++)
 			{
 				b[i] = true;
-				if (arm_parts[i].transform.position != Arm_Open_Position[i])
+				if (arm_parts[i].transform.localPosition != Arm_Open_Position[i])
 				{
 					b[i] = false;
-					arm_parts[i].transform.position = Moving_To_Target(arm_parts[i].transform.position, Arm_Open_Position[i], speed * 1.5f);
+					arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition ,Arm_Open_Position[i], speed * 1.5f);
 				}
 			}
+			b[2] = true;
+			if(transform.position.y != 0.0f)
+			{
+				b[2] = false;
+				Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
+				transform.position = Moving_To_Target(transform.position, temp, speed);
+			}
 
-			if (b[0] && b[1])
+			if (b[0] && b[1] && b[2])
 			{
 				Attack_Step++;
 			}
 		}
 		else if (Attack_Step == 1)
 		{
-
+			laser_muzzle[0].IsFire = true;
+			laser_muzzle[1].IsFire = true;
+			Attack_Step++;
 		}
 	}
 
@@ -202,6 +222,7 @@ public class One_Boss : character_status
 			if (b[0] && b[1])
 			{
 				Attack_Step=0;
+				IIIIII++;
 			}
 		}
 	}

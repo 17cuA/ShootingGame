@@ -2059,7 +2059,7 @@ PrefabInstance:
     - target: {fileID: 9051573755106712536, guid: 62aa96e7ef10dfb468ba7d43b945f4fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9051573755106936824, guid: 62aa96e7ef10dfb468ba7d43b945f4fa,
         type: 3}
@@ -2114,6 +2114,14 @@ PrefabInstance:
     - target: {fileID: 9051573755106936824, guid: 62aa96e7ef10dfb468ba7d43b945f4fa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020820019, guid: 62aa96e7ef10dfb468ba7d43b945f4fa, type: 3}
+      propertyPath: straightLaserLaunchInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020820019, guid: 62aa96e7ef10dfb468ba7d43b945f4fa, type: 3}
+      propertyPath: straightLaserOverloadDuration
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
