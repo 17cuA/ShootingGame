@@ -29,7 +29,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	void Start()
 	{
 		//int cnt = 0;
-		array_Num = 12;
+		array_Num = 9;
 		playerPos = new Vector3[array_Num];
 	}
 

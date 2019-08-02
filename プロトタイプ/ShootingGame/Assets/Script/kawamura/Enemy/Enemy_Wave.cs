@@ -14,8 +14,14 @@ public class Enemy_Wave : character_status
 		WaveDown,
 		WaveOnlyUp,
 		WaveOnlyDown,
+		BackWaveUp,
+		BackWaveDown,
+		BackWaveOnlyUp,
+		BackWaveOnlyDown,
 		Rush,
+		BackRush,
 		Straight,
+		BackStraight,
 	}
 	public State eState;
 
@@ -101,7 +107,8 @@ public class Enemy_Wave : character_status
 	bool isRushStart = false;
 	bool isRush = false;
 	public bool Died_Attack = false;
-
+	public bool isFromBack = false;				//奥からくるやつ用
+	public bool isBehind = false;
 	//float present_Location = 0;
 	//---------------------------------------------------------
 
@@ -116,37 +123,71 @@ public class Enemy_Wave : character_status
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
 		}
-		//childCnt = transform.childCount;
+		switch (eState)
+		{
+			case State.WaveUp:
+				isFromBack = true;
+				isBehind = false;
+				endMarker = new Vector3(12.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+
+			case State.WaveDown:
+				isFromBack = true;
+				isBehind = false;
+				endMarker = new Vector3(12.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+
+			case State.BackWaveUp:
+				isFromBack = true;
+				isBehind = true;
+				endMarker = new Vector3(-14.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+
+			case State.BackWaveDown:
+				isFromBack = true;
+				isBehind = true;
+				endMarker = new Vector3(-14.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+
+			case State.Rush:
+				isFromBack = true;
+				isBehind = false;
+				endMarker = new Vector3(12.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+
+			case State.BackRush:
+				isFromBack = true;
+				isBehind = true;
+				endMarker = new Vector3(-14.0f, transform.position.y, 0);
+				distance_two = Vector3.Distance(startMarker, endMarker);
+				break;
+		}
 	}
 	private void OnEnable()
 	{
 		transform.localPosition = defaultPos;
-		startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
-		endMarker = new Vector3(12.0f, transform.position.y, 0);
+		//startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
+		//endMarker = new Vector3(12.0f, transform.position.y, 0);
 
 	}
 
 	new void Start()
 	{
 		//startMarker = new Vector3(12.0f, transform.position.y, 40.0f);
-		endMarker = new Vector3(12.0f, transform.position.y, 0);
-		distance_two= Vector3.Distance(startMarker, endMarker);
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
-		childObj_Shot = transform.GetChild(1).gameObject;
-		childObj_Angle = transform.GetChild(2).gameObject;
+		//childObj_Shot = transform.GetChild(1).gameObject;
+		childObj_Angle = transform.GetChild(1).gameObject;
 		//childCnt = transform.childCount;
 		renderer = childObj.GetComponent<Renderer>();
-		fd = childObj_Shot.GetComponent<Find_Angle>();
+		fd = childObj_Angle.GetComponent<Find_Angle>();
 		fd_Rush = childObj_Angle.GetComponent<Find_Angle>();
-		//hsvColor = childObj.GetComponent<Renderer>().material.color;
-		//hsvCon = childObj.GetComponent<HSVColorController>();
-		//val_Value = 0.025f;
-
-		//blurObj = transform.GetChild(1).gameObject;
-		//blurCon = blurObj.GetComponent<BlurController>();
-		//sigma_Value = 0.1f;
 
 		if (transform.parent)
 		{
@@ -180,9 +221,11 @@ public class Enemy_Wave : character_status
 			//状態によって値を変える
 			switch(eState)
 			{
+				//画面左から右へ、後ろからきて上下移動は上からし始める
 				case State.WaveUp:
 					isStraight = false;
 					isOnlyWave = false;
+					isBehind = false;
 					if (defaultSpeedY < 0)
 					{
 						defaultSpeedY *= -1;
@@ -200,10 +243,12 @@ public class Enemy_Wave : character_status
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					HSV_Change();
 					break;
-
+				
+				//画面左から右へ、後ろからきて上下移動は下からし始める
 				case State.WaveDown:
 					isStraight = false;
 					isOnlyWave = false;
+					isBehind = false;
 					if (defaultSpeedY > 0)
 					{
 						defaultSpeedY *= -1;
@@ -222,8 +267,10 @@ public class Enemy_Wave : character_status
 					HSV_Change();
 					break;
 
+				//画面右からきて上下移動は上からし始める
 				case State.WaveOnlyUp:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isBehind = false;
 					if (defaultSpeedY < 0)
 					{
 						defaultSpeedY *= -1;
@@ -243,8 +290,10 @@ public class Enemy_Wave : character_status
 					HSV_Change();
 					break;
 
+				//画面右からきて上下移動は下からし始める
 				case State.WaveOnlyDown:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isBehind = false;
 					if (defaultSpeedY > 0)
 					{
 						defaultSpeedY *= -1;
@@ -264,9 +313,103 @@ public class Enemy_Wave : character_status
 					HSV_Change();
 					break;
 
+				//画面右から左へ、後ろからきて上下移動は上からし始める
+				case State.BackWaveUp:
+					isStraight = false;
+					isOnlyWave = false;
+					isBehind = true;
+					if (defaultSpeedY < 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					isSubSpeedY = true;
+					isAddSpeedY = false;
+					speedX = -18;
+					speedZ_Value = 40;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
+					//hsvCon.val = 0.4f;
+					//v_Value = 0.4f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
+					break;
+
+				//画面右から左へ、後ろからきて上下移動は下からし始める
+				case State.BackWaveDown:
+					isStraight = false;
+					isOnlyWave = false;
+					isBehind = true;
+					if (defaultSpeedY > 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					isAddSpeedY = true;
+					isSubSpeedY = false;
+					speedX = -18;
+					speedZ_Value = 40;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
+					//hsvCon.val = 0.4f;
+					//v_Value = 0.4f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
+					break;
+
+				//画面左からきて上下移動は下からし始める
+				case State.BackWaveOnlyUp:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isBehind = true;
+					if (defaultSpeedY < 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					//speedY = defaultSpeedY;
+					speedY = 0;
+					amplitude = 0.1f;
+					speedX = -5;
+					speedZ_Value = 0;
+					isStraight = false;
+					isOnlyWave = true;
+					//isWave = true;
+					isAddSpeedY = true;
+					//hsvCon.val = 1.0f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					HSV_Change();
+					break;
+				
+				//画面左からきて上下移動は下からし始める
+				case State.BackWaveOnlyDown:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isBehind = true;
+					if (defaultSpeedY > 0)
+					{
+						defaultSpeedY *= -1;
+					}
+					//speedY = defaultSpeedY;
+					speedY = 0;
+					amplitude = -0.1f;
+					speedX = -5;
+					speedZ_Value = 0;
+					isOnlyWave = true;
+					//isWave = true;
+					isStraight = false;
+					isSubSpeedY = true;
+					//hsvCon.val = 1.0f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					HSV_Change();
+					break;
+				
+				//突進
 				case State.Rush:
 					isStraight = false;
 					isOnlyWave = false;
+					isBehind = false;
 					speedX = 18;
 					speedZ_Value = 40;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
@@ -280,9 +423,29 @@ public class Enemy_Wave : character_status
 
 					break;
 
+				//突進
+				case State.BackRush:
+					isStraight = false;
+					isOnlyWave = false;
+					isBehind = true;
+					speedX = -18;
+					speedZ_Value = 40;
+					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					isWave = false;
+					//hsvCon.val = 0.4f;
+					//v_Value = 0.4f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+					HSV_Change();
+
+					break;
+				
+				//後ろから直進
 				case State.Straight:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
+					isBehind = false;
 					speedX = 5;
 					amplitude = 0;
 					//hsvCon.val = 1.0f;
@@ -290,12 +453,26 @@ public class Enemy_Wave : character_status
 					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
 					HSV_Change();
 					break;
+
+				//後ろから直進
+				case State.BackStraight:
+					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isStraight = true;
+					isBehind = true;
+					speedX = -5;
+					amplitude = 0;
+					//hsvCon.val = 1.0f;
+					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
+					HSV_Change();
+					break;
+
 			}
 			once = false;
 		}
 
 
-		if (eState == State.Straight)
+		if (eState == State.Straight || eState == State.BackStraight)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
@@ -306,39 +483,63 @@ public class Enemy_Wave : character_status
 		//}
 		else if (eState == State.WaveOnlyUp || eState == State.WaveOnlyDown)
         {
-            
-            speedX = 5;
-            //sin =posY + Mathf.Sin(Time.time*5);
+			if(!isBehind)
+			{
+				if (transform.position.x < 20 && transform.position.z == 0)
+				{
+					if (!isWaveStart)
+					{
+						speedY = defaultSpeedY;
+						isWaveStart = true;
+					}
+				}
 
+				if (isWaveStart)
+				{
+					SpeedY_Check();
+					SpeedY_Calculation();
 
-            if (transform.position.x < 20 && transform.position.z == 0)
-            {
+				}
+				else
+				{
+					speedY = 0;
+				}
+				//transform.position = new Vector3(transform.position.x, startPosY + Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 
-                if(!isWaveStart)
-                {
-                    speedY = defaultSpeedY;
-                    isWaveStart = true;
-                }
+				//velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+			}
+			else if(isBehind)
+			{
+				if (transform.position.x > -18 && transform.position.z == 0)
+				{
+					if (!isWaveStart)
+					{
+						speedY = defaultSpeedY;
+						isWaveStart = true;
+					}
+				}
 
-            }
+				if (isWaveStart)
+				{
+					SpeedY_Check();
+					SpeedY_Calculation();
 
-            if(isWaveStart)
-            {
-                SpeedY_Check();
-                SpeedY_Calculation();
+				}
+				else
+				{
+					speedY = 0;
+				}
+				//transform.position = new Vector3(transform.position.x, startPosY + Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
 
-            }
-            else
-            {
-                speedY = 0;
-            }
-            //transform.position = new Vector3(transform.position.x, startPosY + Mathf.Sin(Time.frameCount * amplitude), transform.position.z);
-            velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+				//velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
-            //velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-            gameObject.transform.position += velocity * Time.deltaTime;
+			}
 
-        }
+		}
         else if (!isWave)
         {
             if (isSlerp)
@@ -373,8 +574,18 @@ public class Enemy_Wave : character_status
                 {
                     isWave = true;
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    speedX = 5;
-                    speedY = defaultSpeedY;
+					
+					//前からなら
+					if(!isBehind)
+					{
+						speedX = 5;
+					}
+					//後ろからなら
+					else if(isBehind)
+					{
+						speedX = -5;
+					}
+					speedY = defaultSpeedY;
 
                 }
                 //}
@@ -383,171 +594,189 @@ public class Enemy_Wave : character_status
             {
                 velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
                 gameObject.transform.position += velocity * Time.deltaTime;
-                if (transform.position.z < 0)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
-                }
 
-                if (transform.position.x >= 12)
-                {
-                    isSlerp = true;
-					startMarker = transform.position;
-                    //sonicBoom.Play();
-                    isSonicPlay = true;
-                }
+				//前からなら
+				if(!isBehind)
+				{
+					if (transform.position.z < 0)
+					{
+						transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+						speedX = 5;
+						speedY = defaultSpeedY;
+						isWave = true;
+					}
 
-                if (transform.position.x > 7)
-                {
-                    //speedX -= 0.25f;
-                    //speedX *= 0.965f;
+					if (transform.position.x >= 12)
+					{
+						isSlerp = true;
+						startMarker = transform.position;
+						//sonicBoom.Play();
+						isSonicPlay = true;
+					}
 
-                    //speedZ = speedZ_Value;
-                    //hsvCon.val += val_Value;
+					if (transform.position.x > 7)
+					{
+						//明るさを変える関数
+						HSV_Change();
 
-                    //明るさを変える関数
-                    HSV_Change();
+					}
+				}
+				else if(isBehind)
+				{
+					if (transform.position.z < 0)
+					{
+						transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+						speedX = 5;
+						speedY = defaultSpeedY;
+						isWave = true;
+					}
 
-                    //if (hsvCon.val > 1.0f)
-                    //{
-                    //	hsvCon.val = 1.0f;
-                    //}
+					if (transform.position.x <= -14.0f)
+					{
+						isSlerp = true;
+						startMarker = transform.position;
+						//sonicBoom.Play();
+						isSonicPlay = true;
+					}
 
-                    //blurCon.sigma -= sigma_Value;
-                    //if (blurCon.sigma <= 0)
-                    //{
-                    //	blurCon.sigma = 0.1f;
-                    //}
-                }
-                if (transform.position.z <= 0)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                    speedX = 5;
-                    speedY = defaultSpeedY;
-                    isWave = true;
-                }
+					if (transform.position.x < 9)
+					{
+						//明るさを変える関数
+						HSV_Change();
 
-                //if (transform.position.x > 13)
-                //{
-                //	speedX = 5;
-                //	speedY = defaultSpeedY;
-                //	isWave = true;
-                //}
-                //else if (transform.position.x > 7)
-                //{
-
-                //	//speedZ = speedZ_Value;
-                //	//hsvCon.val += val_Value;
-                //	v_Value += val_Value;
-
-                //	if (val_Value > 1.0f)
-                //	{
-                //		v_Value = 1.0f;
-                //	}
-
-                //	//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-                //	renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-
-                //	//if (hsvCon.val > 1.0f)
-                //	//{
-                //	//	hsvCon.val = 1.0f;
-                //	//}
-
-                //	//blurCon.sigma -= sigma_Value;
-                //	//if (blurCon.sigma <= 0)
-                //	//{
-                //	//	blurCon.sigma = 0.1f;
-                //	//}
-                //}
-                else if (transform.position.x > 1)
-                {
-                    //blurCon.sigma -= sigma_Value;
-                    //speedZ = speedZ_Value;
-                }
-            }
-            //else if(isSlerp)
-            //{
-            //	if(susumimasu)
-            //	{
-            //		velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -speedZ);
-            //		gameObject.transform.position += velocity * Time.deltaTime;
-            //		if (transform.position.x > -26)
-            //		{
-            //			susumimasu = false;
-            //		}
-            //	}
-            //	else
-            //	{
-            //		// 現在の位置
-            //		float present_Location = (Time.time * testSpeed) / distance_two;
-
-            //		// オブジェクトの移動(ここだけ変わった！)
-            //		transform.position = Vector3.Slerp(startMarker, endMarker, present_Location);
-            //	}
-            //}
+					}
+				}
+			}
         }
         else if (isWave)
 		{
-			if (eState == State.Rush)
+			if (eState == State.Rush || eState == State.BackRush)
 			{
-				//突進
-				if (isRush)
+				//前からなら
+				if(!isBehind)
 				{
-					rushStayCnt += Time.deltaTime;
-					//画面手前に来てからの時間。向きを変えて突進するまでの時間
-					if (rushStayCnt > rushStartTime)
+					//突進
+					if (isRush)
 					{
-						speedX = 13;
-						velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-						gameObject.transform.position += velocity * Time.deltaTime;
+						rushStayCnt += Time.deltaTime;
+						//画面手前に来てからの時間。向きを変えて突進するまでの時間
+						if (rushStayCnt > rushStartTime)
+						{
+							speedX = 13;
+							velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+							gameObject.transform.position += velocity * Time.deltaTime;
 
+						}
+					}
+					//ここは向きを変える処理
+					else if (isRushStart)
+					{
+						//向きを変える　変え終わったら突進へ
+						if (rushRotaZ_Value > 0)
+						{
+							rushRotaZ += 0.5f;
+							if (rushRotaZ > rushRotaZ_Value)
+							{
+								rushRotaZ = rushRotaZ_Value;
+								isRush = true;
+							}
+							transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+						}
+						else if (rushRotaZ_Value < 0)
+						{
+							rushRotaZ -= 0.5f;
+							if (rushRotaZ < rushRotaZ_Value)
+							{
+								rushRotaZ = rushRotaZ_Value;
+								isRush = true;
+							}
+							transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+						}
+					}
+					else if (!isRush && !isRushStart)
+					{
+						rushStayCnt += Time.deltaTime;
+						//向きを変え始めるまでの時間がCntMax
+						if (rushStayCnt > rushStayCntMax)
+						{
+							isRushStart = true;
+							rushStayCnt = 0;
+							//向く角度を決める
+							saverushRotaZ = fd_Rush.degree;
+
+							if (saverushRotaZ > 0)
+							{
+								rushRotaZ_Value = saverushRotaZ - 180;
+							}
+							else if (saverushRotaZ < 0)
+							{
+								rushRotaZ_Value = saverushRotaZ + 180;
+							}
+						}
 					}
 				}
-				//ここは向きを変える処理
-				else if(isRushStart)
+				//後ろからなら
+				else if(isBehind)
 				{
-					//向きを変える　変え終わったら突進へ
-					if (rushRotaZ_Value > 0)
+					//突進
+					if (isRush)
 					{
-						rushRotaZ += 0.5f;
-						if (rushRotaZ > rushRotaZ_Value)
+						rushStayCnt += Time.deltaTime;
+						//画面手前に来てからの時間。向きを変えて突進するまでの時間
+						if (rushStayCnt > rushStartTime)
 						{
-							rushRotaZ = rushRotaZ_Value;
-							isRush = true;
-						}
-						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y,rushRotaZ);
-					}
-					else if (rushRotaZ_Value < 0)
-					{
-						rushRotaZ -= 0.5f;
-						if (rushRotaZ < rushRotaZ_Value)
-						{
-							rushRotaZ = rushRotaZ_Value;
-							isRush = true;
-						}
-						transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
-					}
-				}
-				else if(!isRush && !isRushStart)
-				{
-					rushStayCnt += Time.deltaTime;
-					//向きを変え始めるまでの時間がCntMax
-					if (rushStayCnt > rushStayCntMax)
-					{
-						isRushStart = true;
-						rushStayCnt = 0;
-						//向く角度を決める
-						saverushRotaZ = fd_Rush.degree;
+							speedX = -13;
+							velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+							gameObject.transform.position += velocity * Time.deltaTime;
 
-						if (saverushRotaZ > 0)
-						{
-							rushRotaZ_Value = saverushRotaZ - 180;
-						}
-						else if (saverushRotaZ < 0)
-						{
-							rushRotaZ_Value = saverushRotaZ + 180;
 						}
 					}
+					//ここは向きを変える処理
+					else if (isRushStart)
+					{
+						//向きを変える　変え終わったら突進へ
+						if (rushRotaZ_Value > 0)
+						{
+							rushRotaZ += 0.5f;
+							if (rushRotaZ > rushRotaZ_Value)
+							{
+								rushRotaZ = rushRotaZ_Value;
+								isRush = true;
+							}
+							transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+						}
+						else if (rushRotaZ_Value < 0)
+						{
+							rushRotaZ -= 0.5f;
+							if (rushRotaZ < rushRotaZ_Value)
+							{
+								rushRotaZ = rushRotaZ_Value;
+								isRush = true;
+							}
+							transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rushRotaZ);
+						}
+					}
+					else if (!isRush && !isRushStart)
+					{
+						rushStayCnt += Time.deltaTime;
+						//向きを変え始めるまでの時間がCntMax
+						if (rushStayCnt > rushStayCntMax)
+						{
+							isRushStart = true;
+							rushStayCnt = 0;
+							//向く角度を決める
+							saverushRotaZ = fd_Rush.degree;
 
+							if (saverushRotaZ > 0)
+							{
+								rushRotaZ_Value = saverushRotaZ;
+							}
+							else if (saverushRotaZ < 0)
+							{
+								rushRotaZ_Value = saverushRotaZ ;
+							}
+						}
+					}
 				}
 			}
 			else
@@ -719,11 +948,23 @@ public class Enemy_Wave : character_status
 
 	private void OnTriggerExit(Collider col)
 	{
-		if (col.gameObject.name == "WallLeft")
+		if(!isBehind)
 		{
-			groupManage.notDefeatedEnemyCnt++;
-			groupManage.remainingEnemiesCnt -= 1;
-			gameObject.SetActive(false);
+			if (col.gameObject.name == "WallLeft")
+			{
+				groupManage.notDefeatedEnemyCnt++;
+				groupManage.remainingEnemiesCnt -= 1;
+				gameObject.SetActive(false);
+			}
+		}
+		else if(isBehind)
+		{
+			if (col.gameObject.name == "WallRight")
+			{
+				groupManage.notDefeatedEnemyCnt++;
+				groupManage.remainingEnemiesCnt -= 1;
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }

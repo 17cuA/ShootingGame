@@ -38,19 +38,19 @@ public class Enemy_BurstShot : MonoBehaviour
 	private void Awake()
 	{
 		parentObj = transform.parent.gameObject;
-		myName = parentObj.name;
+		myName = parentObj.transform.parent.gameObject.name;
 	}
 	void Start()
 	{
 		Enemy_transform = transform.parent;
-		if (myName == "ClamChowderType_Enemy")
+		if (myName == "Enemy_Bullfight")
 		{
 			Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
 		}
-		else if (myName == "ClamChowderType_Enemy_Item")
-		{
-			Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-		}
+		//else if (myName == "ClamChowderType_Enemy_Item")
+		//{
+		//	Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+		//}
 		else
 		{
 			Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
@@ -63,7 +63,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	void Update()
 	{
         //親のtransformを代入
-        Enemy_transform = transform.parent;
+        Enemy_transform = transform.parent.transform;
 
 		if (isShot && transform.position.z == 0)
 		{
@@ -92,16 +92,16 @@ public class Enemy_BurstShot : MonoBehaviour
 		//撃つ
 		if (burst_delay > burst_Delay_Max)
 		{
-			if (myName == "ClamChowderType_Enemy")
+			if (myName == "Enemy_Bullfight")
 			{
 				Instantiate(Bullet, gameObject.transform.position, transform.rotation);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, Enemy_transform.position, Enemy_transform.rotation);
 			}
-			else if (myName == "ClamChowderType_Enemy_Item")
-			{
-				Instantiate(Bullet, gameObject.transform.position, transform.rotation);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
-			}
+			//else if (myName == "ClamChowderType_Enemy_Item")
+			//{
+			//	Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, Enemy_transform.position, transform.rotation);
+			//}
 			else
 			{
 				//弾生成
