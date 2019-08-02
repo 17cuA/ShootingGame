@@ -78,7 +78,7 @@ public class Enemy_First : character_status
 			haveItem = true;
 		}
 	}
-
+	//追加したよ
 	private void OnEnable()
 	{
 		
