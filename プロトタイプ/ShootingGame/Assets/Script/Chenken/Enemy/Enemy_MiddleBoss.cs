@@ -51,8 +51,6 @@ public class Enemy_MiddleBoss : character_status
 	private Animator animator;
 	private bool canAdvanceAttack;
 
-	private float rotateSpeedAngle;
-
 	private void Awake()
 	{
 		stateManager = new StateManager<StateType>();
@@ -224,7 +222,6 @@ public class Enemy_MiddleBoss : character_status
 		if (moveDirection == Vector3.up)
 			transform.Rotate(Vector3.right * smoothStepRotate);
 
-		Debug.Log(transform.localEulerAngles);
 
 		if (stateManager.Current.IsDone && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 		{
