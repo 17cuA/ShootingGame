@@ -127,21 +127,26 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	public void LaunchNode(float trailWidth, bool isRotateLaser)
 	{
 		GameObject node = null;
-		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isRotateLaser);
+		node = CreateNode(transform.position, this.emitter.transform.localEulerAngles, trailWidth, isRotateLaser);
 
 		//管理するように
 		this.nodes.Add(node);
 		this.pointCount++;
 
-		//if (nodes.Count != 0)
-		//{
-		//	var last = this.nodes[this.nodes.Count - 1];
-		//	var pos = (last.transform.position + transform.position) / 2;
-		//	var rotation = Average(new Quaternion[] { last.transform.localRotation, transform.localRotation });
-		//	node = CreateNode(pos, rotation, trailWidth);
-		//	this.nodes.Add(node);
-		//	this.pointCount++;
-		//}
+		if (nodes.Count > 1 && isRotateLaser)
+		{
+			var last = this.nodes[this.nodes.Count - 1];
+			var lastlast = this.nodes[this.nodes.Count - 2];
+			var pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.33f;
+			var rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.33f;
+			node = CreateNode(pos, rotation, trailWidth,isRotateLaser);
+
+			last = this.nodes[this.nodes.Count - 1];
+			lastlast = this.nodes[this.nodes.Count - 2];
+			pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.67f;
+			rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.67f;
+			node = CreateNode(pos, rotation, trailWidth, isRotateLaser);
+		}
 	}
 
 	/// <summary>
@@ -168,62 +173,17 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		pointCount = 0;
 	}
 
-	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isRotateLaser)
+	private GameObject CreateNode(Vector3 pos, Vector3 rotation, float trailWidth, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		node.transform.localRotation = rotation;
+		node.transform.localEulerAngles = rotation;
 		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
 		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
 		return node;
-	}
-
-
-	public static Quaternion Average(Quaternion[] quatArray)
-	{
-		var result = new Quaternion();
-		var count = quatArray.Length;
-		var error = 0;
-
-		while (count > 1)
-		{
-			if (error >= 10000) break;
-			error++;
-			var k = 0;
-			for (int i = 0; i + 1 < count; i += 2)
-			{
-				var a = quatArray[i];
-				var b = quatArray[i + 1];
-
-				if (Quaternion.Dot(a, a) < Quaternion.kEpsilon)
-					a = Quaternion.identity;
-
-				if (Quaternion.Dot(b, b) < Quaternion.kEpsilon)
-					b = Quaternion.identity;
-
-				var avgQuat = Quaternion.LerpUnclamped(a, b, 0.5f);
-
-				quatArray[k] = avgQuat;
-				k++;
-			}
-
-			var lastCount = count;
-			count = k;
-
-			if ((lastCount & 1) == 1)
-			{
-				k++;
-				count++;
-				quatArray[k] = quatArray[lastCount - 1];
-			}
-		}
-
-		result = quatArray[0];
-
-		return result;
 	}
 }
 
