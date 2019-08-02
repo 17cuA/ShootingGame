@@ -186,8 +186,8 @@ public class Enemy_LaserGenerator : MonoBehaviour
 		var node = nodeGo.GetComponent<Enemy_LaserLine>();
 		node.shot_speed = this.shotSpeed;
 
-		var t_x = Mathf.Cos((transform.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
-		var t_y = Mathf.Sin((transform.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
+		var t_x = Mathf.Cos((transform.parent.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
+		var t_y = Mathf.Sin((transform.parent.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
 
 		var direction = new Vector3(t_x, t_y, 0);
 		shotDirection = direction;
