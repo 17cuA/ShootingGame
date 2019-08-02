@@ -76,7 +76,7 @@ public class LaserLine : Player_Bullet
 		if (isRotateLaser && ischangLaserWidth)
 		{
 			this.trailRenderer.startWidth = Mathf.Lerp(trailMinWidth, trailMaxWidth, lifeTimer / lifeTime);
-			this.trailRenderer.endWidth = Mathf.Lerp(trailMinWidth, trailMaxWidth, lifeTimer / lifeTime);
+			this.trailRenderer.endWidth = 0;
 		}
 
 		base.Moving_To_Travelling_Direction();
