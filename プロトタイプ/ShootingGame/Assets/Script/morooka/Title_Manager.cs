@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+/*
+ * 注意左と右の日本電子、消えるときは。
+ * スケールを0.3/sec程度で消失、Y軸が０へ、X軸は右の画面へ最終的には線になる感じで
+ * 消える。日電は逆に左へ行く感じ。
+ * 昔のブラウン管みたく、電源を消したときの感じです。スケールとアルファ値で簡単に
+ * 演出が出来ると思います。最終的にはシェーダーをコールして、適用するんだけど。
+ * 基本となる動きは用意しておくといいです。
+ */
 
 public class Title_Manager : MonoBehaviour
 {
@@ -22,11 +30,16 @@ public class Title_Manager : MonoBehaviour
 	private RectTransform Lorgo_Transform { get; set; }		// ロゴのトランスフォーム
 	private RectTransform Legend_Transform { get; set; }		// 伝説のトランスフォーム
 
+	private float Fade_Speed_Scale { get; set; }		// フェードのスピード Y
+	private float Fade_Speed_Pos { get; set; }		// フェードのスピード X
+
 	public TITLE_MODE Mode { get; private set; }
 
 	void Start()
     {
 		Mode = TITLE_MODE.eCAUTION;
+		Fade_Speed_Scale = 0.3f / 60.0f;
+		//Fade_Speed_Pos = 
     }
 
     void Update()
