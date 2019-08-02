@@ -15,7 +15,7 @@ public class Enemy_LaserGenerator : MonoBehaviour
 	private LineRenderer lineRenderer;
 	private Game_Master.OBJECT_NAME laserName;
 	private GameObject laserLinePrefab;
-	public List<GameObject> nodes;
+	public List<Enemy_LaserLine> nodes;
 
 	private int pointMax;
 	private int pointCount;
@@ -28,12 +28,13 @@ public class Enemy_LaserGenerator : MonoBehaviour
 	}
 
 	private float s_width;
+	private Vector3 shotDirection;
 
 	private void Awake()
 	{
 		this.isFixed = true;
 		this.lineRenderer = GetComponent<LineRenderer>();
-		this.nodes = new List<GameObject>();
+		this.nodes = new List<Enemy_LaserLine>();
 		this.emitter = GameObject.Find("Boss_LaserEmitter");
 	}
 
@@ -56,8 +57,10 @@ public class Enemy_LaserGenerator : MonoBehaviour
 			else
 			{
 				//位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
-				if (this.isFixed)
-					this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
+
+					this.nodes[i].FixedDirection = shotDirection;
+					this.nodes[i].transform.position = shotDirection * nodes[i].Frame * nodes[i].shot_speed;
+				
 			}
 
 			if (this.nodes.Count == 0)
@@ -127,10 +130,10 @@ public class Enemy_LaserGenerator : MonoBehaviour
 	/// <summary>
 	/// レーザー連結点発射（生成）する
 	/// </summary>
-	public void LaunchNode( float trailWidth, bool isRotateLaser)
+	public void LaunchNode( float trailWidth, bool isFixed)
 	{
-		GameObject node = null;
-		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isRotateLaser);
+		Enemy_LaserLine node = null;
+		node = CreateNode(transform.position, this.emitter.transform.rotation, trailWidth, isFixed);
 
 		//管理するように
 		this.nodes.Add(node);
@@ -171,19 +174,32 @@ public class Enemy_LaserGenerator : MonoBehaviour
 		pointCount = 0;
 	}
 
-	private GameObject CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isRotateLaser)
+	private Enemy_LaserLine CreateNode(Vector3 pos, Quaternion rotation, float trailWidth, bool isFixed)
 	{
-		var node = Instantiate(laserLinePrefab, pos, Quaternion.identity);
-		if(node == null)
+		// node.GetComponent<Enemy_LaserLine>() は最初にローカル変数にとっておいたほうがいいよ
+		// 毎回 GetComponent すると重いよ
+		var nodeGo = Instantiate(laserLinePrefab, pos, Quaternion.identity);
+		if(nodeGo == null)
 		{
-			node = StorageReference.Object_Instantiation.Object_Reboot(laserName, pos, Quaternion.identity);
+			nodeGo = StorageReference.Object_Instantiation.Object_Reboot(laserName, pos, Quaternion.identity);
 		}
-		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		node.transform.localRotation = rotation;
-		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
-		node.GetComponent<Enemy_LaserLine>().TrailRenderer.Clear();
-		node.GetComponent<Enemy_LaserLine>().TrailRenderer.endWidth = trailWidth;
-		node.GetComponent<Enemy_LaserLine>().TrailRenderer.startWidth = trailWidth;
+		var node = nodeGo.GetComponent<Enemy_LaserLine>();
+		node.shot_speed = this.shotSpeed;
+
+		var t_x = Mathf.Cos((transform.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
+		var t_y = Mathf.Sin((transform.parent.parent).localEulerAngles.z * Mathf.Deg2Rad);
+
+		var direction = new Vector3(t_x, t_y, 0);
+		shotDirection = direction;
+
+		Debug.Log(direction);
+		node.FixedDirection = direction;
+		node.IsFixed = isFixed;
+		node.Travelling_Direction = direction;
+		
+		node.TrailRenderer.Clear();
+		node.TrailRenderer.endWidth = trailWidth;
+		node.TrailRenderer.startWidth = trailWidth;
 		return node;
 	}
 

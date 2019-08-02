@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Power
 {
-	public class P1_PowerManager : Singleton<PowerManager>
+	public class P1_PowerManager : Singleton<P1_PowerManager>
 	{
 		/// <summary>
 		/// パワークラス
