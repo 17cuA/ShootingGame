@@ -3,6 +3,7 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/07/30　グリッド移動の適応
+ * 2019/08/02　ボスにレーザー追加
  */
 
 using System.Collections;
@@ -22,26 +23,26 @@ public class One_Boss : character_status
 	Vector3 Prev_Pos { get; set; }     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
 	//-----------------------------------------------------------------------------------------------------------------------------//
 
-	[SerializeField] private GameObject core;
-	[SerializeField] private GameObject[] arm_parts;
-	[SerializeField] private GameObject[] muzzles;
+	[Header("ボスの個別で動かしたい形成パーツ")]
+	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
+	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
+	[SerializeField, Tooltip("ビームまずる")] private GameObject[] muzzles;
+	[SerializeField, Tooltip("レーザーのまずる")] private Enemy_LaserEmitter laser_muzzle;
 
-	private One_Boss_Parts Core { get; set; }
-
-	public float Max_Speed { get; set; }
-	public float Now_Speed { get; set; }
-	public float Lowest_Speed { get; set; }
-	public float Speed​_Change_Distance {get;set;}
+	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
+	public float Max_Speed { get; set; }						// 最大速度
+	public float Now_Speed { get; set; }						// 今の速度
+	public float Lowest_Speed { get; set; }					// 最小速度
+	public float Speed​_Change_Distance {get;set;}		// 速度変更距離
 
 	private Vector3[] Arm_Closed_Position { get; set; }		// アーム閉じいている位置
 	private Vector3[] Arm_Open_Position { get; set; }		// アーム開いてる位置
 
-	private int Attack_Step { get; set; }
+	private int Attack_Step { get; set; }		// 攻撃ステップ
 
+	public GameObject Player_Data { get; private set; }     // プレイヤーのデータ
 
-	public GameObject Player_Data { get; private set; }		// プレイヤーのデータ
-    // Start is called before the first frame update
-    private new void Start()
+	private new void Start()
     {
 		base.Start();
 
@@ -81,7 +82,37 @@ public class One_Boss : character_status
 	}
 
 	/// <summary>
-	/// プレイヤーを追従しレーザー攻撃
+	/// レーザーの薙ぎ払い攻撃
+	/// </summary>
+	private void Laser_Clearing()
+	{
+		// アーム分離
+		if (Attack_Step == 0)
+		{
+			bool[] b = new bool[arm_parts.Length];
+			for (int i = 0; i < arm_parts.Length; i++)
+			{
+				b[i] = true;
+				if (arm_parts[i].transform.position != Arm_Open_Position[i])
+				{
+					b[i] = false;
+					arm_parts[i].transform.position = Moving_To_Target(arm_parts[i].transform.position, Arm_Open_Position[i], speed * 1.5f);
+				}
+			}
+
+			if (b[0] && b[1])
+			{
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 1)
+		{
+
+		}
+	}
+
+	/// <summary>
+	/// プレイヤーを追従しビーム攻撃
 	/// </summary>
 	private void Player_Tracking_Movement_Attack()
 	{
