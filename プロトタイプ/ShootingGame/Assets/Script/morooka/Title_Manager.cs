@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Title_Manager : MonoBehaviour
 {
-	enum TITLE_MODE
+	public enum TITLE_MODE
 	{
 		eCAUTION,		// 注意書き
 		eROGO,				// ロゴ
@@ -13,8 +14,11 @@ public class Title_Manager : MonoBehaviour
 		eSELECT,			// 人数の選択
 	}
 
-	private TITLE_MODE Mode { get; set; }
+	[SerializeField, Tooltip("注意書き")]	private Image caution_writing;
+	[SerializeField, Tooltip("ロゴ")]			private Image lorgo_writing;
+	[SerializeField, Tooltip("伝説")]			private Image legend_writing;
 
+	public TITLE_MODE Mode { get; private set; }
 
 	void Start()
     {
@@ -23,6 +27,20 @@ public class Title_Manager : MonoBehaviour
 
     void Update()
     {
-        s
-    }
+		switch (Mode)
+		{
+			case TITLE_MODE.eCAUTION:
+				break;
+			case TITLE_MODE.eROGO:
+				break;
+			case TITLE_MODE.eLEGEND:
+				break;
+			case TITLE_MODE.eTITLE:
+				break;
+			case TITLE_MODE.eSELECT:
+				break;
+			default:
+				break;
+		}
+	}
 }
