@@ -23,12 +23,12 @@ SubShader {
 		ZTest Always Cull Off ZWrite Off
 		Fog { Mode off }
 
-		CGPROGRAM
+		HLSLPROGRAM
 		#pragma vertex vert
 		#pragma fragment frag
 		#pragma fragmentoption ARB_precision_hint_fastest 
 		
-		#include "UnityCG.cginc"
+		#include "Assets/PostProcessing/Shaders/StdLib.hlsl"
 		
 		uniform sampler2D _MainTex;
 		uniform sampler2D _DispTex;
