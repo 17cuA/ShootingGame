@@ -1,1 +1,0 @@
-Glitch Effect Sample
