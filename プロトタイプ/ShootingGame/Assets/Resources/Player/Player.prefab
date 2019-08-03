@@ -80,7 +80,7 @@ MonoBehaviour:
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   capsuleCollider: {fileID: 7622277348625522743}
-  Shot_DelayMax: 5
+  Shot_DelayMax: 1
   Shot_Delay: 0
   score: 0
   activeShield: 0
@@ -103,7 +103,6 @@ MonoBehaviour:
   invincible_time: 500
   invincible_Max: 80
   invincible: 0
-  material: {fileID: 2100000, guid: 7358f0cc48b568a42ae4ea77464d8a77, type: 2}
   activeMissile: 0
   bitIndex: 0
   injection: {fileID: 1971038791974831079}
@@ -949,11 +948,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 7365118530515654281, guid: 19b4f0417be3e7a43a68fbcdf605fb7f,
-        type: 3}
-      propertyPath: m_Name
-      value: A001
-      objectReference: {fileID: 0}
     - target: {fileID: 2344944267282624359, guid: 19b4f0417be3e7a43a68fbcdf605fb7f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1008,6 +1002,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365118530515654281, guid: 19b4f0417be3e7a43a68fbcdf605fb7f,
+        type: 3}
+      propertyPath: m_Name
+      value: A001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b4f0417be3e7a43a68fbcdf605fb7f, type: 3}

@@ -229,12 +229,8 @@ public class Player1 : character_status
 				//プレイヤーの移動処理
 				Player_Move();
 
-				//弾の発射（Fire2かSpaceキーで撃てる）
-				if (Shot_Delay > Shot_DelayMax)
-				{
-					//弾を射出
-					Bullet_Create();
-				}
+				//弾を射出
+				Bullet_Create();
 				//パワーアップ処理
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
@@ -344,94 +340,97 @@ public class Player1 : character_status
 			Is_Change_Auto = !Is_Change_Auto;
 		}
 
-		if (!Is_Change_Auto)
+		if (Shot_Delay > Shot_DelayMax)
 		{
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			if (!Is_Change_Auto)
 			{
-				Shot_Delay = 0;
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+				{
+					Shot_Delay = 0;
 
-				switch (bullet_Type)
-				{
-					case Bullet_Type.Single:
-						Single_Fire();
-						effect_mazle_fire[effect_num].Play();
-						effect_num++;
-						break;
-					case Bullet_Type.Double:
-						Double_Fire();
-						effect_mazle_fire[effect_num].Play();
-						effect_num++;
-						break;
-					default:
-						break;
-				}
-				if(effect_num > 4)
-				{
-					effect_num = 0;
-				}
-				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
-				{
-					Missile_Fire();
-					missile_dilay_cnt = 0;
-				}
-
-			}
-		}
-		else
-		{
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-			{
-				// 連続で4発まで撃てるようにした
-				if (shoot_number < 5)
-				{
 					switch (bullet_Type)
 					{
 						case Bullet_Type.Single:
 							Single_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
-
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
-
 							break;
 						default:
 							break;
+					}
+					if (effect_num > 4)
+					{
+						effect_num = 0;
 					}
 					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 					{
 						Missile_Fire();
 						missile_dilay_cnt = 0;
 					}
-					Shot_Delay = 0;
 
 				}
-				// 4発撃った後、10フレーム程置く
-				else if (shoot_number == 15)
+			}
+			else
+			{
+				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+				{
+					// 連続で4発まで撃てるようにした
+					if (shoot_number < 5)
+					{
+						switch (bullet_Type)
+						{
+							case Bullet_Type.Single:
+								Single_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
+
+								break;
+							case Bullet_Type.Double:
+								Double_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
+
+								break;
+							default:
+								break;
+						}
+						if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+						{
+							Missile_Fire();
+							missile_dilay_cnt = 0;
+						}
+						Shot_Delay = 0;
+
+					}
+					// 4発撃った後、10フレーム程置く
+					else if (shoot_number == 15)
+					{
+						shoot_number = 0;
+						effect_num = 0;
+					}
+					else
+					{
+						shoot_number++;
+
+					}
+				}
+				if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					shoot_number = 0;
+				}
+				if (effect_num > 4)
+				{
 					effect_num = 0;
 				}
-				else
-				{
-					shoot_number++;
 
-				}
 			}
-			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
-			{
-				shoot_number = 0;
-			}
-			if (effect_num > 4)
-			{
-				effect_num = 0;
-			}
-
 		}
 	}
 
