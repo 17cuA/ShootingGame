@@ -270,6 +270,7 @@ public class Enemy_Wave : character_status
 				//画面右からきて上下移動は上からし始める
 				case State.WaveOnlyUp:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY < 0)
 					{
@@ -293,6 +294,7 @@ public class Enemy_Wave : character_status
 				//画面右からきて上下移動は下からし始める
 				case State.WaveOnlyDown:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY > 0)
 					{
@@ -362,6 +364,7 @@ public class Enemy_Wave : character_status
 				//画面左からきて上下移動は下からし始める
 				case State.BackWaveOnlyUp:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isWaveStart = true;
 					isBehind = true;
 					if (defaultSpeedY < 0)
 					{
@@ -385,6 +388,7 @@ public class Enemy_Wave : character_status
 				//画面左からきて上下移動は下からし始める
 				case State.BackWaveOnlyDown:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					isWaveStart = true;
 					isBehind = true;
 					if (defaultSpeedY > 0)
 					{
@@ -481,7 +485,7 @@ public class Enemy_Wave : character_status
 		//{
 
 		//}
-		else if (eState == State.WaveOnlyUp || eState == State.WaveOnlyDown)
+		else if (eState == State.WaveOnlyUp || eState == State.WaveOnlyDown || eState == State.BackWaveOnlyUp || eState == State.BackWaveOnlyDown)
         {
 			if(!isBehind)
 			{
