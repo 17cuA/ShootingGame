@@ -21,11 +21,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public enum SCENE_NAME
 	{
-		eCAUTION,
-		eROGO,
 		eTITLE,
-		eMENU,
-        eINSTRUCTION,
         eSTAGE_01,
 		eSTAGE_02,
 		eGAME_OVER,
@@ -135,30 +131,6 @@ public class Scene_Manager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 注意書きシーンへ移動
-	/// </summary>
-	public void Screen_Transition_To_Caution()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-		Next_Scene = SCENE_NAME.eCAUTION;
-	}
-
-	/// <summary>
-	/// ロゴシーンに移動
-	/// </summary>
-	public void Screen_Transition_To_ROGO()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-		Next_Scene = SCENE_NAME.eROGO;
-	}
-
-	/// <summary>
 	/// タイトルに移動
 	/// </summary>
 	public void Screen_Transition_To_Title()
@@ -168,19 +140,6 @@ public class Scene_Manager : MonoBehaviour
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eTITLE;
-	}
-
-	/// <summary>
-	/// メニューに移動
-	/// </summary>
-	public void Screen_Transition_To_Menu()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eMENU;
 	}
 
 	/// <summary>
@@ -232,19 +191,6 @@ public class Scene_Manager : MonoBehaviour
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
 	}
-
-    /// <summary>
-    /// ゲーム説明に移動
-    /// </summary>
-    public void Screen_Transition_To_Instruction()
-    {
-        if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-        {
-            Is_Fade_Out_Intermediate = true;
-        }
-
-        Next_Scene = SCENE_NAME.eINSTRUCTION;
-    }
 
     /// <summary>
     /// 任意のシーンに移動

@@ -8,6 +8,8 @@ using TextDisplay;
 
 public class Blink : MonoBehaviour
 {
+	[SerializeField, Header("入力受け付け開始")] private bool input_reception;
+
 	// ボタンを押してください
 	private Character_Display please_push_button;
 	private GameObject please_push_button_parent;
@@ -102,43 +104,49 @@ public class Blink : MonoBehaviour
 
 	void Update()
 	{
-		if (HS_Step.Set_Step == 0)
+		if(please_push_button_parent.activeSelf)
 		{
-			if (!please_push_button_parent.activeSelf)
-			{
-				please_push_button_parent.SetActive(true);
-				play_select_parent.SetActive(false);
-				one_player_parent.SetActive(false);
-				two_player_parent.SetActive(false);
-				select_icon.SetActive(false);
-			}
-
 			please_push_button.Color_Change(GetAlphaColor(please_push_button.Font_Color));
 		}
-		else if(HS_Step.Set_Step == 1)
-		{
-			if(please_push_button_parent.activeSelf)
-			{
-				please_push_button_parent.SetActive(false);
-				play_select_parent.SetActive(true);
-				one_player_parent.SetActive(true);
-				two_player_parent.SetActive(true);
-				select_icon.SetActive(true);
-			}
 
-			if (Input.GetAxis("Vertical") > 0)
+		if (input_reception)
+		{
+			if (HS_Step.Set_Step == 0)
 			{
-				Vector3 temp = select_icon.transform.localPosition;
-				temp.y = one_player_parent.transform.localPosition.y;
-				select_icon.transform.localPosition = temp;
-				Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eONE_PLAYER);
+				if (!please_push_button_parent.activeSelf)
+				{
+					please_push_button_parent.SetActive(true);
+					play_select_parent.SetActive(false);
+					one_player_parent.SetActive(false);
+					two_player_parent.SetActive(false);
+					select_icon.SetActive(false);
+				}
 			}
-			else if (Input.GetAxis("Vertical") < 0)
+			else if (HS_Step.Set_Step == 1)
 			{
-				Vector3 temp = select_icon.transform.localPosition;
-				temp.y = two_player_parent.transform.localPosition.y;
-				select_icon.transform.localPosition = temp;
-				Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				if (please_push_button_parent.activeSelf)
+				{
+					please_push_button_parent.SetActive(false);
+					play_select_parent.SetActive(true);
+					one_player_parent.SetActive(true);
+					two_player_parent.SetActive(true);
+					select_icon.SetActive(true);
+				}
+
+				if (Input.GetAxis("Vertical") > 0)
+				{
+					Vector3 temp = select_icon.transform.localPosition;
+					temp.y = one_player_parent.transform.localPosition.y;
+					select_icon.transform.localPosition = temp;
+					Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eONE_PLAYER);
+				}
+				else if (Input.GetAxis("Vertical") < 0)
+				{
+					Vector3 temp = select_icon.transform.localPosition;
+					temp.y = two_player_parent.transform.localPosition.y;
+					select_icon.transform.localPosition = temp;
+					Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				}
 			}
 		}
 	}
