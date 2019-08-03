@@ -47,7 +47,7 @@ public class FollowToPreviousBit : MonoBehaviour
 		}
 
 		//int cnt = 0;
-		array_Num = 12;
+		array_Num = 9;
 		previousBitPos = new Vector3[array_Num];
 
 		defCheck = true;
