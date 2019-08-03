@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 /*
  * 注意左と右の日本電子、消えるときは。
@@ -13,51 +14,22 @@ using UnityEngine.UI;
 
 public class Title_Manager : MonoBehaviour
 {
-	public enum TITLE_MODE
+	public bool play_flag;
+	private bool one_;
+	public PlayableDirector time_line;
+
+	private void Awake()
 	{
-		eCAUTION,		// 注意書き
-		eROGO,				// ロゴ
-		eLEGEND,			// 伝説
-		eTITLE,				// タイトル
-		eSELECT,			// 人数の選択
+		time_line.playOnAwake = false;
 	}
 
-	[SerializeField, Tooltip("注意書き")]	private Image caution_writing;
-	[SerializeField, Tooltip("ロゴ")]			private Image lorgo_writing;
-	[SerializeField, Tooltip("伝説")]			private Image legend_writing;
-
-	private RectTransform Caution_Transform { get; set; }		// 注意書きのトランスフォーム
-	private RectTransform Lorgo_Transform { get; set; }		// ロゴのトランスフォーム
-	private RectTransform Legend_Transform { get; set; }		// 伝説のトランスフォーム
-
-	private float Fade_Speed_Scale { get; set; }		// フェードのスピード Y
-	private float Fade_Speed_Pos { get; set; }		// フェードのスピード X
-
-	public TITLE_MODE Mode { get; private set; }
-
-	void Start()
-    {
-		Mode = TITLE_MODE.eCAUTION;
-		Fade_Speed_Scale = 0.3f / 60.0f;
-		//Fade_Speed_Pos = 
-    }
-
-    void Update()
-    {
-		switch (Mode)
+	private void Update()
+	{
+		if(play_flag && !one_)
 		{
-			case TITLE_MODE.eCAUTION:
-				break;
-			case TITLE_MODE.eROGO:
-				break;
-			case TITLE_MODE.eLEGEND:
-				break;
-			case TITLE_MODE.eTITLE:
-				break;
-			case TITLE_MODE.eSELECT:
-				break;
-			default:
-				break;
+			time_line.Play();
+			one_ = true;
 		}
 	}
+
 }
