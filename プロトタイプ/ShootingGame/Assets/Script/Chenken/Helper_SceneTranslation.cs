@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Helper_SceneTranslation : MonoBehaviour
 {
-    public Scene_Manager.SCENE_NAME sceneName;
+	[SerializeField, Header("入力受け付け開始")] private bool input_reception;
+
+	public Scene_Manager.SCENE_NAME sceneName;
     private bool isLoaded;
 	public AudioSource audioSource; //ユニティ側にて設定
 	public AudioClip audioClip;         //unity側から設定
@@ -19,7 +21,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 	}
 	public void Update()
 	{
-		if (Set_Step == 0)
+		if (Set_Step == 0 && input_reception)
 		{
 			if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 			{

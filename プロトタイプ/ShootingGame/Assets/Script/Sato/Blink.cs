@@ -8,7 +8,6 @@ using TextDisplay;
 
 public class Blink : MonoBehaviour
 {
-	[SerializeField, Header("入力受け付け開始")] private bool input_reception;
 
 	// ボタンを押してください
 	private Character_Display please_push_button;
@@ -104,13 +103,6 @@ public class Blink : MonoBehaviour
 
 	void Update()
 	{
-		if(please_push_button_parent.activeSelf)
-		{
-			please_push_button.Color_Change(GetAlphaColor(please_push_button.Font_Color));
-		}
-
-		if (input_reception)
-		{
 			if (HS_Step.Set_Step == 0)
 			{
 				if (!please_push_button_parent.activeSelf)
@@ -121,6 +113,8 @@ public class Blink : MonoBehaviour
 					two_player_parent.SetActive(false);
 					select_icon.SetActive(false);
 				}
+
+				please_push_button.Color_Change(GetAlphaColor(please_push_button.Font_Color));
 			}
 			else if (HS_Step.Set_Step == 1)
 			{
@@ -148,7 +142,6 @@ public class Blink : MonoBehaviour
 					Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eTWO_PLAYER);
 				}
 			}
-		}
 	}
 
 	//Alpha値を更新してColorを返す
