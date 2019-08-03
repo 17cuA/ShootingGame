@@ -27,15 +27,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72782433919951560}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1377363440267535222}
   - {fileID: 5299522067671828735}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
 --- !u!114 &4490354771387123157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   playerObj: {fileID: 0}
-  speedX: 2
+  speedX: 5
   rollSpeed: 2.5
   degree: 0
   degree_plus: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   rotationZ_Inc: 0
   rotationZ_Dec: 0
   frameCnt: 0
-  followStartTime: 90
+  followStartTime: 210
   followTimeCnt: 0
   followEndTime: 420
   saveDeg: 0
