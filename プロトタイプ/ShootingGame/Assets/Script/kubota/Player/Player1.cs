@@ -340,14 +340,14 @@ public class Player1 : character_status
 			Is_Change_Auto = !Is_Change_Auto;
 		}
 
-		if (Shot_Delay > Shot_DelayMax)
+		if (!Is_Change_Auto)
 		{
-			if (!Is_Change_Auto)
+			Shot_DelayMax = 1;
+			if (Shot_Delay > Shot_DelayMax)
 			{
 				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
-
 					switch (bullet_Type)
 					{
 						case Bullet_Type.Single:
@@ -375,7 +375,11 @@ public class Player1 : character_status
 
 				}
 			}
-			else
+		}
+		else
+		{
+			Shot_DelayMax = 5;
+			if (Shot_Delay > Shot_DelayMax)
 			{
 				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 				{
@@ -421,16 +425,16 @@ public class Player1 : character_status
 
 					}
 				}
-				if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
-				{
-					shoot_number = 0;
-				}
-				if (effect_num > 4)
-				{
-					effect_num = 0;
-				}
-
 			}
+			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			{
+				shoot_number = 0;
+			}
+			if (effect_num > 4)
+			{
+				effect_num = 0;
+			}
+
 		}
 	}
 
