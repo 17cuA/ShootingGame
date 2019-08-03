@@ -3622,10 +3622,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles:
-  - assemblyQualifiedName: ImageEffectGraph.Demo.MyOtherEffect, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - assemblyQualifiedName: ImageEffectGraph.PostProcessing.RenderWithMaterial, ImageEffectGraph,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: UserLUT, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!1001 &8277150760375949669
@@ -4136,6 +4132,21 @@ PrefabInstance:
       propertyPath: m_AfterStackBundles.Array.data[1].assemblyQualifiedName
       value: ImageEffectGraph.PostProcessing.RenderWithMaterial, ImageEffectGraph,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999485953582959318, guid: a09630a0de1b06d4aa52385518edfadd,
+        type: 3}
+      propertyPath: Shader
+      value: 
+      objectReference: {fileID: 4800000, guid: 94bb3e938b97d4b4ba8400bff83084b5, type: 3}
+    - target: {fileID: 2999485953582959318, guid: a09630a0de1b06d4aa52385518edfadd,
+        type: 3}
+      propertyPath: _glitchSpeed
+      value: 6.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999485953582959318, guid: a09630a0de1b06d4aa52385518edfadd,
+        type: 3}
+      propertyPath: _glitchSwing
+      value: 5.77
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 114469846491240388}
-  - {fileID: 114362429348402208}
 --- !u!114 &114216357637475556
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,42 +39,6 @@ MonoBehaviour:
   gameModeOnly:
     overrideState: 1
     value: 1
---- !u!114 &114362429348402208
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c065909e7ffdd4b8c8ac1630696321, type: 3}
-  m_Name: UserLUT
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  lut:
-    overrideState: 1
-    value: {fileID: 2800000, guid: 6ef35bd5c49623647a9f4c4acb502471, type: 3}
-    defaultState: 4
-  blend:
-    overrideState: 1
-    value: 1
-  useBackgroundLut:
-    overrideState: 1
-    value: 1
-  backgroundLut:
-    overrideState: 1
-    value: {fileID: 2800000, guid: 5731b4d5306fa1c409089f0a9f3c8a83, type: 3}
-    defaultState: 4
-  backgroundBlendStart:
-    overrideState: 1
-    value: 43.76
-  backgroundBlendRange:
-    overrideState: 1
-    value: 10
 --- !u!114 &114469846491240388
 MonoBehaviour:
   m_ObjectHideFlags: 3
