@@ -19,7 +19,8 @@ public class Obj_Storage : MonoBehaviour
 	//リソースフォルダから取得するため、インスペクターは使わない
 	private GameObject Enemy_Prefab;							//敵キャラのプレハブ
 	private GameObject Medium_Enemy_Prefab;				//中型エネミーのプレハブ
-	private GameObject Player_Prefab;							//プレイヤーのプレハブ
+	private GameObject Player_Prefab;                           //プレイヤーのプレハブ
+	private GameObject player_2_Prefab;							//プレイヤー2のプレハブ
 	private GameObject Player_Missile_Prefab;					//プレイヤーのミサイルプレハブ
 	private GameObject Player_Missile_Tow_Way_Prefab;		//プレイヤーのミサイル（上下に行くやつ）
 	private GameObject Boss1_Prefab;                                //ステージ１のボスのプレハブ
@@ -42,6 +43,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Enemy1;
 	public Object_Pooling Medium_Size_Enemy1;
 	public Object_Pooling Player;
+	public Object_Pooling Player_2;
 	public Object_Pooling Boss_1;
 	public Object_Pooling Boss_2;
 	public Object_Pooling PlayerBullet;
@@ -64,6 +66,7 @@ public class Obj_Storage : MonoBehaviour
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
+	private string File_name2 = "E_Pattern2";
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
@@ -103,7 +106,9 @@ public class Obj_Storage : MonoBehaviour
 
 	void Start()
     {
+
 		Player_Prefab = Resources.Load("Player/Player") as GameObject;
+		player_2_Prefab = Resources.Load("Player/Player2") as GameObject;
 		Enemy_Prefab = Resources.Load("Enemy/Enemy2") as GameObject;
 		Medium_Enemy_Prefab = Resources.Load("Enemy/Medium_Size_Enemy") as GameObject;
 		Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
@@ -202,6 +207,7 @@ public class Obj_Storage : MonoBehaviour
 		//--------------------------------------------------------------------------------------------------------
 
 		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");					//プレイヤー2生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 10, "Enemy_Straight");                 //Enemy(直線のみ)の生成
 		Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 		Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");								//ステージ2のボス生成
@@ -252,12 +258,25 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
 		//-----------------------------------------------------------------------------------------------------
-		TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;			//csvファイルを入れる変数
-		StringReader csv = new StringReader(Word.text);										//読み込んだデータをcsvの変数の中に格納
-		while (csv.Peek() > -1)
+		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
-			string line = csv.ReadLine();
-			CsvData.Add(line.Split(','));               //カンマごとに割り振る
+			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;            //csvファイルを入れる変数
+			StringReader csv = new StringReader(Word.text);                                     //読み込んだデータをcsvの変数の中に格納
+			while (csv.Peek() > -1)
+			{
+				string line = csv.ReadLine();
+				CsvData.Add(line.Split(','));               //カンマごとに割り振る
+			}
+		}
+		else
+		{
+			TextAsset Word = Resources.Load("CSV_Folder/" + File_name2) as TextAsset;            //csvファイルを入れる変数
+			StringReader csv = new StringReader(Word.text);                                     //読み込んだデータをcsvの変数の中に格納
+			while (csv.Peek() > -1)
+			{
+				string line = csv.ReadLine();
+				CsvData.Add(line.Split(','));               //カンマごとに割り振る
+			}
 		}
 	}
 
@@ -265,9 +284,13 @@ public class Obj_Storage : MonoBehaviour
 	{
 		return Player.Get_Obj()[0];
 	}
+	public GameObject GetPlayer2()
+	{
+		return Player_2.Get_Obj()[0];
+	}
+
 	public GameObject GetBoss(int bossID)
 	{
-		Debug.Log("こ");
 		GameObject boss = null;
 		switch(bossID)
 		{

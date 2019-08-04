@@ -135,10 +135,11 @@ public class Player2 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
+		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
 		Is_Change_Auto = false;
+		IS_Active = true;
 	}
 
 	new void Update()
@@ -189,9 +190,9 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
-				PowerManager.Instance.Update();
+				P2_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
-				PowerManager.Instance.UpdateBit(bitIndex);
+				P2_PowerManager.Instance.UpdateBit(bitIndex);
 
 				//if(shield < 1)
 				//{
@@ -201,7 +202,7 @@ public class Player2 : character_status
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-					PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 																		//残機が残っていなければ
 					if (Remaining < 1)
@@ -238,7 +239,7 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("P2_Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
-					PowerManager.Instance.Upgrade();
+					P2_PowerManager.Instance.Upgrade();
 				}
 				// 通常のバレットのディレイ計算
 				Shot_Delay++;
