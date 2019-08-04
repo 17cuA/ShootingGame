@@ -724,13 +724,35 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Instantiate(enemy_Beelzebub_Group_Five, createPosR0.transform.position, transform.rotation);
 			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-			nextEnemy = "ハエ型4体の群れ出す";
-			Next_Condition(360);
+			nextEnemy = "戦艦二体";
+			Next_Condition(540);
 
 		}
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
+        {
+            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            b1.Is_up = false;
 
-		// 23 ラスボス(6590)
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
+            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            b2.Is_up = true;
+
+            nextEnemy = "直線闘牛を右真ん中から";
+            Next_Condition(200);
+
+        }
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
+        {
+            Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+
+            nextEnemy = "直線闘牛を右真ん中から";
+            Next_Condition(200);
+
+        }
+
+        // 23 ラスボス(6590)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
 		{
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 			Boss_01.transform.position = Vector3.zero;
