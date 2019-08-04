@@ -87,7 +87,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3819176411404197395}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
   m_Name: 
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8277150760317255343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
   m_Name: 
@@ -208,7 +208,6 @@ GameObject:
   - component: {fileID: 8277150760851708336}
   - component: {fileID: 6148687922541737405}
   - component: {fileID: 7176005089352410499}
-  - component: {fileID: 2999485953582959318}
   m_Layer: 14
   m_Name: Logo_Camera
   m_TagString: Untagged
@@ -402,33 +401,16 @@ MonoBehaviour:
   m_ShowCustomSorter: 0
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
+  m_BeforeStackBundles:
+  - assemblyQualifiedName: PostProcessOutline, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: Grayscale, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   m_AfterStackBundles:
   - assemblyQualifiedName: UserLUT, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: ImageEffectGraph.Demo.MyOtherEffect, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - assemblyQualifiedName: ImageEffectGraph.PostProcessing.RenderWithMaterial, ImageEffectGraph,
+  - assemblyQualifiedName: UnityEngine.Rendering.PostProcessing.Star, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &2999485953582959318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8277150760851708342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d9da71a5fea06d448af2484d166e77f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Shader: {fileID: 0}
-  displacementMap: {fileID: 0}
-  intensity: 0.5
-  flipIntensity: 0.5
-  colorIntensity: 0.5
-  _glitchSpeed: 1
-  _glitchSwing: 1
 --- !u!1 &8277150761145280771
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +589,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8989477431447101688}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f6d3c6e4250e84192f5b34ce9e71bc, type: 3}
   m_Name: 

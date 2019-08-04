@@ -10,7 +10,7 @@
 // to make commercial use of the work
 
 
-Shader "Hidden/PostProcessing/GlitchShader" {
+Shader "Hidden/Custom/GlitchShader" {
 	Properties{
 		_DispTex("Base (RGB)", 2D) = "bump" {}
 		_Intensity("Glitch Intensity", Range(0.1, 1.0)) = 1
