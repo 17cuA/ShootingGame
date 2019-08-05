@@ -56,16 +56,18 @@ public class BattleshipType_Enemy : character_status
 			Parts_Renderer.Add(muzzle_parts_scriptes[i].GetComponent<MeshRenderer>());
 		}
 
-		if(!Is_up)
+		if (is_sandwich)
 		{
-			initial_position.y *= -1.0f;
-			for(int i = 0; i < moving_change_point.Length; i++)
+			if (!Is_up)
 			{
-				moving_change_point[i].y *= -1.0f;
+				initial_position.y *= -1.0f;
+				for (int i = 0; i < moving_change_point.Length; i++)
+				{
+					moving_change_point[i].y *= -1.0f;
+				}
 			}
+			Original_Position = transform.position = initial_position;
 		}
-		Original_Position = transform.position = initial_position;
-
 		// 加減速用初期化群
 	   Max_Speed = speed;
 		speed = Initial_Speed = speed / 60.0f;
@@ -118,6 +120,10 @@ public class BattleshipType_Enemy : character_status
 				velocity = transform.position.x - temp.x;
 				transform.position = temp;
 			}
+		}
+		else if(!is_sandwich)
+		{
+			transform.position += transform.forward * speed;
 		}
 
 		// 自身のZ軸が0のとき攻撃する
@@ -192,8 +198,11 @@ public class BattleshipType_Enemy : character_status
 
 	void OnEnable()
 	{
-		transform.position = initial_position;
-		Now_Target = 0;
+		if (is_sandwich)
+		{
+			transform.position = initial_position;
+		}
+			Now_Target = 0;
 		Shot_Delay = 0;
 
 		if (muzzle_parts_scriptes != null)
