@@ -218,9 +218,11 @@ public class Enemy_Wave : character_status
 		//}
 		if(once)
 		{
+            transform.localPosition = defaultPos;
 			//状態によって値を変える
 			switch(eState)
 			{
+
 				//画面左から右へ、後ろからきて上下移動は上からし始める
 				case State.WaveUp:
 					isStraight = false;
@@ -954,7 +956,17 @@ public class Enemy_Wave : character_status
 	{
 		if(!isBehind)
 		{
-			if (col.gameObject.name == "WallLeft")
+            if (eState == State.Rush)
+            {
+                if (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallTop" || col.gameObject.name == "WallUnder")
+                {
+                    groupManage.notDefeatedEnemyCnt++;
+                    groupManage.remainingEnemiesCnt -= 1;
+                    gameObject.SetActive(false);
+
+                }
+            }
+            else if (col.gameObject.name == "WallLeft")
 			{
 				groupManage.notDefeatedEnemyCnt++;
 				groupManage.remainingEnemiesCnt -= 1;
@@ -963,7 +975,17 @@ public class Enemy_Wave : character_status
 		}
 		else if(isBehind)
 		{
-			if (col.gameObject.name == "WallRight")
+            if(eState==State.BackRush)
+            {
+                if(col.gameObject.name=="WallRight"|| col.gameObject.name == "WallTop"|| col.gameObject.name == "WallUnder")
+                {
+                    groupManage.notDefeatedEnemyCnt++;
+                    groupManage.remainingEnemiesCnt -= 1;
+                    gameObject.SetActive(false);
+
+                }
+            }
+			else if (col.gameObject.name == "WallRight")
 			{
 				groupManage.notDefeatedEnemyCnt++;
 				groupManage.remainingEnemiesCnt -= 1;
