@@ -20,6 +20,7 @@ public class character_status : MonoBehaviour
 	public int hp;                                                      // 体力
 	private int hp_Max;
 	public Vector3 direction;                                           // 向き
+    public Vector4 setColor;
 	public Collider capsuleCollider;                             // cillider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
@@ -238,15 +239,16 @@ public class character_status : MonoBehaviour
 	public void HSV_Change()
 	{
 		v_Value = 1.0f - transform.position.z * 0.015f;
-
+        
 		if (v_Value > 1.0f)
 		{
 			v_Value = 1.0f;
 		}
-
+        setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 		foreach (Renderer renderer in object_material)
 		{
-			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+            renderer.material.SetVector("_BaseColor", setColor);
+			//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 		}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
