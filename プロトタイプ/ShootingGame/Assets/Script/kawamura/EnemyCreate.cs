@@ -743,14 +743,14 @@ public class EnemyCreate : MonoBehaviour
             b2.Is_up = true;
 
             nextEnemy = "直線闘牛を右真ん中から";
-            Next_Condition(200);
+            Next_Condition(380);
 
         }
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "直線闘牛を右真ん中から";
+            nextEnemy = "戦艦右真ん中から";
             Next_Condition(200);
 
         }
