@@ -141,18 +141,22 @@ public class EnemyCreate : MonoBehaviour
 		{
 
 		}
-		//CreateCheck();
-		switch(Scene_Manager.Manager.Now_Scene)
-		{
-			case Scene_Manager.SCENE_NAME.eSTAGE_01:
-				CreateEnemyGroup_01();
-				break;
-			case Scene_Manager.SCENE_NAME.eSTAGE_02:
-				CreateEnemyGroup_02();
-				break;
-			default:
-				break;
-		}
+        //CreateCheck();
+        CreateEnemyGroup_01();
+		//switch(Scene_Manager.Manager.Now_Scene)
+		//{
+  //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
+  //              CreateEnemyGroup_01();
+
+  //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
+		//		CreateEnemyGroup_01();
+		//		break;
+		//	case Scene_Manager.SCENE_NAME.eSTAGE_02:
+		//		CreateEnemyGroup_02();
+		//		break;
+		//	default:
+		//		break;
+		//}
     }
 
 	//--------------------------------------------------------------------
