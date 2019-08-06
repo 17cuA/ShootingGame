@@ -28,6 +28,9 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
 	[SerializeField, Tooltip("ビームまずる")] private GameObject[] muzzles;
 	[SerializeField, Tooltip("レーザーのまずる")] private GameObject[] laser_muzzle;
+	[SerializeField, Tooltip("   ")] private Boss_One_A111[] Supply;
+
+	public GameObject[] jku;
 
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }						// 最大速度
@@ -56,23 +59,21 @@ public class One_Boss : character_status
 
 	private new void Start()
     {
-		IIIIII = 9;
-
 		base.Start();
 
 		Laser_Prefab = Resources.Load("Bullet/Laser") as GameObject;
 
 		Core = core.GetComponent<One_Boss_Parts>();
-		//Player_Data = new GameObject[(int)Game_Master.Number_Of_People - 1];
-		//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		//{
-		//	Player_Data[(int)Game_Master.PLAYER_NUM.eONE_PLAYER - 1 ] = Obj_Storage.Storage_Data.GetPlayer();
-		//}
-		//else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		//{
-		//	Player_Data[(int)Game_Master.PLAYER_NUM.eONE_PLAYER - 1] = Obj_Storage.Storage_Data.GetPlayer();
-		//	Player_Data[(int)Game_Master.PLAYER_NUM.eTWO_PLAYER - 1] = Obj_Storage.Storage_Data.GetPlayer2();
-		//}
+		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
+		}
+		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
+			Player_Data[1] = Obj_Storage.Storage_Data.GetPlayer2();
+		}
 		Max_Speed = speed;
 		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
 		for(;Now_Speed <= Max_Speed ;Now_Speed += Lowest_Speed )
@@ -121,12 +122,13 @@ public class One_Boss : character_status
 		}
 		if (IIIIII < 4)
 		{
-			//Player_Tracking_Movement_Attack();
+			Player_Tracking_Movement_Attack();
 		}
 		else
 		{
 			//Laser_Clearing();
 			Laser_Clearing_2();
+			//Laser_Clearing_3();
 		}
 	}
 
@@ -302,7 +304,7 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Laser_Clearing_2()
 	{
-		if(Attack_Step == 0)
+		if (Attack_Step == 0)
 		{
 			if (transform.position.y != 0.0f)
 			{
@@ -314,12 +316,31 @@ public class One_Boss : character_status
 				Attack_Step++;
 			}
 		}
-		else if(Attack_Step == 1)
+		if (Attack_Step == 1)
+		{
+			if (!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+			{
+				Supply[0].gameObject.SetActive(true);
+				Supply[1].gameObject.SetActive(true);
+
+				Supply[0].SetUp();
+				Supply[1].SetUp();
+			}
+
+			if (Supply[0].CCCCC() && Supply[1].CCCCC())
+			{
+				Supply[0].gameObject.SetActive(false);
+				Supply[1].gameObject.SetActive(false);
+
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 2)
 		{
 			Flame++;
 			foreach (GameObject obj in laser_muzzle)
 			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
 				laser.Manual_Start(obj.transform);
 			}
 			if(Flame >= 30)
@@ -335,12 +356,12 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if(Attack_Step == 2)
+		else if(Attack_Step == 3)
 		{
 			Flame++;
 			foreach (GameObject obj in laser_muzzle)
 			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
 				laser.Manual_Start(obj.transform);
 			}
 
@@ -357,12 +378,12 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if(Attack_Step==3)
+		else if(Attack_Step==4)
 		{
 			Flame++;
 			foreach (GameObject obj in laser_muzzle)
 			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
 				laser.Manual_Start(obj.transform);
 			}
 
@@ -379,12 +400,12 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if(Attack_Step == 4)
+		else if(Attack_Step == 5)
 		{
 			Flame++;
 			foreach (GameObject obj in laser_muzzle)
 			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
 				laser.Manual_Start(obj.transform);
 			}
 
@@ -402,30 +423,173 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Laser_Clearing_3()
 	{
-		//if(Attack_Step == 0)
-		//{
-		//	if()
-		//}
+		// 下回り
+		if (transform.position.y < 0)
+		{
+			if (Attack_Step == 0)
+			{
+				if(!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+				{
+					Supply[0].gameObject.SetActive(true);
+					Supply[1].gameObject.SetActive(true);
+
+					Supply[0].SetUp();
+					Supply[1].SetUp();
+				}
+
+				if (Supply[0].CCCCC() && Supply[1].CCCCC())
+				{
+					Supply[0].gameObject.SetActive(false);
+					Supply[1].gameObject.SetActive(false);
+
+					Attack_Step++;
+				}
+			}
+			else if (Attack_Step == 1)
+			{
+				Flame++;
+				foreach (GameObject obj in laser_muzzle)
+				{
+					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
+
+				if (Flame >= 30)
+				{
+					if (transform.rotation != Quaternion.Euler(For_body_Down))
+					{
+						transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Down), speed * 3.0f);
+					}
+					else if (transform.rotation == Quaternion.Euler(For_body_Down))
+					{
+						Attack_Step++;
+						Flame = 0;
+					}
+				}
+			}
+			else if (Attack_Step == 2)
+			{
+				Flame++;
+				foreach (GameObject obj in laser_muzzle)
+				{
+					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
+				if (Flame == 40)
+				{
+					Attack_Step++;
+					Flame = 0;
+				}
+			}
+			else if (Attack_Step == 3)
+			{
+				if (transform.rotation != Quaternion.identity)
+				{
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, speed * 15.0f);
+				}
+				else if (transform.rotation == Quaternion.identity)
+				{
+					Attack_Step = 0;
+					Flame = 0;
+					IIIIII = 0;
+				}
+			}
+		}
+		else if (transform.position.y > 0)
+		{
+			if (Attack_Step == 0)
+			{
+				if(!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+				{
+					Supply[0].gameObject.SetActive(true);
+					Supply[1].gameObject.SetActive(true);
+
+					Supply[0].SetUp();
+					Supply[1].SetUp();
+				}
+
+				if (Supply[0].CCCCC() && Supply[1].CCCCC())
+				{
+					Supply[0].gameObject.SetActive(false);
+					Supply[1].gameObject.SetActive(false);
+
+					Attack_Step++;
+				}
+			}
+			else if (Attack_Step == 1)
+			{
+				Flame++;
+				foreach (GameObject obj in laser_muzzle)
+				{
+					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
+
+				if (Flame >= 30)
+				{
+					if (transform.rotation != Quaternion.Euler(For_body_Up))
+					{
+						transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Up), speed * 3.0f);
+					}
+					else if (transform.rotation == Quaternion.Euler(For_body_Up))
+					{
+						Attack_Step++;
+						Flame = 0;
+					}
+				}
+			}
+			else if (Attack_Step == 2)
+			{
+				Flame++;
+				foreach (GameObject obj in laser_muzzle)
+				{
+					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
+				if (Flame == 40)
+				{
+					Attack_Step++;
+					Flame = 0;
+				}
+			}
+			else if (Attack_Step == 3)
+			{
+				if (transform.rotation != Quaternion.identity)
+				{
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, speed * 15.0f);
+				}
+				else if (transform.rotation == Quaternion.identity)
+				{
+					Attack_Step = 0;
+					Flame = 0;
+					IIIIII = 0;
+				}
+			}
+		}
 	}
 	/// <summary>
 	/// プレイヤーを追従しビーム攻撃
 	/// </summary>
 	private void Player_Tracking_Movement_Attack()
 	{
-		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		if (Attack_Step == 0)
 		{
-			Now_player_Traget = Player_Data[0];
-		}
-		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		{
-			Now_player_Traget = Player_Data[Random.Range(0, 1)];
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Now_player_Traget = Player_Data[0];
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Now_player_Traget = Player_Data[Random.Range(0, 1)];
+			}
+			Attack_Step++;
 		}
 		// プレイヤー追従移動
-		if (Attack_Step == 0)
+		if (Attack_Step == 1)
 		{
 			Vector3 temp = transform.position;
 			temp.y = Now_player_Traget.transform.position.y;
-			if (Vector_Size(temp, transform.position) > 1.0f)
+			if (Vector_Size(temp, transform.position) > 0.5f)
 			{
 				if (Target == transform.position)
 				{
@@ -451,7 +615,7 @@ public class One_Boss : character_status
 				transform.position = Moving_To_Target(transform.position, Target, Now_Speed);
 
 			}
-			else if (Vector_Size(temp, transform.position) <= 1.0f)
+			else if (Vector_Size(temp, transform.position) <= 0.5f)
 			{
 				Attack_Step++;
 			}
@@ -478,15 +642,22 @@ public class One_Boss : character_status
 		//	}
 		//}
 		// 攻撃
-		else if (Attack_Step == 1)
+		else if (Attack_Step == 2)
 		{
-			foreach (GameObject Muzzle in muzzles)
+			Flame++;
+			if (Flame == 1)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Muzzle.transform.position, Muzzle.transform.right);
+				foreach (GameObject Muzzle in muzzles)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Muzzle.transform.position, Muzzle.transform.right);
+				}
 			}
-
-			Attack_Step = 0;
-			IIIIII++;
+			else if (Flame == 30)
+			{
+				Attack_Step = 0;
+				IIIIII++;
+				Flame = 0;
+			}
 		}
 		//// 閉じる
 		//else if (Attack_Step == 3)

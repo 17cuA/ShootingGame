@@ -31,7 +31,7 @@ public class Boss_One_Laser : bullet_status
 
 	private void LateUpdate()
 	{
-		transform.localPosition += transform.right * shot_speed;
+		transform.localPosition -= transform.forward * shot_speed;
 	}
 
 	public void Manual_Start(Transform parent)
