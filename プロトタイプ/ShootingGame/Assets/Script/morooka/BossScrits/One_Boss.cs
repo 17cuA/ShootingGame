@@ -41,24 +41,38 @@ public class One_Boss : character_status
 	private Vector3[] Arm_Ini_Rotation { get; set; }
 	private Vector3[] Arm_45_Rotation { get; set; }
 
+	private Vector3 For_body_Up { get; set; }
+	private Vector3 For_body_Down { get; set; }
+
 	private GameObject Laser_Prefab { get; set; }
 	private uint Flame { get; set; }
 
 	private int Attack_Step { get; set; }		// 攻撃ステップ
 
-	public GameObject Player_Data { get; private set; }     // プレイヤーのデータ
+	public GameObject[] Player_Data { get; private set; }     // プレイヤーのデータ
+	public GameObject Now_player_Traget { get; set; }
 
 	int IIIIII;
 
 	private new void Start()
     {
+		IIIIII = 9;
+
 		base.Start();
 
 		Laser_Prefab = Resources.Load("Bullet/Laser") as GameObject;
 
 		Core = core.GetComponent<One_Boss_Parts>();
-		Player_Data = Obj_Storage.Storage_Data.GetPlayer();
-
+		//Player_Data = new GameObject[(int)Game_Master.Number_Of_People - 1];
+		//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		//{
+		//	Player_Data[(int)Game_Master.PLAYER_NUM.eONE_PLAYER - 1 ] = Obj_Storage.Storage_Data.GetPlayer();
+		//}
+		//else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		//{
+		//	Player_Data[(int)Game_Master.PLAYER_NUM.eONE_PLAYER - 1] = Obj_Storage.Storage_Data.GetPlayer();
+		//	Player_Data[(int)Game_Master.PLAYER_NUM.eTWO_PLAYER - 1] = Obj_Storage.Storage_Data.GetPlayer2();
+		//}
 		Max_Speed = speed;
 		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
 		for(;Now_Speed <= Max_Speed ;Now_Speed += Lowest_Speed )
@@ -86,7 +100,11 @@ public class One_Boss : character_status
 		Arm_45_Rotation[0] = new Vector3( 45.0f, arm_parts[0].transform.localEulerAngles.y, arm_parts[0].transform.localEulerAngles.z);
 		Arm_45_Rotation[1] = new Vector3(360.0f -45.0f, arm_parts[1].transform.localEulerAngles.y, arm_parts[1].transform.localEulerAngles.z);
 
+		For_body_Up = new Vector3(0.0f, 0.0f, 90.0f);
+		For_body_Down = new Vector3(0.0f, 0.0f, -90.0f);
+
 		Attack_Step = 0;
+
 
 		//laser_muzzle[0].IsFire = false;
 		//laser_muzzle[1].IsFire = false;
@@ -103,16 +121,17 @@ public class One_Boss : character_status
 		}
 		if (IIIIII < 4)
 		{
-			Player_Tracking_Movement_Attack();
+			//Player_Tracking_Movement_Attack();
 		}
 		else
 		{
-			Laser_Clearing();
+			//Laser_Clearing();
+			Laser_Clearing_2();
 		}
 	}
 
 	/// <summary>
-	/// レーザーの薙ぎ払い攻撃
+	/// レーザーの薙ぎ払い攻撃_1
 	/// </summary>
 	private void Laser_Clearing()
 	{
@@ -271,31 +290,151 @@ public class One_Boss : character_status
 			}
 			if (b[0] && b[1])
 			{
+				Attack_Step = 0;
 				IIIIII = 0;
+				Flame = 0;
 			}
 		}
 	}
 
 	/// <summary>
+	/// レーザーの薙ぎ払い攻撃_2
+	/// </summary>
+	private void Laser_Clearing_2()
+	{
+		if(Attack_Step == 0)
+		{
+			if (transform.position.y != 0.0f)
+			{
+				Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
+				transform.position = Moving_To_Target(transform.position, temp, speed);
+			}
+			else if(transform.position.y == 0.0f)
+			{
+				Attack_Step++;
+			}
+		}
+		else if(Attack_Step == 1)
+		{
+			Flame++;
+			foreach (GameObject obj in laser_muzzle)
+			{
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				laser.Manual_Start(obj.transform);
+			}
+			if(Flame >= 30)
+			{
+				if(transform.rotation != Quaternion.Euler( For_body_Up))
+				{
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Up), speed * 3.0f);
+				}
+				else if(transform.rotation == Quaternion.Euler(For_body_Up))
+				{
+					Attack_Step++;
+					Flame = 0;
+				}
+			}
+		}
+		else if(Attack_Step == 2)
+		{
+			Flame++;
+			foreach (GameObject obj in laser_muzzle)
+			{
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				laser.Manual_Start(obj.transform);
+			}
+
+			if(Flame >= 30)
+			{
+				if (transform.rotation != Quaternion.Euler(For_body_Down))
+				{
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Down), speed * 3.0f);
+				}
+				else if (transform.rotation == Quaternion.Euler(For_body_Down))
+				{
+					Attack_Step++;
+					Flame = 0;
+				}
+			}
+		}
+		else if(Attack_Step==3)
+		{
+			Flame++;
+			foreach (GameObject obj in laser_muzzle)
+			{
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				laser.Manual_Start(obj.transform);
+			}
+
+			if(Flame >= 30)
+			{
+				if (transform.rotation != Quaternion.identity)
+				{
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, speed * 3.0f);
+				}
+				else if (transform.rotation == Quaternion.identity)
+				{
+					Attack_Step++;
+					Flame = 0;
+				}
+			}
+		}
+		else if(Attack_Step == 4)
+		{
+			Flame++;
+			foreach (GameObject obj in laser_muzzle)
+			{
+				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
+				laser.Manual_Start(obj.transform);
+			}
+
+			if (Flame == 30)
+			{
+				Attack_Step = 0;
+				IIIIII = 0;
+				Flame = 0;
+			}
+		}
+	}
+
+	/// <summary>
+	/// レーザーの薙ぎ払い攻撃_3
+	/// </summary>
+	private void Laser_Clearing_3()
+	{
+		//if(Attack_Step == 0)
+		//{
+		//	if()
+		//}
+	}
+	/// <summary>
 	/// プレイヤーを追従しビーム攻撃
 	/// </summary>
 	private void Player_Tracking_Movement_Attack()
 	{
+		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			Now_player_Traget = Player_Data[0];
+		}
+		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Now_player_Traget = Player_Data[Random.Range(0, 1)];
+		}
 		// プレイヤー追従移動
 		if (Attack_Step == 0)
 		{
 			Vector3 temp = transform.position;
-			temp.y = Player_Data.transform.position.y;
+			temp.y = Now_player_Traget.transform.position.y;
 			if (Vector_Size(temp, transform.position) > 1.0f)
 			{
 				if (Target == transform.position)
 				{
 					Prev_Pos = Target;
-					if (transform.position.y > Player_Data.transform.position.y)
+					if (transform.position.y > Now_player_Traget.transform.position.y)
 					{
 						Target = transform.position - MOVEY;
 					}
-					else if (transform.position.y < Player_Data.transform.position.y)
+					else if (transform.position.y < Now_player_Traget.transform.position.y)
 					{
 						Target = transform.position + MOVEY;
 					}
@@ -317,59 +456,60 @@ public class One_Boss : character_status
 				Attack_Step++;
 			}
 		}
-		// 開く
-		else if (Attack_Step == 1)
-		{
-			bool[] b = new bool[arm_parts.Length];
-			for (int i = 0; i < arm_parts.Length; i++)
-			{
-				if (arm_parts[i].transform.localPosition != Arm_Open_Position[i] && !b[i])
-				{
-					arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Open_Position[i], speed * 2.0f);
-					b[i] = false;
-				}
-				else if (arm_parts[i].transform.localPosition == Arm_Open_Position[i])
-				{
-					b[i] = true;
-				}
-			}
-			if (b[0] && b[1])
-			{
-				Attack_Step++;
-			}
-		}
+		//// 開く
+		//else if (Attack_Step == 1)
+		//{
+		//	bool[] b = new bool[arm_parts.Length];
+		//	for (int i = 0; i < arm_parts.Length; i++)
+		//	{
+		//		if (arm_parts[i].transform.localPosition != Arm_Open_Position[i] && !b[i])
+		//		{
+		//			arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Open_Position[i], speed * 2.0f);
+		//			b[i] = false;
+		//		}
+		//		else if (arm_parts[i].transform.localPosition == Arm_Open_Position[i])
+		//		{
+		//			b[i] = true;
+		//		}
+		//	}
+		//	if (b[0] && b[1])
+		//	{
+		//		Attack_Step++;
+		//	}
+		//}
 		// 攻撃
-		else if (Attack_Step == 2)
+		else if (Attack_Step == 1)
 		{
 			foreach (GameObject Muzzle in muzzles)
 			{
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Muzzle.transform.position, Muzzle.transform.right);
 			}
 
-			Attack_Step++;
+			Attack_Step = 0;
+			IIIIII++;
 		}
-		// 閉じる
-		else if (Attack_Step == 3)
-		{
-			bool[] b = new bool[arm_parts.Length];
-			for (int i = 0; i < arm_parts.Length; i++)
-			{
-				if (arm_parts[i].transform.localPosition != Arm_Closed_Position[i] && !b[i])
-				{
-					arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Closed_Position[i], speed * 2.0f);
-					b[i] = false;
-				}
-				else if (arm_parts[i].transform.localPosition == Arm_Closed_Position[i])
-				{
-					b[i] = true;
-				}
-			}
-			if (b[0] && b[1])
-			{
-				Attack_Step=0;
-				IIIIII++;
-			}
-		}
+		//// 閉じる
+		//else if (Attack_Step == 3)
+		//{
+		//	bool[] b = new bool[arm_parts.Length];
+		//	for (int i = 0; i < arm_parts.Length; i++)
+		//	{
+		//		if (arm_parts[i].transform.localPosition != Arm_Closed_Position[i] && !b[i])
+		//		{
+		//			arm_parts[i].transform.localPosition = Moving_To_Target(arm_parts[i].transform.localPosition, Arm_Closed_Position[i], speed * 2.0f);
+		//			b[i] = false;
+		//		}
+		//		else if (arm_parts[i].transform.localPosition == Arm_Closed_Position[i])
+		//		{
+		//			b[i] = true;
+		//		}
+		//	}
+		//	if (b[0] && b[1])
+		//	{
+		//		Attack_Step=0;
+		//		IIIIII++;
+		//	}
+		//}
 	}
 
 	/// <summary>
