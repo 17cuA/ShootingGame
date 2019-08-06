@@ -48,7 +48,7 @@ public class EnemyCreate : MonoBehaviour
 	//public GameObject enemy_ClamChowder_Group_Two_Top;
 	//public GameObject enemy_ClamChowder_Group_Two_Under;
 	//public GameObject enemy_ClamChowder_Group_Three_Item;
-	public GameObject enemy_ClamChowder_Group_Seven;
+	public GameObject enemy_ClamChowder_Group_SevenWave;
 	public GameObject enemy_Clamchowder_Group_Straight;
 	public GameObject enemy_Clamchowder_Group_StraightBehind;
     //public GameObject enemy_MiddleBoss_Father;
@@ -111,10 +111,10 @@ public class EnemyCreate : MonoBehaviour
 		//enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
 		enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
 
-		//enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
-		//enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
-		//enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-		enemy_ClamChowder_Group_Seven = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+        //enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+        //enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+        //enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+        enemy_ClamChowder_Group_SevenWave = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
 		enemy_Clamchowder_Group_Straight = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
 		enemy_Clamchowder_Group_StraightBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_StraightBehind") as GameObject;
 		//enemy_MiddleBoss_Father = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
@@ -596,9 +596,9 @@ public class EnemyCreate : MonoBehaviour
 		//奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4130
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
 		{
-			GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-			enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-			enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+			GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+			enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
 
 			nextEnemy = "縦7体の闘牛2回目";
 			Next_Condition(40);
@@ -606,9 +606,9 @@ public class EnemyCreate : MonoBehaviour
 		//奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4170
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
 		{
-			GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-			enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-			enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+			GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+			enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
 
 			nextEnemy = "縦7体の闘牛3回目";
 			Next_Condition(40);
@@ -616,9 +616,9 @@ public class EnemyCreate : MonoBehaviour
 		//奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4210
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
 		{
-			GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-			enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-			enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+			GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+			enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
 
 			nextEnemy = "中ボス！！！";
 			Next_Condition(820);
@@ -816,9 +816,10 @@ public class EnemyCreate : MonoBehaviour
         //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
         {
-            GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+            Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position,transform.rotation);
+            //GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+            //enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
+            //enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
 
             nextEnemy = "縦7体の闘牛2回目";
             Next_Condition(40);
@@ -826,9 +827,11 @@ public class EnemyCreate : MonoBehaviour
         //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4170
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
         {
-            GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+            Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
+
+            //GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+            //enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
+            //enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
 
             nextEnemy = "縦7体の闘牛3回目";
             Next_Condition(40);
@@ -836,12 +839,14 @@ public class EnemyCreate : MonoBehaviour
         //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4210
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
         {
-            GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+            Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
 
-            nextEnemy = "中ボス！！！";
-            Next_Condition(540);
+            //GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+            //enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroupL.transform.position;
+            //enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+
+            nextEnemy = "大ボス！！！";
+            Next_Condition(800);
         }
 
 
