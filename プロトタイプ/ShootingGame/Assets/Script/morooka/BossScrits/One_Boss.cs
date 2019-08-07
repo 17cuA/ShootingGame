@@ -21,7 +21,7 @@ public class One_Boss : character_status
 	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
 	Vector3 Target { get; set; }     // 入力受付時、移動後の位置を算出して保存 
 	Vector3 Prev_Pos { get; set; }     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-	//-----------------------------------------------------------------------------------------------------------------------------//
+									   //-----------------------------------------------------------------------------------------------------------------------------//
 
 	[Header("ボスの個別で動かしたい形成パーツ")]
 	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
@@ -32,35 +32,35 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("レーザーのまずる")] private GameObject[] laser_muzzle;
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 
-	private One_Boss_Parts Core { get; set; }			// コアのパーツ情報
-	public float Max_Speed { get; set; }				// 最大速度
-	public float Now_Speed { get; set; }				// 今の速度
-	public float Lowest_Speed { get; set; }				// 最小速度
-	public float Speed​_Change_Distance {get;set;}		// 速度変更距離
+	private One_Boss_Parts Core { get; set; }           // コアのパーツ情報
+	public float Max_Speed { get; set; }                // 最大速度
+	public float Now_Speed { get; set; }                // 今の速度
+	public float Lowest_Speed { get; set; }             // 最小速度
+	public float Speed​_Change_Distance { get; set; }       // 速度変更距離
 
-	private Vector3[] Arm_Closed_Position { get; set; }		// アーム閉じいている位置
-	private Vector3[] Arm_Open_Position { get; set; }		// アーム開いてる位置
-	private Vector3[] Arm_Laser_Pos { get; set; }			// アームのレーザーを撃つ位置
-	private Vector3[] Arm_Ini_Rotation { get; set; }		// アームの初期角度
-	private Vector3[] Arm_45_Rotation { get; set; }			// アームの45度の角度
+	private Vector3[] Arm_Closed_Position { get; set; }     // アーム閉じいている位置
+	private Vector3[] Arm_Open_Position { get; set; }       // アーム開いてる位置
+	private Vector3[] Arm_Laser_Pos { get; set; }           // アームのレーザーを撃つ位置
+	private Vector3[] Arm_Ini_Rotation { get; set; }        // アームの初期角度
+	private Vector3[] Arm_45_Rotation { get; set; }         // アームの45度の角度
 
-	private Vector3 For_body_Upward { get; set; }		// 本体の上向き角度
-	private Vector3 For_body_Downward { get; set; }		// 本体の下向き角度
+	private Vector3 For_body_Upward { get; set; }       // 本体の上向き角度
+	private Vector3 For_body_Downward { get; set; }     // 本体の下向き角度
 
-	private GameObject Laser_Prefab { get; set; }		// レーザーのプレハブ
-	private uint Flame { get; set; }					// ボス内でのフレーム数
-	private float Rotational_Speed { get; set; }		// 回転速度
+	private GameObject Laser_Prefab { get; set; }       // レーザーのプレハブ
+	private uint Flame { get; set; }                    // ボス内でのフレーム数
+	private float Rotational_Speed { get; set; }        // 回転速度
 
-	private int Attack_Step { get; set; }		// 関数内 攻撃ステップ
+	private int Attack_Step { get; set; }       // 関数内 攻撃ステップ
 
-	public GameObject[] Player_Data { get; private set; }		// プレイヤーのデータ
-	public GameObject Now_player_Traget { get; set; }			// ターゲット情報の保管用
-	private int Attack_Type_Instruction { get; set; }			// 攻撃タイプ支持
+	public GameObject[] Player_Data { get; private set; }       // プレイヤーのデータ
+	public GameObject Now_player_Traget { get; set; }           // ターゲット情報の保管用
+	private int Attack_Type_Instruction { get; set; }           // 攻撃タイプ支持
 
-	private bool End_Flag { get; set; }			// 終わりのフラグ
+	private bool End_Flag { get; set; }         // 終わりのフラグ
 
 	private new void Start()
-    {
+	{
 		base.Start();
 
 		Laser_Prefab = Resources.Load("Bullet/Laser") as GameObject;
@@ -78,7 +78,7 @@ public class One_Boss : character_status
 		}
 		Max_Speed = speed;
 		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
-		for(;Now_Speed <= Max_Speed ;Now_Speed += Lowest_Speed )
+		for (; Now_Speed <= Max_Speed; Now_Speed += Lowest_Speed)
 		{
 			Speed​_Change_Distance += Now_Speed;
 		}
@@ -100,8 +100,8 @@ public class One_Boss : character_status
 
 		Arm_Ini_Rotation[0] = arm_parts[0].transform.localEulerAngles;
 		Arm_Ini_Rotation[1] = arm_parts[1].transform.localEulerAngles;
-		Arm_45_Rotation[0] = new Vector3( 45.0f, arm_parts[0].transform.localEulerAngles.y, arm_parts[0].transform.localEulerAngles.z);
-		Arm_45_Rotation[1] = new Vector3(360.0f -45.0f, arm_parts[1].transform.localEulerAngles.y, arm_parts[1].transform.localEulerAngles.z);
+		Arm_45_Rotation[0] = new Vector3(45.0f, arm_parts[0].transform.localEulerAngles.y, arm_parts[0].transform.localEulerAngles.z);
+		Arm_45_Rotation[1] = new Vector3(360.0f - 45.0f, arm_parts[1].transform.localEulerAngles.y, arm_parts[1].transform.localEulerAngles.z);
 
 		For_body_Upward = new Vector3(0.0f, 0.0f, 45.0f);
 		For_body_Downward = new Vector3(0.0f, 0.0f, -45.0f);
@@ -148,7 +148,7 @@ public class One_Boss : character_status
 				//Laser_Clearing_3();
 			}
 		}
-		else if(End_Flag)
+		else if (End_Flag)
 		{
 			transform.position += transform.right * speed;
 		}
@@ -425,12 +425,21 @@ public class One_Boss : character_status
 		{
 			Flame++;
 			Laser_Shooting();
-			if (Flame == 90)
+			if (Flame == 60)
+			{
+				Attack_Step++;
+				Flame = 0;
+			}
+		}
+		else if(Attack_Step == 6)
+		{
+			if (Flame == 60)
 			{
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
 				Flame = 0;
 			}
+
 		}
 	}
 
