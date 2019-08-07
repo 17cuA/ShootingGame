@@ -15,6 +15,13 @@ public class Player1 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
+	//グリッド用の変数---------------------------------------
+	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
+	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
+	public float step = 10f;     // 移動速度
+	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
+	//----------------------------------------------------
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -32,11 +39,11 @@ public class Player1 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+	//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+	//------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -70,6 +77,7 @@ public class Player1 : character_status
 
 	public bool Is_Change_Auto;
 	public bool IS_Active;
+
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -177,7 +185,6 @@ public class Player1 : character_status
 				{
 					hp = 0;
 					Remaining--;
-					Debug.Log("hei");
 					ParticleCreation(0);        //爆発のエフェクト発動
 					Reset_Status();             //体力の修正
 					invincible = false;         //無敵状態にするかどうかの処理
@@ -194,11 +201,7 @@ public class Player1 : character_status
 				//ビットン数をパワーマネージャーに更新する
 				P1_PowerManager.Instance.UpdateBit(bitIndex);
 
-				//if(shield < 1)
-				//{
-				//	PowerManager.Instance.ResetShieldPower();
-				//	shield_Effect.Play(false);
-				//}
+				//shield_Effect.Play(false);
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
@@ -227,7 +230,12 @@ public class Player1 : character_status
 				//無敵時間の開始
 				Invincible();
 				//プレイヤーの移動処理
-				Player_Move();
+				if (transform.position == target)
+				{
+					//MoveX();
+					SetTargetPosition();
+				}
+				Move();
 
 				//弾を射出
 				Bullet_Create();
@@ -248,6 +256,84 @@ public class Player1 : character_status
 			capsuleCollider.enabled = false;
 		}
 	}
+	void SetTargetPosition()
+	{
+		x = Input.GetAxis("Horizontal");            //x軸の入力
+		y = Input.GetAxis("Vertical");              //y軸の入力
+
+		prevPos = target;
+
+		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
+		if (transform.eulerAngles.x != (swing_facing * y))
+		{
+			// 参考にしたURL↓
+			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+			// Unity にある Mathf.LerpAngle 関数を使用
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
+			transform.eulerAngles = new Vector3(angle, 0, 0);
+			facing_cnt++;
+		}
+		else
+		{
+			facing_cnt = 0;
+		}
+
+		//右上
+		if (x > 0 && y > 0)
+		{
+			target = transform.position + MOVEX + MOVEY;
+
+		}
+		//右下
+		else if (x > 0 && y < 0)
+		{
+			target = transform.position + MOVEX - MOVEY;
+
+		}
+		//左下
+		else if (x < 0 && y < 0)
+		{
+			target = transform.position - MOVEX - MOVEY;
+
+		}
+		//左上
+		else if (x < 0 && y > 0)
+		{
+			target = transform.position - MOVEX + MOVEY;
+
+		}
+		//上
+		else if (y > 0)
+		{
+			target = transform.position + MOVEY;
+
+		}
+		//右
+		else if (x > 0)
+		{
+			target = transform.position + MOVEX;
+
+		}
+		//下
+		else if (y < 0)
+		{
+			target = transform.position - MOVEY;
+
+		}
+		//左
+		else if (x < 0)
+		{
+			target = transform.position - MOVEX;
+
+		}
+
+	}
+	void Move()
+	{
+		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+	}
+
 	//コントローラーの操作
 	private void Player_Move()
 	{
@@ -261,8 +347,9 @@ public class Player1 : character_status
 		if (transform.position.x <= -17.0f && x < 0) x = 0;
 
 		vector3 = new Vector3(x, y, 0);     //移動のベクトルをvector3に入れる
-											// プレイヤー機体の旋回
-											// プレイヤーの向き(Y軸の正負)で角度算出
+
+		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
 		if (transform.eulerAngles.x != (swing_facing * y))
 		{
 			// 参考にしたURL↓
