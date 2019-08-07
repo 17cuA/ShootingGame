@@ -25,10 +25,12 @@ public class One_Boss : character_status
 
 	[Header("ボスの個別で動かしたい形成パーツ")]
 	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
+	[SerializeField, Tooltip("パーツコア")] private One_Boss_Parts[] parts_core;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
+	[SerializeField, Tooltip("アームの見た目")] private GameObject[] arm_mesh;
 	[SerializeField, Tooltip("ビームまずる")] private GameObject[] muzzles;
 	[SerializeField, Tooltip("レーザーのまずる")] private GameObject[] laser_muzzle;
-	[SerializeField, Tooltip("   ")] private Boss_One_A111[] Supply;
+	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 
 	private One_Boss_Parts Core { get; set; }			// コアのパーツ情報
 	public float Max_Speed { get; set; }				// 最大速度
@@ -54,6 +56,8 @@ public class One_Boss : character_status
 	public GameObject[] Player_Data { get; private set; }		// プレイヤーのデータ
 	public GameObject Now_player_Traget { get; set; }			// ターゲット情報の保管用
 	private int Attack_Type_Instruction { get; set; }			// 攻撃タイプ支持
+
+	private bool End_Flag { get; set; }			// 終わりのフラグ
 
 	private new void Start()
     {
@@ -104,26 +108,49 @@ public class One_Boss : character_status
 		Rotational_Speed = speed * 6.5f;
 
 		Attack_Step = 0;
+
+		End_Flag = false;
 	}
 
 	private new void Update()
 	{
-		base.Update();
-		if (Core.hp < 1)
+		if (!End_Flag)
 		{
-			base.Died_Judgment();
-			base.Died_Process();
+			base.Update();
+			if (Core.hp < 1)
+			{
+				//base.Died_Judgment();
+				//base.Died_Process();
+
+				foreach (One_Boss_Parts parts in parts_core)
+				{
+					if (parts.gameObject.activeSelf)
+					{
+						parts.hp = 1;
+					}
+				}
+			}
+
+			if (!parts_core[0].gameObject.activeSelf && !parts_core[1].gameObject.activeSelf)
+			{
+				End_Flag = true;
+			}
+
+			if (Attack_Type_Instruction < 10)
+			{
+				Player_Tracking_Movement_Attack();
+				//Player_Tracking_Movement_Attack_2();
+			}
+			else
+			{
+				//Laser_Clearing();
+				Laser_Clearing_2();
+				//Laser_Clearing_3();
+			}
 		}
-		if (Attack_Type_Instruction < 10)
+		else if(End_Flag)
 		{
-			//Player_Tracking_Movement_Attack();
-			Player_Tracking_Movement_Attack_2();
-		}
-		else
-		{
-			//Laser_Clearing();
-			Laser_Clearing_2();
-			//Laser_Clearing_3();
+			transform.position += transform.right * speed;
 		}
 	}
 
@@ -304,7 +331,17 @@ public class One_Boss : character_status
 			if (transform.position.y != 0.0f)
 			{
 				Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
-				transform.position = Moving_To_Target(transform.position, temp, speed);
+
+				if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
 			}
 			else if (transform.position.y == 0.0f)
 			{
@@ -313,19 +350,19 @@ public class One_Boss : character_status
 		}
 		if (Attack_Step == 1)
 		{
-			if (!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
 			{
-				Supply[0].gameObject.SetActive(true);
-				Supply[1].gameObject.SetActive(true);
+				supply[0].gameObject.SetActive(true);
+				supply[1].gameObject.SetActive(true);
 
-				Supply[0].SetUp();
-				Supply[1].SetUp();
+				supply[0].SetUp();
+				supply[1].SetUp();
 			}
 
-			if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
+			if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
 			{
-				Supply[0].gameObject.SetActive(false);
-				Supply[1].gameObject.SetActive(false);
+				supply[0].gameObject.SetActive(false);
+				supply[1].gameObject.SetActive(false);
 
 				Attack_Step++;
 			}
@@ -407,19 +444,19 @@ public class One_Boss : character_status
 		{
 			if (Attack_Step == 0)
 			{
-				if (!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+				if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
 				{
-					Supply[0].gameObject.SetActive(true);
-					Supply[1].gameObject.SetActive(true);
+					supply[0].gameObject.SetActive(true);
+					supply[1].gameObject.SetActive(true);
 
-					Supply[0].SetUp();
-					Supply[1].SetUp();
+					supply[0].SetUp();
+					supply[1].SetUp();
 				}
 
-				if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
+				if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
 				{
-					Supply[0].gameObject.SetActive(false);
-					Supply[1].gameObject.SetActive(false);
+					supply[0].gameObject.SetActive(false);
+					supply[1].gameObject.SetActive(false);
 
 					Attack_Step++;
 				}
@@ -471,19 +508,19 @@ public class One_Boss : character_status
 		{
 			if (Attack_Step == 0)
 			{
-				if (!Supply[0].gameObject.activeSelf && !Supply[1].gameObject.activeSelf)
+				if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
 				{
-					Supply[0].gameObject.SetActive(true);
-					Supply[1].gameObject.SetActive(true);
+					supply[0].gameObject.SetActive(true);
+					supply[1].gameObject.SetActive(true);
 
-					Supply[0].SetUp();
-					Supply[1].SetUp();
+					supply[0].SetUp();
+					supply[1].SetUp();
 				}
 
-				if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
+				if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
 				{
-					Supply[0].gameObject.SetActive(false);
-					Supply[1].gameObject.SetActive(false);
+					supply[0].gameObject.SetActive(false);
+					supply[1].gameObject.SetActive(false);
 
 					Attack_Step++;
 				}
@@ -553,34 +590,52 @@ public class One_Boss : character_status
 		if (Attack_Step == 1)
 		{
 			Vector3 temp = transform.position;
-			temp.y = Now_player_Traget.transform.position.y;
-			if (Vector_Size(temp, transform.position) > 0.5f)
+			if (Now_player_Traget.transform.position.y >= 1.0f)
 			{
-				if (Target == transform.position)
-				{
-					Prev_Pos = Target;
-					if (transform.position.y > Now_player_Traget.transform.position.y)
-					{
-						Target = transform.position - MOVEY;
-					}
-					else if (transform.position.y < Now_player_Traget.transform.position.y)
-					{
-						Target = transform.position + MOVEY;
-					}
-				}
-
-				if (Vector_Size(temp, transform.position) < Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(temp, transform.position) >= Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
-				transform.position = Moving_To_Target(transform.position, Target, Now_Speed);
-
+				temp.y = 1.0f;
 			}
-			else if (Vector_Size(temp, transform.position) <= 0.5f)
+			else if (Now_player_Traget.transform.position.y <= -1.0f)
+			{
+				temp.y = -1.0f;
+			}
+			else
+			{
+				temp.y = Now_player_Traget.transform.position.y;
+			}
+
+			//if (Vector_Size(temp, transform.position) > 0.5f)
+			//{
+			//	if (Target == transform.position)
+			//	{
+			//		Prev_Pos = Target;
+			//		if (transform.position.y > Now_player_Traget.transform.position.y)
+			//		{
+			//			Target = transform.position - MOVEY;
+			//		}
+			//		else if (transform.position.y < Now_player_Traget.transform.position.y)
+			//		{
+			//			Target = transform.position + MOVEY;
+			//		}
+
+			//		if (Target.y > 1.0f || Target.y < -1.0f)
+			//		{
+			//			Target = Prev_Pos;
+			//		}
+			//	}
+
+			if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
+			{
+				if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+			}
+			else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+			{
+				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			}
+
+			transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+
+			//}
+			if (Vector_Size(temp, transform.position) < Lowest_Speed)
 			{
 				Attack_Step++;
 			}
@@ -682,7 +737,7 @@ public class One_Boss : character_status
 					Target = transform.position + MOVEY;
 				}
 
-				if (Target.y >= 1.5f || Target.y <= -1.7f)
+				if (Target.y >= 1.0f || Target.y <= -1.0f)
 				{
 					Target = Prev_Pos;
 				}
@@ -746,6 +801,7 @@ public class One_Boss : character_status
 		if (Vector_Size(return_pos, target) <= speed)
 		{
 			return_pos = target;
+			Now_Speed = 0;
 		}
 
 		return return_pos;
