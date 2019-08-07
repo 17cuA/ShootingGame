@@ -83,6 +83,8 @@ public class Game_Master : MonoBehaviour
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
+		eONE_BOSS_LASER,
+		eONE_BOSS_BOUND,
 		/////////////////////////////////////////////////////////////////
 		ePLAYER,										// プレイヤー
 		eENEMY_NUM1,								// エネミー1番

@@ -93,6 +93,12 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePOWERUP_ITEM:
 					obj = Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_LASER:
+					obj = Obj_Storage.Storage_Data.One_Boss_Laser.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_BOUND:
+					obj = Obj_Storage.Storage_Data.One_Boss_BousndBullet.Active_Obj();
+					break;
 
 				default:
 					break;
