@@ -55,7 +55,7 @@ public class One_Boss : character_status
 	public GameObject[] Player_Data { get; private set; }     // プレイヤーのデータ
 	public GameObject Now_player_Traget { get; set; }
 
-	int IIIIII;
+	private int Attack_Type_Instruction { get; set; }
 
 	private new void Start()
     {
@@ -120,15 +120,15 @@ public class One_Boss : character_status
 			base.Died_Judgment();
 			base.Died_Process();
 		}
-		if (IIIIII < 4)
+		if (Attack_Type_Instruction < 4)
 		{
 			Player_Tracking_Movement_Attack();
 		}
 		else
 		{
 			//Laser_Clearing();
-			Laser_Clearing_2();
-			//Laser_Clearing_3();
+			//Laser_Clearing_2();
+			Laser_Clearing_3();
 		}
 	}
 
@@ -293,7 +293,7 @@ public class One_Boss : character_status
 			if (b[0] && b[1])
 			{
 				Attack_Step = 0;
-				IIIIII = 0;
+				Attack_Type_Instruction = 0;
 				Flame = 0;
 			}
 		}
@@ -327,7 +327,7 @@ public class One_Boss : character_status
 				Supply[1].SetUp();
 			}
 
-			if (Supply[0].CCCCC() && Supply[1].CCCCC())
+			if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
 			{
 				Supply[0].gameObject.SetActive(false);
 				Supply[1].gameObject.SetActive(false);
@@ -338,12 +338,9 @@ public class One_Boss : character_status
 		else if (Attack_Step == 2)
 		{
 			Flame++;
-			foreach (GameObject obj in laser_muzzle)
-			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
-				laser.Manual_Start(obj.transform);
-			}
-			if(Flame >= 30)
+			Laser_Shooting();
+
+			if (Flame >= 30)
 			{
 				if(transform.rotation != Quaternion.Euler( For_body_Up))
 				{
@@ -359,13 +356,9 @@ public class One_Boss : character_status
 		else if(Attack_Step == 3)
 		{
 			Flame++;
-			foreach (GameObject obj in laser_muzzle)
-			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
-				laser.Manual_Start(obj.transform);
-			}
+			Laser_Shooting();
 
-			if(Flame >= 30)
+			if (Flame >= 30)
 			{
 				if (transform.rotation != Quaternion.Euler(For_body_Down))
 				{
@@ -381,13 +374,9 @@ public class One_Boss : character_status
 		else if(Attack_Step==4)
 		{
 			Flame++;
-			foreach (GameObject obj in laser_muzzle)
-			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
-				laser.Manual_Start(obj.transform);
-			}
+			Laser_Shooting();
 
-			if(Flame >= 30)
+			if (Flame >= 30)
 			{
 				if (transform.rotation != Quaternion.identity)
 				{
@@ -403,16 +392,11 @@ public class One_Boss : character_status
 		else if(Attack_Step == 5)
 		{
 			Flame++;
-			foreach (GameObject obj in laser_muzzle)
-			{
-				Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
-				laser.Manual_Start(obj.transform);
-			}
-
+			Laser_Shooting();
 			if (Flame == 30)
 			{
 				Attack_Step = 0;
-				IIIIII = 0;
+				Attack_Type_Instruction = 0;
 				Flame = 0;
 			}
 		}
@@ -437,7 +421,7 @@ public class One_Boss : character_status
 					Supply[1].SetUp();
 				}
 
-				if (Supply[0].CCCCC() && Supply[1].CCCCC())
+				if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
 				{
 					Supply[0].gameObject.SetActive(false);
 					Supply[1].gameObject.SetActive(false);
@@ -448,11 +432,7 @@ public class One_Boss : character_status
 			else if (Attack_Step == 1)
 			{
 				Flame++;
-				foreach (GameObject obj in laser_muzzle)
-				{
-					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
+				Laser_Shooting();
 
 				if (Flame >= 30)
 				{
@@ -470,11 +450,8 @@ public class One_Boss : character_status
 			else if (Attack_Step == 2)
 			{
 				Flame++;
-				foreach (GameObject obj in laser_muzzle)
-				{
-					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
+				Laser_Shooting();
+
 				if (Flame == 40)
 				{
 					Attack_Step++;
@@ -491,7 +468,7 @@ public class One_Boss : character_status
 				{
 					Attack_Step = 0;
 					Flame = 0;
-					IIIIII = 0;
+					Attack_Type_Instruction = 0;
 				}
 			}
 		}
@@ -508,7 +485,7 @@ public class One_Boss : character_status
 					Supply[1].SetUp();
 				}
 
-				if (Supply[0].CCCCC() && Supply[1].CCCCC())
+				if (Supply[0].Completion_Confirmation() && Supply[1].Completion_Confirmation())
 				{
 					Supply[0].gameObject.SetActive(false);
 					Supply[1].gameObject.SetActive(false);
@@ -519,11 +496,7 @@ public class One_Boss : character_status
 			else if (Attack_Step == 1)
 			{
 				Flame++;
-				foreach (GameObject obj in laser_muzzle)
-				{
-					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
+				Laser_Shooting();
 
 				if (Flame >= 30)
 				{
@@ -541,11 +514,7 @@ public class One_Boss : character_status
 			else if (Attack_Step == 2)
 			{
 				Flame++;
-				foreach (GameObject obj in laser_muzzle)
-				{
-					Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, Quaternion.identity).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
+				Laser_Shooting();
 				if (Flame == 40)
 				{
 					Attack_Step++;
@@ -562,7 +531,7 @@ public class One_Boss : character_status
 				{
 					Attack_Step = 0;
 					Flame = 0;
-					IIIIII = 0;
+					Attack_Type_Instruction = 0;
 				}
 			}
 		}
@@ -655,7 +624,7 @@ public class One_Boss : character_status
 			else if (Flame == 30)
 			{
 				Attack_Step = 0;
-				IIIIII++;
+				Attack_Type_Instruction++;
 				Flame = 0;
 			}
 		}
@@ -719,5 +688,17 @@ public class One_Boss : character_status
 		float zz = a.z - b.z;
 
 		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
+	}
+
+	/// <summary>
+	/// レーザー撃ち出し
+	/// </summary>
+	private void Laser_Shooting()
+	{
+		foreach (GameObject obj in laser_muzzle)
+		{
+			Boss_One_Laser laser = Instantiate(Laser_Prefab, obj.transform.position, transform.rotation).GetComponent<Boss_One_Laser>();
+			laser.Manual_Start(obj.transform);
+		}
 	}
 }

@@ -11,19 +11,12 @@ using UnityEngine;
 
 public class Boss_One_Laser : bullet_status
 {
-	private TrailRenderer Trail { get; set; }
-    new void Start()
-    {
-		Trail = GetComponent<TrailRenderer>();
-	}
-
     // Update is called once per frame
     new void Update()
     {
 		if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
 			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
 		{
-			Trail.enabled = false;
 			gameObject.SetActive(false);
 		}
 
@@ -31,7 +24,9 @@ public class Boss_One_Laser : bullet_status
 
 	private void LateUpdate()
 	{
-		transform.localPosition -= transform.forward * shot_speed;
+		Vector3 temp = transform.localPosition;
+		temp.x += shot_speed;
+		transform.localPosition = temp;
 	}
 
 	public void Manual_Start(Transform parent)
