@@ -555,11 +555,12 @@ public class EnemyCreate : MonoBehaviour
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
 		{
 			GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group9.transform.position = createPosR3.transform.position;
+			enemy_UFO_Group9.transform.position = createPosR4.transform.position;
 			enemy_UFO_Group9.transform.rotation = transform.rotation;
 
 			GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group10.transform.position = createPosRm3.transform.position;
+			enemy_UFO_Group10.transform.position = createPosRm4
+                .transform.position;
 			enemy_UFO_Group10.transform.rotation = transform.rotation;
 
 			nextEnemy = "戦艦2体";
@@ -856,11 +857,19 @@ public class EnemyCreate : MonoBehaviour
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 			Boss_01.transform.position = Vector3.zero;
 
-			Next_Condition(340);
+			Next_Condition(7200);
 		}
-	}
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+        {
+            GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+            Boss_01.transform.position = Vector3.zero;
 
-	void CreateEnemyGroup_02()
+            Next_Condition(7200);
+        }
+
+    }
+
+    void CreateEnemyGroup_02()
 	{
 		//円盤の群れを１つ右上から出す
 		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
