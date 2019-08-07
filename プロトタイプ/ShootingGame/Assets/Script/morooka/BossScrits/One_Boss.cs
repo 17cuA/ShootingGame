@@ -433,13 +433,13 @@ public class One_Boss : character_status
 		}
 		else if(Attack_Step == 6)
 		{
-			if (Flame == 60)
+			Flame++;
+			if (Flame == 30)
 			{
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
 				Flame = 0;
 			}
-
 		}
 	}
 
