@@ -63,7 +63,7 @@ public class Player1 : character_status
 		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
-									//リスポーン時に使用する変数---------------------------------------------------------------------
+	//リスポーン時に使用する変数--------------------------------------------------
 	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
 	//-----------------------------------------------------------------------
@@ -207,20 +207,17 @@ public class Player1 : character_status
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
-																		//残機が残っていなければ
+					//残機が残っていなければ
 					if (Remaining < 1)
 					{
 						//残機がない場合死亡
 						Died_Process();
-
 					}
 					//残機が残っていたら
 					else
 					{
 						ParticleCreation(0);        //爆発のエフェクト発動
 						Reset_Status();             //体力の修正
-													//gameObject.transform.position = direction;      //初期位置に戻す
-													//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 						invincible = true;         //無敵状態にするかどうかの処理
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
@@ -524,12 +521,13 @@ public class Player1 : character_status
 
 		}
 	}
-
+    //単発
 	private void Single_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
+	//二連発射
 	private void Double_Fire()
 	{
 		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
@@ -568,6 +566,7 @@ public class Player1 : character_status
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
+	//二連をできるように
 	private void ActiveDouble()
 	{
 		Debug.Log("ダブル導入");
@@ -643,6 +642,7 @@ public class Player1 : character_status
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[16]);
 		Debug.Log("ビットン生成");
 	}
+	//速度を初期のに戻す
 	private void Init_speed()
 	{
 		speed = min_speed;
