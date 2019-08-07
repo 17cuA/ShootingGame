@@ -27,7 +27,7 @@ public class One_Boss_BoundBullet : bullet_status
     private new void Update()
     {
 		base.Update();
-		transform.position += transform.right * shot_speed;
+		transform.position -= transform.right * shot_speed;
 
 		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, length_on_landing))
 		{
