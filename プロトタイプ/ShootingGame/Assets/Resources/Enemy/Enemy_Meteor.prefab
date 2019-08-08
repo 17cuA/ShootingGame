@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7624d9951cf5ea74d81e520aa0d36ed2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,11 +108,11 @@ MonoBehaviour:
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -120,6 +120,8 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
 --- !u!114 &584255669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,9 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bullet: {fileID: 0}
+  parentObj: {fileID: 0}
+  myName: 
+  Shot_Delay: 0
   Shot_Delay_Max: 1
+  burst_delay: 0
   burst_Delay_Max: 1
+  burst_ShotNum: 0
+  burst_Times: 0
   burst_Num: 1
+  burst_Shot_Cnt: 0
+  isShot: 0
+  isBurst: 0
 --- !u!1 &643350863102631889
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,11 +195,11 @@ MonoBehaviour:
   speed: 0
   hp: 10
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
   score: 0
-  shield: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -195,6 +207,8 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
 --- !u!136 &643350863102631888
 CapsuleCollider:
   m_ObjectHideFlags: 0

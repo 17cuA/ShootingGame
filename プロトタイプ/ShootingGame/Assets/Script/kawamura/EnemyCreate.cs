@@ -42,6 +42,9 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createMiddleBossPos;
     public GameObject createBattleShipPos;
 
+    //バキュラ位置
+    public GameObject createBaculaGroupPos;
+
     //public GameObject enemy_UFO_Group;
     //public GameObject enemy_ClamChowder_Group_Four;
 	public GameObject enemy_ClamChowder_Group_FourBehind;
@@ -58,6 +61,7 @@ public class EnemyCreate : MonoBehaviour
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
     public GameObject enemy_BattleShip;
 	public GameObject enemy_Beelzebub_Group_Five;
+    public GameObject enemy_Bacula_Sixteen;
 
 	public GameObject saveEnemyObj;
 
@@ -107,6 +111,9 @@ public class EnemyCreate : MonoBehaviour
 
         createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
         createBattleShipPos = GameObject.Find("CreateBattleshipPos");
+
+        createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
+
 		//enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
 		//enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
 		enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
@@ -124,6 +131,8 @@ public class EnemyCreate : MonoBehaviour
 		//enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
 		enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 		enemy_Beelzebub_Group_Five = Resources.Load("Enemy/Enemy_Beelzebub_Group_five") as GameObject;
+        enemy_Bacula_Sixteen = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
+
 
 		//群れカウント初期化
         groupCnt = 1;
@@ -137,6 +146,11 @@ public class EnemyCreate : MonoBehaviour
 		{
 			frameCnt = turning_frame;
 		}
+        else if(Input.GetKeyDown(KeyCode.M))
+        {
+            frameCnt = 11900;
+            groupCnt = 36;
+        }
 		if (saveEnemyObj != null)
 		{
 
@@ -814,7 +828,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "右上と右下から円盤2群";
             Next_Condition(420);
         }
-        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4130
+        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 11090
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
         {
             Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position,transform.rotation);
@@ -825,7 +839,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "縦7体の闘牛2回目";
             Next_Condition(40);
         }
-        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4170
+        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 11130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
         {
             Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
@@ -837,7 +851,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "縦7体の闘牛3回目";
             Next_Condition(40);
         }
-        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 4210
+        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 11170
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
         {
             Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
@@ -851,7 +865,7 @@ public class EnemyCreate : MonoBehaviour
         }
 
 
-        // 23 ラスボス(6590)
+        // 23 ラスボス(11970)
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
 		{
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
@@ -861,11 +875,11 @@ public class EnemyCreate : MonoBehaviour
 		}
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
         {
-            GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
-            Boss_01.transform.position = Vector3.zero;
+            Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
-            Next_Condition(7200);
+            Next_Condition(1000);
         }
+
 
     }
 

@@ -7,6 +7,7 @@ using UnityEngine;
 public class Enemy_Board_Parent : MonoBehaviour
 {
     public GameObject parentObj;
+    public GameObject childObj;
 	public GameObject quarterObj;					//4分の1オブジェクト
 	public GameObject quarter_OneSixteenthObj;		//16分の1オブジェクト
 
@@ -36,6 +37,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	private void Awake()
 	{
 		myName = gameObject.name;
+        childObj = transform.GetChild(0).gameObject;
 		//speedX = 15;
 	}
 	void Start()
@@ -83,8 +85,16 @@ public class Enemy_Board_Parent : MonoBehaviour
 				speedX = 0;
 			}
 		}
+        if (transform.position.y > 4.4f)
+        {
+            transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);
+        }
+        else if (transform.position.y < -4.4f)
+        {
+            transform.position = new Vector3(transform.position.x, -4.4f, transform.position.z);
+        }
 
-		randRota_TopLeft = new Quaternion(0, 0, Random.Range(180, 270), 0);
+        randRota_TopLeft = new Quaternion(0, 0, Random.Range(180, 270), 0);
 		randRota_TopRight = new Quaternion(0, 0, Random.Range(270, 360), 0);
 		randRota_BottomLeft = new Quaternion(0, 0, Random.Range(0, 90), 0);
 		randRota_BottomRight = new Quaternion(0, 0, Random.Range(90, 180), 0);
@@ -123,7 +133,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                     case 0:
                         if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
                         {
-                            saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(195, 255));
                             saveQuaterObj.transform.parent = parentObj.transform;
@@ -136,7 +146,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         }
                         else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
                         {
-                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(195, 255));
                             saveQuaterObj.transform.parent = parentObj.transform;
@@ -165,7 +175,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         //左上に生成
                         if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
                         {
-                            saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
@@ -178,7 +188,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         }
                         else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
                         {
-                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
@@ -199,7 +209,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         //左下に生成
                         if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
                         {
-                            saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
@@ -212,7 +222,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         }
                         else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
                         {
-                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
@@ -232,7 +242,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         //右下に生成
                         if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
                         {
-                            saveQuaterObj = Instantiate(quarterObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
@@ -245,7 +255,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         }
                         else if (myName == "Enemy_Board_Quarter(Clone)" || myName == "Enemy_Bacula_Quarter(Clone)")
                         {
-                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, transform.position, transform.rotation);
+                            saveQuaterObj = Instantiate(quarter_OneSixteenthObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;

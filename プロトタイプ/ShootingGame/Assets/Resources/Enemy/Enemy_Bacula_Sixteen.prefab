@@ -79,6 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5854433583637220785}
   - component: {fileID: 224387043}
+  - component: {fileID: 1749885170}
   m_Layer: 0
   m_Name: Enemy_Bacula_Sixteen
   m_TagString: Untagged
@@ -125,6 +126,19 @@ MonoBehaviour:
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
   isItemDrop: 0
+--- !u!114 &1749885170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854433583637220786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a640df2d51bbf48b294e75a6dc5077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 5
 --- !u!1001 &1205233977684987732
 PrefabInstance:
   m_ObjectHideFlags: 0

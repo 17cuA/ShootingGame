@@ -48,10 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  parentObj: {fileID: 0}
   childNum: 0
   remainingEnemiesCnt: 0
   defeatedEnemyCnt: 0
   notDefeatedEnemyCnt: 0
+  myName: 
   itemTransform: {fileID: 0}
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
@@ -126,7 +128,7 @@ PrefabInstance:
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: speedX
-      value: 0.35
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -221,7 +223,7 @@ PrefabInstance:
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: speedX
-      value: 0.35
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -316,7 +318,7 @@ PrefabInstance:
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: speedX
-      value: 0.35
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -411,7 +413,7 @@ PrefabInstance:
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: speedX
-      value: 0.35
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}

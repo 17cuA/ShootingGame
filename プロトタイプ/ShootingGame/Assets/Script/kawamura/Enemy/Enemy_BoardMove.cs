@@ -34,11 +34,11 @@ public class Enemy_BoardMove : MonoBehaviour
 
 		if (ebp.speedX == 0)
 		{
-			//speedX = 1;
-			//sin =posY + Mathf.Sin(Time.time*5);
+            //speedX = 1;
+            //sin =posY + Mathf.Sin(Time.time*5);
 
-			SpeedY_Check();
-			SpeedY_Calculation();
+            SpeedY_Check();
+            SpeedY_Calculation();
 
             //this.transform.position = new Vector3(transform.position.x, sin, 0);
             //transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.05f), transform.position.z);
