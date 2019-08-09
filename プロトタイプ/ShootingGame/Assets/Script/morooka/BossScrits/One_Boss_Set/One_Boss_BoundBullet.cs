@@ -16,6 +16,7 @@ public class One_Boss_BoundBullet : bullet_status
 
 	private RaycastHit hit_mesh;
 	private Vector3 Ray_Direction { get; set; }
+	private GameObject mae { get; set; }
 
 	private new void Start()
     {
@@ -27,15 +28,36 @@ public class One_Boss_BoundBullet : bullet_status
     private new void Update()
     {
 		base.Update();
-		transform.position -= transform.right * shot_speed;
+		Ray_Direction = transform.right;
+		transform.position -= Ray_Direction.normalized * shot_speed;
 
-		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, length_on_landing))
+		Debug.DrawRay(transform.position, -transform.right * length_on_landing, Color.red);
+		if (Physics.Raycast(transform.position, Ray_Direction.normalized, out hit_mesh, length_on_landing))
 		{
+			Debug.Log(hit_mesh.transform.name);
 			// コライダーの持ち主がWAllのとき
-			if (hit_mesh.transform.gameObject.tag == "Wall_Length")
+			if (hit_mesh.collider.gameObject.tag == "Wall_Length" && hit_mesh.collider.gameObject != mae)
 			{
-				transform.right = transform.right + hit_mesh.normal;
+				mae = hit_mesh.transform.gameObject;
+				Ray_Direction = ReflectionCalculation(Ray_Direction, hit_mesh.normal);
+				transform.right = Ray_Direction;
+				//Ray_Direction += hit_mesh.normal;
 			}
 		}
+	}
+	/// <summary>
+	/// 反射の計算
+	/// </summary>
+	/// <param name="progressVector_F"> 進行方向のベクトル </param>
+	/// <param name="normalVector_N"> 法線ベクトル </param>
+	/// <returns></returns>
+	private Vector3 ReflectionCalculation(Vector3 progressVector_F, Vector3 normalVector_N)
+	{
+		Vector3 vecocity = Vector3.zero;
+
+		//　公式の利用
+		vecocity = progressVector_F + (2 * Vector3.Dot(-progressVector_F, normalVector_N) * normalVector_N);
+
+		return vecocity;
 	}
 }

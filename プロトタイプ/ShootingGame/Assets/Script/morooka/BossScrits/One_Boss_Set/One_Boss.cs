@@ -24,6 +24,7 @@ public class One_Boss : character_status
 	//-----------------------------------------------------------------------------------------------------------------------------//
 
 	[Header("ボスの個別で動かしたい形成パーツ")]
+	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
 	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
 	[SerializeField, Tooltip("パーツコア")] private One_Boss_Parts[] parts_core;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
@@ -32,6 +33,8 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("レーザーのまずる")] private GameObject[] laser_muzzle;
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
+
+	Vector3 velocity = Vector3.zero;
 
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }					// 最大速度
@@ -51,7 +54,8 @@ public class One_Boss : character_status
 	private Vector3 For_body_Downward { get; set; }		// 本体の下向き角度
 	
 	private uint Flame { get; set; }					// ボス内でのフレーム数
-	private float Rotational_Speed { get; set; }		// 回転速度
+	private Vector3 mae { get; set; }
+	private Vector3 tyuukei;
 
 	private int Attack_Step { get; set; }		// 関数内 攻撃ステップ
 
@@ -77,10 +81,11 @@ public class One_Boss : character_status
 			Player_Data[1] = Obj_Storage.Storage_Data.GetPlayer2();
 		}
 		Max_Speed = speed;
-		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
-		for (; Now_Speed <= Max_Speed; Now_Speed += Lowest_Speed)
+		Now_Speed = Lowest_Speed = Max_Speed / 10.0f;
+		for (int i = 0; i < 30; i++)
 		{
 			Speed​_Change_Distance += Now_Speed;
+			Now_Speed += Lowest_Speed;
 		}
 		Now_Speed = Lowest_Speed;
 
@@ -105,20 +110,16 @@ public class One_Boss : character_status
 
 		For_body_Upward = new Vector3(0.0f, 0.0f, 45.0f);
 		For_body_Downward = new Vector3(0.0f, 0.0f, -45.0f);
-		Rotational_Speed = speed * 6.5f;
+		rotational_speed = speed * 6.5f;
 
 		BoundBullet_Rotation = new Vector3[number_of_fires + 2];
-		float z_rotation = 120.0f / (float)(number_of_fires);
-		int i = 0;
-		BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f,-60.0f);
-		for (; i < BoundBullet_Rotation.Length - 1; i++)
+		float z_rotation = 120.0f / ((float)BoundBullet_Rotation.Length - 1.0f);
+		for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 		{
-			BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f, z_rotation + -60.0f);
+			BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f, (z_rotation * i) + -60.0f);
 		}
-		BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f, 60.0f);
 
 		Attack_Step = 0;
-
 		End_Flag = false;
 	}
 
@@ -143,11 +144,12 @@ public class One_Boss : character_status
 				End_Flag = true;
 			}
 
-			if (Attack_Type_Instruction < 10)
+			if (Attack_Type_Instruction < 5)
 			{
 				//Player_Tracking_Movement_Attack();
 				//Player_Tracking_Movement_Attack_2();
-				Player_Tracking_Bound_Bullets();
+				//Player_Tracking_Bound_Bullets();
+				Player_Tracking_Bound_Bullets_2();
 			}
 			else
 			{
@@ -342,15 +344,19 @@ public class One_Boss : character_status
 			{
 				Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
 
-				if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
+				//if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
+				//{
+				//	if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				//}
+				//else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+				//{
+				//	if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				//}
 
+				if (Now_Speed < Max_Speed)
+				{
+					Now_Speed += Lowest_Speed;
+				}
 				transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
 			}
 			else if (transform.position.y == 0.0f)
@@ -386,7 +392,7 @@ public class One_Boss : character_status
 			{
 				if (transform.rotation != Quaternion.Euler(For_body_Upward))
 				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), Rotational_Speed);
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), rotational_speed);
 				}
 				else if (transform.rotation == Quaternion.Euler(For_body_Upward))
 				{
@@ -404,7 +410,7 @@ public class One_Boss : character_status
 			{
 				if (transform.rotation != Quaternion.Euler(For_body_Downward))
 				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Downward), Rotational_Speed);
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Downward), rotational_speed);
 				}
 				else if (transform.rotation == Quaternion.Euler(For_body_Downward))
 				{
@@ -422,7 +428,7 @@ public class One_Boss : character_status
 			{
 				if (transform.rotation != Quaternion.identity)
 				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Rotational_Speed);
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotational_speed);
 				}
 				else if (transform.rotation == Quaternion.identity)
 				{
@@ -835,21 +841,27 @@ public class One_Boss : character_status
 				temp.y = Now_player_Traget.transform.position.y;
 			}
 
-			if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
-			{
-				if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-			}
-			else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
-			{
-				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-			}
+			//if (Vector_Size(temp, transform.position) < Speed_Change_Distance)
+			//{
+			//	if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+			//}
+			//else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+			//{
+			//	if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			//}
 
-			transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+			//transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+			if(Now_Speed < Max_Speed)
+			{
+				Now_Speed += Lowest_Speed;
+			}
+			transform.position = Vector3.Lerp(transform.position, temp, Now_Speed);
 
 			//}
-			if (Vector_Size(temp, transform.position) < Lowest_Speed)
+			if (Vector_Size(temp, transform.position) < 0.1f)
 			{
 				Attack_Step++;
+				Now_Speed = 0;
 			}
 		}
 		// 攻撃
@@ -858,13 +870,22 @@ public class One_Boss : character_status
 			Flame++;
 			if (Flame == 1)
 			{
-				foreach (GameObject Muzzle in muzzles)
+				//foreach (GameObject Muzzle in muzzles)
+				//{
+				//	//for(int i = 0; i < BoundBullet_Rotation.Length; i++)
+				//	//{
+				//	//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, Muzzle.transform.position,new Vector3(0.0f,0.0f, BoundBullet_Rotation[i]));
+				//	//}
+
+				//	foreach (Vector3 Dir in BoundBullet_Rotation)
+				//	{
+				//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, Muzzle.transform.position, Quaternion.Euler(Dir));
+				//	}
+				//}
+
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
-					//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Muzzle.transform.position, Muzzle.transform.right);
-					foreach (Vector3 Dir in BoundBullet_Rotation)
-					{
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, Muzzle.transform.position, Quaternion.Euler(Dir));
-					}
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
 				}
 			}
 			else if (Flame == 30)
@@ -876,6 +897,96 @@ public class One_Boss : character_status
 		}
 	}
 
+	/// <summary>
+	/// プレイヤーを追従しバウンド弾_2
+	/// </summary>
+	private void Player_Tracking_Bound_Bullets_2()
+	{
+		//Move_Flame++;
+		//if (Move_Flame == 120)
+		//{
+		//	Move_Flame = 0;
+		//	Move_Flame_Max = (uint)Random.Range(60, 120);
+		if (transform.position == Target)
+		{
+			mae = transform.position;
+			float x = (float)Random.Range(-1, 2) / 2.0f;
+			if (transform.position.x + x > 12.0f || transform.position.x + x < 8.0f)
+			{
+				x = 0.0f;
+			}
+			float y = (float)Random.Range(-1, 2) / 2.0f;
+			if (transform.position.y + y > 1.5f || transform.position.y + y < -1.5f)
+			{
+				y = 0.0f;
+			}
+
+			Target = new Vector3(transform.position.x + x, transform.position.y + y, 0.0f);
+
+			//float f = Mathf.Abs(mae.x - Target.x) / 2;
+			//float[] f_2 = new float[2] { -1.0f, 1.0f };
+			//tyuukei = new Vector3(f, f_2[Random.Range(0, 2)], 0.0f);
+		}
+
+		//if (Now_Speed < Max_Speed)
+		//{
+		//	Now_Speed += Lowest_Speed;
+		//}
+		if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
+		{
+			if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+			//Now_Speed = Max_Speed * Vector_Size(mae, transform.position) + Lowest_Speed;
+		}
+		if (Vector_Size(mae, transform.position) < Speed_Change_Distance)
+		{
+			if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			//Now_Speed = Max_Speed * Vector_Size(Target, transform.position) + Lowest_Speed;
+		}
+
+		transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed);
+		//transform.position = GetPoint(mae, ref tyuukei, Target, Now_Speed);
+
+		//transform.position = new Vector3(Mathf.PerlinNoise(Time.time, 2.0f) + 8.0f, Mathf.PerlinNoise(Time.time, 2.0f),0.0f);
+
+		if (Attack_Step == 0)
+		{
+			Flame++;
+			if(Flame == 60)
+			{
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[1].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				}
+				Attack_Step++;
+				Flame = 0;
+			}
+		}
+		else if(Attack_Step == 1)
+		{
+			Flame++;
+			if(Flame == 60)
+			{
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[2].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				}
+				Attack_Step++;
+				Flame = 0;
+			}
+		}
+		else if(Attack_Step == 2)
+		{
+			Flame++;
+			if(Flame == 60)
+			{
+				Flame = 0;
+				Attack_Step = 0;
+				Attack_Type_Instruction++;
+			}
+		}
+	}
 
 	#region ターゲット移動
 	/// <summary>
@@ -890,10 +1001,39 @@ public class One_Boss : character_status
 		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
 		Vector3 return_pos = Vector3.zero;              // 返すポジション
 
+		//direction = target - origin;
+		//return_pos = origin + (direction.normalized * speed);
+
+		return_pos = Vector3.Lerp(origin, target, speed);
+
+		if (Vector_Size(return_pos, target) < Lowest_Speed)
+		{
+			return_pos = target;
+			Now_Speed = 0;
+		}
+
+		return return_pos;
+	}
+	#endregion
+	#region ターゲット移動
+	/// <summary>
+	/// ターゲットに移動
+	/// </summary>
+	/// <param name="origin"> 元の位置 </param>
+	/// <param name="target"> ターゲットの位置 </param>
+	/// <param name="speed"> 1フレームごとの移動速度 </param>
+	/// <returns> 移動後のポジション </returns>
+	private Vector3 Moving_To_Target_S(Vector3 origin, Vector3 target, float speed)
+	{
+		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
+		Vector3 return_pos = Vector3.zero;              // 返すポジション
+
 		direction = target - origin;
 		return_pos = origin + (direction.normalized * speed);
 
-		if (Vector_Size(return_pos, target) <= speed)
+		//return_pos = Vector3.Slerp(origin, target, speed);
+
+		if (Vector_Size(return_pos, target) < speed)
 		{
 			return_pos = target;
 			Now_Speed = 0;
@@ -936,4 +1076,12 @@ public class One_Boss : character_status
 		}
 	}
 	#endregion
+
+	private Vector3 GetPoint(Vector3 hajime, ref Vector3 nakatugi,Vector3 target, float t)
+	{
+		var a = Vector3.Lerp(hajime, nakatugi, t); // 緑色の点1
+		var b = Vector3.Lerp(nakatugi, target, t); // 緑色の点2
+
+		return Vector3.Lerp(a, b, t);    // 黒色の点
+	}
 }

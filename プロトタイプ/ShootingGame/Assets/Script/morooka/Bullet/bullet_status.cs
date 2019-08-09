@@ -38,7 +38,7 @@ public class bullet_status : MonoBehaviour
 		//	gameObject.SetActive(false);
 		//}
 		if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
-			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
+			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
 		{
 			gameObject.SetActive(false);
 		}

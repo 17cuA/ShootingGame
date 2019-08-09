@@ -606,7 +606,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9051573755106712536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.6, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4864598142489503746}
@@ -650,6 +650,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  rotational_speed: 0.325
   core: {fileID: 2424706955617710135}
   parts_core:
   - {fileID: 4873837064478662819}
@@ -669,6 +670,7 @@ MonoBehaviour:
   supply:
   - {fileID: 6569612107250174047}
   - {fileID: 1463314909276487504}
+  number_of_fires: 2
 --- !u!1 &9051573755106712538
 GameObject:
   m_ObjectHideFlags: 0

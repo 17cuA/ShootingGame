@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017899913774958395}
   - component: {fileID: 7923372550814810620}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Temp_B_One_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8110233786191512161}
   - component: {fileID: 7405749299578242351}
   - component: {fileID: 240672560001806982}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: One_Boss_BousndBullet
   m_TagString: Enemy_Bullet
   m_Icon: {fileID: 0}
@@ -137,9 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dff623a68c93c48b77bb4f245db613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.1
+  shot_speed: 0.05
   attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 7923372550814810620}
   bound_count: 10
-  length_on_landing: 1
+  length_on_landing: 1000
