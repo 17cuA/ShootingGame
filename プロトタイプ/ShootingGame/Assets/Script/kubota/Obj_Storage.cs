@@ -38,7 +38,9 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
 	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
-	private GameObject Laser_Line_Prefab;				// レーザーのプレハブ
+	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
+	private GameObject One_Boss_Laser_Prefab;                   // ボスのレーザープレハブ
+	private GameObject One_Boss_BousndBullet_Prefab;		// ボスのバウンド弾プレハブ
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
 	public Object_Pooling Medium_Size_Enemy1;
@@ -61,6 +63,8 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
 	public Object_Pooling Laser_Line;
+	public Object_Pooling One_Boss_Laser;
+	public Object_Pooling One_Boss_BousndBullet;
 	//effect関係-----------------------------------------------------
 	public Object_Pooling[] Effects = new Object_Pooling[18];
 	//マップの作製時に使う処理
@@ -128,6 +132,8 @@ public class Obj_Storage : MonoBehaviour
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
+		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
+		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
 
 		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
@@ -227,6 +233,8 @@ public class Obj_Storage : MonoBehaviour
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
+		One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 100, "One_Boss_Laser");
+		One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 20, "One_Boss_BousndBullet");
 		//effect---------------------------------------------------------------------------------------------
 		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");					//プレイヤーの爆発
 		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");		//プレイヤーが登場するときのジェット噴射
