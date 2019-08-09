@@ -31,8 +31,8 @@ public class One_Boss_BoundBullet : bullet_status
 		Ray_Direction = transform.right;
 		transform.position -= Ray_Direction.normalized * shot_speed;
 
-		Debug.DrawRay(transform.position, -transform.right * length_on_landing, Color.red);
-		if (Physics.Raycast(transform.position, Ray_Direction.normalized, out hit_mesh, length_on_landing))
+		Debug.DrawRay(transform.position, -Ray_Direction.normalized * length_on_landing, Color.red);
+		if (Physics.Raycast(transform.position, -Ray_Direction.normalized, out hit_mesh, length_on_landing))
 		{
 			Debug.Log(hit_mesh.transform.name);
 			// コライダーの持ち主がWAllのとき
@@ -45,6 +45,12 @@ public class One_Boss_BoundBullet : bullet_status
 			}
 		}
 	}
+
+	private void OnEnable()
+	{
+		mae = null;
+	}
+
 	/// <summary>
 	/// 反射の計算
 	/// </summary>

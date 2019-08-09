@@ -36,6 +36,12 @@ public class One_Boss : character_status
 
 	Vector3 velocity = Vector3.zero;
 
+	const int y_num = 3;
+	const int x_num = 4;
+	private Vector2[,] poinnto { get; set; }
+	private int y_p { get; set; }
+	private int x_p { get; set; }
+
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }					// 最大速度
 	public float Now_Speed { get; set; }					// 今の速度
@@ -69,6 +75,13 @@ public class One_Boss : character_status
 	{
 		base.Start();
 
+		poinnto = new Vector2[y_num, x_num]
+		{
+			{ new Vector2 (8.0f, 1.5f) ,          new Vector2 (9.5f, 1.5f) ,          new Vector2 (11f, 1.5f) ,          new Vector2 (12.5f, 1.5f) },
+			{ new Vector2 (8.0f, 0.0f) ,          new Vector2 (9.5f, 0.0f) ,          new Vector2 (11f, 0.0f) ,          new Vector2 (12.5f, 0.0f) },
+			{ new Vector2 (8.0f, -1.5f) ,          new Vector2 (9.5f, -1.5f) ,          new Vector2 (11f, -1.5f) ,          new Vector2 (12.5f, -1.5f) },
+		};
+
 		Core = core.GetComponent<One_Boss_Parts>();
 		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -80,6 +93,8 @@ public class One_Boss : character_status
 			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
 			Player_Data[1] = Obj_Storage.Storage_Data.GetPlayer2();
 		}
+		Now_player_Traget = Player_Data[0];
+
 		Max_Speed = speed;
 		Now_Speed = Lowest_Speed = Max_Speed / 10.0f;
 		for (int i = 0; i < 30; i++)
@@ -390,6 +405,7 @@ public class One_Boss : character_status
 
 			if (Flame >= 30)
 			{
+
 				if (transform.rotation != Quaternion.Euler(For_body_Upward))
 				{
 					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), rotational_speed);
@@ -910,18 +926,31 @@ public class One_Boss : character_status
 		if (transform.position == Target)
 		{
 			mae = transform.position;
-			float x = (float)Random.Range(-1, 2) / 2.0f;
-			if (transform.position.x + x > 12.0f || transform.position.x + x < 8.0f)
-			{
-				x = 0.0f;
-			}
-			float y = (float)Random.Range(-1, 2) / 2.0f;
-			if (transform.position.y + y > 1.5f || transform.position.y + y < -1.5f)
-			{
-				y = 0.0f;
-			}
+			//float x = (float)Random.Range(-1, 2) / 2.0f;
+			//if (transform.position.x + x > 12.0f || transform.position.x + x < 8.0f)
+			//{
+			//	x = 0.0f;
+			//}
+			//float y = (float)Random.Range(-1, 2) / 2.0f + (Now_player_Traget.transform.position.y / 10.0f);
+			//if (transform.position.y + y > 1.4f || transform.position.y + y < -1.4f)
+			//{
+			//	y = 0.0f;
+			//}
 
-			Target = new Vector3(transform.position.x + x, transform.position.y + y, 0.0f);
+			//Target = new Vector3(transform.position.x + x, transform.position.y + y, 0.0f);
+			int x_temp = Random.Range(-1, 2);
+			if( x_temp + x_p < 0 || x_num <= x_temp + x_p)
+			{
+				x_temp = 0;
+			}
+			int y_temp = Random.Range(-1, 2);
+			if (y_temp + y_p < 0 || y_num <= y_temp + y_p)
+			{
+				y_temp = 0;
+			}
+			x_p += x_temp;
+			y_p += y_temp;
+			Target = poinnto[y_p, x_p];
 
 			//float f = Mathf.Abs(mae.x - Target.x) / 2;
 			//float[] f_2 = new float[2] { -1.0f, 1.0f };
