@@ -22,7 +22,6 @@ public class Player1 : character_status
 	public int invincible_time;              //無敵時間計測用
 	public int invincible_Max;          //無敵時間最大時間
 	public bool invincible;             //無敵時間帯かどうか
-	public Material material;           //この機体のマテリアル（これをいじくって透明化等を行う）
 	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
@@ -76,37 +75,37 @@ public class Player1 : character_status
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		//パワーアップの処理が行われる際に読み込まれる関数
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.INITSPEED, Init_speed);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
-		PowerManager.Instance.AddFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.INITSPEED, Init_speed);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
 			Reset_BulletType();
 		});
 		///////////////////////
-		PowerManager.Instance.AddCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
 	{
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.OPTION, CreateBit);
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		PowerManager.Instance.RemoveCheckFunction(PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
@@ -121,7 +120,6 @@ public class Player1 : character_status
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		first_color = material.color;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = particleSystem.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
@@ -137,10 +135,11 @@ public class Player1 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
+		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = false;
+		Is_Change_Auto = true;
+		IS_Active = true;
 	}
 
 	new void Update()
@@ -172,7 +171,7 @@ public class Player1 : character_status
 				//-------------------------------
 				//デバックの工程
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha2)) P1_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 				if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
@@ -191,9 +190,9 @@ public class Player1 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
-				PowerManager.Instance.Update();
+				P1_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
-				PowerManager.Instance.UpdateBit(bitIndex);
+				P1_PowerManager.Instance.UpdateBit(bitIndex);
 
 				//if(shield < 1)
 				//{
@@ -203,7 +202,7 @@ public class Player1 : character_status
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-					PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 																		//残機が残っていなければ
 					if (Remaining < 1)
@@ -230,17 +229,13 @@ public class Player1 : character_status
 				//プレイヤーの移動処理
 				Player_Move();
 
-				//弾の発射（Fire2かSpaceキーで撃てる）
-				if (Shot_Delay > Shot_DelayMax)
-				{
-					//弾を射出
-					Bullet_Create();
-				}
+				//弾を射出
+				Bullet_Create();
 				//パワーアップ処理
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
-					PowerManager.Instance.Upgrade();
+					P1_PowerManager.Instance.Upgrade();
 				}
 				// 通常のバレットのディレイ計算
 				Shot_Delay++;
@@ -347,81 +342,88 @@ public class Player1 : character_status
 
 		if (!Is_Change_Auto)
 		{
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			Shot_DelayMax = 1;
+			if (Shot_Delay > Shot_DelayMax)
 			{
-				Shot_Delay = 0;
-
-				switch (bullet_Type)
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 				{
-					case Bullet_Type.Single:
-						Single_Fire();
-						effect_mazle_fire[effect_num].Play();
-						effect_num++;
-						break;
-					case Bullet_Type.Double:
-						Double_Fire();
-						effect_mazle_fire[effect_num].Play();
-						effect_num++;
-						break;
-					default:
-						break;
-				}
-				if(effect_num > 4)
-				{
-					effect_num = 0;
-				}
-				if (activeMissile && missile_dilay_cnt > missile_dilay_max)
-				{
-					Missile_Fire();
-					missile_dilay_cnt = 0;
-				}
-
-			}
-		}
-		else
-		{
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-			{
-				// 連続で4発まで撃てるようにした
-				if (shoot_number < 5)
-				{
+					Shot_Delay = 0;
 					switch (bullet_Type)
 					{
 						case Bullet_Type.Single:
 							Single_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
-
 							break;
 						case Bullet_Type.Double:
 							Double_Fire();
 							effect_mazle_fire[effect_num].Play();
 							effect_num++;
-							shoot_number++;
-
 							break;
 						default:
 							break;
+					}
+					if (effect_num > 4)
+					{
+						effect_num = 0;
 					}
 					if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 					{
 						Missile_Fire();
 						missile_dilay_cnt = 0;
 					}
-					Shot_Delay = 0;
 
 				}
-				// 4発撃った後、10フレーム程置く
-				else if (shoot_number == 15)
+			}
+		}
+		else
+		{
+			Shot_DelayMax = 5;
+			if (Shot_Delay > Shot_DelayMax)
+			{
+				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 				{
-					shoot_number = 0;
-					effect_num = 0;
-				}
-				else
-				{
-					shoot_number++;
+					// 連続で4発まで撃てるようにした
+					if (shoot_number < 5)
+					{
+						switch (bullet_Type)
+						{
+							case Bullet_Type.Single:
+								Single_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
 
+								break;
+							case Bullet_Type.Double:
+								Double_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
+
+								break;
+							default:
+								break;
+						}
+						if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+						{
+							Missile_Fire();
+							missile_dilay_cnt = 0;
+						}
+						Shot_Delay = 0;
+
+					}
+					// 4発撃った後、10フレーム程置く
+					else if (shoot_number == 15)
+					{
+						shoot_number = 0;
+						effect_num = 0;
+					}
+					else
+					{
+						shoot_number++;
+
+					}
 				}
 			}
 			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))

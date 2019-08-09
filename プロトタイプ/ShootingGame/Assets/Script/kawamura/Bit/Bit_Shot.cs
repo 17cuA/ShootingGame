@@ -16,7 +16,7 @@ public class Bit_Shot : MonoBehaviour
 	Player1 pl1;						//プレイヤースクリプト
 	Bit_Formation_3 bf;					//オプションの全般のスクリプト
     public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
-	public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
+	//public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 
 	int shotNum;                        //撃った数
 	int effectNum;
@@ -34,12 +34,12 @@ public class Bit_Shot : MonoBehaviour
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
-		Power.PowerManager.Instance.AddFunction(Power.PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 	private void OnDisable()
 	{
-		PowerManager.Instance.RemoveFunction(PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 
@@ -186,12 +186,12 @@ public class Bit_Shot : MonoBehaviour
 				{
 					case Player1.Bullet_Type.Single:
 						Single_Fire();
-						effect_Mazle_Fire[effectNum].Play();
+						//effect_Mazle_Fire[effectNum].Play();
 						effectNum++;
 						break;
 					case Player1.Bullet_Type.Double:
 						Double_Fire();
-						effect_Mazle_Fire[effectNum].Play();
+						//effect_Mazle_Fire[effectNum].Play();
 						effectNum++;
 						break;
 					default:
@@ -220,14 +220,14 @@ public class Bit_Shot : MonoBehaviour
 					{
 						case Player1.Bullet_Type.Single:
 							Single_Fire();
-							effect_Mazle_Fire[effectNum].Play();
+							//effect_Mazle_Fire[effectNum].Play();
 							effectNum++;
 							shotNum++;
 
 							break;
 						case Player1.Bullet_Type.Double:
 							Double_Fire();
-							effect_Mazle_Fire[effectNum].Play();
+							//effect_Mazle_Fire[effectNum].Play();
 							effectNum++;
 							shotNum++;
 

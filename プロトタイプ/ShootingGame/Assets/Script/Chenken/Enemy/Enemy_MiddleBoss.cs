@@ -51,8 +51,6 @@ public class Enemy_MiddleBoss : character_status
 	private Animator animator;
 	private bool canAdvanceAttack;
 
-	private float rotateSpeedAngle;
-
 	private void Awake()
 	{
 		stateManager = new StateManager<StateType>();
@@ -122,7 +120,7 @@ public class Enemy_MiddleBoss : character_status
 		*/
 		if (transform.position.x < -30.0f)
 		{
-			base.hp = 0;
+			this.gameObject.SetActive(false);
 		}
 
 		if (base.hp < 1)
@@ -217,18 +215,20 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Move_Update()
 	{
+		var rotatePreFrame = 180.0f / (moveDuration / Time.deltaTime);
+		var smoothStepRotate = Mathf.SmoothStep(rotatePreFrame * 0.5f, rotatePreFrame * 1.5f, (moveDuration - stateManager.Current.Timer) / (moveDuration));
+		if (moveDirection == Vector3.down)
+			transform.Rotate(Vector3.left * smoothStepRotate);
+		if (moveDirection == Vector3.up)
+			transform.Rotate(Vector3.right * smoothStepRotate);
+
+
 		if (stateManager.Current.IsDone && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 		{
 			stateManager.ChangeState(StateType.STOP);
 			return;
 		}
 
-		var rotatePreFrame = 180.0f / (moveDuration / Time.deltaTime);
-		var smoothStepRotate =  Mathf.SmoothStep(0, 2 * rotatePreFrame, (moveDuration - stateManager.Current.Timer) / (moveDuration));
-		if (moveDirection == Vector3.down)
-			transform.Rotate(Vector3.left * smoothStepRotate);
-		if (moveDirection == Vector3.up)
-			transform.Rotate(Vector3.right * smoothStepRotate);
 
 
 

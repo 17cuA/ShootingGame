@@ -245,6 +245,7 @@ public class Enemy_LaserEmitter : MonoBehaviour
 		{
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
+			this.emitterLaunchCore.GenerateLine(laserLinePrefab, laserName, straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 
 			launchDevice.CanLaunchTime = Time.time + launchDevice.OverloadDuration;
 		}
