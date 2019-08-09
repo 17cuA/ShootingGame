@@ -41,6 +41,9 @@ public class One_Boss : character_status
 	private Vector2[,] poinnto { get; set; }
 	private int y_p { get; set; }
 	private int x_p { get; set; }
+	Vector3 Target_2 { get; set; }
+	private Vector3 Move_Poinnto1 { get; set; }
+	private Vector3 Move_Pionnto2 { get; set; }
 
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }					// 最大速度
@@ -60,8 +63,6 @@ public class One_Boss : character_status
 	private Vector3 For_body_Downward { get; set; }		// 本体の下向き角度
 	
 	private uint Flame { get; set; }					// ボス内でのフレーム数
-	private Vector3 mae { get; set; }
-	private Vector3 tyuukei;
 
 	private int Attack_Step { get; set; }		// 関数内 攻撃ステップ
 
@@ -159,7 +160,7 @@ public class One_Boss : character_status
 				End_Flag = true;
 			}
 
-			if (Attack_Type_Instruction < 5)
+			if (Attack_Type_Instruction < 1)
 			{
 				//Player_Tracking_Movement_Attack();
 				//Player_Tracking_Movement_Attack_2();
@@ -925,7 +926,7 @@ public class One_Boss : character_status
 		//	Move_Flame_Max = (uint)Random.Range(60, 120);
 		if (transform.position == Target)
 		{
-			mae = transform.position;
+			Move_Poinnto1 = transform.position;
 			//float x = (float)Random.Range(-1, 2) / 2.0f;
 			//if (transform.position.x + x > 12.0f || transform.position.x + x < 8.0f)
 			//{
@@ -936,7 +937,6 @@ public class One_Boss : character_status
 			//{
 			//	y = 0.0f;
 			//}
-
 			//Target = new Vector3(transform.position.x + x, transform.position.y + y, 0.0f);
 			int x_temp = Random.Range(-1, 2);
 			if( x_temp + x_p < 0 || x_num <= x_temp + x_p)
@@ -948,6 +948,12 @@ public class One_Boss : character_status
 			{
 				y_temp = 0;
 			}
+
+			if(x_temp != 0 && y_temp != 0)
+			{
+				
+			}
+
 			x_p += x_temp;
 			y_p += y_temp;
 			Target = poinnto[y_p, x_p];
@@ -966,7 +972,7 @@ public class One_Boss : character_status
 			if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
 			//Now_Speed = Max_Speed * Vector_Size(mae, transform.position) + Lowest_Speed;
 		}
-		if (Vector_Size(mae, transform.position) < Speed_Change_Distance)
+		if (Vector_Size(Move_Poinnto1, transform.position) < Speed_Change_Distance)
 		{
 			if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
 			//Now_Speed = Max_Speed * Vector_Size(Target, transform.position) + Lowest_Speed;
