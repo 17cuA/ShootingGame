@@ -55,7 +55,6 @@ public class Missile : bullet_status
 			Vector3 vector = transform.position;
 			vector.x += 0.5f;
 		}
-		Debug.DrawRay(transform.position, Ray_Direction.normalized * Length_On_Landing, Color.red);
 		// 先端に触れたメッシュ(コライダーの一部)があるとき
 		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, Length_On_Landing))
 		{

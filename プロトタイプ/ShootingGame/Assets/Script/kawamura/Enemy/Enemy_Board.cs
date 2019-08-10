@@ -33,7 +33,15 @@ public class Enemy_Board : character_status
 		}
     }
 
-	void Enemy_Reset()
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.name == "WallLeft")
+        {
+            ebp.isDisappearance = true;
+        }
+    }
+
+    void Enemy_Reset()
 	{
 
 	}

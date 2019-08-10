@@ -833,7 +833,7 @@ public class Enemy_Wave : character_status
 							//Instantiate(item, this.transform.position, transform.rotation);
 							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 						}
-						//一体でも倒されていなかったら
+						//一体でも倒されていないのがいたら
 						else
 					    {
 						    //なにもしない
