@@ -17,6 +17,8 @@ public class Boss_One_Laser : bullet_status
 		if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
 			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
 		{
+			GameObject obj = gameObject;
+			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
 			gameObject.SetActive(false);
 		}
 
