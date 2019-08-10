@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4588204778324794761}
   - component: {fileID: 1720597974036333455}
   - component: {fileID: 1754578655656113578}
-  - component: {fileID: 3845826510522904367}
   m_Layer: 0
   m_Name: EnergyCharge_3
   m_TagString: Untagged
@@ -43,7 +42,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -4699,18 +4698,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &3845826510522904367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620366561973575248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3459199425166329270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,7 +4709,6 @@ GameObject:
   - component: {fileID: 3380936935988907033}
   - component: {fileID: 5295218096927536033}
   - component: {fileID: 4147059587954749077}
-  - component: {fileID: 2842898495120149094}
   m_Layer: 0
   m_Name: EnergyCharge_2
   m_TagString: Untagged
@@ -4754,7 +4740,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -9410,18 +9396,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &2842898495120149094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459199425166329270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4977523405501141996
 GameObject:
   m_ObjectHideFlags: 0
@@ -9433,7 +9407,6 @@ GameObject:
   - component: {fileID: 4977523405501141985}
   - component: {fileID: 4977523405501141986}
   - component: {fileID: 4977523405501141987}
-  - component: {fileID: 7211014772865630625}
   m_Layer: 0
   m_Name: EnergyCharge_1
   m_TagString: Untagged
@@ -9465,7 +9438,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -14121,18 +14094,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &7211014772865630625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4977523405501141996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6425723657648197597
 GameObject:
   m_ObjectHideFlags: 0
@@ -14144,7 +14105,6 @@ GameObject:
   - component: {fileID: 3338654959883254082}
   - component: {fileID: 31779226056609789}
   - component: {fileID: 3189103484282904987}
-  - component: {fileID: 509693278810931018}
   m_Layer: 0
   m_Name: SuctionRing
   m_TagString: Untagged
@@ -14176,7 +14136,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 3
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -18890,18 +18850,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &509693278810931018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425723657648197597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7740381168009337246
 GameObject:
   m_ObjectHideFlags: 0
@@ -18913,7 +18861,6 @@ GameObject:
   - component: {fileID: 6518514282556530840}
   - component: {fileID: 2490498568985163685}
   - component: {fileID: 4374192486382904458}
-  - component: {fileID: 8823745956204320683}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -18945,7 +18892,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 3.5
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -23610,18 +23557,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &8823745956204320683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7740381168009337246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7954071066242813422
 GameObject:
   m_ObjectHideFlags: 0
@@ -23633,15 +23568,13 @@ GameObject:
   - component: {fileID: 5800208517844756366}
   - component: {fileID: 8324805657821489088}
   - component: {fileID: 4149564936689864568}
-  - component: {fileID: 4836763977553188824}
-  - component: {fileID: 5563938910568595754}
   m_Layer: 0
   m_Name: A111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5800208517844756366
 Transform:
   m_ObjectHideFlags: 0
@@ -23671,7 +23604,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 5
   simulationSpeed: 1
-  stopAction: 3
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -28327,34 +28260,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &4836763977553188824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954071066242813422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca04b581e55e2142addbbf700d7f1e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Each_Particle:
-  - {fileID: 5563938910568595754}
-  - {fileID: 509693278810931018}
-  - {fileID: 8823745956204320683}
-  - {fileID: 7211014772865630625}
-  - {fileID: 2842898495120149094}
-  - {fileID: 3845826510522904367}
---- !u!114 &5563938910568595754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954071066242813422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f3d4f2f15e970478dc4ea285bf8db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
