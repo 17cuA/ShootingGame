@@ -180,7 +180,7 @@ public class One_Boss : character_status
 				End_Flag = true;
 			}
 
-			if (Attack_Type_Instruction < 10)
+			if (Attack_Type_Instruction < 1)
 			{
 				//Player_Tracking_Movement_Attack();
 				//Player_Tracking_Movement_Attack_2();
