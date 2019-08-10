@@ -41,9 +41,10 @@ public class One_Boss : character_status
 	private Vector2[,] poinnto { get; set; }
 	private int y_p { get; set; }
 	private int x_p { get; set; }
-	Vector3 Target_2 { get; set; }
-	private Vector3 Move_Poinnto1 { get; set; }
-	private Vector3 Move_Pionnto2 { get; set; }
+	private Vector3 Target_2 { get; set; }			// カーブ用
+	private Vector3 Move_Poinnto1 { get; set; }		// カーブ用動くポイント
+	private Vector3 Move_Pionnto2 { get; set; }		// カーブ用動くポイント	
+	private bool is_naname { get; set; }
 
 	private One_Boss_Parts Core { get; set; }				// コアのパーツ情報
 	public float Max_Speed { get; set; }					// 最大速度
@@ -97,7 +98,7 @@ public class One_Boss : character_status
 		Now_player_Traget = Player_Data[0];
 
 		Max_Speed = speed;
-		Now_Speed = Lowest_Speed = Max_Speed / 10.0f;
+		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
 		for (int i = 0; i < 30; i++)
 		{
 			Speed​_Change_Distance += Now_Speed;
@@ -105,7 +106,7 @@ public class One_Boss : character_status
 		}
 		Now_Speed = Lowest_Speed;
 
-		Target = transform.position = new Vector3(10.0f, 0.0f, 0.0f);
+		Target = transform.position = poinnto[1,1];
 		Arm_Closed_Position = new Vector3[arm_parts.Length];
 		Arm_Open_Position = new Vector3[arm_parts.Length];
 		Arm_Ini_Rotation = new Vector3[arm_parts.Length];
@@ -160,7 +161,7 @@ public class One_Boss : character_status
 				End_Flag = true;
 			}
 
-			if (Attack_Type_Instruction < 1)
+			if (Attack_Type_Instruction < 10)
 			{
 				//Player_Tracking_Movement_Attack();
 				//Player_Tracking_Movement_Attack_2();
@@ -919,25 +920,11 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Player_Tracking_Bound_Bullets_2()
 	{
-		//Move_Flame++;
-		//if (Move_Flame == 120)
-		//{
-		//	Move_Flame = 0;
-		//	Move_Flame_Max = (uint)Random.Range(60, 120);
 		if (transform.position == Target)
 		{
 			Move_Poinnto1 = transform.position;
-			//float x = (float)Random.Range(-1, 2) / 2.0f;
-			//if (transform.position.x + x > 12.0f || transform.position.x + x < 8.0f)
-			//{
-			//	x = 0.0f;
-			//}
-			//float y = (float)Random.Range(-1, 2) / 2.0f + (Now_player_Traget.transform.position.y / 10.0f);
-			//if (transform.position.y + y > 1.4f || transform.position.y + y < -1.4f)
-			//{
-			//	y = 0.0f;
-			//}
-			//Target = new Vector3(transform.position.x + x, transform.position.y + y, 0.0f);
+			is_naname = false;
+
 			int x_temp = Random.Range(-1, 2);
 			if( x_temp + x_p < 0 || x_num <= x_temp + x_p)
 			{
@@ -951,22 +938,31 @@ public class One_Boss : character_status
 
 			if(x_temp != 0 && y_temp != 0)
 			{
-				
+				//if(Random.Range(0,2) == 0)
+				//{
+				//	Target_2 = poinnto[x_temp, y_temp + y_p];
+				//}
+				//else
+				//{
+				//	Target_2 = poinnto[x_temp + x_p, y_temp];
+				//}
+				is_naname = true;
+			}
+			else
+			{
+				Target_2 = Target;
+				is_naname = false;
 			}
 
 			x_p += x_temp;
 			y_p += y_temp;
 			Target = poinnto[y_p, x_p];
+			Move_Pionnto2 = Target_2;
 
-			//float f = Mathf.Abs(mae.x - Target.x) / 2;
-			//float[] f_2 = new float[2] { -1.0f, 1.0f };
-			//tyuukei = new Vector3(f, f_2[Random.Range(0, 2)], 0.0f);
+			Debug.Log("Move_Poinnto1" + Move_Poinnto1);
+			Debug.Log("Move_Pionnto2" + Move_Pionnto2);
 		}
 
-		//if (Now_Speed < Max_Speed)
-		//{
-		//	Now_Speed += Lowest_Speed;
-		//}
 		if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
 		{
 			if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
@@ -978,9 +974,10 @@ public class One_Boss : character_status
 			//Now_Speed = Max_Speed * Vector_Size(Target, transform.position) + Lowest_Speed;
 		}
 
-		transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed);
-		//transform.position = GetPoint(mae, ref tyuukei, Target, Now_Speed);
+		transform.position = Moving_To_Target_J(transform.position, Target, Now_Speed,is_naname );
 
+		//transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed);
+		//transform.position = GetPoint(mae, ref tyuukei, Target, Now_Speed);
 		//transform.position = new Vector3(Mathf.PerlinNoise(Time.time, 2.0f) + 8.0f, Mathf.PerlinNoise(Time.time, 2.0f),0.0f);
 
 		if (Attack_Step == 0)
@@ -1050,6 +1047,7 @@ public class One_Boss : character_status
 		return return_pos;
 	}
 	#endregion
+
 	#region ターゲット移動
 	/// <summary>
 	/// ターゲットに移動
@@ -1067,6 +1065,68 @@ public class One_Boss : character_status
 		return_pos = origin + (direction.normalized * speed);
 
 		//return_pos = Vector3.Slerp(origin, target, speed);
+
+		if (Vector_Size(return_pos, target) < speed)
+		{
+			return_pos = target;
+			Now_Speed = 0;
+		}
+
+		return return_pos;
+	}
+	#endregion
+	#region ターゲット移動
+	/// <summary>
+	/// ターゲットに移動
+	/// </summary>
+	/// <param name="origin"> 元の位置 </param>
+	/// <param name="target"> ターゲットの位置 </param>
+	/// <param name="speed"> 1フレームごとの移動速度 </param>
+	/// <returns> 移動後のポジション </returns>
+	private Vector3 Moving_To_Target_J(Vector3 origin, Vector3 target, float speed, bool naname )
+	{
+		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
+		Vector3 return_pos = Vector3.zero;              // 返すポジション
+
+		if ((target.x - origin.x) < 0)
+		{
+			direction.x = -1;
+		}
+		else if ((target.x - origin.x) == 0)
+		{
+			direction.x = 0;
+		}
+		else if ((target.x - origin.x) > 0)
+		{
+			direction.x = 1;
+		}
+
+		if ((target.y - origin.y) < 0)
+		{
+			direction.y = -1;
+		}
+		else if ((target.y - origin.y) == 0)
+		{
+			direction.y = 0;
+		}
+		else if ((target.y - origin.y) > 0)
+		{
+			direction.y = 1;
+		}
+
+		if (naname)
+		{
+			return_pos.x = origin.x + (direction.x * speed);
+			//return_pos.y = origin.y + (direction.y * (speed / speed));
+			return_pos.y = 2.0f / return_pos.x;
+
+			//return_pos = Vector3.Slerp(origin, target, speed);
+		}
+		else if(!is_naname)
+		{
+			return_pos.x = origin.x + (direction.x * speed);
+			return_pos.y = origin.y + (direction.y * speed);
+		}
 
 		if (Vector_Size(return_pos, target) < speed)
 		{
@@ -1112,11 +1172,43 @@ public class One_Boss : character_status
 	}
 	#endregion
 
-	private Vector3 GetPoint(Vector3 hajime, ref Vector3 nakatugi,Vector3 target, float t)
-	{
-		var a = Vector3.Lerp(hajime, nakatugi, t); // 緑色の点1
-		var b = Vector3.Lerp(nakatugi, target, t); // 緑色の点2
+	//private Vector3 GetPoint(float t)
+	//{
+	//	Move_Poinnto1 = Moving_To_Target_S(Move_Poinnto1, Target_2, t);     // 初めの点から中継点まで
+	//	Move_Pionnto2 = Moving_To_Target_S(Move_Pionnto2, Target, t);       // 中継点からtargetまで
 
-		return Vector3.Lerp(a, b, t);    // 黒色の点
-	}
+	//	return new Vector3(Move_Poinnto1.x ,Move_Pionnto2.y ,0.0f);
+	//	//Vector3 direction = Move_Pionnto2 - Move_Poinnto1;
+	//	//	Vector3 return_pos = transform.position + (direction.normalized * t);
+
+	//	//	if (Vector_Size(return_pos, Move_Pionnto2) < speed)
+	//	//	{
+	//	//		return_pos = Move_Pionnto2;
+	//	//		Now_Speed = 0;
+	//	//	}
+	//	//	Move_Poinnto1 = Vector3.MoveTowards(Move_Poinnto1, Target_2, t/3.0f);		// 初めの点から中継点まで
+	//	//Move_Pionnto2 = Vector3.MoveTowards(Move_Pionnto2, Target, t/3.0f);       // 中継点からtargetまで
+
+	//	//	//Vector3 direction = Move_Pionnto2 - Move_Poinnto1;
+	//	//	//Vector3 return_pos = transform.position + (direction.normalized * t);
+
+	//	//	Vector3 return_pos = Vector3.MoveTowards(transform.position, Move_Pionnto2, t);
+	//	//	if (return_pos == transform.position)
+	//	//	{
+	//	//		return_pos = Move_Pionnto2;
+	//	//		Now_Speed = 0;
+	//	//	}
+	//	//	return return_pos;    // 黒色の点
+	//}
+
+	//Vector3 SampleCurve(Vector3 start, Vector3 end, Vector3 control, float t)
+	//{
+	//	// Interpolate along line S0: control - start;
+	//	Vector3 Q0 = Vector3.Lerp(start, control, t);
+	//	// Interpolate along line S1: S1 = end - control;
+	//	Vector3 Q1 = Vector3.Lerp(control, end, t);
+	//	// Interpolate along line S2: Q1 - Q0
+	//	Vector3 Q2 = Vector3.Lerp(Q0, Q1, t);
+	//	return Q2; // Q2 is a point on the curve at time t
+	//}
 }

@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76ee1d160c468148bacbb44cb4ed3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
+  speed: 0.06
   hp: 10000
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
@@ -1056,11 +1056,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9051573755106936824}
     m_Modifications:
-    - target: {fileID: 9098058030939916447, guid: 266c6b0c67f990b448db8d1cbb176495,
-        type: 3}
-      propertyPath: m_Name
-      value: big-core
-      objectReference: {fileID: 0}
     - target: {fileID: 7550465487411910507, guid: 266c6b0c67f990b448db8d1cbb176495,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1115,6 +1110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098058030939916447, guid: 266c6b0c67f990b448db8d1cbb176495,
+        type: 3}
+      propertyPath: m_Name
+      value: big-core
       objectReference: {fileID: 0}
     - target: {fileID: 705387822368505563, guid: 266c6b0c67f990b448db8d1cbb176495,
         type: 3}
