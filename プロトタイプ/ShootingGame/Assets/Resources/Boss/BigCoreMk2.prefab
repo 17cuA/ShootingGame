@@ -609,6 +609,8 @@ MonoBehaviour:
   - {fileID: 417745284933504799}
   - {fileID: 6216001009173005754}
   number_of_fires: 2
+  pos_set_prefab: {fileID: 5223319603688632064, guid: 7dafa8cd073ab204b8b5f8ed00f3ff26,
+    type: 3}
 --- !u!1 &9051573755106712538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1058,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9051573755106936824}
     m_Modifications:
+    - target: {fileID: 9098058030939916447, guid: 266c6b0c67f990b448db8d1cbb176495,
+        type: 3}
+      propertyPath: m_Name
+      value: big-core
+      objectReference: {fileID: 0}
     - target: {fileID: 7550465487411910507, guid: 266c6b0c67f990b448db8d1cbb176495,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1110,11 +1117,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 9098058030939916447, guid: 266c6b0c67f990b448db8d1cbb176495,
-        type: 3}
-      propertyPath: m_Name
-      value: big-core
       objectReference: {fileID: 0}
     - target: {fileID: 705387822368505563, guid: 266c6b0c67f990b448db8d1cbb176495,
         type: 3}
