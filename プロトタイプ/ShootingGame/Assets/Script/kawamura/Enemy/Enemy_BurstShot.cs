@@ -43,7 +43,7 @@ public class Enemy_BurstShot : MonoBehaviour
 		{
 			myName = parentObj.name;
 		}
-		else
+		else if(parentObj.transform.parent)
 		{
 			myName = parentObj.transform.parent.gameObject.name;
 		}
