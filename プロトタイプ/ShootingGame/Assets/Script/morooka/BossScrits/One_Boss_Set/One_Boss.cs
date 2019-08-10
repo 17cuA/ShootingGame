@@ -374,33 +374,38 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Laser_Clearing_2()
 	{
-		if (Attack_Step == 0)
+		if(Attack_Step == 0)
+		{
+			maenoiti = transform.position;
+			Attack_Step++;
+		}
+		else if (Attack_Step == 1)
 		{
 			if (transform.position.y != 0.0f)
 			{
 				//Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
 
-				//if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
-				//{
-				//	if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				//}
-				//else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
-				//{
-				//	if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				//}
-
-				if (Now_Speed < Max_Speed)
+				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
 				{
-					Now_Speed += Lowest_Speed;
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
 				}
-				transform.position = Moving_To_Target(transform.position, Pos_set[0,0], Now_Speed);
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				//if (Now_Speed < Max_Speed)
+				//{
+				//	Now_Speed += Lowest_Speed;
+				//}
+				transform.position = Moving_To_Target_S(transform.position, Pos_set[0,0], Now_Speed);
 			}
 			else if (transform.position.y == 0.0f)
 			{
 				Attack_Step++;
 			}
 		}
-		if (Attack_Step == 1)
+		else if (Attack_Step == 2)
 		{
 			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
 			{
@@ -419,7 +424,7 @@ public class One_Boss : character_status
 				Attack_Step++;
 			}
 		}
-		else if (Attack_Step == 2)
+		else if (Attack_Step == 3)
 		{
 			Flame++;
 			Laser_Shooting();
@@ -438,7 +443,7 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if (Attack_Step == 3)
+		else if (Attack_Step == 4)
 		{
 			Flame++;
 			Laser_Shooting();
@@ -456,7 +461,7 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if (Attack_Step == 4)
+		else if (Attack_Step == 5)
 		{
 			Flame++;
 			Laser_Shooting();
@@ -474,7 +479,7 @@ public class One_Boss : character_status
 				}
 			}
 		}
-		else if (Attack_Step == 5)
+		else if (Attack_Step == 6)
 		{
 			Flame++;
 			Laser_Shooting();
@@ -484,7 +489,7 @@ public class One_Boss : character_status
 				Flame = 0;
 			}
 		}
-		else if (Attack_Step == 6)
+		else if (Attack_Step == 7)
 		{
 			Flame++;
 			if (Flame == 30)
