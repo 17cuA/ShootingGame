@@ -8,8 +8,6 @@ using UnityEngine;
 
 public class Player_Bullet : bullet_status
 {
-
-
     private new void Start()
     {
 		base.Start();
