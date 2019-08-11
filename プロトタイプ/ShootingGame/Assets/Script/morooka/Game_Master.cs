@@ -75,8 +75,12 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum OBJECT_NAME
 	{
-		ePLAYER_BULLET,		// プレイヤーのバレット
-		ePLAYER_MISSILE,		// プレイヤーのミサイル
+		ePLAYER_BULLET,		// プレイヤーのバレット 
+        //新規で追加したもの---------------------
+        ePLAYER2_BULLET,
+        eOPTION_BULLET,
+        //------------------------------------
+		ePLAYER_MISSILE,	// プレイヤーのミサイル
 		ePLAYER_LASER,		// プレイヤーのレーザー
 		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
 		ePOWERUP_ITEM,		//パワーアップアイテム
