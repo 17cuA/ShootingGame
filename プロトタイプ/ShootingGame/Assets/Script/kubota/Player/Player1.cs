@@ -78,8 +78,11 @@ public class Player1 : character_status
 	public bool Is_Change_Auto;
 	public bool IS_Active;
 
-	//プレイヤーがアクティブになった瞬間に呼び出される
-	private void OnEnable()
+    public int Bullet_cnt;          //バレットの発射数をかぞえる変数
+    private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
+
+    //プレイヤーがアクティブになった瞬間に呼び出される
+    private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
 		//パワーアップの処理が行われる際に読み込まれる関数
@@ -148,6 +151,7 @@ public class Player1 : character_status
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
+        Bullet_cnt_Max = 8;
 	}
 
 	new void Update()
@@ -226,24 +230,29 @@ public class Player1 : character_status
 				}
 				//無敵時間の開始
 				Invincible();
+
 				//プレイヤーの移動処理
 				if (transform.position == target)
 				{
 					//MoveX();
 					SetTargetPosition();
 				}
+
 				Move();
 
 				//弾を射出
 				Bullet_Create();
+
 				//パワーアップ処理
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();
 				}
+
 				// 通常のバレットのディレイ計算
 				Shot_Delay++;
+
 				// ミサイルのディレイ計算
 				missile_dilay_cnt++;
 			}
@@ -258,7 +267,13 @@ public class Player1 : character_status
 		x = Input.GetAxis("Horizontal");            //x軸の入力
 		y = Input.GetAxis("Vertical");              //y軸の入力
 
-		prevPos = target;
+        //プレイヤーの移動に上下左右制限を設ける
+        if (transform.position.y >= 4.5f && y > 0) y = 0;
+        if (transform.position.y <= -4.5f && y < 0) y = 0;
+        if (transform.position.x >= 17.0f && x > 0) x = 0;
+        if (transform.position.x <= -17.0f && x < 0) x = 0;
+
+        prevPos = target;
 
 		// プレイヤー機体の旋回
 		// プレイヤーの向き(Y軸の正負)で角度算出
@@ -524,16 +539,31 @@ public class Player1 : character_status
     //単発
 	private void Single_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-	}
+        if(Bullet_cnt < Bullet_cnt_Max)
+        {
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+            SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+        }
+        if(Bullet_cnt_Max != 8)
+        {
+            Bullet_cnt_Max = 8;
+        }
+    }
 	//二連発射
 	private void Double_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-	}
+        if(Bullet_cnt < Bullet_cnt_Max)
+        {
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+            SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+        }
+        if(Bullet_cnt_Max != 16)
+        {
+            Bullet_cnt_Max = 16;
+        }
+
+    }
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
