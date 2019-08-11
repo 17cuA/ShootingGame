@@ -16,30 +16,75 @@ public class CannonAngle : MonoBehaviour
     float radian;                   //ラジアン
     public float degree;            //角度
     public float positiveDegree;    //正の数で表した角度	
+    public float myRotaZ;
+    public float rotaZ_ChangeValue; //角度の増減値
     public float standardDegree;    //最初の向き（これを基準に左右90度まで回転）
     public float standardDig_high;  //最初の向きから90足した数
     public float standardDig_low;   //最初の向きから90引いた数
 
+    public bool isPlus;
+    public bool isMinus;
+    public bool isRotaChange;
+
     private void Awake()
     {
-        standardDegree = transform.rotation.z;
+        //standardDegree = transform.localRotation.z;
+        //myRotaZ = transform.localRotation.z;
+        ////最大の角度設定
+        //standardDig_high = standardDegree + 90.0f;
+        //if (standardDig_high > 360)
+        //{
+        //    isPlus = true;
+        //    isMinus = false;
+        //}
+        //////角度を直す
+        ////if (standardDig_high > 360)
+        ////{
+        ////    standardDig_high -= 360.0f;
+        ////}
 
-        standardDig_high = standardDegree + 90.0f;
-        //角度を直す
-        if (standardDig_high > 360)
-        {
-            standardDig_high -= 360.0f;
-        }
-
-        standardDig_low = standardDegree - 90.0f;
-        //角度を直す
-        if (standardDig_low < 0)
-        {
-            standardDig_low += 360.0f;
-        }
+        ////最小の角度設定
+        //standardDig_low = standardDegree - 90.0f;
+        //if (standardDig_low < 0)
+        //{
+        //    isMinus = true;
+        //    isPlus = false;
+        //}
+        //////角度を直す
+        ////if (standardDig_low < 0)
+        ////{
+        ////    standardDig_low += 360.0f;
+        ////}
     }
     void Start()
     {
+        standardDegree = transform.eulerAngles.z;
+        myRotaZ = transform.eulerAngles.z;
+        //最大の角度設定
+        standardDig_high = standardDegree + 90.0f;
+        if (standardDig_high > 360)
+        {
+            isPlus = true;
+            isMinus = false;
+        }
+        ////角度を直す
+        //if (standardDig_high > 360)
+        //{
+        //    standardDig_high -= 360.0f;
+        //}
+
+        //最小の角度設定
+        standardDig_low = standardDegree - 90.0f;
+        if (standardDig_low < 0)
+        {
+            isMinus = true;
+            isPlus = false;
+        }
+        ////角度を直す
+        //if (standardDig_low < 0)
+        //{
+        //    standardDig_low += 360.0f;
+        //}
 
     }
 
@@ -78,22 +123,60 @@ public class CannonAngle : MonoBehaviour
         //角度計算の関数呼び出し
         DegreeCalculation();
 
-        if (positiveDegree < 0)
+        if (isPlus)
         {
-            positiveDegree += 360.0f;
+            if (positiveDegree < 0)
+            {
+                positiveDegree += 360.0f;
+            }
+
+            if (degree > 0)
+            {
+                positiveDegree += 360;
+            }
+        }
+        else if (isMinus)
+        {
+            
+        }
+        else
+        {
+            if (positiveDegree < 0)
+            {
+                positiveDegree += 360.0f;
+            }
         }
 
-        //if(degree>0)
-        //{
-        //	midBossDig = degree;
-        //}
-        //else if(degree<=0)
-        //{
-        //	midBossDig = degree;
-        //}
+        if (isRotaChange)
+        {
+            if (positiveDegree < myRotaZ)
+            {
+                myRotaZ -= rotaZ_ChangeValue;
+                if (myRotaZ < standardDig_low)
+                {
+                    myRotaZ = standardDig_low;
+                }
+            }
+            else if (positiveDegree > myRotaZ)
+            {
+                myRotaZ += rotaZ_ChangeValue;
+                if (myRotaZ > standardDig_high)
+                {
+                    myRotaZ = standardDig_high;
+                }
+            }
+        }
 
+        if (positiveDegree < (myRotaZ + 1) && positiveDegree > (myRotaZ - 1))
+        {
+            isRotaChange = false;
+        }
+        else
+        {
+            isRotaChange = true;
+        }
         //自分を対象の方向へ向かせる
-        this.transform.rotation = Quaternion.Euler(0, 0, positiveDegree);
+        this.transform.rotation = Quaternion.Euler(0, 0, myRotaZ);
 
     }
 
