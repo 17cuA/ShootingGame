@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class One_Boss_Parts : character_status
 {
-	[SerializeField] private GameObject supported_objects;
+	[SerializeField] private GameObject[] supported_objects;
 	private Vector3 Initial_Position { get; set; }
 
 	private new void Start()
@@ -23,9 +23,13 @@ public class One_Boss_Parts : character_status
 		{
 			if (supported_objects != null)
 			{
-				supported_objects.SetActive(false);
+				foreach (GameObject obj in supported_objects)
+				{
+					MeshRenderer ms = obj.GetComponent<MeshRenderer>();
+					ms.enabled = false;
+				}
 			}
-				base.Died_Judgment();
+			base.Died_Judgment();
 			base.Died_Process();
 		}
 	}
