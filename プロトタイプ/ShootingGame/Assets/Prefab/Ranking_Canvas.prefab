@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5727569460642611823}
   - component: {fileID: 6013596020761373551}
   - component: {fileID: 2031065934663637924}
-  - component: {fileID: 2930520275052560000}
   - component: {fileID: 254026138998753346}
+  - component: {fileID: 2930520275052560000}
   m_Layer: 5
   m_Name: Ranking_Canvas
   m_TagString: Untagged
@@ -100,18 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2930520275052560000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f14448d0bb66ed4ca8497af1b31ca40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &254026138998753346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,5 +110,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99608536b686e7540ba7021b906cfd39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2930520275052560000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322928362876008251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f14448d0bb66ed4ca8497af1b31ca40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -22,6 +22,8 @@ public class Ranking_Strage : MonoBehaviour
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
+	private RankingDisplay _Display { get; set; }
+
 	void Start()
     {
 		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eTITLE)
@@ -29,7 +31,25 @@ public class Ranking_Strage : MonoBehaviour
 			Strage_Data = GetComponent<Ranking_Strage>();
 			Ranking_Lode();
 		}
+		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
+		{
+			Set_Score("YOU", Game_Master.display_score);
+			_Display = GetComponent<RankingDisplay>();
+			_Display.shoki();
+		}
 	}
+
+	public void Update()
+	{if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eTITLE)
+		{
+			if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.Alpha0))
+			{
+				PlayerPrefs.DeleteAll();
+				Ranking_Lode();
+			}
+		}
+	}
+
 	//　配列のソート（ランキングの設定）
 	public RankingInformation[] Strage_Sort(RankingInformation[] rankingArray)
 	{
@@ -52,10 +72,12 @@ public class Ranking_Strage : MonoBehaviour
 		return rankingArray;
 	}
 
-	public void Set_Score(uint score)
+	public void Set_Score(string name, uint score)
 	{
+		Strage[Max_num].name = name;
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);
+		Ranking_Save();
 	}
 
 	private void Ranking_Save()
@@ -64,6 +86,8 @@ public class Ranking_Strage : MonoBehaviour
 		{
 			PlayerPrefs.SetString(i.ToString(), Strage[i].name);
 			PlayerPrefs.SetInt(i.ToString(), (int)Strage[i].score);
+
+			Debug.Log("Save_Set:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
 		}
 
 		PlayerPrefs.Save();
@@ -76,6 +100,7 @@ public class Ranking_Strage : MonoBehaviour
 			{
 				Strage[i].name = PlayerPrefs.GetString(i.ToString(), "YOU");
 				Strage[i].score = (uint)PlayerPrefs.GetInt(i.ToString(), 0);
-			}
+			Debug.Log("Lode_kekka:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
+		}
 	}
 }
