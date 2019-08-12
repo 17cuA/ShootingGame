@@ -12,7 +12,7 @@ public class Player_Bullet : bullet_status
     {
 		base.Start();
 		Tag_Change("Player_Bullet");
-	}
+    }
 
 	// Update is called once per frame
 	private new void Update()

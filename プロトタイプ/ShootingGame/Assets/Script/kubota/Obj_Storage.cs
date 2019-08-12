@@ -26,6 +26,8 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Boss1_Prefab;                                //ステージ１のボスのプレハブ
 	private GameObject Boss2_Prefab;								//ステージ2のボスのプレハブ
 	private GameObject Bullet_Prefab_P;							//弾のPrefab情報
+    private GameObject BulletPrefab_P2;            //２P用の弾プレハブ情報
+    private GameObject BulletPrefab_Option;         //オプション用の球プレハブ情報
 	private GameObject Bullet_Prefab_E;							//エネミーの弾のPrefab情報
 	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject UfoType_Enemy_Prefab;				// UFO型エネミーのプレハブ
@@ -49,6 +51,8 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Boss_1;
 	public Object_Pooling Boss_2;
 	public Object_Pooling PlayerBullet;
+    public Object_Pooling Player2Bullet;
+    public Object_Pooling OptionBullet;
 	public Object_Pooling PlayerMissile;
 	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
@@ -118,7 +122,9 @@ public class Obj_Storage : MonoBehaviour
 		Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
 		Boss2_Prefab = Resources.Load("Boss/Tow_Boss") as GameObject;
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_2") as GameObject;
-		Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
+        BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet") as GameObject;
+        BulletPrefab_Option = Resources.Load("Bullet/Option_Bullet") as GameObject;
+        Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
@@ -219,6 +225,8 @@ public class Obj_Storage : MonoBehaviour
 		Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");								//ステージ2のボス生成
 		Medium_Size_Enemy1 = new Object_Pooling(Medium_Enemy_Prefab, 1, "Medium");
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player_Bullet");         //プレイヤーのバレットを生成
+        Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
+        OptionBullet = new Object_Pooling(BulletPrefab_Option, 10, "Option_Bullet");
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
