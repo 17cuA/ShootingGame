@@ -954,6 +954,14 @@ public class Enemy_Wave : character_status
 
 	private void OnTriggerExit(Collider col)
 	{
+        if (eState == State.Rush || eState == State.BackRush)
+        {
+            if (col.gameObject.name == "BattleshipType_Enemy(Clone)")
+            {
+                hp = 0;
+            }
+        }
+
 		if(!isBehind)
 		{
             if (eState == State.Rush)

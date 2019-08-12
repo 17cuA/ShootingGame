@@ -33,12 +33,10 @@ public class bullet_status : MonoBehaviour
         if (gameObject.name == "Player_Bullet")
         {
             P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-            P1.Bullet_cnt++;
         }
         else if (gameObject.name == "Player2_Bullet")
         {
             P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-            P2.Bullet_cnt++;
         }
 
     }

@@ -111,7 +111,7 @@ public class Game_Master : MonoBehaviour
 	public string[] Name_List {  get; private set; }
 	public static PLAYER_NUM Number_Of_People { get; private set; }             // 設定保存
 
-	private void Awake()
+    private void Awake()
 	{
 		if (Name_List == null)
 		{

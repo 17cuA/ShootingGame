@@ -543,6 +543,7 @@ public class Player1 : character_status
         {
             Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
             SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+            Bullet_cnt += 1;
         }
         if(Bullet_cnt_Max != 8)
         {
@@ -557,6 +558,7 @@ public class Player1 : character_status
             Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
             Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
             SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+            Bullet_cnt += 2;
         }
         if(Bullet_cnt_Max != 16)
         {
