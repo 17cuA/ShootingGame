@@ -59,7 +59,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		if (playerObj == null)
 		{
 			//プレイヤーがいたら入れる
-			if (GameObject.Find("Player"))
+			if (GameObject.FindGameObjectWithTag("Player"))
 			{
 				playerObj = GameObject.Find("Player");
 				//配列にとりあえず追従位置を入れる

@@ -272,13 +272,14 @@ public class Bit_Shot : MonoBehaviour
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 		{
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
+            //Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 
-			//GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
-			//pl1.transform.rotation = pl1.Direction;
-			//Bullet.transform.position = gameObject.transform.position;
-			//gameObject.transform.rotation = Direction;
-			//gameObject.transform.position = shot_Mazle.transform.position;
-			shot_Delay = 0;
+            //GameObject Bullet = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
+            //pl1.transform.rotation = pl1.Direction;
+            //Bullet.transform.position = gameObject.transform.position;
+            //gameObject.transform.rotation = Direction;
+            //gameObject.transform.position = shot_Mazle.transform.position;
+            shot_Delay = 0;
 		}
 	}
 

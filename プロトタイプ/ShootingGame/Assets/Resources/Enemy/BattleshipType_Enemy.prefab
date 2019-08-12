@@ -107,6 +107,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -114,6 +115,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805154}
@@ -228,6 +230,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -235,6 +238,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805156}
@@ -361,6 +365,7 @@ MonoBehaviour:
   speed: 0.05
   hp: 80
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 30
   Shot_Delay: 0
@@ -368,6 +373,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805156}
@@ -395,8 +401,8 @@ MonoBehaviour:
   initial_position: {x: 25, y: 5, z: 0}
   moving_change_point:
   - {x: 16, y: 5, z: 0}
-  - {x: 11, y: 2.8, z: 0}
-  - {x: -11, y: 2.8, z: 0}
+  - {x: 11, y: 3.8, z: 0}
+  - {x: -11, y: 3.8, z: 0}
   - {x: -32, y: 10, z: 0}
   is_sandwich: 1
   muzzle_parts_scriptes:
@@ -519,6 +525,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -526,6 +533,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805162}
@@ -640,6 +648,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -647,6 +656,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805164}
@@ -761,6 +771,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -768,6 +779,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805166}
@@ -882,6 +894,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -889,6 +902,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805152}
@@ -989,6 +1003,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -996,6 +1011,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805174}
@@ -1110,6 +1126,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -1117,6 +1134,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805206}
@@ -1231,6 +1249,7 @@ MonoBehaviour:
   speed: 0
   hp: 5
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -1238,6 +1257,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 6342699719349805160}
