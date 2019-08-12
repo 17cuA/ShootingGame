@@ -32,11 +32,11 @@ public class Player2 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+		//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+    //------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -70,6 +70,9 @@ public class Player2 : character_status
 
 	public bool Is_Change_Auto;
 	public bool IS_Active;
+
+    public int Bullet_cnt;          //バレットの発射数をかぞえる変数
+    private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -140,6 +143,7 @@ public class Player2 : character_status
 		Is_Change = false;
 		Is_Change_Auto = false;
 		IS_Active = true;
+        Bullet_cnt_Max = 8;
 	}
 
 	new void Update()
@@ -438,13 +442,13 @@ public class Player2 : character_status
 
 	private void Single_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction);
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	private void Double_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	//	ミサイルの発射

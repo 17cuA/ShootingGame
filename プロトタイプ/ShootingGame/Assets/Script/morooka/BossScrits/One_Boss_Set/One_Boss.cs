@@ -168,7 +168,7 @@ public class One_Boss : character_status
 			{
 				foreach (One_Boss_Parts parts in parts_core)
 				{
-					if (parts.gameObject.activeSelf)
+					if (parts.gameObject.activeSelf && parts.hp > 1)
 					{
 						parts.hp = 1;
 					}
@@ -180,7 +180,7 @@ public class One_Boss : character_status
 				End_Flag = true;
 			}
 
-			if (Attack_Type_Instruction < 1)
+			if (Attack_Type_Instruction < 2)
 			{
 				//Player_Tracking_Movement_Attack();
 				//Player_Tracking_Movement_Attack_2();
@@ -197,6 +197,10 @@ public class One_Boss : character_status
 		else if (End_Flag)
 		{
 			transform.position += transform.right * speed;
+			if(transform.position.x >= 20.0f)
+			{
+				Is_Dead = true;
+			}
 		}
 	}
 
