@@ -117,7 +117,7 @@ public class One_Boss : character_status
 		Survival_Time_Cnt = 0;
 		Attack_Now = false;
 
-		Bullet_Num = Random.Range(4, 9);
+		Bullet_Num = Random.Range(2, 5);
 
 		Pos_set = new Vector3[pos_set_prefab.transform.childCount, pos_set_prefab.transform.GetChild(0).childCount];
 		for(int i = 0; i < pos_set_prefab.transform.childCount;i++)
@@ -747,7 +747,7 @@ public class One_Boss : character_status
 			{
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
-				Bullet_Num = Random.Range(4, 9);
+				Bullet_Num = Random.Range(2, 6);
 				Flame = 0;
 				Attack_Now = false;
 			}
@@ -1342,7 +1342,7 @@ public class One_Boss : character_status
 		{
 			Attack_Now = true;
 			Flame++;
-			if (Flame == 60)
+			if (Flame == 40)
 			{
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
@@ -1356,7 +1356,7 @@ public class One_Boss : character_status
 		else if (Attack_Step == 1)
 		{
 			Flame++;
-			if (Flame == 60)
+			if (Flame == 40)
 			{
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
@@ -1370,7 +1370,7 @@ public class One_Boss : character_status
 		else if (Attack_Step == 2)
 		{
 			Flame++;
-			if (Flame == 60)
+			if (Flame == 30)
 			{
 				Flame = 0;
 				Attack_Step = 0;
