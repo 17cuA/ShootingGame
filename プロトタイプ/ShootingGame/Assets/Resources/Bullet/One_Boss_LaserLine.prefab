@@ -4820,7 +4820,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10034,7 +10034,7 @@ PrefabInstance:
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 0.1
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
@@ -10044,7 +10044,7 @@ PrefabInstance:
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
       propertyPath: ShapeModule.radius.value
-      value: 0.07
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
@@ -10069,7 +10069,7 @@ PrefabInstance:
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
@@ -10084,6 +10084,26 @@ PrefabInstance:
     - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
         type: 3}
       propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.69746155
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307947317432669245, guid: 3427a8b37161ecf4f9f7e9edace5ebf9,
+        type: 3}
+      propertyPath: InitialModule.size3D
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
