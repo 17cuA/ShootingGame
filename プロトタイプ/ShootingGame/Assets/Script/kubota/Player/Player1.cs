@@ -6,6 +6,8 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using Power;
 using StorageReference;
 //using Power;
@@ -56,6 +58,8 @@ public class Player1 : character_status
 
 	//public Line_Beam line_beam;
 
+	List<GameObject> bullet_data = new List<GameObject>();
+	
 	public enum Bullet_Type  //弾の種類
 	{
 		Single,
@@ -261,6 +265,15 @@ public class Player1 : character_status
 		{
 			capsuleCollider.enabled = false;
 		}
+
+		for(int i = 0; i< bullet_data.Count; i++)
+		{
+			if( !bullet_data[i].activeSelf)
+			{
+				bullet_data.RemoveAt(i);
+			}
+		}
+
 	}
 	void SetTargetPosition()
 	{
@@ -442,7 +455,7 @@ public class Player1 : character_status
         //マニュアル発射の時
 		if (!Is_Change_Auto)
 		{
-			Shot_DelayMax = 1;
+			Shot_DelayMax = 2;
 			if (Shot_Delay > Shot_DelayMax)
 			{
 				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
@@ -514,7 +527,7 @@ public class Player1 : character_status
 
 					}
 					// 4発撃った後、10フレーム程置く
-					else if (shoot_number == 15)
+					else if (shoot_number == 30)
 					{
 						shoot_number = 0;
 						effect_num = 0;
@@ -542,7 +555,7 @@ public class Player1 : character_status
 	{
         if(!Is_Change_Auto)
         {
-            if (Bullet_cnt < Bullet_cnt_Max)
+            if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
             {
                 Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
                 SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
@@ -552,9 +565,9 @@ public class Player1 : character_status
         }
         else
         {
-            if (Bullet_cnt < Bullet_cnt_Max && Bullet_cnt < 4)
+            if (/*Bullet_cnt < Bullet_cnt_Max &&*/ Bullet_cnt < 100 && bullet_data.Count < 10)
             {
-                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+                bullet_data.Add( Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
                 SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                 Bullet_cnt += 1;
             }
@@ -567,10 +580,10 @@ public class Player1 : character_status
 	//二連発射
 	private void Double_Fire()
 	{
-        if(Bullet_cnt < Bullet_cnt_Max)
+        if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100 && bullet_data.Count < 10)
         {
-            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
             SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
             Bullet_cnt += 2;
         }
