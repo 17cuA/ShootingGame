@@ -2461,11 +2461,8 @@ MonoBehaviour:
   intervalForCharacterDisplay: 0.05
   currentLine: 0
   sinariocount: 0
-  Ghosttutorial: {fileID: 0}
   frame: 0
-  can: 0
-  Arrow: {fileID: 0}
-  frame1: 0
+  Is_Display: 0
 --- !u!4 &1806531171
 Transform:
   m_ObjectHideFlags: 0
@@ -3016,7 +3013,7 @@ PrefabInstance:
     - target: {fileID: 1098502390344489282, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4387535920877268954, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
         type: 3}
