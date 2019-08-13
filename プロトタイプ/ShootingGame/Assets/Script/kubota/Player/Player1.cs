@@ -439,6 +439,7 @@ public class Player1 : character_status
 			Is_Change_Auto = !Is_Change_Auto;
 		}
 
+        //マニュアル発射の時
 		if (!Is_Change_Auto)
 		{
 			Shot_DelayMax = 1;
@@ -539,13 +540,26 @@ public class Player1 : character_status
     //単発
 	private void Single_Fire()
 	{
-        if(Bullet_cnt < Bullet_cnt_Max)
+        if(!Is_Change_Auto)
         {
-            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-            SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-            Bullet_cnt += 1;
+            if (Bullet_cnt < Bullet_cnt_Max)
+            {
+                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                Bullet_cnt += 1;
+            }
+
         }
-        if(Bullet_cnt_Max != 8)
+        else
+        {
+            if (Bullet_cnt < Bullet_cnt_Max && Bullet_cnt < 4)
+            {
+                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                Bullet_cnt += 1;
+            }
+        }
+        if (Bullet_cnt_Max != 8)
         {
             Bullet_cnt_Max = 8;
         }
