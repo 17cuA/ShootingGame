@@ -17,6 +17,7 @@ using TextDisplay;
 
 public class RankingDisplay : MonoBehaviour
 {
+	[SerializeField, Header("スクロールのスピード")] private float scroll_speed;
 	[SerializeField, Header("表示文字")] public string string_to_display;
 
 	private Character_Display String_Display;
@@ -24,7 +25,7 @@ public class RankingDisplay : MonoBehaviour
 	public Vector3 String_pos;
 	public float String_size;
 	public string String_String { get; set; }
-
+	public GameObject Scroll_Center { get; set; }
 
 	private Ranking_Strage.RankingInformation[] Rankings_Dis { get; set; }
 	public Character_Display[] Object_To_Display { private set; get; }
@@ -35,13 +36,17 @@ public class RankingDisplay : MonoBehaviour
 	public void shoki()
 	{
 		String_parent = new GameObject();
+
+		Scroll_Center = new GameObject("Scroll_Center");
+		Scroll_Center.transform.parent = transform;
+		Scroll_Center.transform.localPosition = Vector3.zero;
+
 		String_parent.transform.parent = transform;
 		String_String = string_to_display;
 		String_Display = new Character_Display(String_String.Length, "morooka/SS", String_parent, String_pos);
 		String_Display.Character_Preference(string_to_display);
 		String_Display.Size_Change(new Vector3(String_size, String_size, String_size));
 		String_Display.Centering();
-
 
 		Rankings_Dis = Ranking_Strage.Strage;
 
@@ -52,7 +57,7 @@ public class RankingDisplay : MonoBehaviour
 		float y_pos = 15.0f;
 		Font_Size = 1.0f / 2.0f;
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			Rank_Pos[i].y = y_pos;
 			Rank_Pos[i].x = 1920.0f / 2.0f;
@@ -67,6 +72,19 @@ public class RankingDisplay : MonoBehaviour
 			Object_To_Display[i].Character_Preference(s_temp);
 			Object_To_Display[i].Size_Change(new Vector3(Font_Size, Font_Size, Font_Size));
 			Object_To_Display[i].Centering();
+
+			Rank_Parent[i].transform.parent = Scroll_Center.transform;
+		}
+	}
+
+	private void Update()
+	{
+		float Moving_Distance = scroll_speed * Input.GetAxis("Vertical") + Scroll_Center.transform.position.y;
+		if(Moving_Distance >= 0.0f && Moving_Distance <= 100.0f)
+		{
+			Vector3 temp = Scroll_Center.transform.position;
+			temp.y = Moving_Distance;
+			Scroll_Center.transform.position = temp;
 		}
 	}
 }
