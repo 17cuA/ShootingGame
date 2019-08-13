@@ -79,12 +79,12 @@ public class RankingDisplay : MonoBehaviour
 
 	private void Update()
 	{
-		float Moving_Distance = scroll_speed * Input.GetAxis("Vertical") + Scroll_Center.transform.position.y;
-		if(Moving_Distance >= 0.0f && Moving_Distance <= 100.0f)
-		{
-			Vector3 temp = Scroll_Center.transform.position;
-			temp.y = Moving_Distance;
-			Scroll_Center.transform.position = temp;
-		}
+		//float Moving_Distance = scroll_speed * Input.GetAxis("Vertical") + Scroll_Center.transform.position.y;
+		//if(Moving_Distance >= 0.0f && Moving_Distance <= 100.0f)
+		//{
+		//	Vector3 temp = Scroll_Center.transform.position;
+		//	temp.y = Moving_Distance;
+		//	Scroll_Center.transform.position = temp;
+		//}
 	}
 }
