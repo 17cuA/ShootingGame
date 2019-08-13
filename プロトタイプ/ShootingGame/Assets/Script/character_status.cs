@@ -117,7 +117,17 @@ public class character_status : MonoBehaviour
 			Is_Dead = true;
 			Reset_Status();
 		}
-		else if (gameObject.tag != "Player")
+        else if (transform.name == "BattleshipType_Enemy(Clone)" || transform.name == "BattleshipType_Enemy")
+        {
+            //スコア
+            Game_Master.MY.Score_Addition(score);
+            SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[9]);
+            //爆発処理の作成
+            ParticleCreation(10);
+            Is_Dead = true;
+            Reset_Status();
+        }
+        else if (gameObject.tag != "Player")
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score);
