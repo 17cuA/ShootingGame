@@ -682,16 +682,15 @@ public class One_Boss : character_status
 
 			if (Flame >= 30)
 			{
-
-				if (transform.rotation != Quaternion.Euler(For_body_Upward))
-				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), rotational_speed);
-				}
-				else if (transform.rotation == Quaternion.Euler(For_body_Upward))
-				{
-					Attack_Step++;
-					Flame = 0;
-				}
+					if (transform.rotation != Quaternion.Euler(For_body_Upward))
+					{
+						transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), rotational_speed);
+					}
+					else if (transform.rotation == Quaternion.Euler(For_body_Upward))
+					{
+						Attack_Step++;
+						Flame = 0;
+					}
 			}
 		}
 		else if (Attack_Step == 4)
@@ -1548,13 +1547,19 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Laser_Shooting()
 	{
-		foreach (GameObject obj in laser_muzzle)
+		Shot_Delay++;
+
+		if (Shot_Delay > Shot_DelayMax)
 		{
-			if (obj.activeSelf)
+			foreach (GameObject obj in laser_muzzle)
 			{
-				Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-				laser.Manual_Start(obj.transform);
+				if (obj.activeSelf)
+				{
+					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
 			}
+			Shot_Delay = 0;
 		}
 	}
 	#endregion

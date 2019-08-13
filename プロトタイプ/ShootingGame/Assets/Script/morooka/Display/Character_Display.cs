@@ -100,6 +100,7 @@ namespace TextDisplay
 		{
 			if (s.Length == Word_Count)
 			{
+				controler_obj.name = s;
 				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
@@ -118,6 +119,7 @@ namespace TextDisplay
 
 				for (int i = 0; i < s.Length; i++)
 				{
+					Character_Object[i].name = "Character_" + s[i];
 					Display_Characters[i].sprite = Look[character_search(s[i])];
 				}
 			}

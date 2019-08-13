@@ -48,12 +48,18 @@ public class bullet_status : MonoBehaviour
 		//	Debug.LogError("消えた？");
 		//	gameObject.SetActive(false);
 		//}
-		if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
-			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		if (gameObject.tag == "Player_Bullet")
 		{
-			gameObject.SetActive(false);
-            if (P1 != null) P1.Bullet_cnt--;
-            if (P2 != null) P2.Bullet_cnt--;
+			if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
+				|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+			{
+				if (gameObject.tag == "Player_Bullet")
+				{
+					if (P1 != null) P1.Bullet_cnt--;
+					if (P2 != null) P2.Bullet_cnt--;
+				}
+				gameObject.SetActive(false);
+			}
 		}
 	}
 
@@ -69,8 +75,8 @@ public class bullet_status : MonoBehaviour
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
-            if (P1 != null) P1.Bullet_cnt--;
-            if (P2 != null) P2.Bullet_cnt--;
+            //if (P1 != null) P1.Bullet_cnt--;
+            //if (P2 != null) P2.Bullet_cnt--;
         }
 		else if(gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
