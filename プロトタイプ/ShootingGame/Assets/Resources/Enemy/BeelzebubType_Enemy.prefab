@@ -51,6 +51,7 @@ MonoBehaviour:
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 9113974243012657975}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -58,6 +59,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 1377363440269828502}
@@ -65,9 +67,13 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  eState: 0
   playerObj: {fileID: 0}
   speedX: 5
   rollSpeed: 2.5
+  rotaX: 0
+  rotaY: 0
+  rotaZ: 0
   degree: 0
   degree_plus: 0
   rollDelay: 0
@@ -77,9 +83,11 @@ MonoBehaviour:
   frameCnt: 0
   followStartTime: 210
   followTimeCnt: 0
-  followEndTime: 420
+  followEndTime: 300
   saveDeg: 0
   saveDig_plus: 0
+  isInc: 0
+  isDec: 0
 --- !u!136 &9113974243012657975
 CapsuleCollider:
   m_ObjectHideFlags: 0

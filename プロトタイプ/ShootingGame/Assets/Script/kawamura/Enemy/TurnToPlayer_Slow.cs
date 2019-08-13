@@ -381,16 +381,28 @@ public class TurnToPlayer_Slow : character_status
 		}
 	}
 
- //   private void OnTriggerStay(Collider col)
- //   {
+	private void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.name == "BattleshipType_Enemy(Clone)")
+		{
+			hp = 0;
+		}
+		if(col.gameObject.tag=="Player_Bullet")
+		{
+			hp = 0;
+		}
+
+	}
+	//   private void OnTriggerStay(Collider col)
+	//   {
 	//	colList.Add(col.gameObject);
 	//	if (col.gameObject.tag=="Player")
- //       {
+	//       {
 	//		isInc = false;
 	//		isDec = false;
 
- //       }  
- //   }
+	//       }  
+	//   }
 
 	//private void OnTriggerExit(Collider col)
 	//{
