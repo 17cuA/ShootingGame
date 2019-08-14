@@ -71,6 +71,7 @@ public class EnemyCreate : MonoBehaviour
     public GameObject enemy_Beelzebub_Group_FourBack;
     public GameObject enemy_Bacula_Sixteen;
     public GameObject enemy_Meteor;
+	public GameObject enemy_MEteor_Under;
     public GameObject enemy_Meteor_Mini;
 
 	public GameObject saveEnemyObj;
@@ -88,8 +89,8 @@ public class EnemyCreate : MonoBehaviour
 	public int turning_frame = 180;
 	public string nextEnemy;
 
-	public bool isCreate;		//表示するときにtrueにする
-
+	public bool isCreate;       //表示するときにtrueにする
+	public bool isBaculaDestroy = false;
     void Start()
     {
 		//位置オブジェクト取得
@@ -154,9 +155,10 @@ public class EnemyCreate : MonoBehaviour
         enemy_Bacula_Sixteen = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
         enemy_Meteor= Resources.Load("Enemy/Enemy_Meteor") as GameObject;
         enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
+		enemy_MEteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
 
-        //群れカウント初期化
-        groupCnt = 1;
+		//群れカウント初期化
+		groupCnt = 1;
         //nowGroupCnt = 1;
         //for (int i = 0; i < groupCntArray.Length; i++)
         //{
@@ -196,6 +198,15 @@ public class EnemyCreate : MonoBehaviour
 		if (saveEnemyObj != null)
 		{
 
+		}
+
+		if(isBaculaDestroy)
+		{
+			if (frameCnt < 19390)
+			{
+				frameCnt = 19390;
+			}
+			isBaculaDestroy = false;
 		}
         //CreateCheck();
         CreateEnemyGroup_01();
@@ -962,7 +973,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "バキュラ群";
 			Next_Condition(7200);
 		}
-        //バキュラ群 18440
+        //バキュラ群 17030
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
         {
             Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
@@ -970,13 +981,13 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "隕石1";
             Next_Condition(2360);
         }
-        //1隕石20800
+        //1隕石 19390
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
         {
             Instantiate(enemy_Meteor, createMeteorPosRm1_162.transform.position, transform.rotation);
 
             nextEnemy = "隕石2";
-            Next_Condition(450);
+            Next_Condition(330);
         }
         //2隕石 21250
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
@@ -984,15 +995,15 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Meteor, createMeteorPosR4_814.transform.position, transform.rotation);
 
             nextEnemy = "隕石3";
-            Next_Condition(530);
+            Next_Condition(350);
         }
         //3隕石 21780
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
         {
-            Instantiate(enemy_Meteor, createMeteorPosRm4_814.transform.position, transform.rotation);
+            Instantiate(enemy_MEteor_Under, createMeteorPosRm4_814.transform.position, transform.rotation);
 
             nextEnemy = "隕石4";
-            Next_Condition(390);
+            Next_Condition(270);
         }
         //4隕石 22170
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
@@ -1000,7 +1011,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Meteor, createMeteorPosR2_988.transform.position, transform.rotation);
 
             nextEnemy = "隕石5";
-            Next_Condition(300);
+            Next_Condition(180);
         }
         //5隕石 22470
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
