@@ -50,7 +50,8 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createMeteorPosR1_494;
     public GameObject createMeteorPosRm1_162;
     public GameObject createMeteorPosRm2_822;
-    public GameObject createMeteorPosRm4_814;
+	public GameObject createMeteorPosRm3_57;
+	public GameObject createMeteorPosRm4_814;
 
     //public GameObject enemy_UFO_Group;
     //public GameObject enemy_ClamChowder_Group_Four;
@@ -134,7 +135,8 @@ public class EnemyCreate : MonoBehaviour
         createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
         createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
         createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
-        createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
+		createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
+		createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
 
         //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
         //enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
@@ -997,15 +999,15 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Meteor, createMeteorPosR4_814.transform.position, transform.rotation);
 
             nextEnemy = "隕石3";
-            Next_Condition(350);
+            Next_Condition(290);
         }
         //3隕石 21780
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
         {
-            Instantiate(enemy_MEteor_Under, createMeteorPosRm4_814.transform.position, transform.rotation);
+            Instantiate(enemy_MEteor_Under, createMeteorPosRm3_57.transform.position, transform.rotation);
 
             nextEnemy = "隕石4";
-            Next_Condition(270);
+            Next_Condition(300);
         }
         //4隕石 22170
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
@@ -1024,7 +1026,7 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(380);
         }
 
-
+		//22300
     }
 
     void CreateEnemyGroup_02()
