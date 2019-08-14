@@ -35,12 +35,13 @@ public class Ranking_Strage : MonoBehaviour
 		{
 			Set_Score("YOU", Game_Master.display_score);
 			_Display = GetComponent<RankingDisplay>();
-			_Display.shoki();
+			_Display.Init();
 		}
 	}
 
 	public void Update()
-	{if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eTITLE)
+	{
+		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eTITLE)
 		{
 			if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.Alpha0))
 			{
@@ -50,21 +51,21 @@ public class Ranking_Strage : MonoBehaviour
 		}
 	}
 
-	//　配列のソート（ランキングの設定）
+	//　配列の降順ソート（ランキングの設定）
 	public RankingInformation[] Strage_Sort(RankingInformation[] rankingArray)
 	{
 		RankingInformation temp;
 
 		// 最後の要素を除いて、すべての要素を並べ替えます
-		for (int i = 0; i < Reserve_Number - 1; i++)
+		for (int i = 0; i < Max_num; i++)
 		{
-			for (int j = 0; j < Reserve_Number - i - 1; j++)
+			for (int j = Max_num - i; j > i - i; j--)
 			{
-				if (rankingArray[j].score < rankingArray[j + 1].score)
+				if (rankingArray[j].score > rankingArray[j - 1].score)
 				{
 					temp = rankingArray[j];
-					rankingArray[j] = rankingArray[j + 1];
-					rankingArray[j + 1] = temp;
+					rankingArray[j] = rankingArray[j - 1];
+					rankingArray[j - 1] = temp;
 				}
 			}
 		}
@@ -103,4 +104,6 @@ public class Ranking_Strage : MonoBehaviour
 			Debug.Log("Lode_kekka:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
 		}
 	}
+
+
 }
