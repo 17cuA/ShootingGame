@@ -17,32 +17,58 @@ using TextDisplay;
 
 public class RankingDisplay : MonoBehaviour
 {
+	const float kScreenWidth = 3840f;
+
 	[SerializeField, Header("表示文字")] public string string_to_display;
 
-	private Character_Display String_Display;
-	private GameObject String_parent;
-	public Vector3 String_pos;
-	public float String_size;
+	// ヘッダー用
+	private Character_Display header_Display;
+	private GameObject header_parent;
+	public Vector3 header_pos;
+	public float header_size;
 	public string String_String { get; set; }
 
+	// 名前入力用
+	private Character_Display inputNameDisplay;
+	private InputRankingName inputNameClass;
+	private Vector2 inputNamePos = Vector2.zero;
+	private float inputNameSize = 0f;
 
+	// ランキング用
 	private Ranking_Strage.RankingInformation[] Rankings_Dis { get; set; }
 	public Character_Display[] Object_To_Display { private set; get; }
 	public Vector3[] Rank_Pos { get; set; }
 	private GameObject[] Rank_Parent { get; set; }
 	private float Font_Size { get; set; }
 
-	public void shoki()
+	public void Init()
 	{
-		String_parent = new GameObject();
-		String_parent.transform.parent = transform;
+		// ヘッダー表示
+		header_parent = new GameObject();
+		header_parent.transform.parent = transform;
 		String_String = string_to_display;
-		String_Display = new Character_Display(String_String.Length, "morooka/SS", String_parent, String_pos);
-		String_Display.Character_Preference(string_to_display);
-		String_Display.Size_Change(new Vector3(String_size, String_size, String_size));
-		String_Display.Centering();
+		header_pos.x = kScreenWidth / 2f / 2f + 10f;
+		header_pos.y = 180f;
+		header_size = 0.8f;
+		header_Display = new Character_Display(String_String.Length, "morooka/SS", header_parent, header_pos);
+		header_Display.Character_Preference(string_to_display);
+		header_Display.Size_Change(new Vector3(header_size, header_size, header_size));
+		header_Display.Centering();
 
+		// 名前入力表示
+		inputNameClass = new InputRankingName("YOU");
+		GameObject inputNameParent = new GameObject("InputName");
+		inputNameParent.transform.parent = transform;
+		inputNamePos.x = -330f;
+		inputNamePos.y = 20f;
+		inputNameSize = 1f;
+		inputNameDisplay = new Character_Display(inputNameClass.Name.Length, "morooka/SS", inputNameParent, inputNamePos);
+		inputNameDisplay.Character_Preference(inputNameClass.Name);
+		inputNameClass.NameImageList = inputNameDisplay.Display_Characters;
+		inputNameDisplay.Size_Change(Vector3.one * inputNameSize);
+		inputNameDisplay.Centering();
 
+		// ランキング表示
 		Rankings_Dis = Ranking_Strage.Strage;
 
 		Rank_Parent = new GameObject[Ranking_Strage.Max_num];
@@ -55,7 +81,7 @@ public class RankingDisplay : MonoBehaviour
 		for (int i = 0; i < 5; i++)
 		{
 			Rank_Pos[i].y = y_pos;
-			Rank_Pos[i].x = 1920.0f / 2.0f;
+			Rank_Pos[i].x = kScreenWidth / 2.0f / 2.0f;
 			y_pos -= 150.0f / 2.0f;
 
 			int ranking_num = i + 1;
@@ -68,5 +94,12 @@ public class RankingDisplay : MonoBehaviour
 			Object_To_Display[i].Size_Change(new Vector3(Font_Size, Font_Size, Font_Size));
 			Object_To_Display[i].Centering();
 		}
+	}
+
+	void Update()
+	{
+		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR) { return; }
+		inputNameClass.SelectingName();
+		inputNameDisplay.Character_Preference(inputNameClass.Name);
 	}
 }

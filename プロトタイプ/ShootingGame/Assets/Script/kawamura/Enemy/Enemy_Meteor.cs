@@ -16,7 +16,7 @@ public class Enemy_Meteor : character_status
 
     void Update()
     {
-        //移動（カメラが動くようになったら必要ないかも）
+        //移動
         velocity = gameObject.transform.rotation * new Vector3(-speed, 0, 0);
         gameObject.transform.position += velocity * Time.deltaTime;
 
