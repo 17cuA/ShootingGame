@@ -25,6 +25,7 @@ AudioMixerController:
     - 2c8dba93d12abde419d6d5359a1b5d8b
     - d651a537b811a964d973f2052f2733fd
     - 76f13d296b8a4cc49a23b3b95b3fc94c
+    - c5bb0f1c5a0b74d97a1711d02bc810d2
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -44,6 +45,7 @@ AudioMixerGroupController:
   - {fileID: 243584365062592448}
   - {fileID: 243745677009424614}
   - {fileID: 243152008266156140}
+  - {fileID: 243391020985862012}
   m_Volume: ac5a541f0c872b84caa14601113333d6
   m_Pitch: cc7c412ecd723d746bd44693843bbe8b
   m_Effects:
@@ -152,6 +154,24 @@ AudioMixerGroupController:
   m_Effects:
   - {fileID: 244237421622245946}
   - {fileID: 244833315608426172}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243391020985862012
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Explosion_smoll
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: c5bb0f1c5a0b74d97a1711d02bc810d2
+  m_Children: []
+  m_Volume: f7fc6d82176ed4b7c9d4cfc0c7e557ed
+  m_Pitch: 8b7a3404b5b424b4faac72d323205107
+  m_Effects:
+  - {fileID: 244947876570763006}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -360,6 +380,20 @@ AudioMixerEffectController:
     m_GUID: e2c52249f38fa4c478e53e545e272f8e
   - m_ParameterName: Maximum amp
     m_GUID: 8778c75edb231244cb3a7d20b5650757
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244947876570763006
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: daf2fa1b97fa74f3b9336b569cda5b32
+  m_EffectName: Attenuation
+  m_MixLevel: 7e741d95ee5ff4340aea2502e9716bfe
+  m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0

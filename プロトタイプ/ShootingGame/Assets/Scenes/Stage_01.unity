@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8532,11 +8532,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6556767549326370844, guid: 5c5f998eb873b514590001b25cd5d3f2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 1370738883538380019, guid: 5c5f998eb873b514590001b25cd5d3f2,
         type: 3}
       propertyPath: m_Name
@@ -14007,6 +14002,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6556767549326370844, guid: 5c5f998eb873b514590001b25cd5d3f2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c5f998eb873b514590001b25cd5d3f2, type: 3}
 --- !u!1 &1900640039 stripped
@@ -15633,6 +15633,12 @@ PrefabInstance:
       propertyPath: Explosion_Smole
       value: 
       objectReference: {fileID: 2035079497047024309}
+    - target: {fileID: 2035079497047024309, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243391020985862012, guid: fbe2e1f9471704d4fad358c1656182b1,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 344868039040152455, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
