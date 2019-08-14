@@ -527,7 +527,7 @@ public class Player1 : character_status
 
 					}
 					// 4発撃った後、10フレーム程置く
-					else if (shoot_number == 30)
+					else if (shoot_number == 40)
 					{
 						shoot_number = 0;
 						effect_num = 0;

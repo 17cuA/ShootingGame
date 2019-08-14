@@ -12,6 +12,7 @@
 // 2019/05/24：オブジェクトの親子関係の修正
 // 2019/05/27：表示非表示の選択追加
 // 2019/07/19：文字のポジション中央揃え化
+// 2019/08/13：文字の位置変更
 //----------------------------------------------------------------------------------------------
 //
 // 私を読んで
@@ -309,5 +310,13 @@ namespace TextDisplay
 				Character_Object[i].transform.localPosition = temp;
 			}
 		}
-    }
+
+		/// <summary>
+		/// 位置変更
+		/// </summary>
+		public void Position_Change(Vector3 next_pos)
+		{
+			controler_obj.transform.localPosition = next_pos;
+		}
+	}
 }
