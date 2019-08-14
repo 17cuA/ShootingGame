@@ -91,7 +91,9 @@ public class EnemyCreate : MonoBehaviour
 
 	public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
-    void Start()
+	public bool isOneBossDead = false;
+
+	void Start()
     {
 		//位置オブジェクト取得
 		//右側
