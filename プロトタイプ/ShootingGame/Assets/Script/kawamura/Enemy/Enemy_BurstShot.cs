@@ -73,7 +73,7 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;
 
-		if (isShot && transform.position.z == 0)
+		if (isShot && transform.localPosition.z == 0)
 		{
 			if (isBurst)
 			{
