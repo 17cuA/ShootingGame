@@ -101,9 +101,7 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
-			Reset_BulletType();
-		});
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
 		///////////////////////
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { activeShield = false; });
 	}
@@ -170,7 +168,6 @@ public class Player1 : character_status
 			if (Is_Resporn)
 			{
 				resporn_Injection.Play();
-				//Debug.Log("hei");
 				capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
 				transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction, startTime);
@@ -229,6 +226,7 @@ public class Player1 : character_status
 						invincible = true;         //無敵状態にするかどうかの処理
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
+                        target = direction;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
 				}
@@ -547,7 +545,6 @@ public class Player1 : character_status
 			{
 				effect_num = 0;
 			}
-
 		}
 	}
     //単発
@@ -591,7 +588,6 @@ public class Player1 : character_status
         {
             Bullet_cnt_Max = 16;
         }
-
     }
 	//	ミサイルの発射
 	private void Missile_Fire()
@@ -610,7 +606,6 @@ public class Player1 : character_status
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 	}
 	//ミサイルをアクティブに
 	private void ActiveMissile()
@@ -623,7 +618,6 @@ public class Player1 : character_status
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 	}
 	//二連をできるように
 	private void ActiveDouble()
@@ -637,7 +631,6 @@ public class Player1 : character_status
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -652,7 +645,6 @@ public class Player1 : character_status
 		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
 		Laser.SetActive(true);
 	}
 	//シールドの発動

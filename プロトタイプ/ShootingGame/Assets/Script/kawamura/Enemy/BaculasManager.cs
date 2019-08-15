@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaculasManager : MonoBehaviour
 {
     GameObject[] childObjects;
+	GameObject createEnemyObj;
 
     public int childNum;                    //最初の敵(子供)の総数
     public int remainingEnemiesCnt;         //残っている敵の数
@@ -15,11 +16,16 @@ public class BaculasManager : MonoBehaviour
     public Transform itemTransform;
     public Vector3 itemPos;
 
+	EnemyCreate eCreate;
+
     public bool isDead = false;
     public bool isItemDrop = true;
 
     private void Awake()
     {
+		createEnemyObj = GameObject.Find("CreateEnemy");
+		eCreate = createEnemyObj.GetComponent<EnemyCreate>();
+
         childNum = transform.childCount;
         remainingEnemiesCnt = childNum;
 
@@ -51,6 +57,7 @@ public class BaculasManager : MonoBehaviour
             notDefeatedEnemyCnt = 0;
             defeatedEnemyCnt = 0;
             remainingEnemiesCnt = childNum;
+			eCreate.isBaculaDestroy = true;
             gameObject.SetActive(false);
             //Destroy(this.gameObject);
             //gameObject.SetActive(false);

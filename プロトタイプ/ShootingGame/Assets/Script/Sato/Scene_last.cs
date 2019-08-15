@@ -79,9 +79,9 @@ public class Scene_last : MonoBehaviour
 		}
 
 
-		if (Input.GetButton("Fire1") && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
-		{
-			Scene_Manager.Manager.Screen_Transition_To_Caution();
-		}
+		//if (Input.anyKey && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+		//{
+		//	Scene_Manager.Manager.Screen_Transition_To_Caution();
+		//}
 	}
 }

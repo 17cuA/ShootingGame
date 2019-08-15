@@ -29,13 +29,15 @@ public class Obj_Storage : MonoBehaviour
     private GameObject BulletPrefab_P2;            //２P用の弾プレハブ情報
     private GameObject BulletPrefab_Option;         //オプション用の球プレハブ情報
 	private GameObject Bullet_Prefab_E;							//エネミーの弾のPrefab情報
-	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
+    private GameObject Bullet_Prefab_BattleShip;        // バトルシップタイプの弾のPrefab情報
+    private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject UfoType_Enemy_Prefab;				// UFO型エネミーのプレハブ
 	private GameObject UfoType_Enemy_Item_Prefab;			// UFO型エネミー（アイテムドロップ）
 	private GameObject UfoMotherType_Enemy_Prefab;		// UFO母艦型エネミーのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;	// 貝型エネミーのプレハブ
 	private GameObject OctopusType_Enemy_Prefab;			// タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;		// ハエ型エネミーのプレハブ
+    private GameObject BattleShip_Enemy_Prefab;     // 戦艦型エネミーのプレハブ
 	private GameObject Option_Prefab;							//オプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
 	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
@@ -56,6 +58,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PlayerMissile;
 	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
+    public Object_Pooling BattleShipBullet;
 	public Object_Pooling Beam_Bullet_E;
 	public Object_Pooling UfoType_Enemy;
 	public Object_Pooling UfoType_Item_Enemy;
@@ -63,6 +66,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling ClamChowderType_Enemy;
 	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
+    public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling Option;
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
@@ -78,7 +82,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[18];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[20];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 
 	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
@@ -127,14 +131,16 @@ public class Obj_Storage : MonoBehaviour
         Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
-		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+        Bullet_Prefab_BattleShip = Resources.Load("Bullet/GameObject") as GameObject;
+        Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
 		UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 		UfoType_Enemy_Item_Prefab = Resources.Load("Enemy/UfoType_Enemy_Item") as GameObject;
 		UfoMotherType_Enemy_Prefab = Resources.Load("Enemy/UfoMotherType_Enemy") as GameObject; 
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
 		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject; ;
-		Option_Prefab = Resources.Load("Option/Option") as GameObject;		//オプションのロード
+        BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject; ;
+        Option_Prefab = Resources.Load("Option/Option") as GameObject;		//オプションのロード
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
@@ -177,8 +183,10 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/18_gradius_se_FORCE_FIELD");		//フォースフィールド（シールド）
 		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_powerup");			//
 		audio_se[17] = Resources.Load<AudioClip>("Sound/Teacher_SE/gradius_SE_Player_Laser");	//レーザーの発射音
-		//------------------------------------------------------------------------------
-		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
+        audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)"); //小型爆発
+        audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");//戦艦タイプの爆発音
+        //------------------------------------------------------------------------------
+        audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
 		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_03");
 		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_04");
@@ -231,13 +239,15 @@ public class Obj_Storage : MonoBehaviour
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 20, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
-		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
+        BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+        UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 		UfoType_Item_Enemy = new Object_Pooling(UfoType_Enemy_Item_Prefab, 5, "UfoType_Item_Enemy");	//UFO型のエネミーでアイテムを落とすやつを生成
 		UfoMotherType_Enemy = new Object_Pooling(UfoMotherType_Enemy_Prefab, 1, "UfoMotherType_Enemy");         // UFO母艦型エネミーを生成
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");		// 貝型エネミーを生成
 		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
-		Option = new Object_Pooling(Option_Prefab, 4, "Option");
+        BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");
+        Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");

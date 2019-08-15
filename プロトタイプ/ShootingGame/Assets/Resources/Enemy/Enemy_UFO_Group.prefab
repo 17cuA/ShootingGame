@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  parentObj: {fileID: 0}
   childNum: 0
   remainingEnemiesCnt: 0
   defeatedEnemyCnt: 0
   notDefeatedEnemyCnt: 0
+  myName: 
   itemTransform: {fileID: 0}
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
@@ -295,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: burst_Times
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -560,7 +562,7 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: burst_Times
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -685,7 +687,7 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: burst_Times
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -1110,7 +1112,7 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: burst_Times
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
