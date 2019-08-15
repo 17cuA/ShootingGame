@@ -215,7 +215,7 @@ public class One_Boss : character_status
 
 		if (Start_Flag)
 		{
-			Start_Anime();
+			Start_Anime_2();
 		}
 		else if (!End_Flag && !Start_Flag)
 		{
@@ -457,194 +457,111 @@ public class One_Boss : character_status
 		Flame = 0;
 	}
 	#region スタートアニメ_1
-	//private void Start_Anime()
-	//{
-	//	if (Attack_Step == 0)
-	//	{
-	//		Target_2 = transform.position;
-	//		Attack_Step++;
-	//	}
-	//	else if(Attack_Step == 1)
-	//	{
-	//		Vector3 temp = Target_2;
-	//		temp.x = Pos_set[0, 0].x;
-	//		Target_2 = temp;
-	//		if(transform.position != Target_2)
-	//		{
-	//			if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-	//			{
-	//				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//			}
-	//			if (Vector_Size(Target_2, transform.position) < Speed_Change_Distance_A)
-	//			{
-	//				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//			}
-	//			transform.position = Moving_To_Target_A(transform.position, Target_2, Now_Speed_A);
-	//		}
-	//		else if(transform.position == Target_2)
-	//		{
-	//			maenoiti = transform.position;
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 2)
-	//	{
-	//		bool[] b = new bool[2] { false, false};
-
-	//		if (Vector_Size(Standby_Pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A 
-	//			&& Vector_Size(Standby_Pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//		}
-	//		if (Vector_Size(Init_Weapons_pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A 
-	//			&& Vector_Size(Init_Weapons_pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-	//		{
-
-	//			if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//		}
-
-	//		for (int i = 0; i < weapons.Length; i++)
-	//		{
-	//			if(weapons[i].transform.localPosition != Init_Weapons_pos[i])
-	//			{
-	//				weapons[i].transform.localPosition = Moving_To_Target_A(weapons[i].transform.localPosition, Init_Weapons_pos[i], Now_Speed_A * 1000.0f);
-	//				b[i] = false;
-	//			}
-	//			else if(weapons[i].transform.localPosition == Init_Weapons_pos[i])
-	//			{
-	//				b[i] = true;
-	//			}
-	//		}
-
-	//		if(b[0]&&b[1])
-	//		{
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 3)
-	//	{
-	//		if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//		}
-	//		if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//		}
-
-	//		if (transform.position != Pos_set[0,0])
-	//		{
-	//			transform.position = Moving_To_Target_A(transform.position, Pos_set[0, 0], Now_Speed_A);
-	//		}
-	//		else if(transform.position == Pos_set[0,0])
-	//		{
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 4)
-	//	{
-	//		Start_Flag = false;
-	//		Attack_Step = 0;
-	//	}
-	//}	//private void Start_Anime()
-	//{
-	//	if (Attack_Step == 0)
-	//	{
-	//		Target_2 = transform.position;
-	//		Attack_Step++;
-	//	}
-	//	else if(Attack_Step == 1)
-	//	{
-	//		Vector3 temp = Target_2;
-	//		temp.x = Pos_set[0, 0].x;
-	//		Target_2 = temp;
-	//		if(transform.position != Target_2)
-	//		{
-	//			if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-	//			{
-	//				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//			}
-	//			if (Vector_Size(Target_2, transform.position) < Speed_Change_Distance_A)
-	//			{
-	//				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//			}
-	//			transform.position = Moving_To_Target_A(transform.position, Target_2, Now_Speed_A);
-	//		}
-	//		else if(transform.position == Target_2)
-	//		{
-	//			maenoiti = transform.position;
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 2)
-	//	{
-	//		bool[] b = new bool[2] { false, false};
-
-	//		if (Vector_Size(Standby_Pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A 
-	//			&& Vector_Size(Standby_Pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//		}
-	//		if (Vector_Size(Init_Weapons_pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A 
-	//			&& Vector_Size(Init_Weapons_pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-	//		{
-
-	//			if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//		}
-
-	//		for (int i = 0; i < weapons.Length; i++)
-	//		{
-	//			if(weapons[i].transform.localPosition != Init_Weapons_pos[i])
-	//			{
-	//				weapons[i].transform.localPosition = Moving_To_Target_A(weapons[i].transform.localPosition, Init_Weapons_pos[i], Now_Speed_A * 1000.0f);
-	//				b[i] = false;
-	//			}
-	//			else if(weapons[i].transform.localPosition == Init_Weapons_pos[i])
-	//			{
-	//				b[i] = true;
-	//			}
-	//		}
-
-	//		if(b[0]&&b[1])
-	//		{
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 3)
-	//	{
-	//		if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-	//		}
-	//		if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance_A)
-	//		{
-	//			if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-	//		}
-
-	//		if (transform.position != Pos_set[0,0])
-	//		{
-	//			transform.position = Moving_To_Target_A(transform.position, Pos_set[0, 0], Now_Speed_A);
-	//		}
-	//		else if(transform.position == Pos_set[0,0])
-	//		{
-	//			Attack_Step++;
-	//		}
-	//	}
-	//	else if(Attack_Step == 4)
-	//	{
-	//		Start_Flag = false;
-	//		Attack_Step = 0;
-	//	}
-	//}
-	#endregion
-	#region スタートアニメ_2
 	private void Start_Anime()
+	{
+		if (Attack_Step == 0)
+		{
+			Target_2 = transform.position;
+			Attack_Step++;
+		}
+		else if (Attack_Step == 1)
+		{
+			Vector3 temp = Target_2;
+			temp.x = Pos_set[0, 0].x;
+			Target_2 = temp;
+			if (transform.position != Target_2)
+			{
+				if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
+				{
+					if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
+				}
+				if (Vector_Size(Target_2, transform.position) < Speed_Change_Distance_A)
+				{
+					if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
+				}
+				transform.position = Moving_To_Target_A(transform.position, Target_2, Now_Speed_A);
+			}
+			else if (transform.position == Target_2)
+			{
+				maenoiti = transform.position;
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 2)
+		{
+			bool[] b = new bool[2] { false, false };
+
+			if (Vector_Size(Standby_Pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A
+				&& Vector_Size(Standby_Pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
+			{
+				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
+			}
+			if (Vector_Size(Init_Weapons_pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A
+				&& Vector_Size(Init_Weapons_pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
+			{
+
+				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
+			}
+
+			for (int i = 0; i < weapons.Length; i++)
+			{
+				if (weapons[i].transform.localPosition != Init_Weapons_pos[i])
+				{
+					weapons[i].transform.localPosition = Moving_To_Target_A(weapons[i].transform.localPosition, Init_Weapons_pos[i], Now_Speed_A * 1000.0f);
+					b[i] = false;
+				}
+				else if (weapons[i].transform.localPosition == Init_Weapons_pos[i])
+				{
+					b[i] = true;
+				}
+			}
+
+			if (b[0] && b[1])
+			{
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 3)
+		{
+			if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
+			{
+				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
+			}
+			if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance_A)
+			{
+				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
+			}
+
+			if (transform.position != Pos_set[0, 0])
+			{
+				transform.position = Moving_To_Target_A(transform.position, Pos_set[0, 0], Now_Speed_A);
+			}
+			else if (transform.position == Pos_set[0, 0])
+			{
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 4)
+		{
+			Start_Flag = false;
+			Attack_Step = 0;
+		}
+	}
+	#endregion
+
+	#region スタートアニメ_2
+	private void Start_Anime_2()
 	{
 		if(Attack_Step == 0)
 		{
 			warp_ef.SetActive(true);
 			Warp_EF.Play();
 			Flame = 0;
+
+			//GetComponent<Collider>().enabled = false;
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
+
 			Attack_Step++;
 		}
 		else if (Attack_Step == 1)
@@ -654,19 +571,17 @@ public class One_Boss : character_status
 			{
 				Now_View -= Display_Amount;
 
-
-				Vector3 temp = transform.position;
-				temp.x += 0.01f;
-				transform.position = temp;
-
-				transform.Rotate(new Vector3(1.0f, 0.0f, 0.0f));
+				Vector3 temp_V3 = new Vector3(-5.0f, 0.0f, 0.0f);
+				transform.position = Moving_To_Target(transform.position, temp_V3, move_speed);
+				Quaternion temp_Q = Quaternion.Euler(360.0f * 5.0f, 0.0f, 0.0f);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, temp_Q, move_speed);
 
 				for (int i = 0; i < Dissolve_Effect_Material.Length; i++)
 				{
 					Dissolve_Effect_Material[i].material.SetFloat("_Dissolve_Alfa", Now_View);
 				}
 
-				if (Now_View <= Full_View)
+				if (Now_View <= Full_View && transform.position == temp_V3 && transform.rotation == temp_Q)
 				{
 					Now_View = Full_View;
 					Attack_Step++;
