@@ -121,12 +121,6 @@ public class One_Boss : character_status
 		base.Start();
 
 		Full_View = 0.0f;
-		Now_View = Hidden_View = 1.0f;
-		Display_Amount = appearance_speed / 60.0f;
-		for(int i = 0;i< Dissolve_Effect_Material.Length;i++)
-		{
-			Dissolve_Effect_Material[i].material.SetFloat("_Dissolve_Alfa", Hidden_View);
-		}
 		Attack_Step = 0;
 		Start_Flag = true;
 		warp_ef = Instantiate(warp_ef, transform.position, Quaternion.identity);
@@ -275,6 +269,12 @@ public class One_Boss : character_status
 	private void OnEnable()
 	{
 		//shokika();
+		Now_View = Hidden_View = 1.0f;
+		Display_Amount = appearance_speed / 60.0f;
+		for (int i = 0; i < Dissolve_Effect_Material.Length; i++)
+		{
+			Dissolve_Effect_Material[i].material.SetFloat("_Dissolve_Alfa", Hidden_View);
+		}
 		start_timecline.Play();
 	}
 
