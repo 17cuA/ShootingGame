@@ -674,16 +674,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5943464210829820430, guid: 151fe18ed6b86524c8f06d2c7f176886,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7656794635188023812, guid: 151fe18ed6b86524c8f06d2c7f176886,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7656794635688776133, guid: 151fe18ed6b86524c8f06d2c7f176886,
         type: 3}
       propertyPath: m_LocalRotation.z
@@ -704,14 +694,24 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.71
       objectReference: {fileID: 0}
-    - target: {fileID: 8574819153578134354, guid: 151fe18ed6b86524c8f06d2c7f176886,
+    - target: {fileID: 7656794635688776138, guid: 151fe18ed6b86524c8f06d2c7f176886,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5943464210829820430, guid: 151fe18ed6b86524c8f06d2c7f176886,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7656794635688776138, guid: 151fe18ed6b86524c8f06d2c7f176886,
+    - target: {fileID: 7656794635188023812, guid: 151fe18ed6b86524c8f06d2c7f176886,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8574819153578134354, guid: 151fe18ed6b86524c8f06d2c7f176886,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4232,6 +4232,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1098502390344489282, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Taiho
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098502390344489282, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4387535920877268954, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4286,16 +4296,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098502390344489282, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Taiho
-      objectReference: {fileID: 0}
-    - target: {fileID: 1098502390344489282, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4811911546176095274, guid: d0d2a4c90e6375c4c92c8c2a7bc90afc,
         type: 3}
