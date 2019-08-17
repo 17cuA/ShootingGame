@@ -976,7 +976,7 @@ public class EnemyCreate : MonoBehaviour
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
 		{
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
-			Boss_01.transform.position = Vector3.zero;
+			Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
 
             nextEnemy = "バキュラ群";
 			Next_Condition(7200);
