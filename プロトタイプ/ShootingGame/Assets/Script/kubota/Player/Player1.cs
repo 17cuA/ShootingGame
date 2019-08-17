@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Power;
 using StorageReference;
-//using Power;
+
 public class Player1 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
@@ -85,6 +85,7 @@ public class Player1 : character_status
     public int Bullet_cnt;          //バレットの発射数をかぞえる変数
     private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 
+	private bool Is_Burst;		//バースト発射するかどうかの判定
     //プレイヤーがアクティブになった瞬間に呼び出される
     private void OnEnable()
 	{
@@ -494,6 +495,10 @@ public class Player1 : character_status
 			{
 				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 				{
+					Is_Burst = true;
+				}
+				if(Is_Burst)
+				{
 					// 連続で4発まで撃てるようにした
 					if (shoot_number < 5)
 					{
@@ -529,6 +534,8 @@ public class Player1 : character_status
 					{
 						shoot_number = 0;
 						effect_num = 0;
+						Is_Burst = false;
+
 					}
 					else
 					{
@@ -537,7 +544,8 @@ public class Player1 : character_status
 					}
 				}
 			}
-			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			//if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			if(!Is_Burst)
 			{
 				shoot_number = 0;
 			}
