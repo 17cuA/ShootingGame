@@ -46,6 +46,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("アニメ移動速度")] private float move_speed_A;
 	[SerializeField, Tooltip("アニメ回転速度")] private float Rotate_speed_A;
 	[SerializeField, Tooltip("スタートアニメーション")] private bool Start_Flag;
+	[SerializeField, Tooltip("アップデートアニメーション")] private bool Update_Flag;
 	[SerializeField, Tooltip("タイムライン")] private PlayableDirector start_timecline;
 
 	private Vector3[] Init_Weapons_pos { get; set; }
@@ -123,9 +124,12 @@ public class One_Boss : character_status
 		Full_View = 0.0f;
 		Attack_Step = 0;
 		Start_Flag = true;
-		warp_ef = Instantiate(warp_ef, transform.position, Quaternion.identity);
-		Warp_EF = warp_ef.GetComponent<ParticleSystem>();
-		warp_ef.SetActive(false);
+		//warp_ef = Instantiate(warp_ef, transform.position, Quaternion.identity);
+		//Warp_EF = warp_ef.GetComponent<ParticleSystem>();
+		//warp_ef.SetActive(false);
+		//Warp_EF.Pause();
+		//warp_ef.transform.SetParent(null);
+
 
 		Survival_Time = (1 * 60 * 60);
 		Survival_Time_Cnt = 0;
@@ -216,12 +220,23 @@ public class One_Boss : character_status
 	{
 		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now)
 		{
+			maenoiti = transform.position;
 			End_Flag = true;
 		}
 
-		if (Start_Flag)
+		if (Start_Flag && !End_Flag && !Update_Flag)
 		{
 			//Start_Anime_2();
+		}
+		else if(Start_Flag && !End_Flag && Update_Flag)
+		{
+			start_timecline.Pause();
+			arm_parts[0].SetActive(true);
+			arm_parts[1].SetActive(true);
+			Body_Parts.SetActive(true);
+			core.SetActive(true);
+
+			Start_Flag = false;
 		}
 		else if (!End_Flag && !Start_Flag)
 		{
@@ -242,6 +257,7 @@ public class One_Boss : character_status
 			if (!parts_core[0].gameObject.activeSelf && !parts_core[1].gameObject.activeSelf)
 			{
 				Attack_Step = 0;
+				maenoiti = transform.position;
 				End_Flag = true;
 			}
 
@@ -259,9 +275,33 @@ public class One_Boss : character_status
 				//Laser_Clearing_3();
 			}
 		}
-		else if (End_Flag)
+		else if (End_Flag && !Start_Flag)
 		{
-			End_Anime();
+			//End_Anime();
+			//Warp_EF.Play();
+
+			if (transform.position != Pos_set[0, 0])
+			{
+				if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
+			}
+			else if (transform.position == Pos_set[0, 0])
+			{
+				start_timecline.Resume();
+			}
+		}
+
+		if (transform.position.x >= 30.0f)
+		{
+			Is_Dead = true;
 		}
 	}
 
@@ -275,6 +315,9 @@ public class One_Boss : character_status
 		{
 			Dissolve_Effect_Material[i].material.SetFloat("_Dissolve_Alfa", Hidden_View);
 		}
+		Update_Flag = false;
+		//warp_ef.SetActive(true);
+		//Warp_EF.Play();
 		start_timecline.Play();
 	}
 

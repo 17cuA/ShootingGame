@@ -2328,6 +2328,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62aa96e7ef10dfb468ba7d43b945f4fa, type: 3}
+--- !u!1 &710350539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710350541}
+  - component: {fileID: 710350540}
+  m_Layer: 0
+  m_Name: One_Boss_Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &710350540
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710350539}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 114610144260461130, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114507903368066784, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &710350541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710350539}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 47
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &742886087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15548,6 +15602,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharactorCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 6223543701453863857, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857270266060281594, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223543701217059861, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
     - target: {fileID: 344868039040152457, guid: c5511831683274044a5c606ce4ac0f63,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15624,21 +15693,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 243391020985862012, guid: fbe2e1f9471704d4fad358c1656182b1,
         type: 2}
-    - target: {fileID: 6223543701217059861, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223543701453863857, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 8857270266060281594, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 344868039040152455, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
