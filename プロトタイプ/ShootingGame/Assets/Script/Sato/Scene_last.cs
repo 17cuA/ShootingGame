@@ -79,9 +79,10 @@ public class Scene_last : MonoBehaviour
 		}
 
 
-		//if (Input.anyKey && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
-		//{
-		//	Scene_Manager.Manager.Screen_Transition_To_Caution();
-		//}
+		if ((Input.anyKeyDown && RankingDisplay.instance.IsDecision) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+		{
+			Ranking_Strage.Strage_Data.Ranking_Save();
+			Scene_Manager.Manager.Screen_Transition_To_Caution();
+		}
 	}
 }
