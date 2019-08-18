@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class InputRankingName
 {
 	const int kNameLength = 3;				// 名前の長さ
-	char[] name = new char[kNameLength];		// 入力用文字配列
+	char[] name = new char[kNameLength];	// 入力用文字配列
 	// 名前をストリングで返すプロパティ
 	public string Name
 	{
@@ -43,12 +43,16 @@ public class InputRankingName
 			}
 		}
 	}
-	int selectPos = 0;									// 文字の入力位置
-	float previousInputX = 0f;							// 前フレームの入力情報
-	const float kSelectScalingValueMax = 0.5f;			// スケール値の最大値
-	const float kSelectScalingReduceValue = 0.2f;		// 1fに減らすスケール値
-	float selectScalingValue = kSelectScalingValueMax;	// 選択している文字の減算するスケール値
-	float selectDefaultScaleValue = 0f;					// スケールの規定値
+	int selectPos = 0;													// 文字の入力位置
+	float previousInputY = 0f;											// 前フレームの入力情報
+	//const float kSelectScalingValueMax = 0.5f;							// スケール値の最大値
+	//const float kSelectScalingReduceValue = 0.2f;						// 1fに減らすスケール値
+	//float selectScalingValue = kSelectScalingValueMax;					// 選択している文字の減算するスケール値
+	//float selectDefaultScaleValue = 0f;									// スケールの規定値
+	const int kBlinkInvisibleFrame = 35;								// 非表示を開始するフレーム数
+	const int kBlinkFrameMax = 45;										// 点滅の一回にループするフレーム数
+	int blinkFrame = 0;													// 点滅させるためのフレーム数
+	public bool IsDecision { get { return selectPos >= kNameLength; } }	// 決定されたかどうか
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -67,14 +71,57 @@ public class InputRankingName
 	{
 		// 選択位置の移動
 		MoveSelectPos();
+		// 文字の選択
+		SelectChar();
+		// 選択されている文字を点滅させる
+		BlinkSelectChar();
+	}
+	/// <summary>
+	/// 呼び出している間、選択位置を移動できる
+	/// </summary>
+	void MoveSelectPos()
+	{
+		// 決定されていたら処理しない
+		if (IsDecision) { return; }
+		// 選択されている鵜文字が消えないようにアクティブにする
+		nameImageList[selectPos].enabled = true;
+		// 文字の選択位置を変える
+		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+		{
+			++selectPos;
+		}
+		if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2"))
+		{
+			--selectPos;
+		}
+		// 要素数が文字数より大きくならないように補正する
+		if (selectPos > kNameLength)
+		{
+			selectPos = kNameLength;
+		}
+		if (selectPos < 0)
+		{
+			selectPos = 0;
+		}
+	}
+	/// <summary>
+	/// 呼び出している間、選択している文字を変更できる
+	/// </summary>
+	void SelectChar()
+	{
+		// 選択範囲外であれば処理しない
+		if (selectPos >= kNameLength) { return; }
+		float inputY = Input.GetAxisRaw("Vertical");
+		// 前フレームも入力していたら移動しない
+		if (previousInputY != 0f) { previousInputY = inputY; return; }
 		// 元の文字を保存しておく
 		char previousChar = name[selectPos];
 		// 選択している部分の文字を変える
-		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+		if (inputY > 0f)
 		{
 			++name[selectPos];
 		}
-		if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2"))
+		if (inputY < 0f)
 		{
 			--name[selectPos];
 		}
@@ -87,39 +134,26 @@ public class InputRankingName
 		{
 			name[selectPos] = 'Z';
 		}
-	}
-	/// <summary>
-	/// 呼び出している間、選択位置を移動できる
-	/// </summary>
-	void MoveSelectPos()
-	{
-		float inputX = Input.GetAxisRaw("Horizontal");
-		// 前フレームも入力していたら移動しない
-		if (previousInputX != 0f) { previousInputX = inputX; return; }
-		// 文字の選択位置を変える
-		if (inputX > 0f)
-		{
-			++selectPos;
-		}
-		if (inputX < 0f)
-		{
-			--selectPos;
-		}
-		// 選択外に行かないように補正する
-		if (selectPos >= kNameLength)
-		{
-			selectPos = 0;
-		}
-		if (selectPos < 0)
-		{
-			selectPos = kNameLength - 1;
-		}
-		previousInputX = inputX;
+		previousInputY = inputY;
 	}
 	/// <summary>
 	/// 選択されている文字を拡大縮小する
 	/// </summary>
 	void ScalingSelectChar()
 	{
+	}
+	/// <summary>
+	/// 選択している文字を点滅させる
+	/// </summary>
+	void BlinkSelectChar()
+	{
+		// 選択範囲外であれば処理しない
+		if (selectPos >= kNameLength) { return; }
+		nameImageList[selectPos].enabled = blinkFrame < kBlinkInvisibleFrame;
+		++blinkFrame;
+		if (blinkFrame > kBlinkFrameMax)
+		{
+			blinkFrame = 0;
+		}
 	}
 }
