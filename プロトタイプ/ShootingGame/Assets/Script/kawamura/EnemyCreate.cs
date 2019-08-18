@@ -10,8 +10,45 @@ using StorageReference;
 
 public class EnemyCreate : MonoBehaviour
 {
+	//生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が上下の最大）
+	public GameObject createPosT17;
+	public GameObject createPosT16;
+	public GameObject createPosT15;
+	public GameObject createPosT14;
+	public GameObject createPosT13;
+	public GameObject createPosT12;
+	public GameObject createPosT11;
+	public GameObject createPosT10;
+	public GameObject createPosT9;
+	public GameObject createPosT8;
+	public GameObject createPosT7;
+	public GameObject createPosT6;
+	public GameObject createPosT5;
+	public GameObject createPosT4;
+	public GameObject createPosT3;
+	public GameObject createPosT2;
+	public GameObject createPosT1;
+	public GameObject createPosT0;
+	public GameObject createPosTm1;
+	public GameObject createPosTm2;
+	public GameObject createPosTm3;
+	public GameObject createPosTm4;
+	public GameObject createPosTm5;
+	public GameObject createPosTm6;
+	public GameObject createPosTm7;
+	public GameObject createPosTm8;
+	public GameObject createPosTm9;
+	public GameObject createPosTm10;
+	public GameObject createPosTm11;
+	public GameObject createPosTm12;
+	public GameObject createPosTm13;
+	public GameObject createPosTm14;
+	public GameObject createPosTm15;
+	public GameObject createPosTm16;
+	public GameObject createPosTm17;
+
 	//生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
-    public GameObject createPosR5;				
+	public GameObject createPosR5;				
     public GameObject createPosR4;
     public GameObject createPosR3;
     public GameObject createPosR2;
@@ -45,6 +82,7 @@ public class EnemyCreate : MonoBehaviour
     //バキュラ位置
     public GameObject createBaculaGroupPos;
 
+	//隕石生成位置
     public GameObject createMeteorPosR4_814;
     public GameObject createMeteorPosR2_988;
     public GameObject createMeteorPosR1_494;

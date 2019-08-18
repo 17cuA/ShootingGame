@@ -46,7 +46,7 @@ public class Enemy_MeteorWave : character_status
             curveCnt++;
             isInc = true;
         }
-        else if (curveCnt == 1 && transform.position.x < meteor_Four.transform.position.x + 2.7)
+        else if (curveCnt == 1 && transform.position.x < meteor_Four.transform.position.x + 2.1)
         {
             curveCnt++;
             isInc = false;
