@@ -46,7 +46,7 @@ public class Enemy_MeteorWave : character_status
             curveCnt++;
             isInc = true;
         }
-        else if (curveCnt == 1 && transform.position.x < meteor_Four.transform.position.x + 3)
+        else if (curveCnt == 1 && transform.position.x < meteor_Four.transform.position.x + 2.7)
         {
             curveCnt++;
             isInc = false;
@@ -59,40 +59,47 @@ public class Enemy_MeteorWave : character_status
             isDec = false;
             isInc = true;
         }
-        else if (curveCnt == 3 && transform.position.x < meteor_Two.transform.position.x + 1)
+        else if (curveCnt == 3 && transform.position.x < meteor_Two.transform.position.x + 0.5)
         {
             curveCnt++;
             isInc = false;
             isDec = true;
         }
-        //else if (curveCnt == 4 && transform.position.x < meteor_Five.transform.position.x + 1)
-        //{
-        //    curveCnt++;
-        //    isDec = false;
-        //    isInc = true;
-        //}
+		else if (curveCnt == 4 && transform.position.x < meteor_One.transform.position.x )
+		{
+			curveCnt++;
+			isDec = false;
+			isInc = true;
+		}
 
-        if (isInc)
+		if (isInc)
         {
             rotaZ += rotaZ_ChangeValue;
-            if (curveCnt == 1)
-            {
-                if (rotaZ > 47)
-                {
-                    rotaZ = 47;
-                    isInc = false;
-                }
+			if (curveCnt == 1)
+			{
+				if (rotaZ > 47)
+				{
+					rotaZ = 47;
+					isInc = false;
+				}
 
-            }
-            else if (curveCnt == 3)
-            {
-                if (rotaZ > 0)
-                {
-                    rotaZ = 0;
-                    isInc = false;
-                }
-            }
-
+			}
+			else if (curveCnt == 3)
+			{
+				if (rotaZ > 0)
+				{
+					rotaZ = 0;
+					isInc = false;
+				}
+			}
+			else if (curveCnt == 5)
+			{
+				if (rotaZ > 0)
+				{
+					rotaZ = 0;
+					isInc = false;
+				}
+			}
         }
         else if(isDec)
         {
@@ -107,9 +114,9 @@ public class Enemy_MeteorWave : character_status
             }
             if (curveCnt == 4)
             {
-                if (rotaZ < -36)
+                if (rotaZ < -32)
                 {
-                    rotaZ = -36;
+                    rotaZ = -32;
                     isDec = false;
                 }
             }
