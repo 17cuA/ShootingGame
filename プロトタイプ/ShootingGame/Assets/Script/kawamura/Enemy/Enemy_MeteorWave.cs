@@ -15,6 +15,7 @@ public class Enemy_MeteorWave : character_status
     public float rotaZ;
     public float rotaZ_ChangeValue;
     public int curveCnt;
+	public string myName;
 
     Vector3 velocity;
 
@@ -29,17 +30,36 @@ public class Enemy_MeteorWave : character_status
         meteor_Four = GameObject.Find("Enemy_Meteor_Four");
         meteor_Five = GameObject.Find("Enemy_Meteor_Five");
 
+		myName = gameObject.name;
+
         curveCnt = 0;
-        rotaZ = transform.position.z;
+		rotaZ = 0;
         base.Start();
     }
 
     new void Update()
     {
-        velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-        gameObject.transform.position += velocity * Time.deltaTime;
+		if(myName == "Enemy_MeteorWave")
+		{
+			velocity = gameObject.transform.rotation * new Vector3(0, 0, speedX);
+			gameObject.transform.position += velocity * Time.deltaTime;
+		}
+		else
+		{
+			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+		}
 
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotaZ);
+		if (myName == "Enemy_MeteorWave")
+		{
+			transform.rotation = Quaternion.Euler(rotaZ, -90, 90);
+
+		}
+		else
+		{
+			transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotaZ);
+
+		}
 
         if (curveCnt == 0 && transform.position.x < meteor_Five.transform.position.x)
         {
@@ -121,6 +141,5 @@ public class Enemy_MeteorWave : character_status
                 }
             }
         }
-
     }
 }

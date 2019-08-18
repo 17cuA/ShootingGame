@@ -10,7 +10,8 @@ using StorageReference;
 
 public class EnemyCreate : MonoBehaviour
 {
-	//生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が上下の最大）
+	//生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が左右の最大）
+	#region CreatePosTop
 	public GameObject createPosT17;
 	public GameObject createPosT16;
 	public GameObject createPosT15;
@@ -46,8 +47,49 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject createPosTm15;
 	public GameObject createPosTm16;
 	public GameObject createPosTm17;
+	#endregion
+
+	//生成位置下側（Uなので上側、mUはマイナスなのでmがついてる、17が左右の最大）
+	#region CreatePosUnder
+	public GameObject createPosU17;
+	public GameObject createPosU16;
+	public GameObject createPosU15;
+	public GameObject createPosU14;
+	public GameObject createPosU13;
+	public GameObject createPosU12;
+	public GameObject createPosU11;
+	public GameObject createPosU10;
+	public GameObject createPosU9;
+	public GameObject createPosU8;
+	public GameObject createPosU7;
+	public GameObject createPosU6;
+	public GameObject createPosU5;
+	public GameObject createPosU4;
+	public GameObject createPosU3;
+	public GameObject createPosU2;
+	public GameObject createPosU1;
+	public GameObject createPosU0;
+	public GameObject createPosUm1;
+	public GameObject createPosUm2;
+	public GameObject createPosUm3;
+	public GameObject createPosUm4;
+	public GameObject createPosUm5;
+	public GameObject createPosUm6;
+	public GameObject createPosUm7;
+	public GameObject createPosUm8;
+	public GameObject createPosUm9;
+	public GameObject createPosUm10;
+	public GameObject createPosUm11;
+	public GameObject createPosUm12;
+	public GameObject createPosUm13;
+	public GameObject createPosUm14;
+	public GameObject createPosUm15;
+	public GameObject createPosUm16;
+	public GameObject createPosUm17;
+	#endregion
 
 	//生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
+	#region CreatePosRight
 	public GameObject createPosR5;				
     public GameObject createPosR4;
     public GameObject createPosR3;
@@ -60,9 +102,11 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createPosRm3;
     public GameObject createPosRm4;
     public GameObject createPosRm5;
+	#endregion
 
 	//生成位置左側
-    public GameObject createPosL5;
+	#region CreatePosLeft
+	public GameObject createPosL5;
     public GameObject createPosL4;
     public GameObject createPosL3;
     public GameObject createPosL2;
@@ -74,9 +118,10 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createPosLm3;
     public GameObject createPosLm4;
     public GameObject createPosLm5;
+	#endregion
 
 	//中ボス位置と戦艦位置
-    public GameObject createMiddleBossPos;
+	public GameObject createMiddleBossPos;
     public GameObject createBattleShipPos;
 
     //バキュラ位置
@@ -137,22 +182,103 @@ public class EnemyCreate : MonoBehaviour
 	void Start()
     {
 		//位置オブジェクト取得
-		//右側
-        createPosR5 = GameObject.Find("CreatePos_Right_5");
+		//上側取得
+		#region CreatePosTop
+		createPosT17 = GameObject.Find("CreatePosTop_17");
+		createPosT16 = GameObject.Find("CreatePosTop_16");
+		createPosT15 = GameObject.Find("CreatePosTop_15");
+		createPosT14 = GameObject.Find("CreatePosTop_14");
+		createPosT13 = GameObject.Find("CreatePosTop_13");
+		createPosT12 = GameObject.Find("CreatePosTop_12");
+		createPosT11 = GameObject.Find("CreatePosTop_11");
+		createPosT10 = GameObject.Find("CreatePosTop_10");
+		createPosT9 = GameObject.Find("CreatePosTop_9");
+		createPosT8 = GameObject.Find("CreatePosTop_8");
+		createPosT7 = GameObject.Find("CreatePosTop_7");
+		createPosT6 = GameObject.Find("CreatePosTop_6");
+		createPosT5 = GameObject.Find("CreatePosTop_5");
+		createPosT4 = GameObject.Find("CreatePosTop_4");
+		createPosT3 = GameObject.Find("CreatePosTop_3");
+		createPosT2 = GameObject.Find("CreatePosTop_2");
+		createPosT1 = GameObject.Find("CreatePosTop_1");
+		createPosT0 = GameObject.Find("CreatePosTop_0");
+		createPosTm1 = GameObject.Find("CreatePosTop_-1");
+		createPosTm2 = GameObject.Find("CreatePosTop_-2");
+		createPosTm3 = GameObject.Find("CreatePosTop_-3");
+		createPosTm4 = GameObject.Find("CreatePosTop_-4");
+		createPosTm5 = GameObject.Find("CreatePosTop_-5");
+		createPosTm6 = GameObject.Find("CreatePosTop_-6");
+		createPosTm7 = GameObject.Find("CreatePosTop_-7");
+		createPosTm8 = GameObject.Find("CreatePosTop_-8");
+		createPosTm9 = GameObject.Find("CreatePosTop_-9");
+		createPosTm10 = GameObject.Find("CreatePosTop_-10");
+		createPosTm11 = GameObject.Find("CreatePosTop_-11");
+		createPosTm12 = GameObject.Find("CreatePosTop_-12");
+		createPosTm13 = GameObject.Find("CreatePosTop_-13");
+		createPosTm14 = GameObject.Find("CreatePosTop_-14");
+		createPosTm15 = GameObject.Find("CreatePosTop_-15");
+		createPosTm16 = GameObject.Find("CreatePosTop_-16");
+		createPosTm17 = GameObject.Find("CreatePosTop_-17");
+		#endregion
+
+		//下側取得
+		#region CreatePosUnder
+		createPosU17 = GameObject.Find("CreatePosUnder_17");
+		createPosU16 = GameObject.Find("CreatePosUnder_16");
+		createPosU15 = GameObject.Find("CreatePosUnder_15");
+		createPosU14 = GameObject.Find("CreatePosUnder_14");
+		createPosU13 = GameObject.Find("CreatePosUnder_13");
+		createPosU12 = GameObject.Find("CreatePosUnder_12");
+		createPosU11 = GameObject.Find("CreatePosUnder_11");
+		createPosU10 = GameObject.Find("CreatePosUnder_10");
+		createPosU9 = GameObject.Find("CreatePosUnder_9");
+		createPosU8 = GameObject.Find("CreatePosUnder_8");
+		createPosU7 = GameObject.Find("CreatePosUnder_7");
+		createPosU6 = GameObject.Find("CreatePosUnder_6");
+		createPosU5 = GameObject.Find("CreatePosUnder_5");
+		createPosU4 = GameObject.Find("CreatePosUnder_4");
+		createPosU3 = GameObject.Find("CreatePosUnder_3");
+		createPosU2 = GameObject.Find("CreatePosUnder_2");
+		createPosU1 = GameObject.Find("CreatePosUnder_1");
+		createPosU0 = GameObject.Find("CreatePosUnder_0");
+		createPosUm1 = GameObject.Find("CreatePosUnder_-1");
+		createPosUm2 = GameObject.Find("CreatePosUnder_-2");
+		createPosUm3 = GameObject.Find("CreatePosUnder_-3");
+		createPosUm4 = GameObject.Find("CreatePosUnder_-4");
+		createPosUm5 = GameObject.Find("CreatePosUnder_-5");
+		createPosUm6 = GameObject.Find("CreatePosUnder_-6");
+		createPosUm7 = GameObject.Find("CreatePosUnder_-7");
+		createPosUm8 = GameObject.Find("CreatePosUnder_-8");
+		createPosUm9 = GameObject.Find("CreatePosUnder_-9");
+		createPosUm10 = GameObject.Find("CreatePosUnder_-10");
+		createPosUm11 = GameObject.Find("CreatePosUnder_-11");
+		createPosUm12 = GameObject.Find("CreatePosUnder_-12");
+		createPosUm13 = GameObject.Find("CreatePosUnder_-13");
+		createPosUm14 = GameObject.Find("CreatePosUnder_-14");
+		createPosUm15 = GameObject.Find("CreatePosUnder_-15");
+		createPosUm16 = GameObject.Find("CreatePosUnder_-16");
+		createPosUm17 = GameObject.Find("CreatePosUnder_-17");
+		#endregion
+
+		//右側取得
+		#region CreatePosRight
+		createPosR5 = GameObject.Find("CreatePos_Right_5");
         createPosR4 = GameObject.Find("CreatePos_Right_4");
         createPosR3 = GameObject.Find("CreatePos_Right_3");
         createPosR2 = GameObject.Find("CreatePos_Right_2");
         createPosR1 = GameObject.Find("CreatePos_Right_1");
         createPosR0 = GameObject.Find("CreatePos_Right_0");
 		createPos_FourGroupR = GameObject.Find("CreatePos_FourGroupR");
-
         createPosRm1 = GameObject.Find("CreatePos_Right_-1");
         createPosRm2 = GameObject.Find("CreatePos_Right_-2");
         createPosRm3 = GameObject.Find("CreatePos_Right_-3");
         createPosRm4 = GameObject.Find("CreatePos_Right_-4");
         createPosRm5 = GameObject.Find("CreatePos_Right_-5");
-		//左側
-        createPosL5 = GameObject.Find("CreatePos_Left_5");
+		#endregion
+
+		//左側取得
+		#region CreatePosLeft
+		createPosL5 = GameObject.Find("CreatePos_Left_5");
         createPosL4 = GameObject.Find("CreatePos_Left_4");
         createPosL3 = GameObject.Find("CreatePos_Left_3");
         createPosL2 = GameObject.Find("CreatePos_Left_2");
@@ -164,8 +290,9 @@ public class EnemyCreate : MonoBehaviour
         createPosLm3 = GameObject.Find("CreatePos_Left_-3");
         createPosLm4 = GameObject.Find("CreatePos_Left_-4");
         createPosLm5 = GameObject.Find("CreatePos_Left_-5");
+		#endregion
 
-        createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
+		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
         createBattleShipPos = GameObject.Find("CreateBattleshipPos");
 
         createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
@@ -1008,7 +1135,6 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "大ボス！！！";
             Next_Condition(800);
         }
-
 
         // ラスボス(9830)
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
