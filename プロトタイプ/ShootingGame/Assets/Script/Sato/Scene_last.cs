@@ -78,10 +78,20 @@ public class Scene_last : MonoBehaviour
 			d = 0;
 		}
 
-
-		//if (Input.anyKey && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
-		//{
-		//	Scene_Manager.Manager.Screen_Transition_To_Caution();
-		//}
+		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
+		{
+			if ((Input.anyKeyDown && RankingDisplay.instance.IsDecision) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			{
+				Ranking_Strage.Strage_Data.Ranking_Save();
+				Scene_Manager.Manager.Screen_Transition_To_Caution();
+			}
+		}
+		else
+		{
+			if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			{
+				Scene_Manager.Manager.Screen_Transition_To_Caution();
+			}
+		}
 	}
 }

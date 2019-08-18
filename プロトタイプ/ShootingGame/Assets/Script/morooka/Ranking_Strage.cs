@@ -10,7 +10,7 @@ public class Ranking_Strage : MonoBehaviour
 		public string name;     //　ランキングを獲得した人の名前
 		public uint score;       //　スコア
 
-		public RankingInformation(string s, uint n) : this()
+		public RankingInformation(string s = "", uint n = 0) : this()
 		{
 			name = s;
 			score = n;
@@ -19,6 +19,8 @@ public class Ranking_Strage : MonoBehaviour
 
 	public const int Max_num = 30;
 	public const int Reserve_Number = 31;
+	public const string kDefaultName = "YOU";
+	public const string kEmptyName = "XXX";
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
@@ -33,7 +35,7 @@ public class Ranking_Strage : MonoBehaviour
 		}
 		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
 		{
-			Set_Score("YOU", Game_Master.display_score);
+			Set_Score(kDefaultName, Game_Master.display_score);
 			_Display = GetComponent<RankingDisplay>();
 			_Display.Init();
 		}
@@ -56,12 +58,11 @@ public class Ranking_Strage : MonoBehaviour
 	{
 		RankingInformation temp;
 
-		// 最後の要素を除いて、すべての要素を並べ替えます
 		for (int i = 0; i < Max_num; i++)
 		{
-			for (int j = Max_num - i; j > i - i; j--)
+			for (int j = Max_num - i; j > i; j--)
 			{
-				if (rankingArray[j].score > rankingArray[j - 1].score)
+				if (rankingArray[j].score >= rankingArray[j - 1].score)
 				{
 					temp = rankingArray[j];
 					rankingArray[j] = rankingArray[j - 1];
@@ -69,7 +70,6 @@ public class Ranking_Strage : MonoBehaviour
 				}
 			}
 		}
-
 		return rankingArray;
 	}
 
@@ -81,12 +81,12 @@ public class Ranking_Strage : MonoBehaviour
 		Ranking_Save();
 	}
 
-	private void Ranking_Save()
+	public void Ranking_Save()
 	{
 		for(int i = 0; i < Max_num; i++)
 		{
-			PlayerPrefs.SetString(i.ToString(), Strage[i].name);
-			PlayerPrefs.SetInt(i.ToString(), (int)Strage[i].score);
+			PlayerPrefs.SetString(i.ToString() + "_Name", Strage[i].name);
+			PlayerPrefs.SetInt(i.ToString() + "_Score", (int)Strage[i].score);
 
 			Debug.Log("Save_Set:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
 		}
@@ -96,11 +96,11 @@ public class Ranking_Strage : MonoBehaviour
 
 	private void Ranking_Lode()
 	{
-			Strage = new RankingInformation[Reserve_Number];
-			for (int i = 0; i < Max_num; i++)
-			{
-				Strage[i].name = PlayerPrefs.GetString(i.ToString(), "YOU");
-				Strage[i].score = (uint)PlayerPrefs.GetInt(i.ToString(), 0);
+		Strage = new RankingInformation[Reserve_Number];
+		for (int i = 0; i < Max_num; i++)
+		{
+			Strage[i].name = PlayerPrefs.GetString(i.ToString() + "_Name", kEmptyName);
+			Strage[i].score = (uint)PlayerPrefs.GetInt(i.ToString() + "_Score", 0);
 			Debug.Log("Lode_kekka:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
 		}
 	}

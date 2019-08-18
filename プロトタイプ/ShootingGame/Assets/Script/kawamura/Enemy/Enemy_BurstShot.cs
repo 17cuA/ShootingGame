@@ -43,7 +43,11 @@ public class Enemy_BurstShot : MonoBehaviour
 		{
 			myName = parentObj.name;
 		}
-		else if(parentObj.transform.parent)
+		//else
+		//{
+		//	myName = "aaa";
+		//}
+		else if (parentObj.transform.parent)
 		{
 			myName = parentObj.transform.parent.gameObject.name;
 		}
@@ -73,7 +77,7 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;
 
-		if (isShot && transform.position.z == 0)
+		if (isShot && transform.position.z == 0 && transform.position.x < 17.5f && transform.position.x > -17.5 && transform.position.y < 5 && transform.position.y > -5)
 		{
 			if (isBurst)
 			{
@@ -98,7 +102,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	void BurstShot()
 	{
 		//撃つ
-		if (burst_delay > burst_Delay_Max)
+		if (burst_delay >= burst_Delay_Max)
 		{
 			if (myName == "Enemy_Bullfight")
 			{
