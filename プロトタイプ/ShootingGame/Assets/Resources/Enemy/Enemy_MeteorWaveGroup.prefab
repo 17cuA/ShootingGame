@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &527877468230286993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605713905284196841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
 --- !u!1 &4627306795962472214
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,6 +52,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4664908764158511100}
+  - component: {fileID: 5610688043302701474}
   m_Layer: 0
   m_Name: Enemy_MeteorWaveGroup
   m_TagString: Untagged
@@ -38,6 +82,320 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5610688043302701474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4627306795962472214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e229c27821b0de747b85cba959236749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 0.7
+--- !u!114 &2910796460431677909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495304636133403017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &8933412471068170839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847575610266936892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &2848912315986791357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491667441489212759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &4346153170693677336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095362044350638642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &2137516101513781160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7270782036467119473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &3872137430027441655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7572636495504004334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
+--- !u!114 &6871660144457473803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7909423987989130381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14278f559c52e8d408a6ded7fa8334fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  meteor_One: {fileID: 0}
+  meteor_Two: {fileID: 0}
+  meteor_Three: {fileID: 0}
+  meteor_Four: {fileID: 0}
+  meteor_Five: {fileID: 0}
+  speedX: 2.5
+  speedY: 0
+  rotaZ: 0
+  rotaZ_ChangeValue: 1
+  curveCnt: 0
+  myName: 
+  isInc: 0
+  isDec: 0
 --- !u!1001 &1259314172879930765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +465,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &7909423987989130381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 1259314172879930765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7909423987989164205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -182,6 +546,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &7572636495504004334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 1562037008182345198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7572636495503902926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -257,6 +627,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &7270782036467119473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 1755578233312369777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7270782036467411281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -332,6 +708,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &7095362044350638642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 2219670472761213746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7095362044350215698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -413,6 +795,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2786911797678627927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6491667441489212759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 2786911797678627927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3286734573528338236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -482,6 +870,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &5847575610266936892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 3286734573528338236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5847575610267105820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -557,6 +951,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
+--- !u!1 &5495304636133403017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 3528903274853679241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5495304636133701033 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
@@ -635,6 +1035,12 @@ PrefabInstance:
 --- !u!4 &2605713905284363721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 6382526851077013737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2605713905284196841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
     type: 3}
   m_PrefabInstance: {fileID: 6382526851077013737}
   m_PrefabAsset: {fileID: 0}

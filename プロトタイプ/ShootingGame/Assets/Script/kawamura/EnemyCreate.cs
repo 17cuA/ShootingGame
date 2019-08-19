@@ -1163,14 +1163,14 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Meteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "隕石2";
-            Next_Condition(1610);
+            Next_Condition(1730);
         }
-		//2隕石 21000
+		//隕石の間を行く敵 21120
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
 		{
 			Instantiate(enemy_MeteorWaveGroup, createPosR3.transform.position, transform.rotation);
 
-			nextEnemy = "隕石3";
+			nextEnemy = " ";
 			Next_Condition(290);
 		}
 		////3隕石 21780
