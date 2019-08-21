@@ -85,6 +85,17 @@ public class Obj_Storage : MonoBehaviour
 	public AudioClip[] audio_se = new AudioClip[20];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 
+	private string name_Wireless_curtain_up = "curtain_up";
+	private string name_first_boss_before = "first_half_boss_before";
+	private string name_first_boss_after = "first_falf_boss_after";
+	private string name_second_boss_before = "second_half_boss_before";
+	private string name_second_boss_after = "second_half_boss_after";
+	public List<string[]> First_half_boss_before = new List<string[]>();
+	public List<string[]> First_half_boss_after = new List<string[]>();
+	public List<string[]> Second_half_boss_before = new List<string[]>();
+	public List<string[]> Second_half_boss_after = new List<string[]>();
+	public List<string[]> Curtain_up = new List<string[]>();
+
 	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
 	public GameObject enemy_UFO_Group_prefab;
 	public GameObject enemy_ClamChowder_Group_Four_prefab;
