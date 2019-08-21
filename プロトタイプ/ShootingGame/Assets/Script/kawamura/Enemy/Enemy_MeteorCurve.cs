@@ -81,11 +81,26 @@ public class Enemy_MeteorCurve : character_status
         //}
         if (isTurn)
         {
-            rotaZ += rotaZ_ChangeValue;
-            if(rotaZ>180)
+            if (eState == State.TurnDown)
             {
-                rotaZ = 180;
-                //isTurn = false;
+                rotaZ += rotaZ_ChangeValue;
+                if (rotaZ > 180)
+                {
+                    rotaZ = 180;
+                    isTurn = false;
+                    //isTurn = false;
+                }
+            }
+            else if (eState == State.TurnUp)
+            {
+                rotaZ -= rotaZ_ChangeValue;
+                if (rotaZ < -180)
+                {
+                    rotaZ = -180;
+                    isTurn = false;
+                    //isTurn = false;
+                }
+
             }
             transform.rotation = Quaternion.Euler(0, 0, rotaZ);
         }
