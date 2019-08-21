@@ -112,7 +112,7 @@ public class One_Boss : character_status
 	private float Display_Amount { get; set; }		// 1FPSの表示量
 	private float Now_View { get; set; } // 現状の表示量
 
-	private ParticleSystem Warp_EF { get; set; }
+	private List<ParticleSystem> Warp_EF { get; set; }
 	private float speed_cc;
 
 	private new void Start()
@@ -125,7 +125,10 @@ public class One_Boss : character_status
 		Attack_Step = 0;
 		Start_Flag = true;
 		//warp_ef = Instantiate(warp_ef, transform.position, Quaternion.identity);
-		//Warp_EF = warp_ef.GetComponent<ParticleSystem>();
+		//for(int i = 0; i < warp_ef.transform.childCount;i++)
+		//{
+		//	Warp_EF.AddRange(warp_ef.transform.GetChild(i).GetComponentsInChildren<ParticleSystem>());
+		//}
 		//warp_ef.SetActive(false);
 		//Warp_EF.Pause();
 		//warp_ef.transform.SetParent(null);
@@ -295,6 +298,11 @@ public class One_Boss : character_status
 			}
 			else if (transform.position == Pos_set[0, 0])
 			{
+				warp_ef.transform.localPosition = Vector3.zero;
+				foreach (ParticleSystem system in Warp_EF)
+				{
+					system.Play();
+				}
 				start_timecline.Resume();
 			}
 		}
@@ -445,7 +453,11 @@ public class One_Boss : character_status
 		if(Attack_Step == 0)
 		{
 			warp_ef.SetActive(true);
-			Warp_EF.Play();
+			warp_ef.transform.localPosition = Vector3.zero;
+			foreach (ParticleSystem system in Warp_EF)
+			{
+				system.Play();
+			}
 			Flame = 0;
 
 			//GetComponent<Collider>().enabled = false;
@@ -1761,4 +1773,11 @@ public class One_Boss : character_status
 	}
 	#endregion
 
+	//private void saiki_shoki( Transform trans )
+	//{
+	//	for(int i = 0; i < trans.childCount; i++)
+	//	{
+	//		if()
+	//	}
+	//}
 }
