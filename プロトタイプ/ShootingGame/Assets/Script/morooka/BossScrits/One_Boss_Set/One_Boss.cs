@@ -1788,6 +1788,128 @@ public class One_Boss : character_status
 	}
 	#endregion
 
+	/// <summary>
+	/// 突進攻撃
+	/// </summary>
+	private void Rush()
+	{
+		if (Attack_Step == 0)
+		{
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Now_player_Traget = Player_Data[0];
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Now_player_Traget = Player_Data[Random.Range(0, 1)];
+			}
+			Attack_Now = true;
+			Attack_Step++;
+		}
+		// プレイヤー追従移動
+		if (Attack_Step == 1)
+		{
+			Flame++;
+
+			Vector3 temp = transform.position;
+			if (Now_player_Traget.transform.position.y >= 1.5f)
+			{
+				temp.y = 1.5f;
+			}
+			else if (Now_player_Traget.transform.position.y <= -1.5f)
+			{
+				temp.y = -1.5f;
+			}
+			else
+			{
+				temp.y = Now_player_Traget.transform.position.y;
+			}
+
+			if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
+			{
+				if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+			}
+			else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+			{
+				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			}
+
+			transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+
+			//}
+			if (Flame == 40)
+			{
+				Flame = 0;
+				Attack_Step++;
+			}
+		}
+		else if(Attack_Step == 2)
+		{
+			Flame++;
+			transform.Rotate(new Vector3((float)Flame, 0.0f, 0.0f));
+			if(Flame == 40)
+			{
+				maenoiti = transform.position;
+				Target = new Vector3(-12.0f, maenoiti.y, maenoiti.z);
+				Flame = 0;
+				Attack_Step++;
+			}
+		}
+		else if(Attack_Step == 3)
+		{
+			if (transform.position != Target)
+			{
+				if (Vector_Size(Target, transform.position) <= Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed * 3.0f);
+				transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
+			}
+			else if(transform.position == Target)
+			{
+				if(transform.rotation != Quaternion.identity)
+				{
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, rotational_speed);
+				}
+				else if(transform.rotation == Quaternion.identity)
+				{
+					maenoiti = transform.position;
+					Target = new Vector3(Pos_set[0, 0].x, transform.position.y, 0.0f);
+					Flame = 0;
+					Attack_Step++;
+				}
+			}
+		}
+		else if(Attack_Step == 4)
+		{
+			if (transform.position != Target)
+			{
+				if (Vector_Size(Target, transform.position) <= Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed * 3.0f);
+			}
+			else if(transform.position == Target)
+			{
+				Attack_Step = 0;
+				Attack_Type_Instruction++;
+				Attack_Now = false;
+			}
+		}
+	}
+
 	#region レーザー打ち出し
 	/// <summary>
 	/// レーザー撃ち出し
