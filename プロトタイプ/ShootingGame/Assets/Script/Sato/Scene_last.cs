@@ -36,7 +36,7 @@ public class Scene_last : MonoBehaviour
 	private void Start()
 	{
 		Game_Last_String = string_to_display;
-		Score_String = "TOTALSCORE__" + Game_Master.display_score.ToString("D10");
+		Score_String = "TOTALSCORE__" + Game_Master.display_score_1P.ToString("D10");
 		Please_Push_Button_String = "PRESS__BUTTON";
 
 		game_last_parent = new GameObject();
