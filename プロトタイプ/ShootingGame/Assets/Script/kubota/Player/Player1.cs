@@ -155,6 +155,7 @@ public class Player1 : character_status
 		Is_Change_Auto = true;
 		IS_Active = true;
         Bullet_cnt_Max = 8;
+		target = direction;
 	}
 
 	new void Update()
