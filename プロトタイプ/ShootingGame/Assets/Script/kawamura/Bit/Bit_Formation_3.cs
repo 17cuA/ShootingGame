@@ -24,7 +24,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	//BitState previous_state;					//オプションの前の状態（レーザーを解除したときに使う）
 
 	public GameObject playerObj;				//プレイヤーのオブジェクト
-	public GameObject parentObj;				//親のオブジェクト
+	//public GameObject parentObj;				//親のオブジェクト
 	public GameObject followPosObj;				//プレイヤーを追従するときの位置オブジェクト
 	public GameObject followPosFirstObj;		//プレイヤーに一番近い追従位置オブジェクト
 	public GameObject followPosSecondObj;		//二番目
