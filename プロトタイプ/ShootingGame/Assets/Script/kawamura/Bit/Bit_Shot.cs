@@ -13,10 +13,13 @@ public class Bit_Shot : MonoBehaviour
     public GameObject shot_Mazle;		//弾を放つための地点を指定するためのオブジェクト
 	public GameObject laser_Obj;		//レーザーオブジェクト
 
-	Player1 pl1;						//プレイヤースクリプト
+	Player1 pl1;                        //プレイヤー1スクリプト
+	Player2 pl2;                        //プレイヤー2スクリプト
 	Bit_Formation_3 bf;					//オプションの全般のスクリプト
     public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
 	//public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
+
+	public string myName;
 
 	public int shotNum;                        //撃った数
 	int effectNum;
@@ -24,10 +27,13 @@ public class Bit_Shot : MonoBehaviour
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Bullet_cnt;          //バレットの発射数をかぞえる変数
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
+	int missileDelayCnt = 0;            //ミサイルのディレイ
+	public int shotDelayMax;                   //ショットの間隔
 	public bool isShot = true;          //撃てるか
 	public bool isBurst;
-    int missileDelayCnt = 0;			//ミサイルのディレイ
-    public int shotDelayMax;                   //ショットの間隔
+	public bool isFollow1P;
+	public bool isFollow2P;
+
 	List<GameObject> bullet_data = new List<GameObject>();
 	//bool activeLaser = true;
 
@@ -48,6 +54,16 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
+		myName = gameObject.name;
+		if (myName == "Four_FollowPos_1P")
+		{
+			isFollow1P = true;
+		}
+		else if (myName == "Four_FollowPos_2P")
+		{
+			isFollow2P = true;
+		}
+
 		//撃つ位置取得
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		//Bit_Formation_3取得
@@ -64,10 +80,18 @@ public class Bit_Shot : MonoBehaviour
 		//プレイヤーオブジェクトが入っていなかったら入れてスクリプトも取得
         if(playerObj==null)
         {
-            playerObj = GameObject.Find("Player");
-            pl1 = playerObj.GetComponent<Player1>();
+			if (isFollow1P)
+			{
+				playerObj = GameObject.Find("Player");
+				pl1 = playerObj.GetComponent<Player1>();
 
-        }
+			}
+			else if(isFollow2P)
+			{
+				playerObj = GameObject.Find("Player_2");
+				pl2 = playerObj.GetComponent<Player2>();
+			}
+		}
 
 		//if(pl1.bullet_Type == Player1.Bullet_Type.Laser)
 		//{
@@ -195,7 +219,7 @@ public class Bit_Shot : MonoBehaviour
 		//マニュアル発射の時
 		if (!pl1.Is_Change_Auto)
 		{
-			shotDelayMax = 2;
+			shotDelayMax = 0;
 			if (shot_Delay > Shot_DelayMax)
 			{
 				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
@@ -298,24 +322,49 @@ public class Bit_Shot : MonoBehaviour
 	//単発発射関数
 	private void Single_Fire()
 	{
+
 		//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
 		if (!pl1.Is_Change_Auto)
 		{
-			//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
-			//{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
+			if (isFollow1P)
+			{
+				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
+				//{
+
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
-			//}
+				//}
+			}
+			else if (isFollow2P)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 1;
+
+			}
 
 		}
 		else
 		{
-			if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
+			if (isFollow1P)
 			{
-				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction));
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-				Bullet_cnt += 1;
+				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
+				{
+					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+					Bullet_cnt += 1;
+				}
+			}
+			else if (isFollow2P)
+			{
+				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
+				{
+					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+					Bullet_cnt += 1;
+				}
+
 			}
 		}
 		if (Bullet_cnt_Max != 8)
@@ -331,8 +380,8 @@ public class Bit_Shot : MonoBehaviour
 	{
 		if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 		{
-			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction));
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 			Bullet_cnt += 2;
 		}

@@ -155,6 +155,7 @@ public class Player1 : character_status
 		Is_Change_Auto = true;
 		IS_Active = true;
         Bullet_cnt_Max = 8;
+		target = direction;
 	}
 
 	new void Update()
@@ -680,19 +681,19 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			default:

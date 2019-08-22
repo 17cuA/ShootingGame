@@ -45,10 +45,14 @@ namespace StorageReference
                 case Game_Master.OBJECT_NAME.ePLAYER2_BULLET:
                     obj = Obj_Storage.Storage_Data.Player2Bullet.Active_Obj();
                     break;
-                case Game_Master.OBJECT_NAME.eOPTION_BULLET:
-                    obj = Obj_Storage.Storage_Data.OptionBullet.Active_Obj();
+                case Game_Master.OBJECT_NAME.eP1_OPTION_BULLET:
+                    obj = Obj_Storage.Storage_Data.P1_OptionBullet.Active_Obj();
                     break;
-                    //--------------------------------------------
+				case Game_Master.OBJECT_NAME.eP2_OPTION_BULLET:
+					obj = Obj_Storage.Storage_Data.P2_OptionBullet.Active_Obj();
+					break;
+
+				//--------------------------------------------
 				#region Player_Missile
 				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
 					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
@@ -146,13 +150,16 @@ namespace StorageReference
                 case Game_Master.OBJECT_NAME.ePLAYER2_BULLET:
                     obj = Obj_Storage.Storage_Data.Player2Bullet.Active_Obj();
                     break;
-                case Game_Master.OBJECT_NAME.eOPTION_BULLET:
-                    obj = Obj_Storage.Storage_Data.OptionBullet.Active_Obj();
+                case Game_Master.OBJECT_NAME.eP1_OPTION_BULLET:
+                    obj = Obj_Storage.Storage_Data.P1_OptionBullet.Active_Obj();
                     break;
+				case Game_Master.OBJECT_NAME.eP2_OPTION_BULLET:
+					obj = Obj_Storage.Storage_Data.P2_OptionBullet.Active_Obj();
+					break;
 
-                #endregion
-                #region Player_Missile
-                case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
+				#endregion
+				#region Player_Missile
+				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
 					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
 					break;
 				#endregion
