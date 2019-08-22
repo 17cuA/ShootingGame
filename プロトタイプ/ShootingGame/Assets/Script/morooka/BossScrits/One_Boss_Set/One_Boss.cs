@@ -282,6 +282,7 @@ public class One_Boss : character_status
 		{
 			//End_Anime();
 			//Warp_EF.Play();
+			start_timecline.Resume();
 
 			if (transform.position != Pos_set[0, 0])
 			{
