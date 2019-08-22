@@ -4936,7 +4936,7 @@ CapsuleCollider:
   m_Radius: 0.75
   m_Height: 1
   m_Direction: 0
-  m_Center: {x: 2.11, y: -0.17, z: 0}
+  m_Center: {x: 1.83, y: -0.05, z: 0}
 --- !u!114 &8828914398105814665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10014,6 +10014,26 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 77984f3d73b6dc649ae054f95beb684d, type: 3}
       propertyPath: m_LocalPosition.x

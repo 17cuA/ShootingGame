@@ -24,7 +24,7 @@ public class bullet_status : MonoBehaviour
 	{
 		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
-        if (gameObject.name == "Player_Bullet")
+        if (gameObject.name == "Player1_Bullet")
         {
             P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
 			Player_Number = 1;
