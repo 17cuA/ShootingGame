@@ -29,7 +29,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	void Start()
 	{
 		//int cnt = 0;
-		array_Num = 12;
+		array_Num = 9;
 		playerPos = new Vector3[array_Num];
 	}
 
@@ -46,7 +46,10 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
             {
                 playerPos[i] += defPos;
             }
-        }
+			defPos = new Vector3(0, 0, 0);
+			savePos = transform.position;
+
+		}
         else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 		{
 			isFreeze = true;
@@ -56,7 +59,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		if (playerObj == null)
 		{
 			//プレイヤーがいたら入れる
-			if (GameObject.Find("Player"))
+			if (GameObject.FindGameObjectWithTag("Player"))
 			{
 				playerObj = GameObject.Find("Player");
 				//配列にとりあえず追従位置を入れる

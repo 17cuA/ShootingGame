@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  parentObj: {fileID: 0}
   childNum: 0
   remainingEnemiesCnt: 0
   defeatedEnemyCnt: 0
   notDefeatedEnemyCnt: 0
+  myName: 
   itemTransform: {fileID: 0}
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
@@ -67,11 +69,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127,20 +124,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.02
+      propertyPath: m_Name
+      value: Enemy_UFO (5)
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -157,15 +144,50 @@ PrefabInstance:
       propertyPath: diedAttack_RotaValue
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -187,11 +209,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -247,6 +264,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_UFO (4)
+      objectReference: {fileID: 0}
     - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -265,11 +287,31 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
@@ -292,11 +334,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -352,20 +389,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.02
+      propertyPath: m_Name
+      value: Enemy_UFO (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -382,15 +409,50 @@ PrefabInstance:
       propertyPath: diedAttack_RotaValue
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -412,11 +474,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (6)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -472,6 +529,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_UFO (6)
+      objectReference: {fileID: 0}
     - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -490,11 +552,31 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
@@ -517,11 +599,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -577,6 +654,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_UFO (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -595,11 +677,31 @@ PrefabInstance:
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
@@ -622,11 +724,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (7)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -682,20 +779,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.02
+      propertyPath: m_Name
+      value: Enemy_UFO (7)
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -712,20 +799,60 @@ PrefabInstance:
       propertyPath: diedAttack_RotaValue
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845257256005712397, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
@@ -742,11 +869,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -802,20 +924,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.02
+      propertyPath: m_Name
+      value: Enemy_UFO (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -832,15 +944,50 @@ PrefabInstance:
       propertyPath: diedAttack_RotaValue
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -862,11 +1009,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716967869282642050}
     m_Modifications:
-    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_UFO
-      objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001150, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -922,20 +1064,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+    - target: {fileID: 6541507908318001144, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.02
+      propertyPath: m_Name
+      value: Enemy_UFO
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -952,20 +1084,60 @@ PrefabInstance:
       propertyPath: diedAttack_RotaValue
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560823306773174130, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
-      value: 2.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Times
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_Delay_Max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: burst_ShotNum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2955725997610504746, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845257256005712397, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}

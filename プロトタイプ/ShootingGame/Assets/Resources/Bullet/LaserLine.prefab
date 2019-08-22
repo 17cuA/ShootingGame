@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6580657217836235298}
   - component: {fileID: 6580657217836235300}
+  - component: {fileID: 6580657217836235303}
   - component: {fileID: 927928307}
-  - component: {fileID: 532045972027403527}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LaserLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,29 @@ CapsuleCollider:
   m_Height: 0.15
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6580657217836235303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580657217836235302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e1f1b8c4e5014d4080eb6a054df35ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shot_speed: 0.8
+  attack_damage: 1
+  Travelling_Direction: {x: 1, y: 0, z: 0}
+  Bullet_Renderer: {fileID: 0}
+  trailMaxTime: 0.6
+  trailMinTime: 0.1
+  lifeTime: 0.8
+  trailMaxWidth: 25
+  trailMinWidth: 0
+  isRotateLaser: 0
+  ischangLaserWidth: 0
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
@@ -87,7 +110,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.6
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -103,15 +126,6 @@ TrailRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -126,7 +140,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 52235
+      ctime1: 30455
       ctime2: 65535
       ctime3: 0
       ctime4: 0
@@ -134,7 +148,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 52043
+      atime1: 31033
       atime2: 65535
       atime3: 0
       atime4: 0
@@ -153,31 +167,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &532045972027403527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6580657217836235302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e1f1b8c4e5014d4080eb6a054df35ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shot_speed: 0
-  attack_damage: 0
-  Travelling_Direction: {x: 0, y: 0, z: 0}
-  Bullet_Renderer: {fileID: 0}
-  trailMaxTime: 0.1
-  trailMinTime: 0.3
-  lifeTime: 1
-  trailMaxWidth: 15
-  trailMinWidth: 5
-  colliderMaxSize: 1
-  colliderMinSize: 0
-  isRotateLaser: 0
-  ischangLaserWidth: 0
 --- !u!1 &7556076953521740979
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +178,7 @@ GameObject:
   - component: {fileID: 3015566652838747612}
   - component: {fileID: 5672553408289595493}
   - component: {fileID: 6105861852449410871}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7556076953521740979}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.074, y: -0.001, z: 0}
+  m_LocalPosition: {x: -0.774, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6580657217836235298}

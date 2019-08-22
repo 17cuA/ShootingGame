@@ -15,13 +15,21 @@ public class MapCreate : MonoBehaviour
 
 	void Start()
     {
-		if(SceneManager.GetActiveScene().name == "Stage")
+		if(SceneManager.GetActiveScene().name == "Stage_01")
 		{
 			SC = GetComponent<SceneChanger>();
 			//OC = GetComponent<Object_Creation>();
 			//csvフォルダからマップ情報を取得
 			//１列ごとに取得
 			CreateMap();			//マップの作成（各オブジェクトの移動）
+		}
+		if (SceneManager.GetActiveScene().name == "Stage_02")
+		{
+			SC = GetComponent<SceneChanger>();
+			//OC = GetComponent<Object_Creation>();
+			//csvフォルダからマップ情報を取得
+			//１列ごとに取得
+			CreateMap();            //マップの作成（各オブジェクトの移動）
 		}
 	}
 	void CreateMap()
@@ -44,8 +52,8 @@ public class MapCreate : MonoBehaviour
 						//Enemy_obj.transform.position = Obj_Storage.Storage_Data.pos;
 						break;
 					case "3":
-						//GameObject Boss_obj = Obj_Storage.Storage_Data.Boss.Active_Obj();
-						//Boss_obj.transform.position = Obj_Storage.Storage_Data.pos;
+						GameObject Player_obj2 = Obj_Storage.Storage_Data.Player_2.Active_Obj();
+						Player_obj2.transform.position = Obj_Storage.Storage_Data.pos;
 						break;
 					default:
 						break;

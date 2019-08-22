@@ -12,6 +12,7 @@
 // 2019/05/24：オブジェクトの親子関係の修正
 // 2019/05/27：表示非表示の選択追加
 // 2019/07/19：文字のポジション中央揃え化
+// 2019/08/13：文字の位置変更
 //----------------------------------------------------------------------------------------------
 //
 // 私を読んで
@@ -100,6 +101,7 @@ namespace TextDisplay
 		{
 			if (s.Length == Word_Count)
 			{
+				controler_obj.name = s;
 				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
@@ -118,6 +120,7 @@ namespace TextDisplay
 
 				for (int i = 0; i < s.Length; i++)
 				{
+					Character_Object[i].name = "Character_" + s[i];
 					Display_Characters[i].sprite = Look[character_search(s[i])];
 				}
 			}
@@ -307,5 +310,13 @@ namespace TextDisplay
 				Character_Object[i].transform.localPosition = temp;
 			}
 		}
-    }
+
+		/// <summary>
+		/// 位置変更
+		/// </summary>
+		public void Position_Change(Vector3 next_pos)
+		{
+			controler_obj.transform.localPosition = next_pos;
+		}
+	}
 }

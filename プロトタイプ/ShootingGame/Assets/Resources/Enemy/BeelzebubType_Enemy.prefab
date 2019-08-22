@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4490354771387123157}
   - component: {fileID: 9113974243012657975}
   - component: {fileID: 554949061701239349}
+  - component: {fileID: 465326602056362306}
   m_Layer: 0
   m_Name: BeelzebubType_Enemy
   m_TagString: Enemy
@@ -26,15 +27,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72782433919951560}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1377363440267535222}
   - {fileID: 5299522067671828735}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
 --- !u!114 &4490354771387123157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,6 +51,7 @@ MonoBehaviour:
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 9113974243012657975}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -57,6 +59,7 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 1377363440269828502}
@@ -64,9 +67,13 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  eState: 0
   playerObj: {fileID: 0}
-  speedX: 2
+  speedX: 5
   rollSpeed: 2.5
+  rotaX: 0
+  rotaY: 0
+  rotaZ: 0
   degree: 0
   degree_plus: 0
   rollDelay: 0
@@ -74,11 +81,13 @@ MonoBehaviour:
   rotationZ_Inc: 0
   rotationZ_Dec: 0
   frameCnt: 0
-  followStartTime: 90
+  followStartTime: 210
   followTimeCnt: 0
   followEndTime: 300
   saveDeg: 0
   saveDig_plus: 0
+  isInc: 0
+  isDec: 0
 --- !u!136 &9113974243012657975
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -109,6 +118,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &465326602056362306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72782433919951560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd6aa78aca1afa4fbaca75e43b4a3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUseKey: 1
+  controlKey: 0
 --- !u!1001 &1377363440267934198
 PrefabInstance:
   m_ObjectHideFlags: 0

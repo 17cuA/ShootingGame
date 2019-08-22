@@ -14,7 +14,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	private LineRenderer lineRenderer;
 
-	public List<LaserLine> nodes;
+	public List<GameObject> nodes;
 
 	private int pointMax;
 	private int pointCount;
@@ -32,7 +32,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	{
 		this.isFixed      = true;
 		this.lineRenderer = GetComponent<LineRenderer>();
-		this.nodes        = new List<LaserLine>();
+		this.nodes        = new List<GameObject>();
 		this.emitter      = GameObject.Find("LaserEmitter");
 	}
 
@@ -94,38 +94,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			ResetLineRenderer();
 		}
 
-
-		//補間
-
-
-
-
-		//var count = nodes.Count - 1;
-		////オブジェクト追加
-		//for (var i = 0; i < count; ++i)
-		//{
-		//	if(!nodes[i].isRotateLaser)
-		//	{
-		//		return;
-		//	}
-		//	if(Vector3.Distance(nodes[i].transform.position, nodes[i + 1].transform.position) > 1.5f)
-		//	{
-		//		var pos = (nodes[i].transform.position + nodes[i + 1].transform.position) / 2f;
-		//		var direction = ((nodes[i].transform.position - transform.position) + (nodes[i + 1].transform.position - transform.position)) / 2f;
-		//		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
-		//		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		//		node.GetComponent<bullet_status>().Travelling_Direction = direction.normalized;
-		//		node.GetComponent<LaserLine>().TrailRenderer.Clear();
-		//		node.GetComponent<LaserLine>().TrailRenderer.endWidth = 2;
-		//		node.GetComponent<LaserLine>().TrailRenderer.startWidth = 2;
-		//		node.GetComponent<LaserLine>().isRotateLaser = true;
-		//		this.nodes.Insert(i + 1, node.GetComponent<LaserLine>());
-		//		this.pointCount++;
-		//		i++;
-		//		count++;
-		//	}
-		//}
-
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
 		//{
 		//	if(this.nodes.Count == 0)
@@ -162,32 +130,23 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node = CreateNode(transform.position, this.emitter.transform.localEulerAngles, trailWidth, isRotateLaser);
 
 		//管理するように
-		this.nodes.Add(node.GetComponent<LaserLine>());
+		this.nodes.Add(node);
 		this.pointCount++;
 
-		if (nodes.Count > 1 && isRotateLaser && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl)))
+		if (nodes.Count > 1 && isRotateLaser)
 		{
 			var last = this.nodes[this.nodes.Count - 1];
 			var lastlast = this.nodes[this.nodes.Count - 2];
-			var pos = (last.transform.position + lastlast.transform.position) / 2;
-			var rotation = (last.transform.localEulerAngles + lastlast.transform.localEulerAngles) / 2f;
-
+			var pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.33f;
+			var rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.33f;
 			node = CreateNode(pos, rotation, trailWidth,isRotateLaser);
-			node.GetComponent<LaserLine>().lifeTime = (last.lifeTime + lastlast.lifeTime) / 2f;
-			node.GetComponent<LaserLine>().ischangLaserWidth = true;
-			//this.nodes.Insert(this.nodes.Count - 1, node.GetComponent<LaserLine>());
-			//this.pointCount++;
-		}
 
-		//if (nodes.Count != 0)
-		//{
-		//	var last = this.nodes[this.nodes.Count - 1];
-		//	var pos = (last.transform.position + transform.position) / 2;
-		//	var rotation = Average(new Quaternion[] { last.transform.localRotation, transform.localRotation });
-		//	node = CreateNode(pos, rotation, trailWidth);
-		//	this.nodes.Add(node);
-		//	this.pointCount++;
-		//}
+			last = this.nodes[this.nodes.Count - 1];
+			lastlast = this.nodes[this.nodes.Count - 2];
+			pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.67f;
+			rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.67f;
+			node = CreateNode(pos, rotation, trailWidth, isRotateLaser);
+		}
 	}
 
 	/// <summary>
@@ -224,62 +183,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
 		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
-
-		if(isRotateLaser)
-		{
-			node.transform.GetChild(0).gameObject.SetActive(false);
-		}
-		else
-		{
-			node.transform.GetChild(0).gameObject.SetActive(true);
-		}
-
 		return node;
-	}
-
-
-	public static Quaternion Average(Quaternion[] quatArray)
-	{
-		var result = new Quaternion();
-		var count = quatArray.Length;
-		var error = 0;
-
-		while (count > 1)
-		{
-			if (error >= 10000) break;
-			error++;
-			var k = 0;
-			for (int i = 0; i + 1 < count; i += 2)
-			{
-				var a = quatArray[i];
-				var b = quatArray[i + 1];
-
-				if (Quaternion.Dot(a, a) < Quaternion.kEpsilon)
-					a = Quaternion.identity;
-
-				if (Quaternion.Dot(b, b) < Quaternion.kEpsilon)
-					b = Quaternion.identity;
-
-				var avgQuat = Quaternion.LerpUnclamped(a, b, 0.5f);
-
-				quatArray[k] = avgQuat;
-				k++;
-			}
-
-			var lastCount = count;
-			count = k;
-
-			if ((lastCount & 1) == 1)
-			{
-				k++;
-				count++;
-				quatArray[k] = quatArray[lastCount - 1];
-			}
-		}
-
-		result = quatArray[0];
-
-		return result;
 	}
 }
 

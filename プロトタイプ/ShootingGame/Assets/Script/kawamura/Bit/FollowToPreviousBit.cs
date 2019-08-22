@@ -29,7 +29,7 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isMove = false;
 	public bool hasOption = false;
 	bool defCheck = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	void Start()
 	{
 		myName = gameObject.name;
@@ -47,7 +47,7 @@ public class FollowToPreviousBit : MonoBehaviour
 		}
 
 		//int cnt = 0;
-		array_Num = 12;
+		array_Num = 9;
 		previousBitPos = new Vector3[array_Num];
 
 		defCheck = true;
@@ -68,6 +68,8 @@ public class FollowToPreviousBit : MonoBehaviour
             {
                 previousBitPos[i] += defPos;
             }
+			savePos = transform.position;
+			pos = previousBitObj.transform.position;
 		}
 		else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
 		{

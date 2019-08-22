@@ -8,6 +8,7 @@
 // 2019/05/16：ボスのデータベース全ての格納
 // 2019/05/24：ゲーム中の切り替え
 // 2019/05/30：ボスのアニメーション許可
+// 2019/08/01　プレイヤー人数保存、設定
 //----------------------------------------------------------------------------------------------
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,20 @@ using CSV_Management;
 
 public class Game_Master : MonoBehaviour
 {
-    /// <summary>
-    /// ボスのデータベースにあるレコード管理
-    /// </summary>
-    public enum BOSS_DATA_ELEMENTS
+	/// <summary>
+	/// 人数管理用のイナム
+	/// </summary>
+	public enum PLAYER_NUM
+	{
+		eUNDECIDED,     //未設定
+		eONE_PLAYER,        //一人
+		eTWO_PLAYER,        //二人
+	}
+
+	/// <summary>
+	/// ボスのデータベースにあるレコード管理
+	/// </summary>
+	public enum BOSS_DATA_ELEMENTS
     {
         eID,                    // BossのID
         eNAME,                  // Boss の名前
@@ -64,14 +75,20 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum OBJECT_NAME
 	{
-		ePLAYER_BULLET,		// プレイヤーのバレット
-		ePLAYER_MISSILE,		// プレイヤーのミサイル
+		ePLAYER_BULLET,		// プレイヤーのバレット 
+        //新規で追加したもの---------------------
+        ePLAYER2_BULLET,
+        eOPTION_BULLET,
+        //------------------------------------
+		ePLAYER_MISSILE,	// プレイヤーのミサイル
 		ePLAYER_LASER,		// プレイヤーのレーザー
 		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
 		ePOWERUP_ITEM,		//パワーアップアイテム
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
+		eONE_BOSS_LASER,
+		eONE_BOSS_BOUND,
 		/////////////////////////////////////////////////////////////////
 		ePLAYER,										// プレイヤー
 		eENEMY_NUM1,								// エネミー1番
@@ -92,8 +109,9 @@ public class Game_Master : MonoBehaviour
     public Score_Display _Display{private set; get;}			// スコア表示をするため用
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 	public string[] Name_List {  get; private set; }
+	public static PLAYER_NUM Number_Of_People { get; private set; }             // 設定保存
 
-	private void Awake()
+    private void Awake()
 	{
 		if (Name_List == null)
 		{
@@ -116,8 +134,14 @@ public class Game_Master : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
+				display_score = 0;
+				Number_Of_People = PLAYER_NUM.eONE_PLAYER;
+				break;
+            case "Stage_01":
+				Debug.Log(Number_Of_People);
+                Stage_Start();
                 break;
-            case "Stage":
+            case "Stage_02":
                 Stage_Start();
                 break;
             case "GameOver":
@@ -153,8 +177,18 @@ public class Game_Master : MonoBehaviour
     private void Stage_Start()
     {
         //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
-		display_score = 0;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		Is_Completed_For_Warning_Animation = false;
     }
+
+	/// <summary>
+	/// プレイヤー人数設定
+	/// </summary>
+	/// <param name="set_num"> 設定人数 </param>
+	/// <returns> 設定された人数 </returns>
+	public PLAYER_NUM Number_Of_Players_Confirmed(PLAYER_NUM set_num)
+	{
+		Number_Of_People = set_num;
+		return Number_Of_People;
+	}
 }

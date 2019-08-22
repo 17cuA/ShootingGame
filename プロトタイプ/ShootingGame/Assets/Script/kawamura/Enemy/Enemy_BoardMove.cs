@@ -34,18 +34,18 @@ public class Enemy_BoardMove : MonoBehaviour
 
 		if (ebp.speedX == 0)
 		{
-			speedX = 1;
-			//sin =posY + Mathf.Sin(Time.time*5);
+            //speedX = 1;
+            //sin =posY + Mathf.Sin(Time.time*5);
 
-			SpeedY_Check();
-			SpeedY_Calculation();
+            SpeedY_Check();
+            SpeedY_Calculation();
 
-			//this.transform.position = new Vector3(transform.position.x, sin, 0);
-			//transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.05f), transform.position.z);
-			//velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
-			//gameObject.transform.position += velocity * Time.deltaTime;
+            //this.transform.position = new Vector3(transform.position.x, sin, 0);
+            //transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.frameCount * 0.05f), transform.position.z);
+            velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+            gameObject.transform.position += velocity * Time.deltaTime;
 
-		}
+        }
 
 	}
 	//Yスピードを見てYスピードを増加させるか減少させるかを決める
@@ -61,7 +61,7 @@ public class Enemy_BoardMove : MonoBehaviour
 				isSubSpeedY = true;
 			}
 			//スピードが0以下になったとき
-			else if (speedY <= -defaultSpeedY)
+			else if (speedY < -defaultSpeedY)
 			{
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;
@@ -78,7 +78,7 @@ public class Enemy_BoardMove : MonoBehaviour
 				isSubSpeedY = true;
 			}
 			//スピードが0以下になったとき
-			else if (speedY <= defaultSpeedY)
+			else if (speedY < defaultSpeedY)
 			{
 				//減少をfalse 増加をtrue
 				isSubSpeedY = false;

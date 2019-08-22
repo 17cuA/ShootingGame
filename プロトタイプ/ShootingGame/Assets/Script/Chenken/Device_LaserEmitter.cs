@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ChenkenLaser;
 using UnityEngine;
 
  [DefaultExecutionOrder(599)]
 class Device_LaserEmitter : MonoBehaviour
 {
 	public bool isClose = false;
+
+	[Header("Fireボタン/キー　設定")]
+	public KeyCode firekey;
+	public string fireButtonName;
+
 	//--------------------------- 直線型レーザー（タイプ１） ----------------------------------
 	[Header("--------直線型レーザー--------")]
 	[SerializeField] [Range(0.5f,1.2f)]   private float straightLaserShotSpeed        = 0.8f;
@@ -267,7 +273,7 @@ class Device_LaserEmitter : MonoBehaviour
 		else
 		{
 			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetButtonDown(fireButtonName) || Input.GetKeyDown(firekey))
 			{
 				if (launchDevice is StraightLaunchDevice)
 					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
@@ -275,7 +281,7 @@ class Device_LaserEmitter : MonoBehaviour
 					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 			}
 
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+			if (Input.GetButton(fireButtonName) || Input.GetKey(firekey))
 			{
 				if (launchDevice.CurrentGenerator == null)
 				{
@@ -294,7 +300,7 @@ class Device_LaserEmitter : MonoBehaviour
 				}
 			}
 
-			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space) && launchDevice.CurrentGenerator != null)
+			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey) && launchDevice.CurrentGenerator != null)
 			{
 				launchDevice.CurrentGenerator.IsFixed = false;
 				launchDevice.CurrentGenerator = null;

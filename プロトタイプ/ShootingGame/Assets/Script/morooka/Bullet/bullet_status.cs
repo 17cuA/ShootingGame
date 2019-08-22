@@ -24,23 +24,42 @@ public class bullet_status : MonoBehaviour
 	public Vector3 Travelling_Direction;    //自分の向き
 	[SerializeField]
 	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
-	protected void Start()
+    private Player1 P1;
+    private Player2 P2;
+    protected void Start()
 	{
 		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
-	}
+        if (gameObject.name == "Player_Bullet")
+        {
+            P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+        }
+        else if (gameObject.name == "Player2_Bullet")
+        {
+            P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+        }
 
-	protected void Update()
+    }
+
+    protected void Update()
 	{
 		//if(!Bullet_Renderer.isVisible)
 		//{
 		//	Debug.LogError("消えた？");
 		//	gameObject.SetActive(false);
 		//}
-		if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
-			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
+		if (gameObject.tag == "Player_Bullet")
 		{
-			gameObject.SetActive(false);
+			if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
+				|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+			{
+				if (gameObject.tag == "Player_Bullet")
+				{
+					if (P1 != null) P1.Bullet_cnt--;
+					if (P2 != null) P2.Bullet_cnt--;
+				}
+				gameObject.SetActive(false);
+			}
 		}
 	}
 
@@ -56,8 +75,9 @@ public class bullet_status : MonoBehaviour
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
-
-		}
+            //if (P1 != null) P1.Bullet_cnt--;
+            //if (P2 != null) P2.Bullet_cnt--;
+        }
 		else if(gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
 			gameObject.SetActive(false);
@@ -67,9 +87,9 @@ public class bullet_status : MonoBehaviour
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
-		}
-		else if(gameObject.tag == "Enemy_Bullet" && gameObject.tag == "Player_Bullet")
-		{ }
+            if (P1 != null) P1.Bullet_cnt--;
+            if (P2 != null) P2.Bullet_cnt--;
+        }
 	}
 
 	/// <summary>
@@ -127,4 +147,5 @@ public class bullet_status : MonoBehaviour
 	{
 		gameObject.tag = tag_name;
 	}
+
 }
