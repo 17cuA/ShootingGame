@@ -102,7 +102,8 @@ public class Game_Master : MonoBehaviour
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント
     public static Game_Master MY{get; private set;}             // 自分の情報
-    public static uint display_score{private set; get;}                // 表示スコア
+    public static uint display_score_1P{private set; get;}                // 表示スコア
+    public static uint display_score_2P{private set; get;}                // 表示スコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
     //public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
@@ -134,7 +135,7 @@ public class Game_Master : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
-				display_score = 0;
+				display_score_1P = 0;
 				Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 				break;
             case "Stage_01":
@@ -161,15 +162,23 @@ public class Game_Master : MonoBehaviour
         //}
     }
 
-    /// <summary>
-    /// 取得スコア
-    /// </summary>
-    /// <param name="addition"> 加算数 </param>
-    public void Score_Addition(uint addition)
-    {
-		display_score += addition;
-		_Display.Object_To_Display.Character_Preference(display_score.ToString("D10"));
-    }
+	/// <summary>
+	/// 取得スコア
+	/// </summary>
+	/// <param name="addition"> 加算数 </param>
+	public void Score_Addition(uint addition, int Player_Num)
+	{
+		if (Player_Num == 1)
+		{
+			display_score_1P += addition;
+			_Display.Display_Number_Preference_1P(display_score_1P);
+		}
+		else if(Player_Num == 2)
+		{
+			display_score_2P += addition;
+			_Display.Display_Number_Preference_2P(display_score_2P);
+		}
+	}
 
     /// <summary>
     /// ステージシーンのスタート

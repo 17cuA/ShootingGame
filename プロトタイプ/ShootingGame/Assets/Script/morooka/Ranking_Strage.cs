@@ -36,7 +36,7 @@ public class Ranking_Strage : MonoBehaviour
 		}
 		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
 		{
-			Set_Score(kDefaultName, Game_Master.display_score);
+			Set_Score(kDefaultName, Game_Master.display_score_1P);
 			_Display = GetComponent<RankingDisplay>();
 			_Display.Init();
 		}
@@ -88,7 +88,7 @@ public class Ranking_Strage : MonoBehaviour
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);
 		int i;
-		for (i = 0; i < Max_num && Strage[i].score > Game_Master.display_score; ++i) ;
+		for (i = 0; i < Max_num && Strage[i].score > Game_Master.display_score_1P; ++i) ;
 		PlayerRank = i;
 		Ranking_Save();
 	}

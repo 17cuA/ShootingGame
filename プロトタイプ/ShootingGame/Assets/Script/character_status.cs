@@ -40,6 +40,9 @@ public class character_status : MonoBehaviour
 	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
 	private int framecnt;
 	private bool check;
+
+	public int Opponent;
+
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -110,7 +113,7 @@ public class character_status : MonoBehaviour
 		if (transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score);
+			Game_Master.MY.Score_Addition(score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[9]);
 			//爆発処理の作成
 			ParticleCreation(7);
@@ -120,7 +123,7 @@ public class character_status : MonoBehaviour
         else if (transform.name == "BattleshipType_Enemy(Clone)" || transform.name == "BattleshipType_Enemy")
         {
             //スコア
-            Game_Master.MY.Score_Addition(score);
+            Game_Master.MY.Score_Addition(score, Opponent);
             SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[19]);
             //爆発処理の作成
             ParticleCreation(10);
@@ -130,7 +133,7 @@ public class character_status : MonoBehaviour
         else if (gameObject.tag != "Player")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score);
+			Game_Master.MY.Score_Addition(score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion_smole(Obj_Storage.Storage_Data.audio_se[18]);
 			//爆発処理の作成
 			ParticleCreation(4);

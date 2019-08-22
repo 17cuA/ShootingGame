@@ -296,7 +296,7 @@ public class BattleshipType_Enemy : character_status
 			{
 				if(!muzzle_parts_scriptes[i].gameObject.activeSelf)
 				{
-					Game_Master.MY.Score_Addition(parts_score);
+					Game_Master.MY.Score_Addition(parts_score, muzzle_parts_scriptes[i].Opponent);
 					Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
 				}
 			}
