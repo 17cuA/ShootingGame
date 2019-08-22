@@ -15,6 +15,14 @@ public class Player2 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
+	//グリッド用の変数---------------------------------------
+	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
+	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
+	public float step = 10f;     // 移動速度
+	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
+	//----------------------------------------------------
+
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -144,6 +152,7 @@ public class Player2 : character_status
 		Is_Change_Auto = false;
 		IS_Active = true;
         Bullet_cnt_Max = 8;
+		target = direction;
 	}
 
 	new void Update()
@@ -230,8 +239,18 @@ public class Player2 : character_status
 				}
 				//無敵時間の開始
 				Invincible();
+
 				//プレイヤーの移動処理
-				Player_Move();
+				if (transform.position == target)
+				{
+					//MoveX();
+					SetTargetPosition();
+				}
+
+				Move();
+
+				//プレイヤーの移動処理
+				//Player_Move();
 
 				//弾の発射（Fire2かSpaceキーで撃てる）
 				if (Shot_Delay > Shot_DelayMax)
@@ -256,6 +275,90 @@ public class Player2 : character_status
 			capsuleCollider.enabled = false;
 		}
 	}
+	void SetTargetPosition()
+	{
+		x = Input.GetAxis("Horizontal");            //x軸の入力
+		y = Input.GetAxis("Vertical");              //y軸の入力
+
+		//プレイヤーの移動に上下左右制限を設ける
+		if (transform.position.y >= 4.5f && y > 0) y = 0;
+		if (transform.position.y <= -4.5f && y < 0) y = 0;
+		if (transform.position.x >= 17.0f && x > 0) x = 0;
+		if (transform.position.x <= -17.0f && x < 0) x = 0;
+
+		prevPos = target;
+
+		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
+		if (transform.eulerAngles.x != (swing_facing * y))
+		{
+			// 参考にしたURL↓
+			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+			// Unity にある Mathf.LerpAngle 関数を使用
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
+			transform.eulerAngles = new Vector3(angle, 0, 0);
+			facing_cnt++;
+		}
+		else
+		{
+			facing_cnt = 0;
+		}
+
+		//右上
+		if (x > 0 && y > 0)
+		{
+			target = transform.position + MOVEX + MOVEY;
+
+		}
+		//右下
+		else if (x > 0 && y < 0)
+		{
+			target = transform.position + MOVEX - MOVEY;
+
+		}
+		//左下
+		else if (x < 0 && y < 0)
+		{
+			target = transform.position - MOVEX - MOVEY;
+
+		}
+		//左上
+		else if (x < 0 && y > 0)
+		{
+			target = transform.position - MOVEX + MOVEY;
+
+		}
+		//上
+		else if (y > 0)
+		{
+			target = transform.position + MOVEY;
+
+		}
+		//右
+		else if (x > 0)
+		{
+			target = transform.position + MOVEX;
+
+		}
+		//下
+		else if (y < 0)
+		{
+			target = transform.position - MOVEY;
+
+		}
+		//左
+		else if (x < 0)
+		{
+			target = transform.position - MOVEX;
+
+		}
+
+	}
+	void Move()
+	{
+		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+	}
+
 	//コントローラーの操作
 	private void Player_Move()
 	{

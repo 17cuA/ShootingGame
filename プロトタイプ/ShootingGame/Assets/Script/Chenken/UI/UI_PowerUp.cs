@@ -133,7 +133,7 @@ public class UI_PowerUp : MonoBehaviour
 					current.gameObject.SetActive(true);
 
 				//現在位置に合わせる
-				if (current.gameObject.transform.position != displays[P2_PowerManager.Instance.Position].transform.position && P1_PowerManager.Instance.Position != -1)
+				if (current.gameObject.transform.position != displays[P2_PowerManager.Instance.Position].transform.position && P2_PowerManager.Instance.Position != -1)
 				{
 					current.gameObject.SetActive(false);
 					current.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;

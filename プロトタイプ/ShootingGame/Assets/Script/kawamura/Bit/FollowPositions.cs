@@ -12,29 +12,54 @@ public class FollowPositions : MonoBehaviour
 	public Vector3 defPos;
 	public Vector3 savePos;
 
+	public string myName;
+
 	bool check = false;
 	bool isFreeze = false;
 	public bool isMove;
 	bool defCheck;
+	public bool isFollow1P;
+	public bool isFollow2P;
     void Start()
     {
-        
+		myName = gameObject.name;
+		if (myName == "Four_FollowPos_1P")
+		{
+			isFollow1P = true;
+		}
+		else if (myName == "Four_FollowPos_2P")
+		{
+			isFollow2P = true;
+		}
     }
 
 	void Update()
     {
 		if(playerObj==null)
 		{
-			if(GameObject.Find("Player"))
+			if (isFollow1P)
 			{
-				playerObj = GameObject.Find("Player");
-				check = true;
-				defCheck = true;
-				pos = playerObj.transform.position;
-				savePos = playerObj.transform.position;
+				if (GameObject.Find("Player"))
+				{
+					playerObj = GameObject.Find("Player");
+					check = true;
+					defCheck = true;
+					pos = playerObj.transform.position;
+					savePos = playerObj.transform.position;
+				}
+			}
+			else if (isFollow2P)
+			{
+				if (GameObject.Find("Player_2"))
+				{
+					playerObj = GameObject.Find("Player_2");
+					check = true;
+					defCheck = true;
+					pos = playerObj.transform.position;
+					savePos = playerObj.transform.position;
+				}
 			}
 		}
-
 
 		if (pos == playerObj.transform.position)
 		{
