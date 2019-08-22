@@ -9,6 +9,8 @@ public class FollowToPreviousBit : MonoBehaviour
 {
 	public GameObject playerObj;
 	GameObject previousBitObj;
+	public GameObject parentObj;
+	public string parentName;
 
 	public Vector3[] previousBitPos;
 	public Vector3 pos;
@@ -30,21 +32,55 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool hasOption = false;
 	bool defCheck = false;
 	public bool isFreeze = false;
+	public bool isFollow1P;
+	public bool isFollow2P;
 	void Start()
 	{
 		myName = gameObject.name;
-		if (myName == "FollowPosSecond")
+
+		parentObj = transform.parent.gameObject;
+		parentName = parentObj.name;
+
+		if (parentName == "Four_FollowPos_1P")
 		{
-			previousBitObj = GameObject.Find("FollowPosFirst");
+			isFollow1P = true;
 		}
-		else if (myName == "FollowPosThird")
+		else if (parentName == "Four_FollowPos_2P")
 		{
-			previousBitObj = GameObject.Find("FollowPosSecond");
+			isFollow2P = true;
 		}
-		else if (myName == "FollowPosFourth")
+
+		if (isFollow1P)
 		{
-			previousBitObj = GameObject.Find("FollowPosThird");
+			if (myName == "FollowPosSecond_1P")
+			{
+				previousBitObj = GameObject.Find("FollowPosFirst_1P");
+			}
+			else if (myName == "FollowPosThird_1P")
+			{
+				previousBitObj = GameObject.Find("FollowPosSecond_1P");
+			}
+			else if (myName == "FollowPosFourth_1P")
+			{
+				previousBitObj = GameObject.Find("FollowPosThird_1P");
+			}
 		}
+		else if (isFollow2P)
+		{
+			if (myName == "FollowPosSecond_2P")
+			{
+				previousBitObj = GameObject.Find("FollowPosFirst_2P");
+			}
+			else if (myName == "FollowPosThird_2P")
+			{
+				previousBitObj = GameObject.Find("FollowPosSecond_2P");
+			}
+			else if (myName == "FollowPosFourth_2P")
+			{
+				previousBitObj = GameObject.Find("FollowPosThird_2P");
+			}
+		}
+
 
 		//int cnt = 0;
 		array_Num = 9;
@@ -79,15 +115,31 @@ public class FollowToPreviousBit : MonoBehaviour
 		//プレイヤー格納がnullなら入れる
 		if (playerObj == null)
 		{
-			//プレイヤーがいたら入れる
-			if (GameObject.Find("Player"))
+			if (isFollow1P)
 			{
-				playerObj = GameObject.Find("Player");
-				//isMove = true;
-				//playerPos[cnt] = playerObj.transform;
-				transform.position = playerObj.transform.position;
-				defCheck = true;
-				//pos = playerObj.transform.position;
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player"))
+				{
+					playerObj = GameObject.Find("Player");
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					//pos = playerObj.transform.position;
+				}
+			}
+			else if (isFollow2P)
+			{
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player_2"))
+				{
+					playerObj = GameObject.Find("Player_2");
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					//pos = playerObj.transform.position;
+				}
 			}
 		}
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき

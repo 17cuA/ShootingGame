@@ -21,7 +21,8 @@ public class Helper_SceneTranslation : MonoBehaviour
 	{
 		if (Set_Step == 0)
 		{
-			if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			//if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 			{
 				audioSource?.PlayOneShot(audioClip);
 				Set_Step++;
@@ -29,11 +30,11 @@ public class Helper_SceneTranslation : MonoBehaviour
 		}
 		else if(Set_Step==1)
 		{
-			if(Input.GetButtonDown("Fire1"))
+			if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 			{
 				Set_Step++;
 			}
-			else if(Input.GetButtonDown("Fire2"))
+			else if(Input.GetButtonDown("Fire2") || Input.GetButtonDown("P2_Fire2"))
 			{
 				Set_Step--;
 			}

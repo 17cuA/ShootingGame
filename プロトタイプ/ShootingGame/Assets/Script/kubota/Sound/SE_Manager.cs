@@ -16,7 +16,7 @@ public class SE_Manager : MonoBehaviour
 	[Header("爆発のSE")]
 	public AudioSource Explosion;
 	[Header("爆発のSE小型")]
-	public AudioSource Explosion_Smole;
+	public AudioSource Explosion_Small;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -38,11 +38,13 @@ public class SE_Manager : MonoBehaviour
 	}
 	public void SE_Explosion(AudioClip se)
 	{
+		if (Explosion.isPlaying) Explosion.Stop();
 		if (Is_Active) Explosion.PlayOneShot(se);
 	}
-	public void SE_Explosion_smole(AudioClip se)
+	public void SE_Explosion_small(AudioClip se)
 	{
-		if (Is_Active) Explosion_Smole.PlayOneShot(se);
+		if (Explosion_Small.isPlaying) Explosion_Small.Stop();
+		if (Is_Active) Explosion_Small.PlayOneShot(se);
 	}
 
 }

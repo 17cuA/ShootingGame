@@ -78,8 +78,9 @@ public class Game_Master : MonoBehaviour
 		ePLAYER_BULLET,		// プレイヤーのバレット 
         //新規で追加したもの---------------------
         ePLAYER2_BULLET,
-        eOPTION_BULLET,
-        //------------------------------------
+        eP1_OPTION_BULLET,
+		eP2_OPTION_BULLET,
+		//------------------------------------
 		ePLAYER_MISSILE,	// プレイヤーのミサイル
 		ePLAYER_LASER,		// プレイヤーのレーザー
 		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル

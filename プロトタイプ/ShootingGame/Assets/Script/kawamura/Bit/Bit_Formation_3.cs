@@ -24,7 +24,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	//BitState previous_state;					//オプションの前の状態（レーザーを解除したときに使う）
 
 	public GameObject playerObj;				//プレイヤーのオブジェクト
-	public GameObject parentObj;				//親のオブジェクト
+	//public GameObject parentObj;				//親のオブジェクト
 	public GameObject followPosObj;				//プレイヤーを追従するときの位置オブジェクト
 	public GameObject followPosFirstObj;		//プレイヤーに一番近い追従位置オブジェクト
 	public GameObject followPosSecondObj;		//二番目
@@ -87,16 +87,16 @@ public class Bit_Formation_3 : MonoBehaviour
 		renderer = gameObject.GetComponent<Renderer>();			//レンダラー取得
 
 		//4つの追従位置とそれぞれのスクリプト取得
-		followPosFirstObj = GameObject.Find("FollowPosFirst");
+		followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
 		FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
 
-		followPosSecondObj = GameObject.Find("FollowPosSecond");
+		followPosSecondObj = GameObject.Find("FollowPosSecond_1P");
 		FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
 
-		followPosThirdObj = GameObject.Find("FollowPosThird");
+		followPosThirdObj = GameObject.Find("FollowPosThird_1P");
 		FtoPBit_Third=followPosThirdObj.GetComponent<FollowToPreviousBit>();
 
-		followPosFourthObj = GameObject.Find("FollowPosFourth");
+		followPosFourthObj = GameObject.Find("FollowPosFourth_1P");
 		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
 
 

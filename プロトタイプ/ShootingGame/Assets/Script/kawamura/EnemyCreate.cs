@@ -737,10 +737,10 @@ public class EnemyCreate : MonoBehaviour
         //奥からくる突進の闘牛型を画面右から左へ出す 1320
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
         {
-            Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
 
             nextEnemy = "闘牛三体真ん中アイテム";
-            Next_Condition(210);
+            Next_Condition(100);
         }
 
         //奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵） 1530
