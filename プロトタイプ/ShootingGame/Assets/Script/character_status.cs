@@ -231,7 +231,7 @@ public class character_status : MonoBehaviour
 				Damege_Effect();
 
 			}
-			else if(col.gameObject.name == "Player")
+			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
 			{
 				Damege_Process(3);
 			}
