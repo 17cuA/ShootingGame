@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2629437540717551961}
   - component: {fileID: 424082186532638202}
   m_Layer: 14
-  m_Name: Player_Bullet
+  m_Name: Player_Bullet_2P
   m_TagString: Player_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,6 +4862,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3449429403969397427, guid: c26c13f0d209f204bba136ad3f118fc1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772318905883602406, guid: c26c13f0d209f204bba136ad3f118fc1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c26c13f0d209f204bba136ad3f118fc1, type: 3}
