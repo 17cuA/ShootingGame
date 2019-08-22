@@ -48,8 +48,6 @@ public class bullet_status : MonoBehaviour
 		//	Debug.LogError("消えた？");
 		//	gameObject.SetActive(false);
 		//}
-		if (gameObject.tag == "Player_Bullet")
-		{
 			if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
 				|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
 			{
@@ -60,7 +58,6 @@ public class bullet_status : MonoBehaviour
 				}
 				gameObject.SetActive(false);
 			}
-		}
 	}
 
 	protected void OnTriggerEnter(Collider col)
