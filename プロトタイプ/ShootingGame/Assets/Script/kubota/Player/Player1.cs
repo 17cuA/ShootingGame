@@ -99,7 +99,7 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
 		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
@@ -707,7 +707,11 @@ public class Player1 : character_status
 	{
 		speed = min_speed;
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-
+	}
+	private void Init_speed_died()
+	{
+		speed = min_speed;
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[20]);
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更
 	private void Reset_BulletType()

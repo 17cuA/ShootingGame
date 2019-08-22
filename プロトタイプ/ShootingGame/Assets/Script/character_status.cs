@@ -136,7 +136,6 @@ public class character_status : MonoBehaviour
 			ParticleCreation(4);
 			Is_Dead = true;
 			Reset_Status();
-
 		}
 		else
 		{
