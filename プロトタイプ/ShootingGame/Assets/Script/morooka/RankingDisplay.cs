@@ -43,10 +43,6 @@ public class RankingDisplay : MonoBehaviour
 	private GameObject[] Rank_Parent { get; set; }
 	private float Font_Size { get; set; }
 
-	// スクロール用
-	const float kScrollValue = 75f;
-	int centerElementNum = 0;
-
 	public static RankingDisplay instance;
 
 	void Start()
@@ -88,32 +84,25 @@ public class RankingDisplay : MonoBehaviour
 		RankingCharacterDisplay = new Character_Display[Ranking_Strage.Max_num];
 		Rank_Pos = new Vector3[Ranking_Strage.Max_num];
 
-		float y_pos = 150f / 2f * 2f - 150f / 2f * 5f;
+		float y_pos = 15.0f;
 		Font_Size = 1.0f / 2.0f;
 
-		GameObject maskObject = new GameObject("RankingMask");
-		maskObject.transform.parent = transform;
-		RectMask2D maskObjectRectMask = maskObject.AddComponent<RectMask2D>();
-		maskObjectRectMask.rectTransform.localPosition = new Vector3(kScreenWidth / 2f / 2f, 15f - 150f / 2f * 2f + 25f);
-		maskObjectRectMask.rectTransform.sizeDelta = new Vector2(50f * 21f, 75f * 5f);
-
-		for (int i = 0; i < Ranking_Strage.Max_num; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			Rank_Pos[i].y = y_pos;
-			Rank_Pos[i].x = 0f;
+			Rank_Pos[i].x = kScreenWidth / 2.0f / 2.0f;
 			y_pos -= 150.0f / 2.0f;
 
 			int ranking_num = i + 1;
 			string s_temp = ranking_num.ToString().PadLeft(2) + "___" + DataArray[i].name + "__" + DataArray[i].score.ToString("D10");
 			Rank_Parent[i] = new GameObject();
-			Rank_Parent[i].transform.parent = maskObject.transform;
+			Rank_Parent[i].transform.parent = transform;
 			Rank_Parent[i].name = "Rank" + ranking_num.ToString();
 			RankingCharacterDisplay[i] = new Character_Display(s_temp.Length, "morooka/SS", Rank_Parent[i], Rank_Pos[i]);
 			RankingCharacterDisplay[i].Character_Preference(s_temp);
 			RankingCharacterDisplay[i].Size_Change(new Vector3(Font_Size, Font_Size, Font_Size));
 			RankingCharacterDisplay[i].Centering();
 		}
-		centerElementNum = Ranking_Strage.Strage_Data.PlayerRank;
 	}
 
 	void Update()
@@ -124,11 +113,6 @@ public class RankingDisplay : MonoBehaviour
 		inputNameClass.SelectingName();
 		// 表示の更新
 		inputNameDisplay.Character_Preference(inputNameClass.Name);
-		// ランキングの中心に来るオブジェクトの補正
-		if (centerElementNum < 2) { centerElementNum = 2; }
-		else if (centerElementNum > Ranking_Strage.Max_num - 3) { centerElementNum = Ranking_Strage.Max_num - 3; }
-		// ランキングのスクロール処理
-		CorrectCenterRankingLine();
 		// 変更された名前を逐一保存していく
 		if (previousName != inputNameClass.Name)
 		{
@@ -138,25 +122,5 @@ public class RankingDisplay : MonoBehaviour
 			RankingCharacterDisplay[i].Character_Preference((i + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[i].name + "__" + Ranking_Strage.Strage[i].score.ToString("D10"));
 		}
 		previousName = inputNameClass.Name;
-	}
-
-	/// <summary>
-	/// 要素番号centerElementNumの要素行をランキングの中心にオフセットする処理
-	/// </summary>
-	void CorrectCenterRankingLine()
-	{
-		int sign = Rank_Pos[centerElementNum].y > 0 ? -1 : 1;
-		float correctValue = kScrollValue * Time.deltaTime * sign;
-		float temp = Rank_Pos[centerElementNum].y + correctValue;
-		// yが0を通り過ぎたら、行き過ぎないようにする
-		if (temp * sign > 0f)
-		{
-			correctValue -= (correctValue * sign - Mathf.Abs(Rank_Pos[centerElementNum].y)) * sign;
-		}
-		for (int i = 0; i < Ranking_Strage.Max_num; ++i)
-		{
-			Rank_Pos[i].y += correctValue;
-			RankingCharacterDisplay[i].Position_Change(Rank_Pos[i]);
-		}
 	}
 }
