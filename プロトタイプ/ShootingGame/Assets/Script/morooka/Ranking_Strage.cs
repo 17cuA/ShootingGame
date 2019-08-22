@@ -36,6 +36,7 @@ public class Ranking_Strage : MonoBehaviour
 		}
 		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
 		{
+			Strage_Data = GetComponent<Ranking_Strage>();
 			Set_Score(kDefaultName, Game_Master.display_score);
 			_Display = GetComponent<RankingDisplay>();
 			_Display.Init();

@@ -299,10 +299,10 @@ public class One_Boss : character_status
 			else if (transform.position == Pos_set[0, 0])
 			{
 				warp_ef.transform.localPosition = Vector3.zero;
-				foreach (ParticleSystem system in Warp_EF)
-				{
-					system.Play();
-				}
+				//foreach (ParticleSystem system in Warp_EF)
+				//{
+				//	system.Play();
+				//}
 				start_timecline.Resume();
 			}
 		}
