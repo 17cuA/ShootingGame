@@ -277,8 +277,8 @@ public class Player2 : character_status
 	}
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
+		y = Input.GetAxis("P2_Vertical");              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
