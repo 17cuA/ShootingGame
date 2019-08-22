@@ -727,12 +727,12 @@ public class EnemyCreate : MonoBehaviour
 		//奥からくる斜めに並んだ闘牛型の群れを出す 1020
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
 		{
-			GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
-			enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
-			enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+			//GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+			//enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
+			//enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
 
 			nextEnemy = "突進闘牛後ろから";
-			Next_Condition(300);
+			Next_Condition(10);
 		}
         //奥からくる突進の闘牛型を画面右から左へ出す 1320
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)

@@ -681,19 +681,19 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bitIndex++;
 				break;
 			default:

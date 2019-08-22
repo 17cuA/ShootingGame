@@ -184,7 +184,7 @@ public class Player2 : character_status
 				//-------------------------------
 				//デバックの工程
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha2)) P2_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 				if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
@@ -640,19 +640,19 @@ public class Player2 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			default:
