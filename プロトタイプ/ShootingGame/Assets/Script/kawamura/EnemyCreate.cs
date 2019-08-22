@@ -159,6 +159,8 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject enemy_MEteor_Under;
     public GameObject enemy_Meteors;
     public GameObject enemy_Meteor_Mini;
+	public GameObject enemy_MeteorWaveGroup;
+	public GameObject enemy_SlowFollow;
 
 	public GameObject saveEnemyObj;
 
@@ -184,80 +186,80 @@ public class EnemyCreate : MonoBehaviour
 		//位置オブジェクト取得
 		//上側取得
 		#region CreatePosTop
-		createPosT17 = GameObject.Find("CreatePosTop_17");
-		createPosT16 = GameObject.Find("CreatePosTop_16");
-		createPosT15 = GameObject.Find("CreatePosTop_15");
-		createPosT14 = GameObject.Find("CreatePosTop_14");
-		createPosT13 = GameObject.Find("CreatePosTop_13");
-		createPosT12 = GameObject.Find("CreatePosTop_12");
-		createPosT11 = GameObject.Find("CreatePosTop_11");
-		createPosT10 = GameObject.Find("CreatePosTop_10");
-		createPosT9 = GameObject.Find("CreatePosTop_9");
-		createPosT8 = GameObject.Find("CreatePosTop_8");
-		createPosT7 = GameObject.Find("CreatePosTop_7");
-		createPosT6 = GameObject.Find("CreatePosTop_6");
-		createPosT5 = GameObject.Find("CreatePosTop_5");
-		createPosT4 = GameObject.Find("CreatePosTop_4");
-		createPosT3 = GameObject.Find("CreatePosTop_3");
-		createPosT2 = GameObject.Find("CreatePosTop_2");
-		createPosT1 = GameObject.Find("CreatePosTop_1");
-		createPosT0 = GameObject.Find("CreatePosTop_0");
-		createPosTm1 = GameObject.Find("CreatePosTop_-1");
-		createPosTm2 = GameObject.Find("CreatePosTop_-2");
-		createPosTm3 = GameObject.Find("CreatePosTop_-3");
-		createPosTm4 = GameObject.Find("CreatePosTop_-4");
-		createPosTm5 = GameObject.Find("CreatePosTop_-5");
-		createPosTm6 = GameObject.Find("CreatePosTop_-6");
-		createPosTm7 = GameObject.Find("CreatePosTop_-7");
-		createPosTm8 = GameObject.Find("CreatePosTop_-8");
-		createPosTm9 = GameObject.Find("CreatePosTop_-9");
-		createPosTm10 = GameObject.Find("CreatePosTop_-10");
-		createPosTm11 = GameObject.Find("CreatePosTop_-11");
-		createPosTm12 = GameObject.Find("CreatePosTop_-12");
-		createPosTm13 = GameObject.Find("CreatePosTop_-13");
-		createPosTm14 = GameObject.Find("CreatePosTop_-14");
-		createPosTm15 = GameObject.Find("CreatePosTop_-15");
-		createPosTm16 = GameObject.Find("CreatePosTop_-16");
-		createPosTm17 = GameObject.Find("CreatePosTop_-17");
+		createPosT17 = GameObject.Find("CreatePos_Top_17");
+		createPosT16 = GameObject.Find("CreatePos_Top_16");
+		createPosT15 = GameObject.Find("CreatePos_Top_15");
+		createPosT14 = GameObject.Find("CreatePos_Top_14");
+		createPosT13 = GameObject.Find("CreatePos_Top_13");
+		createPosT12 = GameObject.Find("CreatePos_Top_12");
+		createPosT11 = GameObject.Find("CreatePos_Top_11");
+		createPosT10 = GameObject.Find("CreatePos_Top_10");
+		createPosT9 = GameObject.Find("CreatePos_Top_9");
+		createPosT8 = GameObject.Find("CreatePos_Top_8");
+		createPosT7 = GameObject.Find("CreatePos_Top_7");
+		createPosT6 = GameObject.Find("CreatePos_Top_6");
+		createPosT5 = GameObject.Find("CreatePos_Top_5");
+		createPosT4 = GameObject.Find("CreatePos_Top_4");
+		createPosT3 = GameObject.Find("CreatePos_Top_3");
+		createPosT2 = GameObject.Find("CreatePos_Top_2");
+		createPosT1 = GameObject.Find("CreatePos_Top_1");
+		createPosT0 = GameObject.Find("CreatePos_Top_0");
+		createPosTm1 = GameObject.Find("CreatePos_Top_-1");
+		createPosTm2 = GameObject.Find("CreatePos_Top_-2");
+		createPosTm3 = GameObject.Find("CreatePos_Top_-3");
+		createPosTm4 = GameObject.Find("CreatePos_Top_-4");
+		createPosTm5 = GameObject.Find("CreatePos_Top_-5");
+		createPosTm6 = GameObject.Find("CreatePos_Top_-6");
+		createPosTm7 = GameObject.Find("CreatePos_Top_-7");
+		createPosTm8 = GameObject.Find("CreatePos_Top_-8");
+		createPosTm9 = GameObject.Find("CreatePos_Top_-9");
+		createPosTm10 = GameObject.Find("CreatePos_Top_-10");
+		createPosTm11 = GameObject.Find("CreatePos_Top_-11");
+		createPosTm12 = GameObject.Find("CreatePos_Top_-12");
+		createPosTm13 = GameObject.Find("CreatePos_Top_-13");
+		createPosTm14 = GameObject.Find("CreatePos_Top_-14");
+		createPosTm15 = GameObject.Find("CreatePos_Top_-15");
+		createPosTm16 = GameObject.Find("CreatePos_Top_-16");
+		createPosTm17 = GameObject.Find("CreatePos_Top_-17");
 		#endregion
 
 		//下側取得
 		#region CreatePosUnder
-		createPosU17 = GameObject.Find("CreatePosUnder_17");
-		createPosU16 = GameObject.Find("CreatePosUnder_16");
-		createPosU15 = GameObject.Find("CreatePosUnder_15");
-		createPosU14 = GameObject.Find("CreatePosUnder_14");
-		createPosU13 = GameObject.Find("CreatePosUnder_13");
-		createPosU12 = GameObject.Find("CreatePosUnder_12");
-		createPosU11 = GameObject.Find("CreatePosUnder_11");
-		createPosU10 = GameObject.Find("CreatePosUnder_10");
-		createPosU9 = GameObject.Find("CreatePosUnder_9");
-		createPosU8 = GameObject.Find("CreatePosUnder_8");
-		createPosU7 = GameObject.Find("CreatePosUnder_7");
-		createPosU6 = GameObject.Find("CreatePosUnder_6");
-		createPosU5 = GameObject.Find("CreatePosUnder_5");
-		createPosU4 = GameObject.Find("CreatePosUnder_4");
-		createPosU3 = GameObject.Find("CreatePosUnder_3");
-		createPosU2 = GameObject.Find("CreatePosUnder_2");
-		createPosU1 = GameObject.Find("CreatePosUnder_1");
-		createPosU0 = GameObject.Find("CreatePosUnder_0");
-		createPosUm1 = GameObject.Find("CreatePosUnder_-1");
-		createPosUm2 = GameObject.Find("CreatePosUnder_-2");
-		createPosUm3 = GameObject.Find("CreatePosUnder_-3");
-		createPosUm4 = GameObject.Find("CreatePosUnder_-4");
-		createPosUm5 = GameObject.Find("CreatePosUnder_-5");
-		createPosUm6 = GameObject.Find("CreatePosUnder_-6");
-		createPosUm7 = GameObject.Find("CreatePosUnder_-7");
-		createPosUm8 = GameObject.Find("CreatePosUnder_-8");
-		createPosUm9 = GameObject.Find("CreatePosUnder_-9");
-		createPosUm10 = GameObject.Find("CreatePosUnder_-10");
-		createPosUm11 = GameObject.Find("CreatePosUnder_-11");
-		createPosUm12 = GameObject.Find("CreatePosUnder_-12");
-		createPosUm13 = GameObject.Find("CreatePosUnder_-13");
-		createPosUm14 = GameObject.Find("CreatePosUnder_-14");
-		createPosUm15 = GameObject.Find("CreatePosUnder_-15");
-		createPosUm16 = GameObject.Find("CreatePosUnder_-16");
-		createPosUm17 = GameObject.Find("CreatePosUnder_-17");
+		createPosU17 = GameObject.Find("CreatePos_Under_17");
+		createPosU16 = GameObject.Find("CreatePos_Under_16");
+		createPosU15 = GameObject.Find("CreatePos_Under_15");
+		createPosU14 = GameObject.Find("CreatePos_Under_14");
+		createPosU13 = GameObject.Find("CreatePos_Under_13");
+		createPosU12 = GameObject.Find("CreatePos_Under_12");
+		createPosU11 = GameObject.Find("CreatePos_Under_11");
+		createPosU10 = GameObject.Find("CreatePos_Under_10");
+		createPosU9 = GameObject.Find("CreatePos_Under_9");
+		createPosU8 = GameObject.Find("CreatePos_Under_8");
+		createPosU7 = GameObject.Find("CreatePos_Under_7");
+		createPosU6 = GameObject.Find("CreatePos_Under_6");
+		createPosU5 = GameObject.Find("CreatePos_Under_5");
+		createPosU4 = GameObject.Find("CreatePos_Under_4");
+		createPosU3 = GameObject.Find("CreatePos_Under_3");
+		createPosU2 = GameObject.Find("CreatePos_Under_2");
+		createPosU1 = GameObject.Find("CreatePos_Under_1");
+		createPosU0 = GameObject.Find("CreatePos_Under_0");
+		createPosUm1 = GameObject.Find("CreatePos_Under_-1");
+		createPosUm2 = GameObject.Find("CreatePos_Under_-2");
+		createPosUm3 = GameObject.Find("CreatePos_Under_-3");
+		createPosUm4 = GameObject.Find("CreatePos_Under_-4");
+		createPosUm5 = GameObject.Find("CreatePos_Under_-5");
+		createPosUm6 = GameObject.Find("CreatePos_Under_-6");
+		createPosUm7 = GameObject.Find("CreatePos_Under_-7");
+		createPosUm8 = GameObject.Find("CreatePos_Under_-8");
+		createPosUm9 = GameObject.Find("CreatePos_Under_-9");
+		createPosUm10 = GameObject.Find("CreatePos_Under_-10");
+		createPosUm11 = GameObject.Find("CreatePos_Under_-11");
+		createPosUm12 = GameObject.Find("CreatePos_Under_-12");
+		createPosUm13 = GameObject.Find("CreatePos_Under_-13");
+		createPosUm14 = GameObject.Find("CreatePos_Under_-14");
+		createPosUm15 = GameObject.Find("CreatePos_Under_-15");
+		createPosUm16 = GameObject.Find("CreatePos_Under_-16");
+		createPosUm17 = GameObject.Find("CreatePos_Under_-17");
 		#endregion
 
 		//右側取得
@@ -328,7 +330,9 @@ public class EnemyCreate : MonoBehaviour
         enemy_Meteor= Resources.Load("Enemy/Enemy_Meteor") as GameObject;
         enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
 		enemy_MEteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
-        enemy_Meteors = Resources.Load("Enemy/Enemy_Meteors") as GameObject;
+        enemy_Meteors = Resources.Load("Enemy/Meteors") as GameObject;
+		enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
+		enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
 
 		//群れカウント初期化
 		groupCnt = 1;
@@ -1150,7 +1154,7 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
-            nextEnemy = "隕石1";
+            nextEnemy = "隕石群(5つ)";
             Next_Condition(2360);
         }
         //隕石群(5つ) 19390
@@ -1159,45 +1163,45 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Meteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "隕石2";
-            Next_Condition(330);
+            Next_Condition(1730);
         }
-        ////2隕石 21250
-        //else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
-        //{
-        //    Instantiate(enemy_Meteor, createMeteorPosR4_814.transform.position, transform.rotation);
+		//隕石の間を行く敵 21120
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
+		{
+			Instantiate(enemy_MeteorWaveGroup, createPosR3.transform.position, transform.rotation);
 
-        //    nextEnemy = "隕石3";
-        //    Next_Condition(290);
-        //}
-        ////3隕石 21780
-        //else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
-        //{
-        //    Instantiate(enemy_MEteor_Under, createMeteorPosRm3_57.transform.position, transform.rotation);
+			nextEnemy = " ";
+			Next_Condition(290);
+		}
+		////3隕石 21780
+		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		//{
+		//    Instantiate(enemy_MEteor_Under, createMeteorPosRm3_57.transform.position, transform.rotation);
 
-        //    nextEnemy = "隕石4";
-        //    Next_Condition(300);
-        //}
-        ////4隕石 22170
-        //else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
-        //{
-        //    Instantiate(enemy_Meteor, createMeteorPosR2_988.transform.position, transform.rotation);
+		//    nextEnemy = "隕石4";
+		//    Next_Condition(300);
+		//}
+		////4隕石 22170
+		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+		//{
+		//    Instantiate(enemy_Meteor, createMeteorPosR2_988.transform.position, transform.rotation);
 
-        //    nextEnemy = "隕石5";
-        //    Next_Condition(180);
-        //}
-        ////5隕石 22470
-        //else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
-        //{
-        //    Instantiate(enemy_Meteor_Mini, createMeteorPosRm2_822.transform.position, transform.rotation);
+		//    nextEnemy = "隕石5";
+		//    Next_Condition(180);
+		//}
+		////5隕石 22470
+		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+		//{
+		//    Instantiate(enemy_Meteor_Mini, createMeteorPosRm2_822.transform.position, transform.rotation);
 
-        //    nextEnemy = "隕石";
-        //    Next_Condition(380);
-        //}
+		//    nextEnemy = "隕石";
+		//    Next_Condition(380);
+		//}
 
 		//22300
-    }
+	}
 
-    void CreateEnemyGroup_02()
+	void CreateEnemyGroup_02()
 	{
 		//円盤の群れを１つ右上から出す
 		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)

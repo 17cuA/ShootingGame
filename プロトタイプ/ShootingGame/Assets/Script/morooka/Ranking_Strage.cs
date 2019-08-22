@@ -21,6 +21,7 @@ public class Ranking_Strage : MonoBehaviour
 	public const int Reserve_Number = 31;
 	public const string kDefaultName = "YOU";
 	public const string kEmptyName = "XXX";
+	public int PlayerRank { get; private set; }
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
@@ -60,9 +61,17 @@ public class Ranking_Strage : MonoBehaviour
 
 		for (int i = 0; i < Max_num; i++)
 		{
-			for (int j = Max_num - i; j > i; j--)
+			for (int j = Max_num; j > i; j--)
 			{
-				if (rankingArray[j].score >= rankingArray[j - 1].score)
+				// 新しく追加された要素をソートするときは、前の要素以上の時に入れ替える
+				if (i == 0 && rankingArray[j].score >= rankingArray[j - 1].score)
+				{
+					temp = rankingArray[j];
+					rankingArray[j] = rankingArray[j - 1];
+					rankingArray[j - 1] = temp;
+				}
+				// それ以外の時は、前の要素より大きいときに入れ替える
+				else if (rankingArray[j].score > rankingArray[j - 1].score)
 				{
 					temp = rankingArray[j];
 					rankingArray[j] = rankingArray[j - 1];
@@ -78,6 +87,9 @@ public class Ranking_Strage : MonoBehaviour
 		Strage[Max_num].name = name;
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);
+		int i;
+		for (i = 0; i < Max_num && Strage[i].score > Game_Master.display_score; ++i) ;
+		PlayerRank = i;
 		Ranking_Save();
 	}
 
