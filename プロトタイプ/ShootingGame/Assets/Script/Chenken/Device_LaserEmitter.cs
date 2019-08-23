@@ -353,8 +353,12 @@ class Device_LaserEmitter : MonoBehaviour
 
 			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey) && launchDevice.CurrentGenerator != null)
 			{
-				launchDevice.CurrentGenerator.IsFixed = false;
-				launchDevice.CurrentGenerator = null;
+				if (launchDevice.CurrentGenerator != null)
+				{
+					launchDevice.CurrentGenerator.IsFixed = false;
+					launchDevice.CurrentGenerator = null;
+				}
+
 			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
