@@ -68,7 +68,7 @@ public class Player1 : character_status
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 	//リスポーン時に使用する変数--------------------------------------------------
-	private bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
+	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
