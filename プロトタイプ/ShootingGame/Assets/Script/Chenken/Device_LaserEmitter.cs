@@ -6,8 +6,10 @@ using ChenkenLaser;
 using UnityEngine;
 
  [DefaultExecutionOrder(599)]
+ [RequireComponent(typeof(AudioSource))]
 class Device_LaserEmitter : MonoBehaviour
 {
+	public bool isPlayerUseAudio = false;
 	public bool isClose = false;
 
 	[Header("Fireボタン/キー　設定")]
@@ -35,6 +37,10 @@ class Device_LaserEmitter : MonoBehaviour
 	[SerializeField] private float rotateTrailWidth = 0.1f;
 	[SerializeField] private Material rotateLaserMaterial;
 	private GameObject rotateLaserGeneratorParent;
+	public GameObject parentObj;
+	public Bit_Formation_3 bf;
+	public string parentname;
+	bool isOption;
 
 	/// <summary>
 	/// 回転装置
@@ -229,7 +235,8 @@ class Device_LaserEmitter : MonoBehaviour
 
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
-
+	private AudioSource audioSource;
+	private float firePressTime;
 
 	private void OnEnable()
 	{
@@ -250,11 +257,47 @@ class Device_LaserEmitter : MonoBehaviour
 
 		this.emitterRotateCore = new EmitterRotateCore(this.transform.parent.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
+
+		if (isPlayerUseAudio)
+		{
+			this.audioSource = GetComponent<AudioSource>();
+		}
+		parentObj = transform.parent.gameObject;
+		parentname = parentObj.name;
+		if (parentObj.name == "Option(Clone)")
+		{
+			bf = parentObj.GetComponent<Bit_Formation_3>();
+			isOption = true;
+		}
+		else if (parentObj.name == "Player(Clone)")
+		{
+			fireButtonName = "Fire1";
+			isOption = false;
+		}
+		else if (parentObj.name == "Player2(Clone)")
+		{
+			fireButtonName = "P2_Fire1";
+			isOption = false;
+		}
+
 	}
 
 	private void Update()
 	{
 		var launchDevice = emitterLaunchCore.currentLaunchDevice;
+
+		if (isOption)
+		{
+			if (bf.bState == Bit_Formation_3.BitState.Player1)
+			{
+				fireButtonName = "Fire1";
+			}
+			else if (bf.bState == Bit_Formation_3.BitState.Player2)
+			{
+				fireButtonName = "P2_Fire1";
+			}
+		}
+
 		if (this.isClose)
 		{
 			if(launchDevice is StraightLaunchDevice)
@@ -279,6 +322,9 @@ class Device_LaserEmitter : MonoBehaviour
 					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 				else
 					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+
+				if (audioSource.isPlaying) audioSource.Stop();
+				audioSource.PlayOneShot(audioSource.clip);
 			}
 
 			if (Input.GetButton(fireButtonName) || Input.GetKey(firekey))
@@ -288,11 +334,16 @@ class Device_LaserEmitter : MonoBehaviour
 					if (launchDevice is StraightLaunchDevice)
 						this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 					else
-						this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
+						this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);				
 				}
 
 				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
 				{
+					if (isPlayerUseAudio)
+					{
+						if (!audioSource.isPlaying) audioSource.PlayOneShot(audioSource.clip);
+					}
+
 					if (launchDevice is StraightLaunchDevice)
 						this.emitterLaunchCore.LaunchNode(straightTrailWidth);
 					else
@@ -302,8 +353,12 @@ class Device_LaserEmitter : MonoBehaviour
 
 			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey) && launchDevice.CurrentGenerator != null)
 			{
-				launchDevice.CurrentGenerator.IsFixed = false;
-				launchDevice.CurrentGenerator = null;
+				if (launchDevice.CurrentGenerator != null)
+				{
+					launchDevice.CurrentGenerator.IsFixed = false;
+					launchDevice.CurrentGenerator = null;
+				}
+
 			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -315,11 +370,13 @@ class Device_LaserEmitter : MonoBehaviour
 			launchDevice.CurrentGenerator.IsFixed = false;
 			launchDevice.CurrentGenerator = null;
 
-			launchDevice.CanLaunchTime = Time.time + launchDevice.OverloadDuration;		
+			launchDevice.CanLaunchTime = Time.time + launchDevice.OverloadDuration;
+			if (isPlayerUseAudio)
+			{
+				if (audioSource.isPlaying) audioSource.Stop();
+			}
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 		if(!this.transform.parent.gameObject.activeSelf && launchDevice.CurrentGenerator != null)
 		{

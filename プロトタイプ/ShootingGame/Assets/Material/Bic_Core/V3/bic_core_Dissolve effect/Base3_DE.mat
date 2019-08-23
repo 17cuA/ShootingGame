@@ -22,15 +22,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_106FF250:
-        m_Texture: {fileID: 2800000, guid: 9ba98c465afdb9443ab9b0eacc1b21fd, type: 3}
+        m_Texture: {fileID: 2800000, guid: f4dcb3f0628cbc14184f46f33efe357d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_5D360D9B:
-        m_Texture: {fileID: 2800000, guid: a18f45a4f84262c4192a98bcb214746a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e4eba8c09031384a8d78bd8c5c5656a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_617FAD1:
-        m_Texture: {fileID: 2800000, guid: 6cb9a4e3e302e864aa4d2da8ecddeead, type: 3}
+        m_Texture: {fileID: 2800000, guid: 29db37391a9fa6a418e8aa53ae3f8d7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_E22478FF:
@@ -122,8 +122,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_319D80D6: 2
     - Vector1_A5273A25: 0
     - Vector1_A548EA9F: -1
+    - Vector1_CD3F701: 0
+    - Vector1_D9BDC5E8: -1.5
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -147,7 +150,7 @@ Material:
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
-    - _Dissolve_Alfa: 1
+    - _Dissolve_Alfa: -0
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 0
@@ -238,7 +241,7 @@ Material:
     - _ZTestModeDistortion: 8
     - _ZWrite: 1
     m_Colors:
-    - Color_72EF7E3A: {r: 0, g: 0.7529412, b: 11.98431, a: 1}
+    - Color_72EF7E3A: {r: 0, g: 1.3250861, b: 19.468573, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
