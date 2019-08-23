@@ -138,7 +138,7 @@ public class RankingDisplay : MonoBehaviour
 		if (previousName != inputNameClass.Name)
 		{
 			int i = 0;
-			for (; i < Ranking_Strage.Strage.Length - 1 && Ranking_Strage.Strage[i].name != previousName || Ranking_Strage.Strage[i].score != Game_Master.display_score; ++i) ;
+			for (; i < Ranking_Strage.Strage.Length - 1 && Ranking_Strage.Strage[i].name != previousName || Ranking_Strage.Strage[i].score != Game_Master.display_score_1P; ++i) ;
 			Ranking_Strage.Strage[i].name = inputNameClass.Name;
 			RankingCharacterDisplay[i].Character_Preference((i + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[i].name + "__" + Ranking_Strage.Strage[i].score.ToString("D10"));
 		}
