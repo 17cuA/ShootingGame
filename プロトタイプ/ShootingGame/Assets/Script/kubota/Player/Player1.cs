@@ -784,6 +784,7 @@ public class Player1 : character_status
 	//リスポーン用のアニメーション
 	private void Respone_Animation()
 	{
+		//どのくらいの割合進んだかを分ける
 		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
 		//float next_pos_x = 
 
