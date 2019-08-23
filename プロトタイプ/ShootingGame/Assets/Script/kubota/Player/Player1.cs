@@ -169,10 +169,11 @@ public class Player1 : character_status
 			//復活時のアニメーション
 			if (Is_Resporn)
 			{
+				injection.Stop();
 				resporn_Injection.Play();
 				capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Slerp(new Vector3(-9, 0, -30), direction, startTime);
+				transform.position = Vector3.Slerp(new Vector3(-50, 0, 0), direction, startTime);
 
 				if (transform.position == direction)
 				{

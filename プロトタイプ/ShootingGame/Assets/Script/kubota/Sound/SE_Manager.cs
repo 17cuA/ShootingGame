@@ -48,5 +48,9 @@ public class SE_Manager : MonoBehaviour
 		if (Explosion_Small.isPlaying) Explosion_Small.Stop();
 		if (Is_Active) Explosion_Small.PlayOneShot(se);
 	}
+	public void SE_Laser(AudioClip se)
+	{
+		if (Is_Active) Laser1.PlayOneShot(se);
+	}
 
 }
