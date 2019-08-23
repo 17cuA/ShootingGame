@@ -147,7 +147,8 @@ public class Player1 : character_status
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
-		Is_Resporn = true;					//復活のアニメーションを行うかどうかの判定用
+		Is_Resporn = true;                  //復活のアニメーションを行うかどうかの判定用
+		invincible = true;					// 無敵時間の設定
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		effect_num = 0;
