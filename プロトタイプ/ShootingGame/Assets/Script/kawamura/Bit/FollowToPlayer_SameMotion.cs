@@ -52,24 +52,47 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
-		if(Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+		if (isFollow1P)
 		{
-			isFreeze = false;
-            defPos = transform.position - savePos;
+			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
 
-            for (int i = 0; i < array_Num; i++)
-            {
-                playerPos[i] += defPos;
-            }
-			defPos = new Vector3(0, 0, 0);
-			savePos = transform.position;
+				for (int i = 0; i < array_Num; i++)
+				{
+					playerPos[i] += defPos;
+				}
+				defPos = new Vector3(0, 0, 0);
+				savePos = transform.position;
+
+			}
+			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
+		}
+		else if (isFollow2P)
+		{
+			if (Input.GetButtonUp("2P_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
+
+				for (int i = 0; i < array_Num; i++)
+				{
+					playerPos[i] += defPos;
+				}
+				defPos = new Vector3(0, 0, 0);
+				savePos = transform.position;
+
+			}
+			else if (Input.GetButton("2P_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
 
 		}
-        else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
-		{
-			isFreeze = true;
-		}
-
 		//プレイヤー格納がnullなら入れる
 		if (playerObj == null)
 		{

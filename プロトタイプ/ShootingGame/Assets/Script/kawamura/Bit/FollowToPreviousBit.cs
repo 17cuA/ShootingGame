@@ -95,21 +95,43 @@ public class FollowToPreviousBit : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
-		if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+		if (isFollow1P)
 		{
-			isFreeze = false;
-            defPos = transform.position - savePos;
+			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
 
-            for (int i = 0; i < array_Num; i++)
-            {
-                previousBitPos[i] += defPos;
-            }
-			savePos = transform.position;
-			pos = previousBitObj.transform.position;
+				for (int i = 0; i < array_Num; i++)
+				{
+					previousBitPos[i] += defPos;
+				}
+				savePos = transform.position;
+				pos = previousBitObj.transform.position;
+			}
+			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
 		}
-		else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+		else if (isFollow2P)
 		{
-			isFreeze = true;
+			if (Input.GetButtonUp("2P_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
+
+				for (int i = 0; i < array_Num; i++)
+				{
+					previousBitPos[i] += defPos;
+				}
+				savePos = transform.position;
+				pos = previousBitObj.transform.position;
+			}
+			else if (Input.GetButton("2P_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
 		}
 
 		//プレイヤー格納がnullなら入れる
@@ -118,28 +140,24 @@ public class FollowToPreviousBit : MonoBehaviour
 			if (isFollow1P)
 			{
 				//プレイヤーがいたら入れる
-				if (GameObject.Find("Player"))
-				{
-					playerObj = GameObject.Find("Player");
-					//isMove = true;
-					//playerPos[cnt] = playerObj.transform;
-					transform.position = playerObj.transform.position;
-					defCheck = true;
-					//pos = playerObj.transform.position;
-				}
+				playerObj = GameObject.Find("Player");
+				//isMove = true;
+				//playerPos[cnt] = playerObj.transform;
+				transform.position = playerObj.transform.position;
+				defCheck = true;
+				//pos = playerObj.transform.position;
+				
 			}
 			else if (isFollow2P)
 			{
 				//プレイヤーがいたら入れる
-				if (GameObject.Find("Player_2"))
-				{
-					playerObj = GameObject.Find("Player_2");
-					//isMove = true;
-					//playerPos[cnt] = playerObj.transform;
-					transform.position = playerObj.transform.position;
-					defCheck = true;
-					//pos = playerObj.transform.position;
-				}
+				playerObj = GameObject.Find("Player_2");
+				//isMove = true;
+				//playerPos[cnt] = playerObj.transform;
+				transform.position = playerObj.transform.position;
+				defCheck = true;
+				//pos = playerObj.transform.position;
+				
 			}
 		}
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
@@ -171,22 +189,46 @@ public class FollowToPreviousBit : MonoBehaviour
 		{
 			if (defCheck)
 			{
-				//前のビットの座標が動いていないとき
-				if (pos == previousBitObj.transform.position)
-				//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+				if (isFollow1P)
 				{
-					isMove = false;
-					if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+					//前のビットの座標が動いていないとき
+					if (pos == previousBitObj.transform.position)
+					//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+					{
+						isMove = false;
+						if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+						{
+							isMove = true;
+						}
+					}
+					//前のビットの座標が動いていたとき
+					else
 					{
 						isMove = true;
+						//前のビットのtransform保存
+						pos = previousBitObj.transform.position;
 					}
 				}
-				//前のビットの座標が動いていたとき
-				else
+				else if (isFollow2P)
 				{
-					isMove = true;
-					//前のビットのtransform保存
-					pos = previousBitObj.transform.position;
+					//前のビットの座標が動いていないとき
+					if (pos == previousBitObj.transform.position)
+					//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+					{
+						isMove = false;
+						if ((Input.GetAxis("P2_Horizontal") != 0) || (Input.GetAxis("P2_Vertical") != 0))
+						{
+							isMove = true;
+						}
+					}
+					//前のビットの座標が動いていたとき
+					else
+					{
+						isMove = true;
+						//前のビットのtransform保存
+						pos = previousBitObj.transform.position;
+					}
+
 				}
 			}
 
