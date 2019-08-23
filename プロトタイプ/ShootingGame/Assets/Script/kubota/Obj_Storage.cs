@@ -144,6 +144,7 @@ public class Obj_Storage : MonoBehaviour
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
         BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet_2P") as GameObject;
         BulletPrefab_Option_P1 = Resources.Load("Bullet/Option_Bullet_1P") as GameObject;
+		BulletPrefab_Option_P2 = Resources.Load("Bullet/Option_Bullet_2P") as GameObject;
         Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Player_Missile_Tow_Way_Prefab = Resources.Load("Bullet/PlayerMissile_TowWay") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
@@ -254,7 +255,7 @@ public class Obj_Storage : MonoBehaviour
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player1_Bullet");         //プレイヤーのバレットを生成
         Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
         P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
-		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_2P");
+		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 20, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 20, "Enemy_Bullet");          //エネミーのバレットを生成
