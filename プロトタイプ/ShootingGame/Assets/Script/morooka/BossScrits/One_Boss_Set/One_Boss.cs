@@ -293,8 +293,8 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				//Rush();
-				Laser_Clearing_2();
+				Rush();
+				//Laser_Clearing_2();
 			}
 		}
 		else if (End_Flag && !Start_Flag && Update_Flag)
