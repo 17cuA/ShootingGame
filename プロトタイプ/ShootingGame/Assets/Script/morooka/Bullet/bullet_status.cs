@@ -57,45 +57,50 @@ public class bullet_status : MonoBehaviour
 
 	protected void OnTriggerEnter(Collider col)
 	{
-		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
-		{
-			gameObject.SetActive(false);
-			//add:0513_takada 爆発エフェクトのテスト
-			//AddExplosionProcess();
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
+        //それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
+        if (gameObject.tag == "Enemy_Bullet" && (col.gameObject.name == "Enemy_Meteor_One" || col.gameObject.name == "Enemy_Meteor_Two" || col.gameObject.name == "Enemy_Meteor_Three" || col.gameObject.name == "Enemy_Meteor_four" || col.gameObject.name == "Enemy_Meteor_Five"))
+        {
+            gameObject.SetActive(false);
+
         }
-		else if(gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
-		{
-			//add:0513_takada 爆発エフェクトのテスト
-			//AddExplosionProcess();
-			character_status obj = col.GetComponent<character_status>();
-			if (obj != null)
-			{
-				obj.Opponent = Player_Number;
-			}
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
-			if (P1 != null) P1.Bullet_cnt--;
-			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-			{
-				if (P2 != null) P2.Bullet_cnt--;
-			}
-			gameObject.SetActive(false);
-		}
-		else if(col.gameObject.tag =="Boss_Gard")
-		{
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
-			gameObject.SetActive(false);
-		}
+        else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+        {
+            gameObject.SetActive(false);
+            //add:0513_takada 爆発エフェクトのテスト
+            //AddExplosionProcess();
+            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            effect.transform.position = gameObject.transform.position;
+            particle.Play();
+        }
+        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
+        {
+            //add:0513_takada 爆発エフェクトのテスト
+            //AddExplosionProcess();
+            character_status obj = col.GetComponent<character_status>();
+            if (obj != null)
+            {
+                obj.Opponent = Player_Number;
+            }
+            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            effect.transform.position = gameObject.transform.position;
+            particle.Play();
+            if (P1 != null) P1.Bullet_cnt--;
+            if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+            {
+                if (P2 != null) P2.Bullet_cnt--;
+            }
+            gameObject.SetActive(false);
+        }
+        else if (col.gameObject.tag == "Boss_Gard")
+        {
+            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            effect.transform.position = gameObject.transform.position;
+            particle.Play();
+            gameObject.SetActive(false);
+        }
 	}
 
 	/// <summary>
