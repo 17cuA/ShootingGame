@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -217,6 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c88f308e94f2d64c9d655ddfe6a81c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fade_in_speed: 5
-  fade_out_speed: 5
-  transition_deferred: 30
+  fade_in_speed: 60
+  fade_out_speed: 60
+  transition_deferred: 60

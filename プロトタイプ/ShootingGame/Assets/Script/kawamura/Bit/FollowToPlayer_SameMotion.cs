@@ -8,6 +8,8 @@ using UnityEngine;
 public class FollowToPlayer_SameMotion : MonoBehaviour
 {
 	public GameObject playerObj;
+	public GameObject parentObj;
+	public string parentName;
 
 	public Vector3[] playerPos;
 	public Vector3 pos;				//プレイヤーの座標を保存して動いているかを確かめる変数
@@ -25,11 +27,24 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isMove = false;
 	public bool hasOption = false;
 	bool isFreeze = false;
+	public bool isFollow1P;
+	public bool isFollow2P;
 
 	void Start()
 	{
+		parentObj = transform.parent.gameObject;
+		parentName = parentObj.name;
+		if (parentName == "Four_FollowPos_1P")
+		{
+			isFollow1P = true;
+		}
+		else if (parentName == "Four_FollowPos_2P")
+		{
+			isFollow2P = true;
+		}
+
 		//int cnt = 0;
-		array_Num = 12;
+		array_Num = 9;
 		playerPos = new Vector3[array_Num];
 	}
 
@@ -58,20 +73,42 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		//プレイヤー格納がnullなら入れる
 		if (playerObj == null)
 		{
-			//プレイヤーがいたら入れる
-			if (GameObject.Find("Player"))
+			if (isFollow1P)
 			{
-				playerObj = GameObject.Find("Player");
-				//配列にとりあえず追従位置を入れる
-				for (int i = 0; i < array_Num; i++)
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player"))
 				{
-					playerPos[i] = playerObj.transform.position;
+					playerObj = GameObject.Find("Player");
+					//配列にとりあえず追従位置を入れる
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+					}
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					pos = playerObj.transform.position;
 				}
-				//isMove = true;
-				//playerPos[cnt] = playerObj.transform;
-				transform.position = playerObj.transform.position;
-				defCheck = true;
-				pos = playerObj.transform.position;
+			}
+			else if (isFollow2P)
+			{
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player_2"))
+				{
+					playerObj = GameObject.Find("Player_2");
+					//配列にとりあえず追従位置を入れる
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+					}
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					pos = playerObj.transform.position;
+				}
+
 			}
 		}
 

@@ -8,6 +8,14 @@ using StorageReference;
 
 public class TurnToPlayer_Slow : character_status
 {
+    public enum State
+    {
+        Nomal,
+        Back,
+    }
+
+    public State eState;
+
 	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
 	GameObject item;
 	DropItem dItem;
@@ -21,9 +29,9 @@ public class TurnToPlayer_Slow : character_status
 	public float speedX;
 	public float rollSpeed;
 
-	float rotaX;
-	float rotaY;
-	float rotaZ;
+	public float rotaX;
+    public float rotaY;
+    public float rotaZ;
 
 	float radian;           //ラジアン
 	public float degree;    //角度
@@ -44,8 +52,8 @@ public class TurnToPlayer_Slow : character_status
 
 	bool isFollow = false;
 	bool once;
-	bool isInc = false;
-	bool isDec = false;
+	public bool isInc = false;
+	public bool isDec = false;
 	//bool isPositive;
 	//bool isNegative;
 	bool isPlus;
@@ -66,13 +74,26 @@ public class TurnToPlayer_Slow : character_status
 	{
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
-		rotaZ = 180;
 
 		once = true;
 		frameCnt = 0;
 		saveDeg = 180;
 
-		transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
+        //if (eState == State.Nomal)
+        //{
+        //    rotaZ = 0;
+
+        //    transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
+
+        //}
+        //if (eState == State.Back)
+        //{
+        //    rotaZ = 180;
+
+        //    transform.rotation = Quaternion.Euler(rotaX, rotaY, -rotaZ);
+
+        //}
+        //transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 
 		HP_Setting();
 		base.Start();
@@ -80,7 +101,8 @@ public class TurnToPlayer_Slow : character_status
 	}
 	new void Update()
 	{
-		frameCnt++;
+
+        frameCnt++;
 		if(frameCnt> followStartTime)
 		{
 			isFollow = true;
@@ -119,19 +141,39 @@ public class TurnToPlayer_Slow : character_status
 			//一回のみ行う
 			if (once)
 			{
-				if (playerObj.transform.position.y > transform.position.y)
-				{
-					isDec = true;
-					isInc = false;
 
-				}
-				else
-				{
-					isInc = true;
-					isDec = false;
+                if (eState == State.Nomal)
+                {
+                    if (playerObj.transform.position.y > transform.position.y)
+                    {
+                        isDec = true;
+                        isInc = false;
 
-				}
-				once = false;
+                    }
+                    else
+                    {
+                        isInc = true;
+                        isDec = false;
+
+                    }
+                }
+                else if (eState == State.Back)
+                {
+                    if (playerObj.transform.position.y > transform.position.y)
+                    {
+                        isDec = false;
+                        isInc = true;
+
+                    }
+                    else
+                    {
+                        isInc = false;
+                        isDec = true;
+
+                    }
+
+                }
+                once = false;
 			}
             followTimeCnt++;
 		}
@@ -339,16 +381,28 @@ public class TurnToPlayer_Slow : character_status
 		}
 	}
 
- //   private void OnTriggerStay(Collider col)
- //   {
+	private void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.name == "BattleshipType_Enemy(Clone)")
+		{
+			hp = 0;
+		}
+		if(col.gameObject.tag=="Player_Bullet")
+		{
+			hp = 0;
+		}
+
+	}
+	//   private void OnTriggerStay(Collider col)
+	//   {
 	//	colList.Add(col.gameObject);
 	//	if (col.gameObject.tag=="Player")
- //       {
+	//       {
 	//		isInc = false;
 	//		isDec = false;
 
- //       }  
- //   }
+	//       }  
+	//   }
 
 	//private void OnTriggerExit(Collider col)
 	//{

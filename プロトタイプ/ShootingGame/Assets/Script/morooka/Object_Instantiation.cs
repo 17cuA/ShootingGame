@@ -28,6 +28,7 @@ namespace StorageReference
 		static public GameObject Object_Reboot(Game_Master.OBJECT_NAME name, Vector3 pos, Vector3 direction)
 		{
 			GameObject obj = null;
+			#region コピー簡単化
 			switch (name)
 			{
 				#region Enemy_1
@@ -39,7 +40,19 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePLAYER_BULLET:
 					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 					break;
-				#endregion
+                #endregion
+                    //新しく追加した部分-----------------------------
+                case Game_Master.OBJECT_NAME.ePLAYER2_BULLET:
+                    obj = Obj_Storage.Storage_Data.Player2Bullet.Active_Obj();
+                    break;
+                case Game_Master.OBJECT_NAME.eP1_OPTION_BULLET:
+                    obj = Obj_Storage.Storage_Data.P1_OptionBullet.Active_Obj();
+                    break;
+				case Game_Master.OBJECT_NAME.eP2_OPTION_BULLET:
+					obj = Obj_Storage.Storage_Data.P2_OptionBullet.Active_Obj();
+					break;
+
+				//--------------------------------------------
 				#region Player_Missile
 				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
 					obj = Obj_Storage.Storage_Data.PlayerMissile.Active_Obj();
@@ -93,10 +106,17 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePOWERUP_ITEM:
 					obj = Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_LASER:
+					obj = Obj_Storage.Storage_Data.One_Boss_Laser.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_BOUND:
+					obj = Obj_Storage.Storage_Data.One_Boss_BousndBullet.Active_Obj();
+					break;
 
 				default:
 					break;
 			}
+			#endregion
 
 			if (obj == null) return obj;
 
@@ -115,6 +135,7 @@ namespace StorageReference
 		static public GameObject Object_Reboot(Game_Master.OBJECT_NAME name, Vector3 pos, Quaternion direction)
 		{
 			GameObject obj = null;
+			#region コピー簡単化
 			switch (name)
 			{
 				#region Enemy_1
@@ -126,6 +147,16 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePLAYER_BULLET:
 					obj = Obj_Storage.Storage_Data.PlayerBullet.Active_Obj();
 					break;
+                case Game_Master.OBJECT_NAME.ePLAYER2_BULLET:
+                    obj = Obj_Storage.Storage_Data.Player2Bullet.Active_Obj();
+                    break;
+                case Game_Master.OBJECT_NAME.eP1_OPTION_BULLET:
+                    obj = Obj_Storage.Storage_Data.P1_OptionBullet.Active_Obj();
+                    break;
+				case Game_Master.OBJECT_NAME.eP2_OPTION_BULLET:
+					obj = Obj_Storage.Storage_Data.P2_OptionBullet.Active_Obj();
+					break;
+
 				#endregion
 				#region Player_Missile
 				case Game_Master.OBJECT_NAME.ePLAYER_MISSILE:
@@ -180,10 +211,17 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.ePOWERUP_ITEM:
 					obj = Obj_Storage.Storage_Data.PowerUP_Item.Active_Obj();
 					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_LASER:
+					obj = Obj_Storage.Storage_Data.One_Boss_Laser.Active_Obj();
+					break;
+				case Game_Master.OBJECT_NAME.eONE_BOSS_BOUND:
+					obj = Obj_Storage.Storage_Data.One_Boss_BousndBullet.Active_Obj();
+					break;
 
 				default:
 					break;
 			}
+			#endregion
 
 			if (obj == null) return obj;
 

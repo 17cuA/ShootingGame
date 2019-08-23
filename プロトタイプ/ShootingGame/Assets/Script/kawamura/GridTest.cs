@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GridTest : MonoBehaviour
 {
-	Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
-	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
+	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
 	public float x;            //x軸の入力
 	public float y;
 	public float speed;

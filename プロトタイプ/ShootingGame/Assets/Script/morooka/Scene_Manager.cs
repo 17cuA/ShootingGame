@@ -46,19 +46,34 @@ public class Scene_Manager : MonoBehaviour
 	public SCENE_NAME Next_Scene { get; private set; }				// 次のシーン保存用
 	public bool Is_Fade_Finished { get; private set; }				// フェードが終わっているかどうか
 	public bool Is_Fade_In_Intermediate { get; private set; }		// フェードイン中かどうか
-	public bool Is_Fade_Out_Intermediate { get; private set; }		// フェードアウト中かどうか
+	public bool Is_Fade_Out_Intermediate { get; private set; }      // フェードアウト中かどうか
+
+	private void Awake()
+	{
+		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+		Renderer_For_Fade.color = Color.black;
+	}
 
 	void Start()
     {
 		Manager = GetComponent<Scene_Manager>();
-
-		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
 		Fade_In_Quantity = (255.0f / fade_in_speed) / 255.0f;
 		Fade_Out_Quantity = (255.0f / fade_out_speed) / 255.0f;
-		Is_Fade_Finished = false;
-		Is_Fade_In_Intermediate = true;
-		Is_Fade_Out_Intermediate = false;
+
+		if (Now_Scene != SCENE_NAME.eTITLE)
+		{
+			Is_Fade_Finished = false;
+			Is_Fade_In_Intermediate = true;
+			Is_Fade_Out_Intermediate = false;
+		}
+		else if(Now_Scene == SCENE_NAME.eTITLE)
+		{
+			Renderer_For_Fade.color = Color.clear;
+			Is_Fade_Finished = true;
+			Is_Fade_In_Intermediate = false;
+			Is_Fade_Out_Intermediate = false;
+		}
 
 		Transition_Deferred_Cnt = 0;
 	}

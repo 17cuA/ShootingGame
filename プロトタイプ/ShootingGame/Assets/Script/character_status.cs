@@ -20,6 +20,7 @@ public class character_status : MonoBehaviour
 	public int hp;                                                      // 体力
 	private int hp_Max;
 	public Vector3 direction;                                           // 向き
+    public Vector4 setColor;
 	public Collider capsuleCollider;                             // cillider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
@@ -29,6 +30,7 @@ public class character_status : MonoBehaviour
 	public bool activeShield;                                           //現在シールドが発動しているかどうかの判定用（初期値false）
 	public int Remaining;                                               //残機（あらかじめ設定）
 	public float v_Value;                                               //テクスチャの明るさの増える値
+    public Vector4[] defaultColor;
 	public int childCnt;
 	public Renderer[] object_material;                                  // オブジェクトのマテリアル情報
 	public bool isrend = false;
@@ -38,6 +40,9 @@ public class character_status : MonoBehaviour
 	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
 	private int framecnt;
 	private bool check;
+
+	public int Opponent;
+
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -57,8 +62,11 @@ public class character_status : MonoBehaviour
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		self_material = new Material[object_material.Length];
+        defaultColor = new Vector4[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
-		HP_Setting();
+        for (int i = 0; i < defaultColor.Length; i++) defaultColor[i] = object_material[i].material.color;
+
+        HP_Setting();
 		framecnt = 0;
 		check = false;
 	}
@@ -105,23 +113,32 @@ public class character_status : MonoBehaviour
 		if (transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score);
+			Game_Master.MY.Score_Addition(score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[9]);
 			//爆発処理の作成
 			ParticleCreation(7);
 			Is_Dead = true;
 			Reset_Status();
 		}
-		else if (gameObject.tag != "Player")
+        else if (transform.name == "BattleshipType_Enemy(Clone)" || transform.name == "BattleshipType_Enemy")
+        {
+            //スコア
+            Game_Master.MY.Score_Addition(score, Opponent);
+            SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[19]);
+            //爆発処理の作成
+            ParticleCreation(10);
+            Is_Dead = true;
+            Reset_Status();
+        }
+        else if (gameObject.tag != "Player")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score);
-			SE_Manager.SE_Obj.SE_Explosion_smole(Obj_Storage.Storage_Data.audio_se[8]);
+			Game_Master.MY.Score_Addition(score, Opponent);
+			SE_Manager.SE_Obj.SE_Explosion_small(Obj_Storage.Storage_Data.audio_se[18]);
 			//爆発処理の作成
 			ParticleCreation(4);
 			Is_Dead = true;
 			Reset_Status();
-
 		}
 		else
 		{
@@ -214,7 +231,7 @@ public class character_status : MonoBehaviour
 				Damege_Effect();
 
 			}
-			else if(col.gameObject.name == "Player")
+			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
 			{
 				Damege_Process(3);
 			}
@@ -238,16 +255,25 @@ public class character_status : MonoBehaviour
 	public void HSV_Change()
 	{
 		v_Value = 1.0f - transform.position.z * 0.015f;
-
+        
 		if (v_Value > 1.0f)
 		{
 			v_Value = 1.0f;
 		}
+        //setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
+        setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 
-		foreach (Renderer renderer in object_material)
-		{
-			renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-		}
+        for (int i = 0; i < object_material.Length; i++)
+        {
+            setColor = new Vector4(defaultColor[i].x * v_Value, defaultColor[i].y * v_Value, defaultColor[i].z * v_Value, 1);
+            object_material[i].material.SetVector("_BaseColor", setColor);
+        }
+
+  //      foreach (Renderer renderer in object_material)
+		//{
+  //          renderer.material.SetVector("_BaseColor", setColor);
+		//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+		//}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
 	public void Damege_Effect()

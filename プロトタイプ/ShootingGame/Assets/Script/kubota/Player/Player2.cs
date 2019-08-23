@@ -15,6 +15,14 @@ public class Player2 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
+	//グリッド用の変数---------------------------------------
+	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
+	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
+	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
+	public float step = 10f;     // 移動速度
+	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
+	//----------------------------------------------------
+
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -32,11 +40,11 @@ public class Player2 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+		//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+    //------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -70,6 +78,9 @@ public class Player2 : character_status
 
 	public bool Is_Change_Auto;
 	public bool IS_Active;
+
+    public int Bullet_cnt;          //バレットの発射数をかぞえる変数
+    private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -83,7 +94,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
 		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
@@ -135,10 +146,13 @@ public class Player2 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
+		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
 		Is_Change_Auto = false;
+		IS_Active = true;
+        Bullet_cnt_Max = 8;
+		target = direction;
 	}
 
 	new void Update()
@@ -170,7 +184,7 @@ public class Player2 : character_status
 				//-------------------------------
 				//デバックの工程
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2)) PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha2)) P2_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 				if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
@@ -189,9 +203,9 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
-				PowerManager.Instance.Update();
+				P2_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
-				PowerManager.Instance.UpdateBit(bitIndex);
+				P2_PowerManager.Instance.UpdateBit(bitIndex);
 
 				//if(shield < 1)
 				//{
@@ -201,9 +215,9 @@ public class Player2 : character_status
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-					PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
-																		//残機が残っていなければ
+					//残機が残っていなければ
 					if (Remaining < 1)
 					{
 						//残機がない場合死亡
@@ -215,18 +229,27 @@ public class Player2 : character_status
 					{
 						ParticleCreation(0);        //爆発のエフェクト発動
 						Reset_Status();             //体力の修正
-													//gameObject.transform.position = direction;      //初期位置に戻す
-													//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 						invincible = true;         //無敵状態にするかどうかの処理
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						Is_Resporn = true;                      //復活用の処理を行う
+						target = direction;
 					}
 				}
 				//無敵時間の開始
 				Invincible();
+
 				//プレイヤーの移動処理
-				Player_Move();
+				if (transform.position == target)
+				{
+					//MoveX();
+					SetTargetPosition();
+				}
+
+				Move();
+
+				//プレイヤーの移動処理
+				//Player_Move();
 
 				//弾の発射（Fire2かSpaceキーで撃てる）
 				if (Shot_Delay > Shot_DelayMax)
@@ -238,7 +261,7 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("P2_Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
-					PowerManager.Instance.Upgrade();
+					P2_PowerManager.Instance.Upgrade();
 				}
 				// 通常のバレットのディレイ計算
 				Shot_Delay++;
@@ -251,6 +274,90 @@ public class Player2 : character_status
 			capsuleCollider.enabled = false;
 		}
 	}
+	void SetTargetPosition()
+	{
+		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
+		y = Input.GetAxis("P2_Vertical");              //y軸の入力
+
+		//プレイヤーの移動に上下左右制限を設ける
+		if (transform.position.y >= 4.5f && y > 0) y = 0;
+		if (transform.position.y <= -4.5f && y < 0) y = 0;
+		if (transform.position.x >= 17.0f && x > 0) x = 0;
+		if (transform.position.x <= -17.0f && x < 0) x = 0;
+
+		prevPos = target;
+
+		// プレイヤー機体の旋回
+		// プレイヤーの向き(Y軸の正負)で角度算出
+		if (transform.eulerAngles.x != (swing_facing * y))
+		{
+			// 参考にしたURL↓
+			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+			// Unity にある Mathf.LerpAngle 関数を使用
+			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
+			transform.eulerAngles = new Vector3(angle, 0, 0);
+			facing_cnt++;
+		}
+		else
+		{
+			facing_cnt = 0;
+		}
+
+		//右上
+		if (x > 0 && y > 0)
+		{
+			target = transform.position + MOVEX + MOVEY;
+
+		}
+		//右下
+		else if (x > 0 && y < 0)
+		{
+			target = transform.position + MOVEX - MOVEY;
+
+		}
+		//左下
+		else if (x < 0 && y < 0)
+		{
+			target = transform.position - MOVEX - MOVEY;
+
+		}
+		//左上
+		else if (x < 0 && y > 0)
+		{
+			target = transform.position - MOVEX + MOVEY;
+
+		}
+		//上
+		else if (y > 0)
+		{
+			target = transform.position + MOVEY;
+
+		}
+		//右
+		else if (x > 0)
+		{
+			target = transform.position + MOVEX;
+
+		}
+		//下
+		else if (y < 0)
+		{
+			target = transform.position - MOVEY;
+
+		}
+		//左
+		else if (x < 0)
+		{
+			target = transform.position - MOVEX;
+
+		}
+
+	}
+	void Move()
+	{
+		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+	}
+
 	//コントローラーの操作
 	private void Player_Move()
 	{
@@ -437,13 +544,13 @@ public class Player2 : character_status
 
 	private void Single_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction);
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	private void Double_Fire()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction);
+		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 		SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 	}
 	//	ミサイルの発射
@@ -532,19 +639,19 @@ public class Player2 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.Option.Active_Obj();
+				Obj_Storage.Storage_Data.P2_Option.Active_Obj();
 				bitIndex++;
 				break;
 			default:
@@ -558,6 +665,11 @@ public class Player2 : character_status
 		speed = min_speed;
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
+	}
+	private void Init_speed_died()
+	{
+		speed = min_speed;
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[20]);
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更
 	private void Reset_BulletType()

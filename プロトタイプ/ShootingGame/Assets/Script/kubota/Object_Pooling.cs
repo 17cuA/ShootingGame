@@ -88,4 +88,9 @@ public class Object_Pooling
 	{
 		Debug.Log(z.name + "	Completed");
 	}
+
+	public void Set_Parent_Obj(ref GameObject childe)
+	{
+		childe.transform.parent = z.transform;
+	}
 }

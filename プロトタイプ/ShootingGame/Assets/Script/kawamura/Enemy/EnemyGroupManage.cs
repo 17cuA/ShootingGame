@@ -8,60 +8,83 @@ using UnityEngine;
 public class EnemyGroupManage : MonoBehaviour
 {
 	public GameObject item;
+    public GameObject parentObj;
 	GameObject[] childObjects;
 
 	public int childNum;                    //最初の敵(子供)の総数
 	public int remainingEnemiesCnt;         //残っている敵の数
 	public int defeatedEnemyCnt = 0;        //倒された敵の数
 	public int notDefeatedEnemyCnt = 0;     //倒されずに画面外に出た数
-
+    public string myName;
 
 	public Transform itemTransform;
 	public Vector3 itemPos;
+
+    BaculasManager bacuManager;
 
 	public bool isDead = false;
 	public bool isItemDrop=true;
 
 	private void Awake()
 	{
-		childNum = transform.childCount;
-		childObjects = new GameObject[childNum];
+        myName = gameObject.name;
+        if(myName== "Enemy_Bacula_Four")
+        {
+            parentObj = transform.parent.gameObject;
+            bacuManager = parentObj.GetComponent<BaculasManager>();
+            childNum = transform.childCount * 16;
+            remainingEnemiesCnt = childNum;
 
-		for (int i = 0; i < childNum; i++)
-		{
-			childObjects[i] = transform.GetChild(i).gameObject;
-		}
-	}
+        }
+        else
+        {
+            childNum = transform.childCount;
+            remainingEnemiesCnt = childNum;
+            childObjects = new GameObject[childNum];
+            for (int i = 0; i < childNum; i++)
+            {
+                childObjects[i] = transform.GetChild(i).gameObject;
+            }
 
-	private void OnEnable()
+        }
+        item = Resources.Load("Item/Item_Test") as GameObject;
+
+    }
+
+    private void OnEnable()
 	{
-		for (int i = 0; i < childNum; i++)
-		{
-			childObjects[i].SetActive(enabled);
-		}
-		//defeatedEnemyCnt = 0;
-		//notDefeatedEnemyCnt = 0;
-	}
+        if (myName != "Enemy_Bacula_Four")
+        {
+            for (int i = 0; i < childNum; i++)
+            {
+                childObjects[i].SetActive(enabled);
+            }
+        }
+        //defeatedEnemyCnt = 0;
+        //notDefeatedEnemyCnt = 0;
+    }
 	void Start()
 	{
-		item = Resources.Load("Item/Item_Test") as GameObject;
-		remainingEnemiesCnt = childNum;
+		//remainingEnemiesCnt = childNum;
 	}
 
 	void Update()
 	{
 		if (defeatedEnemyCnt + notDefeatedEnemyCnt == childNum)
 		{
-			if (notDefeatedEnemyCnt == 0)
-			{
-
-			}
 			notDefeatedEnemyCnt = 0;
 			defeatedEnemyCnt = 0;
 			itemPos = new Vector3(0, 0, 0);
 			itemTransform = null;
 			remainingEnemiesCnt = childNum;
-			gameObject.SetActive(false);
+            if(bacuManager)
+            {
+                //群を管理している親の残っている敵カウントマイナス
+                bacuManager.remainingEnemiesCnt--;
+                //倒された敵のカウントプラス
+                bacuManager.defeatedEnemyCnt++;
+            }
+            gameObject.SetActive(false);
 			//Destroy(this.gameObject);
 			//gameObject.SetActive(false);
 
@@ -77,17 +100,6 @@ public class EnemyGroupManage : MonoBehaviour
 	}
 	private void OnDisable()
 	{
-		if (isDead)
-		{
-			//Instantiate(item, itemTransform.position, transform.rotation);
-			//Instantiate(item, itemPos, this.transform.rotation);
-
-			//itemPos = new Vector3(0, 0, 0);
-			//itemTransform = null;
-			//remainingEnemiesCnt = childNum;
-
-			//isDead = false;
-		}
 
 	}
 }

@@ -12,36 +12,47 @@ using UnityEngine;
 
 public class bullet_status : MonoBehaviour
 {
-	//public enum Bullet_Type
-	//{
-	//	Single,
-	//	Double,
-	//	None
-	//}
-	//public Bullet_Type Type;
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
 	[SerializeField]
 	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
-	protected void Start()
+    public Player1 P1 { get; private set; }
+    public Player2 P2 { get; private set; }
+	public int Player_Number { get; private set; }
+    protected void Start()
 	{
 		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
+        if (gameObject.name == "Player1_Bullet")
+        {
+            P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+			Player_Number = 1;
+		}
+        else if (gameObject.name == "Player2_Bullet")
+        {
+            P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+			Player_Number = 2;
+		}
 	}
 
-	protected void Update()
+    protected void Update()
 	{
 		//if(!Bullet_Renderer.isVisible)
 		//{
 		//	Debug.LogError("消えた？");
 		//	gameObject.SetActive(false);
 		//}
-		if(transform.position.x >= 19.0f || transform.position.x <= -19.0f
-			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
-		{
-			gameObject.SetActive(false);
-		}
+			if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
+				|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+			{
+				if (gameObject.tag == "Player_Bullet")
+				{
+					if (P1 != null) P1.Bullet_cnt--;
+					if (P2 != null) P2.Bullet_cnt--;
+				}
+				gameObject.SetActive(false);
+			}
 	}
 
 	protected void OnTriggerEnter(Collider col)
@@ -56,17 +67,23 @@ public class bullet_status : MonoBehaviour
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
-
-		}
+        }
 		else if(gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
-			gameObject.SetActive(false);
 			//add:0513_takada 爆発エフェクトのテスト
 			//AddExplosionProcess();
+			character_status obj = col.GetComponent<character_status>();
+			obj.Opponent = Player_Number;
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
+			if (P1 != null) P1.Bullet_cnt--;
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				if (P2 != null) P2.Bullet_cnt--;
+			}
+			gameObject.SetActive(false);
 		}
 	}
 
