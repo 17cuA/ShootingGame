@@ -45,7 +45,7 @@ public class RankingDisplay : MonoBehaviour
 
 	// スクロール用
 	const float kScrollValue = 90f;
-	const float kStartScrollValue = kScrollValue * 5f;
+	const float kStartScrollValue = kScrollValue * 2f;
 	float scrollValue = kStartScrollValue;
 	int centerElementNum = 0;
 
@@ -103,7 +103,7 @@ public class RankingDisplay : MonoBehaviour
 		for (int i = 0; i < Ranking_Strage.Max_num; i++)
 		{
 			Rank_Pos[i].y = y_pos;
-			Rank_Pos[i].x = 50f * 10f + 50f * i;
+			Rank_Pos[i].x = 200f * 10f + 2100f * i;
 			y_pos -= 150.0f / 2.0f;
 
 			int ranking_num = i + 1;
@@ -170,7 +170,7 @@ public class RankingDisplay : MonoBehaviour
 	/// </summary>
 	void CorrectCenterRankingColumn()
 	{
-		float scrollWeight = 1.3f;
+		float scrollWeight = 28f;
 		for (int i = 0; i < Ranking_Strage.Max_num; ++i)
 		{
 			if (Rank_Pos[i].x > 0f)
