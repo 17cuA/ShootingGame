@@ -37,7 +37,10 @@ class Device_LaserEmitter : MonoBehaviour
 	[SerializeField] private float rotateTrailWidth = 0.1f;
 	[SerializeField] private Material rotateLaserMaterial;
 	private GameObject rotateLaserGeneratorParent;
-
+	public GameObject parentObj;
+	public Bit_Formation_3 bf;
+	public string parentname;
+	bool isOption;
 
 	/// <summary>
 	/// 回転装置
@@ -259,11 +262,42 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			this.audioSource = GetComponent<AudioSource>();
 		}
+		parentObj = transform.parent.gameObject;
+		parentname = parentObj.name;
+		if (parentObj.name == "Option(Clone)")
+		{
+			bf = parentObj.GetComponent<Bit_Formation_3>();
+			isOption = true;
+		}
+		else if (parentObj.name == "Player(Clone)")
+		{
+			fireButtonName = "Fire1";
+			isOption = false;
+		}
+		else if (parentObj.name == "Player2(Clone)")
+		{
+			fireButtonName = "P2_Fire1";
+			isOption = false;
+		}
+
 	}
 
 	private void Update()
 	{
 		var launchDevice = emitterLaunchCore.currentLaunchDevice;
+
+		if (isOption)
+		{
+			if (bf.bState == Bit_Formation_3.BitState.Player1)
+			{
+				fireButtonName = "Fire1";
+			}
+			else if (bf.bState == Bit_Formation_3.BitState.Player2)
+			{
+				fireButtonName = "P2_Fire1";
+			}
+		}
+
 		if (this.isClose)
 		{
 			if(launchDevice is StraightLaunchDevice)
