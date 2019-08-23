@@ -183,7 +183,7 @@ public class Player1 : character_status
 				resporn_Injection.Play();
 				capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Slerp(new Vector3(-20, 0, 0), direction, startTime);
+				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
 
 				if (transform.position == direction)
 				{

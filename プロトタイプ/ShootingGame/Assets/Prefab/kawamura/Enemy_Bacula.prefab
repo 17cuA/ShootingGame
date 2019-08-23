@@ -188,7 +188,8 @@ MonoBehaviour:
   v_Value: 0
   defaultColor: []
   childCnt: 0
-  object_material: []
+  object_material:
+  - {fileID: 6108812975052449805}
   isrend: 0
   Is_Dead: 0
   self_material: []
@@ -300,6 +301,12 @@ GameObject:
 --- !u!4 &6108812975054351085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e59f2800e9db5d645a367f705e4630bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6108812975054745709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6108812975052449805 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc,
     type: 3}
   m_PrefabInstance: {fileID: 6108812975054745709}
   m_PrefabAsset: {fileID: 0}
