@@ -85,20 +85,20 @@ public class Bit_Shot_2P : MonoBehaviour
 			{
 				laser_Obj.SetActive(true);
 				//発射ボタンが離されたら
-				if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+				if (Input.GetButtonUp("P2_Fire1") || Input.GetKeyUp(KeyCode.Space))
 				{
 					//レーザーストップ
 					//laser_Obj.SetActive(false);
 				}
 				//発射ボタンが押されている間
-				else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+				else if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					//レーザーを出す
 					//laser_Obj.SetActive(true);
 					//レーザー時のミサイル発射の処理
 					if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 					{
-						if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+						if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 						{
 							Missile_Fire();
 						}
@@ -196,7 +196,7 @@ public class Bit_Shot_2P : MonoBehaviour
 			if (shot_Delay > Shot_DelayMax)
 			{
 
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
 				{
 					shot_Delay = 0;
 					switch (pl2.bullet_Type)
@@ -232,7 +232,7 @@ public class Bit_Shot_2P : MonoBehaviour
 			Shot_DelayMax = 5;
 			if (shot_Delay > Shot_DelayMax)
 			{
-				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+				if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					// 連続で4発まで撃てるようにした
 					if (shotNum < 5)
@@ -276,7 +276,7 @@ public class Bit_Shot_2P : MonoBehaviour
 					}
 				}
 			}
-			if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+			if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
 			{
 				shotNum = 0;
 			}
@@ -291,36 +291,31 @@ public class Bit_Shot_2P : MonoBehaviour
 	//単発発射関数
 	private void Single_Fire()
 	{
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		if (!pl2.Is_Change_Auto)
 		{
-			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
+			//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
+			//{
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+			Bullet_cnt += 1;
+			//}
 
-			if (!pl2.Is_Change_Auto)
+		}
+		else
+		{
+			if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 			{
-				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
-				//{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
-				//}
-
 			}
-			else
-			{
-				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-				{
-					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-					Bullet_cnt += 1;
-				}
-			}
-			if (Bullet_cnt_Max != 8)
-			{
-				Bullet_cnt_Max = 8;
-			}
-
-			shot_Delay = 0;
 		}
+		if (Bullet_cnt_Max != 8)
+		{
+			Bullet_cnt_Max = 8;
+		}
+
+		shot_Delay = 0;
 	}
 
 	//ダブル発射関数

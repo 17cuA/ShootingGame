@@ -292,36 +292,32 @@ public class Bit_Shot : MonoBehaviour
 	//単発発射関数
 	private void Single_Fire()
 	{
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+		if (!pl1.Is_Change_Auto)
 		{
-			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
+			//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
+			//{
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+			Bullet_cnt += 1;
+			//}
 
-			if (!pl1.Is_Change_Auto)
+		}
+		else
+		{
+			if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 			{
-				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
-				//{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
-				//}
-
 			}
-			else
-			{
-				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-				{
-					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-					Bullet_cnt += 1;
-				}
-			}
-			if (Bullet_cnt_Max != 8)
-			{
-				Bullet_cnt_Max = 8;
-			}
-
-			shot_Delay = 0;
 		}
+		if (Bullet_cnt_Max != 8)
+		{
+			Bullet_cnt_Max = 8;
+		}
+
+		shot_Delay = 0;
+		
 	}
 
 	//ダブル発射関数

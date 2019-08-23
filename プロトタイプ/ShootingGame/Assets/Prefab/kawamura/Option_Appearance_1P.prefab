@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2722151134463117356}
   - component: {fileID: 6767652890286494863}
   - component: {fileID: 8070533828798583162}
+  - component: {fileID: 5298142442641213355}
   m_Layer: 0
-  m_Name: option_test
+  m_Name: Option_Appearance_1P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1856186317575461947}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -4752,3 +4753,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &5298142442641213355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856186317575461947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f0d12284ed55742a85eb149d63cf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale_Collect: 0
+  isCollectInc: 1
