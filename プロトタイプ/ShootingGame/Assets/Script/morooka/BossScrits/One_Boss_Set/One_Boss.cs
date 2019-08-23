@@ -39,6 +39,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 
 	[Header("ボスのアニメーション用")]
+	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
 	[SerializeField, Tooltip("ディゾルブエフェクト用")] private MeshRenderer[] Dissolve_Effect_Material;
 	[SerializeField, Tooltip("出現スピード")] private float appearance_speed;
 	[SerializeField, Tooltip("ワープエフェクト")] private GameObject warp_ef;
@@ -257,8 +258,9 @@ public class One_Boss : character_status
 			arm_parts[1].SetActive(true);
 			Body_Parts.SetActive(true);
 			core.SetActive(true);
-			//warp_ef.SetActive(false);
+			start_timecline.time = 60.0;
 
+			//warp_ef.SetActive(false);
 			Start_Flag = false;
 		}
 		else if (!End_Flag && !Start_Flag && Update_Flag)
@@ -293,17 +295,17 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				Rush();
-				//Laser_Clearing_2();
+				//Rush();
+				Laser_Clearing_2();
 			}
 		}
 		else if (End_Flag && !Start_Flag && Update_Flag)
 		{
 			//End_Anime();
 			//Warp_EF.Play();
-			start_timecline.Resume();
+			//start_timecline.Resume();
 
-			if (transform.position != Pos_set[0, 0])
+			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
 			{
 				if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance)
 				{
@@ -315,13 +317,14 @@ public class One_Boss : character_status
 				}
 
 				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotational_speed);
 			}
-			else if (transform.position == Pos_set[0, 0])
+			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
 			{
 				//warp_ef.SetActive(true);
 				ParticleSystem p = warp_ef.GetComponent<ParticleSystem>();
-				p.Play();
-				start_timecline.Resume();
+				//p.Play();
+				start_timecline.Play();
 				Update_Flag = false;
 				//foreach (ParticleSystem system in Warp_EF)
 				//{
@@ -351,7 +354,7 @@ public class One_Boss : character_status
 		Update_Flag = false;
 		//warp_ef.SetActive(true);
 		//Warp_EF.Play();
-		start_timecline.Play();
+		start_timecline.playOnAwake = true;
 	}
 
 	#region スタートアニメ_1
@@ -1776,6 +1779,7 @@ public class One_Boss : character_status
 	}
 	#endregion
 
+	#region 突進攻撃
 	/// <summary>
 	/// 突進攻撃
 	/// </summary>
@@ -1834,7 +1838,6 @@ public class One_Boss : character_status
 		else if (Attack_Step == 2)
 		{
 			Flame++;
-			transform.Rotate(new Vector3((float)Flame, 0.0f, 0.0f));
 			if (Flame == 40)
 			{
 				maenoiti = transform.position;
@@ -1857,19 +1860,18 @@ public class One_Boss : character_status
 				}
 
 				transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed * 3.0f);
-				transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
 			}
 			else if (transform.position == Target)
 			{
 				if (transform.eulerAngles.x < -180.0f)
 				{
-					transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
+					//transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
 				}
 				else if (transform.eulerAngles.x > -180.0f)
 				{
 					if (transform.rotation != Quaternion.identity)
 					{
-						transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, 40.0f);
+						//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, 40.0f);
 					}
 					else if (transform.rotation == Quaternion.identity)
 					{
@@ -1905,6 +1907,130 @@ public class One_Boss : character_status
 			}
 		}
 	}
+	#endregion
+
+	#region 突進攻撃2
+	/// <summary>
+	/// 突進攻撃
+	/// </summary>
+	private void Rush_2()
+	{
+		if (Attack_Step == 0)
+		{
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Now_player_Traget = Player_Data[0];
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Now_player_Traget = Player_Data[Random.Range(0, 1)];
+			}
+			Attack_Now = true;
+			Attack_Step++;
+		}
+		// プレイヤー追従移動
+		if (Attack_Step == 1)
+		{
+			Flame++;
+
+			Vector3 temp = transform.position;
+			if (Now_player_Traget.transform.position.y >= 1.5f)
+			{
+				temp.y = 1.5f;
+			}
+			else if (Now_player_Traget.transform.position.y <= -1.5f)
+			{
+				temp.y = -1.5f;
+			}
+			else
+			{
+				temp.y = Now_player_Traget.transform.position.y;
+			}
+
+			if (Vector_Size(temp, transform.position) <= Speed_Change_Distance)
+			{
+				if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+			}
+			else if (Vector_Size(temp, transform.position) > Speed_Change_Distance)
+			{
+				if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+			}
+
+			transform.position = Moving_To_Target(transform.position, temp, Now_Speed);
+			Turning();
+			//}
+			if (Flame == 40)
+			{
+				Flame = 0;
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 2)
+		{
+			start_timecline.time = 0;
+		}
+		else if (Attack_Step == 3)
+		{
+			if (transform.position != Target)
+			{
+				if (Vector_Size(Target, transform.position) <= Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed * 3.0f);
+			}
+			else if (transform.position == Target)
+			{
+				if (transform.eulerAngles.x < -180.0f)
+				{
+					//transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
+				}
+				else if (transform.eulerAngles.x > -180.0f)
+				{
+					if (transform.rotation != Quaternion.identity)
+					{
+						//transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, 40.0f);
+					}
+					else if (transform.rotation == Quaternion.identity)
+					{
+						maenoiti = transform.position;
+						Target = new Vector3(Pos_set[0, 0].x, transform.position.y, 0.0f);
+						Flame = 0;
+						Attack_Step++;
+
+					}
+				}
+			}
+		}
+		else if (Attack_Step == 4)
+		{
+			if (transform.position != Target)
+			{
+				if (Vector_Size(Target, transform.position) <= Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+
+				transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed * 3.0f);
+			}
+			else if (transform.position == Target)
+			{
+				Attack_Step = 0;
+				Attack_Type_Instruction++;
+				Attack_Now = false;
+			}
+		}
+	}
+	#endregion
 
 	#region レーザー打ち出し
 	/// <summary>

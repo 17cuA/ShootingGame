@@ -34,6 +34,8 @@ public class BattleshipType_Enemy : character_status
 	public float velocity;
 	public List<bool> Is_Muzzle_Active { get; set; }
 
+	public int Attack_Type_Num { get; set; }
+
 	public float Initial_Speed { get; set; }				// 初速(最低速度)
 	public float Max_Speed { get; set; }					// 最大速度
 	public float Deceleration_Distance { get; set; }		// 加減速開始移動量
@@ -84,6 +86,8 @@ public class BattleshipType_Enemy : character_status
 
 		HSV_Change();
 
+		Vector3 temp = Vector3.zero;
+
 		if (transform.position == moving_change_point[moving_change_point.Length - 1])
 		{
 			gameObject.SetActive(false);
@@ -116,15 +120,18 @@ public class BattleshipType_Enemy : character_status
 				{
 					if (speed > Initial_Speed) speed -= Initial_Speed;
 				}
-				Vector3 temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+				temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
 				velocity = transform.position.x - temp.x;
 				transform.position = temp;
 			}
 		}
 		else if(!is_sandwich)
 		{
-			transform.position += transform.forward * speed;
+			temp = transform.position + transform.forward * speed;
+			velocity = transform.position.x - temp.x;
+			transform.position = temp;
 		}
+
 
 		// 自身のZ軸が0のとき攻撃する
 		if (transform.position.z == 0.0f)
@@ -132,18 +139,14 @@ public class BattleshipType_Enemy : character_status
 			Shot_Delay++;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				if (muzzle_parts_scriptes[Muzzle_Select + 0].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 0].Attack_Instruction_Receiving());
-				if (muzzle_parts_scriptes[Muzzle_Select + 2].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 2].Attack_Instruction_Receiving());
-				if (muzzle_parts_scriptes[Muzzle_Select + 4].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 4].Attack_Instruction_Receiving());
-				if (muzzle_parts_scriptes[Muzzle_Select + 6].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 6].Attack_Instruction_Receiving());
-
-				Muzzle_Select++;
-				if (Muzzle_Select == 2)
+				if (Attack_Type_Num == 0)
 				{
-					Muzzle_Select = 0;
+					Wave_Attack();
 				}
-
-				Shot_Delay = 0;
+				else if (Attack_Type_Num == 1)
+				{
+					Zigzag_Attack();
+				}
 			}
 		}
 
@@ -300,6 +303,42 @@ public class BattleshipType_Enemy : character_status
 					Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
 				}
 			}
+		}
+	}
+
+
+	/// <summary>
+	/// ジグザグに攻撃
+	/// </summary>
+	private void Zigzag_Attack()
+	{
+		if (muzzle_parts_scriptes[Muzzle_Select + 0].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 0].Attack_Instruction_Receiving());
+		if (muzzle_parts_scriptes[Muzzle_Select + 2].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 2].Attack_Instruction_Receiving());
+		if (muzzle_parts_scriptes[Muzzle_Select + 4].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 4].Attack_Instruction_Receiving());
+		if (muzzle_parts_scriptes[Muzzle_Select + 6].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 6].Attack_Instruction_Receiving());
+
+		Muzzle_Select++;
+		if (Muzzle_Select == 2)
+		{
+			Muzzle_Select = 0;
+		}
+
+		Shot_Delay = 0;
+	}
+
+	private void Wave_Attack()
+	{
+		if (muzzle_parts_scriptes[Muzzle_Select + 0].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 0].Attack_Instruction_Receiving());
+		if (muzzle_parts_scriptes[Muzzle_Select + 4].gameObject.activeSelf) Bullet_Object.Add(muzzle_parts_scriptes[Muzzle_Select + 4].Attack_Instruction_Receiving());
+		Muzzle_Select++;
+		if(Muzzle_Select == 4)
+		{
+			Muzzle_Select = 0;
+			Shot_Delay -= Shot_DelayMax * 2;
+		}
+		else
+		{
+			Shot_Delay = 0;
 		}
 	}
 }

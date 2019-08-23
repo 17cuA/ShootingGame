@@ -52,24 +52,47 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
-		if(Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+		if (isFollow1P)
 		{
-			isFreeze = false;
-            defPos = transform.position - savePos;
+			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
 
-            for (int i = 0; i < array_Num; i++)
-            {
-                playerPos[i] += defPos;
-            }
-			defPos = new Vector3(0, 0, 0);
-			savePos = transform.position;
+				for (int i = 0; i < array_Num; i++)
+				{
+					playerPos[i] += defPos;
+				}
+				defPos = new Vector3(0, 0, 0);
+				savePos = transform.position;
+
+			}
+			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
+		}
+		else if (isFollow2P)
+		{
+			if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			{
+				isFreeze = false;
+				defPos = transform.position - savePos;
+
+				for (int i = 0; i < array_Num; i++)
+				{
+					playerPos[i] += defPos;
+				}
+				defPos = new Vector3(0, 0, 0);
+				savePos = transform.position;
+
+			}
+			else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			{
+				isFreeze = true;
+			}
 
 		}
-        else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
-		{
-			isFreeze = true;
-		}
-
 		//プレイヤー格納がnullなら入れる
 		if (playerObj == null)
 		{
@@ -116,18 +139,37 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (defCheck)
 			{
-				//プレイヤーの座標が動いていないとき
-				//if (pos == playerObj.transform.position)
-				if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+				if (isFollow1P)
 				{
-					isMove = false;
+					//プレイヤーの座標が動いていないとき
+					//if (pos == playerObj.transform.position)
+					if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+					{
+						isMove = false;
+					}
+					//プレイヤーの座標が動いていたとき
+					else
+					{
+						isMove = true;
+						//プレイヤーのtransform保存
+						pos = playerObj.transform.position;
+					}
 				}
-				//プレイヤーの座標が動いていたとき
-				else
+				else if (isFollow2P)
 				{
-					isMove = true;
-					//プレイヤーのtransform保存
-					pos = playerObj.transform.position;
+					//プレイヤーの座標が動いていないとき
+					//if (pos == playerObj.transform.position)
+					if ((Input.GetAxis("P2_Horizontal") == 0) && (Input.GetAxis("P2_Vertical") == 0))
+					{
+						isMove = false;
+					}
+					//プレイヤーの座標が動いていたとき
+					else
+					{
+						isMove = true;
+						//プレイヤーのtransform保存
+						pos = playerObj.transform.position;
+					}
 				}
 			}
 

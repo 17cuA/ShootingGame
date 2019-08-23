@@ -377,6 +377,14 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 
+		if (isOneBossDead)
+		{
+			if (frameCnt < 17030)
+			{
+				frameCnt = 17030;
+			}
+			isOneBossDead = false;
+		}
 		if(isBaculaDestroy)
 		{
 			if (frameCnt < 19390)
@@ -1171,34 +1179,38 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(enemy_MeteorWaveGroup, createPosR3.transform.position, transform.rotation);
 
 			nextEnemy = " ";
-			Next_Condition(290);
+			Next_Condition(1800);
+		}
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		{
+			Scene_Manager.Manager.Screen_Transition_To_Clear();
 		}
 		////3隕石 21780
 		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
 		//{
 		//    Instantiate(enemy_MEteor_Under, createMeteorPosRm3_57.transform.position, transform.rotation);
 
-		//    nextEnemy = "隕石4";
-		//    Next_Condition(300);
-		//}
-		////4隕石 22170
-		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
-		//{
-		//    Instantiate(enemy_Meteor, createMeteorPosR2_988.transform.position, transform.rotation);
+			//    nextEnemy = "隕石4";
+			//    Next_Condition(300);
+			//}
+			////4隕石 22170
+			//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+			//{
+			//    Instantiate(enemy_Meteor, createMeteorPosR2_988.transform.position, transform.rotation);
 
-		//    nextEnemy = "隕石5";
-		//    Next_Condition(180);
-		//}
-		////5隕石 22470
-		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
-		//{
-		//    Instantiate(enemy_Meteor_Mini, createMeteorPosRm2_822.transform.position, transform.rotation);
+			//    nextEnemy = "隕石5";
+			//    Next_Condition(180);
+			//}
+			////5隕石 22470
+			//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+			//{
+			//    Instantiate(enemy_Meteor_Mini, createMeteorPosRm2_822.transform.position, transform.rotation);
 
-		//    nextEnemy = "隕石";
-		//    Next_Condition(380);
-		//}
+			//    nextEnemy = "隕石";
+			//    Next_Condition(380);
+			//}
 
-		//22300
+			//22300
 	}
 
 	void CreateEnemyGroup_02()
