@@ -85,6 +85,14 @@ public class bullet_status : MonoBehaviour
 			}
 			gameObject.SetActive(false);
 		}
+		else if(col.gameObject.tag =="Boss_Gard")
+		{
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+			gameObject.SetActive(false);
+		}
 	}
 
 	/// <summary>

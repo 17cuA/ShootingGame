@@ -259,7 +259,8 @@ public class One_Boss : character_status
 			Body_Parts.SetActive(true);
 			core.SetActive(true);
 			//warp_ef.SetActive(false);
-
+			start_timecline.time = 3600.0;
+			start_timecline.Stop();
 			Start_Flag = false;
 		}
 		else if (!End_Flag && !Start_Flag && Update_Flag)
@@ -294,8 +295,8 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				Rush();
-				//Laser_Clearing_2();
+				//Rush();
+				Laser_Clearing_2();
 			}
 		}
 		else if (End_Flag && !Start_Flag && Update_Flag)
@@ -321,7 +322,7 @@ public class One_Boss : character_status
 			{
 				//warp_ef.SetActive(true);
 				ParticleSystem p = warp_ef.GetComponent<ParticleSystem>();
-				p.Play();
+				//p.Play();
 				start_timecline.Resume();
 				Update_Flag = false;
 				//foreach (ParticleSystem system in Warp_EF)
