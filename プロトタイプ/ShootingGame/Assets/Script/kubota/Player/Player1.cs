@@ -71,6 +71,7 @@ public class Player1 : character_status
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
 	private Vector3 Res_pos;	//死んだときに行く、最初のポジション情報
+	private Vector3 tem_pos;	//復活までの中心の位置
 	private float tem_pos_x;	//復活時の途中のポジションの保存用
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
@@ -158,7 +159,11 @@ public class Player1 : character_status
 		IS_Active = true;
         Bullet_cnt_Max = 8;
 		target = direction;
-		//Res_pos = -30;
+		//リスポーンに使う初期化--------------------------
+		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
+		tem_pos = (direction + Res_pos) / 2;	//リスポーン開始地点と初期位置の間
+		tem_pos.z = -30;						//中点のｚを変更
+		//------------------------------------------------
 	}
 
 	new void Update()
@@ -758,10 +763,9 @@ public class Player1 : character_status
 	//リスポーン用のアニメーション
 	private void Respone_Animation()
 	{
-		//float half_x = (direction.x + Res_pos) / 2;
-		//float tem_pos_z = ;
+		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
+		float next_pos_x = 
 
-		//transform.position = Vector3.Slerp(new Vector3(-50, 0, 0), direction, startTime);
-		//transform.position = new Vector3(Res_pos,0,);
+		transform.position = new Vector3(speed,0f,0f);
 	}
 }
