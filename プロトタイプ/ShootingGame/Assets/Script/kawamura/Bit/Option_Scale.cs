@@ -26,11 +26,13 @@ public class Option_Scale : MonoBehaviour
 		scale_value = 1.5f;
 		scale_Collect = 0;
 		isScaleInc = true;
-		//isScaleInc = true;
-    }
+		transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
 
-    // Update is called once per frame
-    void Update()
+		//isScaleInc = true;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
 		//オプションの縮小試し
 		scaleDelay++;
