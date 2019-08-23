@@ -44,7 +44,9 @@ public class RankingDisplay : MonoBehaviour
 	private float Font_Size { get; set; }
 
 	// スクロール用
-	const float kScrollValue = 75f;
+	const float kScrollValue = 90f;
+	const float kStartScrollValue = kScrollValue * 2f;
+	float scrollValue = kStartScrollValue;
 	int centerElementNum = 0;
 
 	public static RankingDisplay instance;
@@ -80,6 +82,7 @@ public class RankingDisplay : MonoBehaviour
 		inputNameClass.NameImageList = inputNameDisplay.Display_Characters;
 		inputNameDisplay.Size_Change(Vector3.one * inputNameSize);
 		inputNameDisplay.Centering();
+		previousName = Ranking_Strage.kDefaultName;
 
 		// ランキング表示
 		DataArray = Ranking_Strage.Strage;
@@ -100,7 +103,7 @@ public class RankingDisplay : MonoBehaviour
 		for (int i = 0; i < Ranking_Strage.Max_num; i++)
 		{
 			Rank_Pos[i].y = y_pos;
-			Rank_Pos[i].x = 0f;
+			Rank_Pos[i].x = 200f * 10f + 2100f * i;
 			y_pos -= 150.0f / 2.0f;
 
 			int ranking_num = i + 1;
@@ -129,11 +132,13 @@ public class RankingDisplay : MonoBehaviour
 		else if (centerElementNum > Ranking_Strage.Max_num - 3) { centerElementNum = Ranking_Strage.Max_num - 3; }
 		// ランキングのスクロール処理
 		CorrectCenterRankingLine();
+		// ランキングの列を中心に合わせる
+		CorrectCenterRankingColumn();
 		// 変更された名前を逐一保存していく
 		if (previousName != inputNameClass.Name)
 		{
 			int i = 0;
-			for (; i < Ranking_Strage.Strage.Length - 1 && Ranking_Strage.Strage[i].name != previousName && Ranking_Strage.Strage[i].score != Game_Master.display_score_1P; ++i) ;
+			for (; i < Ranking_Strage.Strage.Length - 1 && Ranking_Strage.Strage[i].name != previousName || Ranking_Strage.Strage[i].score != Game_Master.display_score_1P; ++i) ;
 			Ranking_Strage.Strage[i].name = inputNameClass.Name;
 			RankingCharacterDisplay[i].Character_Preference((i + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[i].name + "__" + Ranking_Strage.Strage[i].score.ToString("D10"));
 		}
@@ -146,7 +151,7 @@ public class RankingDisplay : MonoBehaviour
 	void CorrectCenterRankingLine()
 	{
 		int sign = Rank_Pos[centerElementNum].y > 0 ? -1 : 1;
-		float correctValue = kScrollValue * Time.deltaTime * sign;
+		float correctValue = scrollValue * Time.deltaTime * sign;
 		float temp = Rank_Pos[centerElementNum].y + correctValue;
 		// yが0を通り過ぎたら、行き過ぎないようにする
 		if (temp * sign > 0f)
@@ -156,6 +161,28 @@ public class RankingDisplay : MonoBehaviour
 		for (int i = 0; i < Ranking_Strage.Max_num; ++i)
 		{
 			Rank_Pos[i].y += correctValue;
+			RankingCharacterDisplay[i].Position_Change(Rank_Pos[i]);
+		}
+	}
+
+	/// <summary>
+	/// ランキングの列を中心にオフセットする処理
+	/// </summary>
+	void CorrectCenterRankingColumn()
+	{
+		float scrollWeight = 28f;
+		for (int i = 0; i < Ranking_Strage.Max_num; ++i)
+		{
+			if (Rank_Pos[i].x > 0f)
+			{
+				Rank_Pos[i].x -= scrollValue * scrollWeight * Time.deltaTime;
+				if(Rank_Pos[i].x < 0f) { Rank_Pos[i].x = 0f; }
+			}
+			else if (Rank_Pos[i].y < 0f)
+			{
+				Rank_Pos[i].x += scrollValue * scrollWeight * Time.deltaTime;
+				if (Rank_Pos[i].x > 0f) { Rank_Pos[i].x = 0f; }
+			}
 			RankingCharacterDisplay[i].Position_Change(Rank_Pos[i]);
 		}
 	}
