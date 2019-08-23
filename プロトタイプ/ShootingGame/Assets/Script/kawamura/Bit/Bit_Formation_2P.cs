@@ -33,8 +33,9 @@ public class Bit_Formation_2P : MonoBehaviour
 
 	public ParticleSystem option_Particle;      //レーザーのパーティクルを取得するための変数
 
-	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
+	Bit_Shot_2P b_Shot_2P;                            //オプションの攻撃スクリプト情報
 	Player1 pl1;                                //プレイヤースクリプト情報
+	Player2 pl2;
 	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
@@ -101,7 +102,7 @@ public class Bit_Formation_2P : MonoBehaviour
 
 		myName = gameObject.name;                           //自分の名前取得
 
-		b_Shot = gameObject.GetComponent<Bit_Shot>();       //攻撃の情報取得
+		b_Shot_2P = gameObject.GetComponent<Bit_Shot_2P>();       //攻撃の情報取得
 
 
 	}
@@ -113,7 +114,7 @@ public class Bit_Formation_2P : MonoBehaviour
 		{
 			playerObj = GameObject.Find("Player_2");
 
-			pl1 = playerObj.GetComponent<Player1>();
+			pl2 = playerObj.GetComponent<Player2>();
 
 		}
 
@@ -142,12 +143,12 @@ public class Bit_Formation_2P : MonoBehaviour
 		}
 
 		//プレイヤー死亡時の処理
-		if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
+		if (Input.GetKeyDown(KeyCode.I) || pl2.Dead_Check())
 		{
 			//死んだ判定true
 			isDead = true;
-			b_Shot.isShot = false;
-			b_Shot.laser_Obj.SetActive(false);
+			b_Shot_2P.isShot = false;
+			b_Shot_2P.laser_Obj.SetActive(false);
 
 			//追従位置の参照を外す
 			followPosObj = null;
@@ -201,7 +202,7 @@ public class Bit_Formation_2P : MonoBehaviour
 			isDead = false;                 //死んでいる判定false
 			isborn = true;                  //出現時処理できるように
 			followPosObj = null;            //追従オブジェクト参照をなくす
-			pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
+			pl2.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
 			gameObject.SetActive(false);    //オブジェクトをオフにする
 		}
 		//------------------------------------------------
@@ -242,7 +243,7 @@ public class Bit_Formation_2P : MonoBehaviour
 		//switch (bState)
 		//{
 		//case BitState.Circular:
-		//	b_Shot.isShot = true;
+		//	b_Shot_2P.isShot = true;
 
 		//	if (isCircular)
 		//	{
@@ -262,7 +263,7 @@ public class Bit_Formation_2P : MonoBehaviour
 		//	break;
 
 		//case BitState.Oblique:
-		//	b_Shot.isShot = true;
+		//	b_Shot_2P.isShot = true;
 
 		//	if (isOblique)
 		//	{
@@ -283,7 +284,7 @@ public class Bit_Formation_2P : MonoBehaviour
 		//	break;
 
 		//case BitState.Follow:
-		//	//b_Shot.isShot = true;
+		//	//b_Shot_2P.isShot = true;
 
 		//	if (isFollow)
 		//	{
@@ -306,7 +307,7 @@ public class Bit_Formation_2P : MonoBehaviour
 		//	break;
 
 		//case BitState.Laser:
-		//	b_Shot.isShot = false;
+		//	b_Shot_2P.isShot = false;
 		//	break;
 		//}
 	}
@@ -391,7 +392,7 @@ public class Bit_Formation_2P : MonoBehaviour
 			{
 				//オプションパーティクルストップ
 				option_Particle.Stop();
-				b_Shot.isShot = true;
+				b_Shot_2P.isShot = true;
 				//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 				if (!FtoPlayer.hasOption)
 				{
