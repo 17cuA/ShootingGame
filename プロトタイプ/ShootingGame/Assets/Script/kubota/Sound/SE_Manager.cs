@@ -17,6 +17,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Explosion;
 	[Header("爆発のSE小型")]
 	public AudioSource Explosion_Small;
+	[Header("レーザー用のSE")]
+	public AudioSource Laser1;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
