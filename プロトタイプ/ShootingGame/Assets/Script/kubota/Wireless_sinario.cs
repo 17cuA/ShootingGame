@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class Wireless_sinario : MonoBehaviour
 {
     //文字の表示に使っている変数たち--------------------------------------------------------
-    public string[] scenarios;          // 無線セリフ、上から順に基本流れていく次のセリフにいく
+    public string[][] scenarios = new string[5][];          // 無線セリフ、上から順に基本流れていく次のセリフにいく
     [SerializeField] Text uiText;
     [SerializeField]
     [Range(0.001f, 0.3f)]
@@ -35,7 +35,7 @@ public class Wireless_sinario : MonoBehaviour
     {
         Is_Display = false;
         frame = 0;
-        SetNextLine();
+        SetNextLine(0);
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class Wireless_sinario : MonoBehaviour
         {
             if (currentLine < scenarios.Length)
             {
-                SetNextLine();
+                SetNextLine(0);
                 sinariocount = currentLine - 1;
 
                 if (frame < 300)
@@ -77,9 +77,9 @@ public class Wireless_sinario : MonoBehaviour
         }
     }
     //次に表示する文字を確認
-    void SetNextLine()
+    void SetNextLine( int i )
     {
-        currentText = scenarios[currentLine];
+        currentText = scenarios[i][currentLine];
         timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
         timeElapsed = Time.realtimeSinceStartup;
         currentLine++;

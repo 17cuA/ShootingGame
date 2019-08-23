@@ -126,14 +126,14 @@ public class Blink : MonoBehaviour
 				select_icon.SetActive(true);
 			}
 
-			if (Input.GetAxis("Vertical") > 0)
+			if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("P2_Vertical") > 0)
 			{
 				Vector3 temp = select_icon.transform.localPosition;
 				temp.y = one_player_parent.transform.localPosition.y;
 				select_icon.transform.localPosition = temp;
 				Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eONE_PLAYER);
 			}
-			else if (Input.GetAxis("Vertical") < 0)
+			else if (Input.GetAxis("Vertical") < 0 || Input.GetAxis("P2_Vertical") < 0)
 			{
 				Vector3 temp = select_icon.transform.localPosition;
 				temp.y = two_player_parent.transform.localPosition.y;

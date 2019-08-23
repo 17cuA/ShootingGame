@@ -94,7 +94,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
 		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
-		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed(); });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => {
@@ -217,7 +217,7 @@ public class Player2 : character_status
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
-																		//残機が残っていなければ
+					//残機が残っていなければ
 					if (Remaining < 1)
 					{
 						//残機がない場合死亡
@@ -229,12 +229,11 @@ public class Player2 : character_status
 					{
 						ParticleCreation(0);        //爆発のエフェクト発動
 						Reset_Status();             //体力の修正
-													//gameObject.transform.position = direction;      //初期位置に戻す
-													//if (laser.isPlaying) laser.Stop();               //レーザーを稼働状態の時、停止状態にする
 						invincible = true;         //無敵状態にするかどうかの処理
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						Is_Resporn = true;                      //復活用の処理を行う
+						target = direction;
 					}
 				}
 				//無敵時間の開始
@@ -277,8 +276,8 @@ public class Player2 : character_status
 	}
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
+		y = Input.GetAxis("P2_Vertical");              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -666,6 +665,11 @@ public class Player2 : character_status
 		speed = min_speed;
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
+	}
+	private void Init_speed_died()
+	{
+		speed = min_speed;
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[20]);
 	}
 	//レーザーの攻撃を初期バレットまたはダブルに変更
 	private void Reset_BulletType()
