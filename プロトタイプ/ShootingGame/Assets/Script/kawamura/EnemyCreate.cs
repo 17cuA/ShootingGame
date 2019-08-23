@@ -177,6 +177,9 @@ public class EnemyCreate : MonoBehaviour
 	public int turning_frame = 180;
 	public string nextEnemy;
 
+    GameObject oneBossOBj;
+    One_Boss oneBoss_Script;
+
 	public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
 	public bool isOneBossDead = false;
@@ -341,6 +344,9 @@ public class EnemyCreate : MonoBehaviour
         //{
         //    groupCntArray[i] = i;
         //}
+
+        oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
+        oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
     }
 
     void Update()
@@ -372,19 +378,41 @@ public class EnemyCreate : MonoBehaviour
             groupCnt = 39;
             //nowGroupCnt = 36;
         }
-		if (saveEnemyObj != null)
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            turning_frame = 17030;
+            frameCnt = 17030;
+            groupCnt = 40;
+
+        }
+        if (saveEnemyObj != null)
 		{
 
 		}
 
-		if (isOneBossDead)
-		{
-			if (frameCnt < 17030)
-			{
-				frameCnt = 17030;
-			}
-			isOneBossDead = false;
-		}
+        if (isOneBossDead)
+        {
+            if (frameCnt < 17030)
+            {
+                frameCnt = 17030;
+            }
+            isOneBossDead = false;
+        }
+        else if (oneBoss_Script != null)
+        {
+            if (oneBoss_Script.Is_Dead)
+            {
+                if (frameCnt < 17030)
+                {
+                    frameCnt = 17030;
+                }
+                isOneBossDead = false;
+
+                //if(frame > 180) SceneManager.LoadScene("GameClear");
+                //if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+            }
+        }
+
 		if(isBaculaDestroy)
 		{
 			if (frameCnt < 19390)
