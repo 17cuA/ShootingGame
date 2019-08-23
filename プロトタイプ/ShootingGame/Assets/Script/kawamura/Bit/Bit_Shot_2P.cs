@@ -7,14 +7,14 @@ using UnityEngine;
 using Power;
 using StorageReference;
 
-public class Bit_Shot : MonoBehaviour
+public class Bit_Shot_2P : MonoBehaviour
 {
 	public GameObject playerObj;        //プレイヤーオブジェクト
 	public GameObject shot_Mazle;       //弾を放つための地点を指定するためのオブジェクト
 	public GameObject laser_Obj;        //レーザーオブジェクト
 
-	Player1 pl1;                        //プレイヤースクリプト
-	Bit_Formation_3 bf;                 //オプションの全般のスクリプト
+	Player2 pl2;                        //プレイヤースクリプト
+	Bit_Formation_2P bf_2P;                 //オプションの全般のスクリプト
 	public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
 										//public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 
@@ -36,12 +36,12 @@ public class Bit_Shot : MonoBehaviour
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
-		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 	private void OnDisable()
 	{
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
 
 	}
 
@@ -50,7 +50,7 @@ public class Bit_Shot : MonoBehaviour
 		//撃つ位置取得
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		//Bit_Formation_3取得
-		bf = gameObject.GetComponent<Bit_Formation_3>();
+		bf_2P = gameObject.GetComponent<Bit_Formation_2P>();
 		//向き入れます,撃つ間隔の最大設定します,
 		Direction = transform.rotation;
 		shotDelayMax = 5;
@@ -63,8 +63,8 @@ public class Bit_Shot : MonoBehaviour
 		//プレイヤーオブジェクトが入っていなかったら入れてスクリプトも取得
 		if (playerObj == null)
 		{
-			playerObj = GameObject.Find("Player");
-			pl1 = playerObj.GetComponent<Player1>();
+			playerObj = GameObject.Find("Player_2");
+			pl2 = playerObj.GetComponent<Player2>();
 
 		}
 
@@ -78,10 +78,10 @@ public class Bit_Shot : MonoBehaviour
 		//}
 
 		//死んでないくて打てる状態なら
-		if (!bf.isDead && isShot)
+		if (!bf_2P.isDead && isShot)
 		{
 			//プレイヤーがレーザー状態の時
-			if (pl1.bullet_Type == Player1.Bullet_Type.Laser)
+			if (pl2.bullet_Type == Player2.Bullet_Type.Laser)
 			{
 				laser_Obj.SetActive(true);
 				//発射ボタンが離されたら
@@ -96,7 +96,7 @@ public class Bit_Shot : MonoBehaviour
 					//レーザーを出す
 					//laser_Obj.SetActive(true);
 					//レーザー時のミサイル発射の処理
-					if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+					if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 					{
 						if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 						{
@@ -171,7 +171,7 @@ public class Bit_Shot : MonoBehaviour
 			shot_Delay++;
 		}
 
-		else if (bf.isDead)
+		else if (bf_2P.isDead)
 		{
 		}
 
@@ -191,7 +191,7 @@ public class Bit_Shot : MonoBehaviour
 	{
 		Shot_DelayMax = 2;
 
-		if (!pl1.Is_Change_Auto)
+		if (!pl2.Is_Change_Auto)
 		{
 			if (shot_Delay > Shot_DelayMax)
 			{
@@ -199,14 +199,14 @@ public class Bit_Shot : MonoBehaviour
 				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 				{
 					shot_Delay = 0;
-					switch (pl1.bullet_Type)
+					switch (pl2.bullet_Type)
 					{
-						case Player1.Bullet_Type.Single:
+						case Player2.Bullet_Type.Single:
 							Single_Fire();
 							//effect_Mazle_Fire[effectNum].Play();
 							effectNum++;
 							break;
-						case Player1.Bullet_Type.Double:
+						case Player2.Bullet_Type.Double:
 							Double_Fire();
 							//effect_Mazle_Fire[effectNum].Play();
 							effectNum++;
@@ -218,7 +218,7 @@ public class Bit_Shot : MonoBehaviour
 					{
 						effectNum = 0;
 					}
-					if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+					if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 					{
 						Missile_Fire();
 						missileDelayCnt = 0;
@@ -232,22 +232,21 @@ public class Bit_Shot : MonoBehaviour
 			Shot_DelayMax = 5;
 			if (shot_Delay > Shot_DelayMax)
 			{
-
 				if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					// 連続で4発まで撃てるようにした
 					if (shotNum < 5)
 					{
-						switch (pl1.bullet_Type)
+						switch (pl2.bullet_Type)
 						{
-							case Player1.Bullet_Type.Single:
+							case Player2.Bullet_Type.Single:
 								Single_Fire();
 								//effect_Mazle_Fire[effectNum].Play();
 								effectNum++;
 								shotNum++;
 
 								break;
-							case Player1.Bullet_Type.Double:
+							case Player2.Bullet_Type.Double:
 								Double_Fire();
 								//effect_Mazle_Fire[effectNum].Play();
 								effectNum++;
@@ -257,7 +256,7 @@ public class Bit_Shot : MonoBehaviour
 							default:
 								break;
 						}
-						if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
+						if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 						{
 							Missile_Fire();
 							missileDelayCnt = 0;
@@ -296,11 +295,11 @@ public class Bit_Shot : MonoBehaviour
 		{
 			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
 
-			if (!pl1.Is_Change_Auto)
+			if (!pl2.Is_Change_Auto)
 			{
 				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
 				//{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
 				//}
@@ -310,7 +309,7 @@ public class Bit_Shot : MonoBehaviour
 			{
 				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 				{
-					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
 					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 					Bullet_cnt += 1;
 				}
@@ -329,8 +328,8 @@ public class Bit_Shot : MonoBehaviour
 	{
 		if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 		{
-			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 			Bullet_cnt += 2;
 		}
