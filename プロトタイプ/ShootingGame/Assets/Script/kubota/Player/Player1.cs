@@ -208,7 +208,7 @@ public class Player1 : character_status
 				P1_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
 				P1_PowerManager.Instance.UpdateBit(bitIndex);
-
+ 
 				//shield_Effect.Play(false);
 				if (hp < 1)
 				{
