@@ -9,31 +9,26 @@ using StorageReference;
 
 public class Bit_Shot : MonoBehaviour
 {
-	public GameObject playerObj;		//プレイヤーオブジェクト
-    public GameObject shot_Mazle;		//弾を放つための地点を指定するためのオブジェクト
-	public GameObject laser_Obj;		//レーザーオブジェクト
+	public GameObject playerObj;        //プレイヤーオブジェクト
+	public GameObject player2Obj;        //プレイヤー2オブジェクト
+	public GameObject shot_Mazle;       //弾を放つための地点を指定するためのオブジェクト
+	public GameObject laser_Obj;        //レーザーオブジェクト
 
-	Player1 pl1;                        //プレイヤー1スクリプト
-	Player2 pl2;                        //プレイヤー2スクリプト
-	Bit_Formation_3 bf;					//オプションの全般のスクリプト
-    public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
-	//public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
-
-	public string myName;
+	Player1 pl1;                        //プレイヤースクリプト
+	Player2 pl2;
+	Bit_Formation_3 bf;                 //オプションの全般のスクリプト
+	public Quaternion Direction;        //オブジェクトの向きを変更する時に使う  
+										//public ParticleSystem[] effect_Mazle_Fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 
 	public int shotNum;                        //撃った数
 	int effectNum;
-    public float shot_Delay;                   //撃つディレイ
+	public float shot_Delay;                   //撃つディレイ
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Bullet_cnt;          //バレットの発射数をかぞえる変数
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
+	public bool isShot = true;          //撃てるか
 	int missileDelayCnt = 0;            //ミサイルのディレイ
 	public int shotDelayMax;                   //ショットの間隔
-	public bool isShot = true;          //撃てるか
-	public bool isBurst;
-	public bool isFollow1P;
-	public bool isFollow2P;
-
 	List<GameObject> bullet_data = new List<GameObject>();
 	//bool activeLaser = true;
 
@@ -54,24 +49,14 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
-		myName = gameObject.name;
-		if (myName == "Option")
-		{
-			isFollow1P = true;
-		}
-		else if (myName == "P2_Option")
-		{
-			isFollow2P = true;
-		}
-
 		//撃つ位置取得
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		//Bit_Formation_3取得
 		bf = gameObject.GetComponent<Bit_Formation_3>();
 		//向き入れます,撃つ間隔の最大設定します,
-        Direction = transform.rotation;
-        shotDelayMax = 5;
-		laser_Obj.SetActive(true);		 //レーザーの子供が動かないようにするための変数
+		Direction = transform.rotation;
+		shotDelayMax = 5;
+		laser_Obj.SetActive(true);       //レーザーの子供が動かないようにするための変数
 
 	}
 
@@ -79,18 +64,14 @@ public class Bit_Shot : MonoBehaviour
 	{
 		//プレイヤーオブジェクトが入っていなかったら入れてスクリプトも取得
 		if (playerObj == null)
-        {
-			if (isFollow1P)
-			{
-				playerObj = GameObject.Find("Player");
-				pl1 = playerObj.GetComponent<Player1>();
-
-			}
-			else if(isFollow2P)
-			{
-				playerObj = GameObject.Find("Player_2");
-				pl2 = playerObj.GetComponent<Player2>();
-			}
+		{
+			playerObj = GameObject.Find("Player");
+			pl1 = playerObj.GetComponent<Player1>();
+		}
+		if (player2Obj == null)
+		{
+			player2Obj = GameObject.Find("Player_2");
+			pl2 = player2Obj.GetComponent<Player2>();
 		}
 
 		//if(pl1.bullet_Type == Player1.Bullet_Type.Laser)
@@ -103,13 +84,13 @@ public class Bit_Shot : MonoBehaviour
 		//}
 
 		//死んでないくて打てる状態なら
-        if (!bf.isDead&& isShot)
+		if (!bf.isDead && isShot)
 		{
-			if (isFollow1P)
+			if (bf.bState == Bit_Formation_3.BitState.Player1)
 			{
-				//プレイヤー1がレーザー状態の時
 				if (pl1.bullet_Type == Player1.Bullet_Type.Laser)
 				{
+					//プレイヤーがレーザー状態の時
 					laser_Obj.SetActive(true);
 					//発射ボタンが離されたら
 					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
@@ -136,28 +117,31 @@ public class Bit_Shot : MonoBehaviour
 				{
 					laser_Obj.SetActive(false);
 				}
+				Bullet_Create();
+
+				shot_Delay++;
 			}
-			else if (isFollow2P)
+			else if (bf.bState == Bit_Formation_3.BitState.Player2)
 			{
-				//プレイヤー2がレーザー状態の時
 				if (pl2.bullet_Type == Player2.Bullet_Type.Laser)
 				{
+					//プレイヤーがレーザー状態の時
 					laser_Obj.SetActive(true);
 					//発射ボタンが離されたら
-					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Space))
+					if (Input.GetButtonUp("P2_Fire1") || Input.GetKeyUp(KeyCode.Space))
 					{
 						//レーザーストップ
 						//laser_Obj.SetActive(false);
 					}
 					//発射ボタンが押されている間
-					else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+					else if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 					{
 						//レーザーを出す
 						//laser_Obj.SetActive(true);
 						//レーザー時のミサイル発射の処理
 						if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 						{
-							if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+							if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 							{
 								Missile_Fire();
 							}
@@ -168,70 +152,14 @@ public class Bit_Shot : MonoBehaviour
 				{
 					laser_Obj.SetActive(false);
 				}
+				Bullet_Create();
+
+				shot_Delay++;
+
 			}
-
-			//if (shot_Delay > pl1.Shot_DelayMax)
-			//{
-			//	//弾を射出
-			//	Bullet_Create();
-			//}
-
-			Bullet_Create();
-
-			//ディレイカウントがディレイの最大値より大きくなったら撃てる
-			//if (shot_Delay > shotDelayMax)
-			//{
-
-			//             //shotNum++;
-
-			//             // 連続で4発まで撃てるようにした
-			//             if (shotNum < 5)
-			//             {
-			//		//プレイヤーの弾のタイプによって撃てるのが変わる
-			//		switch(pl1.bullet_Type)
-			//		{
-			//			case Player1.Bullet_Type.Single:
-			//				Single_Fire();
-			//				shotNum++;
-			//				//Bullet_Create();
-
-			//				break;
-			//			case Player1.Bullet_Type.Double:
-			//				Double_Fire();
-			//				shotNum++;
-			//				break;
-			//			case Player1.Bullet_Type.Laser:
-			//				//laser.Stop();
-			//				break;
-			//			default:
-			//				break;
-			//		}
-			//                 // ミサイルは別途ディレイの計算と分岐をする
-			//                 if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
-			//                 {
-			//			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-			//			{
-			//				Missile_Fire();
-			//			}
-			//			//missileDelayCnt = 0;
-			//		}
-			//		shot_Delay = 0;
-			//             }
-			//             // 4発撃った後、10フレーム程置く
-			//             else if (shotNum == 15)
-			//             {
-			//                 shotNum = 0;
-			//             }
-			//	else
-			//	{
-			//		shotNum++;
-			//	}
-			//         }				
-
-			shot_Delay++;
 		}
 
-		else if(bf.isDead)
+		else if (bf.isDead)
 		{
 		}
 
@@ -244,21 +172,20 @@ public class Bit_Shot : MonoBehaviour
 		}
 
 		missileDelayCnt++;
-    }
+	}
 
 	//-----------ここから関数----------------
 	public void Bullet_Create()
 	{
-		//Shot_DelayMax = 2;
+		Shot_DelayMax = 2;
 
-		if (isFollow1P)
+		if (bf.bState == Bit_Formation_3.BitState.Player1)
 		{
-			//マニュアル発射の時
 			if (!pl1.Is_Change_Auto)
 			{
-				shotDelayMax = 0;
 				if (shot_Delay > Shot_DelayMax)
 				{
+
 					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
 					{
 						shot_Delay = 0;
@@ -286,7 +213,7 @@ public class Bit_Shot : MonoBehaviour
 							Missile_Fire();
 							missileDelayCnt = 0;
 						}
-						//shot_Delay = 0;
+						shot_Delay = 0;
 					}
 				}
 			}
@@ -295,11 +222,8 @@ public class Bit_Shot : MonoBehaviour
 				Shot_DelayMax = 5;
 				if (shot_Delay > Shot_DelayMax)
 				{
+
 					if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-					{
-						isBurst = true;
-					}
-					if (isBurst)
 					{
 						// 連続で4発まで撃てるようにした
 						if (shotNum < 5)
@@ -336,7 +260,6 @@ public class Bit_Shot : MonoBehaviour
 						{
 							shotNum = 0;
 							effectNum = 0;
-							isBurst = false;
 						}
 						else
 						{
@@ -344,7 +267,7 @@ public class Bit_Shot : MonoBehaviour
 						}
 					}
 				}
-				if (!isBurst)
+				if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					shotNum = 0;
 				}
@@ -352,17 +275,17 @@ public class Bit_Shot : MonoBehaviour
 				{
 					effectNum = 0;
 				}
+
 			}
 		}
-		else if (isFollow2P)
+		//プレイヤー2
+		else if (bf.bState == Bit_Formation_3.BitState.Player2)
 		{
-			//マニュアル発射の時
 			if (!pl2.Is_Change_Auto)
 			{
-				shotDelayMax = 0;
 				if (shot_Delay > Shot_DelayMax)
 				{
-					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+					if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
 					{
 						shot_Delay = 0;
 						switch (pl2.bullet_Type)
@@ -389,7 +312,7 @@ public class Bit_Shot : MonoBehaviour
 							Missile_Fire();
 							missileDelayCnt = 0;
 						}
-						//shot_Delay = 0;
+						shot_Delay = 0;
 					}
 				}
 			}
@@ -398,11 +321,8 @@ public class Bit_Shot : MonoBehaviour
 				Shot_DelayMax = 5;
 				if (shot_Delay > Shot_DelayMax)
 				{
-					if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-					{
-						isBurst = true;
-					}
-					if (isBurst)
+
+					if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
 					{
 						// 連続で4発まで撃てるようにした
 						if (shotNum < 5)
@@ -439,7 +359,6 @@ public class Bit_Shot : MonoBehaviour
 						{
 							shotNum = 0;
 							effectNum = 0;
-							isBurst = false;
 						}
 						else
 						{
@@ -447,7 +366,7 @@ public class Bit_Shot : MonoBehaviour
 						}
 					}
 				}
-				if (!isBurst)
+				if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
 				{
 					shotNum = 0;
 				}
@@ -462,32 +381,19 @@ public class Bit_Shot : MonoBehaviour
 	//単発発射関数
 	private void Single_Fire()
 	{
-
-		//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
-		if (!pl1.Is_Change_Auto)
+		if (bf.bState == Bit_Formation_3.BitState.Player1)
 		{
-			if (isFollow1P)
+			if (!pl1.Is_Change_Auto)
 			{
 				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
 				//{
-
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
 				//}
-			}
-			else if (isFollow2P)
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-				Bullet_cnt += 1;
 
 			}
-
-		}
-		else
-		{
-			if (isFollow1P)
+			else
 			{
 				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 				{
@@ -496,7 +402,22 @@ public class Bit_Shot : MonoBehaviour
 					Bullet_cnt += 1;
 				}
 			}
-			else if (isFollow2P)
+			if (Bullet_cnt_Max != 8)
+			{
+				Bullet_cnt_Max = 8;
+			}
+
+			shot_Delay = 0;
+		}
+		else if (bf.bState == Bit_Formation_3.BitState.Player2)
+		{
+			if (!pl2.Is_Change_Auto)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 1;
+			}
+			else
 			{
 				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 				{
@@ -504,21 +425,19 @@ public class Bit_Shot : MonoBehaviour
 					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 					Bullet_cnt += 1;
 				}
-
 			}
+			if (Bullet_cnt_Max != 8)
+			{
+				Bullet_cnt_Max = 8;
+			}
+			shot_Delay = 0;
 		}
-		if (Bullet_cnt_Max != 8)
-		{
-			Bullet_cnt_Max = 8;
-		}
-
-		shot_Delay = 0;
 	}
 
 	//ダブル発射関数
 	private void Double_Fire()
 	{
-		if (isFollow1P)
+		if(bf.bState==Bit_Formation_3.BitState.Player1)
 		{
 			if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 			{
@@ -531,8 +450,9 @@ public class Bit_Shot : MonoBehaviour
 			{
 				Bullet_cnt_Max = 16;
 			}
+
 		}
-		else if (isFollow2P)
+		if (bf.bState == Bit_Formation_3.BitState.Player2)
 		{
 			if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
 			{
@@ -545,6 +465,7 @@ public class Bit_Shot : MonoBehaviour
 			{
 				Bullet_cnt_Max = 16;
 			}
+
 		}
 
 		//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
@@ -556,7 +477,7 @@ public class Bit_Shot : MonoBehaviour
 	}
 
 	private void Missile_Fire()
-    {
+	{
 		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
 		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 		missileDelayCnt = 0;

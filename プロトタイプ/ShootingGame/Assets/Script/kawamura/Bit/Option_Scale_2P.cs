@@ -1,45 +1,41 @@
-﻿//作成者：川村良太
-//オプションのパーティクルの見た目の大きさ変更スクリプト
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Option_Scale : MonoBehaviour
+public class Option_Scale_2P : MonoBehaviour
 {
-	Bit_Formation_3 bf;
+	Bit_Formation_2P bf_2P;
 
 	int scaleDelay;
 	float scale_value;
 	public float scale_Collect;
 
 	bool isScaleInc = false;
-	bool isScaleDec=false;
+	bool isScaleDec = false;
 	public bool isCollectInc = true;
 	// Start is called before the first frame update
 
 	private void Awake()
 	{
-		bf = transform.parent.gameObject.GetComponent<Bit_Formation_3>();
+		bf_2P = transform.parent.gameObject.GetComponent<Bit_Formation_2P>();
 	}
 	void Start()
-    {
+	{
 		scale_value = 1.5f;
 		scale_Collect = 0;
 		isScaleInc = true;
-		transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
-
 		//isScaleInc = true;
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		//オプションの縮小試し
 		scaleDelay++;
 		if (isCollectInc)
 		{
 			scale_Collect += 0.1f;
-			if(scale_Collect>1.5f)
+			if (scale_Collect > 1.5f)
 			{
 				scale_Collect = 1.5f;
 				isScaleDec = true;
@@ -49,7 +45,7 @@ public class Option_Scale : MonoBehaviour
 			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
 
 		}
-		else if(scaleDelay > 5)
+		else if (scaleDelay > 5)
 		{
 			if (isScaleInc)
 			{
@@ -76,7 +72,7 @@ public class Option_Scale : MonoBehaviour
 			transform.localScale = new Vector3(scale_value, scale_value, 0);
 			scaleDelay = 0;
 		}
-		if(bf.isCollection)
+		if (bf_2P.isCollection)
 		{
 			scale_Collect = 0;
 			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);

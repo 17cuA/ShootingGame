@@ -34,7 +34,8 @@ public class Player1 : character_status
 	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
-
+	GameObject optionObj;
+	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
 	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
@@ -70,6 +71,9 @@ public class Player1 : character_status
 	//リスポーン時に使用する変数--------------------------------------------------
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
+	private Vector3 Res_pos;	//死んだときに行く、最初のポジション情報
+	private Vector3 tem_pos;	//復活までの中心の位置
+	private float tem_pos_x;	//復活時の途中のポジションの保存用
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -156,6 +160,11 @@ public class Player1 : character_status
 		IS_Active = true;
         Bullet_cnt_Max = 8;
 		target = direction;
+		//リスポーンに使う初期化--------------------------
+		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
+		tem_pos = (direction + Res_pos) / 2;	//リスポーン開始地点と初期位置の間
+		tem_pos.z = -30;						//中点のｚを変更
+		//------------------------------------------------
 	}
 
 	new void Update()
@@ -682,19 +691,39 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			default:
@@ -751,5 +780,13 @@ public class Player1 : character_status
 		}
 		//フレーム加算
 		cnt++;
+	}
+	//リスポーン用のアニメーション
+	private void Respone_Animation()
+	{
+		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
+		//float next_pos_x = 
+
+		//transform.position = new Vector3(speed,0f,0f);
 	}
 }
