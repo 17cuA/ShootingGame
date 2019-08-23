@@ -73,7 +73,10 @@ public class bullet_status : MonoBehaviour
 			//add:0513_takada 爆発エフェクトのテスト
 			//AddExplosionProcess();
 			character_status obj = col.GetComponent<character_status>();
-			obj.Opponent = Player_Number;
+			if (obj != null)
+			{
+				obj.Opponent = Player_Number;
+			}
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
