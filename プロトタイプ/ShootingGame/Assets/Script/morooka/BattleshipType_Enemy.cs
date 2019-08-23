@@ -121,15 +121,17 @@ public class BattleshipType_Enemy : character_status
 					if (speed > Initial_Speed) speed -= Initial_Speed;
 				}
 				temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+				velocity = transform.position.x - temp.x;
+				transform.position = temp;
 			}
 		}
 		else if(!is_sandwich)
 		{
 			temp = transform.position + transform.forward * speed;
+			velocity = transform.position.x - temp.x;
+			transform.position = temp;
 		}
 
-		velocity = transform.position.x - temp.x;
-		transform.position = temp;
 
 		// 自身のZ軸が0のとき攻撃する
 		if (transform.position.z == 0.0f)

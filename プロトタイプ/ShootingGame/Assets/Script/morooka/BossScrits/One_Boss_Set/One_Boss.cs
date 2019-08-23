@@ -258,8 +258,9 @@ public class One_Boss : character_status
 			arm_parts[1].SetActive(true);
 			Body_Parts.SetActive(true);
 			core.SetActive(true);
-			//warp_ef.SetActive(false);
+			start_timecline.time = 60.0;
 
+			//warp_ef.SetActive(false);
 			Start_Flag = false;
 		}
 		else if (!End_Flag && !Start_Flag && Update_Flag)
@@ -294,17 +295,17 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				Rush();
-				//Laser_Clearing_2();
+				//Rush();
+				Laser_Clearing_2();
 			}
 		}
 		else if (End_Flag && !Start_Flag && Update_Flag)
 		{
 			//End_Anime();
 			//Warp_EF.Play();
-			start_timecline.Resume();
+			//start_timecline.Resume();
 
-			if (transform.position != Pos_set[0, 0])
+			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
 			{
 				if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance)
 				{
@@ -316,13 +317,14 @@ public class One_Boss : character_status
 				}
 
 				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotational_speed);
 			}
-			else if (transform.position == Pos_set[0, 0])
+			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
 			{
 				//warp_ef.SetActive(true);
 				ParticleSystem p = warp_ef.GetComponent<ParticleSystem>();
-				p.Play();
-				start_timecline.Resume();
+				//p.Play();
+				start_timecline.Play();
 				Update_Flag = false;
 				//foreach (ParticleSystem system in Warp_EF)
 				//{
@@ -352,7 +354,7 @@ public class One_Boss : character_status
 		Update_Flag = false;
 		//warp_ef.SetActive(true);
 		//Warp_EF.Play();
-		start_timecline.Play();
+		start_timecline.playOnAwake = true;
 	}
 
 	#region スタートアニメ_1
