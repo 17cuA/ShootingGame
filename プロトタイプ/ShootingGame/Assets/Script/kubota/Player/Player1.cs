@@ -34,7 +34,8 @@ public class Player1 : character_status
 	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
-
+	GameObject optionObj;
+	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
 	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
@@ -690,19 +691,39 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 1:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 2:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			case 3:
-				Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				bf=optionObj.GetComponent<Bit_Formation_3>();
+				bf.SetPlayer(1);
+				optionObj=null;
+				bf=null;
+
 				bitIndex++;
 				break;
 			default:
@@ -764,8 +785,8 @@ public class Player1 : character_status
 	private void Respone_Animation()
 	{
 		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
-		float next_pos_x = 
+		//float next_pos_x = 
 
-		transform.position = new Vector3(speed,0f,0f);
+		//transform.position = new Vector3(speed,0f,0f);
 	}
 }
