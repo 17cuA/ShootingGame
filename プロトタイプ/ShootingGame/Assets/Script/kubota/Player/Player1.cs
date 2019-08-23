@@ -78,13 +78,13 @@ public class Player1 : character_status
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-									//復活時のエフェクト用変数-------------------------------------
+	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
 	//--------------------------------------------------------
 
-	public bool Is_Change_Auto;
-	public bool IS_Active;
+	public bool Is_Change_Auto;		//ラピッドかオートかを変えるようの判定変数
+	public bool IS_Active;				//完全な無敵状態にするかどうかのもの
 
     public int Bullet_cnt;          //バレットの発射数をかぞえる変数
     private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
@@ -147,7 +147,7 @@ public class Player1 : character_status
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
-		Is_Resporn = false;
+		Is_Resporn = true;					//復活のアニメーションを行うかどうかの判定用
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		effect_num = 0;
@@ -182,7 +182,7 @@ public class Player1 : character_status
 				resporn_Injection.Play();
 				capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Slerp(new Vector3(-50, 0, 0), direction, startTime);
+				transform.position = Vector3.Slerp(new Vector3(-20, 0, 0), direction, startTime);
 
 				if (transform.position == direction)
 				{
