@@ -1191,7 +1191,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
             nextEnemy = "隕石群(5つ)";
-            Next_Condition(2360);
+            Next_Condition(1500);
         }
         //隕石群(5つ) 19390
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
