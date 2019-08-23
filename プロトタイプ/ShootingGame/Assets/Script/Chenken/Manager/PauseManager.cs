@@ -11,6 +11,9 @@ public class PauseManager : MonoBehaviour
 	[Header("Pause制御キー")]
 	public KeyCode controlKey;
 
+	[Header("Pause音量")]
+	[Range(0.1f,0.8f)]public float pauseVolume = 0.8f;
+
 	//[Header("-----コントローラ設定-----")]
 	//[Header("Pause制御ボタン")]
 	//public string controlName;
@@ -23,9 +26,18 @@ public class PauseManager : MonoBehaviour
 			return isPause;
 		}
 	}
-    // Start is called before the first frame update
 
-    void Update()
+	private GameObject pauseMask;
+	private AudioSource[] allAudios;
+
+
+	private void Start()
+	{
+		pauseMask = transform.GetChild(0).gameObject;
+		allAudios = GameObject.FindObjectsOfType<AudioSource>();
+	}
+
+	void Update()
     {
 		if (!isPause)
 		{
@@ -34,6 +46,11 @@ public class PauseManager : MonoBehaviour
 				Time.timeScale = 0f;
 				isPause = !isPause;
 				PauseComponent.Pause();
+				pauseMask.SetActive(true);
+				for(var i = 0; i < allAudios.Length; ++i)
+				{
+					allAudios[i].volume = pauseVolume;
+				}
 			}
 			
 		}
@@ -44,6 +61,11 @@ public class PauseManager : MonoBehaviour
 				Time.timeScale = 1f;
 				isPause = !isPause;
 				PauseComponent.Resume();
+				pauseMask.SetActive(false);
+				for (var i = 0; i < allAudios.Length; ++i)
+				{
+					allAudios[i].volume = 1.0f;
+				}
 			}
 		}
 		

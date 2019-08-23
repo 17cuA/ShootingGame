@@ -7,24 +7,27 @@ using UnityEngine;
 
 public class Bit_Formation_3 : MonoBehaviour
 {
-	enum BitState
+	public enum BitState
 	{
-		Circular,       //初期位置（円運動）
-		Follow,         //追従状態
+		Circular,        //初期位置（円運動）
+		Follow,			//追従状態
 		Oblique,        //斜め撃ち状態
 		Laser,			//レーザー状態
-		Stay,           //停止状態
+		Stay,				//停止状態
 		Return,         //戻ってきている状態
+		Player1,			//プレイヤー１に追従状態
+		Player2,			//プレイヤー２に追従状態
 	}
 
 	[SerializeField]
-	BitState bState;							//オプションの状態
+	public BitState bState;							//オプションの状態
 
 	//[SerializeField]
 	//BitState previous_state;					//オプションの前の状態（レーザーを解除したときに使う）
 
-	public GameObject playerObj;				//プレイヤーのオブジェクト
-	public GameObject parentObj;				//親のオブジェクト
+	public GameObject playerObj;                //プレイヤーのオブジェクト
+	public GameObject player2Obj;
+	//public GameObject parentObj;				//親のオブジェクト
 	public GameObject followPosObj;				//プレイヤーを追従するときの位置オブジェクト
 	public GameObject followPosFirstObj;		//プレイヤーに一番近い追従位置オブジェクト
 	public GameObject followPosSecondObj;		//二番目
@@ -38,6 +41,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	Bit_Shot b_Shot;							//オプションの攻撃スクリプト情報
 	Player1 pl1;								//プレイヤースクリプト情報
+	Player2 pl2;
 	FollowToPlayer_SameMotion FtoPlayer;		//プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;			//二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;			//三番目の位置のスクリプト情報
@@ -86,18 +90,18 @@ public class Bit_Formation_3 : MonoBehaviour
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();			//レンダラー取得
 
-		//4つの追従位置とそれぞれのスクリプト取得
-		followPosFirstObj = GameObject.Find("FollowPosFirst");
-		FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
+		////4つの追従位置とそれぞれのスクリプト取得
+		//followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
+		//FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
 
-		followPosSecondObj = GameObject.Find("FollowPosSecond");
-		FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
+		//followPosSecondObj = GameObject.Find("FollowPosSecond_1P");
+		//FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
 
-		followPosThirdObj = GameObject.Find("FollowPosThird");
-		FtoPBit_Third=followPosThirdObj.GetComponent<FollowToPreviousBit>();
+		//followPosThirdObj = GameObject.Find("FollowPosThird_1P");
+		//FtoPBit_Third=followPosThirdObj.GetComponent<FollowToPreviousBit>();
 
-		followPosFourthObj = GameObject.Find("FollowPosFourth");
-		FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
+		//followPosFourthObj = GameObject.Find("FollowPosFourth_1P");
+		//FtoPBit_Fourth=followPosFourthObj.GetComponent<FollowToPreviousBit>();
 
 
 		//parentObj = transform.parent.gameObject;			//親のオブジェクト取得
@@ -117,6 +121,14 @@ public class Bit_Formation_3 : MonoBehaviour
 			playerObj = GameObject.Find("Player");
 
 			pl1 = playerObj.GetComponent<Player1>();
+
+		}
+
+		if (player2Obj == null)
+		{
+			player2Obj = GameObject.Find("Player_2");
+
+			pl2 = player2Obj.GetComponent<Player2>();
 
 		}
 
@@ -145,34 +157,70 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//プレイヤー死亡時の処理
-		if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
+		if (bState == BitState.Player1)
 		{
-			//死んだ判定true
-			isDead = true;
-			b_Shot.isShot = false;
-			b_Shot.laser_Obj.SetActive(false);
-
-			//追従位置の参照を外す
-			followPosObj = null;
-
-			//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
-			switch (option_OrdinalNum)
+			if (Input.GetKeyDown(KeyCode.I) || pl1.Dead_Check())
 			{
-				case 1:
-					FtoPlayer.hasOption = false;
-					break;
+				//死んだ判定true
+				isDead = true;
+				b_Shot.isShot = false;
+				b_Shot.laser_Obj.SetActive(false);
 
-				case 2:
-					FtoPBit_Second.hasOption = false;
-					break;
+				//追従位置の参照を外す
+				followPosObj = null;
 
-				case 3:
-					FtoPBit_Third.hasOption = false;
-					break;
+				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
+				switch (option_OrdinalNum)
+				{
+					case 1:
+						FtoPlayer.hasOption = false;
+						break;
 
-				case 4:
-					FtoPBit_Fourth.hasOption = false;
-					break;
+					case 2:
+						FtoPBit_Second.hasOption = false;
+						break;
+
+					case 3:
+						FtoPBit_Third.hasOption = false;
+						break;
+
+					case 4:
+						FtoPBit_Fourth.hasOption = false;
+						break;
+				}
+			}
+		}
+		else if (bState == BitState.Player2)
+		{
+			if (Input.GetKeyDown(KeyCode.I) || pl2.Dead_Check())
+			{
+				//死んだ判定true
+				isDead = true;
+				b_Shot.isShot = false;
+				b_Shot.laser_Obj.SetActive(false);
+
+				//追従位置の参照を外す
+				followPosObj = null;
+
+				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
+				switch (option_OrdinalNum)
+				{
+					case 1:
+						FtoPlayer.hasOption = false;
+						break;
+
+					case 2:
+						FtoPBit_Second.hasOption = false;
+						break;
+
+					case 3:
+						FtoPBit_Third.hasOption = false;
+						break;
+
+					case 4:
+						FtoPBit_Fourth.hasOption = false;
+						break;
+				}
 			}
 		}
 
@@ -212,106 +260,42 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	//------------------ここから関数------------------
 
-	//オプションの状態切り替え関数
-	void ChangeState()
+	//追従するプレイヤーをセットして、追従位置も取得する関数
+	public void SetPlayer(int playerNum)
 	{
-		//switch(state_Num)
-		//{
-			//case 0:
-			//	bState = BitState.Circular;
-			//	previous_state = bState;
-			//	isCircular = true;
-			//	break;
+		if (playerNum == 1)
+		{
+			bState = BitState.Player1;
+			//4つの追従位置とそれぞれのスクリプト取得
+			followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
+			FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
 
-			//case 1:
-			//	bState = BitState.Oblique;
-			//	previous_state = bState;
-			//	isOblique = true;
-			//	break;
+			followPosSecondObj = GameObject.Find("FollowPosSecond_1P");
+			FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
 
-			//case 0:
-			//	bState = BitState.Follow;
-			//	//previous_state = bState;
-			//	isFollow = true;
-			//	break;
+			followPosThirdObj = GameObject.Find("FollowPosThird_1P");
+			FtoPBit_Third = followPosThirdObj.GetComponent<FollowToPreviousBit>();
 
-		//}
-	}
+			followPosFourthObj = GameObject.Find("FollowPosFourth_1P");
+			FtoPBit_Fourth = followPosFourthObj.GetComponent<FollowToPreviousBit>();
 
-	//オプションの移動関数
-	void Bit_Move()
-	{
-		//オプションの移動
-		//switch (bState)
-		//{
-			//case BitState.Circular:
-			//	b_Shot.isShot = true;
+		}
+		else if (playerNum == 2)
+		{
+			bState = BitState.Player2;
+			//4つの追従位置とそれぞれのスクリプト取得
+			followPosFirstObj = GameObject.Find("FollowPosFirst_2P");
+			FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
 
-			//	if (isCircular)
-			//	{
-			//		//親設定解除
-			//		transform.parent = null;
-			//		//指定したスピードで親の位置（元の位置）に戻る【parentObjの位置までstepのスピードで戻る】
-			//		transform.position = Vector3.MoveTowards(transform.position, parentObj.transform.position, step);
-			//		//親と同じ位置に戻ったら
-			//		if (transform.position == parentObj.transform.position)
-			//		{
-			//			isCircular = false;
+			followPosSecondObj = GameObject.Find("FollowPosSecond_2P");
+			FtoPBit_Second = followPosSecondObj.GetComponent<FollowToPreviousBit>();
 
-			//			//親子関係を戻す
-			//			transform.parent = parentObj.transform;
-			//		}
-			//	}
-			//	break;
+			followPosThirdObj = GameObject.Find("FollowPosThird_2P");
+			FtoPBit_Third = followPosThirdObj.GetComponent<FollowToPreviousBit>();
 
-			//case BitState.Oblique:
-			//	b_Shot.isShot = true;
-
-			//	if (isOblique)
-			//	{
-			//		//親設定解除
-			//		transform.parent = null;
-			//		//指定したスピードで追従する位置に行く【followPosObjの位置までstepのスピードで】
-			//		transform.position = Vector3.MoveTowards(transform.position, obliquePosObj.transform.position, step);
-			//		//追従する位置に行ったら
-			//		if (transform.position == obliquePosObj.transform.position)
-			//		{
-			//			isOblique = false;
-
-			//			//追従する位置のオブジェクトを親に設定
-			//			transform.parent = obliquePosObj.transform;
-			//			transform.rotation = obliquePosObj.transform.rotation;
-			//		}
-			//	}
-			//	break;
-
-			//case BitState.Follow:
-			//	//b_Shot.isShot = true;
-
-			//	if (isFollow)
-			//	{
-			//		//親設定解除
-			//		transform.parent = null;
-			//		transform.rotation = Quaternion.Euler(0, 0, 0);
-
-			//		//指定したスピードで追従する位置に行く【followPosObjの位置までstepのスピードで】
-			//		transform.position = Vector3.MoveTowards(transform.position, followPosObj.transform.position, step);
-			//		//追従する位置に行ったら
-			//		if (transform.position == followPosObj.transform.position)
-			//		{
-			//			isFollow = false;
-
-			//			//追従する位置のオブジェクトを親に設定
-			//			transform.parent = followPosObj.transform;
-			//			transform.rotation = followPosObj.transform.rotation;
-			//		}
-			//	}
-			//	break;
-
-			//case BitState.Laser:
-			//	b_Shot.isShot = false;
-			//	break;
-		//}
+			followPosFourthObj = GameObject.Find("FollowPosFourth_2P");
+			FtoPBit_Fourth = followPosFourthObj.GetComponent<FollowToPreviousBit>();
+		}
 	}
 
 	//生成(画面に表示された時のポジション設定)
@@ -389,122 +373,346 @@ public class Bit_Formation_3 : MonoBehaviour
 		//死んでいる状態で、回収の当たり判定ディレイが10fより大きかったら
 		if(isDead && collectDelay>10)
 		{
-			//プレイヤータグのオブジェクトに当たったら
-			if (col.gameObject.tag == "Player")
+			//プレイヤー１のオブジェクトに当たったら
+			if (col.gameObject.name == "Player")
 			{
 				//オプションパーティクルストップ
 				option_Particle.Stop();
 				b_Shot.isShot = true;
-				//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
-				if (!FtoPlayer.hasOption)
+
+				//もともとプレイヤー1に追従していたら
+				if (bState == BitState.Player1)
 				{
-					//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
-					isCollection = true;
-					FtoPlayer.hasOption = true;
-					followPosObj = followPosFirstObj;
-					transform.position = followPosObj.transform.position;
+					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
+					if (!FtoPlayer.hasOption)
+					{
+						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPlayer.hasOption = true;
+						followPosObj = followPosFirstObj;
+						transform.position = followPosObj.transform.position;
 
-					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
-					isDead = false;
-					speed = defaultSpeed;
-					option_OrdinalNum = 1;
-					collectDelay = 0;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 1;
+						collectDelay = 0;
 
-					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
-					os.isCollectInc = true;
-					os.scale_Collect = 0;
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//二番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Second.hasOption)
+					{
+						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Second.hasOption = true;
+						followPosObj = followPosSecondObj;
+						transform.position = followPosObj.transform.position;
 
-					//alpha_Value = 0;
-					//bit_Color.a = alpha_Value;
-					//renderer.material.color = bit_Color;
-					//alpha_Value_Par = 0;
-					//particle_Color.a = alpha_Value_Par;
-					//particleRenderer.material.color = particle_Color;
-					//option_Particle.startColor = particle_Color;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 2;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//三番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Third.hasOption)
+					{
+						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Third.hasOption = true;
+						followPosObj = followPosThirdObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 3;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//四番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Fourth.hasOption)
+					{
+						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Fourth.hasOption = true;
+						followPosObj = followPosFourthObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 4;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
 				}
-				//二番目の追従位置オブジェクトがオプションを持っていなかったら
-				else if (!FtoPBit_Second.hasOption)
+				//プレイヤー2に追従していたら
+				else if (bState == BitState.Player2)
 				{
-					//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
-					isCollection = true;
-					FtoPBit_Second.hasOption = true;
-					followPosObj = followPosSecondObj;
-					transform.position = followPosObj.transform.position;
+					SetPlayer(1);
+					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
+					if (!FtoPlayer.hasOption)
+					{
+						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPlayer.hasOption = true;
+						followPosObj = followPosFirstObj;
+						transform.position = followPosObj.transform.position;
 
-					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
-					isDead = false;
-					speed = defaultSpeed;
-					option_OrdinalNum = 2;
-					collectDelay = 0;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 1;
+						collectDelay = 0;
 
-					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
-					os.isCollectInc = true;
-					os.scale_Collect = 0;
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//二番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Second.hasOption)
+					{
+						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Second.hasOption = true;
+						followPosObj = followPosSecondObj;
+						transform.position = followPosObj.transform.position;
 
-					//alpha_Value = 0;
-					//bit_Color.a = alpha_Value;
-					//alpha_Value_Par = 0;
-					//renderer.material.color = bit_Color;
-					//alpha_Value_Par = 0;
-					//particle_Color.a = alpha_Value_Par;
-					////particleRenderer.material.color = particle_Color;
-					//option_Particle.startColor = particle_Color;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 2;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//三番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Third.hasOption)
+					{
+						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Third.hasOption = true;
+						followPosObj = followPosThirdObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 3;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//四番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Fourth.hasOption)
+					{
+						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Fourth.hasOption = true;
+						followPosObj = followPosFourthObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 4;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+
 				}
-				//三番目の追従位置オブジェクトがオプションを持っていなかったら
-				else if (!FtoPBit_Third.hasOption)
+			}
+			//プレイヤー2に当たったら
+			else if (col.gameObject.name == "Player_2")
+			{
+				//オプションパーティクルストップ
+				option_Particle.Stop();
+				b_Shot.isShot = true;
+
+				//プレイヤー1を追従していたら
+				if (bState == BitState.Player1)
 				{
-					//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
-					isCollection = true;
-					FtoPBit_Third.hasOption = true;
-					followPosObj = followPosThirdObj;
-					transform.position = followPosObj.transform.position;
+					//追従状態をプレイヤー2に変更
+					SetPlayer(2);
 
-					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
-					isDead = false;
-					speed = defaultSpeed;
-					option_OrdinalNum = 3;
-					collectDelay = 0;
+					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
+					if (!FtoPlayer.hasOption)
+					{
+						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPlayer.hasOption = true;
+						followPosObj = followPosFirstObj;
+						transform.position = followPosObj.transform.position;
 
-					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
-					os.isCollectInc = true;
-					os.scale_Collect = 0;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 1;
+						collectDelay = 0;
 
-					//alpha_Value = 0;
-					//bit_Color.a = alpha_Value;
-					//alpha_Value_Par = 0;
-					//renderer.material.color = bit_Color;
-					//alpha_Value_Par = 0;
-					//particle_Color.a = alpha_Value_Par;
-					////particleRenderer.material.color = particle_Color;
-					//option_Particle.startColor = particle_Color;
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//二番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Second.hasOption)
+					{
+						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Second.hasOption = true;
+						followPosObj = followPosSecondObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 2;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//三番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Third.hasOption)
+					{
+						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Third.hasOption = true;
+						followPosObj = followPosThirdObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 3;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//四番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Fourth.hasOption)
+					{
+						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Fourth.hasOption = true;
+						followPosObj = followPosFourthObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 4;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+
 				}
-				//四番目の追従位置オブジェクトがオプションを持っていなかったら
-				else if (!FtoPBit_Fourth.hasOption)
+				else if (bState == BitState.Player2)
 				{
-					//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
-					isCollection = true;
-					FtoPBit_Fourth.hasOption = true;
-					followPosObj = followPosFourthObj;
-					transform.position = followPosObj.transform.position;
+					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
+					if (!FtoPlayer.hasOption)
+					{
+						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPlayer.hasOption = true;
+						followPosObj = followPosFirstObj;
+						transform.position = followPosObj.transform.position;
 
-					//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
-					isDead = false;
-					speed = defaultSpeed;
-					option_OrdinalNum = 4;
-					collectDelay = 0;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 1;
+						collectDelay = 0;
 
-					//スケール変更スクリプトの回収判定true,回収時のスケール値を０
-					os.isCollectInc = true;
-					os.scale_Collect = 0;
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//二番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Second.hasOption)
+					{
+						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Second.hasOption = true;
+						followPosObj = followPosSecondObj;
+						transform.position = followPosObj.transform.position;
 
-					//alpha_Value = 0;
-					//bit_Color.a = alpha_Value;
-					//alpha_Value_Par = 0;
-					//renderer.material.color = bit_Color;
-					//alpha_Value_Par = 0;
-					//particle_Color.a = alpha_Value_Par;
-					////particleRenderer.material.color = particle_Color;
-					//option_Particle.startColor = particle_Color;
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 2;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//三番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Third.hasOption)
+					{
+						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Third.hasOption = true;
+						followPosObj = followPosThirdObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 3;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+					//四番目の追従位置オブジェクトがオプションを持っていなかったら
+					else if (!FtoPBit_Fourth.hasOption)
+					{
+						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
+						isCollection = true;
+						FtoPBit_Fourth.hasOption = true;
+						followPosObj = followPosFourthObj;
+						transform.position = followPosObj.transform.position;
+
+						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
+						isDead = false;
+						speed = defaultSpeed;
+						option_OrdinalNum = 4;
+						collectDelay = 0;
+
+						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
+						os.isCollectInc = true;
+						os.scale_Collect = 0;
+					}
+
 				}
 			}
 		}

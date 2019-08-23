@@ -13,35 +13,72 @@ using TextDisplay;
 
 public class Score_Display : MonoBehaviour
 {
-    //---------------------------------------------------------------------------
-    // Unity 側調節よう変数
-    //---------------------------------------------------------------------------
-    [SerializeField]
-    [Header("読み込みたいフォントの場所")]
-    private string font_path;
-    [SerializeField]
-    [Header("フォントのサイズ")]
-    private float font_size;
-    [SerializeField]
-    [Header("表示位置")]
-    private Vector3 position;
-    //---------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Unity 側調節よう変数
+	//---------------------------------------------------------------------------
+	[SerializeField]
+	[Header("読み込みたいフォントの場所")]
+	private string font_path;
+	[SerializeField]
+	[Header("フォントのサイズ")]
+	private float font_size;
+	[SerializeField]
+	[Header("表示位置")]
+	private Vector3 position;
+	//---------------------------------------------------------------------------
 
-    public Character_Display Object_To_Display{private set; get;}
+	//---------------------------------------------------------------------------
+	// Unity 側調節よう変数
+	//---------------------------------------------------------------------------
+	[SerializeField]
+	[Header("読み込みたいフォントの場所")]
+	private string font_path_2;
+	[SerializeField]
+	[Header("フォントのサイズ")]
+	private float font_size_2;
+	[SerializeField]
+	[Header("表示位置")]
+	private Vector3 position_2;
+	//---------------------------------------------------------------------------
+	private GameObject Score_1P{get;set;}
+	private GameObject Score_2P{get;set;}
 
-    void Start()
-    {
-        Object_To_Display = new Character_Display(10, font_path, gameObject, position);
-        Object_To_Display.Character_Preference("0000000000");
-        Object_To_Display.Size_Change(new Vector3(font_size, font_size, font_size));
-    }
+    public Character_Display Object_To_Display_1P{private set; get;}		// 1P用
+    public Character_Display Object_To_Display_2P{private set; get;}        // 2P用
+
+	void Start()
+	{
+		// 1P------------------------------
+		Score_1P = new GameObject();
+		Score_1P.transform.SetParent(transform);
+		Object_To_Display_1P = new Character_Display(10, font_path, Score_1P, position);
+		Object_To_Display_1P.Character_Preference("0000000000");
+		Object_To_Display_1P.Size_Change(new Vector3(font_size, font_size, font_size));
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			// 2P------------------------------
+			Score_2P = new GameObject();
+			Score_2P.transform.SetParent(transform);
+			Object_To_Display_2P = new Character_Display(10, font_path_2, Score_2P, position_2);
+			Object_To_Display_2P.Character_Preference("0000000000");
+			Object_To_Display_2P.Size_Change(new Vector3(font_size_2, font_size_2, font_size_2));
+		}
+	}
 
     /// <summary>
     /// 表示数値の設定
     /// </summary>
     /// <param name="number_to_display"> 数値 </param>
-    public void Display_Number_Preference(uint number_to_display)
+    public void Display_Number_Preference_1P(uint number_to_display)
     {
-        Object_To_Display.Character_Preference(number_to_display.ToString("D10"));
+        Object_To_Display_1P.Character_Preference(number_to_display.ToString("D10"));
+    }
+    /// <summary>
+    /// 表示数値の設定
+    /// </summary>
+    /// <param name="number_to_display"> 数値 </param>
+    public void Display_Number_Preference_2P(uint number_to_display)
+    {
+        Object_To_Display_2P.Character_Preference(number_to_display.ToString("D10"));
     }
 }
