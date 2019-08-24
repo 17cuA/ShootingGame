@@ -36,23 +36,18 @@ public class bullet_status : MonoBehaviour
 		}
 	}
 
-    protected void Update()
+	protected void Update()
 	{
-		//if(!Bullet_Renderer.isVisible)
-		//{
-		//	Debug.LogError("消えた？");
-		//	gameObject.SetActive(false);
-		//}
-			if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
-				|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
+			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		{
+			if (gameObject.tag == "Player_Bullet")
 			{
-				if (gameObject.tag == "Player_Bullet")
-				{
-					if (P1 != null) P1.Bullet_cnt--;
-					if (P2 != null) P2.Bullet_cnt--;
-				}
-				gameObject.SetActive(false);
+				if (P1 != null) P1.Bullet_cnt--;
+				if (P2 != null) P2.Bullet_cnt--;
 			}
+			gameObject.SetActive(false);
+		}
 	}
 
 	protected void OnTriggerEnter(Collider col)
