@@ -86,7 +86,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[21];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[22];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 	//無線のに使う情報
 	private string name_Wireless_curtain_up = "curtain_up";		  //開戦時
@@ -205,6 +205,7 @@ public class Obj_Storage : MonoBehaviour
         audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)"); //小型爆発
         audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");//戦艦タイプの爆発音
 		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");//プレイヤーの死亡時の音
+		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
