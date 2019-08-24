@@ -159,7 +159,7 @@ public class Player1 : character_status
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
-        Bullet_cnt_Max = 8;
+        Bullet_cnt_Max = 10;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
 		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
@@ -181,10 +181,11 @@ public class Player1 : character_status
 			{
 				injection.Stop();
 				resporn_Injection.Play();
-				capsuleCollider.enabled = false;
+				//capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
 				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
 
+				if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
 				if (transform.position == direction)
 				{
 					resporn_Injection.Stop();
@@ -433,7 +434,7 @@ public class Player1 : character_status
 				Change_Material(2);
 			}
 			invincible_time++;          //フレーム管理
-			if (capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
+			//if (capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
 		}
 		else
 		{
@@ -442,8 +443,9 @@ public class Player1 : character_status
 
 				object_material[i].material = Get_self_material(i);
 			}
+			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 
-			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
+			//if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
 		}
 	}
 
@@ -581,7 +583,7 @@ public class Player1 : character_status
 		}
         else
         {
-			if (Bullet_cnt < 100 && bullet_data.Count < 10)
+			if (Bullet_cnt < 10 && bullet_data.Count < 10)
 			{
 				bullet_data.Add( Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
                 SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
@@ -596,16 +598,16 @@ public class Player1 : character_status
 	//二連発射
 	private void Double_Fire()
 	{
-        if (bullet_data.Count < 10)
+        if (bullet_data.Count < 20)
         {
 			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
             SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
             Bullet_cnt += 2;
         }
-        if(Bullet_cnt_Max != 16)
+        if(Bullet_cnt_Max != 20)
         {
-            Bullet_cnt_Max = 16;
+            Bullet_cnt_Max = 20;
         }
     }
 	//	ミサイルの発射
