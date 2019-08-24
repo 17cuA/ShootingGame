@@ -132,7 +132,6 @@ public class bullet_status : MonoBehaviour
 	protected void Moving_To_Facing()
 	{
 		Vector3 temp_Pos = transform.right.normalized * shot_speed;
-
 		transform.position += temp_Pos;
 	}
 
