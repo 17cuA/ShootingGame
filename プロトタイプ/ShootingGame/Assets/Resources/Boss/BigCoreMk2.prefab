@@ -5813,7 +5813,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5808164588654007464
 MonoBehaviour:
@@ -5874,7 +5874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7481800653408450338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.07, y: 1.45, z: 0}
+  m_LocalPosition: {x: -2.07, y: 0.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669236422900099246}
@@ -5891,7 +5891,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &578456144874499174
 MonoBehaviour:
@@ -6088,7 +6088,7 @@ MonoBehaviour:
   supply:
   - {fileID: 2909136901210532023}
   - {fileID: 8921875491742687762}
-  number_of_fires: 2
+  number_of_fires: 0
   pos_set_prefab: {fileID: 5223319603688632064, guid: 7dafa8cd073ab204b8b5f8ed00f3ff26,
     type: 3}
   anime_start_time:
@@ -6131,6 +6131,7 @@ MonoBehaviour:
   Start_Flag: 1
   Update_Flag: 0
   start_timecline: {fileID: 5208960476216627437}
+  now_rush: 0
 --- !u!320 &5208960476216627437
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -6339,8 +6340,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 4, z: 34.52}
-  m_Center: {x: -4, y: 0, z: -2.54}
+  m_Size: {x: 2, y: 4, z: 15}
+  m_Center: {x: 8, y: 0, z: 5}
 --- !u!65 &4061977890211279467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6425,8 +6426,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 4, z: 34.52}
-  m_Center: {x: -4, y: 0, z: -2.54}
+  m_Size: {x: 2, y: 4, z: 15}
+  m_Center: {x: 8, y: 0, z: 5}
 --- !u!65 &2999790202385177330
 BoxCollider:
   m_ObjectHideFlags: 0
