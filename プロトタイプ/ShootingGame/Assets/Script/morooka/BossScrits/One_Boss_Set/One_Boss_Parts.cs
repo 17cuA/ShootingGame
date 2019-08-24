@@ -15,10 +15,12 @@ public class One_Boss_Parts : character_status
 
 	private new void Start()
     {
+		base.Start();
 		Initial_Position = transform.position;
     }
     private new void Update()
     {
+		base.Update();
         if(hp < 1)
 		{
 			if (supported_objects != null)
