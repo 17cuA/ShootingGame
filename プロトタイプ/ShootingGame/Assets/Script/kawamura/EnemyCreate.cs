@@ -359,29 +359,29 @@ public class EnemyCreate : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
-            turning_frame = 4290;
-            frameCnt = 4290;
+            turning_frame = 5010;
+            frameCnt = 5010;
             groupCnt = 17;
             //nowGroupCnt = 17;
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
-            turning_frame = 5070;
-            frameCnt = 5070;
+            turning_frame = 5790;
+            frameCnt = 5790;
             groupCnt = 21;
             //nowGroupCnt = 21;
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            turning_frame = 9830;
-            frameCnt = 9830;
+            turning_frame = 10550;
+            frameCnt = 10550;
             groupCnt = 39;
             //nowGroupCnt = 36;
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
-            turning_frame = 17030;
-            frameCnt = 17030;
+            turning_frame = 17750;
+            frameCnt = 17750;
             groupCnt = 40;
 
         }
@@ -392,9 +392,9 @@ public class EnemyCreate : MonoBehaviour
 
         if (isOneBossDead)
         {
-            if (frameCnt < 17030)
+            if (frameCnt < 17750)
             {
-                frameCnt = 17030;
+                frameCnt = 17750;
             }
             isOneBossDead = false;
         }
@@ -402,9 +402,9 @@ public class EnemyCreate : MonoBehaviour
         {
             if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 17030)
+                if (frameCnt < 17750)
                 {
-                    frameCnt = 17030;
+                    frameCnt = 17750;
                 }
                 isOneBossDead = false;
 
@@ -415,9 +415,9 @@ public class EnemyCreate : MonoBehaviour
 
 		if(isBaculaDestroy)
 		{
-			if (frameCnt < 19390)
+			if (frameCnt < 20110)
 			{
-				frameCnt = 19390;
+				frameCnt = 20110;
 			}
 			isBaculaDestroy = false;
 		}
@@ -723,42 +723,42 @@ public class EnemyCreate : MonoBehaviour
 		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 		{
             GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group.transform.position = createPosR3.transform.position;
+            enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
 			enemy_UFO_Group.transform.rotation = transform.rotation;
 
 			nextEnemy = "右下円盤";
-			Next_Condition(250);
+			Next_Condition(340);
 		}
 		//円盤の群れを１つ右下から出す(430)
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
 		{
 			GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group2.transform.position = createPosRm3.transform.position;
-			enemy_UFO_Group2.transform.rotation = transform.rotation;
+			enemy_UFO_Group2.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group2.transform.rotation = transform.rotation;
 
 			nextEnemy = "右上円盤";
 
-			Next_Condition(250);
+			Next_Condition(340);
 		}
 		//円盤の群れを１つ右上から出す(680)
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
 		{
 			GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group3.transform.position = createPosR3.transform.position;
-			enemy_UFO_Group3.transform.rotation = transform.rotation;
+			enemy_UFO_Group3.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group3.transform.rotation = transform.rotation;
 
 			nextEnemy = "右下円盤";
-			Next_Condition(250);
+			Next_Condition(340);
 		}
 		//円盤の群れを１つ右下から出す(930)
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
 		{
 			GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group4.transform.position = createPosRm3.transform.position;
-			enemy_UFO_Group4.transform.rotation = transform.rotation;
+			enemy_UFO_Group4.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group4.transform.rotation = transform.rotation;
 
 			nextEnemy = "突進闘牛";
-			Next_Condition(90);
+			Next_Condition(180);
 		}
 		//奥からくる斜めに並んだ闘牛型の群れを出す 1020
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
@@ -808,44 +808,43 @@ public class EnemyCreate : MonoBehaviour
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 9)
 		{
 			GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group5.transform.position = createPosR3.transform.position;
-			enemy_UFO_Group5.transform.rotation = transform.rotation;
+			enemy_UFO_Group5.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group5.transform.rotation = transform.rotation;
 
 			GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group6.transform.position = createPosRm3.transform.position;
-			enemy_UFO_Group6.transform.rotation = transform.rotation;
+			enemy_UFO_Group6.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group6.transform.rotation = transform.rotation;
 
 			nextEnemy = "右上＆右下円盤間隔狭め";
-			Next_Condition(120);
+			Next_Condition(210);
 		}
 		//円盤の群れを右側から中央寄りで2つ出す 2050
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 10)
 		{
 			GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group7.transform.position = createPosR1.transform.position;
-			enemy_UFO_Group7.transform.rotation = transform.rotation;
+			enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group7.transform.rotation = transform.rotation;
 
 			GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group8.transform.position = createPosRm1.transform.position;
-			enemy_UFO_Group8.transform.rotation = transform.rotation;
+			enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group8.transform.rotation = transform.rotation;
 
 			nextEnemy = "右上＆右下円盤間隔広め";
-			Next_Condition(120);
+			Next_Condition(210);
 		}
 		//円盤の群れを右上と右下から１つずつ出す 2170
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
 		{
 			GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group9.transform.position = createPosR4.transform.position;
-			enemy_UFO_Group9.transform.rotation = transform.rotation;
+			enemy_UFO_Group9.transform.position = createPosR4.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group9.transform.rotation = transform.rotation;
 
 			GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-			enemy_UFO_Group10.transform.position = createPosRm4
-                .transform.position;
-			enemy_UFO_Group10.transform.rotation = transform.rotation;
+			enemy_UFO_Group10.transform.position = createPosRm4.transform.position + new Vector3(8.5f, 0, 0);
+            enemy_UFO_Group10.transform.rotation = transform.rotation;
 
 			nextEnemy = "戦艦2体";
-			Next_Condition(200);
+			Next_Condition(290);
 		}
 		//戦艦を2体出す 2370
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 12)

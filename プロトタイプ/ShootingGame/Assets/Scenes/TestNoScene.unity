@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 3903288051588822611, guid: bd329a69d068ffe47b4a80615b678a6a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3903288051588822612, guid: bd329a69d068ffe47b4a80615b678a6a,
         type: 3}
@@ -1499,6 +1499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_MeteorWaveGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 4627306795962472214, guid: 536f6bd7fdbc4d94db7332f70b0185fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4664908764158511100, guid: 536f6bd7fdbc4d94db7332f70b0185fd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1724,7 +1729,7 @@ PrefabInstance:
     - target: {fileID: 3605871919178515371, guid: 8968e96e395c0c040b99d549427a7dde,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7
+      value: -10.36
       objectReference: {fileID: 0}
     - target: {fileID: 3605871919178515371, guid: 8968e96e395c0c040b99d549427a7dde,
         type: 3}
@@ -2328,7 +2333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
       propertyPath: audio_se.Array.size
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
       propertyPath: enemy_UFO_Group_prefab
@@ -2495,6 +2500,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2550,16 +2565,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db79ba8d6ceb1144f9d376616ba76908, type: 3}
 --- !u!1001 &1641806105
@@ -2577,7 +2582,7 @@ PrefabInstance:
     - target: {fileID: 1990893988371133228, guid: cf63f313ba88a8949b8b25f0c77a26ba,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1990893988371133138, guid: cf63f313ba88a8949b8b25f0c77a26ba,
         type: 3}
@@ -3131,7 +3136,7 @@ PrefabInstance:
     - target: {fileID: 858318395294030566, guid: 68ba967d1764b3c42b24e1ce0fb41e18,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118047002502758512, guid: 68ba967d1764b3c42b24e1ce0fb41e18,
         type: 3}
