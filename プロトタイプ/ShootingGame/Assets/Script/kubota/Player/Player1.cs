@@ -89,7 +89,9 @@ public class Player1 : character_status
     public int Bullet_cnt;          //バレットの発射数をかぞえる変数
     private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 
-	private bool Is_Burst;		//バースト発射するかどうかの判定
+	private bool Is_Burst;      //バースト発射するかどうかの判定
+
+	private bool one;
     //プレイヤーがアクティブになった瞬間に呼び出される
     private void OnEnable()
 	{
@@ -164,8 +166,9 @@ public class Player1 : character_status
 		//リスポーンに使う初期化--------------------------
 		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
 		tem_pos = (direction + Res_pos) / 2;	//リスポーン開始地点と初期位置の間
-		tem_pos.z = -30;						//中点のｚを変更
-		//------------------------------------------------
+		tem_pos.z = -30;                        //中点のｚを変更
+												//------------------------------------------------
+		one = false;
 	}
 
 	new void Update()
@@ -184,8 +187,17 @@ public class Player1 : character_status
 				//capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
 				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
-
-				if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
+				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
+				{
+					gameObject.layer = LayerMask.NameToLayer("invisible");
+				}
+				if(transform.position.x > -19)
+				{
+					if(!one)
+					{
+						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
+					}
+				}
 				if (transform.position == direction)
 				{
 					resporn_Injection.Stop();
