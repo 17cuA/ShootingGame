@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dff623a68c93c48b77bb4f245db613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.05
+  shot_speed: 0.04
   attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 7923372550814810620}
@@ -4899,6 +4899,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1327516357713689085, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113084637167585476, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938243429579346087, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515117848712723266, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515117850550776293, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1910630646465436061, guid: 433ce1033805f5c46b7c6869ebebd776,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -4923,31 +4948,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327516357713689085, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515117850550776293, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8515117848712723266, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113084637167585476, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4938243429579346087, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 433ce1033805f5c46b7c6869ebebd776, type: 3}
