@@ -18,9 +18,9 @@ public class BaculaGroupMove : MonoBehaviour
         velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
         gameObject.transform.position += velocity * Time.deltaTime;
 
-        if (transform.position.x < 7)
-        {
-            speedX = 0;
-        }
+        //if (transform.position.x < 7)
+        //{
+        //    speedX = 0;
+        //}
     }
 }

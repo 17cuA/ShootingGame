@@ -31,6 +31,7 @@ public class Enemy_Board : character_status
 			ebp.isDead = true;
 			Died_Process();
 		}
+		base.Update();
     }
 
     private void OnTriggerExit(Collider col)

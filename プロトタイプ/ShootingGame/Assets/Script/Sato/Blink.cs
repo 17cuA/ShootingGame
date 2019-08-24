@@ -32,7 +32,7 @@ public class Blink : MonoBehaviour
 	public Vector3 two_player_pos;
 	public float two_player_size;
 	
-	// 洗濯用アイコン
+	// 選択用アイコン
 	public GameObject select_icon;
 
 	private Helper_SceneTranslation HS_Step { get; set; }

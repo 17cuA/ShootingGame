@@ -78,13 +78,13 @@ public class Player1 : character_status
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-									//復活時のエフェクト用変数-------------------------------------
+	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
 	//--------------------------------------------------------
 
-	public bool Is_Change_Auto;
-	public bool IS_Active;
+	public bool Is_Change_Auto;		//ラピッドかオートかを変えるようの判定変数
+	public bool IS_Active;				//完全な無敵状態にするかどうかのもの
 
     public int Bullet_cnt;          //バレットの発射数をかぞえる変数
     private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
@@ -147,7 +147,8 @@ public class Player1 : character_status
 		shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
 		resporn_Injection.Stop();//復活時ジェット噴射を動かさないようにする
 		base.Start();
-		Is_Resporn = false;
+		Is_Resporn = true;                  //復活のアニメーションを行うかどうかの判定用
+		invincible = true;					// 無敵時間の設定
 		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		effect_num = 0;
@@ -158,7 +159,7 @@ public class Player1 : character_status
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
-        Bullet_cnt_Max = 8;
+        Bullet_cnt_Max = 10;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
 		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
@@ -180,10 +181,11 @@ public class Player1 : character_status
 			{
 				injection.Stop();
 				resporn_Injection.Play();
-				capsuleCollider.enabled = false;
+				//capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Slerp(new Vector3(-50, 0, 0), direction, startTime);
+				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
 
+				if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
 				if (transform.position == direction)
 				{
 					resporn_Injection.Stop();
@@ -432,7 +434,7 @@ public class Player1 : character_status
 				Change_Material(2);
 			}
 			invincible_time++;          //フレーム管理
-			if (capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
+			//if (capsuleCollider.enabled == true) capsuleCollider.enabled = false;    //規定のコライダーをオフに変更
 		}
 		else
 		{
@@ -441,8 +443,9 @@ public class Player1 : character_status
 
 				object_material[i].material = Get_self_material(i);
 			}
+			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 
-			if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
+			//if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
 		}
 	}
 
@@ -571,23 +574,22 @@ public class Player1 : character_status
 	{
         if(!Is_Change_Auto)
         {
-            //if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
-            //{
-                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
+			if (Bullet_cnt < Bullet_cnt_Max)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
                 SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                 Bullet_cnt += 1;
-            //}
-
-        }
+			}
+		}
         else
         {
-            //if (/*Bullet_cnt < Bullet_cnt_Max &&*/ Bullet_cnt < 100 && bullet_data.Count < 10)
-            //{
-                bullet_data.Add( Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
+			if (Bullet_cnt < 10 && bullet_data.Count < 10)
+			{
+				bullet_data.Add( Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
                 SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                 Bullet_cnt += 1;
-            //}
-        }
+			}
+		}
         if (Bullet_cnt_Max != 8)
         {
             Bullet_cnt_Max = 8;
@@ -596,16 +598,16 @@ public class Player1 : character_status
 	//二連発射
 	private void Double_Fire()
 	{
-        if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100 && bullet_data.Count < 10)
+        if (bullet_data.Count < 20)
         {
 			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
             SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
             Bullet_cnt += 2;
         }
-        if(Bullet_cnt_Max != 16)
+        if(Bullet_cnt_Max != 20)
         {
-            Bullet_cnt_Max = 16;
+            Bullet_cnt_Max = 20;
         }
     }
 	//	ミサイルの発射
@@ -784,6 +786,7 @@ public class Player1 : character_status
 	//リスポーン用のアニメーション
 	private void Respone_Animation()
 	{
+		//どのくらいの割合進んだかを分ける
 		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
 		//float next_pos_x = 
 

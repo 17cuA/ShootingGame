@@ -61,6 +61,7 @@ public class character_status : MonoBehaviour
 		else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
+		if(name == "Bacula")white_material = Resources.Load<Material>("Material/Bacula") as Material;
 		self_material = new Material[object_material.Length];
         defaultColor = new Vector4[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
