@@ -166,7 +166,7 @@ public class Obj_Storage : MonoBehaviour
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
 
-		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001");	//プレイヤー爆発
+		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
 		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");	//プレイヤーのマズルファイア
 		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Explosion/E001");  //バグが起きないようにプレイヤーの爆発を仮置き
