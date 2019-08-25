@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -30,6 +30,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -43,6 +44,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &5344468259031853504
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605713905284196841}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!1 &4627306795962472214
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -125,6 +139,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -138,6 +153,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &2661610741709694877
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495304636133403017}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &8933412471068170839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -168,6 +196,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -181,6 +210,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &6382200766578048179
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5847575610266936892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &2848912315986791357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -211,6 +253,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -224,6 +267,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &4183989390624868478
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491667441489212759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &4346153170693677336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -254,6 +310,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -267,6 +324,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &3802244704513487300
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095362044350638642}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &2137516101513781160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -297,6 +367,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -310,6 +381,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &1751839025892642961
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7270782036467119473}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &3872137430027441655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -340,6 +424,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -353,6 +438,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &1050438004216094120
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7572636495504004334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!114 &6871660144457473803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 0
+  hp: 2
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -383,6 +481,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   meteor_One: {fileID: 0}
   meteor_Two: {fileID: 0}
   meteor_Three: {fileID: 0}
@@ -396,6 +495,19 @@ MonoBehaviour:
   myName: 
   isInc: 0
   isDec: 0
+--- !u!135 &179716843219792525
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7909423987989130381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.76871425
+  m_Center: {x: -0.00000062584877, y: 0.0000036805868, z: -0.00000011920928}
 --- !u!1001 &1259314172879930765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -407,6 +519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_MeteorWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
@@ -489,6 +606,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_MeteorWave
       objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -569,6 +691,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_MeteorWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
@@ -651,6 +778,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_MeteorWave
       objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -708,15 +840,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f751e4fc0b0084c8aae1960a0af933, type: 3}
---- !u!1 &7095362044350638642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
-    type: 3}
-  m_PrefabInstance: {fileID: 2219670472761213746}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7095362044350215698 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
+    type: 3}
+  m_PrefabInstance: {fileID: 2219670472761213746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7095362044350638642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
     type: 3}
   m_PrefabInstance: {fileID: 2219670472761213746}
   m_PrefabAsset: {fileID: 0}
@@ -731,6 +863,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_MeteorWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
@@ -813,6 +950,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_MeteorWave
       objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -894,6 +1036,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_MeteorWave
       objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -974,6 +1121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_MeteorWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987514317445540096, guid: 41f751e4fc0b0084c8aae1960a0af933,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8987514317445510432, guid: 41f751e4fc0b0084c8aae1960a0af933,
         type: 3}

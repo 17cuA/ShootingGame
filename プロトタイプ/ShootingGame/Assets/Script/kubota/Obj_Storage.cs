@@ -205,7 +205,7 @@ public class Obj_Storage : MonoBehaviour
         audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)"); //小型爆発
         audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");//戦艦タイプの爆発音
 		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");//プレイヤーの死亡時の音
-		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");
+		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");		//プレイヤー登場の音
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
