@@ -443,7 +443,10 @@ public class Bit_Shot : MonoBehaviour
 			{
                 if (Bullet_cnt < 8)
                 {
-                    Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+                    saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+                    pBullet = saveObj.GetComponent<Player_Bullet>();
+                    pBullet.bShot = myShot;
+
                     SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                     Bullet_cnt += 1;
                 }
@@ -453,6 +456,16 @@ public class Bit_Shot : MonoBehaviour
                 if (Bullet_cnt < 8 && bullet_data.Count < 10)
                 {
                     bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+                    for (int i = 0; i < bullet_data.Count; i++)
+                    {
+                        if (bullet_data[i] != null)
+                        {
+                            saveObj = bullet_data[i];
+                            pBullet = saveObj.GetComponent<Player_Bullet>();
+                            pBullet.bShot = myShot;
+                        }
+                    }
+
                     SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                     Bullet_cnt += 1;
                 }
@@ -473,8 +486,21 @@ public class Bit_Shot : MonoBehaviour
             if (bullet_data.Count < 16)
             {
                 bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                for (int i = 0; i < bullet_data.Count; i++)
+                {
+                    if (bullet_data[i] != null)
+                    {
+                        saveObj = bullet_data[i];
+                        pBullet = saveObj.GetComponent<Player_Bullet>();
+                        pBullet.bShot = myShot;
+                    }
+                }
+
+                saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+                pBullet = saveObj.GetComponent<Player_Bullet>();
+                pBullet.bShot = myShot;
+
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 2;
 			}
             if (Bullet_cnt_Max != 20)
@@ -488,8 +514,21 @@ public class Bit_Shot : MonoBehaviour
             if (bullet_data.Count < 16)
             {
                 bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                for (int i = 0; i < bullet_data.Count; i++)
+                {
+                    if (bullet_data[i] != null)
+                    {
+                        saveObj = bullet_data[i];
+                        pBullet = saveObj.GetComponent<Player_Bullet>();
+                        pBullet.bShot = myShot;
+                    }
+                }
+
+                saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+                pBullet = saveObj.GetComponent<Player_Bullet>();
+                pBullet.bShot = myShot;
+
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 2;
 			}
             if (Bullet_cnt_Max != 20)
