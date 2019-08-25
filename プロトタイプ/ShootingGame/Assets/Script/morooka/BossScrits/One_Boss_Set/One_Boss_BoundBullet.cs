@@ -17,12 +17,14 @@ public class One_Boss_BoundBullet : bullet_status
 	private RaycastHit hit_mesh;
 	private Vector3 Ray_Direction { get; set; }
 	private GameObject mae { get; set; }
+	private GameObject boss { get; set; }
 
 	private new void Start()
     {
 		base.Start();
 		Ray_Direction = transform.right;
-    }
+		boss = Obj_Storage.Storage_Data.GetBoss(1);
+	}
 
     // Update is called once per frame
     private new void Update()
@@ -32,7 +34,8 @@ public class One_Boss_BoundBullet : bullet_status
 		transform.position -= Ray_Direction.normalized * shot_speed;
 
 		Debug.DrawRay(transform.position, -Ray_Direction.normalized * length_on_landing, Color.red);
-		if (Physics.Raycast(transform.position, -Ray_Direction.normalized, out hit_mesh, length_on_landing))
+		if (Physics.Raycast(transform.position, -Ray_Direction.normalized, out hit_mesh, length_on_landing)
+			&& boss.activeSelf)
 		{
 			Debug.Log(hit_mesh.transform.name);
 			// コライダーの持ち主がWAllのとき
@@ -41,7 +44,6 @@ public class One_Boss_BoundBullet : bullet_status
 				mae = hit_mesh.transform.gameObject;
 				Ray_Direction = ReflectionCalculation(Ray_Direction, hit_mesh.normal);
 				transform.right = Ray_Direction;
-				//Ray_Direction += hit_mesh.normal;
 			}
 		}
 	}
