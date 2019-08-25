@@ -1202,7 +1202,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Bacula_FourOnly, createBaculaGroupPos.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石";
-            Next_Condition(210);
+            Next_Condition(60);
         }
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
         {
