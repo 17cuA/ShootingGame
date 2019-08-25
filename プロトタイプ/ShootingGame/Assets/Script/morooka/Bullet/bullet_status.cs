@@ -79,8 +79,30 @@ public class bullet_status : MonoBehaviour
 		{
 			if (gameObject.tag == "Player_Bullet")
 			{
-				if (P1 != null) P1.Bullet_cnt--;
-				if (P2 != null) P2.Bullet_cnt--;
+				switch (Bullet_Type)
+				{
+					case Type.Player1:
+						if (P1.Bullet_cnt > 0) P1.Bullet_cnt--;
+						break;
+					case Type.Player2:
+						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
+						break;
+					case Type.Player1_Option:
+
+						break;
+					case Type.Player2_Option:
+
+						break;
+					case Type.Enemy:
+						break;
+					case Type.None:
+						break;
+					default:
+						break;
+				}
+
+				//if (P1 != null) P1.Bullet_cnt--;
+				//if (P2 != null) P2.Bullet_cnt--;
 			}
 			gameObject.SetActive(false);
 		}
@@ -117,12 +139,32 @@ public class bullet_status : MonoBehaviour
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             effect.transform.position = gameObject.transform.position;
             particle.Play();
-            if (P1 != null) P1.Bullet_cnt--;
-            if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-            {
-                if (P2 != null) P2.Bullet_cnt--;
-            }
-            gameObject.SetActive(false);
+			switch (Bullet_Type)
+			{
+				case Type.None:
+					break;
+				case Type.Player1:
+					P1.Bullet_cnt = 0;
+					break;
+				case Type.Player2:
+					P2.Bullet_cnt = 0;
+					break;
+				case Type.Player1_Option:
+					break;
+				case Type.Player2_Option:
+					break;
+				case Type.Enemy:
+					break;
+				default:
+					break;
+			}
+
+			//if (P1 != null) P1.Bullet_cnt--;
+			//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			//{
+			//    if (P2 != null) P2.Bullet_cnt--;
+			//}
+			gameObject.SetActive(false);
         }
         else if (col.gameObject.tag == "Boss_Gard")
         {
