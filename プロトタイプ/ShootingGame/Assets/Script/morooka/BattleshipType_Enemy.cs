@@ -40,6 +40,7 @@ public class BattleshipType_Enemy : character_status
 	public float Max_Speed { get; set; }					// 最大速度
 	public float Deceleration_Distance { get; set; }		// 加減速開始移動量
 	public bool Is_up { get; set; }
+	public GameObject ef;
 
 	private new void Start()
 	{
@@ -173,6 +174,7 @@ public class BattleshipType_Enemy : character_status
 		// 本体がHP０以下のとき
 		if (hp <= 0)
 		{
+
 			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 			{
 				if (muzzle_parts_scriptes[i].gameObject.activeSelf)
@@ -187,7 +189,10 @@ public class BattleshipType_Enemy : character_status
 			}
 			Bullet_Object.Reverse();
 
+			Instantiate(ef, transform.position, Quaternion.identity);
+
 			Died_Process();
+
 		}
 
 		Is_Muzzle_Active = new List<bool>();

@@ -37,6 +37,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
+	[SerializeField, Tooltip("ボスのコアのシェーダー")] private MeshRenderer[] Core_Render;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -61,8 +62,6 @@ public class One_Boss : character_status
 	private float Now_Speed_A { get; set; }
 	private Vector3 Target_2 { get; set; }
 	private Vector3 IntermediatePosition { get; set; }
-
-	Vector3 velocity = Vector3.zero;
 
 	private int a_num { get; set; }
 	private int b_num { get; set; }
@@ -116,6 +115,9 @@ public class One_Boss : character_status
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
+
+	private int BodyCore_Init_HP { get; set; }		// 本体の初期HP
+	private int ArmCore_Init_HP { get; set; }		// アームの初期HP
 
 	private new void Start()
 	{
@@ -222,6 +224,9 @@ public class One_Boss : character_status
 			new Vector3(10.0f,0.0f,0.0f),
 			new Vector3(-10.0f,0.0f,0.0f),
 		};
+
+		BodyCore_Init_HP = Core.hp;
+		ArmCore_Init_HP = parts_core[0].hp;
 	}
 
 	private new void Update()
@@ -266,6 +271,42 @@ public class One_Boss : character_status
 			base.Update();
 			Survival_Time_Cnt++;
 
+			if(Core.hp < BodyCore_Init_HP / 3)
+			{
+				var color = default(Color);
+				ColorUtility.TryParseHtmlString("#FF0000", out color);
+				Core_Render[0].material.SetColor("_Color", color);
+				Core_Render[1].material.SetColor("_Color", color);
+
+				ColorUtility.TryParseHtmlString("#BF0000", out color);
+				Core_Render[0].material.SetColor("_Emissive_Color", color);
+				Core_Render[1].material.SetColor("_Emissive_Color", color);
+			}
+			foreach (One_Boss_Parts parts in parts_core)
+			{
+				if (parts.hp < ArmCore_Init_HP / 3)
+				{
+					var color = default(Color);
+					ColorUtility.TryParseHtmlString("#FF0000", out color);
+					Core_Render[0].material.SetColor("_Color", color);
+
+					ColorUtility.TryParseHtmlString("#BF0000", out color);
+					Core_Render[0].material.SetColor("_Emissive_Color", color);
+				}
+			}
+			for(int i = 0;i< parts_core.Length;i++)
+			{
+				if (parts_core[i].hp < ArmCore_Init_HP / 3)
+				{
+					var color = default(Color);
+					ColorUtility.TryParseHtmlString("#FF0000", out color);
+					Core_Render[i+2].material.SetColor("_Color", color);
+
+					ColorUtility.TryParseHtmlString("#BF0000", out color);
+					Core_Render[i+2].material.SetColor("_Emissive_Color", color);
+				}
+			}
+
 			if (Core.hp < 1)
 			{
 				foreach (One_Boss_Parts parts in parts_core)
@@ -305,99 +346,6 @@ public class One_Boss : character_status
 		start_timecline.time = 0.0;
 		start_timecline.Play();
 	}
-
-	#region スタートアニメ_1
-	private void Start_Anime()
-	{
-		if (Attack_Step == 0)
-		{
-			Target_2 = transform.position;
-			Attack_Step++;
-		}
-		else if (Attack_Step == 1)
-		{
-			Vector3 temp = Target_2;
-			temp.x = Pos_set[0, 0].x;
-			Target_2 = temp;
-			if (transform.position != Target_2)
-			{
-				if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-				{
-					if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-				}
-				if (Vector_Size(Target_2, transform.position) < Speed_Change_Distance_A)
-				{
-					if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-				}
-				transform.position = Moving_To_Target_A(transform.position, Target_2, Now_Speed_A);
-			}
-			else if (transform.position == Target_2)
-			{
-				maenoiti = transform.position;
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 2)
-		{
-			bool[] b = new bool[2] { false, false };
-
-			if (Vector_Size(Standby_Pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A
-				&& Vector_Size(Standby_Pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-			{
-				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-			}
-			if (Vector_Size(Init_Weapons_pos[0], weapons[0].transform.localPosition) < Speed_Change_Distance_A
-				&& Vector_Size(Init_Weapons_pos[1], weapons[1].transform.localPosition) < Speed_Change_Distance_A)
-			{
-
-				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-			}
-
-			for (int i = 0; i < weapons.Length; i++)
-			{
-				if (weapons[i].transform.localPosition != Init_Weapons_pos[i])
-				{
-					weapons[i].transform.localPosition = Moving_To_Target_A(weapons[i].transform.localPosition, Init_Weapons_pos[i], Now_Speed_A * 1000.0f);
-					b[i] = false;
-				}
-				else if (weapons[i].transform.localPosition == Init_Weapons_pos[i])
-				{
-					b[i] = true;
-				}
-			}
-
-			if (b[0] && b[1])
-			{
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 3)
-		{
-			if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance_A)
-			{
-				if (Now_Speed_A < Max_Speed_A) Now_Speed_A += Mini_Speed_A;
-			}
-			if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance_A)
-			{
-				if (Now_Speed_A > Mini_Speed_A) Now_Speed_A -= Mini_Speed_A;
-			}
-
-			if (transform.position != Pos_set[0, 0])
-			{
-				transform.position = Moving_To_Target_A(transform.position, Pos_set[0, 0], Now_Speed_A);
-			}
-			else if (transform.position == Pos_set[0, 0])
-			{
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 4)
-		{
-			Start_Flag = false;
-			Attack_Step = 0;
-		}
-	}
-	#endregion
 
 	#region スタートアニメ_2
 	private void Start_Anime_2()
