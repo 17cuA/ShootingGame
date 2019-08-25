@@ -1,18 +1,28 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//バウンドする隕石の挙動
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_MeteorBound : MonoBehaviour
+public class Enemy_MeteorBound : character_status
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	new void Start()
+	{
+		base.Start();
+	}
+
+	new void Update()
+	{
+
+	}
+
+	private void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.name == "Enemy_MeteorBound_Model")
+		{
+
+		}
+	}
 }
