@@ -20,20 +20,56 @@ public class bullet_status : MonoBehaviour
     public Player1 P1 { get; private set; }
     public Player2 P2 { get; private set; }
 	public int Player_Number { get; private set; }
+
+	public enum Type
+	{
+		None,
+		Player1,
+		Player2, 
+		Player1_Option,
+		Player2_Option,
+		Enemy,
+	}
+
+	public Type Bullet_Type;		//各キャラクタの弾かどうかを判定する変数
     protected void Start()
 	{
 		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
-        if (gameObject.name == "Player1_Bullet")
-        {
-            P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-			Player_Number = 1;
+
+		switch (Bullet_Type)
+		{
+			case Type.Player1:
+				P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				Player_Number = 1;
+				break;
+			case Type.Player2:
+				P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				Player_Number = 2;
+				break;
+			case Type.Player1_Option:
+
+				break;
+			case Type.Player2_Option:
+
+				break;
+			case Type.Enemy:
+				break;
+			case Type.None:
+				break;
+			default:
+				break;
 		}
-        else if (gameObject.name == "Player2_Bullet")
-        {
-            P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-			Player_Number = 2;
-		}
+		//if (gameObject.name == "Player1_Bullet")
+  //      {
+  //          P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+		//	Player_Number = 1;
+		//}
+  //      else if (gameObject.name == "Player2_Bullet")
+  //      {
+  //          P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+		//	Player_Number = 2;
+		//}
 	}
 
 	protected void Update()
@@ -43,8 +79,30 @@ public class bullet_status : MonoBehaviour
 		{
 			if (gameObject.tag == "Player_Bullet")
 			{
-				if (P1 != null) P1.Bullet_cnt--;
-				if (P2 != null) P2.Bullet_cnt--;
+				switch (Bullet_Type)
+				{
+					case Type.Player1:
+						if (P1.Bullet_cnt > 0) P1.Bullet_cnt--;
+						break;
+					case Type.Player2:
+						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
+						break;
+					case Type.Player1_Option:
+
+						break;
+					case Type.Player2_Option:
+
+						break;
+					case Type.Enemy:
+						break;
+					case Type.None:
+						break;
+					default:
+						break;
+				}
+
+				//if (P1 != null) P1.Bullet_cnt--;
+				//if (P2 != null) P2.Bullet_cnt--;
 			}
 			gameObject.SetActive(false);
 		}
@@ -81,12 +139,32 @@ public class bullet_status : MonoBehaviour
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             effect.transform.position = gameObject.transform.position;
             particle.Play();
-            if (P1 != null) P1.Bullet_cnt--;
-            if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-            {
-                if (P2 != null) P2.Bullet_cnt--;
-            }
-            gameObject.SetActive(false);
+			switch (Bullet_Type)
+			{
+				case Type.None:
+					break;
+				case Type.Player1:
+					P1.Bullet_cnt = 0;
+					break;
+				case Type.Player2:
+					P2.Bullet_cnt = 0;
+					break;
+				case Type.Player1_Option:
+					break;
+				case Type.Player2_Option:
+					break;
+				case Type.Enemy:
+					break;
+				default:
+					break;
+			}
+
+			//if (P1 != null) P1.Bullet_cnt--;
+			//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			//{
+			//    if (P2 != null) P2.Bullet_cnt--;
+			//}
+			gameObject.SetActive(false);
         }
         else if (col.gameObject.tag == "Boss_Gard")
         {
@@ -132,7 +210,6 @@ public class bullet_status : MonoBehaviour
 	protected void Moving_To_Facing()
 	{
 		Vector3 temp_Pos = transform.right.normalized * shot_speed;
-
 		transform.position += temp_Pos;
 	}
 
