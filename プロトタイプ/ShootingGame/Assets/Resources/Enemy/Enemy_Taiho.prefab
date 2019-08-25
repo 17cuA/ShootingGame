@@ -94,6 +94,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
 --- !u!1 &6002541278819933753
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +406,7 @@ MonoBehaviour:
   parentObj: {fileID: 0}
   myName: 
   Shot_Delay: 0
-  Shot_Delay_Max: 3
+  Shot_Delay_Max: 4
   burst_delay: 0
   burst_Delay_Max: 0
   burst_ShotNum: 1
@@ -413,7 +414,7 @@ MonoBehaviour:
   burst_Num: 0
   burst_Shot_Cnt: 0
   isShot: 1
-  isBurst: 1
+  isBurst: 0
 --- !u!1 &8706541846688081378
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +466,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8706541846688081378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

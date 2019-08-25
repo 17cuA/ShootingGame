@@ -71,7 +71,7 @@ public class Enemy_First : character_status
 		straightFrame_Default = 300;
 		straightFrame = straightFrame_Default;
 		defaultPos_Local = transform.localPosition;
-        defaultPos_PlusZ = defaultPos_Local + new Vector3(0, 0, 20);
+        defaultPos_PlusZ = defaultPos_Local + new Vector3(0, 0, 40);
 		if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
@@ -169,7 +169,7 @@ public class Enemy_First : character_status
 				}
 				else
 				{
-					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
+					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y,40.0f);
 
 					defaultPosY_World = transform.position.y;
 					defaultPosY_Local = transform.localPosition.y;
@@ -178,7 +178,7 @@ public class Enemy_First : character_status
 
 					//transform.localPosition = defaultPos_Local;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
+					//transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
 
 					//transform.localPosition = new Vector3(0, 0, 20.0f);
 					//transform.localPosition = defaultPos_PlusZ;
@@ -293,28 +293,31 @@ public class Enemy_First : character_status
 					{
 						speedZ = speedZ_Value;
 					}
-					if (transform.localPosition.x <= -32)
-					{
-						//frame += Time.deltaTime;
-						//if (frame > 3)
-						//{
-						//	isTurn = true;
-						//}
-						speedX = 5;
+                    //if (transform.localPosition.x <= -32)
+                    if (transform.localPosition.x <= -40.5)
+                    {
+                        //frame += Time.deltaTime;
+                        //if (frame > 3)
+                        //{
+                        //	isTurn = true;
+                        //}
+                        speedX = 5;
 						//isTurn = true;
 					}
 
-					else if (transform.localPosition.x < -21)
-					{
-						speedX -= 0.36f;
+                    //else if (transform.localPosition.x < -21)
+                    else if (transform.localPosition.x < -29.5)
+                    {
+                        speedX -= 0.36f;
 						if (speedX < 5)
 						{
 							speedX = 5;
 						}
 
 					}
-					else if (transform.localPosition.x < -9)
-					{
+                    //else if (transform.localPosition.x < -9)
+                    else if (transform.localPosition.x < -18.5)
+                    {
 						speedX += 0.12f;
 					}
 					//if (transform.position.x < 9)

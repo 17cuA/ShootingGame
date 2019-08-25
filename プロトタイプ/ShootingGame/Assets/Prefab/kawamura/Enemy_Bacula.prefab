@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6108812973272898556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 6108812974834225071}
   m_Father: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6108812974834225068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35ddeb4b12caac840baf1fc919c36ec0, type: 3}
   m_Name: 
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  hp: 6
+  hp: 300
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -186,12 +186,15 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
-  object_material: []
+  object_material:
+  - {fileID: 6108812975052449805}
   isrend: 0
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   ebp: {fileID: 0}
 --- !u!114 &6108812974793365428
 MonoBehaviour:
@@ -298,6 +301,12 @@ GameObject:
 --- !u!4 &6108812975054351085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e59f2800e9db5d645a367f705e4630bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6108812975054745709}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6108812975052449805 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc,
     type: 3}
   m_PrefabInstance: {fileID: 6108812975054745709}
   m_PrefabAsset: {fileID: 0}
