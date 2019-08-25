@@ -78,10 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30dd9de3e67c1d489af2df0e9ba2dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.3
+  shot_speed: 0.45
   attack_damage: 3
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
+  Bullet_Type: 1
 --- !u!212 &9068044568320447983
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4811,7 +4812,7 @@ PrefabInstance:
     - target: {fileID: 4948059690795652783, guid: c2d83e4d50d4c694c8095ab776c1a7f2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.172
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 4948059690795652783, guid: c2d83e4d50d4c694c8095ab776c1a7f2,
         type: 3}

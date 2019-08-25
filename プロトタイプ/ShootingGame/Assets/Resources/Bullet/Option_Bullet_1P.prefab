@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7191011485523257233}
   - component: {fileID: 643061647653681472}
   m_Layer: 14
-  m_Name: Option_Bullet
+  m_Name: Option_Bullet_1P
   m_TagString: Player_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30dd9de3e67c1d489af2df0e9ba2dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.3
+  shot_speed: 0.45
   attack_damage: 3
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
