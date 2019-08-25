@@ -24,6 +24,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 
 	Vector3 velocity;
 	public int divisionCnt = 0;
+    public float createSpeedX;
 	public float speedX;
 
 	public string myName;
@@ -48,12 +49,15 @@ public class Enemy_Board_Parent : MonoBehaviour
 
     void Update()
     {
-		if (isCreate)
+        velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+        gameObject.transform.position += velocity * Time.deltaTime;
+
+        if (isCreate)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			velocity = gameObject.transform.rotation * new Vector3(-createSpeedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
-			speedX -= 1.0f;
-			if (speedX == 0)
+            createSpeedX -= 1.0f;
+			if (createSpeedX == 0)
 			{
                 //speedX = 0;
                 if (transform.rotation.z > 0)
@@ -77,14 +81,14 @@ public class Enemy_Board_Parent : MonoBehaviour
                 //isCreate = false;
 			}
 		}
-		if (speedX > 0)
-		{
-			speedX -= 1.0f;
-			if (speedX < 0)
-			{
-				speedX = 0;
-			}
-		}
+		//if (speedX > 0)
+		//{
+		//	speedX -= 1.0f;
+		//	if (speedX < 0)
+		//	{
+		//		speedX = 0;
+		//	}
+		//}
         if (transform.position.y > 4.4f)
         {
             transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);

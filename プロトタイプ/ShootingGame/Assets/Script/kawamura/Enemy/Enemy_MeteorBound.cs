@@ -18,6 +18,7 @@ public class Enemy_MeteorBound : character_status
 	Enemy_MeteorBound meteorBound;		//相手のバウンドスクリプト取得用
 
 	Vector3 velocity;
+    Vector3 defaultLocalPos;
 
 	public float speedX;
 	public float speedY;
@@ -32,22 +33,28 @@ public class Enemy_MeteorBound : character_status
 	{
 		parentObj = transform.parent.gameObject;
 		boundMove = parentObj.GetComponent<Enemy_MeteorBound_Move>();
-
-		speedX = Random.Range(2.0f, 3.5f);
+        defaultLocalPos = transform.localPosition;
+        speedX = Random.Range(2.0f, 3.5f);
+        HP_Setting();
 		base.Start();
 	}
 
 	new void Update()
 	{
-
 		speedX = boundMove.speedX;
 		speedY = boundMove.speedY;
-		//velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
-		//gameObject.transform.position += velocity * Time.deltaTime;
+        //velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+        //gameObject.transform.position += velocity * Time.deltaTime;
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
 
-	}
 
-	private void OnTriggerEnter(Collider col)
+        if (hp < 1)
+        {
+            Died_Process();
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.name == "Enemy_MeteorBound_Model")
 		{
