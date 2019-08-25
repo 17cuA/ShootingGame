@@ -355,6 +355,10 @@ public class Obj_Storage : MonoBehaviour
 	{
 		return Player_2.Get_Obj()[0];
 	}
+    public GameObject GetOption()
+    {
+        return P1_Option.Get_Obj()[0];
+    }
 
 	public GameObject GetBoss(int bossID)
 	{
