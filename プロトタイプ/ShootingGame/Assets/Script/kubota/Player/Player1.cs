@@ -186,7 +186,7 @@ public class Player1 : character_status
 				resporn_Injection.Play();
 				//capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
+				transform.position = Vector3.Slerp(new Vector3(-20, 0, -5), direction, startTime);
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
@@ -800,7 +800,7 @@ public class Player1 : character_status
 	{
 		//どのくらいの割合進んだかを分ける
 		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
-		//float next_pos_x = 
+		//float next_pos_z = 
 
 		//transform.position = new Vector3(speed,0f,0f);
 	}
