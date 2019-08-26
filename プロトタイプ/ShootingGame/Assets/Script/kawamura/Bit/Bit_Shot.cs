@@ -9,6 +9,9 @@ using StorageReference;
 
 public class Bit_Shot : MonoBehaviour
 {
+
+    GameObject saveObj;
+
 	public GameObject playerObj;        //プレイヤーオブジェクト
 	public GameObject player2Obj;        //プレイヤー2オブジェクト
 	public GameObject shot_Mazle;       //弾を放つための地点を指定するためのオブジェクト
@@ -29,6 +32,11 @@ public class Bit_Shot : MonoBehaviour
 	public bool isShot = true;          //撃てるか
 	int missileDelayCnt = 0;            //ミサイルのディレイ
 	public int shotDelayMax;                   //ショットの間隔
+
+    public GameObject myObj;
+    public Bit_Shot myShot;
+
+    Player_Bullet pBullet;
 	List<GameObject> bullet_data = new List<GameObject>();
 	//bool activeLaser = true;
 
@@ -49,6 +57,8 @@ public class Bit_Shot : MonoBehaviour
 
 	void Start()
 	{
+        myObj = gameObject;
+        myShot = myObj.GetComponent<Bit_Shot>();
 		//撃つ位置取得
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		//Bit_Formation_3取得
@@ -56,7 +66,9 @@ public class Bit_Shot : MonoBehaviour
 		//向き入れます,撃つ間隔の最大設定します,
 		Direction = transform.rotation;
 		shotDelayMax = 5;
-		laser_Obj.SetActive(true);       //レーザーの子供が動かないようにするための変数
+        Bullet_cnt_Max = 10;
+
+        laser_Obj.SetActive(true);       //レーザーの子供が動かないようにするための変数
 
 	}
 
@@ -387,22 +399,38 @@ public class Bit_Shot : MonoBehaviour
 			{
 				//if (/*Bullet_cnt < Bullet_cnt_Max*/ Bullet_cnt < 100)
 				//{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-				Bullet_cnt += 1;
-				//}
+                if(Bullet_cnt<8)
+                {
+                    saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+                    pBullet = saveObj.GetComponent<Player_Bullet>();
+                    pBullet.bShot = myShot;
 
-			}
+                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    Bullet_cnt += 1;
+                }
+                //}
+
+            }
 			else
 			{
-				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-				{
-					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                if (Bullet_cnt < 8 && bullet_data.Count < 10)
+                {
+                    bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+                    for (int i = 0; i < bullet_data.Count; i++)
+                    {
+                        if (bullet_data[i] != null)
+                        {
+                            saveObj = bullet_data[i];
+                            pBullet = saveObj.GetComponent<Player_Bullet>();
+                            pBullet.bShot = myShot;
+                        }
+                    }
+
+                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 					Bullet_cnt += 1;
 				}
 			}
-			if (Bullet_cnt_Max != 8)
+			if (Bullet_cnt != 8)
 			{
 				Bullet_cnt_Max = 8;
 			}
@@ -413,20 +441,36 @@ public class Bit_Shot : MonoBehaviour
 		{
 			if (!pl2.Is_Change_Auto)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-				Bullet_cnt += 1;
-			}
-			else
+                if (Bullet_cnt < 8)
+                {
+                    saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction);
+                    pBullet = saveObj.GetComponent<Player_Bullet>();
+                    pBullet.bShot = myShot;
+
+                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    Bullet_cnt += 1;
+                }
+            }
+            else
 			{
-				if (/*Bullet_cnt < Bullet_cnt_Max &&*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-				{
-					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-					SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-					Bullet_cnt += 1;
-				}
-			}
-			if (Bullet_cnt_Max != 8)
+                if (Bullet_cnt < 8 && bullet_data.Count < 10)
+                {
+                    bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+                    for (int i = 0; i < bullet_data.Count; i++)
+                    {
+                        if (bullet_data[i] != null)
+                        {
+                            saveObj = bullet_data[i];
+                            pBullet = saveObj.GetComponent<Player_Bullet>();
+                            pBullet.bShot = myShot;
+                        }
+                    }
+
+                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    Bullet_cnt += 1;
+                }
+            }
+            if (Bullet_cnt_Max != 8)
 			{
 				Bullet_cnt_Max = 8;
 			}
@@ -439,42 +483,68 @@ public class Bit_Shot : MonoBehaviour
 	{
 		if(bf.bState==Bit_Formation_3.BitState.Player1)
 		{
-			if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-			{
-				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+            if (bullet_data.Count < 16)
+            {
+                bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+                for (int i = 0; i < bullet_data.Count; i++)
+                {
+                    if (bullet_data[i] != null)
+                    {
+                        saveObj = bullet_data[i];
+                        pBullet = saveObj.GetComponent<Player_Bullet>();
+                        pBullet.bShot = myShot;
+                    }
+                }
+
+                saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+                pBullet = saveObj.GetComponent<Player_Bullet>();
+                pBullet.bShot = myShot;
+
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 2;
 			}
-			if (Bullet_cnt_Max != 16)
-			{
-				Bullet_cnt_Max = 16;
-			}
+            if (Bullet_cnt_Max != 20)
+            {
+                Bullet_cnt_Max = 20;
+            }
 
-		}
-		if (bf.bState == Bit_Formation_3.BitState.Player2)
+        }
+        if (bf.bState == Bit_Formation_3.BitState.Player2)
 		{
-			if (/*Bullet_cnt < Bullet_cnt_Max*/ /*Bullet_cnt < 100 &&*/ bullet_data.Count < 10)
-			{
-				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+            if (bullet_data.Count < 16)
+            {
+                bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+                for (int i = 0; i < bullet_data.Count; i++)
+                {
+                    if (bullet_data[i] != null)
+                    {
+                        saveObj = bullet_data[i];
+                        pBullet = saveObj.GetComponent<Player_Bullet>();
+                        pBullet.bShot = myShot;
+                    }
+                }
+
+                saveObj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP2_OPTION_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+                pBullet = saveObj.GetComponent<Player_Bullet>();
+                pBullet.bShot = myShot;
+
+                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 2;
 			}
-			if (Bullet_cnt_Max != 16)
-			{
-				Bullet_cnt_Max = 16;
-			}
+            if (Bullet_cnt_Max != 20)
+            {
+                Bullet_cnt_Max = 20;
+            }
 
-		}
+        }
 
-		//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
-		//{
-		//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
-		//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)Quaternion.Euler(0, 0, 45));
-		//	shot_Delay = 0;
-		//}
-	}
+        //if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+        //{
+        //	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, Direction);
+        //	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eOPTION_BULLET, shot_Mazle.transform.position, /*new Quaternion(-8,1,45,0)Quaternion.Euler(0, 0, 45));
+        //	shot_Delay = 0;
+        //}
+    }
 
 	private void Missile_Fire()
 	{

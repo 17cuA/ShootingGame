@@ -19,6 +19,7 @@ public class bullet_status : MonoBehaviour
 	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
     public Player1 P1 { get; private set; }
     public Player2 P2 { get; private set; }
+    public Bit_Shot bShot { get; set; }
 	public int Player_Number { get; private set; }
 
 	public enum Type
@@ -48,11 +49,11 @@ public class bullet_status : MonoBehaviour
 				Player_Number = 2;
 				break;
 			case Type.Player1_Option:
-
+                //bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
 				break;
 			case Type.Player2_Option:
-
-				break;
+                //bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+                break;
 			case Type.Enemy:
 				break;
 			case Type.None:
@@ -88,12 +89,12 @@ public class bullet_status : MonoBehaviour
 						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
 						break;
 					case Type.Player1_Option:
-
-						break;
-					case Type.Player2_Option:
-
-						break;
-					case Type.Enemy:
+                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+                        break;
+                    case Type.Player2_Option:
+                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+                        break;
+                    case Type.Enemy:
 						break;
 					case Type.None:
 						break;
@@ -150,10 +151,12 @@ public class bullet_status : MonoBehaviour
 					P2.Bullet_cnt = 0;
 					break;
 				case Type.Player1_Option:
+                    bShot.Bullet_cnt = 0;
 					break;
 				case Type.Player2_Option:
-					break;
-				case Type.Enemy:
+                    bShot.Bullet_cnt = 0;
+                    break;
+                case Type.Enemy:
 					break;
 				default:
 					break;
