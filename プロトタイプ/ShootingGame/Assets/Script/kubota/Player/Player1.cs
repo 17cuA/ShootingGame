@@ -71,9 +71,25 @@ public class Player1 : character_status
 	//リスポーン時に使用する変数--------------------------------------------------
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	private float startTime = 0.0f;
-	private Vector3 Res_pos;	//死んだときに行く、最初のポジション情報
-	private Vector3 tem_pos;	//復活までの中心の位置
-	private float tem_pos_x;	//復活時の途中のポジションの保存用
+
+	public enum Move_Type
+	{
+		Front,
+		Back,
+		None,
+	}
+	private Move_Type type;
+	public float X_speed;       //Ｘ軸の行動の時のスピード
+	public float Z_speed;
+	private Vector3 pos;                //複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
+	private Vector3 start_pos;
+	float first_Time;
+	float pre_Time;
+	float now_Time;
+	private int count;
+	private float movetime;
+	public float _return;
+
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -164,10 +180,14 @@ public class Player1 : character_status
         Bullet_cnt_Max = 10;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
-		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
-		tem_pos = (direction + Res_pos) / 2;	//リスポーン開始地点と初期位置の間
-		tem_pos.z = -30;                        //中点のｚを変更
-												//------------------------------------------------
+		start_pos = transform.position;
+		first_Time = 0;
+		now_Time = 0;
+		pre_Time = 0;
+		type = Move_Type.Front;
+		count = 0;
+		movetime = 0;
+		//------------------------------------------------
 		one = false;
 	}
 
@@ -186,7 +206,7 @@ public class Player1 : character_status
 				resporn_Injection.Play();
 				//capsuleCollider.enabled = false;
 				startTime += Time.deltaTime;
-				transform.position = Vector3.Slerp(new Vector3(-20, 0, -5), direction, startTime);
+				transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
@@ -798,10 +818,66 @@ public class Player1 : character_status
 	//リスポーン用のアニメーション
 	private void Respone_Animation()
 	{
-		//どのくらいの割合進んだかを分ける
-		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
-		//float next_pos_z = 
+		movetime += Time.deltaTime;
+		pos = new Vector3(0, transform.position.y, 0); //中心を決めます。今回は(0,0,0)
+		Calc_ExitPosition();
+		Respone_Move();
+		transform.position = pos;
 
-		//transform.position = new Vector3(speed,0f,0f);
+	}
+	private void X_Move()
+	{
+		pos.x += transform.position.x + X_speed * Time.deltaTime;
+	}
+
+	private void Z_Move()
+	{
+		pos.z += transform.position.z + Z_speed * Time.deltaTime;
+	}
+
+	private void Calc_ExitPosition()
+	{
+		now_Time = Mathf.Sin(movetime * X_speed) * _return;
+		if (first_Time == 0)
+		{
+			first_Time = now_Time;
+		}
+		if (pre_Time < first_Time && first_Time < now_Time && type == Move_Type.Back)
+		{
+			count += 1;
+		}
+		pre_Time = now_Time;
+	}
+	private void Respone_Move()
+	{
+		switch (type)
+		{
+			case Move_Type.Front:
+				X_Move();
+				break;
+			case Move_Type.Back:
+				pos.x += transform.position.x + Mathf.Sin(movetime * X_speed) * _return;
+				if (transform.position.z == 0)
+				{
+					type = Move_Type.Front;
+				}
+				break;
+			case Move_Type.None:
+				break;
+			default:
+				break;
+		}
+
+		if (transform.position.x > -32.0f && count < 2 && type != Move_Type.Back)
+		{
+			type = Move_Type.Back;
+			start_pos = transform.position;
+			movetime = 0f;
+		}
+
+		if (transform.position.z < 0)
+		{
+			Z_Move();
+		}
 	}
 }

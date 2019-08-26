@@ -23,7 +23,7 @@ public class Entrance_And_Exit : MonoBehaviour
 	float first_Time;
 	float pre_Time;
 	float now_Time;
-	private int count;
+	public int count;
 	private float movetime;
 	public float _return;
 
@@ -58,7 +58,7 @@ public class Entrance_And_Exit : MonoBehaviour
 				break;
 			case Move_Type.Back:
 				pos.x += transform.position.x + Mathf.Sin(movetime * X_speed) * _return;
-				if (count >= 2)
+				if (transform.position.z == 0)
 				{
 					type = Move_Type.Front;
 				}
@@ -98,13 +98,7 @@ public class Entrance_And_Exit : MonoBehaviour
 		{
 			first_Time = now_Time;
 		}
-		//if (now_Time < pre_Time)
-		//{
-		//	float kari = now_Time;
-		//	now_Time = pre_Time;
-		//	pre_Time = kari;
-		//}
-		if (pre_Time < first_Time && first_Time < now_Time && type == Move_Type.Back)
+		if (pre_Time < first_Time && first_Time < now_Time /*&& type == Move_Type.Back*/)
 		{
 			count += 1;
 		}
