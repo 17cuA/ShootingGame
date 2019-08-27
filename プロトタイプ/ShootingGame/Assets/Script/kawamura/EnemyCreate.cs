@@ -1217,7 +1217,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(600);
+            Next_Condition(1200);
 
         }
 
