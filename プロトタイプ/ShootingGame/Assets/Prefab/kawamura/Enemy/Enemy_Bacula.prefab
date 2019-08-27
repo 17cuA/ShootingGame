@@ -75,6 +75,7 @@ MonoBehaviour:
   ebp: {fileID: 0}
   egm: {fileID: 0}
   divisionCnt: 0
+  createSpeedX: 0
   speedX: 15
   myName: 
   isDead: 0
@@ -214,6 +215,7 @@ MonoBehaviour:
   rotaX_Value: 6
   rotaY_Value: 2
   rotaZ_Value: 0
+  myName: 
   isWaveEnemy: 0
 --- !u!1001 &6108812975054745709
 PrefabInstance:
@@ -289,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d32ececf8d2a7854b95930c75e981897, type: 2}
+      objectReference: {fileID: 2100000, guid: bf4b34f0b62f2e448b0f396a09137058, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
 --- !u!1 &6108812975054714573 stripped
