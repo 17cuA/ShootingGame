@@ -13,13 +13,16 @@ public class UI_PowerUp : MonoBehaviour
 	public bool isPlayer1;
 	public bool isPlayer2;
 	public Image current;      //現在選択Image
-	public Dictionary<int, GameObject> displays = new Dictionary<int, GameObject>();
+	public Dictionary<int, UI_PowerUpComponent> displays = new Dictionary<int, UI_PowerUpComponent>();
     public Sprite initSpeed;
     public Sprite speedUp;
 
     public int addtional;
 	public int start;
 	public int end;
+
+	[Header("拡大倍数")]
+	public float enlargeIndex = 1.2f;
 
 	private void Awake()
 	{
@@ -30,14 +33,14 @@ public class UI_PowerUp : MonoBehaviour
 				var power = P1_PowerManager.Instance.GetPower((P1_PowerManager.Power.PowerType)i);
 				var number = (int)power.Type;
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
-				displays.Add(number, transform.GetChild(i - start).gameObject);
+				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
 			}
 			if(isPlayer2)
 			{
 				var power = P2_PowerManager.Instance.GetPower((P2_PowerManager.Power.PowerType)i);
 				var number = (int)power.Type;
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
-				displays.Add(number, transform.GetChild(i - start).gameObject);
+				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
 			}
 		}
 		current.name = "Cursor";
@@ -58,34 +61,33 @@ public class UI_PowerUp : MonoBehaviour
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
 
-				//選択画像無効の場合　　->　有効にする
-				if (!current.gameObject.activeSelf)
-					current.gameObject.SetActive(true);
-
 				//現在位置に合わせる
 				if (current.gameObject.transform.position != displays[P1_PowerManager.Instance.Position].transform.position && P1_PowerManager.Instance.Position != -1)
 				{
-					current.gameObject.SetActive(false);
 					current.gameObject.transform.position = displays[P1_PowerManager.Instance.Position].transform.position;
-					current.gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-					displays[P1_PowerManager.Instance.Position].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+					displays[P1_PowerManager.Instance.Position].Enlarge(enlargeIndex);
+					displays[P1_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
 
 					for (var i = start; i < end; ++i)
 					{
 						if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != P1_PowerManager.Instance.Position)
-							displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
+						{
+							displays[i].Resize();
+							displays[i].GetComponent<Canvas>().sortingOrder = 0;
+						}
 					}
 				}
 			}
 			else
 			{
-				if (current.gameObject.activeSelf)
-					current.gameObject.SetActive(false);
 
 				for (var i = start; i < end; ++i)
 				{
 					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
-						displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
+					{
+						displays[i].Resize();
+						displays[i].GetComponent<Canvas>().sortingOrder = 0;
+					}
 				}
 			}
 
@@ -123,39 +125,38 @@ public class UI_PowerUp : MonoBehaviour
 		}
 		if(isPlayer2)
 		{
+
 			var currentPower = P2_PowerManager.Instance.CurrentPower;
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
 
-				//選択画像無効の場合　　->　有効にする
-				if (!current.gameObject.activeSelf)
-					current.gameObject.SetActive(true);
-
 				//現在位置に合わせる
 				if (current.gameObject.transform.position != displays[P2_PowerManager.Instance.Position].transform.position && P2_PowerManager.Instance.Position != -1)
 				{
-					current.gameObject.SetActive(false);
 					current.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;
-					current.gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-					displays[P1_PowerManager.Instance.Position].transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+					displays[P2_PowerManager.Instance.Position].Enlarge(enlargeIndex);
+					displays[P2_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
 
 					for (var i = start; i < end; ++i)
 					{
 						if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != P2_PowerManager.Instance.Position)
-							displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
+						{
+							displays[i].Resize();
+							displays[i].GetComponent<Canvas>().sortingOrder = 0;
+						}
 					}
 				}
 			}
 			else
 			{
-				if (current.gameObject.activeSelf)
-					current.gameObject.SetActive(false);
-
 				for (var i = start; i < end; ++i)
 				{
 					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
-						displays[i].transform.localScale = new Vector3(1f, 1f, 1f);
+					{
+						displays[i].Resize();
+						displays[i].GetComponent<Canvas>().sortingOrder = 0;
+					}
 				}
 			}
 
