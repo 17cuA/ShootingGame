@@ -217,6 +217,11 @@ MonoBehaviour:
   missile_dilay_max: 45
   bullet_Type: 0
   Is_Resporn: 0
+  X_speed: 3
+  Z_speed: 25
+  _return: 0.2
+  Is_Animation: 0
+  rotation_speed: 0
   effect_mazle_fire:
   - {fileID: 7462809191769450808}
   - {fileID: 2095407520705090822}
@@ -536,6 +541,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
         type: 3}
+      propertyPath: isPlayerUseAudio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
+        type: 3}
       propertyPath: firekey
       value: 32
       objectReference: {fileID: 0}
@@ -543,11 +553,6 @@ PrefabInstance:
         type: 3}
       propertyPath: fireButtonName
       value: Fire1
-      objectReference: {fileID: 0}
-    - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
-        type: 3}
-      propertyPath: isPlayerUseAudio
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f67300a6336a34f8151c765962922f, type: 3}

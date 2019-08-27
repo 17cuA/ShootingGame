@@ -89,7 +89,9 @@ public class Player1 : character_status
 	private int count;
 	private float movetime;
 	public float _return;
-
+	public bool Is_Animation;       //復活用のアニメーションの処理の稼働状態になるのかどうか
+	public float rotation_speed;
+	private int rotation_cnt;
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -187,6 +189,8 @@ public class Player1 : character_status
 		type = Move_Type.Front;
 		count = 0;
 		movetime = 0;
+		rotation_cnt = 0;
+		transform.position = new Vector3(0, 0, -40);
 		//------------------------------------------------
 		one = false;
 	}
@@ -204,9 +208,9 @@ public class Player1 : character_status
 			{
 				injection.Stop();
 				resporn_Injection.Play();
-				//capsuleCollider.enabled = false;
-				startTime += Time.deltaTime;
-				transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
+				//startTime += Time.deltaTime;
+				//transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
+				Respone_Animation();
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
@@ -218,12 +222,20 @@ public class Player1 : character_status
 						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
 					}
 				}
-				if (transform.position == direction)
+				if(transform.position.z == 0)
 				{
 					resporn_Injection.Stop();
 					startTime = 0;
+					movetime = 0;
+					rotation_cnt = 0;
 					Is_Resporn = false;
 				}
+				//if (transform.position == direction)
+				//{
+				//	resporn_Injection.Stop();
+				//	startTime = 0;
+				//	Is_Resporn = false;
+				//}
 			}
 			else
 			{
@@ -273,6 +285,8 @@ public class Player1 : character_status
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
                         target = direction;
+						transform.position = new Vector3(0, 0, -40);
+
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
 				}
@@ -319,6 +333,7 @@ public class Player1 : character_status
 		}
 
 	}
+	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
 		x = Input.GetAxis("Horizontal");            //x軸の入力
@@ -398,12 +413,13 @@ public class Player1 : character_status
 		}
 
 	}
+	//プレイヤーの移動
 	void Move()
 	{
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
 
-	//コントローラーの操作
+	//コントローラーの操作　使ってない
 	private void Player_Move()
 	{
 		x = Input.GetAxis("Horizontal");            //x軸の入力
@@ -823,6 +839,10 @@ public class Player1 : character_status
 		Calc_ExitPosition();
 		Respone_Move();
 		transform.position = pos;
+		if (rotation_cnt < 2)
+		{
+			self_rotation();
+		}
 
 	}
 	//ｘ軸の動き
@@ -879,6 +899,17 @@ public class Player1 : character_status
 		if (transform.position.z < 0)
 		{
 			Z_Move();
+		}
+	}
+	private void self_rotation()
+	{
+		transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
+
+		rotation_speed += 10;
+		if (rotation_speed > 360)
+		{
+			rotation_speed = 0;
+			rotation_cnt++;
 		}
 	}
 }

@@ -26,8 +26,8 @@ public class Entrance_And_Exit : MonoBehaviour
 	public int count;
 	private float movetime;
 	public float _return;
-
-
+	public float rotation_speed;
+	private int rotation_cnt;
 	void Start()
     {
 		start_pos = transform.position;
@@ -37,7 +37,7 @@ public class Entrance_And_Exit : MonoBehaviour
 		type = Move_Type.Front;
 		count = 0;
 		movetime = 0;
-
+		rotation_cnt = 0;
 	}
 
 	void Update()
@@ -47,7 +47,10 @@ public class Entrance_And_Exit : MonoBehaviour
 		Calc_ExitPosition();
 		Move();
 		transform.position = pos;
-
+		if(rotation_cnt < 2)
+		{
+			self_rotation();
+		}
 	}
 	private void Move()
 	{
@@ -55,12 +58,17 @@ public class Entrance_And_Exit : MonoBehaviour
 		{
 			case Move_Type.Front:
 				X_Move();
+				//if(transform.localRotation != 0)
+				//{
+				//	transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
+				//}
 				break;
 			case Move_Type.Back:
 				pos.x += transform.position.x + Mathf.Sin(movetime * X_speed) * _return;
-				if (transform.position.z == 0)
+				if (transform.position.z > -0.5)
 				{
 					type = Move_Type.Front;
+					transform.position = new Vector3(transform.position.x,0,0);
 				}
 				break;
 			case Move_Type.None:
@@ -88,7 +96,9 @@ public class Entrance_And_Exit : MonoBehaviour
 
 	private void Z_Move()
 	{
-		pos.z += transform.position.z + Z_speed * Time.deltaTime;
+		//pos.z += transform.position.z + Z_speed * Time.deltaTime;
+		float currentVelocity = 0, smoothTime = 0.1f;
+		pos.z = Mathf.SmoothDamp(transform.position.z, 0, ref currentVelocity, smoothTime, Z_speed, Time.deltaTime);
 	}
 
 	private void Calc_ExitPosition()
@@ -103,5 +113,24 @@ public class Entrance_And_Exit : MonoBehaviour
 			count += 1;
 		}
 		pre_Time = now_Time;
+	}
+	private void self_rotation()
+	{
+		transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
+
+		//if(rotation_cnt = )
+		if (pre_Time > now_Time)
+		{
+			rotation_speed -= 10;
+		}
+		else
+		{
+			rotation_speed += 10;
+		}
+		if (rotation_speed > 360)
+		{
+			rotation_speed = 0;
+			rotation_cnt++;
+		}
 	}
 }
