@@ -5,6 +5,7 @@
  * 2019/07/30　グリッド移動の適応
  * 2019/08/02　ボスにレーザー追加
  * 2019/08/14　シェーダーでAnimation
+ * 2019/08/27　タイムラインで一部制御
  */
 
 using System.Collections;
@@ -221,8 +222,8 @@ public class One_Boss : character_status
 		PreviousPosition = transform.position.y;
 		SwingAngle = new Vector3[2]
 		{
-			new Vector3(10.0f,0.0f,0.0f),
-			new Vector3(-10.0f,0.0f,0.0f),
+			new Vector3(5.0f,0.0f,0.0f),
+			new Vector3(-5.0f,0.0f,0.0f),
 		};
 
 		BodyCore_Init_HP = Core.hp;
@@ -281,18 +282,6 @@ public class One_Boss : character_status
 				ColorUtility.TryParseHtmlString("#BF0000", out color);
 				Core_Render[0].material.SetColor("_Emissive_Color", color);
 				Core_Render[1].material.SetColor("_Emissive_Color", color);
-			}
-			foreach (One_Boss_Parts parts in parts_core)
-			{
-				if (parts.hp < ArmCore_Init_HP / 3)
-				{
-					var color = default(Color);
-					ColorUtility.TryParseHtmlString("#FF0000", out color);
-					Core_Render[0].material.SetColor("_Color", color);
-
-					ColorUtility.TryParseHtmlString("#BF0000", out color);
-					Core_Render[0].material.SetColor("_Emissive_Color", color);
-				}
 			}
 			for(int i = 0;i< parts_core.Length;i++)
 			{
