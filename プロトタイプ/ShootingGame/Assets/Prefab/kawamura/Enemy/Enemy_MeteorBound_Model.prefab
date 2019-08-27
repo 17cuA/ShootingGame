@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7255749750982990253}
   m_Layer: 0
   m_Name: Enemy_MeteorBound_Model
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,9 +96,10 @@ MonoBehaviour:
   rotaX: 0
   rotaY: 0
   rotaZ: 0
-  rotaX_Value: 0
-  rotaY_Value: 0
+  rotaX_Value: 2
+  rotaY_Value: 0.3
   rotaZ_Value: 0
+  myName: 
   isWaveEnemy: 0
 --- !u!64 &3973593323429922912
 MeshCollider:
@@ -139,7 +140,8 @@ MonoBehaviour:
   v_Value: 0
   defaultColor: []
   childCnt: 0
-  object_material: []
+  object_material:
+  - {fileID: 6395588898596605220}
   isrend: 0
   Is_Dead: 0
   self_material: []

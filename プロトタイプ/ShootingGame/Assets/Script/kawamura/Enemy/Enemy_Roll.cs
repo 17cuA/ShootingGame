@@ -17,10 +17,13 @@ public class Enemy_Roll : MonoBehaviour
 
 	Enemy_Wave_Direction ewd;
 
+	public string myName;
+
 	public bool isWaveEnemy = false;
 
 	private void Awake()
 	{
+		myName = gameObject.name;
 		if (gameObject.name == "Enemy_Bullfight")
 		{
 			isWaveEnemy = true;
@@ -31,6 +34,11 @@ public class Enemy_Roll : MonoBehaviour
 
 	void Start()
     {
+		if (myName == "Enemy_MeteorBound_Model")
+		{
+			rotaX_Value = Random.Range(-2f, 2f);
+			rotaY_Value = Random.Range(-0.3f, 0.3f);
+		}
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		rotaZ = transform.eulerAngles.z;

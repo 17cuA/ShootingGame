@@ -52,9 +52,11 @@ public class Enemy_MeteorBound : character_status
         {
             Died_Process();
         }
+		
+		base.Update();
     }
 
-    private void OnTriggerEnter(Collider col)
+	new void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.name == "Enemy_MeteorBound_Model")
 		{
@@ -202,5 +204,7 @@ public class Enemy_MeteorBound : character_status
 
 		}
 		meteorBound = null;
+		base.OnTriggerEnter(col);
 	}
+
 }
