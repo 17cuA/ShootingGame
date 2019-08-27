@@ -825,16 +825,17 @@ public class Player1 : character_status
 		transform.position = pos;
 
 	}
+	//ｘ軸の動き
 	private void X_Move()
 	{
 		pos.x += transform.position.x + X_speed * Time.deltaTime;
 	}
-
+	//ｚ軸の動き
 	private void Z_Move()
 	{
 		pos.z += transform.position.z + Z_speed * Time.deltaTime;
 	}
-
+	//サインカーブの計算
 	private void Calc_ExitPosition()
 	{
 		now_Time = Mathf.Sin(movetime * X_speed) * _return;
