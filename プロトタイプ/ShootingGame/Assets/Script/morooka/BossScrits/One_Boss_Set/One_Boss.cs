@@ -681,8 +681,6 @@ public class One_Boss : character_status
 		{
 			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
 			{
-				//Vector3 temp = new Vector3(transform.position.x, 0.0f, 0.0f);
-
 				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
 				{
 					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
@@ -691,11 +689,6 @@ public class One_Boss : character_status
 				{
 					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
 				}
-
-				//if (Now_Speed < Max_Speed)
-				//{
-				//	Now_Speed += Lowest_Speed;
-				//}
 				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
 				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
 			}
