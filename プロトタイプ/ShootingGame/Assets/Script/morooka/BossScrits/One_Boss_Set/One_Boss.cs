@@ -28,7 +28,7 @@ public class One_Boss : character_status
 
 	[Header("ボスの個別で動かしたい形成パーツ")]
 	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
-	[SerializeField, Tooltip("ボスのコア")] private GameObject core;
+	[SerializeField, Tooltip("ボスのコア")] private One_Boss_Parts[] core;
 	[SerializeField, Tooltip("パーツコア")] private One_Boss_Parts[] parts_core;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
 	[SerializeField, Tooltip("ボディのパーツ")] private GameObject Body_Parts;
@@ -39,6 +39,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアのシェーダー")] private MeshRenderer[] Core_Render;
+	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -70,7 +71,6 @@ public class One_Boss : character_status
 	private Vector3 maenoiti { get; set; }
 	private Vector3[,] Pos_set { get; set; }
 
-	private One_Boss_Parts Core { get; set; }               // コアのパーツ情報
 	public float Max_Speed { get; set; }                    // 最大速度
 	public float Now_Speed { get; set; }                    // 今の速度
 	public float Lowest_Speed { get; set; }                 // 最小速度
@@ -152,7 +152,6 @@ public class One_Boss : character_status
 
 		Target = Pos_set[0, 0];
 
-		Core = core.GetComponent<One_Boss_Parts>();
 		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
@@ -216,7 +215,10 @@ public class One_Boss : character_status
 		arm_parts[0].SetActive(false);
 		arm_parts[1].SetActive(false);
 		Body_Parts.SetActive(false);
-		core.SetActive(false);
+		core[0].gameObject.SetActive(false);
+		core[1].gameObject.SetActive(false);
+
+
 
 		//旋回初期化
 		PreviousPosition = transform.position.y;
@@ -226,7 +228,7 @@ public class One_Boss : character_status
 			new Vector3(-5.0f,0.0f,0.0f),
 		};
 
-		BodyCore_Init_HP = Core.hp;
+		BodyCore_Init_HP = core[0].hp;
 		ArmCore_Init_HP = parts_core[0].hp;
 	}
 
@@ -246,7 +248,8 @@ public class One_Boss : character_status
 			arm_parts[0].SetActive(true);
 			arm_parts[1].SetActive(true);
 			Body_Parts.SetActive(true);
-			core.SetActive(true);
+			core[0].gameObject.SetActive(true);
+			core[1].gameObject.SetActive(true);
 			start_timecline.time = 60.0;
 
 			Start_Flag = false;
@@ -272,16 +275,17 @@ public class One_Boss : character_status
 			base.Update();
 			Survival_Time_Cnt++;
 
-			if(Core.hp < BodyCore_Init_HP / 3)
+			for(int i = 0;i < core.Length;i++)
 			{
+				if (core[i].hp < BodyCore_Init_HP / 3)
+				{
 				var color = default(Color);
 				ColorUtility.TryParseHtmlString("#FF0000", out color);
-				Core_Render[0].material.SetColor("_Color", color);
-				Core_Render[1].material.SetColor("_Color", color);
+				Core_Render[i].material.SetColor("_Color", color);
 
 				ColorUtility.TryParseHtmlString("#BF0000", out color);
-				Core_Render[0].material.SetColor("_Emissive_Color", color);
-				Core_Render[1].material.SetColor("_Emissive_Color", color);
+				Core_Render[i].material.SetColor("_Emissive_Color", color);
+				}
 			}
 			for(int i = 0;i< parts_core.Length;i++)
 			{
@@ -296,16 +300,16 @@ public class One_Boss : character_status
 				}
 			}
 
-			if (Core.hp < 1)
-			{
-				foreach (One_Boss_Parts parts in parts_core)
-				{
-					if (parts.gameObject.activeSelf && parts.hp > 4)
-					{
-						parts.hp = 1;
-					}
-				}
-			}
+			//if (Core.hp < 1)
+			//{
+			//	foreach (One_Boss_Parts parts in parts_core)
+			//	{
+			//		if (parts.gameObject.activeSelf && parts.hp > 4)
+			//		{
+			//			parts.hp = 1;
+			//		}
+			//	}
+			//}
 
 			if (!parts_core[0].gameObject.activeSelf && !parts_core[1].gameObject.activeSelf)
 			{
