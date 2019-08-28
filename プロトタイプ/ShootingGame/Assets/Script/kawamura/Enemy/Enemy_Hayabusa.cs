@@ -17,9 +17,12 @@ public class Enemy_Hayabusa : character_status
 
     Vector3 velocity;
 
+	public int turnCnt;
+
     public float speedX;
     public float speedY;
     public float speedZ;
+	public float saveSpeedZ;
 
     public float rotaX;
     public float saveRotaX;
@@ -27,14 +30,21 @@ public class Enemy_Hayabusa : character_status
     public float turnDelayCnt;
     public float turnDelayMax;         //曲がるときにまっすぐ進む間隔
 
+	public float turnPosX;
+
     public bool isFirstTurn;
     public bool isTurn;
     public bool isDelayStart;
+	public bool isTurnCheck;
+	public bool magarimasita = false;
     new void Start()
     {
+		isTurnCheck = true;
         isFirstTurn = true;
-        rotaX = transform.eulerAngles.x;
-        saveRotaX = rotaX;
+
+		saveSpeedZ = speedZ;
+        //rotaX = transform.eulerAngles.x;
+        //saveRotaX = rotaX;
 
         HP_Setting();
         base.Start();
@@ -46,9 +56,10 @@ public class Enemy_Hayabusa : character_status
         velocity = gameObject.transform.rotation * new Vector3(0, 0, -speedZ);
         gameObject.transform.position += velocity * Time.deltaTime;
 
-        if(isFirstTurn)
+
+		if (isFirstTurn)
         {
-            if (transform.position.x < -15)
+			if (transform.position.x < -turnPosX)
             {
                 isFirstTurn = false;
                 isTurn = true;
@@ -57,14 +68,23 @@ public class Enemy_Hayabusa : character_status
 
         if(isTurn)
         {
-            Turn_RightAngle();
+			//speedZ = 4;
+			Turn_RightAngle();
         }
+		if (turnCnt == 2)
+		{
+			isTurn = false;
+			isTurnCheck = false;
+			speedZ = saveSpeedZ;
+		}
 
-        if(isDelayStart)
+		if (isDelayStart)
         {
             if (turnDelayCnt >= turnDelayMax)
             {
                 isTurn = true;
+				isDelayStart = false;
+				turnDelayCnt = 0;
             }
             else
             {
@@ -83,32 +103,47 @@ public class Enemy_Hayabusa : character_status
     //90度曲がる(自分の向きを変える)関数
     void Turn_RightAngle()
     {
-        switch (eStatus)
-        {
-            case Status.Up:
-                rotaX -= rotaX_ChangeValue;
-                if (rotaX < saveRotaX - 90)
-                {
-                    saveRotaX -= 90;
-                    rotaX = saveRotaX;
-                    isTurn = false;
-                    isDelayStart = true;
-                }
-                transform.rotation = Quaternion.Euler(rotaX, -90, 90);
+		if(isTurnCheck)
+		{
+			switch (eStatus)
+			{
+				case Status.Up:
+					rotaX = rotaX - rotaX_ChangeValue;
+					magarimasita = true;
+					if (rotaX < saveRotaX - 90f)
+					{
+						saveRotaX -= 90f;
+						rotaX = saveRotaX;
+						isTurn = false;
+						speedZ = saveSpeedZ;
+						isDelayStart = true;
+						magarimasita = false;
+						turnCnt++;
+					}
+					transform.rotation = Quaternion.Euler(rotaX, -90f, 90f);
 
-                break;
+					break;
 
-            case Status.Down:
-                rotaX += rotaX_ChangeValue;
-                if (rotaX < saveRotaX + 90)
-                {
-                    saveRotaX += 90;
-                    rotaX = saveRotaX;
-                    isTurn = false;
-                    isDelayStart = true;
-                }
-                transform.rotation = Quaternion.Euler(rotaX, transform.eulerAngles.y, transform.eulerAngles.z);
-                break;
-        }
-    }
+				case Status.Down:
+					rotaX = rotaX + rotaX_ChangeValue;
+					if (rotaX > saveRotaX + 90f)
+					{
+						saveRotaX += 90;
+						rotaX = saveRotaX;
+						isTurn = false;
+						isDelayStart = true;
+						turnCnt++;
+						if (turnCnt == 2)
+						{
+							isTurnCheck = false;
+							speedZ = saveSpeedZ;
+
+						}
+
+					}
+					transform.rotation = Quaternion.Euler(rotaX, transform.eulerAngles.y, transform.eulerAngles.z);
+					break;
+			}
+		}
+	}
 }
