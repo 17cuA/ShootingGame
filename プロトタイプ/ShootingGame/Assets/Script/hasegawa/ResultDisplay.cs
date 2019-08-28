@@ -28,17 +28,17 @@ public class ResultDisplay : MonoBehaviour
 	private Vector2 result1PTotalScorePosition = new Vector2(-3840f / 2f + 100f * 4f, 1080f / 4f * 1f - 1080f / 2f - 50f - 100f);
 	// リザルト表示用(2P)
 	private Character_Display result2PScoreTextDisplay;
-	private Vector2 result2PScoreTextPosition = new Vector2(3840f / 2f - 65f * 7f, 1080f / 4f * 3f - 1080f / 2f + 50f - 100f);
+	private Vector2 result2PScoreTextPosition = new Vector2(100f * 2f, 1080f / 4f * 3f - 1080f / 2f + 50f - 100f);
 	private Character_Display result2PScoreDisplay;
-	private Vector2 result2PScorePosition = new Vector2(1330f - 80f * 6f, 1080f / 4f * 3f - 1080f / 2f - 50f - 100f);
+	private Vector2 result2PScorePosition = new Vector2(590f, 1080f / 4f * 3f - 1080f / 2f - 50f - 100f);
 	private Character_Display result2PClearbonusTextDisplay;
-	private Vector2 result2PClearbonusTextPosition = new Vector2(3840f / 2f - 65f * 13f, 1080f / 4f * 2f - 1080f / 2f + 50f - 100f);
+	private Vector2 result2PClearbonusTextPosition = new Vector2(100f * 2f, 1080f / 4f * 2f - 1080f / 2f + 50f - 100f);
 	private Character_Display result2PClearbonusDisplay;
-	private Vector2 result2PClearbonusPosition = new Vector2(1330f - 80f * 6f, 1080f / 4f * 2f - 1080f / 2f - 50f - 100f);
+	private Vector2 result2PClearbonusPosition = new Vector2(590f, 1080f / 4f * 2f - 1080f / 2f - 50f - 100f);
 	private Character_Display result2PTotalScoreTextDisplay;
-	private Vector2 result2PTotalScoreTextPosition = new Vector2(3840f / 2f - 65f * 13f, 1080f / 4f * 1f - 1080f / 2f + 50f - 100f);
+	private Vector2 result2PTotalScoreTextPosition = new Vector2(100f * 2f, 1080f / 4f * 1f - 1080f / 2f + 50f - 100f);
 	private Character_Display result2PTotalScoreDisplay;
-	private Vector2 result2PTotalScorePosition = new Vector2(666f, 1080f / 4f * 1f - 1080f / 2f - 50f - 100f);
+	private Vector2 result2PTotalScorePosition = new Vector2(100f * 4f, 1080f / 4f * 1f - 1080f / 2f - 50f - 100f);
 
 
 	void Start()
