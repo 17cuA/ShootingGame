@@ -360,7 +360,12 @@ public class Obj_Storage : MonoBehaviour
         return P1_Option.Get_Obj()[0];
     }
 
-	public GameObject GetBoss(int bossID)
+    public GameObject GetMiddleBoss()
+    {
+        return Boss_Middle.Get_Obj()[0];
+    }
+
+    public GameObject GetBoss(int bossID)
 	{
 		GameObject boss = null;
 		switch(bossID)
