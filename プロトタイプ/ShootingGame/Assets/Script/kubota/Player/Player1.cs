@@ -192,9 +192,10 @@ public class Player1 : character_status
 		movetime = 0;
 		rotation_cnt = 0;
 		transform.position = new Vector3(0, 0, -40);
+		Entry_anim = GetComponent<PlayableDirector>();
+
 		//------------------------------------------------
 		one = false;
-		Entry_anim = GetComponent<PlayableDirector>();
 	}
 
 	new void Update()
@@ -208,28 +209,29 @@ public class Player1 : character_status
 			//復活時のアニメーション
 			if (Is_Resporn)
 			{
-				injection.Stop();
-				resporn_Injection.Play();
-				//startTime += Time.deltaTime;
-				//transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
-				//Respone_Animation();
-				if(rotation_cnt == 0)
-				{
-					Entry_anim.Play();
-				}
+				//敵等に当たらないようにするためにレイヤーを変更
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
 				}
-				if(transform.position.x > -19)
+				//通常のジェット噴射が稼働中の時のみ変更する
+				if(injection.isPlaying)
 				{
-					if(!one)
-					{
-						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
-					}
+					injection.Stop();           //ジェット噴射の停止
+					resporn_Injection.Play();       //登場用のジェット噴射の稼働
 				}
-				if(transform.position.z == 0)
+				//startTime += Time.deltaTime;
+				//transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
+				//Respone_Animation();
+				//Entry_anim.Play();
+				if (rotation_cnt == 0)
 				{
+					Entry_anim.Play();
+					rotation_cnt = 1;
+				}
+				if(Entry_anim.state != PlayState.Playing)
+				{
+					Entry_anim.Stop();
 					resporn_Injection.Stop();
 					injection.Play();
 					startTime = 0;
@@ -237,6 +239,23 @@ public class Player1 : character_status
 					rotation_cnt = 0;
 					Is_Resporn = false;
 				}
+
+				if(transform.position.x > -19)
+				{
+					if(!one)
+					{
+						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
+					}
+				}
+				//if(transform.position.z == 0)
+				//{
+				//	resporn_Injection.Stop();
+				//	injection.Play();
+				//	startTime = 0;
+				//	movetime = 0;
+				//	rotation_cnt = 0;
+				//	Is_Resporn = false;
+				//}
 				//if (transform.position == direction)
 				//{
 				//	resporn_Injection.Stop();
@@ -292,7 +311,7 @@ public class Player1 : character_status
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
                         target = direction;
-						transform.position = new Vector3(0, 0, -40);
+						transform.position = new Vector3(-12, 0, -20);
 
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
