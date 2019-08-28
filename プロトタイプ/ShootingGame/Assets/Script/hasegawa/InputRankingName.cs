@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+ * 20190814 作成
+ * author hasegawa yuuta
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
