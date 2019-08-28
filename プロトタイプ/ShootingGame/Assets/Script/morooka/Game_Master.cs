@@ -90,6 +90,7 @@ public class Game_Master : MonoBehaviour
 		eENEMY_LASER,			// エネミーのレーザー
 		eONE_BOSS_LASER,
 		eONE_BOSS_BOUND,
+		eBATTLESHIP_ENEMY_PREFAB,     // 戦艦型エネミーのプレハブ
 		/////////////////////////////////////////////////////////////////
 		ePLAYER,										// プレイヤー
 		eENEMY_NUM1,								// エネミー1番

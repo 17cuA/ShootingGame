@@ -14,7 +14,7 @@ public class Enemy_Meteor : character_status
         base.Start();
     }
 
-    void Update()
+    new void Update()
     {
         //移動
         velocity = gameObject.transform.rotation * new Vector3(-speed, 0, 0);
