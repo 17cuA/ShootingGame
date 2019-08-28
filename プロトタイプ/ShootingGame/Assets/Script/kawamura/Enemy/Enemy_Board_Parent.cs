@@ -26,6 +26,9 @@ public class Enemy_Board_Parent : MonoBehaviour
 	public int divisionCnt = 0;
     public float createSpeedX;
 	public float speedX;
+    public float speedX_Max;
+    public float speedX_Min;
+    public float damageDelay;
 
 	public string myName;
 
@@ -35,6 +38,7 @@ public class Enemy_Board_Parent : MonoBehaviour
     public bool isDisappearance = false;　//画面外で消えるとき
 
     public bool isCreate = false;
+    public bool isDamage;
 	private void Awake()
 	{
 		myName = gameObject.name;
@@ -45,11 +49,12 @@ public class Enemy_Board_Parent : MonoBehaviour
     {
         parentObj = transform.parent.gameObject;
         egm = parentObj.GetComponent<EnemyGroupManage>();
+        speedX_Max = speedX;
+        speedX_Min = -speedX;
     }
 
     void Update()
     {
-
 		if (isCreate)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-createSpeedX, 0, 0);
@@ -85,15 +90,35 @@ public class Enemy_Board_Parent : MonoBehaviour
 			gameObject.transform.position += velocity * Time.deltaTime;
 
 		}
-		//if (speedX > 0)
-		//{
-		//	speedX -= 1.0f;
-		//	if (speedX < 0)
-		//	{
-		//		speedX = 0;
-		//	}
-		//}
-		if (transform.position.y > 4.4f)
+
+        if(isDamage)
+        {
+            damageDelay++;
+            if (damageDelay > 10)
+            {
+                isDamage = false;
+            }
+        }
+        else if (!isDamage)
+        {
+            if (speedX < speedX_Max)
+            {
+                speedX += 0.05f;
+                if (speedX > speedX_Max)
+                {
+                    speedX = speedX_Max;
+                }
+            }
+        }
+        //if (speedX > 0)
+        //{
+        //	speedX -= 1.0f;
+        //	if (speedX < 0)
+        //	{
+        //		speedX = 0;
+        //	}
+        //}
+        if (transform.position.y > 4.4f)
         {
             transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);
         }
@@ -147,7 +172,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj = null;
 
@@ -160,7 +185,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj = null;
                             //isDead = false;
@@ -188,7 +213,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(285, 345));
                             saveQuaterObj = null;
@@ -201,7 +226,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(285, 345));
                             saveQuaterObj = null;
@@ -222,7 +247,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(15, 75));
                             saveQuaterObj = null;
@@ -235,7 +260,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(15, 75));
                             saveQuaterObj = null;
@@ -255,7 +280,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(105, 165));
                             saveQuaterObj = null;
@@ -268,7 +293,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                             saveQuaterObj.transform.parent = parentObj.transform;
                             //ebp.divisionCnt = 1;
                             ebp.isCreate = true;
-                            ebp.speedX = 15;
+                            ebp.createSpeedX = 15;
                             ebp = null;
                             saveQuaterObj.transform.rotation = Quaternion.Euler(0, 0, Random.Range(105, 165));
                             saveQuaterObj = null;

@@ -12,7 +12,6 @@ public class Enemy_Board : character_status
 
 	private void Awake()
 	{
-
 		parentObj = transform.parent.parent.gameObject;
 		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
 	}
@@ -31,7 +30,14 @@ public class Enemy_Board : character_status
     {
 		if (hp < saveHp)
 		{
+            saveHp = hp;
+            ebp.damageDelay = 0;
+            ebp.isDamage = true;
 			ebp.speedX -= 0.4f;
+            if (ebp.speedX < ebp.speedX_Min)
+            {
+                ebp.speedX = ebp.speedX_Min;
+            }
 		}
 
 		if (hp < 1)
