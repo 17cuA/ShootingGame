@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class Enemy_Board : character_status
 {
+	public int saveHp;
 	GameObject parentObj;
 	public Enemy_Board_Parent ebp;
 
 	private void Awake()
 	{
+
 		parentObj = transform.parent.parent.gameObject;
 		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
 	}
@@ -20,12 +22,18 @@ public class Enemy_Board : character_status
 	//}
 	new void Start()
     {
+		saveHp = hp;
 		HP_Setting();
 		base.Start();
     }
 
     new void Update()
     {
+		if (hp < saveHp)
+		{
+			ebp.speedX -= 0.4f;
+		}
+
 		if (hp < 1)
 		{
 			ebp.isDead = true;

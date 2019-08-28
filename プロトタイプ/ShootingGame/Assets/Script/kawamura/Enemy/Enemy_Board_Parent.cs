@@ -49,37 +49,41 @@ public class Enemy_Board_Parent : MonoBehaviour
 
     void Update()
     {
-        velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-        gameObject.transform.position += velocity * Time.deltaTime;
 
-        if (isCreate)
+		if (isCreate)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-createSpeedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
-            createSpeedX -= 1.0f;
+			createSpeedX -= 1.0f;
 			if (createSpeedX == 0)
 			{
-                //speedX = 0;
-                if (transform.rotation.z > 0)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z - 10.0f);
-                    if (transform.rotation.z < 0)
-                    {
-                        transform.rotation = Quaternion.Euler(0, 0, 0);
-                        isCreate = false;
-                    }
-                }
-                else if (transform.rotation.z < 0)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z + 10.0f);
-                    if (transform.rotation.z > 0)
-                    {
-                        transform.rotation = Quaternion.Euler(0, 0, 0);
-                    }
+				//speedX = 0;
+				if (transform.rotation.z > 0)
+				{
+					transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z - 10.0f);
+					if (transform.rotation.z < 0)
+					{
+						transform.rotation = Quaternion.Euler(0, 0, 0);
+						isCreate = false;
+					}
+				}
+				else if (transform.rotation.z < 0)
+				{
+					transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z + 10.0f);
+					if (transform.rotation.z > 0)
+					{
+						transform.rotation = Quaternion.Euler(0, 0, 0);
+					}
 
-                }
-                //isCreate = false;
+				}
+				//isCreate = false;
 			}
+		}
+		else if (!isCreate)
+		{
+			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
 		}
 		//if (speedX > 0)
 		//{
@@ -89,7 +93,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 		//		speedX = 0;
 		//	}
 		//}
-        if (transform.position.y > 4.4f)
+		if (transform.position.y > 4.4f)
         {
             transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);
         }
