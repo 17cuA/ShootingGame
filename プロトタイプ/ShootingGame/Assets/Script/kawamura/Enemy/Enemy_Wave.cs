@@ -447,7 +447,7 @@ public class Enemy_Wave : character_status
 
 					break;
 				
-				//後ろから直進
+				//直進
 				case State.Straight:
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
@@ -947,6 +947,7 @@ public class Enemy_Wave : character_status
 	void Enemy_Reset()
 	{
 		speedZ = 0;
+		speedY = 0;
 		once = true;
 		isSlerp = false;
 		isWave = false;
