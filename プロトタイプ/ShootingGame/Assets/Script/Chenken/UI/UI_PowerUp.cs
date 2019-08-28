@@ -16,6 +16,8 @@ public class UI_PowerUp : MonoBehaviour
 	public Dictionary<int, UI_PowerUpComponent> displays = new Dictionary<int, UI_PowerUpComponent>();
     public Sprite initSpeed;
     public Sprite speedUp;
+    public Material flowLightMaterial;
+
 
     public int addtional;
 	public int start;
@@ -34,6 +36,7 @@ public class UI_PowerUp : MonoBehaviour
 				var number = (int)power.Type;
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
+                displays[number].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 			}
 			if(isPlayer2)
 			{
@@ -41,6 +44,7 @@ public class UI_PowerUp : MonoBehaviour
 				var number = (int)power.Type;
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
+                displays[number].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 			}
 		}
 		current.name = "Cursor";
@@ -67,6 +71,8 @@ public class UI_PowerUp : MonoBehaviour
 					current.gameObject.transform.position = displays[P1_PowerManager.Instance.Position].transform.position;
 					displays[P1_PowerManager.Instance.Position].Enlarge(enlargeIndex);
 					displays[P1_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
+                    displays[P1_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
+                    displays[P1_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
 
 					for (var i = start; i < end; ++i)
 					{
@@ -74,6 +80,8 @@ public class UI_PowerUp : MonoBehaviour
 						{
 							displays[i].Resize();
 							displays[i].GetComponent<Canvas>().sortingOrder = 0;
+                            displays[i].GetComponent<Image>().material = null;
+                            displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 						}
 					}
 				}
@@ -87,6 +95,8 @@ public class UI_PowerUp : MonoBehaviour
 					{
 						displays[i].Resize();
 						displays[i].GetComponent<Canvas>().sortingOrder = 0;
+                        displays[i].GetComponent<Image>().material = null;
+                        displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 					}
 				}
 			}
@@ -137,6 +147,9 @@ public class UI_PowerUp : MonoBehaviour
 					current.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;
 					displays[P2_PowerManager.Instance.Position].Enlarge(enlargeIndex);
 					displays[P2_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
+                    displays[P2_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
+                    displays[P2_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
+                
 
 					for (var i = start; i < end; ++i)
 					{
@@ -144,6 +157,8 @@ public class UI_PowerUp : MonoBehaviour
 						{
 							displays[i].Resize();
 							displays[i].GetComponent<Canvas>().sortingOrder = 0;
+                            displays[i].GetComponent<Image>().material = null;
+                            displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 						}
 					}
 				}
@@ -156,6 +171,8 @@ public class UI_PowerUp : MonoBehaviour
 					{
 						displays[i].Resize();
 						displays[i].GetComponent<Canvas>().sortingOrder = 0;
+                        displays[i].GetComponent<Image>().material = null;
+                        displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
 					}
 				}
 			}

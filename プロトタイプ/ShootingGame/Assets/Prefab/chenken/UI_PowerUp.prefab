@@ -51,12 +51,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5e829282c63bb488ffdc80933ef798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNum: 0
+  isPlayer1: 0
+  isPlayer2: 0
   current: {fileID: 0}
   initSpeed: {fileID: 0}
   speedUp: {fileID: 0}
+  flowLightMaterial: {fileID: 0}
+  getItemParticle: {fileID: 0}
   addtional: 0
   start: 3
   end: 6
+  enlargeIndex: 1.2
 --- !u!1 &923143514772890308
 GameObject:
   m_ObjectHideFlags: 0
