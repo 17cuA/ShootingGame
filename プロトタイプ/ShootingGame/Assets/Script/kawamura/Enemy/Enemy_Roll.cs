@@ -34,12 +34,18 @@ public class Enemy_Roll : MonoBehaviour
 
 	void Start()
     {
-		if (myName == "Enemy_MeteorBound_Model")
-		{
-			rotaX_Value = Random.Range(-2f, 2f);
-			rotaY_Value = Random.Range(-0.3f, 0.3f);
-		}
-		rotaX = transform.eulerAngles.x;
+        if (myName == "Enemy_MeteorBound_Model")
+        {
+            rotaX_Value = Random.Range(-2f, 2f);
+            rotaY_Value = Random.Range(-0.3f, 0.3f);
+        }
+        //else if (myName == "Bacula")
+        //{
+        //    rotaX_Value = Random.Range(-6f, 6f);
+        //    rotaY_Value = Random.Range(-2f, 2f);
+
+        //}
+        rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		rotaZ = transform.eulerAngles.z;
     }
