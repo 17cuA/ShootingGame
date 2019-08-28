@@ -177,22 +177,17 @@ public class One_Boss : character_status
 		Core_Init_HP = core[0].hp;
 
 		Damage_Stage_Col = new List<List<Collider>>();
-		for (int i = 0;i<core.Length;i++)
-		{
-			Damage_Stage_Col.Add(new List<Collider> { core_shutter[i].GetComponent<Collider>(), core_shutter[i + 1].GetComponent<Collider>(), core_shutter[i + 2].GetComponent<Collider>(), core[i].GetComponent<Collider>() });
-		}
+		Damage_Stage_Col.Add(new List<Collider> { core_shutter[0].GetComponent<Collider>(), core_shutter[1].GetComponent<Collider>(), core_shutter[2].GetComponent<Collider>(), core[0].GetComponent<Collider>() });
+		Damage_Stage_Col.Add(new List<Collider> { core_shutter[3].GetComponent<Collider>(), core_shutter[4].GetComponent<Collider>(), core_shutter[5].GetComponent<Collider>(), core[1].GetComponent<Collider>() });
+		Damage_Stage_Col.Add(new List<Collider> { core_shutter[6].GetComponent<Collider>(), core_shutter[7].GetComponent<Collider>(), core_shutter[8].GetComponent<Collider>(), core[2].GetComponent<Collider>() });
+		Damage_Stage_Col.Add(new List<Collider> { core_shutter[9].GetComponent<Collider>(), core_shutter[10].GetComponent<Collider>(), core_shutter[11].GetComponent<Collider>(), core[3].GetComponent<Collider>() });
 
-		for(int i = 0;i< Damage_Stage_Col.Count;i++)
+		for(int i = 0;i<Damage_Stage_Col.Count; i++)
 		{
-			Damage_Stage_Col[i][1].enabled = Damage_Stage_Col[i][2].enabled = Damage_Stage_Col[i][3].enabled = false;
+		for(int j = 1;j<Damage_Stage_Col[i].Count;j++)
+		{
+				Damage_Stage_Col[i][j].enabled = false;
 		}
-
-		foreach(List<Collider> col_1 in Damage_Stage_Col)
-		{
-			foreach (Collider col_2 in col_1)
-			{
-				col_2.enabled = false;
-			}
 		}
 	}
 
@@ -209,9 +204,9 @@ public class One_Boss : character_status
 		if (Start_Flag && !End_Flag && Update_Flag)
 		{
 			Collider_Set(true);
-			for(int i =0; i< Damage_Stage_Col[0].Count;i++)
+			for(int i =0; i< Damage_Stage_Col.Count;i++)
 			{
-				Damage_Stage_Col[0][i].enabled = true;
+				Damage_Stage_Col[i][0].enabled = true;
 			}
 			start_timecline.Pause();
 			start_timecline.time = 60.0;
@@ -239,6 +234,7 @@ public class One_Boss : character_status
 			base.Update();
 			Survival_Time_Cnt++;
 
+			// 一定HP以下の時コアの色を変える
 			for(int i = 0; i< core.Length; i++)
 			{
 				if (core[i].gameObject.activeSelf)
@@ -255,7 +251,8 @@ public class One_Boss : character_status
 				}
 			}
 
-			if (!core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
+			// パーツのコアが壊れたら死亡
+			if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
 			{
 				maenoiti = transform.position;
 				start_timecline.Pause();
@@ -268,6 +265,8 @@ public class One_Boss : character_status
 			End_Anime();
 		}
 
+		// コライダー管理
+		// シャッターが壊れると次のコライダーが起動
 		for(int a = 0; a < Damage_Stage_Col.Count; a++)
 		{
 			for(int b = 0;b < Damage_Stage_Col[a].Count - 1;b++)
