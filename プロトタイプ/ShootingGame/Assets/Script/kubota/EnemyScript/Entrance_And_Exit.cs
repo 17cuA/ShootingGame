@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Entrance_And_Exit : MonoBehaviour
 {
@@ -28,8 +29,10 @@ public class Entrance_And_Exit : MonoBehaviour
 	public float _return;
 	public float rotation_speed;
 	private int rotation_cnt;
+	private bool Is_return;
+	private PlayableDirector anim;
 	void Start()
-    {
+	{
 		start_pos = transform.position;
 		first_Time = 0;
 		now_Time = 0;
@@ -38,6 +41,8 @@ public class Entrance_And_Exit : MonoBehaviour
 		count = 0;
 		movetime = 0;
 		rotation_cnt = 0;
+		Is_return = false;
+		anim = GetComponent<PlayableDirector>();
 	}
 
 	void Update()
@@ -47,9 +52,14 @@ public class Entrance_And_Exit : MonoBehaviour
 		Calc_ExitPosition();
 		Move();
 		transform.position = pos;
-		if(rotation_cnt < 2)
+		//if(rotation_cnt < 2)
+		if (transform.position.z < -0.5)
 		{
 			self_rotation();
+		}
+		if(transform.position.z == 0)
+		{
+			Restore_Rotation();
 		}
 	}
 	private void Move()
@@ -96,9 +106,9 @@ public class Entrance_And_Exit : MonoBehaviour
 
 	private void Z_Move()
 	{
-		//pos.z += transform.position.z + Z_speed * Time.deltaTime;
-		float currentVelocity = 0, smoothTime = 0.1f;
-		pos.z = Mathf.SmoothDamp(transform.position.z, 0, ref currentVelocity, smoothTime, Z_speed, Time.deltaTime);
+		pos.z += transform.position.z + Z_speed * Time.deltaTime;
+		//float currentVelocity = 0, smoothTime = 0.1f;
+		//pos.z = Mathf.SmoothDamp(transform.position.z, 0, ref currentVelocity, smoothTime, Z_speed, Time.deltaTime);
 	}
 
 	private void Calc_ExitPosition()
@@ -110,16 +120,23 @@ public class Entrance_And_Exit : MonoBehaviour
 		}
 		if (pre_Time < first_Time && first_Time < now_Time /*&& type == Move_Type.Back*/)
 		{
-			count += 1;
+			//count += 1;
 		}
+		if (pre_Time > now_Time)
+		{
+			count++;
+		}
+		if(count > 10)
+		{
+			Is_return = true;
+		}
+
 		pre_Time = now_Time;
 	}
 	private void self_rotation()
 	{
 		transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
-
-		//if(rotation_cnt = )
-		if (pre_Time > now_Time)
+		if (Is_return)
 		{
 			rotation_speed -= 10;
 		}
@@ -131,6 +148,23 @@ public class Entrance_And_Exit : MonoBehaviour
 		{
 			rotation_speed = 0;
 			rotation_cnt++;
+		}
+	}
+	private void Restore_Rotation()
+	{
+		if(transform.localRotation.x != 0)
+		{
+			if (transform.localRotation.x > 0)
+			{
+				transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
+				rotation_speed -= 10;
+				Debug.Log("hei");
+			}
+			else if(transform.localRotation.x < 0)
+			{
+				transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
+				rotation_speed += 10;
+			}
 		}
 	}
 }
