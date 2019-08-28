@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4588204778324794761}
   - component: {fileID: 1720597974036333455}
   - component: {fileID: 1754578655656113578}
-  - component: {fileID: 9209426232730619538}
+  - component: {fileID: 6595574604816486014}
   m_Layer: 0
   m_Name: EnergyCharge_3
   m_TagString: Untagged
@@ -4699,7 +4699,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &9209426232730619538
+--- !u!114 &6595574604816486014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4722,7 +4722,7 @@ GameObject:
   - component: {fileID: 3380936935988907033}
   - component: {fileID: 5295218096927536033}
   - component: {fileID: 4147059587954749077}
-  - component: {fileID: 25585511960107744}
+  - component: {fileID: 7882543832426036616}
   m_Layer: 0
   m_Name: EnergyCharge_2
   m_TagString: Untagged
@@ -9410,7 +9410,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &25585511960107744
+--- !u!114 &7882543832426036616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9433,7 +9433,7 @@ GameObject:
   - component: {fileID: 4977523405501141985}
   - component: {fileID: 4977523405501141986}
   - component: {fileID: 4977523405501141987}
-  - component: {fileID: 578722640076258579}
+  - component: {fileID: 26779350126902268}
   m_Layer: 0
   m_Name: EnergyCharge_1
   m_TagString: Untagged
@@ -14121,7 +14121,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &578722640076258579
+--- !u!114 &26779350126902268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14144,7 +14144,7 @@ GameObject:
   - component: {fileID: 3338654959883254082}
   - component: {fileID: 31779226056609789}
   - component: {fileID: 3189103484282904987}
-  - component: {fileID: 2275138714647827578}
+  - component: {fileID: 376328282641190383}
   m_Layer: 0
   m_Name: SuctionRing
   m_TagString: Untagged
@@ -18890,7 +18890,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &2275138714647827578
+--- !u!114 &376328282641190383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18913,7 +18913,7 @@ GameObject:
   - component: {fileID: 6518514282556530840}
   - component: {fileID: 2490498568985163685}
   - component: {fileID: 4374192486382904458}
-  - component: {fileID: 4413108435282226573}
+  - component: {fileID: 4301141550970288941}
   m_Layer: 0
   m_Name: Energy
   m_TagString: Untagged
@@ -23610,7 +23610,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &4413108435282226573
+--- !u!114 &4301141550970288941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23632,9 +23632,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5800208517844756366}
   - component: {fileID: 8324805657821489088}
-  - component: {fileID: 3328302198702494579}
+  - component: {fileID: 2390062716377651228}
   - component: {fileID: 4149564936689864568}
-  - component: {fileID: 716968541996408660}
+  - component: {fileID: 4227543593599913281}
   m_Layer: 0
   m_Name: A111
   m_TagString: Untagged
@@ -28265,7 +28265,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &3328302198702494579
+--- !u!114 &2390062716377651228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28339,7 +28339,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &716968541996408660
+--- !u!114 &4227543593599913281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28352,9 +28352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Each_Particle:
-  - {fileID: 3328302198702494579}
-  - {fileID: 2275138714647827578}
-  - {fileID: 4413108435282226573}
-  - {fileID: 578722640076258579}
-  - {fileID: 25585511960107744}
-  - {fileID: 9209426232730619538}
+  - {fileID: 2390062716377651228}
+  - {fileID: 376328282641190383}
+  - {fileID: 4301141550970288941}
+  - {fileID: 26779350126902268}
+  - {fileID: 7882543832426036616}
+  - {fileID: 6595574604816486014}
