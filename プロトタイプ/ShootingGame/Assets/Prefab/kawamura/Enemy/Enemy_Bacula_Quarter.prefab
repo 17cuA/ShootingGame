@@ -31,6 +31,7 @@ MonoBehaviour:
   rotaX_Value: 6
   rotaY_Value: 2
   rotaZ_Value: 0
+  myName: 
   isWaveEnemy: 0
 --- !u!114 &3550854349625617630
 MonoBehaviour:
@@ -55,12 +56,15 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material: []
   isrend: 0
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
+  saveHp: 0
   ebp: {fileID: 0}
 --- !u!1 &3550854349565752513
 GameObject:
@@ -206,11 +210,16 @@ MonoBehaviour:
   ebp: {fileID: 0}
   egm: {fileID: 0}
   divisionCnt: 0
+  createSpeedX: 0
   speedX: 15
+  speedX_Max: 0
+  speedX_Min: 0
+  damageDelay: 0
   myName: 
   isDead: 0
   isDisappearance: 0
   isCreate: 0
+  isDamage: 0
 --- !u!1001 &3550854349349554944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,14 +227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3550854349565752514}
     m_Modifications:
-    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
-      propertyPath: m_Name
-      value: Bacula
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bf4b34f0b62f2e448b0f396a09137058, type: 2}
     - target: {fileID: 400000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -282,10 +287,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d32ececf8d2a7854b95930c75e981897, type: 2}
+    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
+      propertyPath: m_Name
+      value: Bacula
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
 --- !u!1 &3550854349349457312 stripped
