@@ -53,7 +53,8 @@ public class BattleshipType_Battery : character_status
 	/// <returns> 撃ったバレット </returns>
 	public GameObject Attack_Instruction_Receiving()
 	{
-		GameObject obj = Instantiate(pure, transform.position, transform.rotation);
+
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eBATTLESHIP_ENEMY_PREFAB, transform.position, transform.right);
 		NewBehaviourScript ns = obj.GetComponent<NewBehaviourScript>();
 		ns.Person_Who_Shot = gameObject;
 		return obj;

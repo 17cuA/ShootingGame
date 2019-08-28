@@ -1032,7 +1032,7 @@ public class EnemyCreate : MonoBehaviour
         //闘牛6430
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
         {
-            Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
 
 
             //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
@@ -1187,7 +1187,7 @@ public class EnemyCreate : MonoBehaviour
             Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
 
             nextEnemy = "バキュラ群";
-            Next_Condition(7200);
+            Next_Condition(14400);
         }
         //バキュラ群 17030
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)

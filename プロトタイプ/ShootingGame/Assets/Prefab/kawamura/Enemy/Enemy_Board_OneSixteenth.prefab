@@ -99,6 +99,7 @@ MonoBehaviour:
   rotaX_Value: 0
   rotaY_Value: 0
   rotaZ_Value: 8
+  myName: 
   isWaveEnemy: 0
 --- !u!114 &6849459753112824489
 MonoBehaviour:
@@ -115,6 +116,7 @@ MonoBehaviour:
   speed: 0
   hp: 10
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 4223249236574456514}
   Shot_DelayMax: 0
   Shot_Delay: 0
@@ -122,11 +124,15 @@ MonoBehaviour:
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
+  saveHp: 0
   ebp: {fileID: 0}
 --- !u!136 &4223249236574456514
 CapsuleCollider:
@@ -272,6 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a558945941d0d24f91b7d7fcf585ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentObj: {fileID: 0}
+  childObj: {fileID: 0}
   quarterObj: {fileID: 7681755344043487628, guid: 62c40248719d2bf47ad4e414c547d617,
     type: 3}
   quarter_OneSixteenthObj: {fileID: 7590061401401449565}
@@ -281,8 +289,15 @@ MonoBehaviour:
   randRota_BottomLeft: {x: 0, y: 0, z: 0, w: 0}
   randRota_BottomRight: {x: 0, y: 0, z: 0, w: 0}
   ebp: {fileID: 0}
+  egm: {fileID: 0}
   divisionCnt: 0
-  speedX: 0
+  createSpeedX: 0
+  speedX: 5
+  speedX_Max: 0
+  speedX_Min: 0
+  damageDelay: 0
   myName: 
   isDead: 0
+  isDisappearance: 0
   isCreate: 0
+  isDamage: 0
