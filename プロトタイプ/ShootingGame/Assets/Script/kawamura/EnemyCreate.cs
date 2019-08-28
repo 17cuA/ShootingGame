@@ -1209,15 +1209,24 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(360);
+            Next_Condition(420);
 
         }
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+			nextEnemy = "バウンド隕石2";
+			Next_Condition(420);
+
+		}
+
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(600);
+            Next_Condition(1200);
 
         }
 
@@ -1237,7 +1246,7 @@ public class EnemyCreate : MonoBehaviour
         //	nextEnemy = " ";
         //	Next_Condition(1800);
         //}
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
         {
             Scene_Manager.Manager.Screen_Transition_To_Clear();
         }

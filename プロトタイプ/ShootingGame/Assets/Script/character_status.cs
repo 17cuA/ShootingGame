@@ -174,7 +174,7 @@ public class character_status : MonoBehaviour
 		return effect;
 	}
 	//自分以外の玉と当たった時にダメージを食らう
-	private void OnTriggerEnter(Collider col)
+	public void OnTriggerEnter(Collider col)
 	{
 		if (gameObject.tag == "Player" || tag == "Invincible")
 		{
