@@ -1032,7 +1032,7 @@ public class EnemyCreate : MonoBehaviour
         //闘牛6430
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
         {
-            Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
 
 
             //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
