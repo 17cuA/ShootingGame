@@ -349,8 +349,49 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6968208595080627195, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274688038860686564, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401559994737102396, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189516868222261990, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3024466353253286923, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2031902967580537346, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123336193866540666, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bba4fa521b0bd947b719ca765b43ac9, type: 3}
+--- !u!198 &366178584 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4806170247385354582, guid: 3bba4fa521b0bd947b719ca765b43ac9,
+    type: 3}
+  m_PrefabInstance: {fileID: 276788274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,15 +670,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1312724507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98369beb96adc24ab1f7a2fcadd3888, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aaabb85163b1af4584ec14ceda62aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  X_speed: 3
-  Z_speed: 25
-  count: 0
-  _return: 0.2
   rotation_speed: 0
+  animation_1: {fileID: 11400000, guid: 90e17ff3d7ace884c9a8c3f1d6dc6c81, type: 2}
+  animation_2: {fileID: 11400000, guid: 9b19d7e095cbe7545afe02364b8c425f, type: 2}
+  jet: {fileID: 366178584}
 --- !u!95 &1312724512
 Animator:
   serializedVersion: 3
@@ -674,5 +713,7 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 114830024708323096, guid: 90e17ff3d7ace884c9a8c3f1d6dc6c81, type: 2}
     value: {fileID: 1312724512}
+  - key: {fileID: 114344741542084176, guid: 04a0d716d1cc9b04b9188aef380c3907, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

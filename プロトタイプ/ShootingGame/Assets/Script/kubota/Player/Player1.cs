@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Power;
 using StorageReference;
-
+using UnityEngine.Playables;
 public class Player1 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
@@ -92,6 +92,7 @@ public class Player1 : character_status
 	public bool Is_Animation;       //復活用のアニメーションの処理の稼働状態になるのかどうか
 	public float rotation_speed;
 	private int rotation_cnt;
+	public PlayableDirector Entry_anim;	//タイムラインを入れる
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -193,6 +194,7 @@ public class Player1 : character_status
 		transform.position = new Vector3(0, 0, -40);
 		//------------------------------------------------
 		one = false;
+		Entry_anim = GetComponent<PlayableDirector>();
 	}
 
 	new void Update()
@@ -210,7 +212,11 @@ public class Player1 : character_status
 				resporn_Injection.Play();
 				//startTime += Time.deltaTime;
 				//transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
-				Respone_Animation();
+				//Respone_Animation();
+				if(rotation_cnt == 0)
+				{
+					Entry_anim.Play();
+				}
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
@@ -225,6 +231,7 @@ public class Player1 : character_status
 				if(transform.position.z == 0)
 				{
 					resporn_Injection.Stop();
+					injection.Play();
 					startTime = 0;
 					movetime = 0;
 					rotation_cnt = 0;
