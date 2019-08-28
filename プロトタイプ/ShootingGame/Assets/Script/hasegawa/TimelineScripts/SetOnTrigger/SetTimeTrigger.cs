@@ -1,18 +1,14 @@
-﻿using System.Collections;
+﻿/*
+ * 20190827 作成
+ * author hasegawa yuuta
+ */
+/* 時間を飛ばすときのトリガー */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SetTimeTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField] bool trigger = false;
+	public bool Trigger { get { return trigger; } set { trigger = value; } }
 }
