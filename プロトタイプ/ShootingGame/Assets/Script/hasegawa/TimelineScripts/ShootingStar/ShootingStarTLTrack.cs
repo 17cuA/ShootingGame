@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ * 20190729 作成
+ * author hasegawa yuuta
+ */
+/* 流れ星のアニメーターで再生を行うクリップを配置するためのトラック */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
