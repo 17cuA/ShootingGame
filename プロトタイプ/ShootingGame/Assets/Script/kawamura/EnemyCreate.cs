@@ -182,10 +182,13 @@ public class EnemyCreate : MonoBehaviour
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
 
-	public bool isCreate;       //表示するときにtrueにする
-	public bool isBaculaDestroy = false;
-	public bool isOneBossDead = false;
+    GameObject middleBossOBj;
+    Enemy_MiddleBoss middleBoss_Script;
 
+    public bool isCreate;       //表示するときにtrueにする
+	public bool isBaculaDestroy = false;
+    public bool isMiddleBossDead = false;
+    public bool isOneBossDead = false;
 	void Start()
     {
 		//位置オブジェクト取得
@@ -350,6 +353,9 @@ public class EnemyCreate : MonoBehaviour
         //    groupCntArray[i] = i;
         //}
 
+        middleBossOBj = Obj_Storage.Storage_Data.GetMiddleBoss();
+        middleBoss_Script = middleBossOBj.GetComponent<Enemy_MiddleBoss>();
+
         oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
         oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
     }
@@ -394,6 +400,29 @@ public class EnemyCreate : MonoBehaviour
 		{
 
 		}
+
+        if (isMiddleBossDead)
+        {
+            if (frameCnt < 5250)
+            {
+                frameCnt = 5250;
+                groupCnt = 22;
+            }
+            isMiddleBossDead = false;
+        }
+        else if (middleBoss_Script != null)
+        {
+            if(middleBoss_Script.Is_Dead)
+            {
+                if (frameCnt < 6130)
+                {
+                    frameCnt = 6130;
+                    groupCnt = 22;
+                }
+                isMiddleBossDead = false;
+
+            }
+        }
 
         if (isOneBossDead)
         {
@@ -988,7 +1017,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
             enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
 
-            nextEnemy = "直進の闘牛を左上と左下から（後ろからくる）";
+            nextEnemy = "";
             Next_Condition(700);
         }
         //直進の闘牛を左上と左下から（後ろからくる）5950
