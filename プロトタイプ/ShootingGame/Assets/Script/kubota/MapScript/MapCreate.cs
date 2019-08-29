@@ -45,7 +45,9 @@ public class MapCreate : MonoBehaviour
 						break;
 					case "1":
 						GameObject Player_obj = Obj_Storage.Storage_Data.Player.Active_Obj();
-						Player_obj.transform.position = Obj_Storage.Storage_Data.pos;
+						if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Player_obj.transform.position = new Vector3(0, 0, 0);
+						else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) Player_obj.transform.position = new Vector3(0, 2, 0);
+						//Player_obj.transform.position = Obj_Storage.Storage_Data.pos;
 						break;
 					case "2":
 						//GameObject Enemy_obj = Obj_Storage.Storage_Data.Enemy1.Active_Obj();
@@ -53,7 +55,7 @@ public class MapCreate : MonoBehaviour
 						break;
 					case "3":
 						GameObject Player_obj2 = Obj_Storage.Storage_Data.Player_2.Active_Obj();
-						Player_obj2.transform.position = Obj_Storage.Storage_Data.pos;
+						Player_obj2.transform.position = new Vector3(0,-2,0);
 						break;
 					default:
 						break;

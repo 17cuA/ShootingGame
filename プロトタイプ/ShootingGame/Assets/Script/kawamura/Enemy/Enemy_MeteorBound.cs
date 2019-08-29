@@ -14,8 +14,8 @@ using UnityEngine;
 public class Enemy_MeteorBound : character_status
 {
 	GameObject parentObj;
-	Enemy_MeteorBound_Move boundMove;   //親の移動スピード取得用
-	Enemy_MeteorBound meteorBound;		//相手のバウンドスクリプト取得用
+	Enemy_MeteorBound_Move myBoundMove;   //親の移動スピード取得用
+	Enemy_MeteorBound opponentMeteorBound;		//相手のバウンドスクリプト取得用
 
 	Vector3 velocity;
     Vector3 defaultLocalPos;
@@ -29,10 +29,13 @@ public class Enemy_MeteorBound : character_status
 	public float defPercentX;
 	public float defPercentY;
 
+	public string meteorname;
+	public bool atarimasita_migigawa;
+	public bool atarimasita = false;
 	new void Start()
 	{
 		parentObj = transform.parent.gameObject;
-		boundMove = parentObj.GetComponent<Enemy_MeteorBound_Move>();
+		myBoundMove = parentObj.GetComponent<Enemy_MeteorBound_Move>();
         defaultLocalPos = transform.localPosition;
         speedX = Random.Range(2.0f, 3.5f);
         HP_Setting();
@@ -41,8 +44,8 @@ public class Enemy_MeteorBound : character_status
 
 	new void Update()
 	{
-		speedX = boundMove.speedX;
-		speedY = boundMove.speedY;
+		speedX = myBoundMove.speedX;
+		speedY = myBoundMove.speedY;
         //velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
         //gameObject.transform.position += velocity * Time.deltaTime;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
@@ -58,9 +61,13 @@ public class Enemy_MeteorBound : character_status
 
 	new void OnTriggerEnter(Collider col)
 	{
+		meteorname = col.gameObject.name;
+		//atarimasita = true;
 		if (col.gameObject.name == "Enemy_MeteorBound_Model")
 		{
-			meteorBound = col.gameObject.GetComponent<Enemy_MeteorBound>();
+			atarimasita = true;
+
+			opponentMeteorBound = col.gameObject.GetComponent<Enemy_MeteorBound>();
 			defPosX = col.transform.position.x - transform.position.x;
 			defPosY = col.transform.position.y - transform.position.y;
 
@@ -72,15 +79,16 @@ public class Enemy_MeteorBound : character_status
 				{
 					defPercentX = 1;
 				}
-				defPercentX *= 0.7f;
+				//defPercentX *= 0.7f;
+				defPercentX *= 1f;
 
-				//if (meteorBound.speedX < 0)
+				//if (opponentMeteorBound.speedX < 0)
 				//{
-				//	boundMove.speedY += meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY += opponentMeteorBound.speedY * defPercentY;
 				//}
 				//else
 				//{
-				//	boundMove.speedY -= meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY -= opponentMeteorBound.speedY * defPercentY;
 				//}
 			}
 			//敵が自分より左側
@@ -91,8 +99,9 @@ public class Enemy_MeteorBound : character_status
 				{
 					defPercentX = 1;
 				}
-				defPercentX *= 0.7f;
-			}
+				//defPercentX *= 0.7f;
+				defPercentX *= 1f;
+}
 			//x座標が一緒
 			else
 			{
@@ -108,13 +117,13 @@ public class Enemy_MeteorBound : character_status
 					defPercentY = 1;
 				}
 				defPercentY *= 1f;
-				//if (meteorBound.speedY < 0)
+				//if (opponentMeteorBound.speedY < 0)
 				//{
-				//	boundMove.speedY += meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY += opponentMeteorBound.speedY * defPercentY;
 				//}
 				//else
 				//{
-				//	boundMove.speedY -= meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY -= opponentMeteorBound.speedY * defPercentY;
 				//}
 			}
 			else if (defPosY < 0)
@@ -126,13 +135,13 @@ public class Enemy_MeteorBound : character_status
 				}
 				defPercentY *= 1f;
 
-				//if (meteorBound.speedY < 0)
+				//if (opponentMeteorBound.speedY < 0)
 				//{
-				//	boundMove.speedY -= meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY -= opponentMeteorBound.speedY * defPercentY;
 				//}
 				//else
 				//{
-				//	boundMove.speedY += meteorBound.speedY * defPercentY;
+				//	myBoundMove.speedY += opponentMeteorBound.speedY * defPercentY;
 				//}
 			}
 			//Y座標が一緒
@@ -144,66 +153,90 @@ public class Enemy_MeteorBound : character_status
 			//当たった相手の位置が自分より上
 			if (col.transform.position.y > transform.position.y)
 			{
-				if (meteorBound.speedY < 0)
+				if (opponentMeteorBound.speedY < 0)
 				{
-					boundMove.speedY += meteorBound.speedY * defPercentY;
+					//myBoundMove.speedY += opponentMeteorBound.speedY * defPercentY;
+					myBoundMove.speedY = opponentMeteorBound.speedY * defPercentY - myBoundMove.speedY;
+					//myBoundMove.speedY = opponentMeteorBound.speedY * defPercentY;
 				}
 				else
 				{
-					boundMove.speedY -= meteorBound.speedY * defPercentY;
+					myBoundMove.speedY = myBoundMove.speedY - opponentMeteorBound.speedY * defPercentY;
+					//myBoundMove.speedY -= opponentMeteorBound.speedY * defPercentY;
 				}
 			}
 			//当たった相手の位置が自分より下
 			else if (col.transform.position.y < transform.position.y)
 			{
-				if (meteorBound.speedY < 0)
+				if (opponentMeteorBound.speedY < 0)
 				{
-					boundMove.speedY -= meteorBound.speedY * defPercentY;
+					myBoundMove.speedY = myBoundMove.speedY - opponentMeteorBound.speedY * defPercentY;
+					//myBoundMove.speedY -= opponentMeteorBound.speedY * defPercentY;
 				}
 				else
 				{
-					boundMove.speedY += meteorBound.speedY * defPercentY;
+					myBoundMove.speedY = myBoundMove.speedY + opponentMeteorBound.speedY * defPercentY;
+					//myBoundMove.speedY += opponentMeteorBound.speedY * defPercentY;
 				}
 			}
 
 			//自分より相手が右側
 			if (col.transform.position.x > transform.position.x)
 			{
-				if (meteorBound.speedX < 0)
+				if (opponentMeteorBound.speedX < 0)
 				{
-					if (boundMove.speedX < 0)
+					if (myBoundMove.speedX < 0)
 					{
-						boundMove.speedX += meteorBound.speedX - boundMove.speedX;
+						atarimasita_migigawa = true;
+						myBoundMove.speedX = myBoundMove.speedX + opponentMeteorBound.speedX;
+						//myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX + myBoundMove.speedX;
+						//myBoundMove.speedX += opponentMeteorBound.speedX - myBoundMove.speedX;
 					}
 					else
 					{
-						boundMove.speedX += meteorBound.speedX * defPercentX;
+						atarimasita_migigawa = true;
+						myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX + myBoundMove.speedX;
+						//	myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+						//	//myBoundMove.speedX += opponentMeteorBound.speedX * defPercentX;
 					}
 				}
-				else if (meteorBound.speedX > 0)
+				else if (opponentMeteorBound.speedX > 0)
 				{
-					if (boundMove.speedX > 0)
-					{
-						boundMove.speedX -= boundMove.speedX - meteorBound.speedX;
-					}
-					boundMove.speedX -= meteorBound.speedX * defPercentX;
+					//if (myBoundMove.speedX > 0)
+					//{
+					//myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+					atarimasita_migigawa = true;
+					myBoundMove.speedX = myBoundMove.speedX - (myBoundMove.speedX - myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX);
+					//myBoundMove.speedX -= myBoundMove.speedX - opponentMeteorBound.speedX;
+					//}
+					//	myBoundMove.speedX -= opponentMeteorBound.speedX * defPercentX;
+					//}
 				}
 			}
 			//自分より相手が左側
 			else if (col.transform.position.x < transform.position.x)
 			{
-				if (meteorBound.speedX < 0)
+				if (opponentMeteorBound.speedX < 0)
 				{
-					boundMove.speedX -= meteorBound.speedX * defPercentX;
+					if (myBoundMove.speedX < 0)
+					{
+						myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX;
+					}
+					else
+					{
+						//myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+
+					}
+						myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+					//myBoundMove.speedX -= opponentMeteorBound.speedX * defPercentX;
 				}
-				else if (meteorBound.speedX > 0)
+				else if (opponentMeteorBound.speedX > 0)
 				{
-					boundMove.speedX *= meteorBound.speedX * defPercentX;
+					myBoundMove.speedX = myBoundMove.speedX + opponentMeteorBound.speedX * defPercentX;
 				}
 			}
-
 		}
-		meteorBound = null;
+		opponentMeteorBound = null;
 		base.OnTriggerEnter(col);
 	}
 

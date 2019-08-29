@@ -210,8 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bd050e997048844bac8d2eb7786122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anyCanvas: {fileID: 0}
   resultDisplay: {fileID: 2638263593212591176}
-  displayPlane: {fileID: 0}
+  displayPlane: {fileID: 1850039317}
 --- !u!4 &327181364
 Transform:
   m_ObjectHideFlags: 0
@@ -607,6 +608,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6715c00a90fa7d641a9a453e394b1aa1, type: 3}
+--- !u!114 &1850039317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4837575548925283903, guid: 6715c00a90fa7d641a9a453e394b1aa1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1850039316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &178417002998536631
 Transform:
   m_ObjectHideFlags: 0
