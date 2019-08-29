@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Power;
 using StorageReference;
-
+using UnityEngine.Playables;
 public class Player1 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
@@ -69,11 +69,16 @@ public class Player1 : character_status
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 	//リスポーン時に使用する変数--------------------------------------------------
+	private Vector3 pos;                //複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
+	private int rotation_cnt;		//一度再生するための変数
+	public PlayableDirector Entry_anim; //タイムラインを入れる
+	[Header("アニメーション用アセット")]
+	public PlayableAsset[] Entry_anim_Data; //復活と登場シーンのアニメーションデータを入れる(unity側にて設定)
+	[Header("アニメーションが始まるまでのフレーム数")]
+	public int Start_animation_frame;					//アニメーションが始まるまでのフレーム数をカウントする変数
+	public int frame_max;               //アニメーションが始まるまでのフレーム数を数えるもの
+	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
-	private float startTime = 0.0f;
-	private Vector3 Res_pos;	//死んだときに行く、最初のポジション情報
-	private Vector3 tem_pos;	//復活までの中心の位置
-	private float tem_pos_x;	//復活時の途中のポジションの保存用
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -151,7 +156,6 @@ public class Player1 : character_status
 		base.Start();
 		Is_Resporn = true;                  //復活のアニメーションを行うかどうかの判定用
 		invincible = true;					// 無敵時間の設定
-		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
@@ -164,10 +168,14 @@ public class Player1 : character_status
         Bullet_cnt_Max = 10;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
-		Res_pos = new Vector3(-30,0,0);			//リスポーン開始位置
-		tem_pos = (direction + Res_pos) / 2;	//リスポーン開始地点と初期位置の間
-		tem_pos.z = -30;                        //中点のｚを変更
-												//------------------------------------------------
+		rotation_cnt = 0;
+		transform.position = new Vector3(-12, 0, -20);
+		Entry_anim = GetComponent<PlayableDirector>();
+		//Entry_anim.Stop();
+		Start_animation_frame = 0;
+		Is_Resporn = true;
+		Is_Animation = true;
+		//------------------------------------------------
 		one = false;
 	}
 
@@ -182,15 +190,38 @@ public class Player1 : character_status
 			//復活時のアニメーション
 			if (Is_Resporn)
 			{
-				injection.Stop();
-				resporn_Injection.Play();
-				//capsuleCollider.enabled = false;
-				startTime += Time.deltaTime;
-				transform.position = Vector3.Lerp(new Vector3(-20, 0, 0), direction, startTime);
+				if (Is_Animation) Start_animation_frame++;
+
+				//敵等に当たらないようにするためにレイヤーを変更
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
 					gameObject.layer = LayerMask.NameToLayer("invisible");
 				}
+				//通常のジェット噴射が稼働中の時のみ変更する
+				if(injection.isPlaying)
+				{
+					injection.Stop();           //ジェット噴射の停止
+					resporn_Injection.Play();       //登場用のジェット噴射の稼働
+				}
+				//アニメーションが再生されていなければ
+				if (rotation_cnt == 0 && Start_animation_frame > frame_max)
+				{
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(Entry_anim_Data[0]);
+					else Entry_anim.Play(Entry_anim_Data[1]);
+					rotation_cnt = 1;
+					Is_Animation = false;
+
+				}
+				if (Entry_anim.state != PlayState.Playing && !Is_Animation)
+				{
+					Entry_anim.time = 0;
+					resporn_Injection.Stop();
+					injection.Play();
+					rotation_cnt = 0;
+					Start_animation_frame = 0;
+					Is_Resporn = false;
+				}
+
 				if(transform.position.x > -19)
 				{
 					if(!one)
@@ -198,12 +229,21 @@ public class Player1 : character_status
 						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
 					}
 				}
-				if (transform.position == direction)
-				{
-					resporn_Injection.Stop();
-					startTime = 0;
-					Is_Resporn = false;
-				}
+				//if(transform.position.z == 0)
+				//{
+				//	resporn_Injection.Stop();
+				//	injection.Play();
+				//	startTime = 0;
+				//	movetime = 0;
+				//	rotation_cnt = 0;
+				//	Is_Resporn = false;
+				//}
+				//if (transform.position == direction)
+				//{
+				//	resporn_Injection.Stop();
+				//	startTime = 0;
+				//	Is_Resporn = false;
+				//}
 			}
 			else
 			{
@@ -253,6 +293,8 @@ public class Player1 : character_status
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
                         target = direction;
+						transform.position = new Vector3(-12, 0, -20);
+						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
 				}
@@ -299,6 +341,7 @@ public class Player1 : character_status
 		}
 
 	}
+	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
 		x = Input.GetAxis("Horizontal");            //x軸の入力
@@ -378,12 +421,13 @@ public class Player1 : character_status
 		}
 
 	}
+	//プレイヤーの移動
 	void Move()
 	{
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
 
-	//コントローラーの操作
+	//コントローラーの操作　使ってない
 	private void Player_Move()
 	{
 		x = Input.GetAxis("Horizontal");            //x軸の入力
@@ -440,6 +484,7 @@ public class Player1 : character_status
 			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
+				//Is_Change = false;
 			}
 			else
 			{
@@ -452,11 +497,10 @@ public class Player1 : character_status
 		{
 			for (int i = 0; i < object_material.Length; i++)
 			{
-
 				object_material[i].material = Get_self_material(i);
 			}
 			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
-
+			Is_Change = true;
 			//if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
 		}
 	}
@@ -784,7 +828,6 @@ public class Player1 : character_status
 				//主人公機のmaterialを元の色に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
-
 					object_material[i].material = Get_self_material(i);
 				}
 				Is_Change = false;
@@ -794,14 +837,5 @@ public class Player1 : character_status
 		}
 		//フレーム加算
 		cnt++;
-	}
-	//リスポーン用のアニメーション
-	private void Respone_Animation()
-	{
-		//どのくらいの割合進んだかを分ける
-		float progressDegrees = (transform.position.x - Res_pos.x) / (tem_pos.x - Res_pos.x) * 100;
-		//float next_pos_x = 
-
-		//transform.position = new Vector3(speed,0f,0f);
 	}
 }
