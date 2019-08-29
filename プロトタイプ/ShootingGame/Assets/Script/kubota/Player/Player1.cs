@@ -484,6 +484,7 @@ public class Player1 : character_status
 			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
+				//Is_Change = false;
 			}
 			else
 			{
@@ -496,11 +497,10 @@ public class Player1 : character_status
 		{
 			for (int i = 0; i < object_material.Length; i++)
 			{
-
 				object_material[i].material = Get_self_material(i);
 			}
 			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
-
+			Is_Change = true;
 			//if (capsuleCollider.enabled == false) capsuleCollider.enabled = true;   //カプセルコライダーをオンにする
 		}
 	}
@@ -828,7 +828,6 @@ public class Player1 : character_status
 				//主人公機のmaterialを元の色に変更
 				for (int i = 0; i < object_material.Length; i++)
 				{
-
 					object_material[i].material = Get_self_material(i);
 				}
 				Is_Change = false;

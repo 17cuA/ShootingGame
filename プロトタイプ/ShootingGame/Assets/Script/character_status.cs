@@ -16,9 +16,9 @@ public class character_status : MonoBehaviour
 	}
 	protected Chara_Type Type;
 	public float speed;                                                 // スピード
-	private float speed_Max;
+	private float speed_Max;										//最大速度の設定
 	public int hp;                                                      // 体力
-	private int hp_Max;
+	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
 	public Collider capsuleCollider;                             // cillider
@@ -34,7 +34,7 @@ public class character_status : MonoBehaviour
 	public int childCnt;
 	public Renderer[] object_material;                                  // オブジェクトのマテリアル情報
 	public bool isrend = false;
-	public bool Is_Dead = false;
+	public bool Is_Dead = false;															
 	[SerializeField] private Material[] self_material;									//初期マテリアル保存用
 	[Header("ダメージ用material設定")]
 	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
