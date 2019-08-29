@@ -182,7 +182,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
-		node.GetComponent<LaserLine>().isRotateLaser = isRotateLaser;
 		return node;
 	}
 }

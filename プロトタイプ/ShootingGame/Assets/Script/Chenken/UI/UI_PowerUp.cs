@@ -51,6 +51,8 @@ public class UI_PowerUp : MonoBehaviour
 		{
 			transform.parent.gameObject.SetActive(false);
 		}
+
+        Debug.Log("人数：" + ((int)Game_Master.Number_Of_People).ToString());
 	}
 
 

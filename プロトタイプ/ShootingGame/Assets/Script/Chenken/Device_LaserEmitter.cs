@@ -405,22 +405,12 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
 			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 250);
-			
-			for(var i = 0;i < emitterLaunchCore.currentLaunchDevice.CurrentGenerator?.nodes.Count; ++i)
-			{
-				emitterLaunchCore.currentLaunchDevice.CurrentGenerator.nodes[i].GetComponent<LaserLine>().ischangLaserWidth = true;
-			}
-		}
+        }
 
 		if (emitterLaunchCore.currentLaunchDevice is RotateLaunchDevice && Input.GetKey(KeyCode.LeftControl))
 		{
 			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
 			this.transform.gameObject.transform.Rotate(-Vector3.forward * Time.deltaTime * 250);
-
-			for (var i = 0; i < emitterLaunchCore.currentLaunchDevice.CurrentGenerator?.nodes.Count; ++i)
-			{
-				emitterLaunchCore.currentLaunchDevice.CurrentGenerator.nodes[i].GetComponent<LaserLine>().ischangLaserWidth = true;
-			}
 		}
 
 		if (emitterLaunchCore.currentLaunchDevice is StraightLaunchDevice)
