@@ -68,4 +68,12 @@ public class One_Boss_BoundBullet : bullet_status
 
 		return vecocity;
 	}
+
+	private new void OnTriggerEnter(Collider col)
+	{
+		if(col.tag == "Player_Bullet")
+		{
+			gameObject.SetActive(false);
+		}
+	}
 }
