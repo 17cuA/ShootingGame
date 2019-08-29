@@ -75,5 +75,13 @@ public class One_Boss_BoundBullet : bullet_status
 		{
 			gameObject.SetActive(false);
 		}
+		else if(col.name == "One_Boss")
+		{
+			One_Boss oneS = col.GetComponent<One_Boss>();
+			if(oneS.now_rush)
+			{
+				gameObject.SetActive(false);
+			}
+		}
 	}
 }

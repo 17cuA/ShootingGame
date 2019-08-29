@@ -50,8 +50,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset l;
 
 	[Header("突進攻撃用")]
-	[SerializeField, Tooltip("突進中フラグ")] private bool now_rush;
-
+	[SerializeField, Tooltip("突進中フラグ")] public bool now_rush;
 
 	// アニメーション用
 	private List<ParticleSystem> Warp_EF { get; set; }
@@ -73,13 +72,10 @@ public class One_Boss : character_status
 	private int B_Num { get; set; }
 	private Vector3 IntermediatePosition { get; set; }
 
-
-
 	private Vector3[] BoundBullet_Rotation { get; set; }    // バウンドバレットの角度
 
 	private Vector3 For_body_Upward { get; set; }       // 本体の上向き角度
 	private Vector3 For_body_Downward { get; set; }     // 本体の下向き角度
-
 
 	public GameObject[] Player_Data { get; private set; }       // プレイヤーのデータ
 	public GameObject Now_player_Traget { get; set; }           // ターゲット情報の保管用
@@ -90,7 +86,6 @@ public class One_Boss : character_status
 	private int Survival_Time { get; set; }
 	private int Survival_Time_Cnt { get; set; }
 	private int Bullet_Num { get; set; }
-
 	private bool Attack_Now { get; set; }
 
 	private  List<List<Collider>> Damage_Stage_Col { get; set; }		// ダメージの段階
@@ -98,10 +93,11 @@ public class One_Boss : character_status
 	// 旋回用
 	private float PreviousPosition { get; set; }        // 前の位置
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
-
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
+	private int Core_Init_HP { get; set; }      // コアの初期HP
 
-	private int Core_Init_HP { get; set; }		// コアの初期HP
+	private Player1 Player1_Script { get; set; }
+	private Player2 Player2_Script { get; set; }
 
 	private new void Start()
 	{
@@ -157,12 +153,7 @@ public class One_Boss : character_status
 		For_body_Upward = new Vector3(0.0f, 0.0f, 45.0f);
 		For_body_Downward = new Vector3(0.0f, 0.0f, 360.0f - 45.0f);
 
-		BoundBullet_Rotation = new Vector3[number_of_fires + 2];
-		float z_rotation = 120.0f / ((float)BoundBullet_Rotation.Length - 1.0f);
-		for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-		{
-			BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f, (z_rotation * i) + -60.0f);
-		}
+		Bullet_num_Set(number_of_fires);
 
 		End_Flag = false;
 
@@ -185,10 +176,20 @@ public class One_Boss : character_status
 
 		for(int i = 0;i<Damage_Stage_Col.Count; i++)
 		{
-		for(int j = 0;j<Damage_Stage_Col[i].Count;j++)
-		{
-				Damage_Stage_Col[i][j].enabled = false;
+			for(int j = 0;j<Damage_Stage_Col[i].Count;j++)
+			{
+					Damage_Stage_Col[i][j].enabled = false;
+			}
 		}
+
+		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+		}
+		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+			Player2_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player2>();
 		}
 	}
 
@@ -222,7 +223,7 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				if (Number_Of_Lasers < 0)
+				if (Number_Of_Lasers < 1)
 				{
 					Laser_Clearing_2();
 				}
@@ -462,7 +463,6 @@ public class One_Boss : character_status
 	}
 	#endregion
 
-
 	#region プレイヤーを追従しバウンド弾_2
 	/// <summary>
 	/// プレイヤーを追従しバウンド弾_2
@@ -497,6 +497,8 @@ public class One_Boss : character_status
 
 			if (Vector_Size(transform.position, IntermediatePosition) <= Lowest_Speed)
 			{
+				Bullet_num_Set(Check_Bits());
+
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
 					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
@@ -512,6 +514,8 @@ public class One_Boss : character_status
 				Attack_Type_Instruction++;
 				Attack_Step = 0;
 				Flame = 0;
+
+				Bullet_num_Set(Check_Bits());
 
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
@@ -744,10 +748,55 @@ public class One_Boss : character_status
 		PreviousPosition = transform.position.y;
 	}
 
+	/// <summary>
+	/// コライダーの使用未使用の切り替え
+	/// </summary>
+	/// <param name="State"></param>
 	private void Collider_Set(bool State)
 	{
 		arm_parts[0].SetActive(State);
 		arm_parts[1].SetActive(State);
 		Body_Parts.SetActive(State);
+	}
+
+	/// <summary>
+	/// バウンド弾の数設定
+	/// </summary>
+	/// <param name="set_num"></param>
+	private void Bullet_num_Set(int set_num )
+	{
+		if(set_num % 2 == 1)
+		{
+			set_num--;
+		}
+
+		set_num += number_of_fires;
+
+		BoundBullet_Rotation = new Vector3[set_num + 2];
+		float z_rotation = 120.0f / ((float)BoundBullet_Rotation.Length - 1.0f);
+		for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+		{
+			BoundBullet_Rotation[i] = new Vector3(0.0f, 0.0f, (z_rotation * i) + -60.0f);
+		}
+	}
+
+	/// <summary>
+	/// ビットの数確認
+	/// </summary>
+	/// <returns></returns>
+	private int Check_Bits()
+	{
+		int num = 0;
+
+		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			num = Player1_Script.bitIndex;
+		}
+		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			num = Player1_Script.bitIndex + Player2_Script.bitIndex;
+		}
+
+		return num;
 	}
 }
