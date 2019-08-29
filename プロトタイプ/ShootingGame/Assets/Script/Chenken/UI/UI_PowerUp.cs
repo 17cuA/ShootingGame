@@ -17,7 +17,7 @@ public class UI_PowerUp : MonoBehaviour
     public Sprite initSpeed;
     public Sprite speedUp;
     public Material flowLightMaterial;
-
+	public ParticleSystem UIeffect;
 
     public int addtional;
 	public int start;
@@ -59,9 +59,19 @@ public class UI_PowerUp : MonoBehaviour
 		if (playerNum == 1 || isPlayer1)
 		{
 			var currentPower = P1_PowerManager.Instance.CurrentPower;
+
+
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
+				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire1")) && currentPower.CanUpgrade)
+				{
+					if (UIeffect.isPlaying)
+						UIeffect.Stop();
+
+					UIeffect.gameObject.transform.position = displays[P1_PowerManager.Instance.Position].transform.position;
+					UIeffect.Play();
+				}
 
 				//現在位置に合わせる
 				if (current.gameObject.transform.position != displays[P1_PowerManager.Instance.Position].transform.position && P1_PowerManager.Instance.Position != -1)
@@ -71,6 +81,7 @@ public class UI_PowerUp : MonoBehaviour
 					displays[P1_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
                     displays[P1_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
                     displays[P1_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
+
 
 					for (var i = start; i < end; ++i)
 					{
@@ -139,6 +150,14 @@ public class UI_PowerUp : MonoBehaviour
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
+				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2")) && currentPower.CanUpgrade)
+				{
+					if (UIeffect.isPlaying)
+						UIeffect.Stop();
+
+					UIeffect.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;
+					UIeffect.Play();
+				}
 
 				//現在位置に合わせる
 				if (current.gameObject.transform.position != displays[P2_PowerManager.Instance.Position].transform.position && P2_PowerManager.Instance.Position != -1)
