@@ -365,6 +365,7 @@ namespace Power
 			}
 
 			position = -1;
+            Debug.Log(position);
 		}
 
 		/// <summary>
@@ -381,6 +382,8 @@ namespace Power
 		public void Pick()
 		{
 			position++;
+
+            Debug.Log(position);
 
 			position %= powers.Count - 1;
 		}

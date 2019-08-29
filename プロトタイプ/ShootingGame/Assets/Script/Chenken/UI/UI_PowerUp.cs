@@ -23,8 +23,6 @@ public class UI_PowerUp : MonoBehaviour
 	public int start;
 	public int end;
 
-	[Header("拡大倍数")]
-	public float enlargeIndex = 1.2f;
 
 	private void Awake()
 	{
@@ -69,7 +67,7 @@ public class UI_PowerUp : MonoBehaviour
 				if (current.gameObject.transform.position != displays[P1_PowerManager.Instance.Position].transform.position && P1_PowerManager.Instance.Position != -1)
 				{
 					current.gameObject.transform.position = displays[P1_PowerManager.Instance.Position].transform.position;
-					displays[P1_PowerManager.Instance.Position].Enlarge(enlargeIndex);
+					displays[P1_PowerManager.Instance.Position].Enlarge();
 					displays[P1_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
                     displays[P1_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
                     displays[P1_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
@@ -97,6 +95,7 @@ public class UI_PowerUp : MonoBehaviour
 						displays[i].GetComponent<Canvas>().sortingOrder = 0;
                         displays[i].GetComponent<Image>().material = null;
                         displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
+                        current.gameObject.transform.position = Vector3.zero;
 					}
 				}
 			}
@@ -145,7 +144,7 @@ public class UI_PowerUp : MonoBehaviour
 				if (current.gameObject.transform.position != displays[P2_PowerManager.Instance.Position].transform.position && P2_PowerManager.Instance.Position != -1)
 				{
 					current.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;
-					displays[P2_PowerManager.Instance.Position].Enlarge(enlargeIndex);
+					displays[P2_PowerManager.Instance.Position].Enlarge();
 					displays[P2_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
                     displays[P2_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
                     displays[P2_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
@@ -173,6 +172,7 @@ public class UI_PowerUp : MonoBehaviour
 						displays[i].GetComponent<Canvas>().sortingOrder = 0;
                         displays[i].GetComponent<Image>().material = null;
                         displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
+                        current.gameObject.transform.position = Vector3.zero;
 					}
 				}
 			}

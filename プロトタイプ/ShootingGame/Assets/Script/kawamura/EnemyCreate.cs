@@ -403,9 +403,11 @@ public class EnemyCreate : MonoBehaviour
 
         if (isMiddleBossDead)
         {
-            if (frameCnt < 5250)
+            if (frameCnt < 6130)
             {
-                frameCnt = 5250;
+                frameCnt = 6130;
+                turning_frame = 6130;
+
                 groupCnt = 22;
             }
             isMiddleBossDead = false;
@@ -417,6 +419,7 @@ public class EnemyCreate : MonoBehaviour
                 if (frameCnt < 6130)
                 {
                     frameCnt = 6130;
+                    turning_frame = 6130;
                     groupCnt = 22;
                 }
                 isMiddleBossDead = false;
@@ -429,6 +432,7 @@ public class EnemyCreate : MonoBehaviour
             if (frameCnt < 17750)
             {
                 frameCnt = 17750;
+                turning_frame = 17750;
             }
             isOneBossDead = false;
         }
@@ -439,6 +443,7 @@ public class EnemyCreate : MonoBehaviour
                 if (frameCnt < 17750)
                 {
                     frameCnt = 17750;
+                    turning_frame = 17750;
                 }
                 isOneBossDead = false;
 
