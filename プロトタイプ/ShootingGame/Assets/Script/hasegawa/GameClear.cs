@@ -24,6 +24,7 @@ namespace Costom
 			eRanking,
 			eNone
 		}
+		[SerializeField] Canvas anyCanvas;								// いずれかのCanvas
 		EDisplayInformation displayInfo = EDisplayInformation.eNone;	// 画面の情報
 
 		[SerializeField] ResultDisplay resultDisplay;					// リザルト画面用クラス
@@ -41,6 +42,8 @@ namespace Costom
 		{
 			// リザルト表示用クラスが設定されていなかったら取得する
 			if (!resultDisplay) { resultDisplay = FindObjectOfType<ResultDisplay>(); }
+			// キャンバスの取得
+			if (!anyCanvas) { anyCanvas = FindObjectOfType<Canvas>(); }
 			// PressButtonの生成
 			pressButtonDisplayParent = new GameObject();
 			pressButtonDisplayParent.transform.parent = FindObjectOfType<RankingDisplay>().transform;
