@@ -185,7 +185,7 @@ public class One_Boss : character_status
 
 		for(int i = 0;i<Damage_Stage_Col.Count; i++)
 		{
-		for(int j = 1;j<Damage_Stage_Col[i].Count;j++)
+		for(int j = 0;j<Damage_Stage_Col[i].Count;j++)
 		{
 				Damage_Stage_Col[i][j].enabled = false;
 		}
@@ -194,7 +194,7 @@ public class One_Boss : character_status
 
 	private new void Update()
 	{
-		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now)
+		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
 		{
 			maenoiti = transform.position;
 			start_timecline.Pause();
@@ -686,6 +686,7 @@ public class One_Boss : character_status
 		}
 		else if (Attack_Step == 3)
 		{
+
 			if(!now_rush)
 			{
 				start_timecline.Pause();
