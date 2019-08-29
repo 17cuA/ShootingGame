@@ -69,30 +69,16 @@ public class Player1 : character_status
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
 	//リスポーン時に使用する変数--------------------------------------------------
-	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
-	private float startTime = 0.0f;
-
-	public enum Move_Type
-	{
-		Front,
-		Back,
-		None,
-	}
-	private Move_Type type;
-	public float X_speed;       //Ｘ軸の行動の時のスピード
-	public float Z_speed;
 	private Vector3 pos;                //複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
-	private Vector3 start_pos;
-	float first_Time;
-	float pre_Time;
-	float now_Time;
-	private int count;
-	private float movetime;
-	public float _return;
-	public bool Is_Animation;       //復活用のアニメーションの処理の稼働状態になるのかどうか
-	public float rotation_speed;
-	private int rotation_cnt;
-	public PlayableDirector Entry_anim;	//タイムラインを入れる
+	private int rotation_cnt;		//一度再生するための変数
+	public PlayableDirector Entry_anim; //タイムラインを入れる
+	[Header("アニメーション用アセット")]
+	public PlayableAsset[] Entry_anim_Data; //復活と登場シーンのアニメーションデータを入れる(unity側にて設定)
+	[Header("アニメーションが始まるまでのフレーム数")]
+	public int Start_animation_frame;					//アニメーションが始まるまでのフレーム数をカウントする変数
+	public int frame_max;               //アニメーションが始まるまでのフレーム数を数えるもの
+	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
+	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -170,7 +156,6 @@ public class Player1 : character_status
 		base.Start();
 		Is_Resporn = true;                  //復活のアニメーションを行うかどうかの判定用
 		invincible = true;					// 無敵時間の設定
-		startTime = 0;
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
@@ -183,17 +168,13 @@ public class Player1 : character_status
         Bullet_cnt_Max = 10;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
-		start_pos = transform.position;
-		first_Time = 0;
-		now_Time = 0;
-		pre_Time = 0;
-		type = Move_Type.Front;
-		count = 0;
-		movetime = 0;
 		rotation_cnt = 0;
-		transform.position = new Vector3(0, 0, -40);
+		transform.position = new Vector3(-12, 0, -20);
 		Entry_anim = GetComponent<PlayableDirector>();
-
+		//Entry_anim.Stop();
+		Start_animation_frame = 0;
+		Is_Resporn = true;
+		Is_Animation = true;
 		//------------------------------------------------
 		one = false;
 	}
@@ -209,6 +190,8 @@ public class Player1 : character_status
 			//復活時のアニメーション
 			if (Is_Resporn)
 			{
+				if (Is_Animation) Start_animation_frame++;
+
 				//敵等に当たらないようにするためにレイヤーを変更
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
@@ -220,23 +203,22 @@ public class Player1 : character_status
 					injection.Stop();           //ジェット噴射の停止
 					resporn_Injection.Play();       //登場用のジェット噴射の稼働
 				}
-				//startTime += Time.deltaTime;
-				//transform.position = Vector3.Lerp(new Vector3(-20, 0, -10), direction, startTime);
-				//Respone_Animation();
-				//Entry_anim.Play();
-				if (rotation_cnt == 0)
+				//アニメーションが再生されていなければ
+				if (rotation_cnt == 0 && Start_animation_frame > frame_max)
 				{
-					Entry_anim.Play();
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(Entry_anim_Data[0]);
+					else Entry_anim.Play(Entry_anim_Data[1]);
 					rotation_cnt = 1;
+					Is_Animation = false;
+
 				}
-				if(Entry_anim.state != PlayState.Playing)
+				if (Entry_anim.state != PlayState.Playing && !Is_Animation)
 				{
-					Entry_anim.Stop();
+					Entry_anim.time = 0;
 					resporn_Injection.Stop();
 					injection.Play();
-					startTime = 0;
-					movetime = 0;
 					rotation_cnt = 0;
+					Start_animation_frame = 0;
 					Is_Resporn = false;
 				}
 
@@ -312,7 +294,7 @@ public class Player1 : character_status
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
                         target = direction;
 						transform.position = new Vector3(-12, 0, -20);
-
+						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
 				}
@@ -856,86 +838,5 @@ public class Player1 : character_status
 		}
 		//フレーム加算
 		cnt++;
-	}
-	//リスポーン用のアニメーション
-	private void Respone_Animation()
-	{
-		movetime += Time.deltaTime;
-		pos = new Vector3(0, transform.position.y, 0); //中心を決めます。今回は(0,0,0)
-		Calc_ExitPosition();
-		Respone_Move();
-		transform.position = pos;
-		if (rotation_cnt < 2)
-		{
-			self_rotation();
-		}
-
-	}
-	//ｘ軸の動き
-	private void X_Move()
-	{
-		pos.x += transform.position.x + X_speed * Time.deltaTime;
-	}
-	//ｚ軸の動き
-	private void Z_Move()
-	{
-		pos.z += transform.position.z + Z_speed * Time.deltaTime;
-	}
-	//サインカーブの計算
-	private void Calc_ExitPosition()
-	{
-		now_Time = Mathf.Sin(movetime * X_speed) * _return;
-		if (first_Time == 0)
-		{
-			first_Time = now_Time;
-		}
-		if (pre_Time < first_Time && first_Time < now_Time && type == Move_Type.Back)
-		{
-			count += 1;
-		}
-		pre_Time = now_Time;
-	}
-	private void Respone_Move()
-	{
-		switch (type)
-		{
-			case Move_Type.Front:
-				X_Move();
-				break;
-			case Move_Type.Back:
-				pos.x += transform.position.x + Mathf.Sin(movetime * X_speed) * _return;
-				if (transform.position.z == 0)
-				{
-					type = Move_Type.Front;
-				}
-				break;
-			case Move_Type.None:
-				break;
-			default:
-				break;
-		}
-
-		if (transform.position.x > -32.0f && count < 2 && type != Move_Type.Back)
-		{
-			type = Move_Type.Back;
-			start_pos = transform.position;
-			movetime = 0f;
-		}
-
-		if (transform.position.z < 0)
-		{
-			Z_Move();
-		}
-	}
-	private void self_rotation()
-	{
-		transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
-
-		rotation_speed += 10;
-		if (rotation_speed > 360)
-		{
-			rotation_speed = 0;
-			rotation_cnt++;
-		}
 	}
 }

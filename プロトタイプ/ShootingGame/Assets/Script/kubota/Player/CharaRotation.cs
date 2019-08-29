@@ -11,9 +11,13 @@ public class CharaRotation : MonoBehaviour
 	public PlayableAsset animation_1;
 	public PlayableAsset animation_2;
 	public ParticleSystem jet;
+	private int frame;
+	private bool is_anim;
+	public int frame_max;
 	// Start is called before the first frame update
 	void Start()
     {
+		frame = 0;
 		rotation_cnt = 0;
 		Is_return = false;
 		anim = GetComponent<PlayableDirector>();
@@ -23,12 +27,21 @@ public class CharaRotation : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+		if(is_anim) frame++;
+
 		if (Input.GetButtonDown("Fire1"))
+		{
+			is_anim = true;
+			transform.position = new Vector3(-50, 0, 0);
+		}
+
+		if(frame > frame_max)
 		{
 			anim.Play(animation_1);
 			jet.Play();
+			frame = 0;
+			is_anim = false;
 		}
-
 
 		//self_rotation();
 	}
