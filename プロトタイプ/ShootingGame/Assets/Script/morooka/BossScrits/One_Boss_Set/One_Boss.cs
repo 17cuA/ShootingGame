@@ -47,6 +47,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("スタートアニメーション")] private bool Start_Flag;
 	[SerializeField, Tooltip("アップデートアニメーション")] private bool Update_Flag;
 	[SerializeField, Tooltip("タイムライン")] private PlayableDirector start_timecline;
+	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset l;
 
 	[Header("突進攻撃用")]
 	[SerializeField, Tooltip("突進中フラグ")] private bool now_rush;
@@ -184,7 +185,7 @@ public class One_Boss : character_status
 
 		for(int i = 0;i<Damage_Stage_Col.Count; i++)
 		{
-		for(int j = 1;j<Damage_Stage_Col[i].Count;j++)
+		for(int j = 0;j<Damage_Stage_Col[i].Count;j++)
 		{
 				Damage_Stage_Col[i][j].enabled = false;
 		}
@@ -193,7 +194,7 @@ public class One_Boss : character_status
 
 	private new void Update()
 	{
-		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now)
+		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
 		{
 			maenoiti = transform.position;
 			start_timecline.Pause();
@@ -221,7 +222,7 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				if (Number_Of_Lasers < 2)
+				if (Number_Of_Lasers < 0)
 				{
 					Laser_Clearing_2();
 				}
@@ -685,6 +686,7 @@ public class One_Boss : character_status
 		}
 		else if (Attack_Step == 3)
 		{
+
 			if(!now_rush)
 			{
 				start_timecline.Pause();
