@@ -184,8 +184,10 @@ public class EnemyCreate : MonoBehaviour
 
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
+	GameObject mistEffectObj;
+	ParticleSystem mistParticle;
 
-    GameObject middleBossOBj;
+	GameObject middleBossOBj;
     Enemy_MiddleBoss middleBoss_Script;
 
     public bool isCreate;       //表示するときにtrueにする
@@ -350,6 +352,9 @@ public class EnemyCreate : MonoBehaviour
 		enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
         Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
 
+		mistEffectObj = Resources.Load("Effects/Other/Test_Materialscroll_Eff") as GameObject;
+		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
+
 		//群れカウント初期化
 		groupCnt = 1;
         //nowGroupCnt = 1;
@@ -413,7 +418,7 @@ public class EnemyCreate : MonoBehaviour
                 frameCnt = 6130;
                 turning_frame = 6130;
 
-                groupCnt = 22;
+                groupCnt = 23;
             }
             isMiddleBossDead = false;
         }
@@ -425,7 +430,7 @@ public class EnemyCreate : MonoBehaviour
                 {
                     frameCnt = 6130;
                     turning_frame = 6130;
-                    groupCnt = 22;
+                    groupCnt = 23;
                 }
                 isMiddleBossDead = false;
 
@@ -434,10 +439,10 @@ public class EnemyCreate : MonoBehaviour
 
         if (isOneBossDead)
         {
-            if (frameCnt < 17750)
+            if (frameCnt < 25290)
             {
-                frameCnt = 17750;
-                turning_frame = 17750;
+                frameCnt = 25290;
+                turning_frame = 25290;
             }
             isOneBossDead = false;
         }
@@ -445,10 +450,10 @@ public class EnemyCreate : MonoBehaviour
         {
             if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 17750)
+                if (frameCnt < 25290)
                 {
-                    frameCnt = 17750;
-                    turning_frame = 17750;
+                    frameCnt = 25290;
+                    turning_frame = 25290;
                 }
                 isOneBossDead = false;
 
@@ -1243,6 +1248,13 @@ public class EnemyCreate : MonoBehaviour
         {
             GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
             Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
+
+			GameObject mistSaveObj = Instantiate(mistEffectObj, transform.position, transform.rotation);
+			mistEffectObj.transform.position = new Vector3(0, 0, 3);
+			mistParticle = mistSaveObj.GetComponent<ParticleSystem>();
+			mistParticle.Play();
+
+
 
             nextEnemy = "バキュラ群";
             Next_Condition(14400);

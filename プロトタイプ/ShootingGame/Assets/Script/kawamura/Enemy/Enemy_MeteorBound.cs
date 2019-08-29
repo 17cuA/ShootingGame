@@ -29,6 +29,9 @@ public class Enemy_MeteorBound : character_status
 	public float defPercentX;
 	public float defPercentY;
 
+	public string meteorname;
+	public bool atarimasita_migigawa;
+	public bool atarimasita = false;
 	new void Start()
 	{
 		parentObj = transform.parent.gameObject;
@@ -58,8 +61,12 @@ public class Enemy_MeteorBound : character_status
 
 	new void OnTriggerEnter(Collider col)
 	{
+		meteorname = col.gameObject.name;
+		//atarimasita = true;
 		if (col.gameObject.name == "Enemy_MeteorBound_Model")
 		{
+			atarimasita = true;
+
 			opponentMeteorBound = col.gameObject.GetComponent<Enemy_MeteorBound>();
 			defPosX = col.transform.position.x - transform.position.x;
 			defPosY = col.transform.position.y - transform.position.y;
@@ -180,12 +187,15 @@ public class Enemy_MeteorBound : character_status
 				{
 					if (myBoundMove.speedX < 0)
 					{
-						myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX + myBoundMove.speedX;
+						atarimasita_migigawa = true;
+						myBoundMove.speedX = myBoundMove.speedX + opponentMeteorBound.speedX;
+						//myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX + myBoundMove.speedX;
 						//myBoundMove.speedX += opponentMeteorBound.speedX - myBoundMove.speedX;
 					}
 					else
 					{
-						myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX - myBoundMove.speedX;
+						atarimasita_migigawa = true;
+						myBoundMove.speedX = opponentMeteorBound.speedX * defPercentX + myBoundMove.speedX;
 						//	myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
 						//	//myBoundMove.speedX += opponentMeteorBound.speedX * defPercentX;
 					}
@@ -194,7 +204,9 @@ public class Enemy_MeteorBound : character_status
 				{
 					//if (myBoundMove.speedX > 0)
 					//{
-					myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+					//myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX;
+					atarimasita_migigawa = true;
+					myBoundMove.speedX = myBoundMove.speedX - (myBoundMove.speedX - myBoundMove.speedX - opponentMeteorBound.speedX * defPercentX);
 					//myBoundMove.speedX -= myBoundMove.speedX - opponentMeteorBound.speedX;
 					//}
 					//	myBoundMove.speedX -= opponentMeteorBound.speedX * defPercentX;
@@ -206,7 +218,7 @@ public class Enemy_MeteorBound : character_status
 			{
 				if (opponentMeteorBound.speedX < 0)
 				{
-					if(myBoundMove.speedX<0)
+					if (myBoundMove.speedX < 0)
 					{
 						myBoundMove.speedX = myBoundMove.speedX - opponentMeteorBound.speedX;
 					}
@@ -223,7 +235,6 @@ public class Enemy_MeteorBound : character_status
 					myBoundMove.speedX = myBoundMove.speedX + opponentMeteorBound.speedX * defPercentX;
 				}
 			}
-
 		}
 		opponentMeteorBound = null;
 		base.OnTriggerEnter(col);
