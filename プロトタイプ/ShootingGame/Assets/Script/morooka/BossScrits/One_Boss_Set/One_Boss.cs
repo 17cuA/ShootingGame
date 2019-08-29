@@ -47,6 +47,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("スタートアニメーション")] private bool Start_Flag;
 	[SerializeField, Tooltip("アップデートアニメーション")] private bool Update_Flag;
 	[SerializeField, Tooltip("タイムライン")] private PlayableDirector start_timecline;
+	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset l;
 
 	[Header("突進攻撃用")]
 	[SerializeField, Tooltip("突進中フラグ")] private bool now_rush;
@@ -221,7 +222,7 @@ public class One_Boss : character_status
 			}
 			else
 			{
-				if (Number_Of_Lasers < 2)
+				if (Number_Of_Lasers < 0)
 				{
 					Laser_Clearing_2();
 				}
