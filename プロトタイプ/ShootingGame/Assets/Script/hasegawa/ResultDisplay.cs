@@ -12,9 +12,6 @@ using TextDisplay;
 /// </summary>
 public class ResultDisplay : MonoBehaviour
 {
-	delegate void DisplaySetting();
-
-	DisplaySetting displaySetting;
 	const uint clearbonusValue = 30000;
 	// ヘッダー
 	private Character_Display resultTextDisplay;
@@ -59,14 +56,13 @@ public class ResultDisplay : MonoBehaviour
 		resultTextDisplay = new Character_Display("RESULT".Length, "morooka/SS", resultTextParent, resultTextPosition);
 		resultTextDisplay.Character_Preference("RESULT");
 		resultTextDisplay.Centering();
-		// メソッド代入
-		displaySetting = SettingResultDisplayPlayer1;
-		// 二人プレイの時はPlayer2の分も代入する
+		// メソッド実行
+		SettingResultDisplayPlayer1();
+		// 二人プレイの時はPlayer2の分も実行する
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
-			displaySetting += SettingResultDisplayPlayer2;
+			SettingResultDisplayPlayer2();
 		}
-		displaySetting();
 	}
 
 	void Update()
