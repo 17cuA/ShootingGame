@@ -186,6 +186,7 @@ public class EnemyCreate : MonoBehaviour
     One_Boss oneBoss_Script;
 	GameObject mistEffectObj;
 	ParticleSystem mistParticle;
+	public BackgroundActivation backActive_Script;
 
 	GameObject middleBossOBj;
     Enemy_MiddleBoss middleBoss_Script;
@@ -352,8 +353,9 @@ public class EnemyCreate : MonoBehaviour
 		enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
         Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
 
-		mistEffectObj = Resources.Load("Effects/Other/Test_Materialscroll_Eff") as GameObject;
+		mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
 		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
+		backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
 
 		//群れカウント初期化
 		groupCnt = 1;
@@ -413,10 +415,10 @@ public class EnemyCreate : MonoBehaviour
 
         if (isMiddleBossDead)
         {
-            if (frameCnt < 6130)
+            if (frameCnt < 7010)
             {
-                frameCnt = 6130;
-                turning_frame = 6130;
+                frameCnt = 7010;
+                turning_frame = 7010;
 
                 groupCnt = 23;
             }
@@ -426,10 +428,10 @@ public class EnemyCreate : MonoBehaviour
         {
             if(middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 6130)
+                if (frameCnt < 7010)
                 {
-                    frameCnt = 6130;
-                    turning_frame = 6130;
+                    frameCnt = 7010;
+                    turning_frame = 7010;
                     groupCnt = 23;
                 }
                 isMiddleBossDead = false;
@@ -448,7 +450,7 @@ public class EnemyCreate : MonoBehaviour
         }
         else if (oneBoss_Script != null)
         {
-            if (oneBoss_Script.Is_Dead)
+			if (oneBoss_Script.Is_Dead)
             {
                 if (frameCnt < 25290)
                 {
@@ -1246,13 +1248,15 @@ public class EnemyCreate : MonoBehaviour
         // 大ボス(9830)
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
         {
-            GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
-            Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
+			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+			Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
 
 			GameObject mistSaveObj = Instantiate(mistEffectObj, transform.position, transform.rotation);
 			mistEffectObj.transform.position = new Vector3(0, 0, 3);
 			mistParticle = mistSaveObj.GetComponent<ParticleSystem>();
+			backActive_Script = mistSaveObj.GetComponent<BackgroundActivation>();
 			mistParticle.Play();
+			backActive_Script.TransparencyChangeTrigger();
 
 
 
@@ -1274,28 +1278,57 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "バウンド隕石";
             Next_Condition(60);
         }
+		//バウンド隕石1
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(420);
+            Next_Condition(240);
 
         }
+		//バウンド隕石2
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-			nextEnemy = "バウンド隕石2";
-			Next_Condition(420);
+			nextEnemy = "バウンド隕石3";
+			Next_Condition(240);
 
 		}
+		//バウンド隕石3
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
+			nextEnemy = "バウンド隕石4";
+			Next_Condition(240);
+
+		}
+		//バウンド隕石4
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+			nextEnemy = "バウンド隕石5";
+			Next_Condition(240);
+
+		}
+		//バウンド隕石5
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+			nextEnemy = "バウンド隕石6";
+			Next_Condition(240);
+
+		}
+		//バウンド隕石6
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "バウンド隕石2";
+            nextEnemy = " ";
             Next_Condition(1200);
 
         }

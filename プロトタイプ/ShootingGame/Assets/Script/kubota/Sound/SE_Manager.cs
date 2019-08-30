@@ -26,7 +26,8 @@ public class SE_Manager : MonoBehaviour
 	// Start is called before the first frame update
 	public void SE_Active(AudioClip se)
 	{
-		if(Is_Active) audiosource1.PlayOneShot(se);
+		if (audiosource1.isPlaying) audiosource1.Stop();
+		if (Is_Active) audiosource1.PlayOneShot(se);
 	}
 	//先生からもらったもののSE
 	public void SE_Active_2(AudioClip se)
