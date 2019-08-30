@@ -21,7 +21,10 @@ public class Ranking_Strage : MonoBehaviour
 	public const int Reserve_Number = 31;
 	public const string kDefaultName = "YOU";
 	public const string kEmptyName = "XXX";
-	public int PlayerRank { get; private set; }
+	int player1Rank = 0;
+	public int Player1Rank { get { return player1Rank; } }
+	int player2Rank = 0;
+	public int Player2Rank { get { return player2Rank; } }
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
@@ -37,7 +40,11 @@ public class Ranking_Strage : MonoBehaviour
 		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
 		{
 			Strage_Data = GetComponent<Ranking_Strage>();
-			Set_Score(kDefaultName, Game_Master.display_score_1P);
+			Set_Score(kDefaultName, Game_Master.display_score_1P, ref player1Rank);
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Set_Score(kDefaultName, Game_Master.display_score_2P, ref player2Rank);
+			}
 			_Display = GetComponent<RankingDisplay>();
 			_Display.Init();
 		}
@@ -83,14 +90,14 @@ public class Ranking_Strage : MonoBehaviour
 		return rankingArray;
 	}
 
-	public void Set_Score(string name, uint score)
+	public void Set_Score(string name, uint score, ref int rank)
 	{
 		Strage[Max_num].name = name;
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);
 		int i;
 		for (i = 0; i < Max_num && Strage[i].score > Game_Master.display_score_1P; ++i) ;
-		PlayerRank = i;
+		rank = i;
 		Ranking_Save();
 	}
 
