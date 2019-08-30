@@ -8,6 +8,8 @@ using UnityEngine;
 public class FollowToPreviousBit : MonoBehaviour
 {
 	public GameObject playerObj;
+	Player1 pl1;
+	Player2 pl2;
 	GameObject previousBitObj;
 	public GameObject parentObj;
 	public string parentName;
@@ -95,6 +97,35 @@ public class FollowToPreviousBit : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
+		//プレイヤー格納がnullなら入れる
+		if (playerObj == null)
+		{
+			if (isFollow1P)
+			{
+				//プレイヤーがいたら入れる
+				playerObj = GameObject.Find("Player");
+				pl1 = playerObj.GetComponent<Player1>();
+				//isMove = true;
+				//playerPos[cnt] = playerObj.transform;
+				transform.position = playerObj.transform.position;
+				defCheck = true;
+				//pos = playerObj.transform.position;
+
+			}
+			else if (isFollow2P)
+			{
+				//プレイヤーがいたら入れる
+				playerObj = GameObject.Find("Player_2");
+				pl2 = playerObj.GetComponent<Player2>();
+				//isMove = true;
+				//playerPos[cnt] = playerObj.transform;
+				transform.position = playerObj.transform.position;
+				defCheck = true;
+				//pos = playerObj.transform.position;
+
+			}
+		}
+
 		if (isFollow1P)
 		{
 			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
@@ -134,32 +165,6 @@ public class FollowToPreviousBit : MonoBehaviour
 			}
 		}
 
-		//プレイヤー格納がnullなら入れる
-		if (playerObj == null)
-		{
-			if (isFollow1P)
-			{
-				//プレイヤーがいたら入れる
-				playerObj = GameObject.Find("Player");
-				//isMove = true;
-				//playerPos[cnt] = playerObj.transform;
-				transform.position = playerObj.transform.position;
-				defCheck = true;
-				//pos = playerObj.transform.position;
-				
-			}
-			else if (isFollow2P)
-			{
-				//プレイヤーがいたら入れる
-				playerObj = GameObject.Find("Player_2");
-				//isMove = true;
-				//playerPos[cnt] = playerObj.transform;
-				transform.position = playerObj.transform.position;
-				defCheck = true;
-				//pos = playerObj.transform.position;
-				
-			}
-		}
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
 		if (pos != previousBitObj.transform.position && !check)
 		//if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
