@@ -49,25 +49,84 @@ public class InputRankingName
 	}
 	int selectPos = 0;													// 文字の入力位置
 	float previousInputY = 0f;											// 前フレームの入力情報
-	//const float kSelectScalingValueMax = 0.5f;							// スケール値の最大値
-	//const float kSelectScalingReduceValue = 0.2f;						// 1fに減らすスケール値
-	//float selectScalingValue = kSelectScalingValueMax;					// 選択している文字の減算するスケール値
-	//float selectDefaultScaleValue = 0f;									// スケールの規定値
 	const int kBlinkInvisibleFrame = 35;								// 非表示を開始するフレーム数
 	const int kBlinkFrameMax = 45;										// 点滅の一回にループするフレーム数
 	int blinkFrame = 0;													// 点滅させるためのフレーム数
+	string selectAxisName = "Vertical";									// 選択に使用する入力軸の名前
+	string decisionButtonName = "Fire1";								// 決定するボタンの名前
+	string cancelButtonName = "Fire2";									// ひとつ前に戻るボタンの名前
+	KeyCode decisionKeyCode = KeyCode.None;								// 決定するキーの名前
+	KeyCode cancelKeyCode = KeyCode.None;								// ひとつ前に戻るボタンの名前
 	public bool IsDecision { get { return selectPos >= kNameLength; } }	// 決定されたかどうか
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public InputRankingName(string defaultName = "UFO")
+	public InputRankingName(string selectAxisName, string defaultName = "UFO")
 	{
 		for (int i = 0; i < kNameLength; ++i)
 		{
 			name[i] = defaultName[i];
 		}
+		this.selectAxisName = selectAxisName;
 	}
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionButtonName">決定するボタンの名前</param>
+	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public InputRankingName(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO")
+	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionButtonName = decisionButtonName;
+		this.cancelButtonName = cancelButtonName;
+	}
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionKeyCode">決定するキーの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public InputRankingName(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO")
+	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionKeyCode = decisionKeyCode;
+		this.cancelKeyCode = cancelKeyCode;
+	}
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionButtonName">決定するボタンの名前</param>
+	/// <param name="decisionKeyCode">決定するキーの名前</param>
+	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public InputRankingName(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO")
+	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionButtonName = decisionButtonName;
+		this.decisionKeyCode = decisionKeyCode;
+		this.cancelButtonName = cancelButtonName;
+		this.cancelKeyCode = cancelKeyCode;
+	}
+
 	/// <summary>
 	/// 呼び出されている間、名前を変更できる
 	/// </summary>
@@ -90,11 +149,11 @@ public class InputRankingName
 		// 選択されている鵜文字が消えないようにアクティブにする
 		nameImageList[selectPos].enabled = true;
 		// 文字の選択位置を変える
-		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetButtonDown(decisionButtonName) || Input.GetKeyDown(decisionKeyCode))
 		{
 			++selectPos;
 		}
-		if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2"))
+		if (Input.GetKeyDown(cancelKeyCode) || Input.GetButtonDown(cancelButtonName))
 		{
 			--selectPos;
 		}
@@ -115,7 +174,7 @@ public class InputRankingName
 	{
 		// 選択範囲外であれば処理しない
 		if (selectPos >= kNameLength) { return; }
-		float inputY = Input.GetAxisRaw("Vertical");
+		float inputY = Input.GetAxisRaw(selectAxisName);
 		// 前フレームも入力していたら移動しない
 		if (previousInputY != 0f) { previousInputY = inputY; return; }
 		// 元の文字を保存しておく
@@ -139,12 +198,6 @@ public class InputRankingName
 			name[selectPos] = 'Z';
 		}
 		previousInputY = inputY;
-	}
-	/// <summary>
-	/// 選択されている文字を拡大縮小する
-	/// </summary>
-	void ScalingSelectChar()
-	{
 	}
 	/// <summary>
 	/// 選択している文字を点滅させる
