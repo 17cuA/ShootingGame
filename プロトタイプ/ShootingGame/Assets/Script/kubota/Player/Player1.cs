@@ -94,7 +94,7 @@ public class Player1 : character_status
     public int Bullet_cnt;          //バレットの発射数をかぞえる変数
     private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 
-	private bool Is_Burst;      //バースト発射するかどうかの判定
+	public bool Is_Burst;      //バースト発射するかどうかの判定
 
 	private bool one;
     //プレイヤーがアクティブになった瞬間に呼び出される
@@ -209,6 +209,10 @@ public class Player1 : character_status
 					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(Entry_anim_Data[0]);
 					else Entry_anim.Play(Entry_anim_Data[1]);
 					rotation_cnt = 1;
+					if (Is_Animation)
+					{
+						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
+					}
 					Is_Animation = false;
 
 				}
@@ -222,13 +226,6 @@ public class Player1 : character_status
 					Is_Resporn = false;
 				}
 
-				if(transform.position.x > -19)
-				{
-					if(!one)
-					{
-						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
-					}
-				}
 				//if(transform.position.z == 0)
 				//{
 				//	resporn_Injection.Stop();
@@ -605,7 +602,6 @@ public class Player1 : character_status
 						shoot_number = 0;
 						effect_num = 0;
 						Is_Burst = false;
-
 					}
 					else
 					{

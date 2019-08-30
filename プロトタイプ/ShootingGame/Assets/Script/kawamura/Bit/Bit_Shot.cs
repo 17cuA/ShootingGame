@@ -235,7 +235,9 @@ public class Bit_Shot : MonoBehaviour
 				if (shot_Delay > Shot_DelayMax)
 				{
 
-					if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+					//if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Space))
+					//{
+					if (pl1.Is_Burst)
 					{
 						// 連続で4発まで撃てるようにした
 						if (shotNum < 5)
@@ -268,7 +270,7 @@ public class Bit_Shot : MonoBehaviour
 
 						}
 						// 4発撃った後、10フレーム程置く
-						else if (shotNum == 15)
+						else if (shotNum == 40)
 						{
 							shotNum = 0;
 							effectNum = 0;
@@ -277,12 +279,18 @@ public class Bit_Shot : MonoBehaviour
 						{
 							shotNum++;
 						}
+
 					}
+					//}
 				}
-				if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+				if (!pl1.Is_Burst)
 				{
 					shotNum = 0;
 				}
+				//if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
+				//{
+				//	shotNum = 0;
+				//}
 				if (effectNum > 4)
 				{
 					effectNum = 0;
@@ -297,7 +305,9 @@ public class Bit_Shot : MonoBehaviour
 			{
 				if (shot_Delay > Shot_DelayMax)
 				{
-					if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
+					//if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
+					//{
+					if (pl2.Is_Burst)
 					{
 						shot_Delay = 0;
 						switch (pl2.bullet_Type)
@@ -325,7 +335,9 @@ public class Bit_Shot : MonoBehaviour
 							missileDelayCnt = 0;
 						}
 						shot_Delay = 0;
+
 					}
+					//}
 				}
 			}
 			else
@@ -378,7 +390,11 @@ public class Bit_Shot : MonoBehaviour
 						}
 					}
 				}
-				if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
+				//if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
+				//{
+				//	shotNum = 0;
+				//}
+				if (!pl1.Is_Burst)
 				{
 					shotNum = 0;
 				}
@@ -405,7 +421,7 @@ public class Bit_Shot : MonoBehaviour
                     pBullet = saveObj.GetComponent<Player_Bullet>();
                     pBullet.bShot = myShot;
 
-                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    //SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                     Bullet_cnt += 1;
                 }
                 //}
@@ -413,24 +429,41 @@ public class Bit_Shot : MonoBehaviour
             }
 			else
 			{
-                if (Bullet_cnt < 8 && bullet_data.Count < 10)
-                {
-                    bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
-                    for (int i = 0; i < bullet_data.Count; i++)
-                    {
-                        if (bullet_data[i] != null)
-                        {
-                            saveObj = bullet_data[i];
-                            pBullet = saveObj.GetComponent<Player_Bullet>();
-                            pBullet.bShot = myShot;
-                        }
-                    }
+				if (Bullet_cnt < 8 && bullet_data.Count < 10)
+				{
+					bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+					for (int i = 0; i < bullet_data.Count; i++)
+					{
+						if (bullet_data[i] != null)
+						{
+							saveObj = bullet_data[i];
+							pBullet = saveObj.GetComponent<Player_Bullet>();
+							pBullet.bShot = myShot;
+						}
+					}
 
-                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+					//SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 					Bullet_cnt += 1;
 				}
+
+				//if (Bullet_cnt < 8 && bullet_data.Count < 10)
+    //            {
+    //                bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eP1_OPTION_BULLET, shot_Mazle.transform.position, Direction));
+    //                for (int i = 0; i < bullet_data.Count; i++)
+    //                {
+    //                    if (bullet_data[i] != null)
+    //                    {
+    //                        saveObj = bullet_data[i];
+    //                        pBullet = saveObj.GetComponent<Player_Bullet>();
+    //                        pBullet.bShot = myShot;
+    //                    }
+    //                }
+
+    //                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				//	Bullet_cnt += 1;
+				//}
 			}
-			if (Bullet_cnt != 8)
+			if (Bullet_cnt_Max != 8)
 			{
 				Bullet_cnt_Max = 8;
 			}
@@ -447,7 +480,7 @@ public class Bit_Shot : MonoBehaviour
                     pBullet = saveObj.GetComponent<Player_Bullet>();
                     pBullet.bShot = myShot;
 
-                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    //SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                     Bullet_cnt += 1;
                 }
             }
@@ -466,7 +499,7 @@ public class Bit_Shot : MonoBehaviour
                         }
                     }
 
-                    SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                    //SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
                     Bullet_cnt += 1;
                 }
             }
@@ -528,7 +561,7 @@ public class Bit_Shot : MonoBehaviour
                 pBullet = saveObj.GetComponent<Player_Bullet>();
                 pBullet.bShot = myShot;
 
-                SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+                //SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 2;
 			}
             if (Bullet_cnt_Max != 20)

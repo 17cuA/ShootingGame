@@ -45,7 +45,7 @@ public class Enemy_MiddleBoss : character_status
 	private StateManager<StateType> stateManager;
 
 	private CapsuleCollider _capsuleCollider;   
-    private CapsuleCollider[] childsCapsuleColliders;
+    private BoxCollider[] childsCapsuleColliders;
 	private Rigidbody rb;
 	private Transform player;
 	private Animator animator;
@@ -57,7 +57,7 @@ public class Enemy_MiddleBoss : character_status
 		rb = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
 		_capsuleCollider = GetComponent<CapsuleCollider>();
-        childsCapsuleColliders = GetComponentsInChildren<CapsuleCollider>();
+        childsCapsuleColliders = GetComponentsInChildren<BoxCollider>();
 		rb.useGravity = false;
 
 		var state = new StateBase<StateType>(moveDuration, StateType.MOVE);
