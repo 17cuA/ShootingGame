@@ -1288,7 +1288,7 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(800);
         }
 
-        // 大ボス(9830)
+        // 大ボス(10810)
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
         {
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
