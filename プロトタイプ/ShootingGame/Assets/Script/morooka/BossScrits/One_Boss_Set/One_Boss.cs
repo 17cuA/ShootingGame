@@ -225,7 +225,7 @@ public class One_Boss : character_status
 		}
 		else if (!End_Flag && !Start_Flag && Update_Flag)
 		{
-			if (Attack_Type_Instruction < Bullet_Num)
+			if (Attack_Type_Instruction < 2)
 			{
 				Player_Tracking_Bound_Bullets_2();
 			}
