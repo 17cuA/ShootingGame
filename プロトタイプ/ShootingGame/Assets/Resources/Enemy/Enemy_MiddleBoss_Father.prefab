@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8828914398105814667}
   - component: {fileID: 8828914398105814664}
   - component: {fileID: 8828914398105814665}
+  - component: {fileID: 8051616349800506146}
   m_Layer: 9
   m_Name: Enemy_MiddleBoss_Father
   m_TagString: Enemy
@@ -117,6 +118,18 @@ MonoBehaviour:
   bulletsDistance: 1.25
   bulletCreatLocalPos: {x: 0, y: 0}
   canFirstShot: 0
+--- !u!114 &8051616349800506146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8828914398105814670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &2146899430110271464
 Rigidbody:
   m_ObjectHideFlags: 0
