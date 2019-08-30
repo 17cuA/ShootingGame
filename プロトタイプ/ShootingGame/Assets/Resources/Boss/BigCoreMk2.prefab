@@ -6564,8 +6564,12 @@ MonoBehaviour:
   warp_ef: {fileID: 4867751417713931724}
   Start_Flag: 1
   Update_Flag: 0
-  start_timecline: {fileID: 5208960476216627437}
-  l: {fileID: 0}
+  Timeline_Player: {fileID: 5208960476216627437}
+  End_Plefab: {fileID: 0}
+  sonota_Timeline: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+  layser_timeline: {fileID: 11400000, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
+  Is_end_of_timeline: 0
+  Is_Laser_Attack: 0
   now_rush: 0
 --- !u!320 &5208960476216627437
 PlayableDirector:
@@ -6576,8 +6580,8 @@ PlayableDirector:
   m_GameObject: {fileID: 9051573755106712536}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
-  m_InitialState: 1
+  m_PlayableAsset: {fileID: 11400000, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
+  m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
