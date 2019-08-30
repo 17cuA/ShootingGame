@@ -1053,7 +1053,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "";
             Next_Condition(700);
         }
-        //直進の闘牛を左上と左下から（後ろからくる）5950
+        //直進の闘牛を右真ん中（後ろからくる）5950
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
@@ -1067,7 +1067,7 @@ public class EnemyCreate : MonoBehaviour
             //nextEnemy = "直進の闘牛を右中央から（前からくる）";
             Next_Condition(60);
         }
-        //直進の闘牛を右中央から（前からくる） 6010
+        //直進の闘牛を右上と右下（前からくる） 6010
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
         {
             //Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
@@ -1079,8 +1079,11 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(290);
 
         }
-        //左右からハエ型5体の群れ出す 6300
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
+
+		//ここの間に入れる（ヒトデを複数ポンポン出す予定）
+
+		//左右からハエ型5体の群れ出す 6300　
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
         {
             Instantiate(enemy_Beelzebub_Group_FourNomal, createPosR0.transform.position, transform.rotation);
             //Instantiate(enemy_Beelzebub_Group_FourBack, createPosL0.transform.position, transform.rotation);
