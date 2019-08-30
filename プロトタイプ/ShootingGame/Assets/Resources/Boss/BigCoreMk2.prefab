@@ -6564,8 +6564,12 @@ MonoBehaviour:
   warp_ef: {fileID: 4867751417713931724}
   Start_Flag: 1
   Update_Flag: 0
-  start_timecline: {fileID: 5208960476216627437}
-  l: {fileID: 0}
+  Timeline_Player: {fileID: 5208960476216627437}
+  End_Plefab: {fileID: 0}
+  sonota_Timeline: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+  layser_timeline: {fileID: 11400000, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
+  Is_end_of_timeline: 0
+  Is_Laser_Attack: 0
   now_rush: 0
 --- !u!320 &5208960476216627437
 PlayableDirector:
@@ -6576,8 +6580,8 @@ PlayableDirector:
   m_GameObject: {fileID: 9051573755106712536}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
-  m_InitialState: 1
+  m_PlayableAsset: {fileID: 11400000, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
+  m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -6594,6 +6598,8 @@ PlayableDirector:
     value: {fileID: 3645397463318327324, guid: 4c698ac07bdadaa4ba456ff9bb8c7566, type: 3}
   - key: {fileID: 0}
     value: {fileID: 0}
+  - key: {fileID: 114430540609390018, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
+    value: {fileID: 5486335064951420279}
   m_ExposedReferences:
     m_References: []
 --- !u!95 &5486335064951420279
@@ -6829,8 +6835,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 9, z: 10}
-  m_Center: {x: -1.13, y: 0, z: 3}
+  m_Size: {x: 1.4178978, y: 9, z: 10.442909}
+  m_Center: {x: -1.4210513, y: 2.2152974e-14, z: 3.221455}
 --- !u!65 &4700467530124263497
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6842,8 +6848,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 6, z: 10}
-  m_Center: {x: 3.26, y: 0, z: 3.36}
+  m_Size: {x: 0.8347444, y: 6, z: 10.000001}
+  m_Center: {x: 3.5926282, y: -3.3447095e-15, z: 3.3600001}
 --- !u!1 &9051573755106712542
 GameObject:
   m_ObjectHideFlags: 0
@@ -6943,8 +6949,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 9, z: 10}
-  m_Center: {x: -1.13, y: 0, z: 3}
+  m_Size: {x: 1.4178978, y: 9, z: 10.442909}
+  m_Center: {x: -1.4210513, y: 2.2152974e-14, z: 3.221455}
 --- !u!65 &3656508492250720037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6956,8 +6962,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 6, z: 10}
-  m_Center: {x: 3.26, y: 0, z: 3.36}
+  m_Size: {x: 0.8347444, y: 6, z: 10.000001}
+  m_Center: {x: 3.5926282, y: -3.3447095e-15, z: 3.3600001}
 --- !u!1001 &1539114853297066594
 PrefabInstance:
   m_ObjectHideFlags: 0
