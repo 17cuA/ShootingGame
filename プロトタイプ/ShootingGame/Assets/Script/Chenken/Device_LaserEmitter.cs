@@ -41,6 +41,8 @@ class Device_LaserEmitter : MonoBehaviour
 	public Bit_Formation_3 bf;
 	public string parentname;
 	bool isOption;
+	private float endTimer;
+	private bool isEnd = false;
 
 	/// <summary>
 	/// 回転装置
@@ -329,6 +331,8 @@ class Device_LaserEmitter : MonoBehaviour
 				if (audioSource.isPlaying) audioSource.Stop();
 				audioSource.clip = laserBegin;
 				audioSource.Play();
+
+				isEnd = false;
 			}
 
 			if (Input.GetButton(fireButtonName) || Input.GetKey(firekey))
@@ -343,14 +347,22 @@ class Device_LaserEmitter : MonoBehaviour
 
 				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
 				{
+					
 					if (isPlayerUseAudio)
 					{
+						
 						//記念すべきAセット by Johnny Yamazaki
 						// ドトールのミラノサンドはおいしいよ
-						if (audioSource.time >= laserBegin.length * 0.6f && audioSource.clip == laserBegin)
+						if (audioSource.time >= laserBegin.length * 0.6f && audioSource.clip == laserBegin && audioSource.clip != laserEnd)
 						{
 							audioSource.clip = laserContinuing;
 							audioSource.loop = true;
+							audioSource.Play();
+						}
+						if(audioSource.clip == laserEnd)
+						{
+							if (audioSource.isPlaying) audioSource.Stop();
+							audioSource.clip = laserBegin;
 							audioSource.Play();
 						}
 
@@ -374,7 +386,8 @@ class Device_LaserEmitter : MonoBehaviour
 				if (isPlayerUseAudio)
 				{
 					if (audioSource.isPlaying) audioSource.Stop();
-					audioSource.PlayOneShot(laserEnd);
+					audioSource.clip = laserEnd;
+					audioSource.Play();
 				}
 			}
 		}
@@ -395,6 +408,16 @@ class Device_LaserEmitter : MonoBehaviour
 			//	audioSource.PlayOneShot(laserEnd);
 
 			//}
+		}
+
+		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.pointCount ==  straightLaserNodeMax / 2)
+		{
+			if (isPlayerUseAudio)
+			{
+				if (audioSource.isPlaying) audioSource.Stop();
+				audioSource.clip = laserEnd;
+				audioSource.Play();
+			}
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------
 
