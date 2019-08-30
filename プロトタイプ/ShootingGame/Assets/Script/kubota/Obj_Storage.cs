@@ -93,8 +93,12 @@ public class Obj_Storage : MonoBehaviour
 	private string name_first_boss_before = "first_half_boss_before";		//前半のボス戦闘前のﾃﾞｰﾀ名
 	private string name_first_boss_after = "first_falf_boss_after";			 //前半ボス戦闘後のﾃﾞｰﾀ名
 	private string name_second_boss_before = "second_half_boss_before";	//後半ボス戦闘前ﾃﾞｰﾀ名
-	private string name_second_boss_after = "second_half_boss_after";		 //後半ボス戦闘後ﾃﾞｰﾀ名
-	
+	private string name_second_boss_after = "second_half_boss_after";        //後半ボス戦闘後ﾃﾞｰﾀ名
+
+	private string[] name_Wireless_Sinario = new string[5]; 
+
+	public List<List<string[]>> Wireless_Sinario = new List<List<string[]>>();
+
 	public List<string[]> First_half_boss_before = new List<string[]>();	 //前半ボス前のセリフ
 	public List<string[]> First_half_boss_after = new List<string[]>();		//前半ボス後のセリフ
 	public List<string[]> Second_half_boss_before = new List<string[]>();	//後半ボス前のセリフ
@@ -308,22 +312,45 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
 		//-----------------------------------------------------------------------------------------------------
 		//セリフの情報ロード
+		name_Wireless_Sinario[0] = "curtain_up";						//開戦時のファイル名
+		name_Wireless_Sinario[1] = "first_half_boss_before";			//前半ボス戦闘前
+		name_Wireless_Sinario[2] = "first_falf_boss_after";				//前半ボス戦闘後
+		name_Wireless_Sinario[3] = "second_half_boss_before";			//後半ボス戦闘前
+		name_Wireless_Sinario[4] = "second_half_boss_after";            //後半ボス戦闘後
+
+		for (int i = 0; i < name_Wireless_Sinario.Length; i++)
+		{
+			//開戦時のセリフの情報ロード
+			//string[,] array = new string[, name_Wireless_Sinario.Length];
+			TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_Sinario[i]) as TextAsset;            //csvファイルを入れる変数
+			Debug.Log(tsext_serif1);
+			StringReader string_serif1 = new StringReader(tsext_serif1.text);
+			Debug.Log(string_serif1);
+			//読み込んだデータをcsvの変数の中に格納
+			while (string_serif1.Peek() > -1)
+			{
+				string line = string_serif1.ReadLine();
+				Wireless_Sinario[i].Add(line.Split('/'));               //カンマごとに割り振る
+				for(int j = 0; j < Wireless_Sinario[i].Count; j++) Debug.Log(Wireless_Sinario[i][j]);
+			}
+		}
+
 		//開戦時のセリフの情報ロード
-		TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_curtain_up) as TextAsset;            //csvファイルを入れる変数
-		StringReader string_serif1 = new StringReader(tsext_serif1.text);                                     //読み込んだデータをcsvの変数の中に格納
-		while (string_serif1.Peek() > -1)
-		{
-			string line = string_serif1.ReadLine();
-			Curtain_up.Add(line.Split(','));               //カンマごとに割り振る
-		}
-		//前半のボスの戦闘前のセリフの情報ロード
-		TextAsset tsext_serif2 = Resources.Load("CSV_Folder/" + name_first_boss_before) as TextAsset;            //csvファイルを入れる変数
-		StringReader string_serif2 = new StringReader(tsext_serif2.text);                                     //読み込んだデータをcsvの変数の中に格納
-		while (string_serif1.Peek() > -1)
-		{
-			string line = string_serif2.ReadLine();
-			Curtain_up.Add(line.Split(','));               //カンマごとに割り振る
-		}
+		//TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_curtain_up) as TextAsset;            //csvファイルを入れる変数
+		//StringReader string_serif1 = new StringReader(tsext_serif1.text);                                     //読み込んだデータをcsvの変数の中に格納
+		//while (string_serif1.Peek() > -1)
+		//{
+		//	string line = string_serif1.ReadLine();
+		//	Curtain_up.Add(line.Split(','));               //カンマごとに割り振る
+		//}
+		////前半のボスの戦闘前のセリフの情報ロード
+		//TextAsset tsext_serif2 = Resources.Load("CSV_Folder/" + name_first_boss_before) as TextAsset;            //csvファイルを入れる変数
+		//StringReader string_serif2 = new StringReader(tsext_serif2.text);                                     //読み込んだデータをcsvの変数の中に格納
+		//while (string_serif1.Peek() > -1)
+		//{
+		//	string line = string_serif2.ReadLine();
+		//	Curtain_up.Add(line.Split(','));               //カンマごとに割り振る
+		//}
 
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
