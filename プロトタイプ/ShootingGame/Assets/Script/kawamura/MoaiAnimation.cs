@@ -25,6 +25,7 @@ public class MoaiAnimation : MonoBehaviour
 	public float moveSpeed;
 	public Animation anim;
 	public bool isOpen = true;
+	public bool isClose = false;
 
 	private void Awake()
 	{
@@ -55,14 +56,14 @@ public class MoaiAnimation : MonoBehaviour
 				moai_Script.isMouthOpen = true;
 			}
 		}
-		else
+		else if(isClose)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 			if (transform.localPosition.y > defaultPos.y)
 			{
 				transform.localPosition = defaultPos;
-				isOpen = true;
+				isClose = false;
 			}
 		}
 		//present_Location = (Time.time * testSpeed) / distance_two;

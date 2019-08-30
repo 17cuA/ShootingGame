@@ -95,7 +95,7 @@ public class Player2 : character_status
 	public int Bullet_cnt;          //バレットの発射数をかぞえる変数
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 
-	private bool Is_Burst;      //バースト発射するかどうかの判定
+	public bool Is_Burst;      //バースト発射するかどうかの判定
 
 	private bool one;
 	//プレイヤーがアクティブになった瞬間に呼び出される
