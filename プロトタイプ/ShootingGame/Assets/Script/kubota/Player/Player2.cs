@@ -161,8 +161,8 @@ public class Player2 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
+		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
@@ -250,7 +250,7 @@ public class Player2 : character_status
 				//-------------------------------
 				//デバックの工程
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2)) P1_PowerManager.Instance.Pick();
+				if (Input.GetKeyDown(KeyCode.Alpha2)) P2_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
 				if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
@@ -268,9 +268,9 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
-				P1_PowerManager.Instance.Update();
+				P2_PowerManager.Instance.Update();
 				//ビットン数をパワーマネージャーに更新する
-				P1_PowerManager.Instance.UpdateBit(bitIndex);
+				P2_PowerManager.Instance.UpdateBit(bitIndex);
 
 				//shield_Effect.Play(false);
 				if (hp < 1)
@@ -317,7 +317,7 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("P2_Fire2"))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
-					P1_PowerManager.Instance.Upgrade();
+					P2_PowerManager.Instance.Upgrade();
 				}
 
 				// 通常のバレットのディレイ計算
@@ -748,36 +748,36 @@ public class Player2 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				optionObj = Obj_Storage.Storage_Data.P2_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
+				bf.SetPlayer(2);
 				optionObj = null;
 				bf = null;
 
 				bitIndex++;
 				break;
 			case 1:
-				optionObj = Obj_Storage.Storage_Data.P2_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
+				bf.SetPlayer(2);
 				optionObj = null;
 				bf = null;
 
 				bitIndex++;
 				break;
 			case 2:
-				optionObj = Obj_Storage.Storage_Data.P2_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
+				bf.SetPlayer(2);
 				optionObj = null;
 				bf = null;
 
 				bitIndex++;
 				break;
 			case 3:
-				optionObj = Obj_Storage.Storage_Data.P2_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
 				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
+				bf.SetPlayer(2);
 				optionObj = null;
 				bf = null;
 

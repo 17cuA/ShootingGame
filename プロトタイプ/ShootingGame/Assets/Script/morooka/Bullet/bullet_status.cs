@@ -32,8 +32,13 @@ public class bullet_status : MonoBehaviour
 		Enemy,
 	}
 
-	public Type Bullet_Type;		//各キャラクタの弾かどうかを判定する変数
-    protected void Start()
+	public Type Bullet_Type;        //各キャラクタの弾かどうかを判定する変数
+
+	private void Awake()
+	{
+		gameObject.AddComponent<PauseComponent>();
+	}
+	protected void Start()
 	{
 		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
