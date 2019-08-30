@@ -8,6 +8,8 @@ using UnityEngine;
 public class FollowToPlayer_SameMotion : MonoBehaviour
 {
 	public GameObject playerObj;
+	Player1 pl1;
+	Player2 pl2;
 	public GameObject parentObj;
 	public string parentName;
 
@@ -52,6 +54,50 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
+		//プレイヤー格納がnullなら入れる
+		if (playerObj == null)
+		{
+			if (isFollow1P)
+			{
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player"))
+				{
+					playerObj = GameObject.Find("Player");
+					pl1 = playerObj.GetComponent<Player1>();
+					//配列にとりあえず追従位置を入れる
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+					}
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					pos = playerObj.transform.position;
+				}
+			}
+			else if (isFollow2P)
+			{
+				//プレイヤーがいたら入れる
+				if (GameObject.Find("Player_2"))
+				{
+					playerObj = GameObject.Find("Player_2");
+					pl2 = playerObj.GetComponent<Player2>();
+					//配列にとりあえず追従位置を入れる
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+					}
+					//isMove = true;
+					//playerPos[cnt] = playerObj.transform;
+					transform.position = playerObj.transform.position;
+					defCheck = true;
+					pos = playerObj.transform.position;
+				}
+
+			}
+		}
+
 		if (isFollow1P)
 		{
 			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
@@ -92,47 +138,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				isFreeze = true;
 			}
 
-		}
-		//プレイヤー格納がnullなら入れる
-		if (playerObj == null)
-		{
-			if (isFollow1P)
-			{
-				//プレイヤーがいたら入れる
-				if (GameObject.Find("Player"))
-				{
-					playerObj = GameObject.Find("Player");
-					//配列にとりあえず追従位置を入れる
-					for (int i = 0; i < array_Num; i++)
-					{
-						playerPos[i] = playerObj.transform.position;
-					}
-					//isMove = true;
-					//playerPos[cnt] = playerObj.transform;
-					transform.position = playerObj.transform.position;
-					defCheck = true;
-					pos = playerObj.transform.position;
-				}
-			}
-			else if (isFollow2P)
-			{
-				//プレイヤーがいたら入れる
-				if (GameObject.Find("Player_2"))
-				{
-					playerObj = GameObject.Find("Player_2");
-					//配列にとりあえず追従位置を入れる
-					for (int i = 0; i < array_Num; i++)
-					{
-						playerPos[i] = playerObj.transform.position;
-					}
-					//isMove = true;
-					//playerPos[cnt] = playerObj.transform;
-					transform.position = playerObj.transform.position;
-					defCheck = true;
-					pos = playerObj.transform.position;
-				}
-
-			}
 		}
 
 		if (!isFreeze)
