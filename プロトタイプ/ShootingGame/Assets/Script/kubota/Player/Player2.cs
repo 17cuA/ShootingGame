@@ -208,6 +208,10 @@ public class Player2 : character_status
 				{
 					Entry_anim.Play(Entry_anim_Data);
 					rotation_cnt = 1;
+					if (Is_Animation)
+					{
+						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
+					}
 					Is_Animation = false;
 
 				}
@@ -222,13 +226,6 @@ public class Player2 : character_status
 				}
 
 
-				if (transform.position.x > -19)
-				{
-					if (!one)
-					{
-						SE_Manager.SE_Obj.SE_Entry(Obj_Storage.Storage_Data.audio_se[21]);
-					}
-				}
 				//if(transform.position.z == 0)
 				//{
 				//	resporn_Injection.Stop();
