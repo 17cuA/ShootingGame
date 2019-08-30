@@ -198,6 +198,11 @@ namespace Power
 			{
 				upgradeCount = 0;
 			}
+
+			public void ReduceMaxUpgradeTime(int time)
+			{
+				this.maxUpgradeCount -= time;
+			}
 		}
 
 		//--------------------------------------------------

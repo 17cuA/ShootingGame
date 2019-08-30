@@ -23,6 +23,7 @@ public class UI_PowerUp : MonoBehaviour
 	public int start;
 	public int end;
 
+	public static bool isSetting = false;
 
 	private void Awake()
 	{
@@ -43,6 +44,8 @@ public class UI_PowerUp : MonoBehaviour
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
                 displays[number].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
+
+				
 			}
 		}
 		current.name = "Cursor";
@@ -55,7 +58,18 @@ public class UI_PowerUp : MonoBehaviour
         Debug.Log("人数：" + ((int)Game_Master.Number_Of_People).ToString());
 	}
 
-
+	private void Start()
+	{
+		if ((int)Game_Master.Number_Of_People == 2)
+		{
+			if (!isSetting)
+			{
+				P1_PowerManager.Instance.GetPower(P1_PowerManager.Power.PowerType.OPTION).ReduceMaxUpgradeTime(2);
+				P2_PowerManager.Instance.GetPower(P2_PowerManager.Power.PowerType.OPTION).ReduceMaxUpgradeTime(2);
+				isSetting = true;
+			}
+		}
+	}
 	private void Update()
 	{
 		if (playerNum == 1 || isPlayer1)

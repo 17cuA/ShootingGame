@@ -17,7 +17,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	public List<GameObject> nodes;
 
 	private int pointMax;
-	private int pointCount;
+	public int pointCount;
 	public bool IsOverLoad
 	{
 		get

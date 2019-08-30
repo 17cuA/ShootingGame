@@ -236,6 +236,9 @@ class Device_LaserEmitter : MonoBehaviour
 	private EmitterRotateCore emitterRotateCore;
 	private EmitterLaunchCore emitterLaunchCore;
 	private AudioSource audioSource;
+	[SerializeField] private AudioClip laserBegin;
+	[SerializeField] private AudioClip laserContinuing;
+	[SerializeField] private AudioClip laserEnd;
 	private float firePressTime;
 
 	private void OnEnable()
@@ -324,7 +327,8 @@ class Device_LaserEmitter : MonoBehaviour
 					this.emitterLaunchCore.GenerateLine(rotateLaserShotSpeed, rotateLaserWidth, rotateLaserMaterial, rotateLaserNodeMax);
 
 				if (audioSource.isPlaying) audioSource.Stop();
-				audioSource.PlayOneShot(audioSource.clip);
+				audioSource.clip = laserBegin;
+				audioSource.Play();
 			}
 
 			if (Input.GetButton(fireButtonName) || Input.GetKey(firekey))
@@ -341,7 +345,15 @@ class Device_LaserEmitter : MonoBehaviour
 				{
 					if (isPlayerUseAudio)
 					{
-						if (!audioSource.isPlaying) audioSource.PlayOneShot(audioSource.clip);
+						//記念すべきAセット by Johnny Yamazaki
+						// ドトールのミラノサンドはおいしいよ
+						if (audioSource.time >= laserBegin.length * 0.6f && audioSource.clip == laserBegin)
+						{
+							audioSource.clip = laserContinuing;
+							audioSource.loop = true;
+							audioSource.Play();
+						}
+
 					}
 
 					if (launchDevice is StraightLaunchDevice)
@@ -351,7 +363,7 @@ class Device_LaserEmitter : MonoBehaviour
 				}
 			}
 
-			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey) && launchDevice.CurrentGenerator != null)
+			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey))
 			{
 				if (launchDevice.CurrentGenerator != null)
 				{
@@ -359,6 +371,11 @@ class Device_LaserEmitter : MonoBehaviour
 					launchDevice.CurrentGenerator = null;
 				}
 
+				if (isPlayerUseAudio)
+				{
+					if (audioSource.isPlaying) audioSource.Stop();
+					audioSource.PlayOneShot(laserEnd);
+				}
 			}
 		}
 		//---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -371,10 +388,13 @@ class Device_LaserEmitter : MonoBehaviour
 			launchDevice.CurrentGenerator = null;
 
 			launchDevice.CanLaunchTime = Time.time + launchDevice.OverloadDuration;
-			if (isPlayerUseAudio)
-			{
-				if (audioSource.isPlaying) audioSource.Stop();
-			}
+			//if (isPlayerUseAudio)
+			//{
+			//	if (audioSource.loop) audioSource.loop = false;
+			//	if (audioSource.isPlaying) audioSource.Stop();
+			//	audioSource.PlayOneShot(laserEnd);
+
+			//}
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------
 

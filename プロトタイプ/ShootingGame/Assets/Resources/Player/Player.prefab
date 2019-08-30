@@ -218,13 +218,14 @@ MonoBehaviour:
   Laser: {fileID: 84610916388901426}
   missile_dilay_max: 45
   bullet_Type: 0
-  Is_Resporn: 0
-  Is_Animation: 0
   Entry_anim: {fileID: 1312724513}
   Entry_anim_Data:
   - {fileID: 11400000, guid: b1333afede9315347b24978c4e32d37a, type: 2}
   - {fileID: 11400000, guid: 90e17ff3d7ace884c9a8c3f1d6dc6c81, type: 2}
+  Start_animation_frame: 0
   frame_max: 30
+  Is_Animation: 0
+  Is_Resporn: 0
   effect_mazle_fire:
   - {fileID: 7462809191769450808}
   - {fileID: 2095407520705090822}
@@ -601,6 +602,21 @@ PrefabInstance:
       propertyPath: fireButtonName
       value: Fire1
       objectReference: {fileID: 0}
+    - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
+        type: 3}
+      propertyPath: laserBegin
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ee3f030a0fcab34dbfc61ae0f1f1392, type: 3}
+    - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
+        type: 3}
+      propertyPath: laserContinuing
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ea3dc604aecb8f47b58dcd0eff6bea5, type: 3}
+    - target: {fileID: 830479605731052982, guid: e0f67300a6336a34f8151c765962922f,
+        type: 3}
+      propertyPath: laserEnd
+      value: 
+      objectReference: {fileID: 8300000, guid: bf6345198b201d444a6b4b3330a3758a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f67300a6336a34f8151c765962922f, type: 3}
 --- !u!4 &905111437375214262 stripped
