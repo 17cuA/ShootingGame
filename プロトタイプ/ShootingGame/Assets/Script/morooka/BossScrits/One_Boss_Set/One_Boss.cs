@@ -256,9 +256,9 @@ public class One_Boss : character_status
 			// パーツのコアが壊れたら死亡
 			if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
 			{
-				maenoiti = transform.position;
-				start_timecline.Pause();
+				start_timecline.Stop();
 				Attack_Step = 0;
+				start_timecline.time = 60.0;
 				End_Flag = true;
 			}
 		}
@@ -294,40 +294,16 @@ public class One_Boss : character_status
 	{
 		if(Attack_Step == 0)
 		{
-			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
-			{
-				if (Vector_Size(Pos_set[0, 0], transform.position) < Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
-
-				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotational_speed);
-				start_timecline.time = 60.0;
-			}
-			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
-			{
-				start_timecline.time = 60.0;
-				Attack_Step++;
-			}
+			Is_Dead = true;
+			Attack_Step++;
 		}
 		else if(Attack_Step == 1)
 		{
-			ParticleSystem p = warp_ef.GetComponent<ParticleSystem>();
-			p.Play();
 			start_timecline.Play();
 			Attack_Step++;
 		}
 		else if(Attack_Step == 2)
 		{
-			if (transform.position.x >= 30.0f)
-			{
-				Is_Dead = true;
-			}
 		}
 	}
 	#endregion

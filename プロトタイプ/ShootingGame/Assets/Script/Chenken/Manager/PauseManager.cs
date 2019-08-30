@@ -18,6 +18,7 @@ public class PauseManager : MonoBehaviour
 	//[Header("Pause制御ボタン")]
 	//public string controlName;
 
+
 	private static bool isPause;
 	public static bool IsPause
 	{
@@ -29,7 +30,6 @@ public class PauseManager : MonoBehaviour
 
 	private GameObject pauseMask;
 	private AudioSource[] allAudios;
-
 
 	private void Start()
 	{

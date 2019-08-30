@@ -17,7 +17,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	public List<GameObject> nodes;
 
 	private int pointMax;
-	private int pointCount;
+	public int pointCount;
 	public bool IsOverLoad
 	{
 		get
@@ -182,6 +182,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
+		node.AddComponent<PauseComponent>();
 		return node;
 	}
 }
