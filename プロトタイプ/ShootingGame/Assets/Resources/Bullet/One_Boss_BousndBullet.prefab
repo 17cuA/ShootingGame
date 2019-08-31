@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4589889907479105230}
   m_Layer: 14
   m_Name: One_Boss_BousndBullet
-  m_TagString: Enemy
+  m_TagString: Enemy_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4945,6 +4945,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4340800327008533400, guid: 433ce1033805f5c46b7c6869ebebd776,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c2f9d0173eeb7a47a3655af8bd0962b, type: 2}
     - target: {fileID: 4340800327008533401, guid: 433ce1033805f5c46b7c6869ebebd776,
         type: 3}
       propertyPath: ShapeModule.radius.value
@@ -5010,11 +5015,6 @@ PrefabInstance:
       propertyPath: NoiseModule.frequency
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4340800327008533400, guid: 433ce1033805f5c46b7c6869ebebd776,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7c2f9d0173eeb7a47a3655af8bd0962b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 433ce1033805f5c46b7c6869ebebd776, type: 3}
 --- !u!4 &7932101817380277334 stripped

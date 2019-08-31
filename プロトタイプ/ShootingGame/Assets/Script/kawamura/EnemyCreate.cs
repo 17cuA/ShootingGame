@@ -139,12 +139,15 @@ public class EnemyCreate : MonoBehaviour
 
 	//public GameObject enemy_UFO_Group;
 	//public GameObject enemy_ClamChowder_Group_Four;
+	public GameObject enemy_ClamChowder_Group_Four_NoItem;
+
 	public GameObject enemy_ClamChowder_Group_Five;
     public GameObject enemy_ClamChowder_Group_FourBehind;
 	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
 	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown;
 	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_Item;
 	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_Item;
+	public GameObject enemy_ClamChowder_Group_Three;
 	//public GameObject enemy_ClamChowder_Group_Three_Item;
 	public GameObject enemy_ClamChowder_Group_SevenWave;
 	public GameObject enemy_Clamchowder_Group_Straight;
@@ -322,16 +325,18 @@ public class EnemyCreate : MonoBehaviour
 		createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
 		createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
 
-        //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
-        //enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
-        enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
+		//enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+		//enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
+		enemy_ClamChowder_Group_Four_NoItem = Resources.Load("Enrmy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
+		enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
 		enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
         enemy_ClamChowder_Group_TwoWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp") as GameObject;
         enemy_ClamChowder_Group_TwoWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
 		enemy_ClamChowder_Group_TwoWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp_Item") as GameObject;
         enemy_ClamChowder_Group_TwoWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown_Item") as GameObject;
+		enemy_ClamChowder_Group_Three = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
 		//enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-        enemy_ClamChowder_Group_SevenWave = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+		enemy_ClamChowder_Group_SevenWave = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
 		enemy_Clamchowder_Group_Straight = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
 		enemy_Clamchowder_Group_StraightBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_StraightBehind") as GameObject;
 		//enemy_MiddleBoss_Father = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
@@ -355,7 +360,7 @@ public class EnemyCreate : MonoBehaviour
 
 		mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
 		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
-		backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
+		//backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
 
 		//群れカウント初期化
 		groupCnt = 1;
@@ -398,14 +403,14 @@ public class EnemyCreate : MonoBehaviour
         {
             turning_frame = 10550;
             frameCnt = 10550;
-            groupCnt = 39;
+            groupCnt = 41;
             //nowGroupCnt = 36;
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
             turning_frame = 17750;
             frameCnt = 17750;
-            groupCnt = 40;
+            groupCnt = 42;
 
         }
         if (saveEnemyObj != null)
@@ -415,9 +420,9 @@ public class EnemyCreate : MonoBehaviour
 
         if (isMiddleBossDead)
         {
-            if (frameCnt < 7010)
+            if (frameCnt < 7070)
             {
-                frameCnt = 7010;
+                frameCnt = 7070;
                 turning_frame = 7010;
 
                 groupCnt = 23;
@@ -428,9 +433,9 @@ public class EnemyCreate : MonoBehaviour
         {
             if(middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 7010)
+                if (frameCnt < 7070)
                 {
-                    frameCnt = 7010;
+                    frameCnt = 7070;
                     turning_frame = 7010;
                     groupCnt = 23;
                 }
@@ -439,23 +444,27 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-        if (isOneBossDead)
-        {
-            if (frameCnt < 25290)
-            {
-                frameCnt = 25290;
-                turning_frame = 25290;
-            }
-            isOneBossDead = false;
-        }
-        else if (oneBoss_Script != null)
+        //if (isOneBossDead)
+        //{
+        //    if (frameCnt < turning_frame)
+        //    {
+        //        frameCnt = turning_frame;
+        //        //turning_frame = 25290;
+        //    }
+        //    isOneBossDead = false;
+        //}
+        if (oneBoss_Script != null)
         {
 			if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 25290)
+                if (frameCnt < turning_frame)
                 {
-                    frameCnt = 25290;
-                    turning_frame = 25290;
+                    if(backActive_Script)
+                    {
+                        backActive_Script.TransparencyChangeTrigger();
+                    }
+                    frameCnt = turning_frame;
+                    //turning_frame = 25290;
                 }
                 isOneBossDead = false;
 
@@ -466,9 +475,9 @@ public class EnemyCreate : MonoBehaviour
 
 		if(isBaculaDestroy)
 		{
-			if (frameCnt < 20110)
+			if (frameCnt < turning_frame)
 			{
-				frameCnt = 20110;
+				frameCnt = turning_frame;
 			}
 			isBaculaDestroy = false;
 		}
@@ -495,650 +504,682 @@ public class EnemyCreate : MonoBehaviour
 	//敵を出す関数
 	void CreateEnemyGroup_01()
 	{
-        #region 保留
-        //if (isCreate)
-        //      {
-        //          switch (groupCnt)
-        //          {
-        //              case 1:						//円盤の群れを１つ右上から出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group.transform.position = createPosR3.transform.position;
-        //                  enemy_UFO_Group.transform.rotation = transform.rotation;
-        //                  break;
-
-        //              case 2:						//円盤の群れを１つ右下から出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group2.transform.position = createPosRm3.transform.position;
-        //                  enemy_UFO_Group2.transform.rotation = transform.rotation;
-        //                  break;
-
-        //              case 3:						//円盤の群れを１つ右上から出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group3.transform.position = createPosR3.transform.position;
-        //                  enemy_UFO_Group3.transform.rotation = transform.rotation;
-        //                  break;
-
-        //              case 4:						//円盤の群れを１つ右下から出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group4.transform.position = createPosRm3.transform.position;
-        //                  enemy_UFO_Group4.transform.rotation = transform.rotation;
-        //                  break;
-
-        //              case 5:						//奥からくる斜めに並んだ闘牛型の群れを出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
-        //                  enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
-        //                  break;
-
-        //              case 6:						//円盤の群れを右上と右下から１つずつ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group5.transform.position = createPosR3.transform.position;
-        //                  enemy_UFO_Group5.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group6.transform.position = createPosRm3.transform.position;
-        //                  enemy_UFO_Group6.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 7:						//円盤の群れを右側から中央寄りで2つ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosR1.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group7.transform.position = createPosR1.transform.position;
-        //                  enemy_UFO_Group7.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_UFO_Group, createPosRm1.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group8.transform.position = createPosRm1.transform.position;
-        //                  enemy_UFO_Group8.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 8:						//円盤の群れを右上と右下から１つずつ出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group9.transform.position = createPosR3.transform.position;
-        //                  enemy_UFO_Group9.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
-        //                  GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-        //                  enemy_UFO_Group10.transform.position = createPosRm3.transform.position;
-        //                  enemy_UFO_Group10.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 9:						//奥からくる闘牛型が縦に2つ並んだ敵の群れを２つ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-        //                  enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-        //                  enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 10:					//奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵）
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //GameObject Battle_Ship2 = enemy_BattleShip2;
-        //                  //Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
-
-        //                  //GameObject Battle_Ship1 = enemy_BattleShip;
-        //                  //Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-        //			//Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
-        //			GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
-        //			enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
-        //			enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
-
-        //			break;
-
-        //		case 11:					//戦艦を2体出す
-        //			isCreate = false;
-        //			groupCnt++;
-        //			//GameObject Battle_Ship2 = enemy_BattleShip2;
-        //			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-        //			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-        //			b1.Is_up = false;
-
-        //			GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-        //			BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-        //			b2.Is_up = true;
-
-        //			break;
-
-        //		case 12: //戦艦を2体出す2回目
-        //			isCreate = false;
-        //			groupCnt++;
-        //			//GameObject Battle_Ship2 = enemy_BattleShip2;
-        //			GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-        //			BattleshipType_Enemy b3 = Battle_Ship3.GetComponent<BattleshipType_Enemy>();
-        //			b3.Is_up = false;
-
-        //			GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-        //			BattleshipType_Enemy b4 = Battle_Ship4.GetComponent<BattleshipType_Enemy>();
-        //			b4.Is_up = true;
-
-        //			break;
-
-        //		case 13:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-        //                  enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
-
-        //                  break;
-        //		case 14:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-        //                  enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
-
-        //                  break;
-        //		case 15:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_Seven2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-        //                  enemy_ClamChowder_Group_Seven2.transform.position = createPos_FourGroup.transform.position;
-        //                  enemy_ClamChowder_Group_Seven2.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 16:					//中ボス出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
-        //                  GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
-        //                  Boss_Middle.transform.position = createMiddleBossPos.transform.position;
-        //                  Boss_Middle.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 17:					//右上と右下に闘牛型が3つ縦に並んだ群れを出す
-        //                  isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
-
-
-        //                  break;
-
-        //              case 18:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 19:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す（アイテム落とす敵入り）
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, createPosR3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item, createPosRm3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 20:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
-
-        //                  break;
-
-        //              case 21:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
-        //			isCreate = false;
-        //                  groupCnt++;
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
-
-        //                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
-        //                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
-        //                  enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
-        //                  break;
-
-        //		case 22:
-        //			isCreate = false;
-        //			groupCnt++;
-        //			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
-        //			Boss_01.transform.position = Vector3.zero;
-        //			break;
-        //          }
-        //      }
-        #endregion
-        //円盤の群れを１つ右上から出す		(180)
-        if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
-        {
-            GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group.transform.rotation = transform.rotation;
-
-            nextEnemy = "右下円盤";
-            Next_Condition(520);
-        }
-        //円盤の群れを１つ右下から出す(610)
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
-        {
-            GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group2.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group2.transform.rotation = transform.rotation;
-
-            nextEnemy = "右上円盤";
-
-            Next_Condition(520);
-        }
-        //円盤の群れを１つ右上から出す(680)
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
-        {
-            GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group3.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group3.transform.rotation = transform.rotation;
-
-            nextEnemy = "右下円盤";
-            Next_Condition(520);
-        }
-        //円盤の群れを１つ右下から出す(930)
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
-        {
-            GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group4.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group4.transform.rotation = transform.rotation;
-
-            nextEnemy = "突進闘牛";
-            Next_Condition(180);
-        }
-        //奥からくる斜めに並んだ闘牛型の群れを出す 1020
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
-        {
-            GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
-            enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
-
-            nextEnemy = "突進闘牛後ろから";
-            Next_Condition(300);
-        }
-        //奥からくる突進の闘牛型を画面右から左へ出す 1320
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
-        {
-            //Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
-
-            nextEnemy = "闘牛三体真ん中アイテム";
-            Next_Condition(100);
-        }
-
-        //奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵） 1530
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 7)
-        {
-            GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
-            enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
-
-            nextEnemy = "縦2体の闘牛上下で";
-            Next_Condition(40);
-        }
-        //奥からくる闘牛型が縦に2つ並んだ敵の群れを２つ出す 1570
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 8)
-        {
-            GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-            enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
-
-            GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-            enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroupL.transform.position;
-            enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
-
-            nextEnemy = "右上＆右下円盤間隔広め";
-            Next_Condition(360);
-        }
-
-        //円盤の群れを右上と右下から１つずつ出す 1930
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 9)
-        {
-            GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group5.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group5.transform.rotation = transform.rotation;
-
-            GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group6.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group6.transform.rotation = transform.rotation;
-
-            nextEnemy = "右上＆右下円盤間隔狭め";
-            Next_Condition(210);
-        }
-        //円盤の群れを右側から中央寄りで2つ出す 2050
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 10)
-        {
-            GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group7.transform.rotation = transform.rotation;
-
-            GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group8.transform.rotation = transform.rotation;
-
-            nextEnemy = "右上＆右下円盤間隔広め";
-            Next_Condition(210);
-        }
-        //円盤の群れを右上と右下から１つずつ出す 2170
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
-        {
-            GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group9.transform.position = createPosR4.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group9.transform.rotation = transform.rotation;
-
-            GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-            enemy_UFO_Group10.transform.position = createPosRm4.transform.position + new Vector3(8.5f, 0, 0);
-            enemy_UFO_Group10.transform.rotation = transform.rotation;
-
-            nextEnemy = "戦艦2体";
-            Next_Condition(290);
-        }
-        //戦艦を2体出す 2370
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 12)
-        {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
-
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
-
-            nextEnemy = "戦艦2体（2回目）";
-            Next_Condition(550);
-        }
-        //戦艦を2体出す2回目 2920
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 13)
-        {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
-
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
-
-            nextEnemy = "縦7体の闘牛1回目";
-            Next_Condition(650);
-        }
-        //奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3570
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
-        {
+		#region 保留
+		//if (isCreate)
+		//      {
+		//          switch (groupCnt)
+		//          {
+		//              case 1:						//円盤の群れを１つ右上から出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(Obj_Storage.Storage_Data.enemy_UFO_Group_prefab, createPosR4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group.transform.position = createPosR3.transform.position;
+		//                  enemy_UFO_Group.transform.rotation = transform.rotation;
+		//                  break;
+
+		//              case 2:						//円盤の群れを１つ右下から出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group2.transform.position = createPosRm3.transform.position;
+		//                  enemy_UFO_Group2.transform.rotation = transform.rotation;
+		//                  break;
+
+		//              case 3:						//円盤の群れを１つ右上から出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group3.transform.position = createPosR3.transform.position;
+		//                  enemy_UFO_Group3.transform.rotation = transform.rotation;
+		//                  break;
+
+		//              case 4:						//円盤の群れを１つ右下から出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group4.transform.position = createPosRm3.transform.position;
+		//                  enemy_UFO_Group4.transform.rotation = transform.rotation;
+		//                  break;
+
+		//              case 5:						//奥からくる斜めに並んだ闘牛型の群れを出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+		//                  enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+		//                  break;
+
+		//              case 6:						//円盤の群れを右上と右下から１つずつ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group5.transform.position = createPosR3.transform.position;
+		//                  enemy_UFO_Group5.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group6.transform.position = createPosRm3.transform.position;
+		//                  enemy_UFO_Group6.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 7:						//円盤の群れを右側から中央寄りで2つ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosR1.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group7.transform.position = createPosR1.transform.position;
+		//                  enemy_UFO_Group7.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_UFO_Group, createPosRm1.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group8.transform.position = createPosRm1.transform.position;
+		//                  enemy_UFO_Group8.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 8:						//円盤の群れを右上と右下から１つずつ出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_UFO_Group, createPosR4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group9.transform.position = createPosR3.transform.position;
+		//                  enemy_UFO_Group9.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_UFO_Group, createPosRm4.transform.position, transform.rotation);
+		//                  GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+		//                  enemy_UFO_Group10.transform.position = createPosRm3.transform.position;
+		//                  enemy_UFO_Group10.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 9:						//奥からくる闘牛型が縦に2つ並んだ敵の群れを２つ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+		//                  enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+		//                  enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 10:					//奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵）
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //GameObject Battle_Ship2 = enemy_BattleShip2;
+		//                  //Instantiate(enemy_BattleShip2, createBattleShipPos.transform.position, enemy_BattleShip2.transform.rotation);
+
+		//                  //GameObject Battle_Ship1 = enemy_BattleShip;
+		//                  //Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+		//			//Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroup.transform.position, transform.rotation);
+		//			GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+		//			enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroup.transform.position;
+		//			enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+
+		//			break;
+
+		//		case 11:					//戦艦を2体出す
+		//			isCreate = false;
+		//			groupCnt++;
+		//			//GameObject Battle_Ship2 = enemy_BattleShip2;
+		//			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+		//			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+		//			b1.Is_up = false;
+
+		//			GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+		//			BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+		//			b2.Is_up = true;
+
+		//			break;
+
+		//		case 12: //戦艦を2体出す2回目
+		//			isCreate = false;
+		//			groupCnt++;
+		//			//GameObject Battle_Ship2 = enemy_BattleShip2;
+		//			GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+		//			BattleshipType_Enemy b3 = Battle_Ship3.GetComponent<BattleshipType_Enemy>();
+		//			b3.Is_up = false;
+
+		//			GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+		//			BattleshipType_Enemy b4 = Battle_Ship4.GetComponent<BattleshipType_Enemy>();
+		//			b4.Is_up = true;
+
+		//			break;
+
+		//		case 13:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Seven = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+		//                  enemy_ClamChowder_Group_Seven.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
+
+		//                  break;
+		//		case 14:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+		//                  enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
+
+		//                  break;
+		//		case 15:					//奥からくる闘牛型が縦7つに並んだ群れを一つ出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_Seven, createPos_FourGroup.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_Seven2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+		//                  enemy_ClamChowder_Group_Seven2.transform.position = createPos_FourGroup.transform.position;
+		//                  enemy_ClamChowder_Group_Seven2.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 16:					//中ボス出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_MiddleBoss_Father, createMiddleBossPos.transform.position, transform.rotation);
+		//                  GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+		//                  Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+		//                  Boss_Middle.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 17:					//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+		//                  isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
+
+
+		//                  break;
+
+		//              case 18:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 19:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す（アイテム落とす敵入り）
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item, createPosR3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item, createPosRm3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 20:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
+
+		//                  break;
+
+		//              case 21:						//右上と右下に闘牛型が3つ縦に並んだ群れを出す
+		//			isCreate = false;
+		//                  groupCnt++;
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyUp, createPosR3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
+
+		//                  //Instantiate(enemy_ClamChowder_Group_ThreeWaveOnlyDown, createPosRm3.transform.position, transform.rotation);
+		//                  GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown.Active_Obj();
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
+		//                  enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
+		//                  break;
+
+		//		case 22:
+		//			isCreate = false;
+		//			groupCnt++;
+		//			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+		//			Boss_01.transform.position = Vector3.zero;
+		//			break;
+		//          }
+		//      }
+		#endregion
+		//円盤の群れを１つ右上から出す		(180)
+		if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
+		{
+			GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group.transform.rotation = transform.rotation;
+
+			nextEnemy = "右下円盤";
+			Next_Condition(520);
+		}
+		//円盤の群れを１つ右下から出す(610)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
+		{
+			GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group2.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group2.transform.rotation = transform.rotation;
+
+			nextEnemy = "右上円盤";
+
+			Next_Condition(520);
+		}
+		//円盤の群れを１つ右上から出す(680)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
+		{
+			GameObject enemy_UFO_Group3 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group3.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group3.transform.rotation = transform.rotation;
+
+			nextEnemy = "右下円盤";
+			Next_Condition(520);
+		}
+		//円盤の群れを１つ右下から出す(930)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
+		{
+			GameObject enemy_UFO_Group4 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group4.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group4.transform.rotation = transform.rotation;
+
+			nextEnemy = "突進闘牛";
+			Next_Condition(180);
+		}
+		//奥からくる斜めに並んだ闘牛型の群れを出す 1020
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
+		{
+			GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+			enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+
+			nextEnemy = " ";
+			Next_Condition(300);
+		}
+		//奥からくる突進の闘牛型を画面右から左へ出す 1320
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
+		{
+			//Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
+
+			nextEnemy = "闘牛三体真ん中アイテム";
+			Next_Condition(100);
+		}
+
+		//奥からくる闘牛型が縦に3つ並んだ敵の群れを１つ出す（真ん中がアイテムを落とす敵） 1530
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 7)
+		{
+			GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+			enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+
+			nextEnemy = "縦2体の闘牛上下で";
+			Next_Condition(40);
+		}
+		//奥からくる闘牛型が縦に2つ並んだ敵の群れを２つ出す 1570
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 8)
+		{
+			GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+			enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+
+			GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroupL.transform.position;
+			enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+			nextEnemy = "右上＆右下円盤間隔広め";
+			Next_Condition(360);
+		}
+
+		//円盤の群れを右上と右下から１つずつ出す 1930
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 9)
+		{
+			GameObject enemy_UFO_Group5 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group5.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group5.transform.rotation = transform.rotation;
+
+			GameObject enemy_UFO_Group6 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group6.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group6.transform.rotation = transform.rotation;
+
+			nextEnemy = "右上＆右下円盤間隔狭め";
+			Next_Condition(210);
+		}
+		//円盤の群れを右側から中央寄りで2つ出す 2050
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 10)
+		{
+			GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group7.transform.rotation = transform.rotation;
+
+			GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group8.transform.rotation = transform.rotation;
+
+			nextEnemy = "右上＆右下円盤間隔広め";
+			Next_Condition(210);
+		}
+		//円盤の群れを右上と右下から１つずつ出す 2170
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
+		{
+			GameObject enemy_UFO_Group9 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group9.transform.position = createPosR4.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group9.transform.rotation = transform.rotation;
+
+			GameObject enemy_UFO_Group10 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+			enemy_UFO_Group10.transform.position = createPosRm4.transform.position + new Vector3(8.5f, 0, 0);
+			enemy_UFO_Group10.transform.rotation = transform.rotation;
+
+			nextEnemy = "戦艦2体";
+			Next_Condition(290);
+		}
+		//戦艦を2体出す 2370
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 12)
+		{
+			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+			b1.Is_up = false;
+
+			GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+			b2.Is_up = true;
+
+			nextEnemy = "戦艦2体（2回目）";
+			Next_Condition(550);
+		}
+		//戦艦を2体出す2回目 2920
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 13)
+		{
+			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+			b1.Is_up = false;
+
+			GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+			b2.Is_up = true;
+
+			nextEnemy = "縦7体の闘牛1回目";
+			Next_Condition(650);
+		}
+		//奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3570
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
+		{
 			Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
-            //GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            //enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
-            //enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
-
-            nextEnemy = "縦7体の闘牛2回目";
-            Next_Condition(40);
-        }
-        //奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3610
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
-        {
-            Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 			//GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            //enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
-            //enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
+			//enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			//enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
 
-            nextEnemy = "縦7体の闘牛3回目";
-            Next_Condition(40);
-        }
-        //奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3650
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
-        {
+			nextEnemy = "縦7体の闘牛2回目";
+			Next_Condition(40);
+		}
+		//奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3610
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
+		{
+			Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
+			//GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+			//enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			//enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
+
+			nextEnemy = "縦7体の闘牛3回目";
+			Next_Condition(40);
+		}
+		//奥からくる闘牛型が縦5つに並んだ群れを一つ出す 3650
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
+		{
 			Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
-            //GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
-            //enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
-            //enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
+			//GameObject enemy_ClamChowder_Group_Seven1 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+			//enemy_ClamChowder_Group_Seven1.transform.position = createPos_FourGroupL.transform.position;
+			//enemy_ClamChowder_Group_Seven1.transform.rotation = transform.rotation;
 
-            nextEnemy = "！！！！！中ボス！！！！";
-            Next_Condition(640);
-        }
-        //中ボス出す 4290
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 17)
-        {
-            GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
-            saveEnemyObj = Boss_Middle;
-            Boss_Middle.transform.position = createMiddleBossPos.transform.position;
-            Boss_Middle.transform.rotation = transform.rotation;
+			nextEnemy = "！！！！！中ボス！！！！";
+			Next_Condition(640);
+		}
+		//中ボス出す 4290
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 17)
+		{
+			GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+			saveEnemyObj = Boss_Middle;
+			Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+			Boss_Middle.transform.rotation = transform.rotation;
 
-            nextEnemy = "右上と右下に縦3の闘牛";
-            Next_Condition(180);
-        }
-        //右上と右下に闘牛型が3つ縦に並んだ群れを出す 4470
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 18)
-        {
+			nextEnemy = "右上と右下に縦3の闘牛";
+			Next_Condition(180);
+		}
+		//右上と右下に闘牛型が3つ縦に並んだ群れを出す 4470
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 18)
+		{
 			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-            //enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
-            //enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
+			//enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.position = createPosR3.transform.position;
+			//enemy_ClamChowder_Group_ThreeWaveOnlyUp.transform.rotation = transform.rotation;
 
-            //GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-            //enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
-            //enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
+			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			//enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.position = createPosRm3.transform.position;
+			//enemy_ClamChowder_Group_ThreeWaveOnlyDown.transform.rotation = transform.rotation;
 
-            nextEnemy = "右上と右下に縦3の闘牛2回目";
-            Next_Condition(180);
-        }
-        //右上と右下に闘牛型が3つ縦に並んだ群れを出す 4650
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
-        {
+			nextEnemy = "右上と右下に縦3の闘牛2回目";
+			Next_Condition(180);
+		}
+		//右上と右下に闘牛型が3つ縦に並んだ群れを出す 4650
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
+		{
 			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
-            //GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-            //enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
-            //enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
+			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+			//enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.position = createPosR3.transform.position;
+			//enemy_ClamChowder_Group_ThreeWaveOnlyUp2.transform.rotation = transform.rotation;
 
-            //GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-            //enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
-            //enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
+			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			//enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.position = createPosRm3.transform.position;
+			//enemy_ClamChowder_Group_ThreeWaveOnlyDown2.transform.rotation = transform.rotation;
 
-            nextEnemy = "右上と右下に真ん中がアイテムの縦3の闘牛";
-            Next_Condition(180);
-        }
-        //右上と右下に闘牛型が3つ縦に並んだ群れを出す（アイテム落とす敵入り） 4830
+			nextEnemy = "右上と右下に真ん中がアイテムの縦3の闘牛";
+			Next_Condition(180);
+		}
+		//右上と右下に闘牛型が3つ縦に並んだ群れを出す（アイテム落とす敵入り） 4830
 
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
-        {
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
+		{
 			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.position = createPosR3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.transform.rotation = transform.rotation;
 
-   //         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
+			//         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.position = createPosRm3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.transform.rotation = transform.rotation;
 
-            nextEnemy = "右上と右下に縦3の闘牛3回目";
-            Next_Condition(240);
-        }
-        //右上と右下に闘牛型が3つ縦に並んだ群れを出す 5070
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
-        {
+			nextEnemy = "右上と右下に縦3の闘牛3回目";
+			Next_Condition(240);
+		}
+		//右上と右下に闘牛型が3つ縦に並んだ群れを出す 5070
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
+		{
 			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.position = createPosR3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp3.transform.rotation = transform.rotation;
 
-   //         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
+			//         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown3 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.position = createPosRm3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown3.transform.rotation = transform.rotation;
 
-            nextEnemy = "右上と右下に縦3の闘牛4回目";
-            Next_Condition(180);
-        }
-        // 右上と右下に闘牛型が3つ縦に並んだ群れを出す 5250
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
-        {
+			nextEnemy = "右上と右下に縦3の闘牛4回目";
+			Next_Condition(180);
+		}
+		// 右上と右下に闘牛型が3つ縦に並んだ群れを出す 5250
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
+		{
 			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
-   //         Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm3.transform.position, transform.rotation);
+			Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+			//         Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm3.transform.position, transform.rotation);
 			//GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.position = createPosR3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyUp4.transform.rotation = transform.rotation;
 
-   //         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
-   //         enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
+			//         GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown4 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.position = createPosRm3.transform.position;
+			//         enemy_ClamChowder_Group_ThreeWaveOnlyDown4.transform.rotation = transform.rotation;
 
-            nextEnemy = "";
-            Next_Condition(700);
-        }
-        //直進の闘牛を左上と左下から（後ろからくる）5950
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
-        {
-            Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			nextEnemy = "";
+			Next_Condition(700);
+		}
+		//直進の闘牛を右真ん中（後ろからくる）5950
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
+		{
+			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
-            //Instantiate(enemy_Clamchowder_Group_StraightBehind, createPosL3.transform.position, transform.rotation);
-            //Instantiate(enemy_Clamchowder_Group_StraightBehind, createPosLm3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_StraightBehind, createPosL3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_StraightBehind, createPosLm3.transform.position, transform.rotation);
 
-            //nextEnemy = "直進の闘牛を右中央から（前からくる）";
-            Next_Condition(60);
-        }
-        //直進の闘牛を右中央から（前からくる） 6010
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
-        {
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
-            Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			//nextEnemy = "直進の闘牛を右中央から（前からくる）";
+			Next_Condition(60);
+		}
+		//直進の闘牛を右上と右下（前からくる） 6010
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
+		{
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+			Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-            nextEnemy = "左右からハエ型4体の群れ出す";
-            Next_Condition(290);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
+			nextEnemy = "左右からハエ型4体の群れ出す";
+			Next_Condition(290);
 
-        }
-        //左右からハエ型5体の群れ出す 6300
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
-        {
-            Instantiate(enemy_Beelzebub_Group_FourNomal, createPosR0.transform.position, transform.rotation);
-            //Instantiate(enemy_Beelzebub_Group_FourBack, createPosL0.transform.position, transform.rotation);
+		}
 
+		//ここの間に入れる（ヒトデを複数ポンポン出す予定）
 
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-            nextEnemy = "突進闘牛後ろから";
-            Next_Condition(130);
-
-        }
-        //闘牛6430
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
-        {
-            //Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
+		//左右からハエ型5体の群れ出す 6300　
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
+		{
+			Instantiate(enemy_Beelzebub_Group_FourNomal, createPosR0.transform.position, transform.rotation);
+			//Instantiate(enemy_Beelzebub_Group_FourBack, createPosL0.transform.position, transform.rotation);
 
 
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-            nextEnemy = "ハエ";
-            Next_Condition(90);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
+			nextEnemy = "突進闘牛後ろから";
+			Next_Condition(130);
 
-        }
-        //ハエ6520
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
-        {
-            Instantiate(enemy_Beelzebub_Group_FourNomal, createPosR0.transform.position, transform.rotation);
+		}
+		//闘牛6430
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
+		{
+			//Instantiate(enemy_ClamChowder_Group_FourBehind, createPos_FourGroupR.transform.position, transform.rotation);
 
 
-            //Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-            nextEnemy = "戦艦二体";
-            Next_Condition(260);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
+			nextEnemy = "ハエ";
+			Next_Condition(90);
 
-        }
-        //戦艦２体　6780
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 28)
-        {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
+		}
+		//ハエ6520
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
+		{
+			Instantiate(enemy_Beelzebub_Group_FourNomal, createPosR0.transform.position, transform.rotation);
 
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
 
-            nextEnemy = "直線闘牛を右真ん中から";
-            Next_Condition(380);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
+			nextEnemy = "戦艦二体";
+			Next_Condition(260);
 
-        }
-        //直線闘牛右真ん中　7160
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 29)
-        {
-            Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+		}
+		//戦艦２体　6780
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 28)
+		{
+			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+			b1.Is_up = false;
 
-            nextEnemy = "戦艦右真ん中から";
-            Next_Condition(420);
+			GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+			BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+			b2.Is_up = true;
 
-        }
-        //戦艦1体右真ん中　7580
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
+			nextEnemy = "直線闘牛を右真ん中から";
+			Next_Condition(380);
+
+		}
+		//直線闘牛右真ん中　7160
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 29)
+		{
+			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+
+			nextEnemy = "戦艦右真ん中から";
+			Next_Condition(260);
+
+		}
+
+		//ここの間に追加（奥からくる闘牛縦3体x3）
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
+		{
+			GameObject waveThreeEnemy = Instantiate(enemy_ClamChowder_Group_Three, createPosL0.transform.position, transform.rotation);
+
+			nextEnemy = "右上と右下に奥からくる縦に3体の闘牛";
+			Next_Condition(40);
+		}
+
+
+
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 31)
+		{
+			GameObject waveThreeEnemy = Instantiate(enemy_ClamChowder_Group_Three, createPosL2.transform.position, transform.rotation);
+			GameObject waveThreeEnemy2 = Instantiate(enemy_ClamChowder_Group_Three, createPosLm2.transform.position, transform.rotation);
+
+			nextEnemy = "戦艦真ん中1体";
+			Next_Condition(40);
+		}
+		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
+		//{
+		//	GameObject waveThreeEnemy = Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+
+		//	nextEnemy = "右上と右下に奥からくる縦に3体の闘牛";
+		//	Next_Condition(330);
+		//}
+
+
+		//戦艦1体右真ん中　7580
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
         {
             GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
             Battle_Ship1.transform.position = createPosR0.transform.position;
@@ -1152,7 +1193,7 @@ public class EnemyCreate : MonoBehaviour
 
         }
         //直線闘牛右真ん中　7840
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 31)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
 
@@ -1162,8 +1203,8 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(150);
 
         }
-        //直線闘牛右真ん中　7990
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
+        //直線闘牛右真ん中　7990（ハヤブサにかえる何体か出す）
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
 
@@ -1174,16 +1215,16 @@ public class EnemyCreate : MonoBehaviour
 
         }
 
-        //8350
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
+        //円盤真ん中8350　（これ削除　次の2つの円盤を詰めて出す）
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
         {
             GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR0.transform.position;
             nextEnemy = "右上と右下から円盤";
             Next_Condition(150);
         }
-        //8500
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
+        //円盤右上右下中央より8500
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
         {
             GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR2.transform.position;
@@ -1194,8 +1235,8 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "右上と右下から円盤2群";
             Next_Condition(150);
         }
-        //8650
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
+        //円盤右上右下8650
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
         {
             GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR4.transform.position;
@@ -1206,8 +1247,14 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "闘牛型が縦7つに並んだ群れ";
             Next_Condition(300);
         }
+
+		//ここにビートル5体挿入
+
+		//ビートル後、新闘牛縦4体の並び
+
+
         //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 8950
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
         {
             //Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
             Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
@@ -1218,8 +1265,8 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "縦7体の闘牛2回目";
             Next_Condition(40);
         }
-        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 8990
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+        //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 8990　（この2回目は削除）
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
         {
             //Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
 			Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
@@ -1232,7 +1279,7 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(40);
         }
         //奥からくる闘牛型が縦7つに並んだ群れを一つ出す 9030
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
         {
             //Instantiate(enemy_ClamChowder_Group_SevenWave, createPos_FourGroupL.transform.position, transform.rotation);
 			Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
@@ -1245,8 +1292,8 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(800);
         }
 
-        // 大ボス(9830)
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
+        // 大ボス(10810)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
         {
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 			Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
@@ -1261,17 +1308,17 @@ public class EnemyCreate : MonoBehaviour
 
 
             nextEnemy = "バキュラ群";
-            Next_Condition(14400);
+            Next_Condition(30000);
         }
         //バキュラ群 17030
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
         {
             Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
             nextEnemy = "隕石群(5つ)";
             Next_Condition(1400);
         }
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
         {
             Instantiate(enemy_Bacula_FourOnly, createBaculaGroupPos.transform.position, transform.rotation);
 
@@ -1279,7 +1326,7 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(60);
         }
 		//バウンド隕石1
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1288,7 +1335,7 @@ public class EnemyCreate : MonoBehaviour
 
         }
 		//バウンド隕石2
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1297,7 +1344,7 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 		//バウンド隕石3
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 46)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1306,7 +1353,7 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 		//バウンド隕石4
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1315,7 +1362,7 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 		//バウンド隕石5
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1324,7 +1371,7 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 		//バウンド隕石6
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1349,7 +1396,7 @@ public class EnemyCreate : MonoBehaviour
         //	nextEnemy = " ";
         //	Next_Condition(1800);
         //}
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
         {
             Scene_Manager.Manager.Screen_Transition_To_Clear();
         }
