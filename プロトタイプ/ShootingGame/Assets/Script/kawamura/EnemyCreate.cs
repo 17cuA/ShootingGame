@@ -360,7 +360,7 @@ public class EnemyCreate : MonoBehaviour
 
 		mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
 		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
-		backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
+		//backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
 
 		//群れカウント初期化
 		groupCnt = 1;
@@ -444,21 +444,25 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-        if (isOneBossDead)
-        {
-            if (frameCnt < turning_frame)
-            {
-                frameCnt = turning_frame;
-                //turning_frame = 25290;
-            }
-            isOneBossDead = false;
-        }
-        else if (oneBoss_Script != null)
+        //if (isOneBossDead)
+        //{
+        //    if (frameCnt < turning_frame)
+        //    {
+        //        frameCnt = turning_frame;
+        //        //turning_frame = 25290;
+        //    }
+        //    isOneBossDead = false;
+        //}
+        if (oneBoss_Script != null)
         {
 			if (oneBoss_Script.Is_Dead)
             {
                 if (frameCnt < turning_frame)
                 {
+                    if(backActive_Script)
+                    {
+                        backActive_Script.TransparencyChangeTrigger();
+                    }
                     frameCnt = turning_frame;
                     //turning_frame = 25290;
                 }
