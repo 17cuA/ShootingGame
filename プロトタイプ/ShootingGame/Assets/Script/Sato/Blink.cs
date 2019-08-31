@@ -55,6 +55,7 @@ public class Blink : MonoBehaviour
 	//追加------------------------
 	public AudioSource Cource;
 	public AudioClip Cource_SE;
+	private Vector3 temp_pos;	//移動前の位置情報
 	//----------------------------
 	void Start()
 	{
@@ -102,6 +103,7 @@ public class Blink : MonoBehaviour
 		two_player_parent.SetActive(false);
 		select_icon.SetActive(false);
 		// ---------------------------------------------------------------------
+		temp_pos = select_icon.transform.localPosition;
 	}
 
 	void Update()
@@ -134,22 +136,27 @@ public class Blink : MonoBehaviour
 			{
 				Vector3 temp = select_icon.transform.localPosition;
 				temp.y = one_player_parent.transform.localPosition.y;
-				select_icon.transform.localPosition = temp;
+				if(select_icon.transform.localPosition != temp)
+				{
+					select_icon.transform.localPosition = temp;
+					//追加-------------------------
+					if (Cource.isPlaying) Cource.Stop();
+					Cource.PlayOneShot(Cource_SE);
+				}
 				Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eONE_PLAYER);
-				//追加-------------------------
-				if (Cource.isPlaying) Cource.Stop();
-				Cource.PlayOneShot(Cource_SE);
 			}
 			else if (Input.GetAxis("Vertical") < 0 || Input.GetAxis("P2_Vertical") < 0)
 			{
 				Vector3 temp = select_icon.transform.localPosition;
 				temp.y = two_player_parent.transform.localPosition.y;
-				select_icon.transform.localPosition = temp;
+				if (select_icon.transform.localPosition != temp)
+				{
+					select_icon.transform.localPosition = temp;
+					//追加-------------------------
+					if (Cource.isPlaying) Cource.Stop();
+					Cource.PlayOneShot(Cource_SE);
+				}
 				Game_Master.MY.Number_Of_Players_Confirmed(Game_Master.PLAYER_NUM.eTWO_PLAYER);
-				//追加-------------------------
-				if (Cource.isPlaying) Cource.Stop();
-				Cource.PlayOneShot(Cource_SE);
-
 			}
 		}
 	}

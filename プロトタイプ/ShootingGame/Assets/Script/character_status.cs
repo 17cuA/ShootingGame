@@ -57,7 +57,7 @@ public class character_status : MonoBehaviour
 			capsuleCollider = GetComponent<Collider>();
 		}
 
-		if (tag == "Player") Remaining = 3;
+		if (tag == "Player") Remaining = 5;
 		else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;

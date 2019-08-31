@@ -46,8 +46,16 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("ワープエフェクト")] private GameObject warp_ef;
 	[SerializeField, Tooltip("スタートアニメーション")] private bool Start_Flag;
 	[SerializeField, Tooltip("アップデートアニメーション")] private bool Update_Flag;
-	[SerializeField, Tooltip("タイムライン")] private PlayableDirector start_timecline;
-	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset l;
+	[SerializeField, Tooltip("タイムライン")] private PlayableDirector Timeline_Player;
+	[SerializeField, Tooltip("死ぬとき用")] private GameObject End_Plefab;
+
+	[Header("アニメーションタイムライン")]
+	[SerializeField, Tooltip("今までの")] private PlayableAsset sonota_Timeline;
+	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset layser_timeline;
+	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
+
+	[Header("レーザー用")]
+	[SerializeField, Tooltip("撃つ？撃たない？")] public bool Is_Laser_Attack;
 
 	[Header("突進攻撃用")]
 	[SerializeField, Tooltip("突進中フラグ")] public bool now_rush;
@@ -101,7 +109,7 @@ public class One_Boss : character_status
 
 	private new void Start()
 	{
-		start_timecline.playOnAwake = false;
+		Timeline_Player.playOnAwake = false;
 
 		base.Start();
 
@@ -198,7 +206,7 @@ public class One_Boss : character_status
 		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
 		{
 			maenoiti = transform.position;
-			start_timecline.Pause();
+			Timeline_Player.Pause();
 			Attack_Step = 0;
 			End_Flag = true;
 		}
@@ -210,14 +218,14 @@ public class One_Boss : character_status
 			{
 				Damage_Stage_Col[i][0].enabled = true;
 			}
-			start_timecline.Pause();
-			start_timecline.time = 60.0;
+			Timeline_Player.Pause();
+			Timeline_Player.time = 60.0;
 
 			Start_Flag = false;
 		}
 		else if (!End_Flag && !Start_Flag && Update_Flag)
 		{
-			if (Attack_Type_Instruction < Bullet_Num)
+			if (Attack_Type_Instruction < 2)
 			{
 				Player_Tracking_Bound_Bullets_2();
 			}
@@ -225,7 +233,8 @@ public class One_Boss : character_status
 			{
 				if (Number_Of_Lasers < 1)
 				{
-					Laser_Clearing_2();
+					//Laser_Clearing_2();
+					Laser_Time();
 				}
 				else
 				{
@@ -256,9 +265,9 @@ public class One_Boss : character_status
 			// パーツのコアが壊れたら死亡
 			if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
 			{
-				start_timecline.Stop();
+				Timeline_Player.Stop();
 				Attack_Step = 0;
-				start_timecline.time = 60.0;
+				Timeline_Player.time = 60.0;
 				End_Flag = true;
 			}
 		}
@@ -285,8 +294,8 @@ public class One_Boss : character_status
 	private void OnEnable()
 	{
 		Update_Flag = false;
-		start_timecline.time = 0.0;
-		start_timecline.Play();
+		Timeline_Player.time = 0.0;
+		Timeline_Player.Play(sonota_Timeline);
 	}
 
 	#region 終わりアニメーション
@@ -299,11 +308,21 @@ public class One_Boss : character_status
 		}
 		else if(Attack_Step == 1)
 		{
-			start_timecline.Play();
-			Attack_Step++;
+			Instantiate(End_Plefab, transform.position, Quaternion.identity);
+			gameObject.SetActive(false);
+
+			//Timeline_Player.Play(sonota_Timeline);
+			//Timeline_Player.time = 60.0;
+			//Attack_Step++;
 		}
 		else if(Attack_Step == 2)
 		{
+			//Instantiate(End_Plefab, transform.position, Quaternion.identity);
+			//gameObject.SetActive(false);
+			//if (Is_end_of_timeline)
+			//{
+			//	gameObject.SetActive(false);
+			//}
 		}
 	}
 	#endregion
@@ -439,11 +458,91 @@ public class One_Boss : character_status
 	}
 	#endregion
 
+	#region タイムラインレーザー
+	private void Laser_Time()
+	{
+		if (Attack_Step == 0)
+		{
+			maenoiti = transform.position;
+			Attack_Step++;
+			Attack_Now = true;
+		}
+		else if (Attack_Step == 1)
+		{
+			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
+			{
+				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
+				{
+					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
+				}
+				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
+				{
+					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
+				}
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
+				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
+			}
+			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
+			{
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 2)
+		{
+			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
+			{
+				supply[0].gameObject.SetActive(true);
+				supply[1].gameObject.SetActive(true);
+
+				supply[0].SetUp();
+				supply[1].SetUp();
+			}
+
+			if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
+			{
+				supply[0].gameObject.SetActive(false);
+				supply[1].gameObject.SetActive(false);
+
+				Attack_Step++;
+			}
+		}
+		else if (Attack_Step == 3)
+		{
+			Timeline_Player.Play(layser_timeline);
+			Timeline_Player.time = 0.0;
+			Attack_Step++;
+		}
+		// ここから打ち出し！！！！
+		else if(Attack_Step == 4)
+		{
+			if(Is_Laser_Attack)
+			{
+				Laser_Shooting();
+			}
+
+			if (Is_end_of_timeline)
+			{
+				Timeline_Player.Stop();
+				Attack_Step++;
+			}
+		}
+		else if(Attack_Step==5)
+		{
+			Attack_Step = 0;
+			Attack_Type_Instruction = 0;
+			Bullet_Num = Random.Range(2, 6);
+			Flame = 0;
+			Number_Of_Lasers++;
+			Attack_Now = false;
+		}
+	}
+		#endregion
+
 	#region プレイヤーを追従しバウンド弾_2
-	/// <summary>
-	/// プレイヤーを追従しバウンド弾_2
-	/// </summary>
-	private void Player_Tracking_Bound_Bullets_2()
+		/// <summary>
+		/// プレイヤーを追従しバウンド弾_2
+		/// </summary>
+		private void Player_Tracking_Bound_Bullets_2()
 	{
 		if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance)
 		{
@@ -634,7 +733,7 @@ public class One_Boss : character_status
 		if (Attack_Step == 0)
 		{
 			maenoiti = transform.position;
-			start_timecline.time = 30.0;
+			Timeline_Player.time = 30.0;
 			Attack_Step++;
 			Attack_Now = true;
 		}
@@ -661,7 +760,8 @@ public class One_Boss : character_status
 		else if (Attack_Step == 2)
 		{
 			now_rush = true;
-			start_timecline.Play();
+			Timeline_Player.Play(sonota_Timeline);
+			Timeline_Player.time = 30.0;
 			Attack_Step++;
 		}
 		else if (Attack_Step == 3)
@@ -669,7 +769,7 @@ public class One_Boss : character_status
 
 			if(!now_rush)
 			{
-				start_timecline.Pause();
+				Timeline_Player.Pause();
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
 				Bullet_Num = Random.Range(2, 5);
