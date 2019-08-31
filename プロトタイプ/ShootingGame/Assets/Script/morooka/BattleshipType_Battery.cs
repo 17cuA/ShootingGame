@@ -15,7 +15,8 @@ using StorageReference;
 public class BattleshipType_Battery : character_status
 {
 	private Vector3 Initial_Position { get; set; }		// 自身の初期位置
-	private GameObject pure { get; set; }				// プレハブ
+	private GameObject pure { get; set; }               // プレハブ
+	public ParticleSystem p;
 
 	private new void Start()
 	{

@@ -4,26 +4,31 @@ using UnityEngine;
 
 public class EffectStatusController : MonoBehaviour
 {
-	//startLifetimeの量を変更
+	//コンポーネント保存用
+	public ParticleSystem particleSystem;
+	private ParticleSystem.MainModule particleSystemMain;
+	private ParticleSystem.EmissionModule particleSystemEmission;
+
+	//startLifetimeの量を変更]
+	/*
 	//噴射量設定用(コントローラー)
 	public float inputAmount;   //コントローラーの入力量
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.05f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-
+	*/
 	//particleの色を変更
+	/*
+	//色リスト
 	public Color[] collarList = new Color[3]  {
 		new Color(54f/255f, 83f/255f, 255f/255f,255f/255f),
 		new Color(255f/255f, 255f/255f, 24f/255f,255f/255f),
-		new Color(255f/255f, 50f/255f, 50f/255f,255f/255f)
-	};
-
+		new Color(255f/255f, 50f/255f, 50f/255f,255f/255f) };
+	//噴射量リスト
 	public float[] rateList = new float[3] { 300.0f, 200.0f, 100.0f };
+	*/
 
-	//コンポーネント保存用
-	public ParticleSystem particleSystem;
-	private ParticleSystem.MainModule particleSystemMain;
-	private ParticleSystem.EmissionModule particleSystemEmission;
+
 
 	void Start()
 	{
@@ -31,28 +36,31 @@ public class EffectStatusController : MonoBehaviour
 		particleSystemMain = particleSystem.main;
 		particleSystemEmission = particleSystem.emission;
 
-		//色
+		//色変更用
+		/*
 		collarList[0] = new Color(54f / 255f, 83f / 255f, 255f / 255f, 255f / 255f);
 		collarList[1] = new Color(255f / 255f, 255f / 255f, 24f / 255f, 255f / 255f);
 		collarList[2] = new Color(255f / 255f, 50f / 255f, 50f / 255f, 255f / 255f);
-		//a値
-		//collarList[0] = new Color(54f / 255f, 83f / 255f, 255f / 255f, 255f / 255f);
-		//collarList[1] = new Color(54f / 255f, 83f / 255f, 255f / 255f, 128f / 255f);
-		//collarList[2] = new Color(54f / 255f, 83f / 255f, 255f / 255f, 64f / 255f);
+		*/
 	}
 
 	void Update()
 	{
+		/*
 		//コントローラー入力管理関数
 		ControllerInputProcess();
-
 		//particleの色を変更
 		ChangeParticleColor();
 		//噴出量を変更
 		ChangeGushingQuantity();
+		*/
+
+		//スクリプト制御
+		scriptControl();
 	}
 
 	//コントローラー入力管理
+	/*
 	void ControllerInputProcess()
 	{
 		//入力量取得
@@ -71,8 +79,9 @@ public class EffectStatusController : MonoBehaviour
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * inputAmount;
 		}
 	}
-
+	*/
 	//particleの色を変更
+	/*
 	void ChangeParticleColor()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -88,8 +97,9 @@ public class EffectStatusController : MonoBehaviour
 			particleSystemMain.startColor = collarList[2];
 		}
 	}
-
+	*/
 	//噴出量を変更
+	/*
 	void ChangeGushingQuantity()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -105,4 +115,24 @@ public class EffectStatusController : MonoBehaviour
 			particleSystemEmission.rateOverTime = rateList[2];
 		}
 	}
+	*/
+
+	//スクリプト制御
+	void scriptControl()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			particleSystem.Play (true);
+		}
+		else if (Input.GetKeyDown(KeyCode.Alpha5))
+		{
+			particleSystem.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		}
+		else if (Input.GetKeyDown(KeyCode.Alpha6))
+		{
+			
+		}
+
+	}
+
 }

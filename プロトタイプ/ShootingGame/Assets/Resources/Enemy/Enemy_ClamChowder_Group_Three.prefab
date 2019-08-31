@@ -47,10 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  parentObj: {fileID: 0}
   childNum: 0
   remainingEnemiesCnt: 0
   defeatedEnemyCnt: 0
   notDefeatedEnemyCnt: 0
+  myName: 
   itemTransform: {fileID: 0}
   itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
@@ -62,15 +64,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2828207219547881259}
     m_Modifications:
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -122,6 +119,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &871090157641612898 stripped
@@ -137,15 +139,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2828207219547881259}
     m_Modifications:
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -197,6 +194,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
 --- !u!4 &871090158753080519 stripped
@@ -212,15 +214,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2828207219547881259}
     m_Modifications:
-    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
-        type: 3}
-      propertyPath: m_Name
-      value: ClamChowderType_Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 3110145218247895068, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
@@ -272,15 +269,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+    - target: {fileID: 3110145218247895070, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
-      propertyPath: eState
-      value: 1
+      propertyPath: m_Name
+      value: ClamChowderType_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8390895507895468876, guid: 91f3f7f37b3eaac41907d39a841e3e09,
         type: 3}
       propertyPath: isShot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3110145218247895071, guid: 91f3f7f37b3eaac41907d39a841e3e09,
+        type: 3}
+      propertyPath: eState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f3f7f37b3eaac41907d39a841e3e09, type: 3}
