@@ -318,22 +318,22 @@ public class Obj_Storage : MonoBehaviour
 		name_Wireless_Sinario[3] = "second_half_boss_before";			//後半ボス戦闘前
 		name_Wireless_Sinario[4] = "second_half_boss_after";            //後半ボス戦闘後
 
-		for (int i = 0; i < name_Wireless_Sinario.Length; i++)
-		{
-			//開戦時のセリフの情報ロード
-			//string[,] array = new string[, name_Wireless_Sinario.Length];
-			TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_Sinario[i]) as TextAsset;            //csvファイルを入れる変数
-			Debug.Log(tsext_serif1);
-			StringReader string_serif1 = new StringReader(tsext_serif1.text);
-			Debug.Log(string_serif1);
-			//読み込んだデータをcsvの変数の中に格納
-			while (string_serif1.Peek() > -1)
-			{
-				string line = string_serif1.ReadLine();
-				Wireless_Sinario[i].Add(line.Split('/'));               //カンマごとに割り振る
-				for(int j = 0; j < Wireless_Sinario[i].Count; j++) Debug.Log(Wireless_Sinario[i][j]);
-			}
-		}
+		//for (int i = 0; i < name_Wireless_Sinario.Length; i++)
+		//{
+		//	//開戦時のセリフの情報ロード
+		//	//string[,] array = new string[, name_Wireless_Sinario.Length];
+		//	TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_Sinario[i]) as TextAsset;            //csvファイルを入れる変数
+		//	Debug.Log(tsext_serif1);
+		//	StringReader string_serif1 = new StringReader(tsext_serif1.text);
+		//	Debug.Log(string_serif1);
+		//	//読み込んだデータをcsvの変数の中に格納
+		//	while (string_serif1.Peek() > -1)
+		//	{
+		//		string line = string_serif1.ReadLine();
+		//		Wireless_Sinario[i].Add(line.Split('/'));               //カンマごとに割り振る
+		//		for(int j = 0; j < Wireless_Sinario[i].Count; j++) Debug.Log(Wireless_Sinario[i][j]);
+		//	}
+		//}
 
 		//開戦時のセリフの情報ロード
 		//TextAsset tsext_serif1 = Resources.Load("CSV_Folder/" + name_Wireless_curtain_up) as TextAsset;            //csvファイルを入れる変数
