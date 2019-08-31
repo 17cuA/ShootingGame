@@ -19,14 +19,14 @@ public class BackgroundActivation : MonoBehaviour
 	public float elapsedTime = 0.0f;
 
 	//アルファ値を上げる
-	public bool make255 = true;
+	public bool make255 = false;
 
 
 	void Start()
 	{
 		alphaValue = 0.0f;
 		elapsedTime = 0.0f;
-		make255 = true;
+		make255 = false;
 
 		for (int i = 0; i < 10; i++)
 		{

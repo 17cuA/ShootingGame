@@ -71,7 +71,7 @@ public class One_Boss_BoundBullet : bullet_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		Debug.Log(col.tag + ":" col.name);
+		Debug.Log(col.tag + ":" + col.name);
 
         if(col.tag == "Player_Bullet")
 		{
