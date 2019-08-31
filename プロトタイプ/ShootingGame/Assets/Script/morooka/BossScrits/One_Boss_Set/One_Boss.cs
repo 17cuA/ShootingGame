@@ -308,21 +308,21 @@ public class One_Boss : character_status
 		}
 		else if(Attack_Step == 1)
 		{
-			//Instantiate(End_Plefab, transform.position, Quaternion.identity);
-			//gameObject.SetActive(false);
+			Instantiate(End_Plefab, transform.position, Quaternion.identity);
+			gameObject.SetActive(false);
 
-			Timeline_Player.Play(sonota_Timeline);
-			Timeline_Player.time = 60.0;
-			Attack_Step++;
+			//Timeline_Player.Play(sonota_Timeline);
+			//Timeline_Player.time = 60.0;
+			//Attack_Step++;
 		}
 		else if(Attack_Step == 2)
 		{
 			//Instantiate(End_Plefab, transform.position, Quaternion.identity);
 			//gameObject.SetActive(false);
-			if (Is_end_of_timeline)
-			{
-				gameObject.SetActive(false);
-			}
+			//if (Is_end_of_timeline)
+			//{
+			//	gameObject.SetActive(false);
+			//}
 		}
 	}
 	#endregion
