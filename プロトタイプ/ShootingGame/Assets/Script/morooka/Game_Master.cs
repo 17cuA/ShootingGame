@@ -108,7 +108,7 @@ public class Game_Master : MonoBehaviour
     public static uint display_score_2P{private set; get;}                // 表示スコア
     public Database_Manager Boss_Data{private set; get;}        // ボスのデータベース
     public Database_Manager Enemy_Data{private set; get;}       // エネミーのデータベース
-    public CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
+    public static CONFIGURATION_IN_STAGE Management_In_Stage{set; get;}// ステージ内管理
     public Score_Display _Display{private set; get;}			// スコア表示をするため用
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 	public string[] Name_List {  get; private set; }
