@@ -102,6 +102,7 @@ public class One_Boss : character_status
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
 	private int[] Core_Mae_HP { get; set; }      // コアの初期HP
+	private int Core_Init_HP { get; set; }
 
 	private Player1 Player1_Script { get; set; }
 	private Player2 Player2_Script { get; set; }
@@ -178,7 +179,7 @@ public class One_Boss : character_status
 		{
 			Core_Mae_HP[i] = core[i].hp;
 		}
-
+		Core_Init_HP = 255;
 		Damage_Stage_Col = new List<List<Collider>>();
 		Damage_Stage_Col.Add(new List<Collider> { core_shutter[0].GetComponent<Collider>(), core_shutter[1].GetComponent<Collider>(), core_shutter[2].GetComponent<Collider>(), core[0].GetComponent<Collider>() });
 		Damage_Stage_Col.Add(new List<Collider> { core_shutter[3].GetComponent<Collider>(), core_shutter[4].GetComponent<Collider>(), core_shutter[5].GetComponent<Collider>(), core[1].GetComponent<Collider>() });
@@ -253,33 +254,33 @@ public class One_Boss : character_status
 			{
 				if (core[i].gameObject.activeSelf)
 				{
-					if(core[i].hp < Core_Mae_HP[i])
-					{
-						float RG =  (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
-
-						Color c = core_renderer[i].material.GetColor("_Color");
-						c.r += RG;
-						c.b -= RG;
-						core_renderer[i].material.SetColor("_Color", c);
-
-						c = core_renderer[i].material.GetColor("_Emissive_Color");
-						c.r += RG;
-						c.b -= RG;
-						core_renderer[i].material.SetColor("_Emissive_Color", c);
-
-						Core_Mae_HP[i] = core[i].hp;
-					}
-
-
-					//if (core[i].hp < Core_Init_HP / 3)
+					//if(core[i].hp < Core_Mae_HP[i])
 					//{
-					//	var color = default(Color);
-					//	ColorUtility.TryParseHtmlString("#FF0000", out color);
-					//	core_renderer[i].material.SetColor("_Color", color);
+					//	float RG =  (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 
-					//	ColorUtility.TryParseHtmlString("#BF0000", out color);
-					//	core_renderer[i].material.SetColor("_Emissive_Color", color);
+					//	Color[] c = core_renderer[i].material.GetColorArray("_Color");
+					//	c[0].r += RG;
+					//	c[0].b -= RG;
+					//	core_renderer[i].material.SetColorArray("_Color", c);
+
+					//	c = core_renderer[i].material.GetColorArray("_Emissive_Color");
+					//	c[0].r += RG;
+					//	c[0].b -= RG;
+					//	core_renderer[i].material.SetColorArray("_Emissive_Color", c);
+
+					//	Core_Mae_HP[i] = core[i].hp;
 					//}
+
+
+					if (core[i].hp < Core_Init_HP / 3)
+					{
+						var color = default(Color);
+						ColorUtility.TryParseHtmlString("#FF0000", out color);
+						core_renderer[i].material.SetColor("_Color", color);
+
+						ColorUtility.TryParseHtmlString("#BF0000", out color);
+						core_renderer[i].material.SetColor("_Emissive_Color", color);
+					}
 				}
 			}
 
