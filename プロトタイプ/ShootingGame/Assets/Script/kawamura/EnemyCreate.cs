@@ -444,27 +444,27 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-        //if (isOneBossDead)
-        //{
-        //    if (frameCnt < turning_frame)
-        //    {
-        //        frameCnt = turning_frame;
-        //        //turning_frame = 25290;
-        //    }
-        //    isOneBossDead = false;
-        //}
-        if (oneBoss_Script != null)
+        if (isOneBossDead)
+        {
+            if (frameCnt < 40330)
+            {
+                frameCnt = 40330;
+                //turning_frame = 40930;
+            }
+            isOneBossDead = false;
+        }
+        else if (oneBoss_Script != null)
         {
 			if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < turning_frame)
+                if (frameCnt < 40330)
                 {
                     if(backActive_Script)
                     {
                         backActive_Script.TransparencyChangeTrigger();
                     }
-                    frameCnt = turning_frame;
-                    //turning_frame = 25290;
+                    frameCnt = 40330;
+                    //turning_frame = 40930;
                 }
                 isOneBossDead = false;
 
@@ -1167,7 +1167,7 @@ public class EnemyCreate : MonoBehaviour
 			GameObject waveThreeEnemy2 = Instantiate(enemy_ClamChowder_Group_Three, createPosLm2.transform.position, transform.rotation);
 
 			nextEnemy = "戦艦真ん中1体";
-			Next_Condition(40);
+			Next_Condition(160);
 		}
 		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
 		//{
