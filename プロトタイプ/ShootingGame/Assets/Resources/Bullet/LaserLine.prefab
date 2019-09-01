@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6580657217836235300}
   - component: {fileID: 6580657217836235303}
   - component: {fileID: 927928307}
+  - component: {fileID: 3111064614976830354}
   m_Layer: 14
   m_Name: LaserLine
   m_TagString: Untagged
@@ -65,13 +66,6 @@ MonoBehaviour:
   Travelling_Direction: {x: 1, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
   Bullet_Type: 0
-  trailMaxTime: 0.6
-  trailMinTime: 0.1
-  lifeTime: 1.5
-  trailMaxWidth: 25
-  trailMinWidth: 0
-  isRotateLaser: 0
-  ischangLaserWidth: 0
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
@@ -168,6 +162,22 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!54 &3111064614976830354
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580657217836235302}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7556076953521740979
 GameObject:
   m_ObjectHideFlags: 0
