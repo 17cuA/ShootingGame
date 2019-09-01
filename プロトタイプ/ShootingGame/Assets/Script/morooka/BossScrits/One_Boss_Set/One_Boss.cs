@@ -30,7 +30,7 @@ public class One_Boss : character_status
 	[Header("ボスの個別で動かしたい形成パーツ")]
 	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
 	[SerializeField, Tooltip("コア")] private One_Boss_Parts[] core;
-	[SerializeField, Tooltip("コアのレンダー")]private MeshRenderer[] core_renderer;
+	[SerializeField, Tooltip("コアのレンダー")]private Renderer[] core_renderer;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
 	[SerializeField, Tooltip("ボディのパーツ")] private GameObject Body_Parts;
 	[SerializeField, Tooltip("アームの見た目")] private GameObject[] arm_mesh;
@@ -101,8 +101,11 @@ public class One_Boss : character_status
 	private float PreviousPosition { get; set; }        // 前の位置
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
-	private int[] Core_Mae_HP { get; set; }      // コアの初期HP
-	private int Core_Init_HP { get; set; }
+	private int[] Core_Mae_HP { get; set; }      
+	private int Core_Init_HP { get; set; }// コアの初期HP
+
+	private Color[] Base_Color { get; set; }
+	private Color[] Emissive_Color { get; set; }
 
 	private Player1 Player1_Script { get; set; }
 	private Player2 Player2_Script { get; set; }
@@ -203,6 +206,22 @@ public class One_Boss : character_status
 			Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
 			Player2_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player2>();
 		}
+
+		Base_Color = new Color[4]
+		{
+			new Color(27.0f/255.0f, 0.0f, 1.0f),
+			new Color(27.0f/255.0f, 0.0f, 1.0f),
+			new Color(27.0f/255.0f, 0.0f, 1.0f),
+			new Color(27.0f/255.0f, 0.0f, 1.0f),
+		};
+
+		Emissive_Color = new Color[4]
+		{
+			new Color(0.0f, 12.0f /255.0f, 1.0f ),
+			new Color(0.0f, 12.0f /255.0f, 1.0f ),
+			new Color(0.0f, 12.0f /255.0f, 1.0f ),
+			new Color(0.0f, 12.0f /255.0f, 1.0f ),
+		};
 	}
 
 	private new void Update()
@@ -254,33 +273,35 @@ public class One_Boss : character_status
 			{
 				if (core[i].gameObject.activeSelf)
 				{
-					//if(core[i].hp < Core_Mae_HP[i])
-					//{
-					//	float RG =  (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
-
-					//	Color[] c = core_renderer[i].material.GetColorArray("_Color");
-					//	c[0].r += RG;
-					//	c[0].b -= RG;
-					//	core_renderer[i].material.SetColorArray("_Color", c);
-
-					//	c = core_renderer[i].material.GetColorArray("_Emissive_Color");
-					//	c[0].r += RG;
-					//	c[0].b -= RG;
-					//	core_renderer[i].material.SetColorArray("_Emissive_Color", c);
-
-					//	Core_Mae_HP[i] = core[i].hp;
-					//}
-
-
-					if (core[i].hp < Core_Init_HP / 3)
+					if (core[i].hp < Core_Mae_HP[i])
 					{
 						var color = default(Color);
-						ColorUtility.TryParseHtmlString("#FF0000", out color);
-						core_renderer[i].material.SetColor("_Color", color);
+						float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 
-						ColorUtility.TryParseHtmlString("#BF0000", out color);
+						Base_Color[i].r += RG;
+						Base_Color[i].b -= RG;
+						color = Base_Color[i];
+						//core_renderer[i].material.SetColor("_Color", color);
+						core_renderer[i].material.color = color;
+
+						Emissive_Color[i].r += RG;
+						Emissive_Color[i].b -= RG;
+						color = Emissive_Color[i];
 						core_renderer[i].material.SetColor("_Emissive_Color", color);
+
+						Core_Mae_HP[i] = core[i].hp;
 					}
+
+
+					//if (core[i].hp < Core_Init_HP / 3)
+					//{
+					//	var color = default(Color);
+					//	ColorUtility.TryParseHtmlString("#FF0000", out color);
+					//	core_renderer[i].material.SetColor("_Color", color);
+
+					//	ColorUtility.TryParseHtmlString("#BF0000", out color);
+					//	core_renderer[i].material.SetColor("_Emissive_Color", color);
+					//}
 				}
 			}
 

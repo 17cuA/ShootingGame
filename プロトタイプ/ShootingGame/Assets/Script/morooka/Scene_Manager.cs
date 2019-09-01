@@ -95,6 +95,11 @@ public class Scene_Manager : MonoBehaviour
 				}
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.F2))
+		{
+			Screen_Transition_To_Caution();
+		}
 	}
 
 	/// <summary>
