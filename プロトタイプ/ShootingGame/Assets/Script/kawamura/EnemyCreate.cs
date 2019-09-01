@@ -422,12 +422,12 @@ public class EnemyCreate : MonoBehaviour
 
         if (isMiddleBossDead)
         {
-            if (frameCnt < 6750)
+            if (frameCnt < 7450)
             {
-                frameCnt = 6750;
-                turning_frame = 6750;
+                frameCnt = 7450;
+                turning_frame = 7450;
 
-                groupCnt = 2243;
+                groupCnt = 24;
             }
             isMiddleBossDead = false;
         }
@@ -435,11 +435,11 @@ public class EnemyCreate : MonoBehaviour
         {
             if(middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 6750)
+                if (frameCnt < 7450)
                 {
-                    frameCnt = 6750;
-                    turning_frame = 6750;
-                    groupCnt = 23;
+                    frameCnt = 7450;
+                    turning_frame = 7450;
+                    groupCnt = 24;
                 }
                 isMiddleBossDead = false;
 
@@ -448,9 +448,9 @@ public class EnemyCreate : MonoBehaviour
 
         if (isOneBossDead)
         {
-            if (frameCnt < 40330)
+            if (frameCnt < 40780)
             {
-                frameCnt = 40330;
+                frameCnt = 40780;
                 //turning_frame = 40930;
             }
             isOneBossDead = false;
@@ -459,13 +459,13 @@ public class EnemyCreate : MonoBehaviour
         {
 			if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 40330)
+                if (frameCnt < 40780)
                 {
                     if(backActive_Script)
                     {
                         backActive_Script.TransparencyChangeTrigger();
                     }
-                    frameCnt = 40330;
+                    frameCnt = 40780;
                     //turning_frame = 40930;
                 }
                 isOneBossDead = false;
