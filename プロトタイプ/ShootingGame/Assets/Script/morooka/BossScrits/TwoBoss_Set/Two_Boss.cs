@@ -38,6 +38,8 @@ public class Two_Boss : character_status
 	private Player1 Player1_Script { get; set; }		// 1P情報
 	private Player2 Player2_Script { get; set; }		// 2P情報
 
+	private Quaternion[] Alignment_Angle { get; set; }		// 整列時の角度
+
 	private int Attack_Type_Instruction { get; set; }		// 攻撃種類指示
 
 	private new void Start()
@@ -48,6 +50,9 @@ public class Two_Boss : character_status
 		Attack_Type_Instruction = 0;
 		Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
 		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) Player2_Script = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+
+		// 角度保存
+		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
 	}
 
 	// Update is called once per frame
@@ -62,6 +67,10 @@ public class Two_Boss : character_status
 			Attack_Type_Instruction = 0;
 		}
 
+		if(Is_Core_Annihilation())
+		{
+
+		}
 	}
 
 	#region 弾丸攻撃
@@ -74,7 +83,10 @@ public class Two_Boss : character_status
 		if(Attack_Step == 0)
 		{
 			Timeline_Player.Play(Multiple_1_Play);
-
+			Next_Step();
+		}
+		else if (Attack_Step == 1)
+		{
 			if(Is_end_of_timeline)
 			{
 				Timeline_Player.Pause();
@@ -82,7 +94,7 @@ public class Two_Boss : character_status
 			}
 		}
 		// 攻撃
-		else if(Attack_Step == 1)
+		else if(Attack_Step == 2)
 		{
 			Frames_In_Function++;
 			Shot_Delay++;
@@ -91,10 +103,11 @@ public class Two_Boss : character_status
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
 
-				foreach (Two_Boss_Parts TwoP in multiple)
-				{
-					TwoP.transform.right = Vector3.Lerp(TwoP.transform.right, TwoP.transform.position - Player1_Script.transform.position, 2.0f);
-				}
+				//foreach (Two_Boss_Parts TwoP in multiple)
+				//{
+				//	Quaternion targetRotation = Quaternion.LookRotation(Player1_Script.transform.position - TwoP.transform.position);
+				//	TwoP.transform.localRotation = Quaternion.Slerp(TwoP.transform.localRotation, targetRotation, Time.deltaTime);
+				//}
 
 				if (Shot_Delay > Shot_DelayMax)
 				{
@@ -109,6 +122,20 @@ public class Two_Boss : character_status
 			// 2Pのとき
 			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			{
+				//for (int i = 0; i < multiple.Length; i++)
+				//{
+				//	if (i % 2 == 0)
+				//	{
+				//		Quaternion targetRotation = Quaternion.LookRotation(Player1_Script.transform.position - multiple[i].transform.position);
+				//		multiple[i].transform.localRotation = Quaternion.Slerp(multiple[i].transform.localRotation, targetRotation, Time.deltaTime);
+				//	}
+				//	else
+				//	{
+				//		Quaternion targetRotation = Quaternion.LookRotation(Player2_Script.transform.position - multiple[i].transform.position);
+				//		multiple[i].transform.localRotation = Quaternion.Slerp(multiple[i].transform.localRotation, targetRotation, Time.deltaTime);
+				//	}
+				//}
+
 				if (Shot_Delay > Shot_DelayMax / 2)
 				{
 					for(int i = 0; i < multiple.Length; i++)
@@ -131,14 +158,44 @@ public class Two_Boss : character_status
 			// 約20秒
 			if (Frames_In_Function == 1200)
 			{
-				Timeline_Player.Play(Multiple_1_Play);
 				Next_Step();
 			}
 		}
 		// 後かたずけ
-		else if(Attack_Step == 2)
+		else if(Attack_Step == 3)
 		{
-			if(Is_end_of_timeline)
+			bool ok = true;
+
+			//for (int i = 0; i < multiple.Length; i++)
+			//{
+			//	if (i < multiple.Length / 2)
+			//	{
+			//		if (multiple[i].transform.rotation != Alignment_Angle[0])
+			//		{
+			//			ok = false;
+			//			multiple[i].transform.rotation = Quaternion.Lerp(multiple[i].transform.rotation, Alignment_Angle[0], 0.1f);
+			//		}
+			//	}
+			//	else if (i > multiple.Length / 2)
+			//	{
+			//		if (multiple[i].transform.rotation != Alignment_Angle[1])
+			//		{
+			//			ok = false;
+			//			multiple[i].transform.rotation = Quaternion.Lerp(multiple[i].transform.rotation, Alignment_Angle[1], 0.1f);
+			//		}
+			//	}
+			//}
+
+			if(ok)
+			{
+				Timeline_Player.Play(Multiple_1_Play);
+				Timeline_Player.time = 8.0;
+				Next_Step();
+			}
+		}
+		else if(Attack_Step == 4)
+		{
+			if (Is_end_of_timeline)
 			{
 				Timeline_Player.Stop();
 				Attack_End();
@@ -197,6 +254,26 @@ public class Two_Boss : character_status
 
 		Timeline_Player.Play(time_line);
 		Timeline_Player.time = time;
+	}
+	#endregion
+
+	#region コアの生存確認
+	/// <summary>
+	/// コアが全滅しているか返す
+	/// </summary>
+	/// <returns>全滅で true </returns>
+	private bool Is_Core_Annihilation()
+	{
+		bool survival = true;
+
+		foreach(Two_Boss_Parts core in core)
+		{
+			if(core.gameObject.activeSelf)
+			{
+				survival = false;
+			}
+		}
+		return survival;
 	}
 	#endregion
 }

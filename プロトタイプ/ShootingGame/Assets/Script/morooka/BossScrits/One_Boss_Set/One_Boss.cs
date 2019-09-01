@@ -75,7 +75,6 @@ public class One_Boss : character_status
 	private int Attack_Step { get; set; }							// 関数内 攻撃ステップ
 	//-------------------------------------------------
 
-
 	private int A_Num { get; set; }
 	private int B_Num { get; set; }
 	private Vector3 IntermediatePosition { get; set; }
@@ -102,7 +101,8 @@ public class One_Boss : character_status
 	private float PreviousPosition { get; set; }        // 前の位置
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
-	private int Core_Init_HP { get; set; }      // コアの初期HP
+	private int[] Core_Mae_HP { get; set; }      // コアの初期HP
+	private int Core_Init_HP { get; set; }
 
 	private Player1 Player1_Script { get; set; }
 	private Player2 Player2_Script { get; set; }
@@ -174,8 +174,12 @@ public class One_Boss : character_status
 			new Vector3(-5.0f,0.0f,0.0f),
 		};
 
-		Core_Init_HP = core[0].hp;
-
+		Core_Mae_HP = new int[core.Length];
+		for(int i = 0;i<Core_Mae_HP.Length;i++)
+		{
+			Core_Mae_HP[i] = core[i].hp;
+		}
+		Core_Init_HP = 255;
 		Damage_Stage_Col = new List<List<Collider>>();
 		Damage_Stage_Col.Add(new List<Collider> { core_shutter[0].GetComponent<Collider>(), core_shutter[1].GetComponent<Collider>(), core_shutter[2].GetComponent<Collider>(), core[0].GetComponent<Collider>() });
 		Damage_Stage_Col.Add(new List<Collider> { core_shutter[3].GetComponent<Collider>(), core_shutter[4].GetComponent<Collider>(), core_shutter[5].GetComponent<Collider>(), core[1].GetComponent<Collider>() });
@@ -250,6 +254,24 @@ public class One_Boss : character_status
 			{
 				if (core[i].gameObject.activeSelf)
 				{
+					//if(core[i].hp < Core_Mae_HP[i])
+					//{
+					//	float RG =  (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+
+					//	Color[] c = core_renderer[i].material.GetColorArray("_Color");
+					//	c[0].r += RG;
+					//	c[0].b -= RG;
+					//	core_renderer[i].material.SetColorArray("_Color", c);
+
+					//	c = core_renderer[i].material.GetColorArray("_Emissive_Color");
+					//	c[0].r += RG;
+					//	c[0].b -= RG;
+					//	core_renderer[i].material.SetColorArray("_Emissive_Color", c);
+
+					//	Core_Mae_HP[i] = core[i].hp;
+					//}
+
+
 					if (core[i].hp < Core_Init_HP / 3)
 					{
 						var color = default(Color);
