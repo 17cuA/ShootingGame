@@ -37,7 +37,6 @@ public class One_Boss_BoundBullet : bullet_status
 		if (Physics.Raycast(transform.position, -Ray_Direction.normalized, out hit_mesh, length_on_landing)
 			&& boss.activeSelf)
 		{
-			Debug.Log(hit_mesh.transform.name);
 			// コライダーの持ち主がWAllのとき
 			if (hit_mesh.collider.gameObject.tag == "Wall_Length" && hit_mesh.collider.gameObject != mae)
 			{
@@ -71,7 +70,6 @@ public class One_Boss_BoundBullet : bullet_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		Debug.Log(col.tag + ":" + col.name);
 
         if(col.tag == "Player_Bullet")
 		{
