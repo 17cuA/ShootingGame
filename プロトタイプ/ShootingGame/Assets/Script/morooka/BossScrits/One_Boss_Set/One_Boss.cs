@@ -226,116 +226,119 @@ public class One_Boss : character_status
 
 	private new void Update()
 	{
-		if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
+		if (!PauseManager.IsPause)
 		{
-			maenoiti = transform.position;
-			Timeline_Player.Pause();
-			Attack_Step = 0;
-			End_Flag = true;
-		}
-
-		if (Start_Flag && !End_Flag && Update_Flag)
-		{
-			Collider_Set(true);
-			for(int i =0; i< Damage_Stage_Col.Count;i++)
+			if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
 			{
-				Damage_Stage_Col[i][0].enabled = true;
+				maenoiti = transform.position;
+				Timeline_Player.Pause();
+				Attack_Step = 0;
+				End_Flag = true;
 			}
-			Timeline_Player.Pause();
-			Timeline_Player.time = 60.0;
 
-			Start_Flag = false;
-		}
-		else if (!End_Flag && !Start_Flag && Update_Flag)
-		{
-			if (Attack_Type_Instruction < 2)
+			if (Start_Flag && !End_Flag && Update_Flag)
 			{
-				Player_Tracking_Bound_Bullets_2();
-			}
-			else
-			{
-				if (Number_Of_Lasers < 1)
+				Collider_Set(true);
+				for (int i = 0; i < Damage_Stage_Col.Count; i++)
 				{
-					//Laser_Clearing_2();
-					Laser_Time();
+					Damage_Stage_Col[i][0].enabled = true;
+				}
+				Timeline_Player.Pause();
+				Timeline_Player.time = 60.0;
+
+				Start_Flag = false;
+			}
+			else if (!End_Flag && !Start_Flag && Update_Flag)
+			{
+				if (Attack_Type_Instruction < 2)
+				{
+					Player_Tracking_Bound_Bullets_2();
 				}
 				else
 				{
-					Rush_2();
-				}
-			}
-
-			base.Update();
-			Survival_Time_Cnt++;
-
-			// 一定HP以下の時コアの色を変える
-			for(int i = 0; i< core.Length; i++)
-			{
-				if (core[i].gameObject.activeSelf)
-				{
-					if (core[i].hp < Core_Mae_HP[i])
+					if (Number_Of_Lasers < 1)
 					{
-						float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
-
-						Base_Color[i].r += RG;
-						Base_Color[i].b -= RG;
-						Emissive_Color[i].r += RG;
-						Emissive_Color[i].b -= RG;
-
-						if(core[i].hp < Core_Init_HP / 2)
-						{
-							Base_Color[i].g -= (RG * 2.0f);
-							Emissive_Color[i].g -= (RG * 2.0f);
-						}
-						else
-						{
-							Base_Color[i].g += (RG*2.0f);
-							Emissive_Color[i].g += (RG*2.0f);
-						}
+						//Laser_Clearing_2();
+						Laser_Time();
 					}
+					else
+					{
+						Rush_2();
+					}
+				}
+
+				base.Update();
+				Survival_Time_Cnt++;
+
+				// 一定HP以下の時コアの色を変える
+				for (int i = 0; i < core.Length; i++)
+				{
+					if (core[i].gameObject.activeSelf)
+					{
+						if (core[i].hp < Core_Mae_HP[i])
+						{
+							float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+
+							Base_Color[i].r += RG;
+							Base_Color[i].b -= RG;
+							Emissive_Color[i].r += RG;
+							Emissive_Color[i].b -= RG;
+
+							if (core[i].hp < Core_Init_HP / 2)
+							{
+								Base_Color[i].g -= (RG * 2.0f);
+								Emissive_Color[i].g -= (RG * 2.0f);
+							}
+							else
+							{
+								Base_Color[i].g += (RG * 2.0f);
+								Emissive_Color[i].g += (RG * 2.0f);
+							}
+						}
 						core_renderer[i].material.SetColor("_Color", Base_Color[i]);
 						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
 
 						Core_Mae_HP[i] = core[i].hp;
-					
 
 
-					//if (core[i].hp < Core_Init_HP / 3)
-					//{
-					//	var color = default(Color);
-					//	ColorUtility.TryParseHtmlString("#FF0000", out color);
-					//	core_renderer[i].material.SetColor("_Color", color);
 
-					//	ColorUtility.TryParseHtmlString("#BF0000", out color);
-					//	core_renderer[i].material.SetColor("_Emissive_Color", color);
-					//}
+						//if (core[i].hp < Core_Init_HP / 3)
+						//{
+						//	var color = default(Color);
+						//	ColorUtility.TryParseHtmlString("#FF0000", out color);
+						//	core_renderer[i].material.SetColor("_Color", color);
+
+						//	ColorUtility.TryParseHtmlString("#BF0000", out color);
+						//	core_renderer[i].material.SetColor("_Emissive_Color", color);
+						//}
+					}
+				}
+
+				// パーツのコアが壊れたら死亡
+				if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
+				{
+					Timeline_Player.Stop();
+					Attack_Step = 0;
+					Timeline_Player.time = 60.0;
+					End_Flag = true;
 				}
 			}
-
-			// パーツのコアが壊れたら死亡
-			if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
+			else if (End_Flag && !Start_Flag && Update_Flag)
 			{
-				Timeline_Player.Stop();
-				Attack_Step = 0;
-				Timeline_Player.time = 60.0;
-				End_Flag = true;
+				End_Anime();
 			}
-		}
-		else if (End_Flag && !Start_Flag && Update_Flag)
-		{
-			End_Anime();
-		}
 
-		// コライダー管理
-		// シャッターが壊れると次のコライダーが起動
-		for(int a = 0; a < Damage_Stage_Col.Count; a++)
-		{
-			for(int b = 0;b < Damage_Stage_Col[a].Count - 1;b++)
+			// コライダー管理
+			// シャッターが壊れると次のコライダーが起動
+			for (int a = 0; a < Damage_Stage_Col.Count; a++)
 			{
-				if(!Damage_Stage_Col[a][b].gameObject.activeSelf && !Damage_Stage_Col[a][b+1].enabled)
+				for (int b = 0; b < Damage_Stage_Col[a].Count - 1; b++)
 				{
-					Damage_Stage_Col[a][b+1].enabled = true;
-					Damage_Stage_Col[a].RemoveAt(b);
+					if (!Damage_Stage_Col[a][b].gameObject.activeSelf && !Damage_Stage_Col[a][b + 1].enabled)
+					{
+						Damage_Stage_Col[a][b + 1].enabled = true;
+						Damage_Stage_Col[a].RemoveAt(b);
+					}
 				}
 			}
 		}
