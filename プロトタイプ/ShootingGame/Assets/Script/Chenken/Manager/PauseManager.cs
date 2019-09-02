@@ -29,11 +29,13 @@ public class PauseManager : MonoBehaviour
 	}
 
 	private GameObject pauseMask;
+	private GameObject pauseText;
 	private AudioSource[] allAudios;
 
 	private void Start()
 	{
 		pauseMask = transform.GetChild(0).gameObject;
+		pauseText = transform.GetChild(1).gameObject;
 		allAudios = GameObject.FindObjectsOfType<AudioSource>();
 	}
 
@@ -47,6 +49,7 @@ public class PauseManager : MonoBehaviour
 				isPause = !isPause;
 				PauseComponent.Pause();
 				pauseMask.SetActive(true);
+				pauseText.SetActive(true);
 				for(var i = 0; i < allAudios.Length; ++i)
 				{
 					allAudios[i].volume = pauseVolume;
@@ -62,6 +65,7 @@ public class PauseManager : MonoBehaviour
 				isPause = !isPause;
 				PauseComponent.Resume();
 				pauseMask.SetActive(false);
+				pauseText.SetActive(false);
 				for (var i = 0; i < allAudios.Length; ++i)
 				{
 					allAudios[i].volume = 1.0f;
