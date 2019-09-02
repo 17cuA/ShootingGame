@@ -90,10 +90,9 @@ public class One_Boss : character_status
 
 	private bool End_Flag { get; set; }         // 終わりのフラグ
 
-	private int Survival_Time { get; set; }
-	private int Survival_Time_Cnt { get; set; }
-	private int Bullet_Num { get; set; }
-	private bool Attack_Now { get; set; }
+	private int Survival_Time { get; set; }				// ボスの生存する時間
+	private int Survival_Time_Cnt { get; set; }		// 生存している時間カウント
+	private bool Is_Attack_Now { get; set; }			// 現在攻撃しているか
 
 	private  List<List<Collider>> Damage_Stage_Col { get; set; }		// ダメージの段階
 
@@ -125,9 +124,7 @@ public class One_Boss : character_status
 
 		Survival_Time = (2 * 60 * 60);
 		Survival_Time_Cnt = 0;
-		Attack_Now = false;
-
-		Bullet_Num = Random.Range(2, 5);
+		Is_Attack_Now = false;
 
 		Pos_set = new Vector3[pos_set_prefab.transform.childCount, pos_set_prefab.transform.GetChild(0).childCount];
 		for (int i = 0; i < pos_set_prefab.transform.childCount; i++)
@@ -228,7 +225,7 @@ public class One_Boss : character_status
 	{
 		if (!PauseManager.IsPause)
 		{
-			if (Survival_Time_Cnt >= Survival_Time && !Attack_Now && !End_Flag)
+			if (Survival_Time_Cnt >= Survival_Time && !Is_Attack_Now && !End_Flag)
 			{
 				maenoiti = transform.position;
 				Timeline_Player.Pause();
@@ -250,6 +247,16 @@ public class One_Boss : character_status
 			}
 			else if (!End_Flag && !Start_Flag && Update_Flag)
 			{
+				// デバッグ　HP　0か
+				if(Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.H))
+				{
+					foreach(One_Boss_Parts core in core)
+					{
+						core.hp = 0;
+					}
+				}
+
+
 				if (Attack_Type_Instruction < 2)
 				{
 					Player_Tracking_Bound_Bullets_2();
@@ -275,32 +282,34 @@ public class One_Boss : character_status
 				{
 					if (core[i].gameObject.activeSelf)
 					{
+						// HPが前フレームより少ないとき
 						if (core[i].hp < Core_Mae_HP[i])
 						{
-							float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+							// RGBの変化数
+							float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+							
+							// 青抜き、赤入れ
+							Base_Color[i].r += RGB;
+							Base_Color[i].b -= RGB;
+							Emissive_Color[i].r += RGB;
+							Emissive_Color[i].b -= RGB;
 
-							Base_Color[i].r += RG;
-							Base_Color[i].b -= RG;
-							Emissive_Color[i].r += RG;
-							Emissive_Color[i].b -= RG;
-
+							// Gの値ははじめ増やして、後半減らす
 							if (core[i].hp < Core_Init_HP / 2)
 							{
-								Base_Color[i].g -= (RG * 2.0f);
-								Emissive_Color[i].g -= (RG * 2.0f);
+								Base_Color[i].g -= (RGB * 2.0f);
+								Emissive_Color[i].g -= (RGB * 2.0f);
 							}
 							else
 							{
-								Base_Color[i].g += (RG * 2.0f);
-								Emissive_Color[i].g += (RG * 2.0f);
+								Base_Color[i].g += (RGB * 2.0f);
+								Emissive_Color[i].g += (RGB * 2.0f);
 							}
 						}
 						core_renderer[i].material.SetColor("_Color", Base_Color[i]);
 						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
 
 						Core_Mae_HP[i] = core[i].hp;
-
-
 
 						//if (core[i].hp < Core_Init_HP / 3)
 						//{
@@ -390,7 +399,7 @@ public class One_Boss : character_status
 		{
 			maenoiti = transform.position;
 			Attack_Step++;
-			Attack_Now = true;
+			Is_Attack_Now = true;
 		}
 		else if (Attack_Step == 1)
 		{
@@ -502,10 +511,9 @@ public class One_Boss : character_status
 			{
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
-				Bullet_Num = Random.Range(2, 6);
 				Flame = 0;
 				Number_Of_Lasers++;
-				Attack_Now = false;
+				Is_Attack_Now = false;
 			}
 		}
 	}
@@ -518,7 +526,7 @@ public class One_Boss : character_status
 		{
 			maenoiti = transform.position;
 			Attack_Step++;
-			Attack_Now = true;
+			Is_Attack_Now = true;
 		}
 		else if (Attack_Step == 1)
 		{
@@ -583,10 +591,9 @@ public class One_Boss : character_status
 		{
 			Attack_Step = 0;
 			Attack_Type_Instruction = 0;
-			Bullet_Num = Random.Range(2, 6);
 			Flame = 0;
 			Number_Of_Lasers++;
-			Attack_Now = false;
+			Is_Attack_Now = false;
 		}
 	}
 		#endregion
@@ -610,7 +617,7 @@ public class One_Boss : character_status
 
 		if (Attack_Step == 0)
 		{
-			Attack_Now = true;
+			Is_Attack_Now = true;
 			//Flame++;
 			//if (Flame == 40)
 			//{
@@ -788,7 +795,7 @@ public class One_Boss : character_status
 			maenoiti = transform.position;
 			Timeline_Player.time = 30.0;
 			Attack_Step++;
-			Attack_Now = true;
+			Is_Attack_Now = true;
 		}
 		else if (Attack_Step == 1)
 		{
@@ -825,9 +832,8 @@ public class One_Boss : character_status
 				Timeline_Player.Pause();
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
-				Bullet_Num = Random.Range(2, 5);
 				Number_Of_Lasers = 0;
-				Attack_Now = false;
+				Is_Attack_Now = false;
 			}
 		}
 	}
