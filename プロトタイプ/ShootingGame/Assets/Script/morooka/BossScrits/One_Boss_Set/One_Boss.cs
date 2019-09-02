@@ -201,7 +201,7 @@ public class One_Boss : character_status
 		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
 			Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-			Player2_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player2>();
+			Player2_Script = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
 		}
 
 		Base_Color = new Color[4]

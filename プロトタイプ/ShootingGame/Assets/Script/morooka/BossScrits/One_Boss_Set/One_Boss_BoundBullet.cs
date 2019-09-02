@@ -38,7 +38,7 @@ public class One_Boss_BoundBullet : bullet_status
 			&& boss.activeSelf)
 		{
 			// コライダーの持ち主がWAllのとき
-			if (hit_mesh.collider.gameObject.tag == "Wall_Length" && hit_mesh.collider.gameObject != mae)
+			if (hit_mesh.collider.gameObject.tag != "Player_Bullet" /*&& hit_mesh.collider.gameObject != mae*/)
 			{
 				mae = hit_mesh.transform.gameObject;
 				Ray_Direction = ReflectionCalculation(Ray_Direction, hit_mesh.normal);
@@ -58,12 +58,12 @@ public class One_Boss_BoundBullet : bullet_status
 	/// <param name="progressVector_F"> 進行方向のベクトル </param>
 	/// <param name="normalVector_N"> 法線ベクトル </param>
 	/// <returns></returns>
-	private Vector3 ReflectionCalculation(Vector3 progressVector_F, Vector3 normalVector_N)
+	private Vector2 ReflectionCalculation(Vector3 progressVector_F, Vector3 normalVector_N)
 	{
-		Vector3 vecocity = Vector3.zero;
+		Vector2 vecocity = Vector2.zero;
 
 		//　公式の利用
-		vecocity = progressVector_F + (2 * Vector3.Dot(-progressVector_F, normalVector_N) * normalVector_N);
+		vecocity = progressVector_F + (2 * Vector2.Dot(-progressVector_F, normalVector_N) * normalVector_N);
 
 		return vecocity;
 	}
