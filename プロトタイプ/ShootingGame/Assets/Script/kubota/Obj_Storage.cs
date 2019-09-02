@@ -86,7 +86,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[22];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[23];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 	//無線のに使う情報
 	private string name_Wireless_curtain_up = "curtain_up";		  //開戦時
@@ -210,6 +210,7 @@ public class Obj_Storage : MonoBehaviour
         audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");//戦艦タイプの爆発音
 		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");//プレイヤーの死亡時の音
 		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");		//プレイヤー登場の音
+		audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)");	//中ボス用の爆発音
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
@@ -227,7 +228,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");		//アイテム使用時のボイス（ミサイル）
 		audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");		//アイテム使用時のボイス（ダブル）
 		audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");		//アイテム使用時のボイス（レーザー）
-		audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_17");		//アイテム使用時のボイス（オプション）
+		audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");		//アイテム使用時のボイス（オプション）
 		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");		//アイテム使用時のボイス（フォースフィールド）
 		audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");		//アイテム使用時のボイス（マックススピード）
 		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20");		//アイテム使用時のボイス（イニットスピード）

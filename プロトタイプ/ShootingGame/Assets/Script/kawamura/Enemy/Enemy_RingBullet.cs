@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//リング状の敵バレットスクリプト
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,10 +24,11 @@ public class Enemy_RingBullet : bullet_status
 	}
 	private new void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == "Player_Bullet")
+        if (col.tag == "Player_Bullet" || col.gameObject.name == "face" || col.gameObject.name == "mouth")
 		{
 			gameObject.SetActive(false);
 		}
+        base.OnTriggerEnter(col);
 	}
 
 }

@@ -115,7 +115,7 @@ public class character_status : MonoBehaviour
 		{
 			//スコア
 			Game_Master.MY.Score_Addition(score, Opponent);
-			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[9]);
+			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			//爆発処理の作成
 			ParticleCreation(7);
 			Is_Dead = true;
