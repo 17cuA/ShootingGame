@@ -186,6 +186,8 @@ public class EnemyCreate : MonoBehaviour
 	public int turning_frame = 180;
 	public string nextEnemy;
 
+	public EnemyGroupManage group_Script;
+
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
 	GameObject mistEffectObj;
@@ -954,7 +956,9 @@ public class EnemyCreate : MonoBehaviour
 		//直線闘牛
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
 		{
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			group_Script = saveObj.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = false;
 
 			nextEnemy = "戦艦2体（2回目）";
 			Next_Condition(170);
@@ -977,7 +981,9 @@ public class EnemyCreate : MonoBehaviour
 		//直線闘牛
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
 		{
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			group_Script = saveObj.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = false;
 
 			nextEnemy = "縦7体の闘牛1回目";
 			Next_Condition(170);
@@ -1148,7 +1154,7 @@ public class EnemyCreate : MonoBehaviour
 
 
 			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm2.transform.position, transform.rotation);
-			nextEnemy = "突進闘牛後ろから";
+			nextEnemy = "闘牛";
 			Next_Condition(130);
 
 		}
@@ -1194,8 +1200,8 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
-			nextEnemy = "戦艦右真ん中から";
-			Next_Condition(260);
+			nextEnemy = "闘牛";
+			Next_Condition(100);
 
 		}
 
@@ -1241,7 +1247,7 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(260);
 
         }
-        //直線闘牛右真ん中　7840
+        //直線闘牛右上右下　7840
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
@@ -1250,7 +1256,6 @@ public class EnemyCreate : MonoBehaviour
 
             nextEnemy = "直線闘牛を右上と右下から";
             Next_Condition(150);
-
         }
         //直線闘牛右真ん中　7990（ハヤブサにかえる何体か出す）
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
@@ -1260,7 +1265,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
             nextEnemy = "円盤群1つ右真ん中から";
-            Next_Condition(360);
+            Next_Condition(270);
 
         }
 
