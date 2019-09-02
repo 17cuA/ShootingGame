@@ -53,17 +53,18 @@ public class Wireless_sinario : MonoBehaviour
 
     void Start()
     {
-        Is_Display = false;
+		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
+		Is_Display = false;
         frame = 0;
 		No = 0;
 		SetNext_sinario();
         SetNextLine();
-		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 
 	}
 
     void Update()
     {
+
 		//ゲーム内のモードが無線状態の時
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
@@ -154,10 +155,6 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				uiText.text = currentText.Substring(0, displayCharacterCount);
 				lastUpdateCharacter = displayCharacterCount;
-			}
-			else
-			{
-				frame = 0;
 			}
 		}
 	}
