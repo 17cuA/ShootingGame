@@ -281,10 +281,19 @@ public class One_Boss : character_status
 						Base_Color[i].b -= RG;
 						Emissive_Color[i].r += RG;
 						Emissive_Color[i].b -= RG;
+
+						if(core[i].hp < Core_Init_HP / 2)
+						{
+							Base_Color[i].g -= (RG * 2.0f);
+							Emissive_Color[i].g -= (RG * 2.0f);
+						}
+						else
+						{
+							Base_Color[i].g += (RG*2.0f);
+							Emissive_Color[i].g += (RG*2.0f);
+						}
 					}
 						core_renderer[i].material.SetColor("_Color", Base_Color[i]);
-						//core_renderer[i].material.color = color;
-
 						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
 
 						Core_Mae_HP[i] = core[i].hp;
