@@ -3,6 +3,7 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/08/30　オプションコア格納
+ * 2019/09/02　タイムライン格納
  */
 
 using System.Collections;
@@ -25,6 +26,8 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
+
+	//[SerializeField, Tooltip("タイムラインの保存")] private PlayableAsset[] Timeline_Order_List;
 
 	[Header("攻撃フラグ")]
 	[SerializeField, Tooltip("バレット発射")] private bool Is_Bullet_Attack_Multiple;
@@ -69,7 +72,7 @@ public class Two_Boss : character_status
 
 		if(Is_Core_Annihilation())
 		{
-
+			base.Died_Process();
 		}
 	}
 
