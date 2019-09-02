@@ -273,35 +273,33 @@ public class One_Boss : character_status
 			{
 				if (core[i].gameObject.activeSelf)
 				{
-					//if (core[i].hp < Core_Mae_HP[i])
+					if (core[i].hp < Core_Mae_HP[i])
+					{
+						float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+
+						Base_Color[i].r += RG;
+						Base_Color[i].b -= RG;
+						Emissive_Color[i].r += RG;
+						Emissive_Color[i].b -= RG;
+					}
+						core_renderer[i].material.SetColor("_Color", Base_Color[i]);
+						//core_renderer[i].material.color = color;
+
+						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
+
+						Core_Mae_HP[i] = core[i].hp;
+					
+
+
+					//if (core[i].hp < Core_Init_HP / 3)
 					//{
 					//	var color = default(Color);
-					//	float RG = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+					//	ColorUtility.TryParseHtmlString("#FF0000", out color);
+					//	core_renderer[i].material.SetColor("_Color", color);
 
-					//	Base_Color[i].r += RG;
-					//	Base_Color[i].b -= RG;
-					//	color = Base_Color[i];
-					//	//core_renderer[i].material.SetColor("_Color", color);
-					//	core_renderer[i].material.color = color;
-
-					//	Emissive_Color[i].r += RG;
-					//	Emissive_Color[i].b -= RG;
-					//	color = Emissive_Color[i];
+					//	ColorUtility.TryParseHtmlString("#BF0000", out color);
 					//	core_renderer[i].material.SetColor("_Emissive_Color", color);
-
-					//	Core_Mae_HP[i] = core[i].hp;
 					//}
-
-
-					if (core[i].hp < Core_Init_HP / 3)
-					{
-						var color = default(Color);
-						ColorUtility.TryParseHtmlString("#FF0000", out color);
-						core_renderer[i].material.SetColor("_Color", color);
-
-						ColorUtility.TryParseHtmlString("#BF0000", out color);
-						core_renderer[i].material.SetColor("_Emissive_Color", color);
-					}
 				}
 			}
 
