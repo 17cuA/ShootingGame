@@ -72,6 +72,10 @@ public class UI_PowerUp : MonoBehaviour
 	}
 	private void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.KeypadEnter))
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear");
+		}
 		if (playerNum == 1 || isPlayer1)
 		{
 			var currentPower = P1_PowerManager.Instance.CurrentPower;
