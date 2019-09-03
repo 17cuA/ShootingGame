@@ -83,127 +83,129 @@ public class BattleshipType_Enemy : character_status
 
 	private new void Update()
 	{
-		base.Update();
-
-		HSV_Change();
-
-		Vector3 temp = Vector3.zero;
-
-		if (transform.position == moving_change_point[moving_change_point.Length - 1])
+		if (!PauseManager.IsPause)
 		{
-			gameObject.SetActive(false);
-		}
+			base.Update();
 
-		//// 移動したい向きに移動
-		//Vector3 velocity = Moving_Facing.normalized * speed;
-		//transform.position = transform.position + velocity;
-		// 挟み込み型の挙動
-		if (is_sandwich)
-		{
-			// 移動先に近づいたとき
-			// ターゲット番号が要素数を超えていないとき
-			if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed && Now_Target < moving_change_point.Length - 1)
+			HSV_Change();
+
+			Vector3 temp = Vector3.zero;
+
+			if (transform.position == moving_change_point[moving_change_point.Length - 1])
 			{
-				// 位置を指定
-				Original_Position = transform.position = moving_change_point[Now_Target];
-
-				Now_Target++;
-
-				speed = Initial_Speed;
+				gameObject.SetActive(false);
 			}
-			else
+
+			//// 移動したい向きに移動
+			//Vector3 velocity = Moving_Facing.normalized * speed;
+			//transform.position = transform.position + velocity;
+			// 挟み込み型の挙動
+			if (is_sandwich)
 			{
-				if (Vector_Size(transform.position, Original_Position) < Deceleration_Distance)
+				// 移動先に近づいたとき
+				// ターゲット番号が要素数を超えていないとき
+				if (Vector_Size(transform.position, moving_change_point[Now_Target]) <= speed && Now_Target < moving_change_point.Length - 1)
 				{
-					if (speed < Max_Speed) speed += Initial_Speed;
+					// 位置を指定
+					Original_Position = transform.position = moving_change_point[Now_Target];
+
+					Now_Target++;
+
+					speed = Initial_Speed;
 				}
-				else if (Vector_Size(transform.position, moving_change_point[Now_Target]) < Deceleration_Distance)
+				else
 				{
-					if (speed > Initial_Speed) speed -= Initial_Speed;
+					if (Vector_Size(transform.position, Original_Position) < Deceleration_Distance)
+					{
+						if (speed < Max_Speed) speed += Initial_Speed;
+					}
+					else if (Vector_Size(transform.position, moving_change_point[Now_Target]) < Deceleration_Distance)
+					{
+						if (speed > Initial_Speed) speed -= Initial_Speed;
+					}
+					temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+					velocity = transform.position.x - temp.x;
+					transform.position = temp;
 				}
-				temp = Moving_To_Target(transform.position, moving_change_point[Now_Target], speed);
+			}
+			else if (!is_sandwich)
+			{
+				temp = transform.position + transform.forward * speed;
 				velocity = transform.position.x - temp.x;
 				transform.position = temp;
 			}
-		}
-		else if(!is_sandwich)
-		{
-			temp = transform.position + transform.forward * speed;
-			velocity = transform.position.x - temp.x;
-			transform.position = temp;
-		}
 
 
-		// 自身のZ軸が0のとき攻撃する
-		if (transform.position.z == 0.0f)
-		{
-			Shot_Delay++;
-			if (Shot_Delay > Shot_DelayMax)
+			// 自身のZ軸が0のとき攻撃する
+			if (transform.position.z == 0.0f)
 			{
-				if (Attack_Type_Num == 0)
+				Shot_Delay++;
+				if (Shot_Delay > Shot_DelayMax)
 				{
-					Wave_Attack();
-				}
-				else if (Attack_Type_Num == 1)
-				{
-					Zigzag_Attack();
+					if (Attack_Type_Num == 0)
+					{
+						Wave_Attack();
+					}
+					else if (Attack_Type_Num == 1)
+					{
+						Zigzag_Attack();
+					}
 				}
 			}
-		}
 
-		// 保管したバレットの確認
-		for (int i = 0; i < Bullet_Object.Count; i++)
-		{
-			// バレットが起動しているとき
-			if (Bullet_Object[i].activeSelf)
+			// 保管したバレットの確認
+			for (int i = 0; i < Bullet_Object.Count; i++)
+			{
+				// バレットが起動しているとき
+				if (Bullet_Object[i].activeSelf)
+				{
+
+					// 機体のX軸移動距離と同じ距離をバレットにも移動させる
+					Vector3 pos = Bullet_Object[i].transform.position;
+					pos.x -= velocity;
+					Bullet_Object[i].transform.position = pos;
+				}
+				// 起動していないとき
+				else
+				{
+					// バレット情報のリリース
+					Bullet_Object.RemoveAt(i);
+				}
+			}
+
+			// 本体がHP０以下のとき
+			if (hp <= 0)
 			{
 
-				// 機体のX軸移動距離と同じ距離をバレットにも移動させる
-				Vector3 pos = Bullet_Object[i].transform.position;
-				pos.x -= velocity;
-				Bullet_Object[i].transform.position = pos;
-			}
-			// 起動していないとき
-			else
-			{
-				// バレット情報のリリース
-				Bullet_Object.RemoveAt(i);
-			}
-		}
+				for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+				{
+					if (muzzle_parts_scriptes[i].gameObject.activeSelf)
+					{
+						muzzle_parts_scriptes[i].Died_Process();
+					}
+				}
 
-		// 本体がHP０以下のとき
-		if (hp <= 0)
-		{
+				if (body_scriptes.gameObject.activeSelf)
+				{
+					body_scriptes.Died_Process();
+				}
+				Bullet_Object.Reverse();
 
+				Instantiate(ef, transform.position, Quaternion.identity);
+
+				Died_Process();
+
+			}
+
+			Is_Muzzle_Active = new List<bool>();
 			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 			{
-				if (muzzle_parts_scriptes[i].gameObject.activeSelf)
-				{
-					muzzle_parts_scriptes[i].Died_Process();
-				}
+				Is_Muzzle_Active.Add(muzzle_parts_scriptes[i].gameObject.activeSelf);
 			}
 
-			if (body_scriptes.gameObject.activeSelf)
-			{
-				body_scriptes.Died_Process();
-			}
-			Bullet_Object.Reverse();
-
-			Instantiate(ef, transform.position, Quaternion.identity);
-
-			Died_Process();
-
+			func();
 		}
-
-		Is_Muzzle_Active = new List<bool>();
-		for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
-		{
-			Is_Muzzle_Active.Add(muzzle_parts_scriptes[i].gameObject.activeSelf);
-		}
-
-		func();
 	}
-
 	void OnEnable()
 	{
 		if (is_sandwich)
@@ -347,3 +349,4 @@ public class BattleshipType_Enemy : character_status
 		}
 	}
 }
+
