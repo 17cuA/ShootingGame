@@ -289,20 +289,26 @@ public class One_Boss : character_status
 							// RGBの変化数
 							float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 							
-							// 青抜き、赤入れ
-							Base_Color[i].r += RGB;
-							Base_Color[i].b -= RGB;
-							Emissive_Color[i].r += RGB;
-							Emissive_Color[i].b -= RGB;
+							//// 青抜き、赤入れ
+							//Base_Color[i].r += RGB;
+							//Base_Color[i].b -= RGB;
+							//Emissive_Color[i].r += RGB;
+							//Emissive_Color[i].b -= RGB;
 
 							// Gの値ははじめ増やして、後半減らす
-							if (core[i].hp < Core_Init_HP / 2)
+							if (Base_Color[i].r >= 1.0f)
 							{
+								Base_Color[i].b -= (RGB * 2.0f);
+								Emissive_Color[i].b -= RGB;
+
 								Base_Color[i].g -= (RGB * 2.0f);
 								Emissive_Color[i].g -= (RGB * 2.0f);
 							}
-							else
+							else if(Base_Color[i].r <= 1.0f)
 							{
+								Base_Color[i].r += (RGB * 2.0f);
+								Emissive_Color[i].r += RGB;
+
 								Base_Color[i].g += (RGB * 2.0f);
 								Emissive_Color[i].g += (RGB * 2.0f);
 							}

@@ -263,6 +263,8 @@ public class Enemy_First : character_status
 			Enemy_Reset();
 			Died_Process();
 		}
+
+		base.Update();
 	}
 
 	//---------ここから関数--------------

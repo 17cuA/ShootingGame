@@ -45,11 +45,15 @@ public class Enemy_MiddleBoss : character_status
 	private StateManager<StateType> stateManager;
 
 	private CapsuleCollider _capsuleCollider;   
-    private BoxCollider[] childsCapsuleColliders;
+    [SerializeField] private List<BoxCollider> childsBoxColliders = new List<BoxCollider>();
+    [SerializeField] private List<BoxCollider> bodyColliders = new List<BoxCollider>();
+    private Enemy_DestroyParts[] partsInstances = new Enemy_DestroyParts[4];
 	private Rigidbody rb;
 	private Transform player;
 	private Animator animator;
 	private bool canAdvanceAttack;
+
+    [SerializeField]private int currentDestroyPartIndex = 0;
 
 	private void Awake()
 	{
@@ -57,7 +61,7 @@ public class Enemy_MiddleBoss : character_status
 		rb = GetComponent<Rigidbody>() ;
 		animator = GetComponentInChildren<Animator>();
 		_capsuleCollider = GetComponent<CapsuleCollider>();
-        childsCapsuleColliders = GetComponentsInChildren<BoxCollider>();
+
 		rb.useGravity = false;
 
 		var state = new StateBase<StateType>(moveDuration, StateType.MOVE);
@@ -93,6 +97,8 @@ public class Enemy_MiddleBoss : character_status
 		state.EnterCallBack = Escape_Enter;
 		state.UpdateCallBack = Escape_Update;
 		stateManager.Add(state);
+
+        currentDestroyPartIndex = childsBoxColliders.Count - 1;
 	}
 
 	// Start is called before the first frame update
@@ -141,6 +147,38 @@ public class Enemy_MiddleBoss : character_status
 		{
 			base.Update();
 		}
+
+        if(stateManager.Current.StateType != StateType.DEBUT)
+        { 
+            if(currentDestroyPartIndex >= 0)
+            { 
+                if(capsuleCollider.enabled)
+                    capsuleCollider.enabled = false;
+
+                for(var i = 0; i < childsBoxColliders.Count; ++i)
+                {
+                    if(i == currentDestroyPartIndex)
+                    {
+                        childsBoxColliders[i].enabled = true;
+                        if(!childsBoxColliders[i].gameObject.activeSelf)
+                        {
+                            currentDestroyPartIndex--;
+                        }
+                    }
+                    else
+                    {
+                        if(childsBoxColliders[i].gameObject.activeSelf)
+                            childsBoxColliders[i].enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                if(!capsuleCollider.enabled)
+                    capsuleCollider.enabled = true;
+            }
+        }
+
 	}
 
 	private void OnTriggerExit(Collider other)
@@ -150,9 +188,9 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Wait_Enter()
     {
-        for(var i = 0; i < childsCapsuleColliders.Length; ++i)
+        for(var i = 0; i < childsBoxColliders.Count; ++i)
         {
-            childsCapsuleColliders[i].enabled = false;
+            childsBoxColliders[i].enabled = false;
         }
 		_capsuleCollider.enabled = false;
     }
@@ -169,6 +207,14 @@ public class Enemy_MiddleBoss : character_status
 	private void Debut_Enter()
 	{
 		animator.Play("Debut");
+        for (var i = 0; i < bodyColliders.Count; ++i)
+        {
+            bodyColliders[i].enabled = false;
+        }
+          for (var i = 0; i < childsBoxColliders.Count; ++i)
+        {
+            childsBoxColliders[i].enabled = false;
+        }
 	}
 
 	private void Debut_Update()
@@ -187,9 +233,13 @@ public class Enemy_MiddleBoss : character_status
 		transform.GetChild(0).localPosition = Vector3.zero;
 		animator.enabled = false;
 
-		for (var i = 0; i < childsCapsuleColliders.Length; ++i)
+		for (var i = 0; i < bodyColliders.Count; ++i)
         {
-            childsCapsuleColliders[i].enabled = true;
+            bodyColliders[i].enabled = true;
+        }
+        for (var i = 0; i < childsBoxColliders.Count; ++i)
+        {
+            childsBoxColliders[i].enabled = true;
         }
 		_capsuleCollider.enabled = true;
 	}

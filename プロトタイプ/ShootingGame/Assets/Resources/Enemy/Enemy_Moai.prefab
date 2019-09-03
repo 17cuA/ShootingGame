@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &722692487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722692488}
+  - component: {fileID: 722692489}
+  - component: {fileID: 722692490}
+  m_Layer: 9
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &722692488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722692487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.0476, z: 0.076}
+  m_LocalScale: {x: 0.066666685, y: 0.06666667, z: 0.066666685}
+  m_Children: []
+  m_Father: {fileID: 382191774884029168}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722692489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722692487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bd7a2b31c458b47ac543559375cd83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ringBulletObj: {fileID: 0}
+  saveRingBullet: {fileID: 0}
+  shotRota: {x: 0, y: 0, z: 0, w: 0}
+  bulletRota_Value: 30
+  ringShot_DelayCnt: 0
+  ringShot_DelayMax: 0.8
+  isMouthOpen: 1
+--- !u!114 &722692490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722692487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cfab6570762f240835101a66ba4f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObj: {fileID: 0}
+  imasuyo: 0
+  isPlayerActive: 1
+  degree: 0
 --- !u!1 &382191774884331216
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,9 +79,9 @@ GameObject:
   - component: {fileID: 382191774893804820}
   - component: {fileID: 382191774270305251}
   - component: {fileID: 382191774270305250}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Moai
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,10 +95,11 @@ Transform:
   m_GameObject: {fileID: 382191774884331216}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5.5157785, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 27, y: 27, z: 27}
   m_Children:
   - {fileID: 382191774884029172}
   - {fileID: 382191774884029174}
+  - {fileID: 722692488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -76,13 +144,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331216}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b475de875f137cd4c967ce0cf2b43e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedY: 0
+  startMarker: {x: 0, y: 0, z: 0}
+  endMarker: {x: 0, y: 0, z: 0}
+  testSpeed: 1
+  moveSpeed: 0
   anim: {fileID: 0}
-  bo: 0
+  isOpen: 1
+  isClose: 0
 --- !u!1 &382191774884331220
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,9 +168,10 @@ GameObject:
   - component: {fileID: 382191774884029172}
   - component: {fileID: 382191774887420628}
   - component: {fileID: 382191774886322196}
-  m_Layer: 0
+  - component: {fileID: 1077392598}
+  m_Layer: 9
   m_Name: face
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +235,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1077392598
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 0ee9f67126c5aa44cb3fe766f21a71ae, type: 3}
 --- !u!1 &382191774884331222
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,9 +260,11 @@ GameObject:
   - component: {fileID: 382191774884029174}
   - component: {fileID: 382191774887420630}
   - component: {fileID: 382191774886322198}
-  m_Layer: 0
+  - component: {fileID: 567883142}
+  - component: {fileID: 1835936327}
+  m_Layer: 9
   m_Name: mouth
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331222}
   m_LocalRotation: {x: 1, y: -0, z: 0, w: 6.123234e-17}
-  m_LocalPosition: {x: -0, y: -0.059, z: 0.043}
+  m_LocalPosition: {x: -0, y: -0.1015, z: 0.043}
   m_LocalScale: {x: 0.03937008, y: 0.03937008, z: 0.03937008}
   m_Children: []
   m_Father: {fileID: 382191774884029168}
@@ -237,3 +328,37 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &567883142
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331222}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300002, guid: 0ee9f67126c5aa44cb3fe766f21a71ae, type: 3}
+--- !u!114 &1835936327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b475de875f137cd4c967ce0cf2b43e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedY: 0.2
+  startMarker: {x: 0, y: 0, z: 0}
+  endMarker: {x: 0, y: 0, z: 0}
+  testSpeed: 1
+  moveSpeed: 0
+  anim: {fileID: 0}
+  isOpen: 1
+  isClose: 0
