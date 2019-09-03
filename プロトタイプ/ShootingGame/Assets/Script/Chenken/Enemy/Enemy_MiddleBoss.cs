@@ -125,15 +125,22 @@ public class Enemy_MiddleBoss : character_status
 
 		if (base.hp < 1)
 		{
-			/*
-			 * 2019/07/17
-			 * 途中経過用の中ボス死亡判定
-			 */
-			base.Died_Judgment();
-			////
-			base.Died_Process();
+			animator.Play("Death");
+			if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+			{
+				/*
+				 * 2019/07/17
+				 * 途中経過用の中ボス死亡判定
+				 */
+				base.Died_Judgment();
+				////
+				base.Died_Process();
+			}		
 		}
-		base.Update();
+		if (base.hp >= 1)
+		{
+			base.Update();
+		}
 	}
 
 	private void OnTriggerExit(Collider other)

@@ -65,7 +65,7 @@ public class Game_Master : MonoBehaviour
 	public enum CONFIGURATION_IN_STAGE
 	{
 		eNORMAL,		//通常
-		ePOSE,			//ポーズ画面
+		//ePOSE,			//ポーズ画面
 		WIRELESS,	   //無線が入ってる
 		//eCLEAR,
 	}
