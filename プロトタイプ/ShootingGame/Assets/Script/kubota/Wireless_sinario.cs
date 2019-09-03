@@ -94,13 +94,13 @@ public class Wireless_sinario : MonoBehaviour
 	void Worddisplay()
 	{
         //プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
-        first_start++; 
-  //      if(first_start < 120)
-		//{
-  //          return;
-  //      }
-        //-------------------------------------------------------------------------------
-		if(isShowOver)
+        first_start++;
+		if (first_start < 120)
+		{
+			return;
+		}
+		//-------------------------------------------------------------------------------
+		if (isShowOver)
 		{
             frame++;
 			if (Time.time >= unShowTimer)
