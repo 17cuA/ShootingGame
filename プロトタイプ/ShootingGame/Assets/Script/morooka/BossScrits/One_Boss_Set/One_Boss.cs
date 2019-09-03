@@ -52,6 +52,7 @@ public class One_Boss : character_status
 	[Header("アニメーションタイムライン")]
 	[SerializeField, Tooltip("今までの")] private PlayableAsset sonota_Timeline;
 	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset layser_timeline;
+	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset Bullet_timeline;
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
 
 	[Header("レーザー用")]
@@ -707,6 +708,25 @@ public class One_Boss : character_status
 			Target = Pos_set[A_Num, B_Num];
 
 			IntermediatePosition = new Vector3((maenoiti.x + Target.x) / 2.0f, (maenoiti.y + Target.y) / 2.0f, 0.0f);
+		}
+	}
+	#endregion
+
+	# region プレイヤーを追従しバウンド弾_3
+	private void Player_Tracking_Bound_Bullets_3()
+	{
+		if (Attack_Step == 0)
+		{
+			Timeline_Player.Play(Bullet_timeline);
+			Attack_Step++;
+		}
+		else if (Attack_Step == 1)
+		{
+			Shot_Delay++;
+			if (Shot_Delay  ==  Shot_DelayMax)
+			{
+
+			}
 		}
 	}
 	#endregion

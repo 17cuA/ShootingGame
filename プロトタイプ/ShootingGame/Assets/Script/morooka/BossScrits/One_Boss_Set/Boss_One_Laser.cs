@@ -14,7 +14,7 @@ public class Boss_One_Laser : MonoBehaviour
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 
-	new void Update()
+	 void Update()
 	{
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
 			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
@@ -41,5 +41,12 @@ public class Boss_One_Laser : MonoBehaviour
 
 	protected void OnTriggerEnter(Collider col)
 	{
+		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		{
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+		}
 	}
 }
