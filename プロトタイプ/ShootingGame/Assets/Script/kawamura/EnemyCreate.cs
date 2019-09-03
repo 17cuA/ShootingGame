@@ -1395,7 +1395,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(180);
+            Next_Condition(120);
 
         }
 		//バウンド隕石2
@@ -1404,7 +1404,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石3";
-			Next_Condition(180);
+			Next_Condition(120);
 
 		}
 		//バウンド隕石3
@@ -1413,7 +1413,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石4";
-			Next_Condition(180);
+			Next_Condition(120);
 
 		}
 		//バウンド隕石4
@@ -1422,7 +1422,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石5";
-			Next_Condition(180);
+			Next_Condition(120);
 
 		}
 		//バウンド隕石5
@@ -1431,7 +1431,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石6";
-			Next_Condition(180);
+			Next_Condition(120);
 
 		}
 		//バウンド隕石6
@@ -1440,7 +1440,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石6";
-            Next_Condition(1200);
+            Next_Condition(120);
 
         }
 		//バウンド隕石7
@@ -1449,7 +1449,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石6";
-			Next_Condition(180);
+			Next_Condition(120);
 
 		}
 		//バウンド隕石8
@@ -1458,7 +1458,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石6";
-			Next_Condition(180);
+			Next_Condition(600);
 
 		}
 
