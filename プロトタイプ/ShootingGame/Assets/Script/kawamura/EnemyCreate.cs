@@ -1023,7 +1023,7 @@ public class EnemyCreate : MonoBehaviour
 			nextEnemy = "！！！！！中ボス！！！！";
 			Next_Condition(640);
 		}
-		//中ボス出す 4290
+		//中ボス出す 4290🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
 		{
 			GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
@@ -1117,7 +1117,7 @@ public class EnemyCreate : MonoBehaviour
 			nextEnemy = "直進闘牛真ん中から";
 			Next_Condition(700);
 		}
-		//直進の闘牛を右真ん中5950
+		//直進の闘牛を右真ん中5950   中ボスの後🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
 		{
 			Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
@@ -1205,7 +1205,7 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 
-		//ここの間に追加（奥からくる闘牛縦3体x3）
+		//ここの間に追加（奥からくる闘牛縦3体x3）	ここを斜めとか縦移動の新闘牛にしたい
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
 		{
 			GameObject waveThreeEnemy = Instantiate(enemy_ClamChowder_Group_Three, createPosL0.transform.position, transform.rotation);
@@ -1257,7 +1257,7 @@ public class EnemyCreate : MonoBehaviour
             nextEnemy = "直線闘牛を右上と右下から";
             Next_Condition(150);
         }
-        //直線闘牛右真ん中　7990（ハヤブサにかえる何体か出す）
+        //直線闘牛右真ん中　7990（ハヤブサにかえる右上下から出て真ん中に行く）
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
         {
             Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
@@ -1346,8 +1346,8 @@ public class EnemyCreate : MonoBehaviour
             Next_Condition(800);
         }
 
-        // 大ボス(10810)
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+		// 大ボス(10810)🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
         {
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 			Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);

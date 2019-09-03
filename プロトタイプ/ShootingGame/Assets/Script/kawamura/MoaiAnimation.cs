@@ -32,7 +32,7 @@ public class MoaiAnimation : MonoBehaviour
 	private void Awake()
 	{
 		defaultPos = transform.localPosition;
-        moaiAttack_Script = transform.parent.gameObject.GetComponent<Enemy_Moai_Attack>();
+        //moaiAttack_Script = transform.parent.gameObject.GetComponent<Enemy_Moai_Attack>();
 
 		startMarker = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
 		startMarker = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.0388f, transform.localPosition.z);

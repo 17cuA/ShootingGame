@@ -144,7 +144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331216}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b475de875f137cd4c967ce0cf2b43e04, type: 3}
   m_Name: 
@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 382191774887420630}
   - component: {fileID: 382191774886322198}
   - component: {fileID: 567883142}
+  - component: {fileID: 1835936327}
   m_Layer: 9
   m_Name: mouth
   m_TagString: Enemy
@@ -341,3 +342,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 0ee9f67126c5aa44cb3fe766f21a71ae, type: 3}
+--- !u!114 &1835936327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b475de875f137cd4c967ce0cf2b43e04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedY: 0.2
+  startMarker: {x: 0, y: 0, z: 0}
+  endMarker: {x: 0, y: 0, z: 0}
+  testSpeed: 1
+  moveSpeed: 0
+  anim: {fileID: 0}
+  isOpen: 1
+  isClose: 0
