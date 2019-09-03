@@ -9,11 +9,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_One_Laser : bullet_status
+public class Boss_One_Laser : MonoBehaviour
 {
-    // Update is called once per frame
-    new void Update()
-    {
+	public float shot_speed;//弾の速度
+	public float attack_damage;//ダメージの変数
+
+	new void Update()
+	{
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
 			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
 		{
@@ -21,7 +23,6 @@ public class Boss_One_Laser : bullet_status
 			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
 			gameObject.SetActive(false);
 		}
-
 	}
 
 	private void LateUpdate()
@@ -34,6 +35,11 @@ public class Boss_One_Laser : bullet_status
 	public void Manual_Start(Transform parent)
 	{
 		transform.parent = parent;
+		transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
 		//Trail.enabled = true;
+	}
+
+	protected void OnTriggerEnter(Collider col)
+	{
 	}
 }
