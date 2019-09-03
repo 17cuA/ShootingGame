@@ -441,6 +441,13 @@ namespace Power
 			{
 				powers[(Power.PowerType)i].ResetUpgradeCount();
 			}
+
+             if (powers[Power.PowerType.SPEEDUP].Type == Power.PowerType.INITSPEED)
+			{
+				var power = powers[Power.PowerType.SPEEDUP];
+				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
+				powers[Power.PowerType.INITSPEED] = power;
+			}
 		}
 
 		/// <summary>
