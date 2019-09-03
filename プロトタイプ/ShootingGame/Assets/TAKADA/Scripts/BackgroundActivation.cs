@@ -26,7 +26,7 @@ public class BackgroundActivation : MonoBehaviour
 	{
 		alphaValue = 0.0f;
 		elapsedTime = 0.0f;
-		//make255 = false;
+		make255 = false;
 
 		for (int i = 0; i < 10; i++)
 		{

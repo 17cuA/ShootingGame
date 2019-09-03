@@ -52,6 +52,7 @@ public class One_Boss : character_status
 	[Header("アニメーションタイムライン")]
 	[SerializeField, Tooltip("今までの")] private PlayableAsset sonota_Timeline;
 	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset layser_timeline;
+	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset Bullet_timeline;
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
 
 	[Header("レーザー用")]
@@ -288,20 +289,26 @@ public class One_Boss : character_status
 							// RGBの変化数
 							float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 							
-							// 青抜き、赤入れ
-							Base_Color[i].r += RGB;
-							Base_Color[i].b -= RGB;
-							Emissive_Color[i].r += RGB;
-							Emissive_Color[i].b -= RGB;
+							//// 青抜き、赤入れ
+							//Base_Color[i].r += RGB;
+							//Base_Color[i].b -= RGB;
+							//Emissive_Color[i].r += RGB;
+							//Emissive_Color[i].b -= RGB;
 
 							// Gの値ははじめ増やして、後半減らす
-							if (core[i].hp < Core_Init_HP / 2)
+							if (Base_Color[i].r >= 1.0f)
 							{
+								Base_Color[i].b -= (RGB * 2.0f);
+								Emissive_Color[i].b -= RGB;
+
 								Base_Color[i].g -= (RGB * 2.0f);
 								Emissive_Color[i].g -= (RGB * 2.0f);
 							}
-							else
+							else if(Base_Color[i].r <= 1.0f)
 							{
+								Base_Color[i].r += (RGB * 2.0f);
+								Emissive_Color[i].r += RGB;
+
 								Base_Color[i].g += (RGB * 2.0f);
 								Emissive_Color[i].g += (RGB * 2.0f);
 							}
@@ -707,6 +714,25 @@ public class One_Boss : character_status
 			Target = Pos_set[A_Num, B_Num];
 
 			IntermediatePosition = new Vector3((maenoiti.x + Target.x) / 2.0f, (maenoiti.y + Target.y) / 2.0f, 0.0f);
+		}
+	}
+	#endregion
+
+	# region プレイヤーを追従しバウンド弾_3
+	private void Player_Tracking_Bound_Bullets_3()
+	{
+		if (Attack_Step == 0)
+		{
+			Timeline_Player.Play(Bullet_timeline);
+			Attack_Step++;
+		}
+		else if (Attack_Step == 1)
+		{
+			Shot_Delay++;
+			if (Shot_Delay  ==  Shot_DelayMax)
+			{
+
+			}
 		}
 	}
 	#endregion
