@@ -25,6 +25,10 @@ public class Enemy_BeetleRoll : MonoBehaviour
     {
 		parentObj = transform.parent.gameObject;
 		beetle_Script = parentObj.GetComponent<Enemy_Beetle>();
+		if (beetle_Script.eState == Enemy_Beetle.State.Behind)
+		{
+			RotaZ_ChangeValue += -1;
+		}
 		//モデル自体の向きの関係で初期値が0じゃないので、初期のRotation.Zを入れる
 		rotaZ = transform.eulerAngles.z;
 		//回転変化値を保存します
@@ -52,7 +56,14 @@ public class Enemy_BeetleRoll : MonoBehaviour
 		}
 
 		rotaZ += RotaZ_ChangeValue;
-		rotaZ_Max -= RotaZ_ChangeValue;
+		if (RotaZ_ChangeValue < 0)
+		{
+			rotaZ_Max += RotaZ_ChangeValue;
+		}
+		else
+		{
+			rotaZ_Max -= RotaZ_ChangeValue;
+		}
 
 		transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, rotaZ);
 

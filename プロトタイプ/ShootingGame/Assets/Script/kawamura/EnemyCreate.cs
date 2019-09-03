@@ -383,8 +383,18 @@ public class EnemyCreate : MonoBehaviour
 
     void Update()
     {
+		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+		{
+			return;
+		}
 		PreviousCount = frameCnt;
 		frameCnt++;
+
+		if (groupCnt == 44 && frameCnt == turning_frame - 30f)
+		{
+			Wireless_sinario.Is_using_wireless = true;
+		}
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             frameCnt = turning_frame;
@@ -405,8 +415,8 @@ public class EnemyCreate : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            turning_frame = 10550;
-            frameCnt = 10550;
+            turning_frame = 9900;
+            frameCnt = 9900;
             groupCnt = 44;
             //nowGroupCnt = 36;
         }
@@ -1343,10 +1353,10 @@ public class EnemyCreate : MonoBehaviour
             //enemy_ClamChowder_Group_Seven.transform.rotation = transform.rotation;
 
             nextEnemy = "大ボス！！！";
-            Next_Condition(800);
+            Next_Condition(600);
         }
 
-		// 大ボス(10810)🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		// 大ボス(9900)🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
         {
 			GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
@@ -1385,7 +1395,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バウンド隕石2";
-            Next_Condition(240);
+            Next_Condition(180);
 
         }
 		//バウンド隕石2
@@ -1394,7 +1404,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石3";
-			Next_Condition(240);
+			Next_Condition(180);
 
 		}
 		//バウンド隕石3
@@ -1403,7 +1413,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石4";
-			Next_Condition(240);
+			Next_Condition(180);
 
 		}
 		//バウンド隕石4
@@ -1412,7 +1422,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石5";
-			Next_Condition(240);
+			Next_Condition(180);
 
 		}
 		//バウンド隕石5
@@ -1421,7 +1431,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "バウンド隕石6";
-			Next_Condition(240);
+			Next_Condition(180);
 
 		}
 		//バウンド隕石6
@@ -1429,28 +1439,46 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-            nextEnemy = " ";
+            nextEnemy = "バウンド隕石6";
             Next_Condition(1200);
 
         }
+		//バウンド隕石7
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-        //隕石群(5つ) 18950
-        //      else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
-        //      {
-        //          Instantiate(enemy_Meteors, createMeteorPosR0.transform.position, transform.rotation);
+			nextEnemy = "バウンド隕石6";
+			Next_Condition(180);
 
-        //          nextEnemy = "隕石2";
-        //          Next_Condition(1730);
-        //      }
-        ////隕石の間を行く敵 21120
-        //else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
-        //{
-        //	Instantiate(enemy_MeteorWaveGroup, createPosR3.transform.position, transform.rotation);
+		}
+		//バウンド隕石8
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
+		{
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-        //	nextEnemy = " ";
-        //	Next_Condition(1800);
-        //}
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
+			nextEnemy = "バウンド隕石6";
+			Next_Condition(180);
+
+		}
+
+		//隕石群(5つ) 18950
+		//      else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
+		//      {
+		//          Instantiate(enemy_Meteors, createMeteorPosR0.transform.position, transform.rotation);
+
+		//          nextEnemy = "隕石2";
+		//          Next_Condition(1730);
+		//      }
+		////隕石の間を行く敵 21120
+		//else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
+		//{
+		//	Instantiate(enemy_MeteorWaveGroup, createPosR3.transform.position, transform.rotation);
+
+		//	nextEnemy = " ";
+		//	Next_Condition(1800);
+		//}
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
         {
             Scene_Manager.Manager.Screen_Transition_To_Clear();
         }
