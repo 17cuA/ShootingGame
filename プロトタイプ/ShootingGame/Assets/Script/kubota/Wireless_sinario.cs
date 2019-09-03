@@ -51,14 +51,17 @@ public class Wireless_sinario : MonoBehaviour
 	private float unShowTimer;				//
 	[SerializeField] private float unShowTime;
 
+    private int first_start;            //ゲーム開始時からカウントするためのもの
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 		Is_Display = false;
         frame = 0;
+        first_start = 0;
 		No = 0;
+        uiText.text = "";
 		SetNext_sinario();
-        SetNextLine();
+        //SetNextLine();
 
 	}
 
@@ -88,15 +91,22 @@ public class Wireless_sinario : MonoBehaviour
 	//文字の表示
 	void Worddisplay()
 	{
-		frame++;
-
+        //プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
+        first_start++; 
+        if(first_start < 120)
+		{
+            return;
+        }
+        //-------------------------------------------------------------------------------
 		if(isShowOver)
 		{
+            frame++;
 			if (Time.time >= unShowTimer)
 			{
 				if (currentLine == 2)
 				{
 					currentLine = 0;
+                    frame = 0;
 					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				}
 				isShowOver = false;
@@ -104,8 +114,9 @@ public class Wireless_sinario : MonoBehaviour
 			else
 			{
 				//プレイヤーが決定ボタンを押したとき
-				if (currentLine < scenarios.Length && Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1") || frame > 180)
+				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 				{
+                     frame = 0;
 					//次の行を準備
 					SetNextLine();
 				}
@@ -114,6 +125,7 @@ public class Wireless_sinario : MonoBehaviour
 		}
 		else
 		{
+             frame++;
 			// 文字の表示が完了してるならクリック時に次の行を表示する
 			if (IsCompleteDisplayText)
 			{
@@ -128,10 +140,10 @@ public class Wireless_sinario : MonoBehaviour
 				//	Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				//}
 
-				if (currentLine < scenarios.Length && Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 				{
 					//sinariocount = currentLine;
-
+                    frame = 0;
 					SetNextLine();
 				}
 			}
@@ -146,8 +158,7 @@ public class Wireless_sinario : MonoBehaviour
 			}
 		}
 
-		if(frame > 30)
-		{
+
 			//経過した　時間が想定表示時間の何％か確認し、表示文字数を出す。
 			int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
 			//表示文字数が前回の表示文字数と異なるならテキストを更新する。
@@ -156,7 +167,6 @@ public class Wireless_sinario : MonoBehaviour
 				uiText.text = currentText.Substring(0, displayCharacterCount);
 				lastUpdateCharacter = displayCharacterCount;
 			}
-		}
 	}
     //次に表示する文字を確認
     void SetNextLine()
