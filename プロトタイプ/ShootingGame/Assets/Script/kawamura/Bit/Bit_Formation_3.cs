@@ -247,14 +247,14 @@ public class Bit_Formation_3 : MonoBehaviour
 		//Bit_Move();
 		//----------------------------------------------
 		//未回収状態で画面外に出たら、オフにする
-		if (!renderer.isVisible && isDead)
-		{
-			isDead = false;					//死んでいる判定false
-			isborn = true;					//出現時処理できるように
-			followPosObj = null;			//追従オブジェクト参照をなくす
-			pl1.bitIndex--;					//ゲームに出ているオプション総数カウントを減らす
-			gameObject.SetActive(false);	//オブジェクトをオフにする
-		}
+		//if (!renderer.isVisible && isDead)
+		//{
+		//	isDead = false;					//死んでいる判定false
+		//	isborn = true;					//出現時処理できるように
+		//	followPosObj = null;			//追従オブジェクト参照をなくす
+		//	pl1.bitIndex--;					//ゲームに出ているオプション総数カウントを減らす
+		//	gameObject.SetActive(false);	//オブジェクトをオフにする
+		//}
 		//------------------------------------------------
 	}
 
@@ -371,7 +371,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	private void OnTriggerEnter(Collider col)
 	{
 		//死んでいる状態で、回収の当たり判定ディレイが10fより大きかったら
-		if(isDead && collectDelay>10)
+		if (isDead && collectDelay > 10)
 		{
 			//プレイヤー１のオブジェクトに当たったら
 			if (col.gameObject.name == "Player")
@@ -715,6 +715,15 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				}
 			}
+		}
+		else if (col.gameObject.name == "WallLeft")
+		{
+			isDead = false;                 //死んでいる判定false
+			isborn = true;                  //出現時処理できるように
+			followPosObj = null;            //追従オブジェクト参照をなくす
+			pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
+			gameObject.SetActive(false);    //オブジェクトをオフにする
+
 		}
 	}
 }
