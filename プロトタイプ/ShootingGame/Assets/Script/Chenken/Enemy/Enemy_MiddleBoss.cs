@@ -133,7 +133,6 @@ public class Enemy_MiddleBoss : character_status
 			type = stateManager.Current.StateType;
 		}
 
-	
 		base.Update();
 		if (hp >= 1)
 		{			
@@ -429,10 +428,26 @@ public class Enemy_MiddleBoss : character_status
 		animator.Play("Death");
 		capsuleCollider.enabled = false;
 		explosionEffect.gameObject.SetActive(true);
+
+		Debug.Log(transform.localEulerAngles);
+		//爆発位置調整
+		if (currentSlot < 2)
+		{
+			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, 8);
+		}
+		else
+		{
+			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, -8);
+		}		
 	}
 
 	private void Death_Update()
 	{
+		if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.65f)
+		{
+			transform.position += speed * 0.1f * Time.deltaTime * Vector3.down;
+		}
+
 		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 		{
 			Game_Master.MY.Score_Addition(score, Opponent);
