@@ -390,11 +390,6 @@ public class EnemyCreate : MonoBehaviour
 		PreviousCount = frameCnt;
 		frameCnt++;
 
-		if (groupCnt == 44 && frameCnt == turning_frame - 30f)
-		{
-			Wireless_sinario.Is_using_wireless = true;
-		}
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             frameCnt = turning_frame;
@@ -415,8 +410,8 @@ public class EnemyCreate : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            turning_frame = 9900;
-            frameCnt = 9900;
+            turning_frame = 9660;   
+            frameCnt = 9600;    //←上の数字から60引いた数にする
             groupCnt = 44;
             //nowGroupCnt = 36;
         }
@@ -432,25 +427,25 @@ public class EnemyCreate : MonoBehaviour
 
 		}
 
-        if (isMiddleBossDead)
-        {
-            if (frameCnt < 7450)
-            {
-                frameCnt = 7450;
-                turning_frame = 7450;
+        //if (isMiddleBossDead)
+        //{
+        //    if (frameCnt < 7210)
+        //    {
+        //        frameCnt = 7210;
+        //        turning_frame = 7210;
 
-                groupCnt = 26;
-            }
-            isMiddleBossDead = false;
-        }
-        else if (middleBoss_Script != null)
+        //        groupCnt = 26;
+        //    }
+        //    isMiddleBossDead = false;
+        //}
+        if (middleBoss_Script != null)
         {
             if(middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 7450)
+                if (frameCnt < 7210)
                 {
-                    frameCnt = 7450;
-                    turning_frame = 7450;
+                    frameCnt = 7210;
+                    turning_frame = 7210;
                     groupCnt = 26;
                 }
                 isMiddleBossDead = false;
@@ -458,26 +453,36 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-        if (isOneBossDead)
+        //if (isOneBossDead)
+        //{
+        //    if (frameCnt < 39900)
+        //    {
+        //        frameCnt = 39900;
+        //        //turning_frame = 40930;
+        //    }
+        //    isOneBossDead = false;
+        //}
+
+        //第一ボス出現時に無線をONにする
+        if (groupCnt == 44 && frameCnt == turning_frame - 30f)
         {
-            if (frameCnt < 40780)
-            {
-                frameCnt = 40780;
-                //turning_frame = 40930;
-            }
-            isOneBossDead = false;
+            Wireless_sinario.Is_using_wireless = true;
         }
-        else if (oneBoss_Script != null)
+
+        //第一ボスを撃破したら間隔を詰める🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+        if (oneBoss_Script != null)
         {
 			if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 40780)
+                if (frameCnt < 39840)
                 {
                     if(backActive_Script)
                     {
                         backActive_Script.TransparencyChangeTrigger();
+                        Wireless_sinario.Is_using_wireless = true;
                     }
-                    frameCnt = 40780;
+                    frameCnt = 39840;
+
                     //turning_frame = 40930;
                 }
                 isOneBossDead = false;
