@@ -86,7 +86,7 @@ namespace Power
 
 				//強化回数＋１
 				upgradeCount++;
-				Debug.Log("強化成功、パワーアップ名：" + type.ToString());
+				DebugManager.OperationDebug("強化成功、パワーアップ名：" + type.ToString(), "Player2");
 			}
 
 			/// <summary>

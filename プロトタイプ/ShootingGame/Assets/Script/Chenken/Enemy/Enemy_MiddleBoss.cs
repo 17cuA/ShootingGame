@@ -53,6 +53,8 @@ public class Enemy_MiddleBoss : character_status
 	private Animator animator;
 	private bool canAdvanceAttack;
 
+	public ParticleSystem explosionEffect;
+
     [SerializeField]private int currentDestroyPartIndex = 0;
 
 	private void Awake()
@@ -98,7 +100,13 @@ public class Enemy_MiddleBoss : character_status
 		state.UpdateCallBack = Escape_Update;
 		stateManager.Add(state);
 
-        currentDestroyPartIndex = childsBoxColliders.Count - 1;
+		state = new StateBase<StateType>(5f, StateType.DEATH);
+		state.EnterCallBack = Death_Enter;
+		state.UpdateCallBack = Death_Update;
+		state.ExitCallBack = Death_Exit;
+		stateManager.Add(state);
+
+		currentDestroyPartIndex = childsBoxColliders.Count - 1;
 	}
 
 	// Start is called before the first frame update
@@ -107,78 +115,59 @@ public class Enemy_MiddleBoss : character_status
 		base.HP_Setting();
 
 		player = GameObject.Find("Player").transform.GetChild(0).transform;
-		stateManager.Start(StateType.WAIT);
 		base.Start();
+		stateManager.Start(StateType.WAIT);
 	}
 
 	// Update is called once per frame
 	private new void Update()
     {
+		if (transform.position.x < -30.0f)
+		{
+			this.gameObject.SetActive(false);
+		}
+
 		if (player)
 		{
 			stateManager.Update();
 			type = stateManager.Current.StateType;
 		}
 
-		/*
-		* 2019/07/17
-		* 途中経過用の中ボス死亡判定
-		*/
-		if (transform.position.x < -30.0f)
-		{
-			this.gameObject.SetActive(false);
-		}
-
-		if (base.hp < 1)
-		{
-			animator.Play("Death");
-			if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+	
+		base.Update();
+		if (hp >= 1)
+		{			
+			if (stateManager.Current.StateType != StateType.DEBUT)
 			{
-				/*
-				 * 2019/07/17
-				 * 途中経過用の中ボス死亡判定
-				 */
-				base.Died_Judgment();
-				////
-				base.Died_Process();
-			}		
+				if (currentDestroyPartIndex >= 0)
+				{
+					if (capsuleCollider.enabled)
+						capsuleCollider.enabled = false;
+
+					for (var i = 0; i < childsBoxColliders.Count; ++i)
+					{
+						if (i == currentDestroyPartIndex)
+						{
+							childsBoxColliders[i].enabled = true;
+							if (!childsBoxColliders[i].gameObject.activeSelf)
+							{
+								currentDestroyPartIndex--;
+							}
+						}
+						else
+						{
+							if (childsBoxColliders[i].gameObject.activeSelf)
+								childsBoxColliders[i].enabled = false;
+						}
+					}
+				}
+				else
+				{
+					if (!capsuleCollider.enabled)
+						capsuleCollider.enabled = true;
+				}
+			}
 		}
-		if (base.hp >= 1)
-		{
-			base.Update();
-		}
-
-        if(stateManager.Current.StateType != StateType.DEBUT)
-        { 
-            if(currentDestroyPartIndex >= 0)
-            { 
-                if(capsuleCollider.enabled)
-                    capsuleCollider.enabled = false;
-
-                for(var i = 0; i < childsBoxColliders.Count; ++i)
-                {
-                    if(i == currentDestroyPartIndex)
-                    {
-                        childsBoxColliders[i].enabled = true;
-                        if(!childsBoxColliders[i].gameObject.activeSelf)
-                        {
-                            currentDestroyPartIndex--;
-                        }
-                    }
-                    else
-                    {
-                        if(childsBoxColliders[i].gameObject.activeSelf)
-                            childsBoxColliders[i].enabled = false;
-                    }
-                }
-            }
-            else
-            {
-                if(!capsuleCollider.enabled)
-                    capsuleCollider.enabled = true;
-            }
-        }
-
 	}
 
 	private void OnTriggerExit(Collider other)
@@ -315,6 +304,12 @@ public class Enemy_MiddleBoss : character_status
 
 	private void AdvanceBack_Update()
 	{
+		if (hp < 1)
+		{
+			stateManager.ChangeState(StateType.DEATH);
+			return;
+		}
+
 		if (stateManager.Current.IsDone)
 		{
 			stateManager.ChangeState(StateType.STOP);
@@ -365,6 +360,12 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Escape_Update()
 	{
+		if (hp < 1)
+		{
+			stateManager.ChangeState(StateType.DEATH);
+			return;
+		}
+
 		transform.position += escapeSpeed * moveDirection * Time.deltaTime;
 
 		if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.1f)
@@ -387,6 +388,12 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Stop_Update()
 	{
+		if (hp < 1)
+		{
+			stateManager.ChangeState(StateType.DEATH);
+			return;
+		}
+
 		if (stateManager.Current.IsDone)
 		{
 			if ((advanceActionSlot.Count > 0 && currentSlot != advanceActionSlot[0] || advanceActionSlot.Count == 0) && currentSlot != excapeActionSlot && currentSlot != backActionSlot || (backActionSlot == 0 && currentSlot == backActionSlot))
@@ -414,5 +421,32 @@ public class Enemy_MiddleBoss : character_status
 	private void Stop_Exit()
 	{
 		
+	}
+
+	private void Death_Enter()
+	{
+		animator.enabled = true;
+		animator.Play("Death");
+		capsuleCollider.enabled = false;
+		explosionEffect.gameObject.SetActive(true);
+	}
+
+	private void Death_Update()
+	{
+		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+		{
+			Game_Master.MY.Score_Addition(score, Opponent);
+			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+			Is_Dead = true;
+			Reset_Status();
+			this.gameObject.SetActive(false);
+			explosionEffect.gameObject.SetActive(false);
+			Debug.Log("OVER");
+		}
+	}
+
+	private void Death_Exit()
+	{
+
 	}
 }
