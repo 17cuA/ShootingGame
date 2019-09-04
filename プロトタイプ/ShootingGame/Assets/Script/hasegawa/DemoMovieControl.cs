@@ -13,15 +13,27 @@ using UnityEngine.UI;
 /// </summary>
 public class DemoMovieControl : MonoBehaviour
 {
+	enum MoviePlayState
+	{
+		ePlaying,
+		eStop,
+		eNone,
+	}
+
 	[SerializeField] VideoPlayer videoPlayer;
+	MoviePlayState playState;
 	int frame = 0;
 	[SerializeField, Tooltip("ムービーに遷移するまでの秒数")] float transitionTime = 0;
+	int TransitionFrame { get { return TransitionFrame * 60; } }
 	[SerializeField, Tooltip("画面を覆うImage")] Image displayPlane;
+	bool isPlayingMovie = false;
 
 	void Start()
 	{
 		// ムービーが設定されていなかったらエラーを表示して処理をやめる
 		if (!videoPlayer) { Debug.LogError("Not set to a video of my field!"); return; }
+		// ムービーを停止状態にする
+		videoPlayer.Stop();
 		// Imageが設定されていなかったら生成する
 		if (!displayPlane)
 		{
@@ -38,5 +50,58 @@ public class DemoMovieControl : MonoBehaviour
 	void Update()
 	{
 		if (!videoPlayer) { return; }
+		if (playState == MoviePlayState.ePlaying)
+		{
+			PlayBehaviour();
+		}
+		else if (playState == MoviePlayState.eStop)
+		{
+			StopBehaviour();
+		}
+		++frame;
+	}
+
+	/// <summary>
+	/// ムービー再生中の動作
+	/// </summary>
+	void PlayBehaviour()
+	{
+		// ムービーが終わりに近づくにつれて暗転させる
+		if ((ulong)videoPlayer.frame >= videoPlayer.frameCount - 10)
+		{
+			displayPlane.color += new Color(0f, 0f, 0f, 5f / 60f);
+		}
+		else
+		{
+			displayPlane.color -= new Color(0f, 0f, 0f, 5f / 60f);
+		}
+		// 完全に暗転したらムービーを停止させる
+		if (displayPlane.color.a >= 1f)
+		{
+			frame = 0;
+			videoPlayer.Stop();
+		}
+	}
+
+	/// <summary>
+	/// ムービーが流れていないときの動作
+	/// </summary>
+	void StopBehaviour()
+	{
+		// 設定したフレーム数を過ぎたら暗転させる
+		if (frame > TransitionFrame)
+		{
+			displayPlane.color += new Color(0f, 0f, 0f, 5f / 60f);
+		}
+		else
+		{
+			displayPlane.color -= new Color(0f, 0f, 0f, 5f / 60f);
+		}
+		// 暗転したらムービーを流す
+		if (displayPlane.color.a >= 1f)
+		{
+			playState = MoviePlayState.ePlaying;
+			frame = 0;
+		}
 	}
 }
