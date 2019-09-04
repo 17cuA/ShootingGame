@@ -379,6 +379,7 @@ public class EnemyCreate : MonoBehaviour
 
         oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
         oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
+        isOneBossDead = true;
     }
 
     void Update()
@@ -474,18 +475,21 @@ public class EnemyCreate : MonoBehaviour
         {
 			if (oneBoss_Script.Is_Dead)
             {
-                if (frameCnt < 39840)
+                if(isOneBossDead)
                 {
-                    if(backActive_Script)
+                    if (frameCnt < 39660)
                     {
-                        backActive_Script.TransparencyChangeTrigger();
-                        Wireless_sinario.Is_using_wireless = true;
-                    }
-                    frameCnt = 39840;
+                        if (backActive_Script)
+                        {
+                            backActive_Script.TransparencyChangeTrigger();
+                            Wireless_sinario.Is_using_wireless = true;
+                        }
+                        frameCnt = 39630;
 
-                    //turning_frame = 40930;
+                        //turning_frame = 40930;
+                    }
+                    isOneBossDead = false;
                 }
-                isOneBossDead = false;
 
                 //if(frame > 180) SceneManager.LoadScene("GameClear");
                 //if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
