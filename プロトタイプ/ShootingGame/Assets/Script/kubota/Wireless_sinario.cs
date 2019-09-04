@@ -53,20 +53,22 @@ public class Wireless_sinario : MonoBehaviour
 
     private int first_start;            //ゲーム開始時からカウントするためのもの
     private Color color;        //文字の色を保存しておくようの変数
-	private Outline outline;	//テキストの文字のアウトラインを変更する用の変数
+	private Color outline;  //テキストの文字のアウトラインを変更する用の変数
+	private Outline outline2;
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
+		outline2 = GetComponent<Outline>();
 		Is_Display = false;
         frame = 0;
         first_start = 0;
 		No = 0;
         uiText.text = "";
         color = uiText.color;
+		outline = outline2.effectColor;
 		SetNext_sinario();
 		//SetNextLine();
 		one = false;
-		//outline.enabled = true;
 	}
 
     void Update()
@@ -77,11 +79,13 @@ public class Wireless_sinario : MonoBehaviour
         {
             uiText.color = color;
 			//if(!outline.IsActive()) outline.enabled = true;
+			outline2.effectColor = outline;
 			Worddisplay();
         }
 		else
 		{
 			uiText.color = Color.clear;
+			outline2.effectColor = Color.clear;
 			//if (outline.IsActive()) outline.enabled = false;
 		}
 		Debug.Log(scenarios.Length);
@@ -91,6 +95,7 @@ public class Wireless_sinario : MonoBehaviour
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			SetNextLine();
 			Is_using_wireless = false;
+
 		}
 
 	}
