@@ -19,6 +19,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Explosion_Small;
 	[Header("登場用のSE")]
 	public AudioSource Entry;
+	[Header("バキュラヒットSE")]
+	public AudioSource Baculor;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -34,25 +36,34 @@ public class SE_Manager : MonoBehaviour
 	{
 		if (Is_Active) Power_Up.PlayOneShot(se);
 	}
+	//アイテム取得用
 	public void SE_Item_Catch(AudioClip se)
 	{
 		if (Item_Up.isPlaying) Item_Up.Stop();
 		if (Is_Active) Item_Up.Play();
 	}
+	//爆発用
 	public void SE_Explosion(AudioClip se)
 	{
 		if (Explosion.isPlaying) Explosion.Stop();
 		if (Is_Active) Explosion.PlayOneShot(se);
 	}
+	//雑魚敵用爆発
 	public void SE_Explosion_small(AudioClip se)
 	{
 		if (Explosion_Small.isPlaying) Explosion_Small.Stop();
 		if (Is_Active) Explosion_Small.PlayOneShot(se);
 	}
+	//登場＆リスポーン用
 	public void SE_Entry(AudioClip se)
 	{
 		if (Entry.isPlaying) Entry.Stop();
 		if (Is_Active) Entry.PlayOneShot(se);
 	}
-
+	//バキュラヒット用
+	public void SE_Baculor(AudioClip se)
+	{
+		if (Baculor.isPlaying) Baculor.Stop();
+		if (Is_Active) Baculor.PlayOneShot(se);
+	}
 }

@@ -63,8 +63,8 @@ public class Wireless_sinario : MonoBehaviour
         uiText.text = "";
         color = uiText.color;
 		SetNext_sinario();
-        //SetNextLine();
-
+		//SetNextLine();
+		one = false;
 	}
 
     void Update()
@@ -103,8 +103,10 @@ public class Wireless_sinario : MonoBehaviour
 		if (isShowOver)
 		{
             frame++;
+			//既定のシナリオまでだしたら
 			if (Time.time >= unShowTimer)
 			{
+				//無線のモードから通常のモードに治す
 				if (currentLine == 2)
 				{
 					currentLine = 0;
@@ -147,6 +149,15 @@ public class Wireless_sinario : MonoBehaviour
 					//sinariocount = currentLine;
                     frame = 0;
 					SetNextLine();
+					switch(currentLine)
+					{
+						case 1:
+
+							break;
+						case 2:
+
+							break;
+					}
 				}
 			}
 			else

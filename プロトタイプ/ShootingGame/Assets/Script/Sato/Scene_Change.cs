@@ -9,7 +9,9 @@ using UnityEngine.SceneManagement;
 public class Scene_Change : MonoBehaviour
 {
 	private bool isLoaded;
+	[Header("パワーアップ用の物")]
 	public AudioSource audioSource; //ユニティ側にて設定
+	[Header("無線用のもの")]
 	public AudioClip audioClip;         //unity側から設定
 	private void Start()
 	{
