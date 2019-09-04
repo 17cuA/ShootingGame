@@ -52,7 +52,8 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private float unShowTime;
 
     private int first_start;            //ゲーム開始時からカウントするためのもの
-    private Color color;
+    private Color color;        //文字の色を保存しておくようの変数
+	private Outline outline;	//テキストの文字のアウトラインを変更する用の変数
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
@@ -74,11 +75,13 @@ public class Wireless_sinario : MonoBehaviour
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
             uiText.color = color;
-            Worddisplay();
+			if(!outline.IsActive()) outline.enabled = true;
+			Worddisplay();
         }
 		else
 		{
 			uiText.color = Color.clear;
+			if (outline.IsActive()) outline.enabled = false;
 		}
 		Debug.Log(scenarios.Length);
 
@@ -186,8 +189,11 @@ public class Wireless_sinario : MonoBehaviour
     //次に表示する文字を確認
     void SetNextLine()
     {
-        currentText = scenarios[currentLine];
-        timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
+		if (currentLine < scenarios.Length)
+		{
+			currentText = scenarios[currentLine];
+		}
+		timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
         timeElapsed = Time.time;
         currentLine++;
         lastUpdateCharacter = -1;
