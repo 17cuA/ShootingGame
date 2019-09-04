@@ -152,7 +152,7 @@ public class Wireless_sinario : MonoBehaviour
 					switch(currentLine)
 					{
 						case 1:
-
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data,voice[0])
 							break;
 						case 2:
 
