@@ -166,7 +166,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = true;
+		Is_Change_Auto = false;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
 		target = direction;

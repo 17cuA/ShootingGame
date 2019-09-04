@@ -90,7 +90,7 @@ public class Wireless_sinario : MonoBehaviour
 		}
 		Debug.Log(scenarios.Length);
 
-		if (Input.GetKeyDown(KeyCode.Space) || Is_using_wireless)
+		if (/*Input.GetKeyDown(KeyCode.Space) || */Is_using_wireless)
 		{
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			SetNextLine();
@@ -160,15 +160,15 @@ public class Wireless_sinario : MonoBehaviour
 					SetNextLine();
 					//各配列に対応したように鳴らす
 					//ただし開戦時のみ変更必須
-					switch(currentLine)
-					{
-						case 1:
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
-							break;
-						case 2:
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
-							break;
-					}
+					//switch(currentLine)
+					//{
+					//	case 1:
+					//		Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
+					//		break;
+					//	case 2:
+					//		Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
+					//		break;
+					//}
 				}
 			}
 			else
