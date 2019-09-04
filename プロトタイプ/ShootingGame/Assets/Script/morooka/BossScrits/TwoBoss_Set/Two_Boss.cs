@@ -27,6 +27,10 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
 
+	[SerializeField, Tooltip("aaaaaaaaaaa")] private Animation _animation;
+	public AnimationClip aaaaaaaaa;
+
+
 	//[SerializeField, Tooltip("タイムラインの保存")] private PlayableAsset[] Timeline_Order_List;
 
 	[Header("攻撃フラグ")]
@@ -56,6 +60,8 @@ public class Two_Boss : character_status
 
 		// 角度保存
 		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
+
+		//_animation.Play();
 	}
 
 	// Update is called once per frame
