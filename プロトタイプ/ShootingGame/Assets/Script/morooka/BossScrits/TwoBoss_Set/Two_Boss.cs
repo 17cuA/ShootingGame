@@ -26,7 +26,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
-	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
+	[SerializeField, Tooltip("Animation格納")] private Animator animation_data;
 
 	[Header("攻撃フラグ")]
 	[SerializeField, Tooltip("バレット発射")] private bool Is_Bullet_Attack_Multiple;
@@ -44,6 +44,9 @@ public class Two_Boss : character_status
 
 	private int Attack_Type_Instruction { get; set; }		// 攻撃種類指示
 
+	private string Playing_Animation { get; set; }
+	private string[] Animation_Name { get; set; }
+
 	private new void Start()
 	{
 		base.Start();
@@ -55,6 +58,16 @@ public class Two_Boss : character_status
 
 		// 角度保存
 		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
+
+		Animation_Name = new string[6]
+		{
+			"Bio_Laser",
+			"Merry_Go_Round",
+			"Straight_Line",
+			"Smasher",
+			"Before_Rotation",
+			"Back_Rotation",
+		};
 	}
 
 	// Update is called once per frame
@@ -84,125 +97,54 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if(Attack_Step == 0)
 		{
-			Timeline_Player.Play(Multiple_1_Play);
+			Animation_Playback(Animation_Name[0]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
 		{
-			if(Is_end_of_timeline)
-			{
-				Timeline_Player.Pause();
-				Next_Step();
-			}
-		}
-		// 攻撃
-		else if(Attack_Step == 2)
-		{
 			Frames_In_Function++;
 			Shot_Delay++;
 
-			// 1Pのとき
-			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			if (Shot_Delay > Shot_DelayMax)
 			{
 
-				//foreach (Two_Boss_Parts TwoP in multiple)
-				//{
-				//	Quaternion targetRotation = Quaternion.LookRotation(Player1_Script.transform.position - TwoP.transform.position);
-				//	TwoP.transform.localRotation = Quaternion.Slerp(TwoP.transform.localRotation, targetRotation, Time.deltaTime);
-				//}
-
-				if (Shot_Delay > Shot_DelayMax)
-				{
-					foreach(Two_Boss_Parts TwoP in multiple)
-					{
-						Vector3 direction = Player1_Script.transform.position - TwoP.transform.position;
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, TwoP.transform.position, direction);
-					}
-					Shot_Delay = 0;
-				}
+				Shot_Delay = 0;
 			}
-			// 2Pのとき
-			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-			{
-				//for (int i = 0; i < multiple.Length; i++)
-				//{
-				//	if (i % 2 == 0)
-				//	{
-				//		Quaternion targetRotation = Quaternion.LookRotation(Player1_Script.transform.position - multiple[i].transform.position);
-				//		multiple[i].transform.localRotation = Quaternion.Slerp(multiple[i].transform.localRotation, targetRotation, Time.deltaTime);
-				//	}
-				//	else
-				//	{
-				//		Quaternion targetRotation = Quaternion.LookRotation(Player2_Script.transform.position - multiple[i].transform.position);
-				//		multiple[i].transform.localRotation = Quaternion.Slerp(multiple[i].transform.localRotation, targetRotation, Time.deltaTime);
-				//	}
-				//}
 
-				if (Shot_Delay > Shot_DelayMax / 2)
-				{
-					for(int i = 0; i < multiple.Length; i++)
-					{
-						if(i % 2 == 0)
-						{
-							Vector3 direction = Player1_Script.transform.position - multiple[i].transform.position;
-							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, multiple[i].transform.position, direction);
-						}
-						else
-						{
-							Vector3 direction = Player2_Script.transform.position - multiple[i].transform.position;
-							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, multiple[i].transform.position, direction);
-						}
-					}
-					Shot_Delay = 0;
-				}
-			}
-			
 			// 約20秒
 			if (Frames_In_Function == 1200)
 			{
 				Next_Step();
 			}
 		}
-		// 後かたずけ
-		else if(Attack_Step == 3)
+		// 攻撃
+		else if(Attack_Step == 2)
 		{
-			bool ok = true;
-
-			//for (int i = 0; i < multiple.Length; i++)
-			//{
-			//	if (i < multiple.Length / 2)
-			//	{
-			//		if (multiple[i].transform.rotation != Alignment_Angle[0])
-			//		{
-			//			ok = false;
-			//			multiple[i].transform.rotation = Quaternion.Lerp(multiple[i].transform.rotation, Alignment_Angle[0], 0.1f);
-			//		}
-			//	}
-			//	else if (i > multiple.Length / 2)
-			//	{
-			//		if (multiple[i].transform.rotation != Alignment_Angle[1])
-			//		{
-			//			ok = false;
-			//			multiple[i].transform.rotation = Quaternion.Lerp(multiple[i].transform.rotation, Alignment_Angle[1], 0.1f);
-			//		}
-			//	}
-			//}
-
-			if(ok)
+			if(!animation_data.)
 			{
-				Timeline_Player.Play(Multiple_1_Play);
-				Timeline_Player.time = 8.0;
-				Next_Step();
-			}
-		}
-		else if(Attack_Step == 4)
-		{
-			if (Is_end_of_timeline)
-			{
-				Timeline_Player.Stop();
+				animation_data.Stop();
 				Attack_End();
 			}
 		}
+		//// 後かたずけ
+		//else if(Attack_Step == 3)
+		//{
+		//	bool ok = true;
+
+		//	if(ok)
+		//	{
+		//		Timeline_Player.Play(Multiple_1_Play);
+		//		Timeline_Player.time = 8.0;
+		//		Next_Step();
+		//	}
+		//}
+		//else if(Attack_Step == 4)
+		//{
+		//	if (Is_end_of_timeline)
+		//	{
+		//		Timeline_Player.Stop();
+		//	}
+		//}
 	}
 	#endregion
 
@@ -242,11 +184,11 @@ public class Two_Boss : character_status
 	}
 
 	/// <summary>
-	/// タイムラインの再生
+	/// アニメーションの再生
 	/// </summary>
 	/// <param name="time_line"> 再生したいタイムライン(PlayableAsset) </param>
 	/// <param name="time"> 再生開始時間 </param>
-	private void Timeline_Playback(ref PlayableAsset time_line, double time)
+	private void Animation_Playback(ref PlayableAsset time_line, double time)
 	{
 		// 再生しているのもがあれば停止
 		if (Timeline_Player.state != PlayState.Playing)
@@ -256,6 +198,22 @@ public class Two_Boss : character_status
 
 		Timeline_Player.Play(time_line);
 		Timeline_Player.time = time;
+	}
+	#endregion
+	#region タイムラインの再生
+	/// <summary>
+	/// アニメーションの再生
+	/// </summary>
+	/// <param name="time_line"> 再生したいタイムライン(PlayableAsset) </param>
+	private void Animation_Playback(string s)
+	{
+		// 再生しているのもがあれば停止
+		if(animation_data.isPlaying)
+		{
+			animation_data.Stop();
+		}
+
+		animation_data.Play(s);
 	}
 	#endregion
 
