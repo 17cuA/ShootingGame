@@ -17,13 +17,13 @@ public class Player2 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
-	//グリッド用の変数---------------------------------------
+						//グリッド用の変数---------------------------------------
 	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
 	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
 	public float step = 10f;     // 移動速度
 	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-	 //----------------------------------------------------
+						 //----------------------------------------------------
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -42,11 +42,11 @@ public class Player2 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-	//ジェット噴射用の数値-------------------------------
+																//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-	//------------------------------------------------------
+															//------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -68,7 +68,7 @@ public class Player2 : character_status
 		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
-	//リスポーン時に使用する変数--------------------------------------------------
+									//リスポーン時に使用する変数--------------------------------------------------
 	private Vector3 pos;                //複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
 	private int rotation_cnt;
 	public PlayableDirector Entry_anim; //タイムラインを入れる
@@ -79,15 +79,15 @@ public class Player2 : character_status
 	public int frame_max;               //アニメーションが始まるまでのフレーム数を数えるもの
 	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
-
-	//-----------------------------------------------------------------------
+	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
+							   //-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-	//復活時のエフェクト用変数-------------------------------------
+									//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
-	//--------------------------------------------------------
+										//--------------------------------------------------------
 
 	public bool Is_Change_Auto;     //ラピッドかオートかを変えるようの判定変数
 	public bool IS_Active;              //完全な無敵状態にするかどうかのもの
@@ -166,7 +166,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = false;
+		Is_Change_Auto = true;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
 		target = direction;
@@ -177,6 +177,8 @@ public class Player2 : character_status
 		Start_animation_frame = 0;
 		Is_Resporn = true;
 		Is_Animation = true;
+		Is_Resporn_End = false;
+
 		//------------------------------------------------
 		one = false;
 	}
@@ -221,6 +223,8 @@ public class Player2 : character_status
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
 					Is_Resporn = false;
+					Is_Resporn_End = true;
+
 				}
 
 
@@ -675,7 +679,7 @@ public class Player2 : character_status
 	//プレイヤーの速度上昇
 	private void SpeedUp()
 	{
-		speed *= 1.4f;
+		speed *= 1.2f;
 		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
