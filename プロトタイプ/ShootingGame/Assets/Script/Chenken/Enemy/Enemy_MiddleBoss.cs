@@ -54,8 +54,9 @@ public class Enemy_MiddleBoss : character_status
 	private bool canAdvanceAttack;
 
 	public ParticleSystem explosionEffect;
+	private int rotateCount = 0;
 
-    [SerializeField]private int currentDestroyPartIndex = 0;
+	[SerializeField]private int currentDestroyPartIndex = 0;
 
 	private void Awake()
 	{
@@ -235,6 +236,7 @@ public class Enemy_MiddleBoss : character_status
 	private void Move_Enter()
 	{
 		currentSlot++;
+		rotateCount++;
 
 		if (transform.position.y > limitYUp)
 		{
@@ -429,9 +431,13 @@ public class Enemy_MiddleBoss : character_status
 		capsuleCollider.enabled = false;
 		explosionEffect.gameObject.SetActive(true);
 
+		//
+		Game_Master.MY.Score_Addition(score, Opponent);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+
 		Debug.Log(transform.localEulerAngles);
 		//爆発位置調整
-		if (currentSlot < 2)
+		if (rotateCount % 2 == 1)
 		{
 			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, 8);
 		}
@@ -448,10 +454,8 @@ public class Enemy_MiddleBoss : character_status
 			transform.position += speed * 0.1f * Time.deltaTime * Vector3.down;
 		}
 
-		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-		{
-			Game_Master.MY.Score_Addition(score, Opponent);
-			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+		{	
 			Is_Dead = true;
 			Reset_Status();
 			this.gameObject.SetActive(false);
