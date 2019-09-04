@@ -30,7 +30,7 @@ public class Wireless_sinario : MonoBehaviour
     public int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
     public bool Is_Display;               //Onになったら文章表示
 
-	public static bool Is_using_wireless;
+	public static bool Is_using_wireless;       //外部scriptから変更するためにつかう
     //-------------------------------------------------------------------------------
 	public enum Sinario_No
 	{
@@ -52,6 +52,7 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private float unShowTime;
 
     private int first_start;            //ゲーム開始時からカウントするためのもの
+    private Color color;
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
@@ -60,6 +61,7 @@ public class Wireless_sinario : MonoBehaviour
         first_start = 0;
 		No = 0;
         uiText.text = "";
+        color = uiText.color;
 		SetNext_sinario();
         //SetNextLine();
 
@@ -71,7 +73,7 @@ public class Wireless_sinario : MonoBehaviour
 		//ゲーム内のモードが無線状態の時
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
-			uiText.color = Color.white;
+            uiText.color = color;
             Worddisplay();
         }
 		else
@@ -92,13 +94,13 @@ public class Wireless_sinario : MonoBehaviour
 	void Worddisplay()
 	{
         //プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
-        first_start++; 
-        if(first_start < 120)
+        first_start++;
+		if (first_start < 120)
 		{
-            return;
-        }
-        //-------------------------------------------------------------------------------
-		if(isShowOver)
+			return;
+		}
+		//-------------------------------------------------------------------------------
+		if (isShowOver)
 		{
             frame++;
 			if (Time.time >= unShowTimer)
@@ -114,7 +116,7 @@ public class Wireless_sinario : MonoBehaviour
 			else
 			{
 				//プレイヤーが決定ボタンを押したとき
-				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (currentLine < scenarios.Length  && frame > 180 /*|| Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1")*/)
 				{
                      frame = 0;
 					//次の行を準備
@@ -140,7 +142,7 @@ public class Wireless_sinario : MonoBehaviour
 				//	Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				//}
 
-				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (currentLine < scenarios.Length  && frame > 180 /*|| Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1")*/)
 				{
 					//sinariocount = currentLine;
                     frame = 0;
@@ -149,12 +151,12 @@ public class Wireless_sinario : MonoBehaviour
 			}
 			else
 			{
-				if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
-				{
-					Debug.Log("入力処理");
-					// 完了してないなら文字をすべて表示する
-					timeUntilDisplay = 0;
-				}
+				//if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				//{
+				//	Debug.Log("入力処理");
+				//	// 完了してないなら文字をすべて表示する
+				//	timeUntilDisplay = 0;
+				//}
 			}
 		}
 
