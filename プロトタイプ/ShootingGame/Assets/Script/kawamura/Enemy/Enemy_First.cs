@@ -308,9 +308,9 @@ public class Enemy_First : character_status
 					}
 
                     //else if (transform.localPosition.x < -21)
-                    else if (transform.localPosition.x < -29.5)
+                    else if (transform.localPosition.x < -26.5)
                     {
-                        speedX -= 0.54f;
+                        speedX -= 0.36f;
 						if (speedX < 7.5f)
 						{
 							speedX = 7.5f;
