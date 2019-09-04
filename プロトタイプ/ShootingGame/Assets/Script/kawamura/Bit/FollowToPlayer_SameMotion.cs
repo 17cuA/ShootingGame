@@ -111,7 +111,14 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				{
 					pl1.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+						playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
 
 				if (!pl1.Is_Resporn)
@@ -143,7 +150,14 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				{
 					pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					for (int i = 0; i < array_Num; i++)
+					{
+						playerPos[i] = playerObj.transform.position;
+						playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
 				if (!pl2.Is_Resporn)
 				{
