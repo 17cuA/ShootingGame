@@ -62,7 +62,9 @@ MonoBehaviour:
   defaultColor: []
   childCnt: 0
   object_material:
-  - {fileID: 1377363440269828502}
+  - {fileID: 5299522067669535261}
+  - {fileID: 5299522067669535263}
+  - {fileID: 5299522067669535257}
   isrend: 0
   Is_Dead: 0
   self_material: []
@@ -70,7 +72,7 @@ MonoBehaviour:
   Opponent: 0
   eState: 0
   playerObj: {fileID: 0}
-  speedX: 5
+  speedX: 7.5
   rollSpeed: 2.5
   rotaX: 0
   rotaY: 0
@@ -221,12 +223,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1377363440267934198}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1377363440269828502 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: bb8e16c2a165ae0468323161046da810,
-    type: 3}
-  m_PrefabInstance: {fileID: 1377363440267934198}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5299522067671700093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -355,6 +351,24 @@ PrefabInstance:
 --- !u!4 &5299522067671828735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 3b44768affea217479865571b8046a49,
+    type: 3}
+  m_PrefabInstance: {fileID: 5299522067671700093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5299522067669535261 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 3b44768affea217479865571b8046a49,
+    type: 3}
+  m_PrefabInstance: {fileID: 5299522067671700093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5299522067669535263 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300002, guid: 3b44768affea217479865571b8046a49,
+    type: 3}
+  m_PrefabInstance: {fileID: 5299522067671700093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5299522067669535257 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300004, guid: 3b44768affea217479865571b8046a49,
     type: 3}
   m_PrefabInstance: {fileID: 5299522067671700093}
   m_PrefabAsset: {fileID: 0}
