@@ -334,7 +334,7 @@ public class TurnToPlayer_Slow : character_status
 			Reset_Status();
 			Died_Process();
 		}
-
+		base.Update();
 	}
 	void DegreeCalculation()
 	{
@@ -381,17 +381,18 @@ public class TurnToPlayer_Slow : character_status
 		}
 	}
 
-	private void OnTriggerEnter(Collider col)
+	new void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.name == "BattleshipType_Enemy(Clone)")
 		{
 			hp = 0;
 		}
-		if(col.gameObject.tag=="Player_Bullet")
-		{
-			hp = 0;
-		}
+		//if(col.gameObject.tag=="Player_Bullet")
+		//{
+		//	hp = 0;
+		//}
 
+		base.OnTriggerEnter(col);
 	}
 	//   private void OnTriggerStay(Collider col)
 	//   {

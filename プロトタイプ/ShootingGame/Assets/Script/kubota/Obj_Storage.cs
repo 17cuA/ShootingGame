@@ -181,7 +181,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 
-		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");
+		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");		//バキュラに当たった時の高い音用
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
@@ -206,15 +206,15 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");		//プレイヤー登場の音
 		audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)");	//中ボス用の爆発音
 		//------------------------------------------------------------------------------
-		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
-		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
-		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_03");
-		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_04");
-		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_05");
-		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_06");
-		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_07");
-		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_08");
-		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_09");
+		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");		//開戦時
+		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");		//前半ボス前
+		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");		//前半ボス後1
+		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");		//前半ぼす後2
+		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");		//後半ボス前1
+		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");		//後半ボス前2
+		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");		//後半ボス後1
+		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//後半ボス後2
+		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//ゲームオーバー
 		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_10");
 		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_11");
 		audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_12");

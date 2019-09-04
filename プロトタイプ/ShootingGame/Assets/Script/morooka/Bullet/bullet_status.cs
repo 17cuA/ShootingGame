@@ -132,6 +132,41 @@ public class bullet_status : MonoBehaviour
             effect.transform.position = gameObject.transform.position;
             particle.Play();
         }
+		else if(gameObject.tag == "Player_Bullet " && col.name == "Enemy_Bacula")
+		{
+			character_status obj = col.GetComponent<character_status>();
+			if (obj != null)
+			{
+				obj.Opponent = Player_Number;
+			}
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
+			particle.Play();
+			switch (Bullet_Type)
+			{
+				case Type.None:
+					break;
+				case Type.Player1:
+					P1.Bullet_cnt = 0;
+					break;
+				case Type.Player2:
+					P2.Bullet_cnt = 0;
+					break;
+				case Type.Player1_Option:
+					bShot.Bullet_cnt = 0;
+					break;
+				case Type.Player2_Option:
+					bShot.Bullet_cnt = 0;
+					break;
+				case Type.Enemy:
+					break;
+				default:
+					break;
+			}
+			gameObject.SetActive(false);
+		}
         else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
         {
             //add:0513_takada 爆発エフェクトのテスト
