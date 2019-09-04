@@ -14,43 +14,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Merry_Go_Round
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Straight_Line
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Smasher
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Before_Rotation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Back_Rotation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Defo
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -100,6 +100,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Straight_Line
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102874669740586236}
   m_Solo: 0
@@ -124,6 +127,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Before_Rotation
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Defo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102860094039961118}
@@ -150,6 +156,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Merry_Go_Round
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102732139331476870}
   m_Solo: 0
@@ -172,8 +181,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Bio_Laser
+  - m_ConditionMode: 1
+    m_ConditionEvent: Defo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102860094039961118}
@@ -200,6 +209,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Back_Rotation
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102135117250561620}
   m_Solo: 0
@@ -224,6 +236,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Back_Rotation
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Defo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102860094039961118}
@@ -250,6 +265,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Smasher
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102452756498985594}
   m_Solo: 0
@@ -274,6 +292,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Smasher
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Defo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102860094039961118}
@@ -300,6 +321,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Before_Rotation
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102923021749213954}
   m_Solo: 0
@@ -323,6 +347,9 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
+    m_ConditionEvent: Defo
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
     m_ConditionEvent: Straight_Line
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -350,8 +377,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Defo
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: Back_Rotation
+  - m_ConditionMode: 2
+    m_ConditionEvent: Merry_Go_Round
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102860094039961118}
@@ -578,7 +605,7 @@ AnimatorStateMachine:
     m_Position: {x: 372, y: 444, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102581138665459394}
-    m_Position: {x: 372, y: 396, z: 0}
+    m_Position: {x: 288, y: 108, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102732139331476870}
     m_Position: {x: 372, y: 204, z: 0}
@@ -587,7 +614,7 @@ AnimatorStateMachine:
     m_Position: {x: 372, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102874669740586236}
-    m_Position: {x: 372, y: 348, z: 0}
+    m_Position: {x: 60, y: 48, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102860094039961118}
     m_Position: {x: -108, y: 336, z: 0}
@@ -597,9 +624,9 @@ AnimatorStateMachine:
   - {fileID: 1109736932283326838}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -240, y: 204, z: 0}
-  m_EntryPosition: {x: -300, y: 324, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_AnyStatePosition: {x: -300, y: 276, z: 0}
+  m_EntryPosition: {x: -300, y: 336, z: 0}
+  m_ExitPosition: {x: -300, y: 396, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102860094039961118}
 --- !u!1109 &1109736932283326838

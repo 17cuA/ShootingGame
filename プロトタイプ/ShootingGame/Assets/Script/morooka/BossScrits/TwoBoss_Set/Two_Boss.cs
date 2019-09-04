@@ -101,7 +101,7 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if(Attack_Step == 0)
 		{
-			Animation_Playback(Animation_Name[2]);
+			Animation_Playback(Animation_Name[0]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
@@ -214,7 +214,9 @@ public class Two_Boss : character_status
 		if (Playing_Animation != null)
 		{
 			if (!Animation_End())
+			{
 				animation_data.SetBool(Playing_Animation, false);
+			}
 		}
 		animation_data.SetBool(s　,true);
 		Playing_Animation = s;
