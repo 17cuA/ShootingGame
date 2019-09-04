@@ -303,17 +303,17 @@ public class Enemy_First : character_status
                         //{
                         //	isTurn = true;
                         //}
-                        speedX = 5;
+                        speedX = 7.5f;
 						//isTurn = true;
 					}
 
                     //else if (transform.localPosition.x < -21)
                     else if (transform.localPosition.x < -29.5)
                     {
-                        speedX -= 0.36f;
-						if (speedX < 5)
+                        speedX -= 0.54f;
+						if (speedX < 7.5f)
 						{
-							speedX = 5;
+							speedX = 7.5f;
 						}
 
 					}
