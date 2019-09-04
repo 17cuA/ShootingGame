@@ -52,16 +52,20 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private float unShowTime;
 
     private int first_start;            //ゲーム開始時からカウントするためのもの
-    private Color color;
+    private Color color;        //文字の色を保存しておくようの変数
+	private Color outline;  //テキストの文字のアウトラインを変更する用の変数
+	private Outline outline2;
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
+		outline2 = GetComponent<Outline>();
 		Is_Display = false;
         frame = 0;
         first_start = 0;
 		No = 0;
         uiText.text = "";
         color = uiText.color;
+		outline = outline2.effectColor;
 		SetNext_sinario();
 		//SetNextLine();
 		one = false;
@@ -74,11 +78,15 @@ public class Wireless_sinario : MonoBehaviour
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
             uiText.color = color;
-            Worddisplay();
+			//if(!outline.IsActive()) outline.enabled = true;
+			outline2.effectColor = outline;
+			Worddisplay();
         }
 		else
 		{
 			uiText.color = Color.clear;
+			outline2.effectColor = Color.clear;
+			//if (outline.IsActive()) outline.enabled = false;
 		}
 		Debug.Log(scenarios.Length);
 
@@ -87,6 +95,7 @@ public class Wireless_sinario : MonoBehaviour
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			SetNextLine();
 			Is_using_wireless = false;
+
 		}
 
 	}
@@ -149,13 +158,15 @@ public class Wireless_sinario : MonoBehaviour
 					//sinariocount = currentLine;
                     frame = 0;
 					SetNextLine();
+					//各配列に対応したように鳴らす
+					//ただし開戦時のみ変更必須
 					switch(currentLine)
 					{
 						case 1:
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data,voice[0])
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
 							break;
 						case 2:
-
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
 							break;
 					}
 				}
@@ -184,8 +195,11 @@ public class Wireless_sinario : MonoBehaviour
     //次に表示する文字を確認
     void SetNextLine()
     {
-        currentText = scenarios[currentLine];
-        timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
+		if (currentLine < scenarios.Length)
+		{
+			currentText = scenarios[currentLine];
+		}
+		timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
         timeElapsed = Time.time;
         currentLine++;
         lastUpdateCharacter = -1;

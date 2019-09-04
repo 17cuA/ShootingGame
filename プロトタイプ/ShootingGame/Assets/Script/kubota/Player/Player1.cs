@@ -274,6 +274,9 @@ public class Player1 : character_status
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P1_PowerManager.Instance.ResetAllPowerUpgradeCount();
+					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
+
 					Remaining--;                                        //残機を1つ減らす
 					//残機が残っていなければ
 					if (Remaining < 1)
