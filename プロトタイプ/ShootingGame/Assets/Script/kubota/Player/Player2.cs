@@ -798,7 +798,9 @@ public class Player2 : character_status
 	private void Init_speed()
 	{
 		speed = min_speed;
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
+
+		//SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	private void Init_speed_died()
 	{
