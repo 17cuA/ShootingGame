@@ -14,6 +14,16 @@ using StorageReference;
 
 public class Two_Boss : character_status
 {
+
+	private enum Attack_Index
+	{
+			eBio_Laser,
+			eMerry_Go_Round,
+			eStraight_Line,
+			eSmasher,
+			eBefore_Rotation,
+			eBack_Rotation,
+	}
 	[Header("ボス形成パーツ")]
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
@@ -77,8 +87,22 @@ public class Two_Boss : character_status
 		{
 			Bullet_Attack();
 		}
+		else if(Attack_Type_Instruction == 1)
+		{
+			Bacula_And_Smasher();
+		}
+		else if(Attack_Type_Instruction == 2)
+		{
+			Rotation_Attack();
+		}
+		else if(Attack_Type_Instruction == 3)
+		{
+			Laser_Attack();
+		}
 		else
 		{
+			Animation_Playback("Defo");
+
 			Frames_In_Function++;
 			if (Frames_In_Function == 2)
 			{
@@ -101,7 +125,7 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if(Attack_Step == 0)
 		{
-			Animation_Playback(Animation_Name[0]);
+			Animation_Playback(Animation_Name[(int)Attack_Index.eStraight_Line]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
@@ -116,10 +140,10 @@ public class Two_Boss : character_status
 			}
 
 			// 約20秒
-			if (Frames_In_Function == 1200)
-			{
+			//if (Frames_In_Function == 1200)
+			//{
 				Next_Step();
-			}
+			//}
 		}
 		// 攻撃終了
 		else if (Attack_Step == 2)
@@ -129,25 +153,117 @@ public class Two_Boss : character_status
 				Attack_End();
 			}
 		}
-		//// 後かたずけ
-		//else if(Attack_Step == 3)
-		//{
-		//	bool ok = true;
+	}
+	#endregion
 
-		//	if(ok)
-		//	{
-		//		Timeline_Player.Play(Multiple_1_Play);
-		//		Timeline_Player.time = 8.0;
-		//		Next_Step();
-		//	}
-		//}
-		//else if(Attack_Step == 4)
-		//{
-		//	if (Is_end_of_timeline)
-		//	{
-		//		Timeline_Player.Stop();
-		//	}
-		//}
+	#region メリーゴーランド
+	private void Rotation_Attack()
+	{
+		// 攻撃準備
+		if (Attack_Step == 0)
+		{
+			Animation_Playback(Animation_Name[(int)Attack_Index.eMerry_Go_Round]);
+			Next_Step();
+		}
+		else if (Attack_Step == 1)
+		{
+			Frames_In_Function++;
+			Shot_Delay++;
+
+			if (Shot_Delay > Shot_DelayMax)
+			{
+
+				Shot_Delay = 0;
+			}
+
+			// 約20秒
+			//if (Frames_In_Function == 1200)
+			//{
+			Next_Step();
+			//}
+		}
+		// 攻撃終了
+		else if (Attack_Step == 2)
+		{
+			if (Animation_End())
+			{
+				Attack_End();
+			}
+		}
+	}
+	#endregion
+
+	#region バキュラとスマッシャー
+	private void Bacula_And_Smasher()
+	{
+		// 攻撃準備
+		if (Attack_Step == 0)
+		{
+			Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher]);
+			Next_Step();
+		}
+		else if (Attack_Step == 1)
+		{
+			Frames_In_Function++;
+			Shot_Delay++;
+
+			if (Shot_Delay > Shot_DelayMax)
+			{
+
+				Shot_Delay = 0;
+			}
+
+			// 約20秒
+			//if (Frames_In_Function == 1200)
+			//{
+			Next_Step();
+			//}
+		}
+		// 攻撃終了
+		else if (Attack_Step == 2)
+		{
+			if (Animation_End())
+			{
+				Attack_End();
+			}
+		}
+	}
+	#endregion
+
+	#region レーザー攻撃
+	private void Laser_Attack()
+	{
+		// 攻撃準備
+		if (Attack_Step == 0)
+		{
+			Animation_Playback(Animation_Name[(int)Attack_Index.eBio_Laser]);
+			Next_Step();
+		}
+		else if (Attack_Step == 1)
+		{
+			Frames_In_Function++;
+			Shot_Delay++;
+
+			if (Shot_Delay > Shot_DelayMax)
+			{
+
+				Shot_Delay = 0;
+			}
+
+			// 約20秒
+			//if (Frames_In_Function == 1200)
+			//{
+			Next_Step();
+			//}
+		}
+		// 攻撃終了
+		else if (Attack_Step == 2)
+		{
+			if (Animation_End())
+			{
+				Attack_End();
+			}
+		}
 	}
 	#endregion
 
