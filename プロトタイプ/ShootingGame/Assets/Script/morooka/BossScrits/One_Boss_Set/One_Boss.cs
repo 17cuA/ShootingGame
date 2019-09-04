@@ -110,6 +110,9 @@ public class One_Boss : character_status
 	private Player1 Player1_Script { get; set; }
 	private Player2 Player2_Script { get; set; }
 
+	// 背景遷移トリガー
+	SetTimeTrigger setTimeTrigger = null;
+
 	private new void Start()
 	{
 		Timeline_Player.playOnAwake = false;
@@ -220,6 +223,8 @@ public class One_Boss : character_status
 			new Color(0.0f, 12.0f /255.0f, 1.0f ),
 			new Color(0.0f, 12.0f /255.0f, 1.0f ),
 		};
+
+		setTimeTrigger = FindObjectOfType<SetTimeTrigger>();
 	}
 
 	private new void Update()
@@ -373,6 +378,7 @@ public class One_Boss : character_status
 		if(Attack_Step == 0)
 		{
 			Is_Dead = true;
+			setTimeTrigger.Trigger = true;
 			Attack_Step++;
 		}
 		else if(Attack_Step == 1)
