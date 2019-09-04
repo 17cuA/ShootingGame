@@ -359,7 +359,7 @@ class Device_LaserEmitter : MonoBehaviour
 							audioSource.loop = true;
 							audioSource.Play();
 						}
-						if(audioSource.clip == laserEnd)
+						if(audioSource.clip == laserEnd && audioSource.time >= laserEnd.length * 0.6f)
 						{
 							if (audioSource.isPlaying) audioSource.Stop();
 							audioSource.clip = laserBegin;
@@ -410,7 +410,7 @@ class Device_LaserEmitter : MonoBehaviour
 			//}
 		}
 
-		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.pointCount ==  straightLaserNodeMax / 2)
+		if(launchDevice.CurrentGenerator != null && launchDevice.CurrentGenerator.pointCount ==  straightLaserNodeMax / 3 * 2)
 		{
 			if (isPlayerUseAudio)
 			{

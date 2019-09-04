@@ -166,7 +166,7 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = true;
+		Is_Change_Auto = false;
 		IS_Active = true;
         Bullet_cnt_Max = 10;
 		target = direction;
@@ -664,7 +664,7 @@ public class Player1 : character_status
 	//プレイヤーの速度上昇
 	private void SpeedUp()
 	{
-		speed *= 1.2f;
+		speed *= 1.4f;
 		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();

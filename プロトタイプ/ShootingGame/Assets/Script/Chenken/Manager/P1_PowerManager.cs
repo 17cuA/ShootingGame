@@ -86,7 +86,7 @@ namespace Power
 
 				//強化回数＋１
 				upgradeCount++;
-				Debug.Log("強化成功、パワーアップ名：" + type.ToString());
+				DebugManager.OperationDebug("強化成功、パワーアップ名：" + type.ToString(),"Player1");
 			}
 
 			/// <summary>
@@ -370,7 +370,6 @@ namespace Power
 			}
 
 			position = -1;
-            Debug.Log(position);
 		}
 
 		/// <summary>
@@ -388,7 +387,6 @@ namespace Power
 		{
 			position++;
 
-            Debug.Log(position);
 
 			position %= powers.Count - 1;
 		}

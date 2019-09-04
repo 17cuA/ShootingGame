@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(10000)]
 public class PauseManager : MonoBehaviour
 {
 	[Header("Debug用")]
@@ -37,6 +39,16 @@ public class PauseManager : MonoBehaviour
 		pauseMask = transform.GetChild(0).gameObject;
 		pauseText = transform.GetChild(1).gameObject;
 		allAudios = GameObject.FindObjectsOfType<AudioSource>();
+
+		Time.timeScale = 1f;
+		isPause = false;
+		PauseComponent.Resume();
+		pauseMask.SetActive(false);
+		pauseText.SetActive(false);
+		for (var i = 0; i < allAudios.Length; ++i)
+		{
+			allAudios[i].volume = 1.0f;
+		}
 	}
 
 	void Update()
