@@ -66,6 +66,7 @@ public class Wireless_sinario : MonoBehaviour
 		SetNext_sinario();
 		//SetNextLine();
 		one = false;
+		//outline.enabled = true;
 	}
 
     void Update()
@@ -75,13 +76,13 @@ public class Wireless_sinario : MonoBehaviour
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
             uiText.color = color;
-			if(!outline.IsActive()) outline.enabled = true;
+			//if(!outline.IsActive()) outline.enabled = true;
 			Worddisplay();
         }
 		else
 		{
 			uiText.color = Color.clear;
-			if (outline.IsActive()) outline.enabled = false;
+			//if (outline.IsActive()) outline.enabled = false;
 		}
 		Debug.Log(scenarios.Length);
 
