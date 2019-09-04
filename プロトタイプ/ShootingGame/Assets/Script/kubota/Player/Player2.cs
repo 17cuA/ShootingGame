@@ -112,6 +112,8 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.AddFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
+		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
+
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
@@ -192,11 +194,7 @@ public class Player2 : character_status
 			{
 				if (Is_Animation) Start_animation_frame++;
 
-				//敵等に当たらないようにするためにレイヤーを変更
-				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
-				{
-					gameObject.layer = LayerMask.NameToLayer("invisible");
-				}
+
 				//通常のジェット噴射が稼働中の時のみ変更する
 				if (injection.isPlaying)
 				{
@@ -276,6 +274,11 @@ public class Player2 : character_status
 					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 					P2_PowerManager.Instance.ResetAllPowerUpgradeCount();
+					//敵等に当たらないようにするためにレイヤーを変更
+					if (gameObject.layer != LayerMask.NameToLayer("invisible"))
+					{
+						gameObject.layer = LayerMask.NameToLayer("invisible");
+					}
 					//残機が残っていなければ
 					if (Remaining < 1)
 					{
