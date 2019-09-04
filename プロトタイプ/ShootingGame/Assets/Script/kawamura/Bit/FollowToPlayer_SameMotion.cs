@@ -100,7 +100,14 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 		if (isFollow1P)
 		{
-			if(!pl1.Is_Resporn)
+			if (pl1.Is_Resporn_End)
+			{
+				pl1.Is_Resporn_End = false;
+				transform.position = playerObj.transform.position;
+				transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+			}
+
+			if (!pl1.Is_Resporn)
 			{
 				if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
 				{

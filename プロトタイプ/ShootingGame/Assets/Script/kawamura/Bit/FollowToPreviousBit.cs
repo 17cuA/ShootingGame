@@ -46,10 +46,12 @@ public class FollowToPreviousBit : MonoBehaviour
 		if (parentName == "Four_FollowPos_1P")
 		{
 			isFollow1P = true;
+			isFollow2P = false;
 		}
 		else if (parentName == "Four_FollowPos_2P")
 		{
 			isFollow2P = true;
+			isFollow1P = false;
 		}
 
 		if (isFollow1P)
@@ -128,40 +130,53 @@ public class FollowToPreviousBit : MonoBehaviour
 
 		if (isFollow1P)
 		{
-			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			if (pl1.Is_Resporn_End)
 			{
-				isFreeze = false;
-				defPos = transform.position - savePos;
-
-				for (int i = 0; i < array_Num; i++)
-				{
-					previousBitPos[i] += defPos;
-				}
-				savePos = transform.position;
-				pos = previousBitObj.transform.position;
+				pl1.Is_Resporn_End = false;
+				transform.position = playerObj.transform.position;
+				transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 			}
-			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+
+			if (!pl1.Is_Resporn)
 			{
-				isFreeze = true;
+				if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				{
+					isFreeze = false;
+					defPos = transform.position - savePos;
+
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] += defPos;
+					}
+					savePos = transform.position;
+					pos = previousBitObj.transform.position;
+				}
+				else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+				}
 			}
 		}
 		else if (isFollow2P)
 		{
-			if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			if (!pl2.Is_Resporn)
 			{
-				isFreeze = false;
-				defPos = transform.position - savePos;
-
-				for (int i = 0; i < array_Num; i++)
+				if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
 				{
-					previousBitPos[i] += defPos;
+					isFreeze = false;
+					defPos = transform.position - savePos;
+
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] += defPos;
+					}
+					savePos = transform.position;
+					pos = previousBitObj.transform.position;
 				}
-				savePos = transform.position;
-				pos = previousBitObj.transform.position;
-			}
-			else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
-			{
-				isFreeze = true;
+				else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+				}
 			}
 		}
 
@@ -265,5 +280,13 @@ public class FollowToPreviousBit : MonoBehaviour
 		//	savePos = transform.position;
 
 		//}
+
+		if (pl1.Is_Resporn_End)
+		{
+			if (isFollow1P)
+			{
+
+			}
+		}
 	}
 }
