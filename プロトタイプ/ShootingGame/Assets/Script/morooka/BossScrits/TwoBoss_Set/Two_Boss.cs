@@ -97,7 +97,7 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if(Attack_Step == 0)
 		{
-			Animation_Playback(Animation_Name[0]);
+			Animation_Playback(Animation_Name[3]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
@@ -117,12 +117,11 @@ public class Two_Boss : character_status
 				Next_Step();
 			}
 		}
-		// 攻撃
-		else if(Attack_Step == 2)
+		// 攻撃終了
+		else if (Attack_Step == 2)
 		{
-			if(!animation_data.)
+			if (Animation_End())
 			{
-				animation_data.Stop();
 				Attack_End();
 			}
 		}
@@ -208,12 +207,20 @@ public class Two_Boss : character_status
 	private void Animation_Playback(string s)
 	{
 		// 再生しているのもがあれば停止
-		if(animation_data.isPlaying)
+		if (Playing_Animation != null)
 		{
-			animation_data.Stop();
+			if (!Animation_End()) animation_data.SetBool(Playing_Animation, false);
 		}
+		animation_data.SetBool(s,true);
+		Playing_Animation = s;
+	}
+	#endregion
 
-		animation_data.Play(s);
+	#region アニメーターの終了検知
+	private bool Animation_End()
+	{
+		AnimatorStateInfo animInfo = animation_data.GetCurrentAnimatorStateInfo(0);
+		return !(animInfo.normalizedTime < 1.0f);
 	}
 	#endregion
 
