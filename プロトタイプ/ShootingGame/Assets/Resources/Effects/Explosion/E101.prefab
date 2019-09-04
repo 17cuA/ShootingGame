@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6280174378059927628}
   - component: {fileID: 2567643341360427967}
   - component: {fileID: 5109012980443340927}
+  - component: {fileID: 182023151975926240}
   m_Layer: 0
   m_Name: E101
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   - {fileID: 3593536809348673402}
   - {fileID: 1341804684132501981}
   - {fileID: 8404738031378272476}
-  - {fileID: 7049476343404864924}
+  - {fileID: 7807976207581740630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4703,6 +4704,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &182023151975926240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981046814941455240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799f0bfbf1c117f439436e669fb2fbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: -0.1
+  frame_Max: 10
 --- !u!1 &2265000990047540797
 GameObject:
   m_ObjectHideFlags: 0
@@ -42639,7 +42654,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1001 &3275710553828904733
+--- !u!1001 &2376472306866099415
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -42708,9 +42723,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fcd6e2d20936fe488c54b5aec5950f3, type: 3}
---- !u!4 &7049476343404864924 stripped
+--- !u!4 &7807976207581740630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5521813394896906881, guid: 5fcd6e2d20936fe488c54b5aec5950f3,
     type: 3}
-  m_PrefabInstance: {fileID: 3275710553828904733}
+  m_PrefabInstance: {fileID: 2376472306866099415}
   m_PrefabAsset: {fileID: 0}
