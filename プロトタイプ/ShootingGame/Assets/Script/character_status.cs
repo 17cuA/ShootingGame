@@ -211,7 +211,7 @@ public class character_status : MonoBehaviour
 			if (col.tag == "Enemy_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
-				if(activeShield && shield != 0)
+				if(activeShield && shield > 1)
 				{
 					shield--;
 				}
@@ -222,7 +222,7 @@ public class character_status : MonoBehaviour
 			}
 			if (col.tag == "Enemy")
 			{
-				if (activeShield && shield != 0)
+				if (activeShield && shield > 1)
 				{
 					shield -= 3;
 				}
