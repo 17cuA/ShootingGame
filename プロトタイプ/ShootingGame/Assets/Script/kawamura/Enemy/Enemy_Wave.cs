@@ -281,7 +281,7 @@ public class Enemy_Wave : character_status
                     //speedY = defaultSpeedY;
                     speedY = 0;
 					amplitude = 0.1f;
-					speedX = 5;
+					speedX = 7.5f;
 					speedZ_Value = 0;
 					isStraight = false;
 					isOnlyWave = true;
@@ -305,7 +305,7 @@ public class Enemy_Wave : character_status
                     //speedY = defaultSpeedY;
                     speedY = 0;
 					amplitude = -0.1f;
-					speedX = 5;
+					speedX = 7.5f;
 					speedZ_Value = 0;
 					isOnlyWave = true;
 					//isWave = true;
@@ -375,7 +375,7 @@ public class Enemy_Wave : character_status
 					//speedY = defaultSpeedY;
 					speedY = 0;
 					amplitude = 0.1f;
-					speedX = -5;
+					speedX = -7.5f;
 					speedZ_Value = 0;
 					isStraight = false;
 					isOnlyWave = true;
@@ -399,7 +399,7 @@ public class Enemy_Wave : character_status
 					//speedY = defaultSpeedY;
 					speedY = 0;
 					amplitude = -0.1f;
-					speedX = -5;
+					speedX = -7.5f;
 					speedZ_Value = 0;
 					isOnlyWave = true;
 					//isWave = true;
@@ -452,7 +452,7 @@ public class Enemy_Wave : character_status
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
 					isBehind = false;
-					speedX = 5;
+					speedX = 7.5f;
 					amplitude = 0;
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
@@ -465,7 +465,7 @@ public class Enemy_Wave : character_status
 					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isStraight = true;
 					isBehind = true;
-					speedX = -5;
+					speedX = -7.5f;
 					amplitude = 0;
 					//hsvCon.val = 1.0f;
 					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
@@ -584,12 +584,12 @@ public class Enemy_Wave : character_status
 					//前からなら
 					if(!isBehind)
 					{
-						speedX = 5;
+						speedX = 7.5f;
 					}
 					//後ろからなら
 					else if(isBehind)
 					{
-						speedX = -5;
+						speedX = -7.5f;
 					}
 					speedY = defaultSpeedY;
 
@@ -607,7 +607,7 @@ public class Enemy_Wave : character_status
 					if (transform.position.z < 0)
 					{
 						transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-						speedX = 5;
+						speedX = 7.5f;
 						speedY = defaultSpeedY;
 						isWave = true;
 					}
@@ -632,7 +632,7 @@ public class Enemy_Wave : character_status
 					if (transform.position.z < 0)
 					{
 						transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-						speedX = 5;
+						speedX = 7.5f;
 						speedY = defaultSpeedY;
 						isWave = true;
 					}
@@ -668,7 +668,7 @@ public class Enemy_Wave : character_status
 						//画面手前に来てからの時間。向きを変えて突進するまでの時間
 						if (rushStayCnt > rushStartTime)
 						{
-							speedX = 13;
+							speedX = 16;
 							velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 							gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -731,7 +731,7 @@ public class Enemy_Wave : character_status
 						//画面手前に来てからの時間。向きを変えて突進するまでの時間
 						if (rushStayCnt > rushStartTime)
 						{
-							speedX = -13;
+							speedX = -16;
 							velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 							gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -787,7 +787,7 @@ public class Enemy_Wave : character_status
 			}
 			else
 			{
-				speedX = 5;
+				speedX = 7.5f;
 				//sin =posY + Mathf.Sin(Time.time*5);
 
 				SpeedY_Check();
@@ -847,6 +847,7 @@ public class Enemy_Wave : character_status
 			//Reset_Status();
 			Died_Process();
 		}
+		base.Update();
 	}
 	//-------------ここから関数------------------
 

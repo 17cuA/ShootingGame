@@ -308,9 +308,9 @@ public class Enemy_First : character_status
 					}
 
                     //else if (transform.localPosition.x < -21)
-                    else if (transform.localPosition.x < -26.5)
+                    else if (transform.localPosition.x < -25.5)
                     {
-                        speedX -= 0.36f;
+                        speedX -= 0.48f;
 						if (speedX < 7.5f)
 						{
 							speedX = 7.5f;
@@ -318,9 +318,9 @@ public class Enemy_First : character_status
 
 					}
                     //else if (transform.localPosition.x < -9)
-                    else if (transform.localPosition.x < -18.5)
+                    else if (transform.localPosition.x < ZMovePos)
                     {
-						speedX += 0.12f;
+						speedX += 0.24f;
 					}
 					//if (transform.position.x < 9)
 					//{
@@ -530,7 +530,7 @@ public class Enemy_First : character_status
 	{
 		//frame = 0;
 		straightFrame = straightFrame_Default;
-		speedZ_Value = 50;
+		speedZ_Value = 75;
 		once = true;
 		isTurn = false;
 		Is_Dead = false;
