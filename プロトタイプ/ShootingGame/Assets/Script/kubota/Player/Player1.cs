@@ -79,6 +79,7 @@ public class Player1 : character_status
 	public int frame_max;               //アニメーションが始まるまでのフレーム数を数えるもの
 	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
+	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
@@ -111,6 +112,8 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.AddFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
+		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
+
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
@@ -175,6 +178,7 @@ public class Player1 : character_status
 		Start_animation_frame = 0;
 		Is_Resporn = true;
 		Is_Animation = true;
+		Is_Resporn_End = false;
 		//------------------------------------------------
 		one = false;
 	}
@@ -224,23 +228,9 @@ public class Player1 : character_status
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
 					Is_Resporn = false;
+					Is_Resporn_End = true;
 				}
 
-				//if(transform.position.z == 0)
-				//{
-				//	resporn_Injection.Stop();
-				//	injection.Play();
-				//	startTime = 0;
-				//	movetime = 0;
-				//	rotation_cnt = 0;
-				//	Is_Resporn = false;
-				//}
-				//if (transform.position == direction)
-				//{
-				//	resporn_Injection.Stop();
-				//	startTime = 0;
-				//	Is_Resporn = false;
-				//}
 			}
 			else
 			{
@@ -275,6 +265,8 @@ public class Player1 : character_status
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					P1_PowerManager.Instance.ResetAllPowerUpgradeCount();
+					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
+
 					Remaining--;                                        //残機を1つ減らす
 					//残機が残っていなければ
 					if (Remaining < 1)
