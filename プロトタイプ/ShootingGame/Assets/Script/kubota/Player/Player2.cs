@@ -192,11 +192,7 @@ public class Player2 : character_status
 			{
 				if (Is_Animation) Start_animation_frame++;
 
-				//敵等に当たらないようにするためにレイヤーを変更
-				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
-				{
-					gameObject.layer = LayerMask.NameToLayer("invisible");
-				}
+
 				//通常のジェット噴射が稼働中の時のみ変更する
 				if (injection.isPlaying)
 				{
@@ -276,6 +272,11 @@ public class Player2 : character_status
 					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 					P2_PowerManager.Instance.ResetAllPowerUpgradeCount();
+					//敵等に当たらないようにするためにレイヤーを変更
+					if (gameObject.layer != LayerMask.NameToLayer("invisible"))
+					{
+						gameObject.layer = LayerMask.NameToLayer("invisible");
+					}
 					//残機が残っていなければ
 					if (Remaining < 1)
 					{
