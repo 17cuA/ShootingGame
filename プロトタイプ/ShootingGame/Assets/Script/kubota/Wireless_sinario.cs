@@ -30,7 +30,7 @@ public class Wireless_sinario : MonoBehaviour
     public int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
     public bool Is_Display;               //Onになったら文章表示
 
-	public static bool Is_using_wireless;
+	public static bool Is_using_wireless;       //外部scriptから変更するためにつかう
     //-------------------------------------------------------------------------------
 	public enum Sinario_No
 	{
@@ -52,17 +52,23 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private float unShowTime;
 
     private int first_start;            //ゲーム開始時からカウントするためのもの
+    private Color color;        //文字の色を保存しておくようの変数
+	private Color outline;  //テキストの文字のアウトラインを変更する用の変数
+	private Outline outline2;
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
+		outline2 = GetComponent<Outline>();
 		Is_Display = false;
         frame = 0;
         first_start = 0;
 		No = 0;
         uiText.text = "";
+        color = uiText.color;
+		outline = outline2.effectColor;
 		SetNext_sinario();
-        //SetNextLine();
-
+		//SetNextLine();
+		one = false;
 	}
 
     void Update()
@@ -71,12 +77,16 @@ public class Wireless_sinario : MonoBehaviour
 		//ゲーム内のモードが無線状態の時
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
-			uiText.color = Color.white;
-            Worddisplay();
+            uiText.color = color;
+			//if(!outline.IsActive()) outline.enabled = true;
+			outline2.effectColor = outline;
+			Worddisplay();
         }
 		else
 		{
 			uiText.color = Color.clear;
+			outline2.effectColor = Color.clear;
+			//if (outline.IsActive()) outline.enabled = false;
 		}
 		Debug.Log(scenarios.Length);
 
@@ -85,6 +95,7 @@ public class Wireless_sinario : MonoBehaviour
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			SetNextLine();
 			Is_using_wireless = false;
+
 		}
 
 	}
@@ -92,17 +103,19 @@ public class Wireless_sinario : MonoBehaviour
 	void Worddisplay()
 	{
         //プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
-        first_start++; 
-        if(first_start < 120)
+        first_start++;
+		if (first_start < 120)
 		{
-            return;
-        }
-        //-------------------------------------------------------------------------------
-		if(isShowOver)
+			return;
+		}
+		//-------------------------------------------------------------------------------
+		if (isShowOver)
 		{
             frame++;
+			//既定のシナリオまでだしたら
 			if (Time.time >= unShowTimer)
 			{
+				//無線のモードから通常のモードに治す
 				if (currentLine == 2)
 				{
 					currentLine = 0;
@@ -114,7 +127,7 @@ public class Wireless_sinario : MonoBehaviour
 			else
 			{
 				//プレイヤーが決定ボタンを押したとき
-				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (currentLine < scenarios.Length  && frame > 180 /*|| Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1")*/)
 				{
                      frame = 0;
 					//次の行を準備
@@ -140,21 +153,32 @@ public class Wireless_sinario : MonoBehaviour
 				//	Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				//}
 
-				if (currentLine < scenarios.Length  && frame > 240 || Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (currentLine < scenarios.Length  && frame > 180 /*|| Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1")*/)
 				{
 					//sinariocount = currentLine;
                     frame = 0;
 					SetNextLine();
+					//各配列に対応したように鳴らす
+					//ただし開戦時のみ変更必須
+					switch(currentLine)
+					{
+						case 1:
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
+							break;
+						case 2:
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[No + currentLine]);
+							break;
+					}
 				}
 			}
 			else
 			{
-				if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
-				{
-					Debug.Log("入力処理");
-					// 完了してないなら文字をすべて表示する
-					timeUntilDisplay = 0;
-				}
+				//if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				//{
+				//	Debug.Log("入力処理");
+				//	// 完了してないなら文字をすべて表示する
+				//	timeUntilDisplay = 0;
+				//}
 			}
 		}
 
@@ -171,8 +195,11 @@ public class Wireless_sinario : MonoBehaviour
     //次に表示する文字を確認
     void SetNextLine()
     {
-        currentText = scenarios[currentLine];
-        timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
+		if (currentLine < scenarios.Length)
+		{
+			currentText = scenarios[currentLine];
+		}
+		timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
         timeElapsed = Time.time;
         currentLine++;
         lastUpdateCharacter = -1;

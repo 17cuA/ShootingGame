@@ -42,7 +42,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject P1_Option_Prefab;                            //オプションのプレハブ
 	private GameObject P2_Option_Prefab;						//2P用のオプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
-	private GameObject[] Effects_Prefab = new GameObject[18];  //particleのプレハブ
+	private GameObject[] Effects_Prefab = new GameObject[16];  //particleのプレハブ
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
 	private GameObject One_Boss_Laser_Prefab;                   // ボスのレーザープレハブ
@@ -78,7 +78,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling One_Boss_Laser;
 	public Object_Pooling One_Boss_BousndBullet;
 	//effect関係-----------------------------------------------------
-	public Object_Pooling[] Effects = new Object_Pooling[18];
+	public Object_Pooling[] Effects = new Object_Pooling[16];
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -98,12 +98,6 @@ public class Obj_Storage : MonoBehaviour
 	private string[] name_Wireless_Sinario = new string[5]; 
 
 	public List<List<string[]>> Wireless_Sinario = new List<List<string[]>>();
-
-	public List<string[]> First_half_boss_before = new List<string[]>();	 //前半ボス前のセリフ
-	public List<string[]> First_half_boss_after = new List<string[]>();		//前半ボス後のセリフ
-	public List<string[]> Second_half_boss_before = new List<string[]>();	//後半ボス前のセリフ
-	public List<string[]> Second_half_boss_after = new List<string[]>();		//後半ボスあとのセリフ
-	public List<string[]> Curtain_up = new List<string[]>();					//開戦時のセリフ
 
 	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
 	public GameObject enemy_UFO_Group_prefab;
@@ -183,11 +177,11 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");		//戦艦型の爆発
 		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");		//プレイヤーの弾の着弾時のエフェクト
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");		//ボス登場時のエフェクト
-		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");        //隕石の爆発Effect
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 
-		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");
+		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");		//バキュラに当たった時の高い音用
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
@@ -212,15 +206,15 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");		//プレイヤー登場の音
 		audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)");	//中ボス用の爆発音
 		//------------------------------------------------------------------------------
-		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_01");
-		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_02");
-		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_03");
-		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_04");
-		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_05");
-		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_06");
-		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_07");
-		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_08");
-		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_09");
+		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");		//開戦時
+		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");		//前半ボス前
+		audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");		//前半ボス後1
+		audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");		//前半ぼす後2
+		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");		//後半ボス前1
+		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");		//後半ボス前2
+		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");		//後半ボス後1
+		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//後半ボス後2
+		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//ゲームオーバー
 		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_10");
 		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_11");
 		audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_12");
@@ -295,7 +289,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");			//戦艦の爆発
 		Effects[11] = new Object_Pooling(Effects_Prefab[11], 4, "Player_Bullet_impact");			//プレイヤーの弾の着弾時のエフェクト
 		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");					//ボス登場時のエフェクト
-		Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Boss_Bullet1");					//ボスの弾その１
+		Effects[13] = new Object_Pooling(Effects_Prefab[13], 6, "Meteor_explosion");					//隕石爆発Effect
 		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");					//ボスの弾その２
 		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");					//ボスの弾その3
 		//---------------------------------------------------------------------------------------------------

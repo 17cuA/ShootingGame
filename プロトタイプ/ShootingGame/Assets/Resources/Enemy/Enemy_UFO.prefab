@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 1554323710006405754, guid: 725c16d739b08c74ca9301f3c6f91a37, type: 3}
+  parentObj: {fileID: 0}
   myName: 
   Shot_Delay: 0
   Shot_Delay_Max: 2
@@ -90,6 +91,7 @@ MonoBehaviour:
   rotaX_Value: 15
   rotaY_Value: 0
   rotaZ_Value: 0
+  myName: 
   isWaveEnemy: 0
 --- !u!1 &6541507908318001144
 GameObject:
@@ -142,13 +144,15 @@ MonoBehaviour:
   speed: 1
   hp: 1
   direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 5582079347219364264}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 100
+  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 5907183190634164740}
@@ -158,6 +162,7 @@ MonoBehaviour:
   self_material:
   - {fileID: 0}
   white_material: {fileID: 0}
+  Opponent: 0
   eState: 2
   parentObj: {fileID: 0}
   defaultPos_Local: {x: 0, y: 0, z: 0}
@@ -176,7 +181,7 @@ MonoBehaviour:
   speedX_Straight: 3
   speedY: 0
   speedZ: 0
-  speedZ_Value: 50
+  speedZ_Value: 75
   diedAttack_RotaZ: 15
   diedAttack_RotaValue: 0
   haveItem: 0

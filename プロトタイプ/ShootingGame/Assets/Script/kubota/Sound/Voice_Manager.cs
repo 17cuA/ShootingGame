@@ -5,9 +5,10 @@ using UnityEngine;
 public class Voice_Manager : MonoBehaviour
 {
 	public static Voice_Manager VOICE_Obj;
-	[Header("音を鳴らすかどうか")]
-	public bool Is_Active;
+	[Header("パワーアップ用")]
 	public AudioSource audiosource;
+	[Header("無線用")]
+	public AudioSource Sinario_audio;
 	private void Awake()
 	{
 		VOICE_Obj = GetComponent<Voice_Manager>();
@@ -17,10 +18,14 @@ public class Voice_Manager : MonoBehaviour
 	{
 		//audiosource = GetComponent<AudioSource>();
 	}
-
+	//パワーアップ用のAudioSourceを使用
 	public void Voice_Active(AudioClip voice)
 	{
-		if (Is_Active) audiosource.PlayOneShot(voice);
-
+		audiosource.PlayOneShot(voice);
+	}
+	//無線用のAudioSourceを使用
+	public void Sinario_Active(AudioClip voice)
+	{
+		Sinario_audio.PlayOneShot(voice);
 	}
 }

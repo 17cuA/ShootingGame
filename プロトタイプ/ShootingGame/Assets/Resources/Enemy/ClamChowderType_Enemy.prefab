@@ -215,10 +215,11 @@ MonoBehaviour:
   capsuleCollider: {fileID: 568205021845882238}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 0
+  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
+  defaultColor: []
   childCnt: 0
   object_material:
   - {fileID: 5339504298697814358}
@@ -226,6 +227,7 @@ MonoBehaviour:
   Is_Dead: 0
   self_material: []
   white_material: {fileID: 0}
+  Opponent: 0
   eState: 0
   childObj_Shot: {fileID: 0}
   childObj_Angle: {fileID: 0}
@@ -355,6 +357,7 @@ MonoBehaviour:
   rotaX_Value: 0
   rotaY_Value: 0
   rotaZ_Value: 4
+  myName: 
   isWaveEnemy: 0
 --- !u!114 &6482777393289084986
 MonoBehaviour:
@@ -378,6 +381,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5339504298699584438}
     m_Modifications:
+    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
+        type: 3}
+      propertyPath: m_Name
+      value: A100
+      objectReference: {fileID: 0}
     - target: {fileID: 1220375677657393113, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -433,11 +441,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
-        type: 3}
-      propertyPath: m_Name
-      value: A100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0d21f7a21f6774bb4c099e6b3475cf, type: 3}
 --- !u!1001 &5339504298699974966
@@ -451,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Bullfight
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fbd05bac2bff1944a636a0df79eb652, type: 2}
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -507,10 +514,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8fbd05bac2bff1944a636a0df79eb652, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
 --- !u!1 &5339504298700009366 stripped
