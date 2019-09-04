@@ -181,7 +181,7 @@ MonoBehaviour:
   speedX_Straight: 3
   speedY: 0
   speedZ: 0
-  speedZ_Value: 50
+  speedZ_Value: 75
   diedAttack_RotaZ: 15
   diedAttack_RotaValue: 0
   haveItem: 0
@@ -235,6 +235,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6541507908318001150}
     m_Modifications:
+    - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Enben_type (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -290,22 +306,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Enben_type (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_Materials.Array.data[0]

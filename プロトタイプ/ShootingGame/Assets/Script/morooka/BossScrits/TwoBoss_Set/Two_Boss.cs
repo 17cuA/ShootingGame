@@ -73,13 +73,17 @@ public class Two_Boss : character_status
 	// Update is called once per frame
 	private new void Update()
 	{
-		if(Attack_Type_Instruction == 0)
+		if (Attack_Type_Instruction == 0)
 		{
 			Bullet_Attack();
 		}
 		else
 		{
-			Attack_Type_Instruction = 0;
+			Frames_In_Function++;
+			if (Frames_In_Function == 2)
+			{
+				Attack_Type_Instruction = 0;
+			}
 		}
 
 		if(Is_Core_Annihilation())
@@ -97,7 +101,7 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if(Attack_Step == 0)
 		{
-			Animation_Playback(Animation_Name[3]);
+			Animation_Playback(Animation_Name[2]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
@@ -199,7 +203,7 @@ public class Two_Boss : character_status
 		Timeline_Player.time = time;
 	}
 	#endregion
-	#region タイムラインの再生
+	#region アニメーションの再生
 	/// <summary>
 	/// アニメーションの再生
 	/// </summary>
@@ -209,9 +213,10 @@ public class Two_Boss : character_status
 		// 再生しているのもがあれば停止
 		if (Playing_Animation != null)
 		{
-			if (!Animation_End()) animation_data.SetBool(Playing_Animation, false);
+			if (!Animation_End())
+				animation_data.SetBool(Playing_Animation, false);
 		}
-		animation_data.SetBool(s,true);
+		animation_data.SetBool(s　,true);
 		Playing_Animation = s;
 	}
 	#endregion
