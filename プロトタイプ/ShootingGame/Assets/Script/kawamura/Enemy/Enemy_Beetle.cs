@@ -14,6 +14,8 @@ public class Enemy_Beetle : character_status
 	}
 
 	public State eState;
+
+	GameObject smallBeamObj;
 	Vector3 velocity;
 
 	//[Header("入力用　Xスピード")]

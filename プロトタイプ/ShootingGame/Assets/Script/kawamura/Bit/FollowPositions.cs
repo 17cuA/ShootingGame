@@ -20,9 +20,21 @@ public class FollowPositions : MonoBehaviour
 	bool defCheck;
 	public bool isFollow1P;
 	public bool isFollow2P;
-    void Start()
+	private void Awake()
+	{
+		
+	}
+	void Start()
     {
 		myName = gameObject.name;
+
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			if (myName == "Four_FollowPos_2P")
+			{
+				gameObject.SetActive(false);    //オブジェクトをオフにする
+			}
+		}
 		if (myName == "Four_FollowPos_1P")
 		{
 			isFollow1P = true;

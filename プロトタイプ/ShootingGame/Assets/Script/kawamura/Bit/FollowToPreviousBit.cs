@@ -36,8 +36,10 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isFreeze = false;
 	public bool isFollow1P;
 	public bool isFollow2P;
+	public bool isPlayerLive;		//プレイヤーを取得したらtrue
 	void Start()
 	{
+		isPlayerLive = false;
 		myName = gameObject.name;
 
 		parentObj = transform.parent.gameObject;
@@ -46,10 +48,12 @@ public class FollowToPreviousBit : MonoBehaviour
 		if (parentName == "Four_FollowPos_1P")
 		{
 			isFollow1P = true;
+			isFollow2P = false;
 		}
 		else if (parentName == "Four_FollowPos_2P")
 		{
 			isFollow2P = true;
+			isFollow1P = false;
 		}
 
 		if (isFollow1P)
@@ -121,47 +125,92 @@ public class FollowToPreviousBit : MonoBehaviour
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
 				defCheck = true;
+				//isPlayerLive = true;
 				//pos = playerObj.transform.position;
 
 			}
 		}
+		else
+		{
+			isPlayerLive = true;
+		}
 
 		if (isFollow1P)
 		{
-			if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			if (isPlayerLive)
 			{
-				isFreeze = false;
-				defPos = transform.position - savePos;
-
-				for (int i = 0; i < array_Num; i++)
+				if (pl1.Is_Resporn_End)
 				{
-					previousBitPos[i] += defPos;
+					pl1.Is_Resporn_End = false;
+					transform.position = playerObj.transform.position;
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] = playerObj.transform.position;
+						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
-				savePos = transform.position;
-				pos = previousBitObj.transform.position;
-			}
-			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
-			{
-				isFreeze = true;
+
+				if (!pl1.Is_Resporn)
+				{
+					if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+					{
+						isFreeze = false;
+						defPos = transform.position - savePos;
+
+						for (int i = 0; i < array_Num; i++)
+						{
+							previousBitPos[i] += defPos;
+						}
+						savePos = transform.position;
+						pos = previousBitObj.transform.position;
+					}
+					else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+					{
+						isFreeze = true;
+					}
+				}
 			}
 		}
 		else if (isFollow2P)
 		{
-			if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+			if (isPlayerLive)
 			{
-				isFreeze = false;
-				defPos = transform.position - savePos;
-
-				for (int i = 0; i < array_Num; i++)
+				if (pl2.Is_Resporn_End)
 				{
-					previousBitPos[i] += defPos;
+					pl2.Is_Resporn_End = false;
+					transform.position = playerObj.transform.position;
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] = playerObj.transform.position;
+						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
-				savePos = transform.position;
-				pos = previousBitObj.transform.position;
-			}
-			else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
-			{
-				isFreeze = true;
+
+				if (!pl2.Is_Resporn)
+				{
+					if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+					{
+						isFreeze = false;
+						defPos = transform.position - savePos;
+
+						for (int i = 0; i < array_Num; i++)
+						{
+							previousBitPos[i] += defPos;
+						}
+						savePos = transform.position;
+						pos = previousBitObj.transform.position;
+					}
+					else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+					{
+						isFreeze = true;
+					}
+				}
 			}
 		}
 

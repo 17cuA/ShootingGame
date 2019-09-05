@@ -8,9 +8,9 @@ public class MoveMaterial : MonoBehaviour
 	
 	void Update()
 	{
-		//float yScroll = Mathf.Repeat(1, Time.time * ySpead);
+		float yScroll = Mathf.Repeat( Time.time * ySpead,1);
 		float xScroll = Mathf.Repeat(Time.time * xSpead, 1);
-		Vector2 offset = new Vector2(xScroll, 0);
+		Vector2 offset = new Vector2(xScroll, yScroll);
 		GetComponent<Renderer>().sharedMaterial.SetTextureOffset("_MainTex", offset);
 	}
 }
