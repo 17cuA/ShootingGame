@@ -13,6 +13,7 @@ public class FollowToPreviousBit : MonoBehaviour
 	GameObject previousBitObj;
 	public GameObject parentObj;
 	public string parentName;
+	FollowPositions followParent_Script;	//t4つの追従位置の親スクリプト
 
 	public Vector3[] previousBitPos;
 	public Vector3 pos;
@@ -36,7 +37,8 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isFreeze = false;
 	public bool isFollow1P;
 	public bool isFollow2P;
-	public bool isPlayerLive;		//プレイヤーを取得したらtrue
+	public bool isPlayerLive;       //プレイヤーを取得したらtrue
+	public bool endDDDDDDDDDDDDDDDDDDDDDDDDDDD = false;
 	void Start()
 	{
 		isPlayerLive = false;
@@ -44,6 +46,7 @@ public class FollowToPreviousBit : MonoBehaviour
 
 		parentObj = transform.parent.gameObject;
 		parentName = parentObj.name;
+		followParent_Script = parentObj.GetComponent<FollowPositions>();
 
 		if (parentName == "Four_FollowPos_1P")
 		{
@@ -141,8 +144,11 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				if (pl1.Is_Resporn_End)
 				{
-					pl1.Is_Resporn_End = false;
+					endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
+					//pl1.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
+					pos = playerObj.transform.position;
+					savePos = playerObj.transform.position;
 					for (int i = 0; i < array_Num; i++)
 					{
 						previousBitPos[i] = playerObj.transform.position;
@@ -151,6 +157,7 @@ public class FollowToPreviousBit : MonoBehaviour
 
 					//transform.position = playerObj.transform.position;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					followParent_Script.resetPosCnt++;
 				}
 
 				if (!pl1.Is_Resporn)
@@ -180,8 +187,10 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				if (pl2.Is_Resporn_End)
 				{
-					pl2.Is_Resporn_End = false;
+					//pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
+					pos = playerObj.transform.position;
+					savePos = playerObj.transform.position;
 					for (int i = 0; i < array_Num; i++)
 					{
 						previousBitPos[i] = playerObj.transform.position;
@@ -190,6 +199,7 @@ public class FollowToPreviousBit : MonoBehaviour
 
 					//transform.position = playerObj.transform.position;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					followParent_Script.resetPosCnt++;
 				}
 
 				if (!pl2.Is_Resporn)
@@ -214,6 +224,7 @@ public class FollowToPreviousBit : MonoBehaviour
 			}
 		}
 
+		
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
 		if (pos != previousBitObj.transform.position && !check)
 		//if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))

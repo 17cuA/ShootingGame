@@ -30,9 +30,11 @@ public class Two_Boss : character_status
 	[Header("ボス形成パーツ")]
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
+	[SerializeField, Tooltip("オプションマズル")] private GameObject[] muzzle;
 	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] no_damage_collider;
 	[SerializeField, Tooltip("イエスダメージコライダー")] private Collider[] yes_damage_collider;
 	[SerializeField, Tooltip("シャッター")] private Two_Boss_Parts[] shutter;
+	[SerializeField, Tooltip("EF用")] private GameObject[] parts_All;
 
 	[Header("アニメーション用")]
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
@@ -40,6 +42,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
+	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 
 	//------------------------------------------------------------------------------------------------------
@@ -58,11 +61,12 @@ public class Two_Boss : character_status
 
 	private string Playing_Animation { get; set; }		// 再生中のAnimation名
 	private string[] Animation_Name { get; set; }		//　Animation名保存
-
-	private GameObject[] Laser { get; set; }		// レーザー情報格納
-
+	private List<Two_Boss_Laser> Laser { get; set; }		// レーザー
 	private List<Collider> Damage_Collider { get; set; }		// コライダーの段階
 	private int Under_Attack { get; set; }
+	private float Survival_Time { get; set; }			// せい☆ぞん　時間
+	private float Survival_Time_Cnt { get; set; }		// 生存時間カウンター
+
 	private new void Start()
 	{
 		base.Start();
@@ -88,7 +92,7 @@ public class Two_Boss : character_status
 		Damage_Collider = new List<Collider>();
 		for(int i = 0; i < shutter.Length; i++)
 		{
-			Damage_Collider.Add(Damage_Collider[i].GetComponent<Collider>());
+			Damage_Collider.Add(shutter[i].GetComponent<Collider>());
 		}
 		Damage_Collider.Add(core[0].GetComponent<Collider>());
 
@@ -96,12 +100,27 @@ public class Two_Boss : character_status
 		{
 			col.enabled = false;
 		}
+		Damage_Collider[0].enabled = true;
 		Under_Attack = 0;
+		Laser = new List<Two_Boss_Laser>();
+
+		Survival_Time = 180.0f;
 	}
 
 	// Update is called once per frame
 	private new void Update()
 	{
+		Survival_Time_Cnt += Time.deltaTime;
+		if(Survival_Time_Cnt >= Survival_Time)
+		{
+			core[0].hp = 0;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Alpha0))
+		{
+			Attack_End();
+			Attack_Type_Instruction = 3;
+		}
 		// 攻撃
 		if (Attack_Type_Instruction == 0)
 		{
@@ -119,12 +138,16 @@ public class Two_Boss : character_status
 		{
 			Laser_Attack();
 		}
+		else
+		{
+			Attack_Type_Instruction = 0;
+		}
 
 		// シャッター破壊後コア破壊できる
 		// 前のやつが死んだら、次のコライダーを使用できる
 		if (!Damage_Collider[Under_Attack].gameObject.activeSelf)
 		{
-			if (Under_Attack < Damage_Collider.Count)
+			if (Under_Attack < Damage_Collider.Count -1 )
 			{
 				Under_Attack++;
 				Damage_Collider[Under_Attack].enabled = true;
@@ -134,6 +157,41 @@ public class Two_Boss : character_status
 		// コア破壊で死亡
 		if(Is_Core_Annihilation())
 		{
+			animation_data.Stop();
+
+			//big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
+			//ef_2.EF_Base.transform.position			= parts_All[0].transform.position;
+			//ef_2.EF_Weapon_R.transform.position	= parts_All[1].transform.position;
+			//ef_2.EF_Weapon_L.transform.position	= parts_All[2].transform.position;
+			//ef_2.Multipl_1.transform.position			= parts_All[3].transform.position;
+			//ef_2.Multipl_2.transform.position			= parts_All[4].transform.position;
+			//ef_2.Multipl_3.transform.position			= parts_All[5].transform.position;
+			//ef_2.Multipl_4.transform.position			= parts_All[6].transform.position;
+			//ef_2.Multipl_5.transform.position			= parts_All[7].transform.position;
+			//ef_2.Multipl_6.transform.position			= parts_All[8].transform.position;
+
+			//ef_2.EF_Base.transform.rotation			= parts_All[0].transform.rotation;
+			//ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
+			//ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
+			//ef_2.Multipl_1.transform.rotation			= parts_All[3].transform.rotation;
+			//ef_2.Multipl_2.transform.rotation			= parts_All[4].transform.rotation;
+			//ef_2.Multipl_3.transform.rotation			= parts_All[5].transform.rotation;
+			//ef_2.Multipl_4.transform.rotation			= parts_All[6].transform.rotation;
+			//ef_2.Multipl_5.transform.rotation			= parts_All[7].transform.rotation;
+			//ef_2.Multipl_6.transform.rotation			= parts_All[8].transform.rotation;
+
+
+
+
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+			}
 			base.Died_Process();
 		}
 	}
@@ -162,14 +220,14 @@ public class Two_Boss : character_status
 				{
 					for(int i = 0;i<multiple.Length;i++)
 					{
-						if(i % 2 == 0) Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, multiple[i].transform.position, multiple[i].transform.forward);
+						if(i % 2 == 0) Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzle[i].transform.position, multiple[i].transform.forward);
 					}
 				}
 				else if (Shot_Delay == Shot_DelayMax )
 				{
 					for(int i = 0;i<multiple.Length;i++)
 					{
-						if(i % 2 == 1) Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, multiple[i].transform.position, multiple[i].transform.forward);
+						if(i % 2 == 1) Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzle[i].transform.position, multiple[i].transform.forward);
 					}
 
 					Shot_Delay = 0;
@@ -209,7 +267,7 @@ public class Two_Boss : character_status
 				Shot_Delay++;
 				if(Shot_Delay >= Shot_DelayMax /5)
 				{
-					foreach(var mul in multiple)
+					foreach(var mul in muzzle)
 					{
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, mul.transform.position, mul.transform.forward);
 					}
@@ -276,30 +334,48 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if (Attack_Step == 0)
 		{
+			Laser = new List<Two_Boss_Laser>();
 			Animation_Playback(Animation_Name[(int)Attack_Index.eBio_Laser]);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
 		{
 			Attack_Seconds += Time.deltaTime;
-			if(Attack_Seconds >= 1.99f)
+			if(Attack_Seconds >= 2.0f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[2].transform.position, multiple[2].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[5].transform.position, multiple[5].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[2].transform.position, multiple[2].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[2].transform);
+				Laser.Add(l);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[5].transform.position, multiple[5].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[5].transform);
+				Laser.Add(l);
 			}
-			if(Attack_Seconds >= 4.99f)
+			if (Attack_Seconds >= 4.0f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[1].transform.position, multiple[1].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[4].transform.position, multiple[4].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[1].transform);
+				Laser.Add(l);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[4].transform.position, multiple[4].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[4].transform);
+				Laser.Add(l);
 			}
-			if(Attack_Seconds >= 6.99f)
+			if (Attack_Seconds >= 5.2f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[0].transform.position, multiple[0].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[3].transform.position, multiple[3].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[0].transform.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[0].transform);
+				Laser.Add(l);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[3].transform.position, multiple[3].transform.up).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[3].transform);
+				Laser.Add(l);
 			}
 
-			if(Attack_Seconds >= 7.2f)
+			if (Attack_Seconds >= 9.1f)
 			{
+				foreach(var l in Laser)
+				{
+					l.Delete_processing();
+				}
+				Laser.Clear();
 				Next_Step();
 			}
 		}

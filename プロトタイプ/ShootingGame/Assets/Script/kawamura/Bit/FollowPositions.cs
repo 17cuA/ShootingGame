@@ -12,7 +12,12 @@ public class FollowPositions : MonoBehaviour
 	public Vector3 defPos;
 	public Vector3 savePos;
 
+	Player1 pl1;
+	Player2 pl2;
+
 	public string myName;
+
+	public int resetPosCnt;
 
 	bool check = false;
 	bool isFreeze = false;
@@ -26,6 +31,7 @@ public class FollowPositions : MonoBehaviour
 	}
 	void Start()
     {
+		resetPosCnt = 0;
 		myName = gameObject.name;
 
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -54,6 +60,7 @@ public class FollowPositions : MonoBehaviour
 				if (GameObject.Find("Player"))
 				{
 					playerObj = GameObject.Find("Player");
+					pl1 = playerObj.GetComponent<Player1>();
 					check = true;
 					defCheck = true;
 					pos = playerObj.transform.position;
@@ -65,6 +72,7 @@ public class FollowPositions : MonoBehaviour
 				if (GameObject.Find("Player_2"))
 				{
 					playerObj = GameObject.Find("Player_2");
+					pl2 = playerObj.GetComponent<Player2>();
 					check = true;
 					defCheck = true;
 					pos = playerObj.transform.position;
@@ -118,6 +126,22 @@ public class FollowPositions : MonoBehaviour
 			//defPos = playerObj.transform.position - transform.position;
 			transform.position = transform.position + defPos;
 			savePos = playerObj.transform.position;
+		}
+
+		if (resetPosCnt == 4)
+		{
+			resetPosCnt = 0;
+			if (isFollow1P)
+			{
+				pl1.Is_Resporn_End = false;
+			}
+			else if (isFollow2P)
+			{
+				if (isFollow1P)
+				{
+					pl2.Is_Resporn_End = false;
+				}
+			}
 		}
 	}
 }

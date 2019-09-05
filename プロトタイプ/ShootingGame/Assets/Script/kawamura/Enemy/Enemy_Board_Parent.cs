@@ -110,24 +110,27 @@ public class Enemy_Board_Parent : MonoBehaviour
                 }
             }
         }
-        //if (speedX > 0)
-        //{
-        //	speedX -= 1.0f;
-        //	if (speedX < 0)
-        //	{
-        //		speedX = 0;
-        //	}
-        //}
-        if (transform.position.y > 4.4f)
-        {
-            transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);
-        }
-        else if (transform.position.y < -4.4f)
-        {
-            transform.position = new Vector3(transform.position.x, -4.4f, transform.position.z);
-        }
+		//if (speedX > 0)
+		//{
+		//	speedX -= 1.0f;
+		//	if (speedX < 0)
+		//	{
+		//		speedX = 0;
+		//	}
+		//}
+		if (myName != "Enemy_Bacula")
+		{
+			if (transform.position.y > 4.4f)
+			{
+				transform.position = new Vector3(transform.position.x, 4.4f, transform.position.z);
+			}
+			else if (transform.position.y < -4.4f)
+			{
+				transform.position = new Vector3(transform.position.x, -4.4f, transform.position.z);
+			}
+		}
 
-        randRota_TopLeft = new Quaternion(0, 0, Random.Range(180, 270), 0);
+		randRota_TopLeft = new Quaternion(0, 0, Random.Range(180, 270), 0);
 		randRota_TopRight = new Quaternion(0, 0, Random.Range(270, 360), 0);
 		randRota_BottomLeft = new Quaternion(0, 0, Random.Range(0, 90), 0);
 		randRota_BottomRight = new Quaternion(0, 0, Random.Range(90, 180), 0);

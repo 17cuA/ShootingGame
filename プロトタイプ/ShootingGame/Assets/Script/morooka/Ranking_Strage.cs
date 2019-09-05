@@ -24,7 +24,13 @@ public class Ranking_Strage : MonoBehaviour
 	int player1Rank = 0;
 	public int Player1Rank { get { return player1Rank; } }
 	int player2Rank = 0;
-	public int Player2Rank { get { return player2Rank; } }
+	public int Player2Rank
+	{
+		get
+		{
+			return player2Rank + (Game_Master.display_score_1P == Game_Master.display_score_2P ? 1 : 0);
+		}
+	}
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
@@ -96,7 +102,7 @@ public class Ranking_Strage : MonoBehaviour
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);
 		int i;
-		for (i = 0; i < Max_num && Strage[i].score > Game_Master.display_score_1P; ++i) ;
+		for (i = 0; i < Max_num && Strage[i].score > score; ++i) ;
 		rank = i;
 		Ranking_Save();
 	}
@@ -124,6 +130,5 @@ public class Ranking_Strage : MonoBehaviour
 			Debug.Log("Lode_kekka:key:" + i.ToString() + " name:" + Strage[i].name + " Score:" + Strage[i].score);
 		}
 	}
-
 
 }

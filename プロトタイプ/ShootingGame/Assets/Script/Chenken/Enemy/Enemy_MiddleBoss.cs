@@ -54,6 +54,7 @@ public class Enemy_MiddleBoss : character_status
 	private bool canAdvanceAttack;
 
 	public ParticleSystem explosionEffect;
+	public ParticleSystem blackSmokeEffect;
 	private int rotateCount = 0;
 
 	[SerializeField]private int currentDestroyPartIndex = 0;
@@ -116,6 +117,10 @@ public class Enemy_MiddleBoss : character_status
 		base.HP_Setting();
 
 		player = GameObject.Find("Player").transform.GetChild(0).transform;
+		if(player.gameObject.activeSelf)
+		{
+			player = GameObject.Find("Player_2").transform.GetChild(0).transform;
+		}
 		base.Start();
 		stateManager.Start(StateType.WAIT);
 	}
@@ -123,15 +128,25 @@ public class Enemy_MiddleBoss : character_status
 	// Update is called once per frame
 	private new void Update()
     {
+
 		if (transform.position.x < -30.0f)
 		{
 			this.gameObject.SetActive(false);
 		}
 
-		if (player)
+		if (player.gameObject.activeSelf)
 		{
 			stateManager.Update();
 			type = stateManager.Current.StateType;
+		}
+		else
+		{
+			
+			player = GameObject.Find("Player").transform.GetChild(0).transform;
+			if(!player.gameObject.activeSelf)
+			{
+				player = GameObject.Find("Player_2").transform.GetChild(0).transform;
+			}		
 		}
 
 		base.Update();
@@ -181,6 +196,10 @@ public class Enemy_MiddleBoss : character_status
         {
             childsBoxColliders[i].enabled = false;
         }
+		for (var i = 0; i < bodyColliders.Count; ++i)
+		{
+			bodyColliders[i].enabled = false;
+		}
 		_capsuleCollider.enabled = false;
     }
 
@@ -204,6 +223,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsBoxColliders[i].enabled = false;
         }
+		_capsuleCollider.enabled = false;
 	}
 
 	private void Debut_Update()
@@ -430,6 +450,7 @@ public class Enemy_MiddleBoss : character_status
 		animator.Play("Death");
 		capsuleCollider.enabled = false;
 		explosionEffect.gameObject.SetActive(true);
+		blackSmokeEffect.gameObject.SetActive(true);
 
 		//
 		Game_Master.MY.Score_Addition(score, Opponent);
@@ -439,11 +460,11 @@ public class Enemy_MiddleBoss : character_status
 		//爆発位置調整
 		if (rotateCount % 2 == 1)
 		{
-			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, 8);
+			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, 3);
 		}
 		else
 		{
-			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, -8);
+			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, -3);
 		}		
 	}
 
@@ -454,7 +475,7 @@ public class Enemy_MiddleBoss : character_status
 			transform.position += speed * 0.1f * Time.deltaTime * Vector3.down;
 		}
 
-		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+		if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
 		{	
 			Is_Dead = true;
 			Reset_Status();
