@@ -196,6 +196,10 @@ public class Enemy_MiddleBoss : character_status
         {
             childsBoxColliders[i].enabled = false;
         }
+		for (var i = 0; i < bodyColliders.Count; ++i)
+		{
+			bodyColliders[i].enabled = false;
+		}
 		_capsuleCollider.enabled = false;
     }
 
@@ -219,6 +223,7 @@ public class Enemy_MiddleBoss : character_status
         {
             childsBoxColliders[i].enabled = false;
         }
+		_capsuleCollider.enabled = false;
 	}
 
 	private void Debut_Update()
