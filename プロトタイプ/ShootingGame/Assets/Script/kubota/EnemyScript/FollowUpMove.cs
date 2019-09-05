@@ -28,7 +28,6 @@ public class FollowUpMove : character_status
 		Travelling_Direction();
 		Player = GameObject.Find("Player_Demo 1(Clone)");           //プレイヤーを名前で検索
 		E_Type = Type_Determining();
-		Type = Chara_Type.Enemy;
 	}
 
 	void Update()

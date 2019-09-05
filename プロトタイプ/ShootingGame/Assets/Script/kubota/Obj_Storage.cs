@@ -45,8 +45,9 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject[] Effects_Prefab = new GameObject[16];  //particleのプレハブ
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
-	private GameObject One_Boss_Laser_Prefab;                   // ボスのレーザープレハブ
-	private GameObject One_Boss_BousndBullet_Prefab;		// ボスのバウンド弾プレハブ
+	private GameObject One_Boss_Laser_Prefab;                   // ボス1のレーザープレハブ
+	private GameObject One_Boss_BousndBullet_Prefab;		// ボス1のバウンド弾プレハブ
+    private GameObject Two_Boss_Laser_Prefab;					//ボス２のレーザープレハブ
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
 	public Object_Pooling Medium_Size_Enemy1;
@@ -77,6 +78,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Laser_Line;
 	public Object_Pooling One_Boss_Laser;
 	public Object_Pooling One_Boss_BousndBullet;
+	public Object_Pooling Two_Boss_Laser;						//２ボスのレーザー、プーリング
 	//effect関係-----------------------------------------------------
 	public Object_Pooling[] Effects = new Object_Pooling[16];
 	//マップの作製時に使う処理
@@ -163,6 +165,7 @@ public class Obj_Storage : MonoBehaviour
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
+		Two_Boss_Laser_Prefab = Resources.Load("Bullet/Two_Boss_Laser")as GameObject;		//２ボスレーザー用のプレハブ修正
 
 		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
@@ -225,7 +228,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");		//アイテム使用時のボイス（オプション）
 		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");		//アイテム使用時のボイス（フォースフィールド）
 		audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");		//アイテム使用時のボイス（マックススピード）
-		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20");		//アイテム使用時のボイス（イニットスピード）
+		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");		//アイテム使用時のボイス（イニットスピード）
 		audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_21");
 		audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_22");
 		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_23");
@@ -275,6 +278,7 @@ public class Obj_Storage : MonoBehaviour
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
 		One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 100, "One_Boss_Laser");
 		One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 20, "One_Boss_BousndBullet");
+		Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab,100, "Two_Boss_Laser");
 		//effect---------------------------------------------------------------------------------------------
 		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");					//プレイヤーの爆発
 		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");		//プレイヤーが登場するときのジェット噴射
