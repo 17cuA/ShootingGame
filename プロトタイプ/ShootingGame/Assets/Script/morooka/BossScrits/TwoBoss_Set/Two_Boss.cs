@@ -59,8 +59,6 @@ public class Two_Boss : character_status
 	private string Playing_Animation { get; set; }		// 再生中のAnimation名
 	private string[] Animation_Name { get; set; }		//　Animation名保存
 
-	private GameObject[] Laser { get; set; }		// レーザー情報格納
-
 	private List<Collider> Damage_Collider { get; set; }		// コライダーの段階
 	private int Under_Attack { get; set; }
 	private new void Start()
@@ -284,21 +282,27 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if(Attack_Seconds >= 1.99f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[2].transform.position, multiple[2].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[5].transform.position, multiple[5].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[2].transform.position, multiple[2].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[2].transform);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[5].transform.position, multiple[5].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[5].transform);
 			}
 			if(Attack_Seconds >= 4.99f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[1].transform.position, multiple[1].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[4].transform.position, multiple[4].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[1].transform.position, multiple[1].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[1].transform);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[4].transform.position, multiple[4].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[4].transform);
 			}
-			if(Attack_Seconds >= 6.99f)
+			if (Attack_Seconds >= 6.99f)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[0].transform.position, multiple[0].transform.forward);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[3].transform.position, multiple[3].transform.forward);
+				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[0].transform.position, multiple[0].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[0].transform);
+				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, multiple[3].transform.position, multiple[3].transform.forward).GetComponent<Two_Boss_Laser>();
+				l.Manual_Start(multiple[3].transform);
 			}
 
-			if(Attack_Seconds >= 7.2f)
+			if (Attack_Seconds >= 7.2f)
 			{
 				Next_Step();
 			}
