@@ -8,13 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class character_status : MonoBehaviour
 {
-	protected enum Chara_Type
-	{
-		Player,
-		Enemy,
-		None
-	}
-	protected Chara_Type Type;
+
 	public float speed;                                                 // スピード
 	private float speed_Max;										//最大速度の設定
 	public int hp;                                                      // 体力
@@ -35,7 +29,7 @@ public class character_status : MonoBehaviour
 	public Renderer[] object_material;                                  // オブジェクトのマテリアル情報
 	public bool isrend = false;
 	public bool Is_Dead = false;															
-	[SerializeField] private Material[] self_material;									//初期マテリアル保存用
+	private Material[] self_material;									//初期マテリアル保存用
 	[Header("ダメージ用material設定")]
 	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
 	private int framecnt;
@@ -211,7 +205,7 @@ public class character_status : MonoBehaviour
 			if (col.tag == "Enemy_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
-				if(activeShield && shield != 0)
+				if(activeShield && shield > 1)
 				{
 					shield--;
 				}
@@ -222,7 +216,7 @@ public class character_status : MonoBehaviour
 			}
 			if (col.tag == "Enemy")
 			{
-				if (activeShield && shield != 0)
+				if (activeShield && shield > 1)
 				{
 					shield -= 3;
 				}
