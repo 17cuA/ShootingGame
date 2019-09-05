@@ -22,16 +22,14 @@ public class Two_Boss_Laser : MonoBehaviour
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
 			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
 		{
-			GameObject obj = gameObject;
-			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
-			gameObject.SetActive(false);
+			Delete_processing();
 		}
 	}
 
 	private void LateUpdate()
 	{
 		Vector3 temp = transform.localPosition;
-		temp.x += shot_speed;
+		temp.z += shot_speed;
 		transform.localPosition = temp;
 	}
 
@@ -42,7 +40,7 @@ public class Two_Boss_Laser : MonoBehaviour
 	public void Manual_Start(Transform parent)
 	{
 		transform.parent = parent;
-		transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
+		//transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
 
 		Two_Boss_Parts parts = parent.GetComponent<Two_Boss_Parts>();
 		if(parts != null)
@@ -55,25 +53,25 @@ public class Two_Boss_Laser : MonoBehaviour
 	// 当たり判定
 	protected void OnTriggerEnter(Collider col)
 	{
-		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		if (gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player")
 		{
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
-		else if(col.tag =="Enemy")
-		{
-			Two_Boss_Parts parts = GetComponent<Two_Boss_Parts>();
-			if(parts != null)
+		else	if (col.gameObject != transform.parent)
 			{
-				if(parts.ID == Partner_ID)
-				{
-					GameObject obj = gameObject;
-					Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
-					gameObject.SetActive(false);
-				}
+				Debug.Log(col.name);
+				Delete_processing();
 			}
-		}
+		
+	}
+
+	public void Delete_processing()
+	{
+		GameObject obj = gameObject;
+		Obj_Storage.Storage_Data.Two_Boss_Laser.Set_Parent_Obj(ref obj);
+		gameObject.SetActive(false);
 	}
 }
