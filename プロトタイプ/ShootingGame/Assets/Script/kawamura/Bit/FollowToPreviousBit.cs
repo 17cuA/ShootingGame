@@ -143,7 +143,14 @@ public class FollowToPreviousBit : MonoBehaviour
 				{
 					pl1.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] = playerObj.transform.position;
+						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
 
 				if (!pl1.Is_Resporn)
@@ -175,7 +182,14 @@ public class FollowToPreviousBit : MonoBehaviour
 				{
 					pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					for (int i = 0; i < array_Num; i++)
+					{
+						previousBitPos[i] = playerObj.transform.position;
+						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 				}
 
 				if (!pl2.Is_Resporn)
