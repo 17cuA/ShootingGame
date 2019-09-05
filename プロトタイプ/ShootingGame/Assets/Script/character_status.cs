@@ -15,7 +15,7 @@ public class character_status : MonoBehaviour
 	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
-	public Collider capsuleCollider;                             // cillider
+	public Collider capsuleCollider;                             // collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
