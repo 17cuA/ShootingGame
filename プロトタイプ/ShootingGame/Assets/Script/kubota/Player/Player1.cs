@@ -144,7 +144,6 @@ public class Player1 : character_status
 		Direction = transform.rotation;
 		hp = 1;
 		HP_Setting();
-		Type = Chara_Type.Player;
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;

@@ -12,6 +12,17 @@ using UnityEngine;
 public class Two_Boss_Parts : character_status
 {
 	[SerializeField] private GameObject[] supported_objects;
+	[SerializeField, Tooltip("ID")] private string id;
+	public string ID
+	{
+		get { return id; }
+	}
+	[SerializeField, Tooltip("相手のID")] private string partner_id;
+	public string Partner_ID
+	{
+		get { return partner_id; }
+	}
+
 	private Vector3 Initial_Position { get; set; }
 
 	private new void Start()
@@ -36,4 +47,5 @@ public class Two_Boss_Parts : character_status
 			base.Died_Process();
 		}
 	}
+
 }

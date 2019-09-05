@@ -32,7 +32,7 @@ public class DemoMovieControl : MonoBehaviour
 
 	void Start()
 	{
-		// ムービーが設定されていなかったらエラーを表示して処理をやめる
+		// ムービーが設定されていなかったらエラー出力して処理をやめる
 		if (!videoPlayer) { Debug.LogError("Not set to a video of my field!"); return; }
 		// ムービーを停止状態にする
 		videoPlayer.Stop();
@@ -40,13 +40,27 @@ public class DemoMovieControl : MonoBehaviour
 		// RawImageがセットされていなかったらvideoPlayerと同じRenderTextureがセットされているのを取得する
 		if (!videoRawImage)
 		{
+			bool isFind = false;
 			RenderTexture setRenderTexture = videoPlayer.targetTexture;
 			RawImage[] getRawImage = FindObjectsOfType<RawImage>();
 			foreach (RawImage rawImage in getRawImage)
 			{
-				if (rawImage.texture == setRenderTexture) { videoRawImage = rawImage; }
+				// 見つけたらキャッシュしてループを終わらせる
+				if (rawImage.texture == setRenderTexture)
+				{
+					videoRawImage = rawImage;
+					isFind = true;
+					break;
+				}
+			}
+			// RawImageが見つからなかったらエラー出力して処理をやめる
+			if (!isFind)
+			{
+				Debug.LogError("Not set to a RawImage of my field and not found RawImage!");
+				return;
 			}
 		}
+		videoRawImage.gameObject.SetActive(false);
 		// Imageが設定されていなかったら生成する
 		if (!displayPlane)
 		{
@@ -63,7 +77,7 @@ public class DemoMovieControl : MonoBehaviour
 
 	void Update()
 	{
-		if (!videoPlayer) { return; }
+		if (!videoPlayer || !videoRawImage) { return; }
 		if (playState == MoviePlayState.ePlaying)
 		{
 			PlayBehaviour();
@@ -102,6 +116,8 @@ public class DemoMovieControl : MonoBehaviour
 		{
 			playState = MoviePlayState.eStop;
 			videoPlayer.Stop();
+			videoPlayer.gameObject.SetActive(false);
+			videoRawImage.gameObject.SetActive(false);
 			isInput = false;
 			frame = 0;
 		}
@@ -130,6 +146,7 @@ public class DemoMovieControl : MonoBehaviour
 		{
 			playState = MoviePlayState.ePlaying;
 			videoPlayer.gameObject.SetActive(true);
+			videoRawImage.gameObject.SetActive(true);
 			videoPlayer.Play();
 			frame = 0;
 		}
