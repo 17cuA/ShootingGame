@@ -188,21 +188,27 @@ public class EnemyCreate : MonoBehaviour
 
 	public EnemyGroupManage group_Script;
 
+	GameObject middleBossOBj;
+	Enemy_MiddleBoss middleBoss_Script;
+
 	GameObject oneBossOBj;
 	One_Boss oneBoss_Script;
 	GameObject mistEffectObj;
 	ParticleSystem mistParticle;
 	public BackgroundActivation backActive_Script;
 
-	GameObject middleBossOBj;
-	Enemy_MiddleBoss middleBoss_Script;
+	GameObject twoBossObj;
+	Two_Boss twoBoss_Script;
 
 	public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
 	public bool isMiddleBossDead = false;
-	public bool isOneBossDead = false;
+	public bool isOneBossAlive = false;
+	public bool isTwoBossAlive = false;
 
-	public bool isNowBoss = false;
+	public bool isNowOneBoss = false;
+	public bool isNowTwoBoss = false;
+
 	void Start()
 	{
 		//位置オブジェクト取得
@@ -381,7 +387,11 @@ public class EnemyCreate : MonoBehaviour
 
 		oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
 		oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
-		isOneBossDead = true;
+		isOneBossAlive = true;
+
+		twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
+		twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
+		isTwoBossAlive = true;
 	}
 
 	void Update()
@@ -392,7 +402,7 @@ public class EnemyCreate : MonoBehaviour
 		}
 		PreviousCount = frameCnt;
 
-		if (!isNowBoss)
+		if (!isNowOneBoss && !isNowTwoBoss)
 		{
 			frameCnt++;
 		}
@@ -460,14 +470,14 @@ public class EnemyCreate : MonoBehaviour
 			}
 		}
 
-		//if (isOneBossDead)
+		//if (isOneBossAlive)
 		//{
 		//    if (frameCnt < 39900)
 		//    {
 		//        frameCnt = 39900;
 		//        //turning_frame = 40930;
 		//    }
-		//    isOneBossDead = false;
+		//    isOneBossAlive = false;
 		//}
 
 		//第一ボス出現時に無線をONにする
@@ -481,7 +491,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			if (oneBoss_Script.Is_Dead)
 			{
-				if (isOneBossDead)
+				if (isOneBossAlive)
 				{
 					//if (frameCnt < 39660)
 					//{
@@ -499,12 +509,23 @@ public class EnemyCreate : MonoBehaviour
 						backActive_Script.TransparencyChangeTrigger();
 						Wireless_sinario.Is_using_wireless = true;
 					}
-					isNowBoss = false;
-					isOneBossDead = false;
+					isNowOneBoss = false;
+					isOneBossAlive = false;
 				}
 
 				//if(frame > 180) SceneManager.LoadScene("GameClear");
 				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+			}
+		}
+		if (twoBoss_Script != null)
+		{
+			if (twoBoss_Script.Is_Dead)
+			{
+				if(isTwoBossAlive)
+				{
+					isNowTwoBoss = false;
+					isNowTwoBoss = false;
+				}
 			}
 		}
 
@@ -912,7 +933,7 @@ public class EnemyCreate : MonoBehaviour
 		}
 		else
 		{
-			//円盤の群れを１つ右上から出す		(180)
+			//円盤の群れを１つ右上から出す		(60)
 			if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 			{
 				// 元の円盤
@@ -1494,7 +1515,7 @@ public class EnemyCreate : MonoBehaviour
 				backActive_Script = mistSaveObj.GetComponent<BackgroundActivation>();
 				mistParticle.Play();
 				backActive_Script.TransparencyChangeTrigger();
-				isNowBoss = true;
+				isNowOneBoss = true;
 
 
 				nextEnemy = "バキュラ群";
@@ -1583,7 +1604,18 @@ public class EnemyCreate : MonoBehaviour
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-				nextEnemy = "バウンド隕石6";
+				nextEnemy = "ラスボス";
+				Next_Condition(600);
+
+			}
+			// ラスボス(9900)🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
+			{
+				GameObject Boss_02 = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
+				Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
+				isNowTwoBoss = true;
+
+				nextEnemy = " ";
 				Next_Condition(600);
 
 			}
@@ -1604,7 +1636,7 @@ public class EnemyCreate : MonoBehaviour
 			//	nextEnemy = " ";
 			//	Next_Condition(1800);
 			//}
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
 			{
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
