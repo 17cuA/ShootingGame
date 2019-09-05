@@ -715,15 +715,15 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				}
 			}
-		}
-		else if (col.gameObject.name == "WallLeft")
-		{
-			isDead = false;                 //死んでいる判定false
-			isborn = true;                  //出現時処理できるように
-			followPosObj = null;            //追従オブジェクト参照をなくす
-			pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
-			gameObject.SetActive(false);    //オブジェクトをオフにする
+			else if (col.gameObject.name == "WallLeft")
+			{
+				isDead = false;                 //死んでいる判定false
+				isborn = true;                  //出現時処理できるように
+				followPosObj = null;            //追従オブジェクト参照をなくす
+				pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
+				gameObject.SetActive(false);    //オブジェクトをオフにする
 
+			}
 		}
 	}
 }
