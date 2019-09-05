@@ -36,7 +36,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
-	[SerializeField, Tooltip("Animation格納")] private Animator animation_data;
+	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 
 	[Header("攻撃フラグ")]
 	[SerializeField, Tooltip("バレット発射")] private bool Is_Bullet_Attack_Multiple;
@@ -327,14 +327,11 @@ public class Two_Boss : character_status
 	private void Animation_Playback(string s)
 	{
 		// 再生しているのもがあれば停止
-		if (Playing_Animation != null)
+		if (animation_data.isPlaying)
 		{
-			if (!Animation_End())
-			{
-				animation_data.SetBool(Playing_Animation, false);
-			}
+			animation_data.Stop();
 		}
-		animation_data.SetBool(s　,true);
+		animation_data.Play(s);
 		Playing_Animation = s;
 	}
 	#endregion
@@ -342,8 +339,7 @@ public class Two_Boss : character_status
 	#region アニメーターの終了検知
 	private bool Animation_End()
 	{
-		AnimatorStateInfo animInfo = animation_data.GetCurrentAnimatorStateInfo(0);
-		return !(animInfo.normalizedTime < 1.0f);
+		return !animation_data.isPlaying;
 	}
 	#endregion
 
