@@ -56,7 +56,7 @@ public class Enemy_star_Fish : character_status
 	new void Update()
 	{
 		transform.position -= calcPos() * speed;
-		//Debug.Log(calcPos() * speed + transform.position);
+		Debug.Log(calcPos() * speed + transform.position);
 		if(hp < 1)
 		{
 			base.Died_Process();
