@@ -411,6 +411,13 @@ public class EnemyCreate : MonoBehaviour
 		{
 			frameCnt = turning_frame;
 		}
+
+		if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
+		{
+			turning_frame = 5010;
+			frameCnt = 5010;
+			groupCnt = 54;
+		}
 		else if (Input.GetKeyDown(KeyCode.J))
 		{
 			turning_frame = 5010;
@@ -434,9 +441,12 @@ public class EnemyCreate : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(KeyCode.B))
 		{
-			turning_frame = 17750;
-			frameCnt = 17750;
-			groupCnt = 45;
+			//turning_frame = 17750;
+			//frameCnt = 17750;
+			//groupCnt = 45;
+			turning_frame = 5010;
+			frameCnt = 5010;
+			groupCnt = 54;
 
 		}
 		if (saveEnemyObj != null)
