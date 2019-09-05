@@ -41,17 +41,17 @@ public class Enemy_Roll : MonoBehaviour
             rotaX_Value = Random.Range(-2f, 2f);
             rotaY_Value = Random.Range(-0.3f, 0.3f);
         }
-		if(myName== "Bacula")
+		if (myName == "Bacula")
 		{
 			isBacula = true;
 			renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
 		}
-		//else if (myName == "Bacula")
-		//{
-		//    rotaX_Value = Random.Range(-6f, 6f);
-		//    rotaY_Value = Random.Range(-2f, 2f);
+		else if (myName == "Bacula")
+		{
+			rotaX_Value = Random.Range(-6f, 6f);
+			rotaY_Value = Random.Range(-2f, 2f);
 
-		//}
+		}
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		rotaZ = transform.eulerAngles.z;
@@ -71,7 +71,7 @@ public class Enemy_Roll : MonoBehaviour
 		{
 			if (renderer.isVisible)
 			{
-				transform.localRotation = Quaternion.Euler(rotaX, ewd.rotaY, rotaZ);
+				transform.localRotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 				rotaX += rotaX_Value;
 				rotaY += rotaY_Value;
 				rotaZ += rotaZ_Value;
