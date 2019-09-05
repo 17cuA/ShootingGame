@@ -26,22 +26,22 @@ namespace Costom
 			eRanking,
 			eNone
 		}
-		[SerializeField] Canvas anyCanvas;								// いずれかのCanvas
-		EDisplayInformation displayInfo = EDisplayInformation.eNone;	// 画面の情報
+		[SerializeField] Canvas anyCanvas;												// いずれかのCanvas
+		EDisplayInformation displayInfo = EDisplayInformation.eNone;					// 画面の情報
 
-		[SerializeField] ResultDisplay resultDisplay;					// リザルト画面用クラス
-		[SerializeField] RankingDisplay rankingDisplay;					// ランキング表示用クラス
+		[SerializeField] ResultDisplay resultDisplay;									// リザルト画面用クラス
+		[SerializeField] RankingDisplay rankingDisplay;									// ランキング表示用クラス
 
-		GameObject pressButtonDisplayParent;							// PressButtonをまとめるオブジェクト
-		Character_Display pressButtonDisplay;							// PressButtonを表示するためのもの
-		Vector2 pressButtonDisplayPosition = new Vector2(25f, -360f);	// PressButtonの位置
-		float pressButtonSize = 0.24f;									// PressButtonの大きさ
-		int blinkFrame = 0;												// 点滅するためのフレーム数
-		const int kBlinkFrameMax = 60;									// 点滅させる1周期のフレーム数
+		GameObject pressButtonDisplayParent;											// PressButtonをまとめるオブジェクト
+		Character_Display pressButtonDisplay;											// PressButtonを表示するためのもの
+		Vector2 pressButtonDisplayPosition = new Vector2(-3840f / 2f / 2f + 25f, -450f);	// PressButtonの位置
+		float pressButtonSize = 0.24f;													// PressButtonの大きさ
+		int blinkFrame = 0;																// 点滅するためのフレーム数
+		const int kBlinkFrameMax = 60;													// 点滅させる1周期のフレーム数
 
-		bool isInput = false;											// 入力を受け付けたか
-		bool isCompletedTransition = false;								// リザルトからランキングへの切り替えが終わったか
-		[SerializeField] Image displayPlane;							// 画面を覆うImage
+		bool isInput = false;															// 入力を受け付けたか
+		bool isCompletedTransition = false;												// リザルトからランキングへの切り替えが終わったか
+		[SerializeField] Image displayPlane;											// 画面を覆うImage
 
 		void Start()
 		{

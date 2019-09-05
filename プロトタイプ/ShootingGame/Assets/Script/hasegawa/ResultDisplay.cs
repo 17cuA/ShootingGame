@@ -13,40 +13,40 @@ using TextDisplay;
 public class ResultDisplay : MonoBehaviour
 {
 	const uint clearbonusValue = 30000;
-	const float kWholeScaleWeight = 3f;
+	const float kWholeScaleWeight = 2f;
 	// ヘッダー
 	private Character_Display resultTextDisplay;
-	private Vector2 resultTextPosition = new Vector2(50f, 1080f - 1080f / 2f - 100f) / kWholeScaleWeight;
+	private Vector2 resultTextPosition = new Vector2(-3840f / 2f / 2f + 25f, 1080f - 1080f / 2f - 100f);
 	private Character_Display player1TextDisplay;
-	private Vector2 player1TextPosition = new Vector2(-3840f / 2f / 2f + 50f, 1080f - 1080f / 2f - 200f) / kWholeScaleWeight;
+	private Vector2 player1TextPosition = new Vector2(-3840f / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 200f);
 	private Character_Display player2TextDisplay;
-	private Vector2 player2TextPosition = new Vector2(3840f / 2f / 2f + 50f, 1080f - 1080f / 2f - 200f) / kWholeScaleWeight;
+	private Vector2 player2TextPosition = new Vector2(-3840f / 2f / 4f + 28f, 1080f - 1080f / 2f - 200f);
 	// リザルト表示用(1P)
 	private Character_Display result1PScoreTextDisplay;
-	private Vector2 result1PScoreTextPosition = new Vector2(-3840f / 2f + 100f * 2f + 100f, 1080f / 4f * 3f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PScoreTextPosition = new Vector2(-3840f / 2f + 150f, 1080f / 5f * 4f - 1080f / 2f + 25f - 150f);
 	private Character_Display result1PScoreDisplay;
-	private Vector2 result1PScorePosition = new Vector2(-1330f + 250f, 1080f / 4f * 3f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PScorePosition = new Vector2(-1450f, 1080f / 5f * 4f - 1080f / 2f - 25f - 150f);
 	private Character_Display result1PClearbonusTextDisplay;
-	private Vector2 result1PClearbonusTextPosition = new Vector2(-3840f / 2f + 100f * 2f + 100f, 1080f / 4f * 2f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PClearbonusTextPosition = new Vector2(-3840f / 2f + 150f, 1080f / 5f * 3f - 1080f / 2f + 25f - 150f);
 	private Character_Display result1PClearbonusDisplay;
-	private Vector2 result1PClearbonusPosition = new Vector2(-1330f + 250f, 1080f / 4f * 2f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PClearbonusPosition = new Vector2(-1450f, 1080f / 5f * 3f - 1080f / 2f - 25f - 150f);
 	private Character_Display result1PTotalScoreTextDisplay;
-	private Vector2 result1PTotalScoreTextPosition = new Vector2(-3840f / 2f + 100f * 2f + 100f, 1080f / 4f * 1f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PTotalScoreTextPosition = new Vector2(-3840f / 2f + 150f, 1080f / 5f * 2f - 1080f / 2f + 25f - 150f);
 	private Character_Display result1PTotalScoreDisplay;
-	private Vector2 result1PTotalScorePosition = new Vector2(-3840f / 2f + 100f * 4f + 250f, 1080f / 4f * 1f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result1PTotalScorePosition = new Vector2(-1550f, 1080f / 5f * 2f - 1080f / 2f - 25f - 150f);
 	// リザルト表示用(2P)
 	private Character_Display result2PScoreTextDisplay;
-	private Vector2 result2PScoreTextPosition = new Vector2(100f * 2f + 100f, 1080f / 4f * 3f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PScoreTextPosition = new Vector2(-3840f / 2f + 150f + 3840f / 2f / 2f, 1080f / 5f * 4f - 1080f / 2f + 25f - 150f);
 	private Character_Display result2PScoreDisplay;
-	private Vector2 result2PScorePosition = new Vector2(590f + 250f, 1080f / 4f * 3f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PScorePosition = new Vector2(-1450f + 3840f / 2f / 2f, 1080f / 5f * 4f - 1080f / 2f - 25f - 150f);
 	private Character_Display result2PClearbonusTextDisplay;
-	private Vector2 result2PClearbonusTextPosition = new Vector2(100f * 2f + 100f, 1080f / 4f * 2f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PClearbonusTextPosition = new Vector2(-3840f / 2f + 150f + 3840f / 2f / 2f, 1080f / 5f * 3f - 1080f / 2f + 25f - 150f);
 	private Character_Display result2PClearbonusDisplay;
-	private Vector2 result2PClearbonusPosition = new Vector2(590f + 250f, 1080f / 4f * 2f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PClearbonusPosition = new Vector2(-1450f + 3840f / 2f / 2f, 1080f / 5f * 3f - 1080f / 2f - 25f - 150f);
 	private Character_Display result2PTotalScoreTextDisplay;
-	private Vector2 result2PTotalScoreTextPosition = new Vector2(100f * 2f + 100f, 1080f / 4f * 1f - 1080f / 2f + 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PTotalScoreTextPosition = new Vector2(-3840f / 2f + 150f + 3840f / 2f / 2f, 1080f / 5f * 2f - 1080f / 2f + 25f - 150f);
 	private Character_Display result2PTotalScoreDisplay;
-	private Vector2 result2PTotalScorePosition = new Vector2(100f * 4f + 250f, 1080f / 4f * 1f - 1080f / 2f - 50f - 100f) / kWholeScaleWeight;
+	private Vector2 result2PTotalScorePosition = new Vector2(-1550f + 3840f / 2f / 2f, 1080f / 5f * 2f - 1080f / 2f - 25f - 150f);
 
 
 	void Start()
