@@ -34,6 +34,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] no_damage_collider;
 	[SerializeField, Tooltip("イエスダメージコライダー")] private Collider[] yes_damage_collider;
 	[SerializeField, Tooltip("シャッター")] private Two_Boss_Parts[] shutter;
+	[SerializeField, Tooltip("EF用")] private GameObject[] parts_All;
 
 	[Header("アニメーション用")]
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
@@ -41,6 +42,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
+	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 
 	//------------------------------------------------------------------------------------------------------
@@ -156,6 +158,40 @@ public class Two_Boss : character_status
 		if(Is_Core_Annihilation())
 		{
 			animation_data.Stop();
+
+			//big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
+			//ef_2.EF_Base.transform.position			= parts_All[0].transform.position;
+			//ef_2.EF_Weapon_R.transform.position	= parts_All[1].transform.position;
+			//ef_2.EF_Weapon_L.transform.position	= parts_All[2].transform.position;
+			//ef_2.Multipl_1.transform.position			= parts_All[3].transform.position;
+			//ef_2.Multipl_2.transform.position			= parts_All[4].transform.position;
+			//ef_2.Multipl_3.transform.position			= parts_All[5].transform.position;
+			//ef_2.Multipl_4.transform.position			= parts_All[6].transform.position;
+			//ef_2.Multipl_5.transform.position			= parts_All[7].transform.position;
+			//ef_2.Multipl_6.transform.position			= parts_All[8].transform.position;
+
+			//ef_2.EF_Base.transform.rotation			= parts_All[0].transform.rotation;
+			//ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
+			//ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
+			//ef_2.Multipl_1.transform.rotation			= parts_All[3].transform.rotation;
+			//ef_2.Multipl_2.transform.rotation			= parts_All[4].transform.rotation;
+			//ef_2.Multipl_3.transform.rotation			= parts_All[5].transform.rotation;
+			//ef_2.Multipl_4.transform.rotation			= parts_All[6].transform.rotation;
+			//ef_2.Multipl_5.transform.rotation			= parts_All[7].transform.rotation;
+			//ef_2.Multipl_6.transform.rotation			= parts_All[8].transform.rotation;
+
+
+
+
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+			}
 			base.Died_Process();
 		}
 	}
