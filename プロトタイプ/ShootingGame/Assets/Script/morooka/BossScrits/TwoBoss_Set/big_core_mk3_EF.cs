@@ -60,22 +60,29 @@ public class big_core_mk3_EF : MonoBehaviour
 	private Vector3 Multipl_IniRo_5;
 	private Vector3 Multipl_IniRo_6;
 
-    // Update is called once per frame
-    void Update()
-    {
-		//EF_Base.transform.position = Base_IniPos + ef_base_position;
-		//EF_Weapon_R.transform.position = WeaponR_IniPos + ef_weapon_right_position;
-		//EF_Weapon_L	  .transform.position = WeaponR_IniPos+ef_weapon_left_position
-		//Multipl_1			.transform.position = 
-		//Multipl_2			.transform.position = 
-		//Multipl_3			.transform.position = 
-		//Multipl_4			.transform.position = 
-		//Multipl_5			.transform.position =
-		//Multipl_6.transform.position =
+	// Update is called once per frame
+	void Update()
+	{
+		EF_Base.transform.position = Base_IniPos + ef_base_position;
+		EF_Weapon_R.transform.position = WeaponR_IniPos + ef_weapon_right_position;
+		EF_Weapon_L.transform.position = WeaponR_IniPos + ef_weapon_left_position;
+		Multipl_1.transform.position = Multipl_IniPos_1 + ef_multipl_1_position;
+		Multipl_2.transform.position = Multipl_IniPos_2 + ef_multipl_2_position;
+		Multipl_3.transform.position = Multipl_IniPos_3 + ef_multipl_3_position;
+		Multipl_4.transform.position = Multipl_IniPos_4 + ef_multipl_4_position;
+		Multipl_5.transform.position = Multipl_IniPos_5 + ef_multipl_5_position;
+		Multipl_6.transform.position = Multipl_IniPos_6 + ef_multipl_6_position;
 
-		//EF_Base.transform.rotation = Quaternion.Euler(Base_IniRo + ef_base_rotation);
+		EF_Base.transform.rotation = Quaternion.Euler(Base_IniRo + ef_base_rotation);
+		EF_Weapon_R.transform.rotation = Quaternion.Euler(WeaponR_IniRo + ef_weapon_right_rotation);
+		//EF_Weapon_L.transform.rotation = Quaternion.Euler();
+		//Multipl_1.transform.rotation = Quaternion.Euler();
+		//Multipl_2.transform.rotation = Quaternion.Euler();
+		//Multipl_3.transform.rotation = Quaternion.Euler();
+		//Multipl_4.transform.rotation = Quaternion.Euler();
+		//Multipl_5.transform.rotation = Quaternion.Euler();
+		//Multipl_6.transform.rotation = Quaternion.Euler();
 	}
-
 	/// <summary>
 	///	 初期設定
 	/// </summary>
