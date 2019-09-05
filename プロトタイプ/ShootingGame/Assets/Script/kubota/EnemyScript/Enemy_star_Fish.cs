@@ -51,5 +51,9 @@ public class Enemy_star_Fish : character_status
                     gameObject.SetActive(false);
                 }
 	}
+	void calcPos()
+	{
+
+	}
 
 }
