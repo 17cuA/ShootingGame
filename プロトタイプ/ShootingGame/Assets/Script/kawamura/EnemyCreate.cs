@@ -540,7 +540,7 @@ public class EnemyCreate : MonoBehaviour
 				{
 					isNowTwoBoss = false;
 					isNowTwoBoss = false;
-					Wireless_sinario.Is_using_wireless = true;
+					//Wireless_sinario.Is_using_wireless = true;
 				}
 			}
 		}
