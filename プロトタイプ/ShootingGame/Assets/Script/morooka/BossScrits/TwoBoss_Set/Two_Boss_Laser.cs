@@ -53,19 +53,17 @@ public class Two_Boss_Laser : MonoBehaviour
 	// 当たり判定
 	protected void OnTriggerEnter(Collider col)
 	{
-		if (gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player")
+		if (gameObject.tag == "Enemy" && col.gameObject.tag == "Player")
 		{
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
-		else	if (col.gameObject != transform.parent)
+		else	if (col.gameObject != transform.parent && col.gameObject.layer != 14)
 			{
-				Debug.Log(col.name);
 				Delete_processing();
 			}
-		
 	}
 
 	public void Delete_processing()

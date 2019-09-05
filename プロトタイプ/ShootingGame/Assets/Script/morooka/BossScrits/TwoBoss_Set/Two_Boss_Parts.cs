@@ -3,6 +3,7 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/07/11　初期位置の確保
+ * 2019/09/05　ID追加
  */
 
 using System.Collections;
@@ -47,5 +48,4 @@ public class Two_Boss_Parts : character_status
 			base.Died_Process();
 		}
 	}
-
 }
