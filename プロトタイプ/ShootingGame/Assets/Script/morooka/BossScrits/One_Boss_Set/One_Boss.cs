@@ -385,7 +385,15 @@ public class One_Boss : character_status
 		{
 			Instantiate(End_Plefab, transform.position, Quaternion.identity);
 			gameObject.SetActive(false);
-
+			if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+			}
+			else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+			}
 			//Timeline_Player.Play(sonota_Timeline);
 			//Timeline_Player.time = 60.0;
 			//Attack_Step++;
