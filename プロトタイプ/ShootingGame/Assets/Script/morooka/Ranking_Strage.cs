@@ -22,15 +22,15 @@ public class Ranking_Strage : MonoBehaviour
 	public const string kDefaultName = "YOU";
 	public const string kEmptyName = "XXX";
 	int player1Rank = 0;
-	public int Player1Rank
+	public int Player1Rank { get { return player1Rank; } }
+	int player2Rank = 0;
+	public int Player2Rank
 	{
 		get
 		{
-			return player1Rank + (Game_Master.display_score_1P == Game_Master.display_score_2P ? -1 : 0);
+			return player2Rank + (Game_Master.display_score_1P == Game_Master.display_score_2P ? 1 : 0);
 		}
 	}
-	int player2Rank = 0;
-	public int Player2Rank { get { return player2Rank; } }
 	static public Ranking_Strage Strage_Data { get; private set; }
 	static public RankingInformation[] Strage { get; private set; }		// 倉庫
 
