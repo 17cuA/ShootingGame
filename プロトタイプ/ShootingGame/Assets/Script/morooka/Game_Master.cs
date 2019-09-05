@@ -88,8 +88,9 @@ public class Game_Master : MonoBehaviour
 		eENEMY_BULLET,		// エネミーのバレット
 		eENEMY_BEAM,			// エネミーのビーム
 		eENEMY_LASER,			// エネミーのレーザー
-		eONE_BOSS_LASER,
-		eONE_BOSS_BOUND,
+		eONE_BOSS_LASER,		// 1ボスレーザー
+		eONE_BOSS_BOUND,		// 1ボス玉
+		eTWO_BOSS_LASER,		// 2ボスレーザー
 		eBATTLESHIP_ENEMY_PREFAB,     // 戦艦型エネミーのプレハブ
 		/////////////////////////////////////////////////////////////////
 		ePLAYER,										// プレイヤー
