@@ -208,7 +208,7 @@ public class EnemyCreate : MonoBehaviour
 
 	public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
-
+	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 	void Start()
 	{
 		//位置オブジェクト取得
@@ -1654,6 +1654,7 @@ public class EnemyCreate : MonoBehaviour
 			//}
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
 			{
+				aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = true;
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
 			////3隕石 21780
