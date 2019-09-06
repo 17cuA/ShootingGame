@@ -35,6 +35,6 @@ public class Voice_Manager : MonoBehaviour
 	//無線用のAudioSourceを使用
 	public void Sinario_Active(AudioClip voice)
 	{
-		Sinario_audio.PlayOneShot(voice);
+		if(!Sinario_audio.isPlaying)	Sinario_audio.PlayOneShot(voice);
 	}
 }
