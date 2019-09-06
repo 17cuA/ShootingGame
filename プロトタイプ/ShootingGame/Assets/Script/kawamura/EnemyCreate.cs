@@ -851,8 +851,9 @@ public class EnemyCreate : MonoBehaviour
 		//          }
 		//      }
 		#endregion
-		if (false)
+		if (true)
 		{
+			// 円盤グループアイテム上
 			if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 			{
 				// 元の円盤
@@ -864,10 +865,11 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
-				nextEnemy = "右下円盤";
+				nextEnemy = "円盤グループアイテム下";
 				Next_Condition(300);
 				nowGroupCnt++;
 			}
+			// 円盤グループアイテム下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
 			{
 				// 元の円盤
@@ -879,27 +881,30 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
-				nextEnemy = "闘牛";
+				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
 				Next_Condition(360);
 				nowGroupCnt++;
 			}
+			// 闘牛斜め配置突進中央2体アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
 			{
 				GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
 				enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
 				enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
 
-				Next_Condition(240);
-				nextEnemy = "突進";
+				Next_Condition(300);
+				nextEnemy = "闘牛5";
 				nowGroupCnt++;
 			}
+			// 闘牛5
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
 			{
 				Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
-				nextEnemy = "右上＆右下円盤間隔広め";
+				nextEnemy = "円盤グループアイテム上下";
 				Next_Condition(360);
 			}
+			// 円盤グループアイテム上下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
 			{
 				// 元の円盤
@@ -919,30 +924,341 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
-				nextEnemy = "右下円盤";
+				nextEnemy = "円盤グループアイテム上下狭";
 				Next_Condition(300);
 				nowGroupCnt++;
 			}
+			// 円盤グループアイテム上下狭
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
 			{
-				// 元の円盤
-				//GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-				// 円盤10体
-				Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-				GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group7.transform.rotation = transform.rotation;
 
-				enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
-				enemy_UFO_Group.transform.rotation = transform.rotation;
-				// 元の円盤
-				//GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
-				// 円盤10体
-				pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-				enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group8.transform.rotation = transform.rotation;
 
-				enemy_UFO_Group.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
-				enemy_UFO_Group.transform.rotation = transform.rotation;
+				nextEnemy = "闘牛3";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛3
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 7)
+			{
+				Instantiate(enemy_ClamChowder_Group_Three, createPos_FourGroupL.transform.position, transform.rotation);
 
-				nextEnemy = "右下円盤";
+				nextEnemy = "闘牛2上2下";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛2上2下
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 8)
+			{
+				GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+				enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+
+				GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+				enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛5中央アイテム";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛5中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 9)
+			{
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛5中央アイテム";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛5中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 10)
+			{
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛斜め配置突進中央2体アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
+			{
+				GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+				enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛斜め配置突進";
+				Next_Condition(240);
+				nowGroupCnt++;
+			}
+			// 闘牛斜め配置突進
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 12)
+			{
+				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
+				Next_Condition(240);
+				nowGroupCnt++;
+			}
+			// 闘牛斜め配置突進中央2体アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 13)
+			{
+				GameObject enemy_ClamChowder_Group_Four = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+				enemy_ClamChowder_Group_Four.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Four.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛斜め配置突進";
+				Next_Condition(240);
+				nowGroupCnt++;
+			}
+			// 闘牛斜め配置突進
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
+			{
+				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛3中央アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛3中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
+			{
+
+				GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+				enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
+			{
+				GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+				enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+
+				GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+				enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛3中央アイテム";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛3中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 17)
+			{
+				GameObject enemy_ClamChowder_Group_Three_Item = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+				enemy_ClamChowder_Group_Three_Item.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Three_Item.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 18)
+			{
+				GameObject enemy_ClamChowder_Group_Two_Top = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+				enemy_ClamChowder_Group_Two_Top.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Top.transform.rotation = transform.rotation;
+
+				GameObject enemy_ClamChowder_Group_Two_Under = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+				enemy_ClamChowder_Group_Two_Under.transform.position = createPos_FourGroupL.transform.position;
+				enemy_ClamChowder_Group_Two_Under.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛5";
+				Next_Condition(45);
+				nowGroupCnt++;
+			}
+			// 闘牛5
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
+			{
+				Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+
+				nextEnemy = "ビッグコア出現";
+				Next_Condition(640);
+				nowGroupCnt++;
+			}
+			// ビッグコア出現
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
+			{
+				GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+				saveEnemyObj = Boss_Middle;
+				Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+				Boss_Middle.transform.rotation = transform.rotation;
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(180);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
+			{
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(180);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
+			{
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(240);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
+			{
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(180);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
+			{
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(180);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
+			{
+				nextEnemy = "ハエ4広";
+				Next_Condition(700);
+				nowGroupCnt++;
+			}
+			// ハエ4広
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
+			{
+				nextEnemy = "ハエ4広右2アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// ハエ4広右2アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
+			{
+				nextEnemy = "戦艦";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 戦艦
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 28)
+			{
+				nextEnemy = "闘牛斜め中央2アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛斜め中央2アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 29)
+			{
+				nextEnemy = "戦艦上下";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 戦艦上下
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
+			{
+				nextEnemy = "闘牛12中央軸グループアイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛12中央軸グループアイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 31)
+			{
+				nextEnemy = "戦艦";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 戦艦
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
+			{
+				nextEnemy = "闘牛12中央軸上下グループアイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛12中央軸上下グループアイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
+			{
+				nextEnemy = "円盤10グループアイテム上下";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 円盤10グループアイテム上下
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
+			{
+				nextEnemy = "闘牛突進上3中央アイテム下3中央アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛突進上3中央アイテム下3中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
+			{
+				nextEnemy = "闘牛3";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛3
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
+			{
+				nextEnemy = "闘牛上2下2";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛上2下2
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+			{
+				nextEnemy = "闘牛5中央アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛5中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
+			{
+				nextEnemy = "闘牛5中央アイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛5中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
+			{
+				nextEnemy = "円盤10グループアイテム上下狭";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 円盤10グループアイテム上下狭
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
+			{
+				nextEnemy = "闘牛12中心軸上下グループアイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛12中心軸上下グループアイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
+			{
+				nextEnemy = "闘牛12中心軸グループアイテム";
+				Next_Condition(360);
+				nowGroupCnt++;
+			}
+			// 闘牛12中心軸グループアイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
+			{
+				nextEnemy = "BigCore-MkⅡ";
 				Next_Condition(360);
 				nowGroupCnt++;
 			}
