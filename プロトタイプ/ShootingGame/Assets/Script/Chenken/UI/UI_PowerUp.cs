@@ -55,7 +55,7 @@ public class UI_PowerUp : MonoBehaviour
 			transform.parent.gameObject.SetActive(false);
 		}
 
-        Debug.Log("人数：" + ((int)Game_Master.Number_Of_People).ToString());
+        DebugManager.OperationDebug("PLAY人数：" + ((int)Game_Master.Number_Of_People).ToString(),"GM");
 		isSetting = false;
 	}
 
@@ -79,10 +79,6 @@ public class UI_PowerUp : MonoBehaviour
 	}
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.KeypadEnter))
-		{
-			UnityEngine.SceneManagement.SceneManager.LoadScene("GameClear");
-		}
 		if (playerNum == 1 || isPlayer1)
 		{
 			var currentPower = P1_PowerManager.Instance.CurrentPower;
@@ -91,7 +87,7 @@ public class UI_PowerUp : MonoBehaviour
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
-				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire1")) && currentPower.CanUpgrade)
+				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2")) && currentPower.CanUpgrade)
 				{
 					if (UIeffect.isPlaying)
 						UIeffect.Stop();
@@ -177,7 +173,7 @@ public class UI_PowerUp : MonoBehaviour
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
-				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2")) && currentPower.CanUpgrade)
+				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("P2_Fire2")) && currentPower.CanUpgrade)
 				{
 					if (UIeffect.isPlaying)
 						UIeffect.Stop();
