@@ -28,6 +28,7 @@ namespace Power
 
 			private int upgradeCount;                                                       //現在強化回数
 			private int maxUpgradeCount;                                                    //最大強化可能回数
+			private int tempMaxUpgradeCount;
 			private PowerType type;                                                         //パワータイプ
 			private List<ExcutePowerUpgradeCallBack> onUpgradeCallBacks;//強化時コールバック
 			private List<ResetPowerCallBack> onResetCallBacks;                  //リセット時コールバック
@@ -52,6 +53,7 @@ namespace Power
 			{
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = maxUpgradeCount;
+				this.tempMaxUpgradeCount = this.maxUpgradeCount;
 				this.type = type;
 				this.resetCheck = false;
 				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
@@ -68,6 +70,7 @@ namespace Power
 				this.resetCheck = false;
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = 999999999;
+				this.tempMaxUpgradeCount = this.maxUpgradeCount;
 				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
 				this.onResetCallBacks = new List<ResetPowerCallBack>();
 			}
@@ -202,6 +205,11 @@ namespace Power
 			public void ReduceMaxUpgradeTime(int time)
 			{
 				this.maxUpgradeCount -= time;
+			}
+
+			public void ResetMaxUpgradeTime()
+			{
+				this.maxUpgradeCount = this.tempMaxUpgradeCount;
 			}
 		}
 

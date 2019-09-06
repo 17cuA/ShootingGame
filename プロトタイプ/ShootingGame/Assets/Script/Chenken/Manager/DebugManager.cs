@@ -17,9 +17,15 @@ public class DebugManager : MonoBehaviour
 	private GameObject UIChild;
 	private static Text debugText;
 	private static ScrollRect scrollRect;
+	private Dictionary<string, int> infos = new Dictionary<string, int>();
+	[Header("何秒ごとにデータをクリアする")]
+	[SerializeField] private float updateTime = 2;
+	private float updateTimer;
 
 	private void Awake()
 	{
+		Application.logMessageReceived += HandleLog;
+
 		scrollRect = GetComponentInChildren<ScrollRect>();
 		debugText = GetComponentInChildren<Text>();
 		UIChild = transform.GetChild(0).gameObject;
@@ -28,6 +34,8 @@ public class DebugManager : MonoBehaviour
 		{
 			UIChild.SetActive(false);
 		}
+
+		
 	}
 
 	// Update is called once per frame
@@ -81,6 +89,13 @@ public class DebugManager : MonoBehaviour
 					UIChild.SetActive(true);
 			}
 		}
+
+		updateTimer += Time.deltaTime;
+		if(updateTimer >= updateTime)
+		{
+			updateTimer = 0;
+			infos.Clear();
+		}
 	}
 
 	/// <summary>
@@ -93,9 +108,44 @@ public class DebugManager : MonoBehaviour
 	{
 		string addText = "\n " + userName + ": " + context;
 		debugText.text += addText;
-		Canvas.ForceUpdateCanvases();       //关键代码
-		scrollRect.verticalNormalizedPosition = 0f;  //关键代码
-		Canvas.ForceUpdateCanvases();   //关键代码
+		Canvas.ForceUpdateCanvases();    
+		scrollRect.verticalNormalizedPosition = 0f; 
+		Canvas.ForceUpdateCanvases();  
+	}
+
+	private void HandleLog(string content, string stackTrace,LogType type)
+	{
+		var outPut = content;
+		var stack = stackTrace;
+
+		if(!infos.ContainsKey(outPut))
+		{
+			infos.Add(outPut, 1);
+		}
+		else
+		{
+			if(infos[outPut] < 1)
+			{
+				infos[outPut]++;
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		if(type == LogType.Error)
+		{
+			outPut = "<color=#A90404FF>" + outPut + "</color>";
+			stack = "<color=#A90404FF>" + stack + "</color>";
+			OperationDebug(outPut, "Error");
+		}
+		else if (type == LogType.Exception)
+		{
+			outPut = "<color=#FFD800FF>" + outPut + "</color>";
+			stack = "<color=#FFD800FF>" + stack + "</color>";
+			OperationDebug(outPut, "Exception");
+		}
 	}
 }
 
