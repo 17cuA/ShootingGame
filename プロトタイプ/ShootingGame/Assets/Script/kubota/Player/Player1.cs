@@ -779,6 +779,8 @@ public class Player1 : character_status
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);				//パワーアップ音
 
 		Debug.Log("ビットン生成");
+		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player1");
+
 	}
 	//速度を初期のに戻す
 	private void Init_speed()

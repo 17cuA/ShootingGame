@@ -793,7 +793,8 @@ public class Player2 : character_status
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);                //パワーアップ音
 
-		Debug.Log("ビットン生成");
+		//Debug.Log("ビットン生成");
+		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");
 	}
 	//速度を初期のに戻す
 	private void Init_speed()
