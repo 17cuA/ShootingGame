@@ -38,7 +38,6 @@ public class Player1 : character_status
 	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
@@ -148,7 +147,7 @@ public class Player1 : character_status
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
-		particleSystemMain = particleSystem.main;
+		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
