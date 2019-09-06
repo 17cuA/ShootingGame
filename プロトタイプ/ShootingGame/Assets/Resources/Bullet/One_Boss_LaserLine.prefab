@@ -4679,6 +4679,7 @@ GameObject:
   - component: {fileID: 5716558248426547724}
   - component: {fileID: 3021342871084463507}
   - component: {fileID: 4937448220805382983}
+  - component: {fileID: 3133868572331145814}
   m_Layer: 14
   m_Name: One_Boss_LaserLine
   m_TagString: Enemy
@@ -9401,6 +9402,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3133868572331145814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6212029844265363662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2241414553546059627
 PrefabInstance:
   m_ObjectHideFlags: 0
