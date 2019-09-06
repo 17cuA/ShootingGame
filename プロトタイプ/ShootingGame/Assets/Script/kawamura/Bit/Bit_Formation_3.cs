@@ -137,7 +137,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		{
 			SetFollowPos();				//追従位置設定
 			option_Particle.Play();		//オプションの見た目パーティクルを起動
-			isborn = false;				//生成時処理をしないようにする
+			isborn = false;             //生成時処理をしないようにする
+			b_Shot.isShot = true;
 		}
 
 		//追従位置を取得していらその位置にする

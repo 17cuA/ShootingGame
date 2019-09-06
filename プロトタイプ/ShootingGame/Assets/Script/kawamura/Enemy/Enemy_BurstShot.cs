@@ -79,6 +79,7 @@ public class Enemy_BurstShot : MonoBehaviour
 		if(once)
 		{
 			Shot_Reset();
+			once = false;
 		}
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;

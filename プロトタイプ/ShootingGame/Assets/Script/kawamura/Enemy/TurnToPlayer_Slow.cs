@@ -324,7 +324,7 @@ public class TurnToPlayer_Slow : character_status
 			if (haveItem)
 			{
 				//Instantiate(item, this.transform.position, transform.rotation);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, new Vector3(0, 0, 0));
 			}
 			frameCnt = 0;
 			followTimeCnt = 0;
