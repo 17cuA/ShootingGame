@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Power;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class LaserLine : Player_Bullet
@@ -14,9 +15,12 @@ public class LaserLine : Player_Bullet
 		}
 	}
 
+	private new Rigidbody rigidbody;
+
     private void Awake()
     {
 		this.trailRenderer = GetComponent<TrailRenderer>();
+		this.rigidbody = GetComponent<Rigidbody>();
 	}
 
 	private new void Update()
@@ -28,6 +32,7 @@ public class LaserLine : Player_Bullet
 			gameObject.SetActive(false);
 		}
 
+		//rigidbody.velocity = new Vector3(shot_speed * 40, 0, 0);
 		base.Moving_To_Travelling_Direction();
-    }
+	}
 }

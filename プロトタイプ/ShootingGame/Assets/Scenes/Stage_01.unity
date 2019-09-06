@@ -7404,6 +7404,28 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+--- !u!1 &1436334184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1096818703760116973, guid: 06248a7c1dd75a146839209ff7d9aac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1335107168}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1436334186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436334184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52317520863666c4bb9b4a0321c48be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingMaterialColor: {r: 1, g: 1, b: 1, a: 1}
+  changeTime: 2
+  randomStartDelayRange: 2
+  startDelay: 0
 --- !u!1 &1526822251
 GameObject:
   m_ObjectHideFlags: 0
@@ -13854,10 +13876,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1859160590, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1924222315, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801235332332514354, guid: c7b6ad37d00e9d54b9099d625f6aed47,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4801235332332514354, guid: c7b6ad37d00e9d54b9099d625f6aed47,
@@ -13993,7 +14020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -14017,6 +14044,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923847632}
   m_CullTransparentMesh: 0
+--- !u!114 &1923847639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923847631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3038e7926edbc949868bf17dba2150f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAlpha: 150
+  transitionAlpha: 30
+  transitionTime: 1.8
 --- !u!1 &1943076705
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,6 +39,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject OctopusType_Enemy_Prefab;			// タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;		// ハエ型エネミーのプレハブ
     private GameObject BattleShip_Enemy_Prefab;     // 戦艦型エネミーのプレハブ
+	private GameObject Star_Fish_Enemy_Prefab;			//ヒトデ型のエネミーのプレハブ
 	private GameObject P1_Option_Prefab;                            //オプションのプレハブ
 	private GameObject P2_Option_Prefab;						//2P用のオプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
@@ -71,6 +72,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
     public Object_Pooling BattleShipType_Enemy;
+	public Object_Pooling StarFish_Enemy;
 	public Object_Pooling P1_Option;
 	public Object_Pooling P2_Option;
 	public Object_Pooling PowerUP_Item;
@@ -155,8 +157,9 @@ public class Obj_Storage : MonoBehaviour
 		UfoMotherType_Enemy_Prefab = Resources.Load("Enemy/UfoMotherType_Enemy") as GameObject; 
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
 		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
-		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject; ;
-        BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject; ;
+		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
+        BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
+		Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;		//ヒトデ型の敵のロード
         P1_Option_Prefab = Resources.Load("Option/Option") as GameObject;       //1Pオプションのロード
 		P2_Option_Prefab = Resources.Load("Option/Option_2P") as GameObject;       //2Pオプションのロード
 
@@ -184,8 +187,8 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
 
-		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/01_gradius_se_intro");		//バキュラに当たった時の高い音用
-		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/04_gradius_se_credit");
+		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bacura_Hit");		//バキュラに当たった時の高い音用
+		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");   //隕石の爆発音
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");
@@ -270,7 +273,8 @@ public class Obj_Storage : MonoBehaviour
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");		// 貝型エネミーを生成
 		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
-        BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");
+        BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
+		StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");				//ヒトデ型エネミーを生成
         P1_Option = new Object_Pooling(P1_Option_Prefab, 4, "Option");
 		P2_Option = new Object_Pooling(P2_Option_Prefab, 4, "P2_Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
