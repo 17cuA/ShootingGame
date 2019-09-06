@@ -29,7 +29,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool check = false;
 	public bool isMove = false;
 	public bool hasOption = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
@@ -154,6 +154,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 						followParent_Script.resetPosCnt++;
 						isResetPos = true;
+						isFreeze = false;
 					}
 				}
 				if (!pl1.Is_Resporn)

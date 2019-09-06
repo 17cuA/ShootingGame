@@ -20,7 +20,7 @@ public class FollowPositions : MonoBehaviour
 	public int resetPosCnt;
 
 	bool check = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	public bool isMove;
 	bool defCheck;
 	public bool isFollow1P;
@@ -160,6 +160,8 @@ public class FollowPositions : MonoBehaviour
 				pl2.Is_Resporn_End = false;				
 			}
 			isResetPosEnd = true;
+			isFreeze = false;
+
 		}
 	}
 }

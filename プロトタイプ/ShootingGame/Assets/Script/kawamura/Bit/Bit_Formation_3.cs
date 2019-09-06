@@ -147,14 +147,14 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//回収されたとき
-		if (isCollection)
-		{
-			//オプションの見た目パーティクル起動
-			option_Particle.Play();
-			//回収判定false
-			isCollection = false;
+		//if (isCollection)
+		//{
+		//	//オプションの見た目パーティクル起動
+		//	option_Particle.Play();
+		//	//回収判定false
+		//	isCollection = false;
 
-		}
+		//}
 
 		//プレイヤー死亡時の処理
 		if (bState == BitState.Player1)
@@ -377,7 +377,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			if (col.gameObject.name == "Player")
 			{
 				//オプションパーティクルストップ
-				option_Particle.Stop();
+				//option_Particle.Stop();
 				b_Shot.isShot = true;
 
 				//もともとプレイヤー1に追従していたら
@@ -547,7 +547,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			else if (col.gameObject.name == "Player_2")
 			{
 				//オプションパーティクルストップ
-				option_Particle.Stop();
+				//option_Particle.Stop();
 				b_Shot.isShot = true;
 
 				//プレイヤー1を追従していたら

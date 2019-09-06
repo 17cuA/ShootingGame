@@ -192,6 +192,7 @@ public class FollowToPreviousBit : MonoBehaviour
 						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 						followParent_Script.resetPosCnt++;
 						isResetPos = true;
+						isFreeze = false;
 					}
 				}
 				if (!pl1.Is_Resporn)

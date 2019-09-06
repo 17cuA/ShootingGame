@@ -15,9 +15,13 @@ public class Enemy_Beetle : character_status
 
 	public State eState;
 
-	GameObject smallBeamObj;
-	Vector3 velocity;
+	GameObject smallBeamObj;		//弾取得用
+	GameObject muzzleObj;			//発射位置用
+	Vector3 velocity;		
+	Vector3 defaultPos;				//初期位置セーブ
 
+	//--------------------------------------------------------------
+	//上に上がる挙動の時に使う
 	//[Header("入力用　Xスピード")]
 	public float speedX;
 	[Header("入力用　Xスピード")]
@@ -32,7 +36,8 @@ public class Enemy_Beetle : character_status
 	public float speedZ_Value;      //Zスピードの値
 	[Header("入力用　Yの移動する距離")]
 	public float moveY_Max;			//Yの最大移動値
-	public float savePosY;			//前のY座標を入れる（移動量を求めるため）
+	public float savePosY;          //前のY座標を入れる（移動量を求めるため）
+	//--------------------------------------------------------------
 
 	public bool isUP;				//上に上がるとき
 	public bool once;				//一回だけ行う処理
@@ -41,6 +46,7 @@ public class Enemy_Beetle : character_status
     {
 		defaultSpeedY_Value = speedY;
 		//defaultSpeedX_Value = speedX;
+		defaultPos = transform.localPosition;
 		isUP = true;
 		once = true;
 		base.Start();
@@ -50,6 +56,7 @@ public class Enemy_Beetle : character_status
     {
 		if (once)
 		{
+			transform.localPosition = defaultPos;
 			switch (eState)
 			{
 				case State.Front:
