@@ -5,6 +5,7 @@
  * 2019/06/19 落下と地面衝突時の移動向き変更
  * 2019/06/21 上り坂に衝突時自身の破壊
  * 2019/06/24 EAGLEWINDに対応
+ * 2019/09/06　爆発追加
  */
 using System;
 using System.Collections;
@@ -26,6 +27,7 @@ public class Missile : bullet_status
 	public Vector3 Ray_Direction { get; set; }          // レイの向き
 	public float Length_On_Landing { get; set; }		// 落下時のレイの長さ
 	public float Length_On_Gliding {get; set;}			// 滑空時のレイの長さ
+	public GameObject Bomb_EF { get; set; }			// 爆発エフェクト
 
 	private new void Start()
 	{
@@ -130,5 +132,10 @@ public class Missile : bullet_status
 			y_di = 1.0f;
 		}
 		return y_di;
+	}
+
+	private void OnDisable()
+	{
+		Instantiate(Bomb_EF, transform.position, Quaternion.identity);
 	}
 }
