@@ -89,7 +89,7 @@ namespace Power
 
 				//強化回数＋１
 				upgradeCount++;
-				DebugManager.OperationDebug("強化成功、パワーアップ名：" + type.ToString(),"Player1");
+				DebugManager.OperationDebug("強化成功、パワーアップ名：" + type.ToString() + "現在強化回数：" + upgradeCount,"Player1");
 			}
 
 			/// <summary>
@@ -183,19 +183,12 @@ namespace Power
 				onResetCallBacks.Add(resetCallBack);
 			}
 
-			/// <summary>
-			/// 強化リセット条件判断処理の監視を削除するメソッド
-			/// </summary>
-			/// <param name="resetCallBack">　void()　</param>
-			public void RemoveCheckFunction(ResetPowerCallBack resetCallBack)
+			public void RemoveCheckFunction()
 			{
 				onCheckResetCallBack = null;
-
-				if (!onResetCallBacks.Contains(resetCallBack))
-					return;
-
-				onResetCallBacks.Remove(resetCallBack);
+				onResetCallBacks.Clear();
 			}
+
 
 			public void ResetUpgradeCount()
 			{
@@ -349,7 +342,7 @@ namespace Power
 			if (!powers.ContainsKey(type))
 				return;
 
-			powers[type].RemoveCheckFunction(resetCallBack);
+			powers[type].RemoveCheckFunction();
 		}
 
 		/// <summary>
@@ -397,6 +390,8 @@ namespace Power
 
 
 			position %= powers.Count - 1;
+
+			DebugManager.OperationDebug("現在パワーアップ位置：" + ((Power.PowerType)position).ToString(), "Player1");
 		}
 
 		/// <summary>
@@ -456,6 +451,15 @@ namespace Power
 				var power = powers[Power.PowerType.SPEEDUP];
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
+			}
+			DebugManager.OperationDebug("全パワーアップ強化回数リセット", "Player1");
+		}
+
+		public void RemoveAllCheckCallBack()
+		{
+			foreach(var power in powers.Values)
+			{
+				power.RemoveCheckFunction();
 			}
 		}
 

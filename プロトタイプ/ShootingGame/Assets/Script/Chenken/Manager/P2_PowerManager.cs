@@ -187,14 +187,12 @@ namespace Power
 			/// 強化リセット条件判断処理の監視を削除するメソッド
 			/// </summary>
 			/// <param name="resetCallBack">　void()　</param>
-			public void RemoveCheckFunction(ResetPowerCallBack resetCallBack)
+
+
+			public void RemoveCheckFunction()
 			{
 				onCheckResetCallBack = null;
-
-				if (!onResetCallBacks.Contains(resetCallBack))
-					return;
-
-				onResetCallBacks.Remove(resetCallBack);
+				onResetCallBacks.Clear();
 			}
 
 			public void ResetUpgradeCount()
@@ -349,7 +347,7 @@ namespace Power
 			if (!powers.ContainsKey(type))
 				return;
 
-			powers[type].RemoveCheckFunction(resetCallBack);
+			powers[type].RemoveCheckFunction();
 		}
 
 		/// <summary>
@@ -455,6 +453,14 @@ namespace Power
 				var power = powers[Power.PowerType.SPEEDUP];
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
+			}
+		}
+
+		public void RemoveAllCheckCallBack()
+		{
+			foreach (var power in powers.Values)
+			{
+				power.RemoveCheckFunction();
 			}
 		}
 
