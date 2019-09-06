@@ -341,7 +341,7 @@ public class Two_Boss : character_status
 		else if (Attack_Step == 1)
 		{
 			Attack_Seconds += Time.deltaTime;
-			if(Attack_Seconds >= 2.0f)
+			if(Attack_Seconds >= 2.1f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[2].transform.position, multiple[2].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[2].transform);
@@ -350,7 +350,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[5].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 4.0f)
+			if (Attack_Seconds >= 4.1f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[1].transform);
@@ -359,7 +359,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[4].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 5.2f)
+			if (Attack_Seconds >= 6.1f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[0].transform.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[0].transform);
@@ -369,7 +369,7 @@ public class Two_Boss : character_status
 				Laser.Add(l);
 			}
 
-			if (Attack_Seconds >= 9.1f)
+			if (Attack_Seconds >= 9.19f)
 			{
 				foreach(var l in Laser)
 				{

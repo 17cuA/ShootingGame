@@ -13,7 +13,9 @@ public class FollowToPreviousBit : MonoBehaviour
 	GameObject previousBitObj;
 	public GameObject parentObj;
 	public string parentName;
-	FollowPositions followParent_Script;	//t4つの追従位置の親スクリプト
+	FollowPositions followParent_Script;    //t4つの追従位置の親スクリプト
+	FollowToPlayer_SameMotion firstPos_Script;
+	FollowToPreviousBit followBit_Script;
 
 	public Vector3[] previousBitPos;
 	public Vector3 pos;
@@ -38,6 +40,7 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーを取得したらtrue
+	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
 	public bool endDDDDDDDDDDDDDDDDDDDDDDDDDDD = false;
 	void Start()
 	{
@@ -64,14 +67,17 @@ public class FollowToPreviousBit : MonoBehaviour
 			if (myName == "FollowPosSecond_1P")
 			{
 				previousBitObj = GameObject.Find("FollowPosFirst_1P");
+				firstPos_Script = previousBitObj.GetComponent<FollowToPlayer_SameMotion>();
 			}
 			else if (myName == "FollowPosThird_1P")
 			{
 				previousBitObj = GameObject.Find("FollowPosSecond_1P");
+				followBit_Script = previousBitObj.GetComponent<FollowToPreviousBit>();
 			}
 			else if (myName == "FollowPosFourth_1P")
 			{
 				previousBitObj = GameObject.Find("FollowPosThird_1P");
+				followBit_Script = previousBitObj.GetComponent<FollowToPreviousBit>();
 			}
 		}
 		else if (isFollow2P)
@@ -79,14 +85,17 @@ public class FollowToPreviousBit : MonoBehaviour
 			if (myName == "FollowPosSecond_2P")
 			{
 				previousBitObj = GameObject.Find("FollowPosFirst_2P");
+				firstPos_Script = previousBitObj.GetComponent<FollowToPlayer_SameMotion>();
 			}
 			else if (myName == "FollowPosThird_2P")
 			{
 				previousBitObj = GameObject.Find("FollowPosSecond_2P");
+				followBit_Script = previousBitObj.GetComponent<FollowToPreviousBit>();
 			}
 			else if (myName == "FollowPosFourth_2P")
 			{
 				previousBitObj = GameObject.Find("FollowPosThird_2P");
+				followBit_Script = previousBitObj.GetComponent<FollowToPreviousBit>();
 			}
 		}
 
@@ -142,24 +151,49 @@ public class FollowToPreviousBit : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				if (pl1.Is_Resporn_End)
+				//if (pl1.Is_Resporn_End)
+				//{
+				//	if (!isResetPos)
+				//	{
+				//		endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
+				//		//pl1.Is_Resporn_End = false;
+				//		transform.position = playerObj.transform.position;
+				//		pos = playerObj.transform.position;
+				//		savePos = playerObj.transform.position;
+				//		for (int i = 0; i < array_Num; i++)
+				//		{
+				//			previousBitPos[i] = playerObj.transform.position;
+				//			previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+				//		}
+
+				//		//transform.position = playerObj.transform.position;
+				//		//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+				//		followParent_Script.resetPosCnt++;
+				//		isResetPos = true;
+				//	}
+				//}
+
+				if (!followParent_Script.isResetPosEnd)
 				{
-					endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
-					//pl1.Is_Resporn_End = false;
-					transform.position = playerObj.transform.position;
-					pos = playerObj.transform.position;
-					savePos = playerObj.transform.position;
-					for (int i = 0; i < array_Num; i++)
+					if (!isResetPos)
 					{
-						previousBitPos[i] = playerObj.transform.position;
-						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+						endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
+						//pl1.Is_Resporn_End = false;
+						transform.position = playerObj.transform.position;
+						pos = playerObj.transform.position;
+						savePos = playerObj.transform.position;
+						for (int i = 0; i < array_Num; i++)
+						{
+							previousBitPos[i] = playerObj.transform.position;
+							previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
+						}
+
+						//transform.position = playerObj.transform.position;
+						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+						followParent_Script.resetPosCnt++;
+						isResetPos = true;
 					}
-
-					//transform.position = playerObj.transform.position;
-					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					followParent_Script.resetPosCnt++;
 				}
-
 				if (!pl1.Is_Resporn)
 				{
 					if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
@@ -185,7 +219,7 @@ public class FollowToPreviousBit : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				if (pl2.Is_Resporn_End)
+				if (!followParent_Script.isResetPosEnd)
 				{
 					//pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
@@ -200,6 +234,7 @@ public class FollowToPreviousBit : MonoBehaviour
 					//transform.position = playerObj.transform.position;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 					followParent_Script.resetPosCnt++;
+					isResetPos = true;
 				}
 
 				if (!pl2.Is_Resporn)
@@ -325,5 +360,10 @@ public class FollowToPreviousBit : MonoBehaviour
 		//	savePos = transform.position;
 
 		//}
+
+		if(followParent_Script.isResetPosEnd)
+		{
+			isResetPos = false;
+		}
 	}
 }
