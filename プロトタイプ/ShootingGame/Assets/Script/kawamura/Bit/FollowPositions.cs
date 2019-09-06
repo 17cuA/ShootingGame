@@ -137,10 +137,7 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				if (isFollow1P)
-				{
-					pl2.Is_Resporn_End = false;
-				}
+				pl2.Is_Resporn_End = false;				
 			}
 		}
 	}
