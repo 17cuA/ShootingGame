@@ -136,6 +136,6 @@ public class Missile : bullet_status
 
 	private void OnDisable()
 	{
-		Instantiate(Bomb_EF, transform.position, Quaternion.identity);
+		//Instantiate(Bomb_EF, transform.position, Quaternion.identity);
 	}
 }
