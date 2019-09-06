@@ -21,7 +21,7 @@ public class Enemy_Beetle : character_status
 	Vector3 defaultPos;				//初期位置セーブ
 
 	//--------------------------------------------------------------
-	//上に上がる挙動の時に使う
+	//主に上に上がる挙動の時に使う
 	//[Header("入力用　Xスピード")]
 	public float speedX;
 	[Header("入力用　Xスピード")]
@@ -38,6 +38,8 @@ public class Enemy_Beetle : character_status
 	public float moveY_Max;			//Yの最大移動値
 	public float savePosY;          //前のY座標を入れる（移動量を求めるため）
 	//--------------------------------------------------------------
+
+
 
 	public bool isUP;				//上に上がるとき
 	public bool once;				//一回だけ行う処理

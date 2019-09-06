@@ -418,14 +418,14 @@ public class EnemyCreate : MonoBehaviour
 		}
 
 		//ラスボス一つ手前
-		if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
-		{
-			turning_frame = 5010;
-			frameCnt = 5010;
-			groupCnt = 53;
-		}
+		//if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
+		//{
+		//	turning_frame = 5010;
+		//	frameCnt = 5010;
+		//	groupCnt = 53;
+		//}
 		//中ボス
-		else if (Input.GetKeyDown(KeyCode.J))
+		if (Input.GetKeyDown(KeyCode.J))
 		{
 			turning_frame = 5010;
 			frameCnt = 5010;
@@ -448,7 +448,16 @@ public class EnemyCreate : MonoBehaviour
 			groupCnt = 43;
 			//nowGroupCnt = 36;
 		}
-		//ラスボス手前
+		//1ボス後
+		else if (Input.GetKeyDown(KeyCode.M))
+		{
+			turning_frame = 9660;
+			frameCnt = 9660;    //←上の数字から60引いた数にする
+			groupCnt = 44;
+			//nowGroupCnt = 36;
+		}
+
+		//ラスボス
 		else if (Input.GetKeyDown(KeyCode.L))
 		{
 			//turning_frame = 17750;
