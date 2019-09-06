@@ -34,12 +34,12 @@ public class big_core_mk3_EF : MonoBehaviour
 
 	public GameObject EF_Base;
 	public GameObject EF_Weapon_R;
-	public GameObject EF_Weapon_L	;
-	public GameObject Multipl_1			;
-	public GameObject Multipl_2			;
-	public GameObject Multipl_3			;
-	public GameObject Multipl_4			;
-	public GameObject Multipl_5			;
+	public GameObject EF_Weapon_L;
+	public GameObject Multipl_1;
+	public GameObject Multipl_2;
+	public GameObject Multipl_3;
+	public GameObject Multipl_4;
+	public GameObject Multipl_5;
 	public GameObject Multipl_6;
 
 	private Vector3 Base_IniPos;
@@ -67,7 +67,7 @@ public class big_core_mk3_EF : MonoBehaviour
 	{
 		EF_Base.transform.position = Base_IniPos + ef_base_position;
 		EF_Weapon_R.transform.position = WeaponR_IniPos + ef_weapon_right_position;
-		EF_Weapon_L.transform.position = WeaponR_IniPos + ef_weapon_left_position;
+		EF_Weapon_L.transform.position = WeaponL_IniPos + ef_weapon_left_position;
 		Multipl_1.transform.position = Multipl_IniPos_1 + ef_multipl_1_position;
 		Multipl_2.transform.position = Multipl_IniPos_2 + ef_multipl_2_position;
 		Multipl_3.transform.position = Multipl_IniPos_3 + ef_multipl_3_position;
@@ -93,7 +93,7 @@ public class big_core_mk3_EF : MonoBehaviour
 	/// <summary>
 	///	 初期設定
 	/// </summary>
-	private void Set_Init()
+	public void Set_Init()
 	{
 		Base_IniPos			= EF_Base.transform.position;
 		WeaponR_IniPos	= EF_Weapon_R.transform.position;

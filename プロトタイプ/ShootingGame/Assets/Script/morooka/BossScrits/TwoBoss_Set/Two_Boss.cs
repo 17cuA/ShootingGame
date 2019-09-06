@@ -110,6 +110,8 @@ public class Two_Boss : character_status
 	// Update is called once per frame
 	private new void Update()
 	{
+		if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.O)) core[0].hp = 0;
+
 		Survival_Time_Cnt += Time.deltaTime;
 		if(Survival_Time_Cnt >= Survival_Time)
 		{
@@ -159,29 +161,27 @@ public class Two_Boss : character_status
 		{
 			animation_data.Stop();
 
-			//big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
-			//ef_2.EF_Base.transform.position			= parts_All[0].transform.position;
-			//ef_2.EF_Weapon_R.transform.position	= parts_All[1].transform.position;
-			//ef_2.EF_Weapon_L.transform.position	= parts_All[2].transform.position;
-			//ef_2.Multipl_1.transform.position			= parts_All[3].transform.position;
-			//ef_2.Multipl_2.transform.position			= parts_All[4].transform.position;
-			//ef_2.Multipl_3.transform.position			= parts_All[5].transform.position;
-			//ef_2.Multipl_4.transform.position			= parts_All[6].transform.position;
-			//ef_2.Multipl_5.transform.position			= parts_All[7].transform.position;
-			//ef_2.Multipl_6.transform.position			= parts_All[8].transform.position;
+			big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
+			ef_2.EF_Base.transform.position = parts_All[0].transform.position;
+			ef_2.EF_Weapon_R.transform.position = parts_All[1].transform.position;
+			ef_2.EF_Weapon_L.transform.position = parts_All[2].transform.position;
+			ef_2.Multipl_1.transform.position = parts_All[3].transform.position;
+			ef_2.Multipl_2.transform.position = parts_All[4].transform.position;
+			ef_2.Multipl_3.transform.position = parts_All[5].transform.position;
+			ef_2.Multipl_4.transform.position = parts_All[6].transform.position;
+			ef_2.Multipl_5.transform.position = parts_All[7].transform.position;
+			ef_2.Multipl_6.transform.position = parts_All[8].transform.position;
 
-			//ef_2.EF_Base.transform.rotation			= parts_All[0].transform.rotation;
-			//ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
-			//ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
-			//ef_2.Multipl_1.transform.rotation			= parts_All[3].transform.rotation;
-			//ef_2.Multipl_2.transform.rotation			= parts_All[4].transform.rotation;
-			//ef_2.Multipl_3.transform.rotation			= parts_All[5].transform.rotation;
-			//ef_2.Multipl_4.transform.rotation			= parts_All[6].transform.rotation;
-			//ef_2.Multipl_5.transform.rotation			= parts_All[7].transform.rotation;
-			//ef_2.Multipl_6.transform.rotation			= parts_All[8].transform.rotation;
-
-
-
+			ef_2.EF_Base.transform.rotation = parts_All[0].transform.rotation;
+			ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
+			ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
+			ef_2.Multipl_1.transform.rotation = parts_All[3].transform.rotation;
+			ef_2.Multipl_2.transform.rotation = parts_All[4].transform.rotation;
+			ef_2.Multipl_3.transform.rotation = parts_All[5].transform.rotation;
+			ef_2.Multipl_4.transform.rotation = parts_All[6].transform.rotation;
+			ef_2.Multipl_5.transform.rotation = parts_All[7].transform.rotation;
+			ef_2.Multipl_6.transform.rotation = parts_All[8].transform.rotation;
+			ef_2.Set_Init();
 
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
