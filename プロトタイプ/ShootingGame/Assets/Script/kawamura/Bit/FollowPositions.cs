@@ -25,12 +25,14 @@ public class FollowPositions : MonoBehaviour
 	bool defCheck;
 	public bool isFollow1P;
 	public bool isFollow2P;
+	public bool isResetPosEnd;
 	private void Awake()
 	{
 		
 	}
 	void Start()
     {
+		isResetPosEnd = false;
 		resetPosCnt = 0;
 		myName = gameObject.name;
 
@@ -128,6 +130,24 @@ public class FollowPositions : MonoBehaviour
 			savePos = playerObj.transform.position;
 		}
 
+		if (isFollow1P)
+		{
+			if (pl1.Is_Resporn_End)
+			{
+				isResetPosEnd = false;
+			}
+			//pl1.Is_Resporn_End = false;
+		}
+		else if (isFollow2P)
+		{
+			if (pl2.Is_Resporn_End)
+			{
+				isResetPosEnd = false;
+			}
+			//pl2.Is_Resporn_End = false;
+		}
+
+
 		if (resetPosCnt == 4)
 		{
 			resetPosCnt = 0;
@@ -139,6 +159,7 @@ public class FollowPositions : MonoBehaviour
 			{
 				pl2.Is_Resporn_End = false;				
 			}
+			isResetPosEnd = true;
 		}
 	}
 }
