@@ -161,7 +161,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.08
-  m_Height: 0
+  m_Height: 0.4
   m_Direction: 0
   m_Center: {x: -0.096202314, y: -0.045935035, z: 0}
 --- !u!114 &35721853293384218
@@ -210,7 +210,7 @@ MonoBehaviour:
   activeMissile: 0
   bitIndex: 0
   injection: {fileID: 1971038791974831079}
-  jet_particle: {fileID: 6757398301037926405}
+  particleSystem: {fileID: 0}
   shield_Effect: {fileID: 543512279527049812}
   resporn_Injection: {fileID: 4806170247385354582}
   swing_facing: 45
@@ -1209,12 +1209,6 @@ PrefabInstance:
 --- !u!4 &2283327443830974184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8199746200472911507, guid: 3e5944fd3d2254747b8660f6d130e6fd,
-    type: 3}
-  m_PrefabInstance: {fileID: 7961057439484860539}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6757398301037926405 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3727927692298305662, guid: 3e5944fd3d2254747b8660f6d130e6fd,
     type: 3}
   m_PrefabInstance: {fileID: 7961057439484860539}
   m_PrefabAsset: {fileID: 0}
