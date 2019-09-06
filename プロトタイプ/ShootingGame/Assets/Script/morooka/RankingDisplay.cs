@@ -13,6 +13,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using TextDisplay;
 
 public class RankingDisplay : MonoBehaviour
@@ -30,10 +33,10 @@ public class RankingDisplay : MonoBehaviour
 
 	// 1P表示テキスト
 	Character_Display player1TextDisplay;
-	Vector2 player1TextPosition = new Vector2(-kScreenWidth / 2f / 4f * 3f + 28f, 1080f / 2f / 7f * 4f);
+	Vector2 player1TextPosition = new Vector2(-kScreenWidth / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 200f);
 	// 2P表示テキスト
 	Character_Display player2TextDisplay;
-	Vector2 player2TextPosition = new Vector2(-kScreenWidth / 2f / 4f + 28f, 1080f / 2f / 7f * 4f);
+	Vector2 player2TextPosition = new Vector2(-kScreenWidth / 2f / 4f + 28f, 1080f - 1080f / 2f - 200f);
 
 	// 名前入力用
 	private float inputNameSize = 0f;
@@ -73,6 +76,8 @@ public class RankingDisplay : MonoBehaviour
 	private Vector3[] rank2PPosition;
 	private GameObject[] rank2PParent;
 
+	private List<string> ngWordsList = new List<string>();
+
 	// スクロール用
 	const float kScrollValue = 90f / kWholeScaleWeight;
 	const float kStartScrollValue = kScrollValue * 2f;
@@ -101,6 +106,22 @@ public class RankingDisplay : MonoBehaviour
 		{
 			Setting2PRankingDisplay();
 		}
+		LoadNGWordsFromCSV();
+	}
+	/// <summary>
+	/// NGワードのリストをロードする
+	/// </summary>
+	void LoadNGWordsFromCSV()
+	{
+		TextAsset textFile = Resources.Load("CSV_Folder/NGWordsList") as TextAsset;
+		if (!textFile) { Debug.LogError("Don't found file, name NGWordsList"); return; }
+		StringReader reader = new StringReader(textFile.text);
+		while (reader.Peek() > -1)
+		{
+			string line = reader.ReadLine();
+			string[] words = line.Split(',');
+			ngWordsList.Add(words[0]);
+		}
 	}
 
 	void Update()
@@ -120,6 +141,11 @@ public class RankingDisplay : MonoBehaviour
 	{
 		// 名前変更
 		input1PNameClass.SelectingName();
+		// NGワードであれば初めに戻す
+		if (input1PNameClass.IsDecision && ngWordsList.Contains(input1PNameClass.Name))
+		{
+			input1PNameClass.InitSelectPosition();
+		}
 		// 表示の更新
 		input1PNameDisplay.Character_Preference(input1PNameClass.Name);
 		// ランキングの中心に来るオブジェクトの補正
@@ -147,6 +173,11 @@ public class RankingDisplay : MonoBehaviour
 	{
 		// 名前変更
 		input2PNameClass.SelectingName();
+		// ngワードであれば初めに戻す
+		if (input2PNameClass.IsDecision && ngWordsList.Contains(input2PNameClass.Name))
+		{
+			input2PNameClass.InitSelectPosition();
+		}
 		// 表示の更新
 		input2PNameDisplay.Character_Preference(input2PNameClass.Name);
 		// ランキングの中心に来るオブジェクトの補正

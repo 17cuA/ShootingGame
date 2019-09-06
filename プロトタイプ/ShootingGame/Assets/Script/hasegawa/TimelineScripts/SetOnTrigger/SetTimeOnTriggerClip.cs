@@ -27,7 +27,8 @@ public class SetTimeOnTriggerClip : PlayableAsset, ITimelineClipAsset
 		SetTimeOnTriggerBehaviour behaviour = playable.GetBehaviour();
 		// 情報の設定
 		behaviour.Director = owner.GetComponent<PlayableDirector>();
-		behaviour.Trigger = FindObjectOfType<SetTimeTrigger>();
+		behaviour.SetTimeTrigger = FindObjectOfType<SetTimeTrigger>();
+		behaviour.WaitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
 		behaviour.SetFrame = setFrame;
 		behaviour.DelayFrame = delayFrame;
 		return playable;
