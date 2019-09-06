@@ -394,6 +394,8 @@ namespace Power
 			position++;
 
 			position %= powers.Count - 1;
+
+			DebugManager.OperationDebug("現在パワーアップ位置：" + ((Power.PowerType)position).ToString(), "Player2");
 		}
 
 		/// <summary>
@@ -454,6 +456,8 @@ namespace Power
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
 			}
+
+			DebugManager.OperationDebug("全パワーアップ強化回数リセット", "Player2");
 		}
 
 		public void RemoveAllCheckCallBack()
