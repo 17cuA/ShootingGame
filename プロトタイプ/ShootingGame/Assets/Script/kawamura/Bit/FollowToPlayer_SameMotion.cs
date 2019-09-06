@@ -33,6 +33,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
+	public bool isResetPos;			//リスポーン終了時に位置をリセットしたかどうか
 	public bool endDDDDDDDDDDDDDDDDDDDD = false;
 	void Start()
 	{
@@ -111,24 +112,50 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				if (pl1.Is_Resporn_End)
+				//if (pl1.Is_Resporn_End)
+				//{
+				//	if (!isResetPos)
+				//	{
+				//		endDDDDDDDDDDDDDDDDDDDD = true;
+				//		//pl1.Is_Resporn_End = false;
+				//		transform.position = playerObj.transform.position;
+				//		pos = playerObj.transform.position;
+				//		savePos = playerObj.transform.position;
+				//		for (int i = 0; i < array_Num; i++)
+				//		{
+				//			playerPos[i] = playerObj.transform.position;
+				//			playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
+				//		}
+
+				//		//transform.position = playerObj.transform.position;
+				//		//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+				//		followParent_Script.resetPosCnt++;
+				//		isResetPos = true;
+				//	}
+				//}
+
+				///親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
+				if (!followParent_Script.isResetPosEnd)
 				{
-					endDDDDDDDDDDDDDDDDDDDD = true;
-					//pl1.Is_Resporn_End = false;
-					transform.position = playerObj.transform.position;
-					pos = playerObj.transform.position;
-					savePos = playerObj.transform.position;
-					for (int i = 0; i < array_Num; i++)
+					if (!isResetPos)
 					{
-						playerPos[i] = playerObj.transform.position;
-						playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
+						endDDDDDDDDDDDDDDDDDDDD = true;
+						//pl1.Is_Resporn_End = false;
+						transform.position = playerObj.transform.position;
+						pos = playerObj.transform.position;
+						savePos = playerObj.transform.position;
+						for (int i = 0; i < array_Num; i++)
+						{
+							playerPos[i] = playerObj.transform.position;
+							playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
+						}
+
+						//transform.position = playerObj.transform.position;
+						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+						followParent_Script.resetPosCnt++;
+						isResetPos = true;
 					}
-
-					//transform.position = playerObj.transform.position;
-					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					followParent_Script.resetPosCnt++;
 				}
-
 				if (!pl1.Is_Resporn)
 				{
 					if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
@@ -154,7 +181,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				if (pl2.Is_Resporn_End)
+				if (!followParent_Script.isResetPosEnd)
 				{
 					//pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
@@ -168,6 +195,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 					//transform.position = playerObj.transform.position;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					isResetPos = true;
 					followParent_Script.resetPosCnt++;
 				}
 				if (!pl2.Is_Resporn)
@@ -280,5 +308,9 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		//		savePos = transform.position;
 		//	}
 		//}
+		if (followParent_Script.isResetPosEnd)
+		{
+			isResetPos = false;
+		}
 	}
 }

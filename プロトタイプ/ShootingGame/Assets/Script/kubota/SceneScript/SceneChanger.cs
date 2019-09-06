@@ -80,7 +80,7 @@ public class SceneChanger : MonoBehaviour
 			{
 				frame++;
 				//if(frame > 180) SceneManager.LoadScene("GameClear");
-				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
 		}
 	}

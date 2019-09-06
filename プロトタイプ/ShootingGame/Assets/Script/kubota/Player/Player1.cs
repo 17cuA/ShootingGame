@@ -775,8 +775,12 @@ public class Player1 : character_status
 			default:
 				break;
 		}
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[16]);
+		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);     //ボイス
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);				//パワーアップ音
+
 		Debug.Log("ビットン生成");
+		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player1");
+
 	}
 	//速度を初期のに戻す
 	private void Init_speed()
@@ -784,7 +788,7 @@ public class Player1 : character_status
 		speed = min_speed;
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
 
-		//SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	private void Init_speed_died()
 	{
