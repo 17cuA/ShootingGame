@@ -99,13 +99,13 @@ public class DemoMovieControl : MonoBehaviour
 			isInput = true;
 		}
 		// ムービーが終わりに近づくにつれて暗転させる
-		if ((ulong)videoPlayer.frame >= videoPlayer.frameCount - 10 || isInput)
+		if (videoPlayer.frame >= (long)videoPlayer.frameCount - 30 || isInput)
 		{
-			displayPlane.color += new Color(0f, 0f, 0f, 5f / 60f);
+			displayPlane.color += new Color(0f, 0f, 0f, 2f / 60f);
 		}
-		else if (frame < 12)
+		else if (frame < 30)
 		{
-			displayPlane.color -= new Color(0f, 0f, 0f, 5f / 60f);
+			displayPlane.color -= new Color(0f, 0f, 0f, 2f / 60f);
 			if (displayPlane.color.a < 0f)
 			{
 				displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 0f);
@@ -120,6 +120,7 @@ public class DemoMovieControl : MonoBehaviour
 			videoRawImage.gameObject.SetActive(false);
 			isInput = false;
 			frame = 0;
+			displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 1f);
 		}
 	}
 
@@ -131,11 +132,11 @@ public class DemoMovieControl : MonoBehaviour
 		// 設定したフレーム数を過ぎたら暗転させる
 		if (frame > TransitionFrame)
 		{
-			displayPlane.color += new Color(0f, 0f, 0f, 5f / 60f);
+			displayPlane.color += new Color(0f, 0f, 0f, 2f / 60f);
 		}
-		else if (frame < 12)
+		else if (frame < 30)
 		{
-			displayPlane.color -= new Color(0f, 0f, 0f, 5f / 60f);
+			displayPlane.color -= new Color(0f, 0f, 0f, 2f / 60f);
 			if (displayPlane.color.a < 0f)
 			{
 				displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 0f);
@@ -149,6 +150,7 @@ public class DemoMovieControl : MonoBehaviour
 			videoRawImage.gameObject.SetActive(true);
 			videoPlayer.Play();
 			frame = 0;
+			displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 1f);
 		}
 	}
 }

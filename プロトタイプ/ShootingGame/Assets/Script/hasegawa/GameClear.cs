@@ -69,7 +69,7 @@ namespace Costom
 			// ランキング画面の表示非表示設定
 			rankingDisplay.gameObject.SetActive(displayInfo == EDisplayInformation.eRanking || displayInfo == EDisplayInformation.eRankingFromResult);
 			// PressButtonの点滅
-			if (displayInfo == EDisplayInformation.eResult || displayInfo == EDisplayInformation.eResultToRanking || rankingDisplay.IsDecision1P)
+			if (displayInfo == EDisplayInformation.eResult || displayInfo == EDisplayInformation.eResultToRanking || (rankingDisplay.IsDecision1P && rankingDisplay.IsDecision2P))
 			{
 				pressButtonDisplayParent.SetActive(blinkFrame > kBlinkFrameMax / 2);
 				++blinkFrame;
@@ -83,7 +83,7 @@ namespace Costom
 				pressButtonDisplayParent.SetActive(false);
 			}
 			// 入力を受けたらScene移行
-			if ((Input.anyKeyDown && rankingDisplay.IsDecision1P) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+			if ((Input.anyKeyDown && rankingDisplay.IsDecision1P && rankingDisplay.IsDecision2P) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 			{
 				//Ranking_Strage.Strage_Data.Ranking_Save();
 				Scene_Manager.Manager.Screen_Transition_To_Caution();

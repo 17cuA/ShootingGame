@@ -49,7 +49,17 @@ public class RankingDisplay : MonoBehaviour
 	private InputRankingName input2PNameClass;
 	private Vector2 input2PNamePos = Vector2.zero;
 	private string previous2PName = "";
-	public bool IsDecision2P { get { return input2PNameClass.IsDecision; } }
+	public bool IsDecision2P
+	{
+		get
+		{
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				return true;
+			}
+			return input2PNameClass.IsDecision;
+		}
+	}
 	private Character_Display name2PSubscriptTextDisplay;
 	private Vector2 name2PSubscriptTextPosition = new Vector2(-3840f / 2f / 2f / 2f - 80f * 2f, -1080f / 2f / 7f * 4f);
 
