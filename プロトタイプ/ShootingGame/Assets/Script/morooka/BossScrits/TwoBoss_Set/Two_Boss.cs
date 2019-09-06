@@ -23,9 +23,11 @@ public class Two_Boss : character_status
 			eBio_Laser,
 			eMerry_Go_Round,
 			eStraight_Line,
-			eSmasher,
 			eBefore_Rotation,
 			eBack_Rotation,
+		eSmasher_1,
+		eSmasher_2,
+		eSmasher_Stop,
 	}
 	[Header("ボス形成パーツ")]
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
@@ -42,6 +44,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
+	[SerializeField,Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
 	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 
@@ -79,14 +82,16 @@ public class Two_Boss : character_status
 		// 角度保存
 		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
 
-		Animation_Name = new string[6]
+		Animation_Name = new string[8]
 		{
 			"Bio_Laser",
 			"Merry_Go_Round",
 			"Straight_Line",
-			"Smasher",
 			"Before_Rotation",
 			"Back_Rotation",
+			"Smasher_1",
+			"Smasher_2",
+			"Smasher_Stop",
 		};
 
 		Damage_Collider = new List<Collider>();
@@ -297,30 +302,47 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if (Attack_Step == 0)
 		{
-			Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher]);
+			//Instantiate(Boss_Bacula, new Vector3(7.0f, 12.0f, 0.0f), Quaternion.identity);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
 		{
-			Frames_In_Function++;
-			Shot_Delay++;
-
-			if (Shot_Delay > Shot_DelayMax)
+			var target = new Vector3(13.0f, -1.5f, 0.0f);
+			if (Vector3.Distance(transform.position, target) > 0.1f)
 			{
-
-				Shot_Delay = 0;
+				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
 			}
-
-			// 約20秒
-			//if (Frames_In_Function == 1200)
-			//{
-			Next_Step();
-			//}
+			else if (Vector3.Distance(transform.position, target) < 0.1f)
+			{
+				Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_1]);
+				Next_Step();
+			}
 		}
-		// 攻撃終了
 		else if (Attack_Step == 2)
 		{
-			if (Animation_End())
+			if(!animation_data.isPlaying)
+			{
+				var target = new Vector3(13.0f, 1.5f, 0.0f);
+				if (Vector3.Distance(transform.position, target) > 0.01f)
+				{
+					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
+				}
+				else if (Vector3.Distance(transform.position, target) < 0.01f)
+				{
+					Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_2]);
+					Next_Step();
+				}
+			}
+		}
+		else if(Attack_Step == 3)
+		{
+			var target = new Vector3(13.0f, 0.0f, 0.0f);
+			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
+			if (Vector3.Distance(transform.position, target) < 0.01f) Next_Step(); 
+		}
+		else if(Attack_Step == 4)
+		{
+			if(!animation_data.isPlaying)
 			{
 				Attack_End();
 			}

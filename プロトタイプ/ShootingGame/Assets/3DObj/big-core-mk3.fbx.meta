@@ -118,11 +118,13 @@ ModelImporter:
     7400000: Bio_Laser
     7400002: Merry_Go_Round
     7400004: Straight_Line
-    7400006: Smasher
+    7400006: Smasher_1
     7400008: Before_Rotation
     7400010: Back_Rotation
     7400012: Defo
     7400014: Crossing
+    7400016: ' Idol'
+    7400018: Smasher_2
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -156,7 +158,7 @@ ModelImporter:
       name: Bio_Laser
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 390
+      lastFrame: 330
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -237,10 +239,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Smasher
+      name: Smasher_1
       takeName: Take 001
       firstFrame: 1500
-      lastFrame: 1600
+      lastFrame: 1560
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -352,7 +354,63 @@ ModelImporter:
       name: Crossing
       takeName: Take 001
       firstFrame: 1890
-      lastFrame: 2400
+      lastFrame: 2385
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ' Idol'
+      takeName: Take 001
+      firstFrame: 2400
+      lastFrame: 2436
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Smasher_2
+      takeName: Take 001
+      firstFrame: 1560
+      lastFrame: 1600
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
