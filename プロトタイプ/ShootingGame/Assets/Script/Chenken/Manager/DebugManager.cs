@@ -18,6 +18,9 @@ public class DebugManager : MonoBehaviour
 	private static Text debugText;
 	private static ScrollRect scrollRect;
 	private Dictionary<string, int> infos = new Dictionary<string, int>();
+	[Header("何秒ごとにデータをクリアする")]
+	[SerializeField] private float updateTime = 2;
+	private float updateTimer;
 
 	private void Awake()
 	{
@@ -86,6 +89,13 @@ public class DebugManager : MonoBehaviour
 					UIChild.SetActive(true);
 			}
 		}
+
+		updateTimer += Time.deltaTime;
+		if(updateTimer >= updateTime)
+		{
+			updateTimer = 0;
+			infos.Clear();
+		}
 	}
 
 	/// <summary>
@@ -114,7 +124,7 @@ public class DebugManager : MonoBehaviour
 		}
 		else
 		{
-			if(infos[outPut] < 10)
+			if(infos[outPut] < 1)
 			{
 				infos[outPut]++;
 			}
