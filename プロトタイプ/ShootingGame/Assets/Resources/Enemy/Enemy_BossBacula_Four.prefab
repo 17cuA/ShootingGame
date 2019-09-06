@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &776686147061242706
 Transform:
   m_ObjectHideFlags: 0
@@ -79,6 +79,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 776686147061242706}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -134,10 +139,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
+      propertyPath: createSpeedX
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: speedX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -159,16 +169,6 @@ PrefabInstance:
       propertyPath: isAddSpeedY
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: createSpeedX
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: speedX
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db79ba8d6ceb1144f9d376616ba76908, type: 3}
 --- !u!4 &2764644812166015460 stripped
@@ -184,6 +184,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 776686147061242706}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -239,10 +244,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
+      propertyPath: createSpeedX
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: speedX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -264,16 +274,6 @@ PrefabInstance:
       propertyPath: isAddSpeedY
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: createSpeedX
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: speedX
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db79ba8d6ceb1144f9d376616ba76908, type: 3}
 --- !u!4 &2764644812588074008 stripped
@@ -289,6 +289,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 776686147061242706}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -344,10 +349,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
+      propertyPath: createSpeedX
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: speedX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -369,16 +379,6 @@ PrefabInstance:
       propertyPath: isAddSpeedY
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: createSpeedX
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: speedX
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db79ba8d6ceb1144f9d376616ba76908, type: 3}
 --- !u!4 &2764644812812415822 stripped
@@ -394,6 +394,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 776686147061242706}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -449,10 +454,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
+      propertyPath: createSpeedX
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: speedX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6108812974834225070, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
@@ -473,16 +483,6 @@ PrefabInstance:
         type: 3}
       propertyPath: isAddSpeedY
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: createSpeedX
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898558, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: speedX
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db79ba8d6ceb1144f9d376616ba76908, type: 3}
