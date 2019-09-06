@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6108812973272898559}
   - component: {fileID: 6108812973272898553}
   - component: {fileID: 6108812973272898558}
+  - component: {fileID: 3034427051798679000}
   m_Layer: 9
   m_Name: Enemy_Bacula
   m_TagString: Enemy
@@ -85,6 +86,18 @@ MonoBehaviour:
   isDisappearance: 0
   isCreate: 0
   isDamage: 0
+--- !u!114 &3034427051798679000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6108812973272898556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6108812974834225068
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +223,6 @@ MonoBehaviour:
   - {fileID: 6108812975052449805}
   isrend: 0
   Is_Dead: 0
-  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   saveHp: 0
@@ -235,6 +247,7 @@ MonoBehaviour:
   rotaZ_Value: 0
   myName: 
   isWaveEnemy: 0
+  isBacula: 0
 --- !u!1001 &6108812975054745709
 PrefabInstance:
   m_ObjectHideFlags: 0

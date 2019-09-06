@@ -70,20 +70,18 @@ public class One_Boss_BoundBullet : bullet_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-
         if(col.tag == "Player_Bullet")
 		{
 			gameObject.SetActive(false);
+			col.GetComponent<bullet_status>().Player_Bullet_Des();
+			col.gameObject.SetActive(false);
 		}
 		else if(col.tag == "Enemy")
 		{
-			One_Boss oneS = col.GetComponent<One_Boss>();
-			if (oneS != null)
+			Boss_One_Laser oneS = col.GetComponent<Boss_One_Laser>();
+			if (oneS == null)
 			{
-				if (oneS.now_rush)
-				{
 					gameObject.SetActive(false);
-				}
 			}
 		}
 	}

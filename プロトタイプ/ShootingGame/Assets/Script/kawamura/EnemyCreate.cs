@@ -475,6 +475,8 @@ public class EnemyCreate : MonoBehaviour
 		//    }
 		//    isMiddleBossDead = false;
 		//}
+
+		//中ボス撃破
 		if (middleBoss_Script != null)
 		{
 			if (middleBoss_Script.Is_Dead)
@@ -482,7 +484,7 @@ public class EnemyCreate : MonoBehaviour
 				if (frameCnt < 7210)
 				{
 					frameCnt = 7210;
-					turning_frame = 7210;
+					turning_frame = 7060;　//←今爆発がでかいのでちょっと間を空けます
 					groupCnt = 26;
 				}
 				isMiddleBossDead = false;
@@ -1067,7 +1069,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(600);
 				nowGroupCnt++;
 			}
-			// ビッグコア出現
+			// ビッグコア出現🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
 			{
 				GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
@@ -1332,7 +1334,7 @@ public class EnemyCreate : MonoBehaviour
 				isNowOneBoss = true;
 
 				nextEnemy = "バキュラ群";
-				Next_Condition(60);
+				Next_Condition(540);
 			}
 			//バキュラ群 17030
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
@@ -1423,7 +1425,7 @@ public class EnemyCreate : MonoBehaviour
 				nextEnemy = " ";
 				Next_Condition(180);
 			}
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
 			{
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}

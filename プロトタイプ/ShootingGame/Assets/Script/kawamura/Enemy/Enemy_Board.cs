@@ -50,10 +50,14 @@ public class Enemy_Board : character_status
 
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.name == "WallLeft")
-        {
-            ebp.isDisappearance = true;
-        }
+		if (col.gameObject.name == "WallLeft")
+		{
+			ebp.isDisappearance = true;
+		}
+		else if (col.gameObject.name == "smasher_left" || col.gameObject.name == "smasher_right")
+		{
+			hp = 0;
+		}
     }
 
     void Enemy_Reset()
