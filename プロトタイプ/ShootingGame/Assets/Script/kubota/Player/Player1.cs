@@ -38,7 +38,6 @@ public class Player1 : character_status
 	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
@@ -148,7 +147,7 @@ public class Player1 : character_status
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
-		particleSystemMain = particleSystem.main;
+		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
@@ -775,8 +774,12 @@ public class Player1 : character_status
 			default:
 				break;
 		}
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[16]);
+		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);     //ボイス
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);				//パワーアップ音
+
 		Debug.Log("ビットン生成");
+		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player1");
+
 	}
 	//速度を初期のに戻す
 	private void Init_speed()
@@ -784,7 +787,7 @@ public class Player1 : character_status
 		speed = min_speed;
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
 
-		//SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	private void Init_speed_died()
 	{

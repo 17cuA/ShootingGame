@@ -30,15 +30,17 @@ public class big_core_mk3_EF : MonoBehaviour
 	[SerializeField, Tooltip("マルチプル6位置")] private Vector3 ef_multipl_6_position;
 	[SerializeField, Tooltip("マルチプル6回転")] private Vector3 ef_multipl_6_rotation;
 
-	public GameObject EF_Base			{ get; set; }
-	public GameObject EF_Weapon_R	{ get; set; }
-	public GameObject EF_Weapon_L	{ get; set; }
-	public GameObject Multipl_1			{ get; set; }
-	public GameObject Multipl_2			{ get; set; }
-	public GameObject Multipl_3			{ get; set; }
-	public GameObject Multipl_4			{ get; set; }
-	public GameObject Multipl_5			{ get; set; }
-	public GameObject Multipl_6			{ get; set; }
+	[SerializeField, Tooltip("削除判定")] private bool is_deleat;
+
+	public GameObject EF_Base;
+	public GameObject EF_Weapon_R;
+	public GameObject EF_Weapon_L;
+	public GameObject Multipl_1;
+	public GameObject Multipl_2;
+	public GameObject Multipl_3;
+	public GameObject Multipl_4;
+	public GameObject Multipl_5;
+	public GameObject Multipl_6;
 
 	private Vector3 Base_IniPos;
 	private Vector3 WeaponR_IniPos;
@@ -60,26 +62,38 @@ public class big_core_mk3_EF : MonoBehaviour
 	private Vector3 Multipl_IniRo_5;
 	private Vector3 Multipl_IniRo_6;
 
-    // Update is called once per frame
-    void Update()
-    {
-		//EF_Base.transform.position = Base_IniPos + ef_base_position;
-		//EF_Weapon_R.transform.position = WeaponR_IniPos + ef_weapon_right_position;
-		//EF_Weapon_L	  .transform.position = WeaponR_IniPos+ef_weapon_left_position
-		//Multipl_1			.transform.position = 
-		//Multipl_2			.transform.position = 
-		//Multipl_3			.transform.position = 
-		//Multipl_4			.transform.position = 
-		//Multipl_5			.transform.position =
-		//Multipl_6.transform.position =
+	// Update is called once per frame
+	void Update()
+	{
+		EF_Base.transform.position = Base_IniPos + ef_base_position;
+		EF_Weapon_R.transform.position = WeaponR_IniPos + ef_weapon_right_position;
+		EF_Weapon_L.transform.position = WeaponL_IniPos + ef_weapon_left_position;
+		Multipl_1.transform.position = Multipl_IniPos_1 + ef_multipl_1_position;
+		Multipl_2.transform.position = Multipl_IniPos_2 + ef_multipl_2_position;
+		Multipl_3.transform.position = Multipl_IniPos_3 + ef_multipl_3_position;
+		Multipl_4.transform.position = Multipl_IniPos_4 + ef_multipl_4_position;
+		Multipl_5.transform.position = Multipl_IniPos_5 + ef_multipl_5_position;
+		Multipl_6.transform.position = Multipl_IniPos_6 + ef_multipl_6_position;
 
-		//EF_Base.transform.rotation = Quaternion.Euler(Base_IniRo + ef_base_rotation);
+		EF_Base.transform.rotation = Quaternion.Euler(Base_IniRo + ef_base_rotation);
+		EF_Weapon_R.transform.rotation = Quaternion.Euler(WeaponR_IniRo + ef_weapon_right_rotation);
+		EF_Weapon_L.transform.rotation = Quaternion.Euler(WeaponL_IniRo + ef_weapon_left_rotation);
+		Multipl_1.transform.rotation = Quaternion.Euler(Multipl_IniRo_1 + ef_multipl_1_rotation);
+		Multipl_2.transform.rotation = Quaternion.Euler(Multipl_IniRo_2 + ef_multipl_2_rotation);
+		Multipl_3.transform.rotation = Quaternion.Euler(Multipl_IniRo_3 + ef_multipl_3_rotation);
+		Multipl_4.transform.rotation = Quaternion.Euler(Multipl_IniRo_4 + ef_multipl_4_rotation);
+		Multipl_5.transform.rotation = Quaternion.Euler(Multipl_IniRo_5 + ef_multipl_5_rotation);
+		Multipl_6.transform.rotation = Quaternion.Euler(Multipl_IniRo_6 + ef_multipl_6_rotation);
+
+		if(is_deleat)
+		{
+			Destroy(gameObject);
+		}
 	}
-
 	/// <summary>
 	///	 初期設定
 	/// </summary>
-	private void Set_Init()
+	public void Set_Init()
 	{
 		Base_IniPos			= EF_Base.transform.position;
 		WeaponR_IniPos	= EF_Weapon_R.transform.position;

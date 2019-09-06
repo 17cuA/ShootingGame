@@ -20,17 +20,19 @@ public class FollowPositions : MonoBehaviour
 	public int resetPosCnt;
 
 	bool check = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	public bool isMove;
 	bool defCheck;
 	public bool isFollow1P;
 	public bool isFollow2P;
+	public bool isResetPosEnd;
 	private void Awake()
 	{
 		
 	}
 	void Start()
     {
+		isResetPosEnd = false;
 		resetPosCnt = 0;
 		myName = gameObject.name;
 
@@ -93,15 +95,34 @@ public class FollowPositions : MonoBehaviour
 
 		if (check)
 		{
-			if(Input.GetButtonUp("Bit_Freeze")||Input.GetKeyUp(KeyCode.Y))
+			if (isFollow1P)
 			{
-				isFreeze = false;
-				//transform.parent = null;
+				if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				{
+					isFreeze = false;
+					//transform.parent = null;
+				}
+				else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+					//transform.parent = playerObj.transform;
+
+				}
+
 			}
-			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			else if (isFollow2P)
 			{
-				isFreeze = true;
-				//transform.parent = playerObj.transform;
+				if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				{
+					isFreeze = false;
+					//transform.parent = null;
+				}
+				else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+					//transform.parent = playerObj.transform;
+
+				}
 
 			}
 			//savePos = playerObj.transform.position;
@@ -128,6 +149,24 @@ public class FollowPositions : MonoBehaviour
 			savePos = playerObj.transform.position;
 		}
 
+		if (isFollow1P)
+		{
+			if (pl1.Is_Resporn_End)
+			{
+				isResetPosEnd = false;
+			}
+			//pl1.Is_Resporn_End = false;
+		}
+		else if (isFollow2P)
+		{
+			if (pl2.Is_Resporn_End)
+			{
+				isResetPosEnd = false;
+			}
+			//pl2.Is_Resporn_End = false;
+		}
+
+
 		if (resetPosCnt == 4)
 		{
 			resetPosCnt = 0;
@@ -137,11 +176,11 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				if (isFollow1P)
-				{
-					pl2.Is_Resporn_End = false;
-				}
+				pl2.Is_Resporn_End = false;				
 			}
+			isResetPosEnd = true;
+			isFreeze = false;
+
 		}
 	}
 }

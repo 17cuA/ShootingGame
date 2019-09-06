@@ -14,6 +14,7 @@ public class Two_Boss_Parts : character_status
 {
 	[SerializeField] private GameObject[] supported_objects;
 	[SerializeField, Tooltip("ID")] private string id;
+	[SerializeField, Tooltip("マルチプル")] private bool is_mul;
 	public string ID
 	{
 		get { return id; }
@@ -25,27 +26,54 @@ public class Two_Boss_Parts : character_status
 	}
 
 	private Vector3 Initial_Position { get; set; }
+	private MeshRenderer renderer { get; set; }
+	private Color Damege_Color { get; set; }
+	private bool Is_Bomb { get; set; }
 
 	private new void Start()
 	{
 		base.Start();
 		Initial_Position = transform.position;
+		renderer = GetComponent<MeshRenderer>();
+		Damege_Color = new Color(104.0f / 255.0f, 76.0f / 255.0f, 46.0f / 255.0f);
+		Is_Bomb = false;
 	}
 	private new void Update()
 	{
-		base.Update();
-		if (hp < 1)
+		if (is_mul)
 		{
-			if (supported_objects != null)
+			if (hp < 1)
 			{
-				foreach (GameObject obj in supported_objects)
+				if (!Is_Bomb)
 				{
-					MeshRenderer ms = obj.GetComponent<MeshRenderer>();
-					ms.enabled = false;
+					material_Reset();
+					ParticleCreation(0);
+					renderer.material.SetVector("_BaseColor", Damege_Color); 
+					Is_Bomb = true;
+					GetComponent<Collider>().enabled = false;
 				}
+
 			}
-			base.Died_Judgment();
-			base.Died_Process();
+			else
+			{
+  				base.Update();
+			}
+		}
+		else
+		{
+			base.Update();
+			if (hp < 1)
+			{
+				if (supported_objects != null)
+				{
+					foreach (GameObject obj in supported_objects)
+					{
+						renderer.enabled = false;
+					}
+				}
+				base.Died_Judgment();
+				base.Died_Process();
+			}
 		}
 	}
 }

@@ -57,6 +57,7 @@ public class PauseManager : MonoBehaviour
 		{
 			if ((Input.GetKeyDown(controlKey) && isUseKey) /*|| (Input.GetButtonDown(controlName) && !isUseKey)*/)
 			{
+				DebugManager.OperationDebug("-----一時停止-----", "GM");
 				Time.timeScale = 0f;
 				isPause = !isPause;
 				PauseComponent.Pause();
@@ -73,6 +74,7 @@ public class PauseManager : MonoBehaviour
 		{
 			if((Input.GetKeyDown(controlKey) && isUseKey) /*|| (Input.GetButtonDown(controlName) && !isUseKey)*/)
 			{
+				DebugManager.OperationDebug("-----ゲーム再開-----", "GM");
 				Time.timeScale = 1f;
 				isPause = !isPause;
 				PauseComponent.Resume();

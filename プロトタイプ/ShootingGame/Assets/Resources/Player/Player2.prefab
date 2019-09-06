@@ -63,8 +63,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.14406496
-  m_Height: 1.0075954
+  m_Radius: 0.08
+  m_Height: 0.4
   m_Direction: 0
   m_Center: {x: -0.096202314, y: -0.045935035, z: 0}
 --- !u!114 &5606608527686070561
@@ -101,7 +101,6 @@ MonoBehaviour:
   - {fileID: 9021348456008261697}
   isrend: 0
   Is_Dead: 0
-  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   target: {x: 0, y: 0, z: 0}
@@ -114,7 +113,6 @@ MonoBehaviour:
   activeMissile: 0
   bitIndex: 0
   injection: {fileID: 2622640615350773890}
-  particleSystem: {fileID: 2622640615350773890}
   shield_Effect: {fileID: 4441748745056728385}
   resporn_Injection: {fileID: 818244651012866486}
   swing_facing: 45
@@ -129,6 +127,7 @@ MonoBehaviour:
   frame_max: 40
   Is_Animation: 0
   Is_Resporn: 0
+  Is_Resporn_End: 0
   effect_mazle_fire:
   - {fileID: 275840543721623744}
   - {fileID: 5361637408915566456}
@@ -689,6 +688,12 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5696957299922330103, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243727882422944856, guid: fbe2e1f9471704d4fad358c1656182b1,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3517bbfe0d70d9e4c8ed482fd60c2173, type: 3}
 --- !u!1 &84610916388901426 stripped

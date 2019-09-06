@@ -9,6 +9,10 @@ public class Voice_Manager : MonoBehaviour
 	public AudioSource audiosource;
 	[Header("無線用")]
 	public AudioSource Sinario_audio;
+	[Header("マルチプルの音声")]
+	public AudioSource Maltiple_audio;
+
+
 	private void Awake()
 	{
 		VOICE_Obj = GetComponent<Voice_Manager>();
@@ -23,9 +27,14 @@ public class Voice_Manager : MonoBehaviour
 	{
 		audiosource.PlayOneShot(voice);
 	}
+	//マルチプル用
+	public void Maltiple_Active_Voice(AudioClip voice)
+	{
+		Maltiple_audio.PlayOneShot(voice);
+	}
 	//無線用のAudioSourceを使用
 	public void Sinario_Active(AudioClip voice)
 	{
-		Sinario_audio.PlayOneShot(voice);
+		if(!Sinario_audio.isPlaying)	Sinario_audio.PlayOneShot(voice);
 	}
 }

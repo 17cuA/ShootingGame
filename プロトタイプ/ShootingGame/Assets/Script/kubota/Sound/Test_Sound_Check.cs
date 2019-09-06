@@ -18,7 +18,7 @@ public class Test_Sound_Check : MonoBehaviour
 	}
 	public void Item_Catch_Test()
 	{
-		SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Item_Catch();
 	}
 	public void Explision_Test()
 	{

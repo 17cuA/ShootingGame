@@ -28,6 +28,7 @@ namespace Power
 
 			private int upgradeCount;                                                       //現在強化回数
 			private int maxUpgradeCount;                                                    //最大強化可能回数
+			private int tempMaxUpgradeCount;
 			private PowerType type;                                                         //パワータイプ
 			private List<ExcutePowerUpgradeCallBack> onUpgradeCallBacks;//強化時コールバック
 			private List<ResetPowerCallBack> onResetCallBacks;                  //リセット時コールバック
@@ -52,6 +53,7 @@ namespace Power
 			{
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = maxUpgradeCount;
+				this.tempMaxUpgradeCount = this.maxUpgradeCount;
 				this.type = type;
 				this.resetCheck = false;
 				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
@@ -68,6 +70,7 @@ namespace Power
 				this.resetCheck = false;
 				this.upgradeCount = 0;
 				this.maxUpgradeCount = 999999999;
+				this.tempMaxUpgradeCount = this.maxUpgradeCount;
 				this.onUpgradeCallBacks = new List<ExcutePowerUpgradeCallBack>();
 				this.onResetCallBacks = new List<ResetPowerCallBack>();
 			}
@@ -184,14 +187,12 @@ namespace Power
 			/// 強化リセット条件判断処理の監視を削除するメソッド
 			/// </summary>
 			/// <param name="resetCallBack">　void()　</param>
-			public void RemoveCheckFunction(ResetPowerCallBack resetCallBack)
+
+
+			public void RemoveCheckFunction()
 			{
 				onCheckResetCallBack = null;
-
-				if (!onResetCallBacks.Contains(resetCallBack))
-					return;
-
-				onResetCallBacks.Remove(resetCallBack);
+				onResetCallBacks.Clear();
 			}
 
 			public void ResetUpgradeCount()
@@ -202,6 +203,11 @@ namespace Power
 			public void ReduceMaxUpgradeTime(int time)
 			{
 				this.maxUpgradeCount -= time;
+			}
+
+			public void ResetMaxUpgradeTime()
+			{
+				this.maxUpgradeCount = this.tempMaxUpgradeCount;
 			}
 		}
 
@@ -341,7 +347,7 @@ namespace Power
 			if (!powers.ContainsKey(type))
 				return;
 
-			powers[type].RemoveCheckFunction(resetCallBack);
+			powers[type].RemoveCheckFunction();
 		}
 
 		/// <summary>
@@ -388,6 +394,8 @@ namespace Power
 			position++;
 
 			position %= powers.Count - 1;
+
+			DebugManager.OperationDebug("現在パワーアップ位置：" + ((Power.PowerType)position).ToString(), "Player2");
 		}
 
 		/// <summary>
@@ -447,6 +455,16 @@ namespace Power
 				var power = powers[Power.PowerType.SPEEDUP];
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
+			}
+
+			DebugManager.OperationDebug("全パワーアップ強化回数リセット", "Player2");
+		}
+
+		public void RemoveAllCheckCallBack()
+		{
+			foreach (var power in powers.Values)
+			{
+				power.RemoveCheckFunction();
 			}
 		}
 
