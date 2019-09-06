@@ -5,6 +5,7 @@ using UnityEngine;
 public class SE_Manager : MonoBehaviour
 {
 	public static SE_Manager SE_Obj;
+
 	[Header("音を鳴らすかどうか")]
 	public bool Is_Active;
 	[Header("基本的なSEたち")]
@@ -37,7 +38,7 @@ public class SE_Manager : MonoBehaviour
 		if (Is_Active) Power_Up.PlayOneShot(se);
 	}
 	//アイテム取得用
-	public void SE_Item_Catch(AudioClip se)
+	public void SE_Item_Catch()
 	{
 		if (Item_Up.isPlaying) Item_Up.Stop();
 		if (Is_Active) Item_Up.Play();

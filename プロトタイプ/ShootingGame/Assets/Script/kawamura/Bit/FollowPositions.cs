@@ -20,7 +20,7 @@ public class FollowPositions : MonoBehaviour
 	public int resetPosCnt;
 
 	bool check = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	public bool isMove;
 	bool defCheck;
 	public bool isFollow1P;
@@ -95,15 +95,34 @@ public class FollowPositions : MonoBehaviour
 
 		if (check)
 		{
-			if(Input.GetButtonUp("Bit_Freeze")||Input.GetKeyUp(KeyCode.Y))
+			if (isFollow1P)
 			{
-				isFreeze = false;
-				//transform.parent = null;
+				if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				{
+					isFreeze = false;
+					//transform.parent = null;
+				}
+				else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+					//transform.parent = playerObj.transform;
+
+				}
+
 			}
-			else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+			else if (isFollow2P)
 			{
-				isFreeze = true;
-				//transform.parent = playerObj.transform;
+				if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				{
+					isFreeze = false;
+					//transform.parent = null;
+				}
+				else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				{
+					isFreeze = true;
+					//transform.parent = playerObj.transform;
+
+				}
 
 			}
 			//savePos = playerObj.transform.position;
@@ -160,6 +179,8 @@ public class FollowPositions : MonoBehaviour
 				pl2.Is_Resporn_End = false;				
 			}
 			isResetPosEnd = true;
+			isFreeze = false;
+
 		}
 	}
 }

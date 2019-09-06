@@ -262,12 +262,14 @@ public class Enemy_MiddleBoss : character_status
 		if (transform.position.y > limitYUp)
 		{
 			moveDirection = Vector3.down;
+			DebugManager.OperationDebug("中ボス移動!" + " 移動方向：" + moveDirection.ToString(), "中ボス");
 			return;
 		}
 
 		if (transform.position.y < limitYDown)
 		{
 			moveDirection = Vector3.up;
+			DebugManager.OperationDebug("中ボス移動!" + " 移動方向：" + moveDirection.ToString(), "中ボス");
 			return;
 		}
 

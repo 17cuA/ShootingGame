@@ -113,8 +113,22 @@ public class One_Boss : character_status
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
 
+	//---------------------------------------------------------
+	//レーザー音追加
+	[SerializeField] private AudioClip laserBegin;
+	[SerializeField] private AudioClip laserContinuing;
+	[SerializeField] private AudioClip laserEnd;
+	private AudioSource audioSource;
+	//---------------------------------------------------------
+
 	private new void Start()
 	{
+		//-------------追加--------------
+		audioSource = GetComponent<AudioSource>();
+		audioSource.clip = laserEnd;
+		audioSource.playOnAwake = false;
+		//-------------------------------
+
 		Timeline_Player.playOnAwake = false;
 
 		base.Start();
@@ -571,6 +585,14 @@ public class One_Boss : character_status
 		}
 		else if (Attack_Step == 2)
 		{
+			if (audioSource.clip == laserEnd)
+			{
+				audioSource.clip = laserBegin;
+				audioSource.Stop();
+				audioSource.loop = true;
+				audioSource.Play();
+			}
+
 			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
 			{
 				supply[0].gameObject.SetActive(true);
@@ -593,12 +615,21 @@ public class One_Boss : character_status
 			Timeline_Player.Play(layser_timeline);
 			Timeline_Player.time = 0.0;
 			Attack_Step++;
+			//--------------追加-----------------
+			if (audioSource.clip == laserBegin)
+			{
+				audioSource.clip = laserContinuing;
+				audioSource.Stop();
+				audioSource.loop = true;
+				audioSource.Play();
+			}
+			//-----------------------------------
 		}
 		// ここから打ち出し！！！！
 		else if(Attack_Step == 4)
 		{
 			if(Is_Laser_Attack)
-			{
+			{	
 				Laser_Shooting();
 			}
 
@@ -606,6 +637,13 @@ public class One_Boss : character_status
 			{
 				Timeline_Player.Stop();
 				Attack_Step++;
+
+				//---------------追加-----------------
+				audioSource.clip = laserEnd;
+				audioSource.Stop();
+				audioSource.loop = false;
+				audioSource.Play();
+				//------------------------------------
 			}
 		}
 		else if(Attack_Step==5)

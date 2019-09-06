@@ -172,29 +172,29 @@ public class Obj_Storage : MonoBehaviour
 
 		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
-		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");	//プレイヤーのマズルファイア
-		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Explosion/E001");  //バグが起きないようにプレイヤーの爆発を仮置き
-		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Explosion/E100");	//敵キャラの爆発エフェクト
-		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Explosion/E201");	//敵キャラコアシールドの破壊エフェクト
-		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");	//プレイヤーパワーアップエフェクト
-		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");	//中ボス爆発
-		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");      //バグが起きないようにプレイヤーの爆発を仮置き
-		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Attachment/A110");			//敵の粒子
+		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");		//プレイヤーのマズルファイア
+		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Explosion/E100");		//敵キャラの爆発エフェクト
+		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Explosion/E201");		//敵キャラコアシールドの破壊エフェクト
+		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");		//プレイヤーパワーアップエフェクト
+		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");		//中ボス爆発
+		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Attachment/A110");		//敵の粒子
 		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");		//戦艦型の爆発
 		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");		//プレイヤーの弾の着弾時のエフェクト
-		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");		//ボス登場時のエフェクト
-		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");        //隕石の爆発Effect
-		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
-		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");        //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");			//ボス登場時のエフェクト
+		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");		//隕石の爆発Effect
+		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
 
-		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bacura_Hit");		//バキュラに当たった時の高い音用
-		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");   //隕石の爆発音
+		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bacura_Hit");				//バキュラに当たった時の高い音用
+		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");	//隕石の爆発音
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
-		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
-		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");
-		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");	//アイテム使用音
-		audio_se[6] = Resources.Load<AudioClip>("Sound/SE/09_gradius_se_zakoenemy_Destroyed");
-		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");
+		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");	
+		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
+		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
+		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/power_up_Kapuseru t");	//アイテム使用パワーアップ音(ステータス変化)
+		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");			//HP持ちエネミーのカウンター音(ダメージ減ってない)
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
@@ -204,12 +204,12 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/16_gradius_se_LIPLE_LASER");		//リップルレーザーの声
 		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/17_gradius_se_OPTION");			//オプションの声
 		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/18_gradius_se_FORCE_FIELD");		//フォースフィールド（シールド）
-		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_powerup");			//パワーアップの音(使用しない)
+		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/power_up_kettei");			//パワーアップの音(使用しない)
 		audio_se[17] = Resources.Load<AudioClip>("Sound/Teacher_SE/gradius_SE_Player_Laser");	//レーザーの発射音
-        audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)"); //小型爆発
-        audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");//戦艦タイプの爆発音
-		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");//プレイヤーの死亡時の音
-		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");		//プレイヤー登場の音
+        audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)");		//小型爆発
+        audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");	//戦艦タイプの爆発音
+		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");		//プレイヤーの死亡時の音
+		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");			//プレイヤー登場の音
 		audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)");	//中ボス用の爆発音
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");		//開戦時

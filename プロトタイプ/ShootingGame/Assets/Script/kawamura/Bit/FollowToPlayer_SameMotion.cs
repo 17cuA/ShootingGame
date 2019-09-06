@@ -29,7 +29,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool check = false;
 	public bool isMove = false;
 	public bool hasOption = false;
-	bool isFreeze = false;
+	public bool isFreeze = false;
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
@@ -112,28 +112,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				//if (pl1.Is_Resporn_End)
-				//{
-				//	if (!isResetPos)
-				//	{
-				//		endDDDDDDDDDDDDDDDDDDDD = true;
-				//		//pl1.Is_Resporn_End = false;
-				//		transform.position = playerObj.transform.position;
-				//		pos = playerObj.transform.position;
-				//		savePos = playerObj.transform.position;
-				//		for (int i = 0; i < array_Num; i++)
-				//		{
-				//			playerPos[i] = playerObj.transform.position;
-				//			playerPos[i] = new Vector3(playerPos[i].x, playerPos[i].y, 0);
-				//		}
-
-				//		//transform.position = playerObj.transform.position;
-				//		//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-				//		followParent_Script.resetPosCnt++;
-				//		isResetPos = true;
-				//	}
-				//}
-
 				///親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
 				if (!followParent_Script.isResetPosEnd)
 				{
@@ -154,6 +132,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 						followParent_Script.resetPosCnt++;
 						isResetPos = true;
+						isFreeze = false;
 					}
 				}
 				if (!pl1.Is_Resporn)

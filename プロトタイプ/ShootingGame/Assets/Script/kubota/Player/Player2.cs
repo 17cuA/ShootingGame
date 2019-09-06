@@ -684,7 +684,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//ミサイルをアクティブに
 	private void ActiveMissile()
@@ -696,7 +696,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//二連をできるように
 	private void ActiveDouble()
@@ -709,7 +709,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -723,7 +723,7 @@ public class Player2 : character_status
 		particle.Play();
 		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 		Laser.SetActive(true);
 	}
 	//シールドの発動
@@ -741,7 +741,7 @@ public class Player2 : character_status
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//オプションをアクティブに
@@ -790,7 +790,7 @@ public class Player2 : character_status
 				break;
 		}
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);                //パワーアップ音
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
 
 		//Debug.Log("ビットン生成");
 		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");
