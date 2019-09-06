@@ -29,7 +29,8 @@ public class Enemy_BurstShot : MonoBehaviour
 	public int burst_Num;					//バーストを撃った回数
 	public int burst_Shot_Cnt;                 //何発撃ったかのカウント
 	public bool isShot = false;
-	public bool isBurst = false;                   //バーストを撃つかどうか
+	public bool isBurst = false;        //バーストを撃つかどうか
+	public bool once;
 
 	private void OnDisable()
 	{
@@ -37,6 +38,7 @@ public class Enemy_BurstShot : MonoBehaviour
 	}
 	private void Awake()
 	{
+		once = true;
 		parentObj = transform.parent.gameObject;
 		myName = parentObj.name;
 		if(parentObj.name== "Enemy_UFO(Clone)")
@@ -74,6 +76,10 @@ public class Enemy_BurstShot : MonoBehaviour
 
 	void Update()
 	{
+		if(once)
+		{
+			Shot_Reset();
+		}
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;
 
