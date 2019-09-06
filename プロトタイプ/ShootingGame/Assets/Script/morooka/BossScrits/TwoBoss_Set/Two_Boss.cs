@@ -302,7 +302,7 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if (Attack_Step == 0)
 		{
-			//Instantiate(Boss_Bacula, new Vector3(7.0f, 12.0f, 0.0f), Quaternion.identity);
+			Instantiate(Boss_Bacula, new Vector3(7.0f, 12.0f, 0.0f), Quaternion.identity);
 			Next_Step();
 		}
 		else if (Attack_Step == 1)

@@ -144,28 +144,8 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
 			particle.Play();
-			switch (Bullet_Type)
-			{
-				case Type.None:
-					break;
-				case Type.Player1:
-					P1.Bullet_cnt = 0;
-					break;
-				case Type.Player2:
-					P2.Bullet_cnt = 0;
-					break;
-				case Type.Player1_Option:
-					bShot.Bullet_cnt = 0;
-					break;
-				case Type.Player2_Option:
-					bShot.Bullet_cnt = 0;
-					break;
-				case Type.Enemy:
-					break;
-				default:
-					break;
-			}
 			gameObject.SetActive(false);
+			Player_Bullet_Des();
 		}
         else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
         {
@@ -180,28 +160,7 @@ public class bullet_status : MonoBehaviour
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             effect.transform.position = gameObject.transform.position;
             particle.Play();
-			switch (Bullet_Type)
-			{
-				case Type.None:
-					break;
-				case Type.Player1:
-					P1.Bullet_cnt = 0;
-					break;
-				case Type.Player2:
-					P2.Bullet_cnt = 0;
-					break;
-				case Type.Player1_Option:
-                    bShot.Bullet_cnt = 0;
-					break;
-				case Type.Player2_Option:
-                    bShot.Bullet_cnt = 0;
-                    break;
-                case Type.Enemy:
-					break;
-				default:
-					break;
-			}
-
+			Player_Bullet_Des();
 			//if (P1 != null) P1.Bullet_cnt--;
 			//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			//{
@@ -274,4 +233,28 @@ public class bullet_status : MonoBehaviour
 		gameObject.tag = tag_name;
 	}
 
+	public void Player_Bullet_Des()
+	{
+		switch (Bullet_Type)
+		{
+			case Type.None:
+				break;
+			case Type.Player1:
+				P1.Bullet_cnt = 0;
+				break;
+			case Type.Player2:
+				P2.Bullet_cnt = 0;
+				break;
+			case Type.Player1_Option:
+				bShot.Bullet_cnt = 0;
+				break;
+			case Type.Player2_Option:
+				bShot.Bullet_cnt = 0;
+				break;
+			case Type.Enemy:
+				break;
+			default:
+				break;
+		}
+	}
 }
