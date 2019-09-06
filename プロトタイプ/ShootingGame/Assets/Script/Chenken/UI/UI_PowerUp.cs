@@ -56,10 +56,17 @@ public class UI_PowerUp : MonoBehaviour
 		}
 
         Debug.Log("人数：" + ((int)Game_Master.Number_Of_People).ToString());
+		isSetting = false;
 	}
 
 	private void Start()
 	{
+		if (!isSetting)
+		{
+			P1_PowerManager.Instance.GetPower(P1_PowerManager.Power.PowerType.OPTION).ResetMaxUpgradeTime();
+			P2_PowerManager.Instance.GetPower(P2_PowerManager.Power.PowerType.OPTION).ResetMaxUpgradeTime();
+		}
+
 		if ((int)Game_Master.Number_Of_People == 2)
 		{
 			if (!isSetting)
