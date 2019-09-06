@@ -1314,7 +1314,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "BigCore-MkⅡ";
-				Next_Condition(60);
+				Next_Condition(180);
 				nowGroupCnt++;
 			}
 			// ビックコアマーク2🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
