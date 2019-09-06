@@ -214,6 +214,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Debut_Enter()
 	{
+		DebugManager.OperationDebug("中ボス出場!", "中ボス");
 		animator.Play("Debut");
         for (var i = 0; i < bodyColliders.Count; ++i)
         {
@@ -278,6 +279,7 @@ public class Enemy_MiddleBoss : character_status
 		{
 			moveDirection = Vector3.down;
 		}
+		DebugManager.OperationDebug("中ボス移動!" + " 移動方向：" + moveDirection.ToString(), "中ボス");
 	}
 
 	private void Move_Update()
@@ -319,6 +321,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void AdvanceBack_Enter()
 	{
+		DebugManager.OperationDebug("中ボス前に出る", "中ボス");
 		canAdvanceAttack = true;
 		currentSlot += 2;
 	}
@@ -345,6 +348,7 @@ public class Enemy_MiddleBoss : character_status
 		{
 			if (canAdvanceAttack)
 			{
+				DebugManager.OperationDebug("中ボス前に出て弾を出す", "中ボス");
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x, backBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position + new Vector3(bulletCreatLocalPos.x - bulletsDistance, -frontBulletOffetY + bulletCreatLocalPos.y, 0), Vector3.left);
@@ -364,13 +368,14 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Escape_Enter()
 	{
-        //-------------------------7/20修正--------------------------
-        //逃亡時コライダー修正
-        //実はコアの部分を大きくする
-        //細かく調整が必要あるが、今はこれで
-        //-----------------------------------------------------------
-        //capsuleCollider.height = 8;
-        //capsuleCollider.center = new Vector2(1.5f,0.09f);
+		DebugManager.OperationDebug("中ボス退場", "中ボス");
+		//-------------------------7/20修正--------------------------
+		//逃亡時コライダー修正
+		//実はコアの部分を大きくする
+		//細かく調整が必要あるが、今はこれで
+		//-----------------------------------------------------------
+		//capsuleCollider.height = 8;
+		//capsuleCollider.center = new Vector2(1.5f,0.09f);
 
 		animator.enabled = true;
 		animator.Play("Escape");
@@ -397,6 +402,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Stop_Enter()
 	{
+		DebugManager.OperationDebug("中ボス弾出す", "中ボス");
 		moveDirection = Vector3.zero;
 		if(!canFirstShot && currentSlot == 0)
 			return;
@@ -446,6 +452,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Death_Enter()
 	{
+		DebugManager.OperationDebug("中ボス破壊", "中ボス");
 		animator.enabled = true;
 		animator.Play("Death");
 		capsuleCollider.enabled = false;
@@ -481,7 +488,6 @@ public class Enemy_MiddleBoss : character_status
 			Reset_Status();
 			this.gameObject.SetActive(false);
 			explosionEffect.gameObject.SetActive(false);
-			Debug.Log("OVER");
 		}
 	}
 
