@@ -213,4 +213,11 @@ public class InputRankingName
 			blinkFrame = 0;
 		}
 	}
+	/// <summary>
+	/// 選択位置をリセットする
+	/// </summary>
+	public void InitSelectPosition()
+	{
+		selectPos = 0;
+	}
 }

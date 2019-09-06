@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 114556006129759394}
   - {fileID: 114380049869583032}
   - {fileID: 114328357558051372}
+  - {fileID: 114383499493774342}
   - {fileID: 114016923391415682}
   m_FixedDuration: 0
   m_EditorSettings:
@@ -5133,10 +5134,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: LoopClip
     m_Version: 1
-  - m_Start: 177.15
+  - m_Start: 454.3333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 114258887165912868}
-    m_Duration: 149.98333333333346
+    m_Duration: 146.73333333333346
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114220549832204750}
     m_EaseInDuration: 0
@@ -5606,7 +5607,7 @@ MonoBehaviour:
   - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114026058883380136}
-    m_Duration: 239.98333333333346
+    m_Duration: 601.0666666666668
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114328357558051372}
     m_EaseInDuration: 0
@@ -5985,7 +5986,7 @@ MonoBehaviour:
   m_Muted: 1
   m_CustomPlayableFullTypename: 
   m_AnimClip: {fileID: 74556601169646090}
-  m_Parent: {fileID: 11400000}
+  m_Parent: {fileID: 114406702902277026}
   m_Children: []
   m_Clips: []
   m_Version: 2
@@ -6041,6 +6042,95 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &114383499493774342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161b7192452fe194faa5118f1d8178fc, type: 3}
+  m_Name: Set Time On Trigger Track
+  m_EditorClassIdentifier: 
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_AnimClip: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Start: 29.083333333333336
+    m_ClipIn: 0
+    m_Asset: {fileID: 114888463247898556}
+    m_Duration: 131.54999999999998
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114383499493774342}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: SetTimeOnTriggerClip
+    m_Version: 1
+  m_Version: 2
 --- !u!114 &114396252216950028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7817,6 +7907,20 @@ MonoBehaviour:
   m_ApplyFootIK: 1
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &114888463247898556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffed80a118c4795489419242b673fc4c, type: 3}
+  m_Name: SetTimeOnTriggerClip
+  m_EditorClassIdentifier: 
+  setFrame: 27090
+  delayFrame: 3
 --- !u!114 &114924874031857740
 MonoBehaviour:
   m_ObjectHideFlags: 1
