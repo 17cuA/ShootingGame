@@ -305,39 +305,39 @@ public class Bit_Shot : MonoBehaviour
 			{
 				if (shot_Delay > Shot_DelayMax)
 				{
-					//if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
-					//{
-					if (pl2.Is_Burst)
+					if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
 					{
-						shot_Delay = 0;
-						switch (pl2.bullet_Type)
-						{
-							case Player2.Bullet_Type.Single:
-								Single_Fire();
-								//effect_Mazle_Fire[effectNum].Play();
-								effectNum++;
-								break;
-							case Player2.Bullet_Type.Double:
-								Double_Fire();
-								//effect_Mazle_Fire[effectNum].Play();
-								effectNum++;
-								break;
-							default:
-								break;
-						}
-						if (effectNum > 4)
-						{
-							effectNum = 0;
-						}
-						if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
-						{
-							Missile_Fire();
-							missileDelayCnt = 0;
-						}
-						shot_Delay = 0;
+						//if (pl2.Is_Burst)
+						//{
+							shot_Delay = 0;
+							switch (pl2.bullet_Type)
+							{
+								case Player2.Bullet_Type.Single:
+									Single_Fire();
+									//effect_Mazle_Fire[effectNum].Play();
+									effectNum++;
+									break;
+								case Player2.Bullet_Type.Double:
+									Double_Fire();
+									//effect_Mazle_Fire[effectNum].Play();
+									effectNum++;
+									break;
+								default:
+									break;
+							}
+							if (effectNum > 4)
+							{
+								effectNum = 0;
+							}
+							if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
+							{
+								Missile_Fire();
+								missileDelayCnt = 0;
+							}
+							shot_Delay = 0;
 
+						//}
 					}
-					//}
 				}
 			}
 			else
@@ -346,7 +346,9 @@ public class Bit_Shot : MonoBehaviour
 				if (shot_Delay > Shot_DelayMax)
 				{
 
-					if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
+					//if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
+					//{
+					if(pl2.Is_Burst)
 					{
 						// 連続で4発まで撃てるようにした
 						if (shotNum < 5)
@@ -379,7 +381,7 @@ public class Bit_Shot : MonoBehaviour
 
 						}
 						// 4発撃った後、10フレーム程置く
-						else if (shotNum == 15)
+						else if (shotNum == 40)
 						{
 							shotNum = 0;
 							effectNum = 0;
@@ -388,13 +390,15 @@ public class Bit_Shot : MonoBehaviour
 						{
 							shotNum++;
 						}
+
 					}
+					//}
 				}
 				//if (Input.GetButtonUp("P2_Fire1") || Input.GetKey(KeyCode.Space))
 				//{
 				//	shotNum = 0;
 				//}
-				if (!pl1.Is_Burst)
+				if (!pl2.Is_Burst)
 				{
 					shotNum = 0;
 				}

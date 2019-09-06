@@ -47,7 +47,6 @@ public class Option_Scale : MonoBehaviour
 				isCollectInc = false;
 			}
 			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
-
 		}
 		else if(scaleDelay > 5)
 		{
@@ -78,6 +77,8 @@ public class Option_Scale : MonoBehaviour
 		}
 		if(bf.isCollection)
 		{
+			bf.isCollection = false;
+
 			scale_Collect = 0;
 			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
 			isCollectInc = true;
