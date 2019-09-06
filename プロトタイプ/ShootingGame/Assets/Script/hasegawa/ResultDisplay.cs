@@ -18,9 +18,9 @@ public class ResultDisplay : MonoBehaviour
 	private Character_Display resultTextDisplay;
 	private Vector2 resultTextPosition = new Vector2(-3840f / 2f / 2f + 25f, 1080f - 1080f / 2f - 100f);
 	private Character_Display player1TextDisplay;
-	private Vector2 player1TextPosition = new Vector2(-3840f / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 200f);
+	private Vector2 player1TextPosition = new Vector2(-3840f / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 250f);
 	private Character_Display player2TextDisplay;
-	private Vector2 player2TextPosition = new Vector2(-3840f / 2f / 4f + 28f, 1080f - 1080f / 2f - 200f);
+	private Vector2 player2TextPosition = new Vector2(-3840f / 2f / 4f + 28f, 1080f - 1080f / 2f - 250f);
 	// リザルト表示用(1P)
 	private Character_Display result1PScoreTextDisplay;
 	private Vector2 result1PScoreTextPosition = new Vector2(-3840f / 2f + 150f, 1080f / 5f * 4f - 1080f / 2f + 25f - 150f);
@@ -121,7 +121,7 @@ public class ResultDisplay : MonoBehaviour
 		result1PTotalScoresParent.transform.parent = transform;
 		result1PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result1PTotalScoresParent, result1PTotalScorePosition);
 		result1PTotalScoreDisplay.Character_Preference(total1PScore.ToString("D10"));
-		result1PTotalScoreDisplay.Size_Change(Vector2.one / kWholeScaleWeight);
+		result1PTotalScoreDisplay.Size_Change(Vector2.one * 1.1f / kWholeScaleWeight);
 	}
 
 	/// <summary>
@@ -172,6 +172,6 @@ public class ResultDisplay : MonoBehaviour
 		result2PTotalScoresParent.transform.parent = transform;
 		result2PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result2PTotalScoresParent, result2PTotalScorePosition);
 		result2PTotalScoreDisplay.Character_Preference(total2PScore.ToString("D10"));
-		result2PTotalScoreDisplay.Size_Change(Vector2.one / kWholeScaleWeight);
+		result2PTotalScoreDisplay.Size_Change(Vector2.one * 1.1f / kWholeScaleWeight);
 	}
 }

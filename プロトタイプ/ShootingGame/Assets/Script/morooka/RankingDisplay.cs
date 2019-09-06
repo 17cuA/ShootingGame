@@ -33,10 +33,10 @@ public class RankingDisplay : MonoBehaviour
 
 	// 1P表示テキスト
 	Character_Display player1TextDisplay;
-	Vector2 player1TextPosition = new Vector2(-kScreenWidth / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 200f);
+	Vector2 player1TextPosition = new Vector2(-kScreenWidth / 2f / 4f * 3f + 28f, 1080f - 1080f / 2f - 250f);
 	// 2P表示テキスト
 	Character_Display player2TextDisplay;
-	Vector2 player2TextPosition = new Vector2(-kScreenWidth / 2f / 4f + 28f, 1080f - 1080f / 2f - 200f);
+	Vector2 player2TextPosition = new Vector2(-kScreenWidth / 2f / 4f + 28f, 1080f - 1080f / 2f - 250f);
 
 	// 名前入力用
 	private float inputNameSize = 0f;
