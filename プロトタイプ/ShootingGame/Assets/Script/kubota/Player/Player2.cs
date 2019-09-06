@@ -38,7 +38,6 @@ public class Player2 : character_status
 	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	public ParticleSystem particleSystem;                           //ジェット噴射自体のパーティクルシステム
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
@@ -148,7 +147,7 @@ public class Player2 : character_status
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
 		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
-		particleSystemMain = particleSystem.main;
+		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
@@ -685,7 +684,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//ミサイルをアクティブに
 	private void ActiveMissile()
@@ -697,7 +696,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//二連をできるように
 	private void ActiveDouble()
@@ -710,7 +709,7 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//レーザーを打てるように
 	private void ActiveLaser()
@@ -724,7 +723,7 @@ public class Player2 : character_status
 		particle.Play();
 		//----------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 		Laser.SetActive(true);
 	}
 	//シールドの発動
@@ -742,7 +741,7 @@ public class Player2 : character_status
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
 	//オプションをアクティブに
@@ -791,7 +790,7 @@ public class Player2 : character_status
 				break;
 		}
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[5]);                //パワーアップ音
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
 
 		//Debug.Log("ビットン生成");
 		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");

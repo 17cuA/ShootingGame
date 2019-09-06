@@ -189,13 +189,13 @@ public class character_status : MonoBehaviour
 					if(gameObject.name == "Player")
 					{
 						P1_PowerManager.Instance.Pick();
-						//SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
+						SE_Manager.SE_Obj.SE_Item_Catch();
 						col.gameObject.SetActive(false);
 					}
 					else
 					{
 						P2_PowerManager.Instance.Pick();
-						//SE_Manager.SE_Obj.SE_Item_Catch(Obj_Storage.Storage_Data.audio_se[5]);
+						SE_Manager.SE_Obj.SE_Item_Catch();
 						col.gameObject.SetActive(false);
 					}
 				}
