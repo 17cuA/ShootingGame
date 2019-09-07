@@ -195,6 +195,12 @@ namespace Power
 				onResetCallBacks.Clear();
 			}
 
+             public void RemoveUpdateFunction()
+            {
+                onUpgradeCallBacks.Clear();
+            }
+
+
 			public void ResetUpgradeCount()
 			{
 				upgradeCount = 0;
@@ -456,8 +462,6 @@ namespace Power
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
 			}
-
-			DebugManager.OperationDebug("全パワーアップ強化回数リセット", "Player2");
 		}
 
 		public void RemoveAllCheckCallBack()
@@ -465,6 +469,14 @@ namespace Power
 			foreach (var power in powers.Values)
 			{
 				power.RemoveCheckFunction();
+			}
+		}
+
+        public void RemoveAllUpdateCallBack()
+		{
+			foreach(var power in powers.Values)
+			{
+				power.RemoveUpdateFunction();
 			}
 		}
 

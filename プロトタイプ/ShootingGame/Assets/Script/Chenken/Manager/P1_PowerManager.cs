@@ -189,6 +189,11 @@ namespace Power
 				onResetCallBacks.Clear();
 			}
 
+            public void RemoveUpdateFunction()
+            {
+                onUpgradeCallBacks.Clear();
+            }
+
 
 			public void ResetUpgradeCount()
 			{
@@ -222,7 +227,7 @@ namespace Power
 			{ Power.PowerType.LASER,     new Power(Power.PowerType.LASER,   1) },
 			{ Power.PowerType.OPTION,   new Power(Power.PowerType.OPTION,  4) },
 			{ Power.PowerType.SHIELD,    new Power(Power.PowerType.SHIELD,  1) },
-			{Power.PowerType.INITSPEED, new Power(Power.PowerType.INITSPEED , 1) },
+			{ Power.PowerType.INITSPEED, new Power(Power.PowerType.INITSPEED , 1) },
 		};
 
 		/// <summary>
@@ -452,7 +457,6 @@ namespace Power
 				powers[Power.PowerType.SPEEDUP] = powers[Power.PowerType.INITSPEED];
 				powers[Power.PowerType.INITSPEED] = power;
 			}
-			DebugManager.OperationDebug("全パワーアップ強化回数リセット", "Player1");
 		}
 
 		public void RemoveAllCheckCallBack()
@@ -462,6 +466,15 @@ namespace Power
 				power.RemoveCheckFunction();
 			}
 		}
+
+        public void RemoveAllUpdateCallBack()
+		{
+			foreach(var power in powers.Values)
+			{
+				power.RemoveUpdateFunction();
+			}
+		}
+
 
 		/// <summary>
 		/// 07/20追加　原因：プレイヤーが死んだら選択がリセットされない

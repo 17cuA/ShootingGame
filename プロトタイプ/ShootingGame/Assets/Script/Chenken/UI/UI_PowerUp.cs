@@ -43,9 +43,7 @@ public class UI_PowerUp : MonoBehaviour
 				var number = (int)power.Type;
 				transform.GetChild(i - start).gameObject.name = power.Type.ToString();
 				displays.Add(number, transform.GetChild(i - start).GetComponent<UI_PowerUpComponent>());
-                displays[number].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
-
-				
+                displays[number].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);		
 			}
 		}
 		current.name = "Cursor";
