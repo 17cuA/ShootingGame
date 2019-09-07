@@ -16,12 +16,13 @@ public class Enemy_Beetle : character_status
 	public State eState;
 
 	GameObject smallBeamObj;		//弾取得用
+    GameObject saveObj;
 	GameObject muzzleObj;			//発射位置用
 	Vector3 velocity;		
 	Vector3 defaultPos;				//初期位置セーブ
 
 	//--------------------------------------------------------------
-	//主に上に上がる挙動の時に使う
+	//主に上に上がる挙動（登場挙動）の時に使う
 	//[Header("入力用　Xスピード")]
 	public float speedX;
 	[Header("入力用　Xスピード")]
@@ -37,20 +38,34 @@ public class Enemy_Beetle : character_status
 	[Header("入力用　Yの移動する距離")]
 	public float moveY_Max;			//Yの最大移動値
 	public float savePosY;          //前のY座標を入れる（移動量を求めるため）
-	//--------------------------------------------------------------
+    //--------------------------------------------------------------
 
+    //--------------------------------------------------------------
+    //登場後に使う
+    float moveX_DelayCnt;
+    [Header("入力用　登場後動き出すまでの時間フレーム")]
+    public float moveX_DelayMax;
 
+    public float shot_DelayCnt;
+    [Header("入力用　攻撃間隔の時間フレーム")]
+    public float shot_DelayMax;
+    public float shotRotaZ;
+    //--------------------------------------------------------------
 
-	public bool isUP;				//上に上がるとき
-	public bool once;				//一回だけ行う処理
+    public bool once;				//一回だけ行う処理
+    public bool isUP;				//上に上がるとき
+    public bool isMove;             //登場後の動き始め「
 
 	new void Start()
     {
+        smallBeamObj = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
+        muzzleObj = transform.GetChild(1).gameObject;
 		defaultSpeedY_Value = speedY;
 		//defaultSpeedX_Value = speedX;
 		defaultPos = transform.localPosition;
 		isUP = true;
-		once = true;
+        once = true;
+        isMove = false;
 		base.Start();
     }
 
@@ -78,6 +93,7 @@ public class Enemy_Beetle : character_status
 
 					break;
 			}
+            once = false;
 		}
 
 		if (isUP)
@@ -103,6 +119,7 @@ public class Enemy_Beetle : character_status
 				speedZ = 0;
 				speedX = 0;
 				transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+                isUP = false;
 			}
 		}
 		else
@@ -110,8 +127,47 @@ public class Enemy_Beetle : character_status
 			velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
-		}
+            if (isMove)
+            {
+                shot_DelayCnt++;
+                if (shot_DelayCnt > shot_DelayMax)
+                {
+                    shot_DelayCnt = 0;
+                    shotRotaZ = 30f;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        saveObj = Instantiate(smallBeamObj, muzzleObj.transform.position, new Quaternion(0, 0, 0, 0));
+                        saveObj.transform.rotation = Quaternion.Euler(0, 0, shotRotaZ);
+                        shotRotaZ -= 15f;
+                    }
+                }
+            }
+            else if (moveX_DelayCnt > moveX_DelayMax)
+            {
+                isMove= true;
+                switch(eState)
+                {
+                    case State.Front:
+                        speedX = -1;
+                        break;
+
+                    case State.Behind:
+                        speedX = 1;
+                        break;
+
+                }
+            }
+            else
+            {
+                moveX_DelayCnt++;
+            }
+
+        }
 		HSV_Change();
+        if (transform.localPosition.x < -35)
+        {
+            Destroy(this.gameObject);
+        }
 		base.Update();
 	}
 }

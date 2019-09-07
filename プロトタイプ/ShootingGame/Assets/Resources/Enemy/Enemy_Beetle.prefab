@@ -118,7 +118,7 @@ MonoBehaviour:
   Opponent: 0
   eState: 0
   speedX: 0
-  defaultSpeedX_Value: 3
+  defaultSpeedX_Value: 2.2
   speedY: 4
   defaultSpeedY_Value: 0
   decelerationY_Start: 1
@@ -126,8 +126,10 @@ MonoBehaviour:
   speedZ_Value: 10
   moveY_Max: 11.5
   savePosY: 0
-  isUP: 1
+  moveX_DelayMax: 30
   once: 1
+  isUP: 1
+  isMove: 0
 --- !u!1001 &8420644103521537458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,11 +137,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8420644104422364042}
     m_Modifications:
-    - target: {fileID: 4279027906737623382, guid: c465fc8459170694aaf64eca427e3a8e,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Beetle_Model
-      objectReference: {fileID: 0}
     - target: {fileID: 4279027906737589622, guid: c465fc8459170694aaf64eca427e3a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,15 +192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4279027906737589626, guid: c465fc8459170694aaf64eca427e3a8e,
+    - target: {fileID: 4279027906737623382, guid: c465fc8459170694aaf64eca427e3a8e,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4279027906737589624, guid: c465fc8459170694aaf64eca427e3a8e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+      propertyPath: m_Name
+      value: Enemy_Beetle_Model
       objectReference: {fileID: 0}
     - target: {fileID: 4279027906737589630, guid: c465fc8459170694aaf64eca427e3a8e,
         type: 3}
@@ -211,6 +203,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4279027906737589628, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737589626, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737589624, guid: c465fc8459170694aaf64eca427e3a8e,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
