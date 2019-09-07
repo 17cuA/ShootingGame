@@ -50,7 +50,7 @@ public class Two_Boss_Parts : character_status
 					ParticleCreation(0);
 					renderer.material.SetVector("_BaseColor", Damege_Color); 
 					Is_Bomb = true;
-					GetComponent<Collider>().enabled = false;
+					object_material = null;
 				}
 
 			}
