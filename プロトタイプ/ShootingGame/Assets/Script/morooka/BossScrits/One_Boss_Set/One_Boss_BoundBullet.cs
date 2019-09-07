@@ -38,7 +38,7 @@ public class One_Boss_BoundBullet : bullet_status
 			&& boss.activeSelf)
 		{
 			// コライダーの持ち主がWAllのとき
-			if (hit_mesh.collider.gameObject.tag != "Player_Bullet" /*&& hit_mesh.collider.gameObject != mae*/)
+			if (hit_mesh.collider.gameObject.tag != "Player_Bullet" && hit_mesh.collider.gameObject.tag != "Enemy_Bullet"/*&& hit_mesh.collider.gameObject != mae*/)
 			{
 				mae = hit_mesh.transform.gameObject;
 				Ray_Direction = ReflectionCalculation(Ray_Direction, hit_mesh.normal);

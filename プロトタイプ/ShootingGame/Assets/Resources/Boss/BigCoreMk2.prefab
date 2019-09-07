@@ -6356,7 +6356,7 @@ GameObject:
   - component: {fileID: 7240073990316645228}
   m_Layer: 9
   m_Name: BigCoreMk2
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6403,7 +6403,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
-  Shot_DelayMax: 0
+  Shot_DelayMax: 60
   Shot_Delay: 0
   score: 0
   activeShield: 0
@@ -6511,7 +6511,7 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 114430540609390018, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
     value: {fileID: 5486335064951420279}
-  - key: {fileID: 114888825501611294, guid: f91ee47de48827a48997e7c463ea25d2, type: 2}
+  - key: {fileID: 114714263182643090, guid: f91ee47de48827a48997e7c463ea25d2, type: 2}
     value: {fileID: 5486335064951420279}
   m_ExposedReferences:
     m_References: []
@@ -8012,6 +8012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: O001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833063402451247256, guid: 3fe673f4f1266bf43b83892663271fe2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7833063402451247257, guid: 3fe673f4f1266bf43b83892663271fe2,
         type: 3}

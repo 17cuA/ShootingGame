@@ -277,14 +277,18 @@ public class One_Boss : character_status
 				}
 
 
-				if (Attack_Type_Instruction < 2)
+				//if (Attack_Type_Instruction < 2)
+				//{
+				//	Player_Tracking_Bound_Bullets_3();
+				//	//Player_Tracking_Bound_Bullets_2();
+				//}
+				//else
+				//{
+				if(Number_Of_Lasers == 0)
 				{
-					//Player_Tracking_Bound_Bullets_3();
-					Player_Tracking_Bound_Bullets_2();
+					Player_Tracking_Bound_Bullets_3();
 				}
-				else
-				{
-					if (Number_Of_Lasers < 1)
+				else  if (Number_Of_Lasers == 1)
 					{
 						//Laser_Clearing_2();
 						Laser_Time();
@@ -293,7 +297,7 @@ public class One_Boss : character_status
 					{
 						Rush_2();
 					}
-				}
+				//}
 
 				base.Update();
 				Survival_Time_Cnt++;
@@ -762,13 +766,25 @@ public class One_Boss : character_status
 		if (Attack_Step == 0)
 		{
 			Timeline_Player.Play(Bullet_timeline);
+			Timeline_Player.time = 0.0f;
 			Attack_Step++;
 			Is_Attack_Now = true;
+			Shot_Delay = -60;
 		}
 		else if (Attack_Step == 1)
 		{
 			Flame++;
-			if(Flame % 6 == 0)
+
+			foreach (GameObject obj in laser_muzzle)
+			{
+				if (obj.activeSelf)
+				{
+					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform, false);
+				}
+			}
+
+			if (Flame % 20 == 0)
 			{
 				Bullet_num_Set(Check_Bits());
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
@@ -793,13 +809,16 @@ public class One_Boss : character_status
 			{
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+
+				Shot_Delay -= Shot_DelayMax * 2;
 			}
 
 			if(Is_end_of_timeline)
 			{
 				Is_Attack_Now = false;
 				Attack_Step = 0;
-				Attack_Type_Instruction = 2;
+				Is_end_of_timeline = false;
+				Number_Of_Lasers++;
 				Flame = 0;
 				Shot_Delay = 0;
 			}
@@ -941,10 +960,6 @@ public class One_Boss : character_status
 	/// </summary>
 	private void Laser_Shooting()
 	{
-		Shot_Delay++;
-
-		if (Shot_Delay > Shot_DelayMax)
-		{
 			foreach (GameObject obj in laser_muzzle)
 			{
 				if (obj.activeSelf)
@@ -953,8 +968,6 @@ public class One_Boss : character_status
 					laser.Manual_Start(obj.transform,true);
 				}
 			}
-			Shot_Delay = 0;
-		}
 	}
 	#endregion
 
