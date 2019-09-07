@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DebugManager : MonoBehaviour
 {
@@ -33,9 +34,7 @@ public class DebugManager : MonoBehaviour
 		if(!isPlayersOperationDebugging)
 		{
 			UIChild.SetActive(false);
-		}
-
-		
+		}	
 	}
 
 	// Update is called once per frame
@@ -106,6 +105,9 @@ public class DebugManager : MonoBehaviour
 	/// <param name="userName"></param>
 	public static void OperationDebug(string context, string userName)
 	{
+        if(SceneManager.GetActiveScene().name != "Stage_01")
+            return;
+
 		string addText = "\n " + userName + ": " + context;
 		debugText.text += addText;
 		Canvas.ForceUpdateCanvases();    
