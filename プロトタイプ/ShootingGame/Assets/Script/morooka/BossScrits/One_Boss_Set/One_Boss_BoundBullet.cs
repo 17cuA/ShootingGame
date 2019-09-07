@@ -76,13 +76,5 @@ public class One_Boss_BoundBullet : bullet_status
 			col.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
 		}
-		else if(col.tag == "Enemy")
-		{
-			Boss_One_Laser oneS = col.GetComponent<Boss_One_Laser>();
-			if (oneS == null)
-			{
-					gameObject.SetActive(false);
-			}
-		}
 	}
 }

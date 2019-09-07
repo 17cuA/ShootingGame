@@ -81,8 +81,8 @@ public class Player1 : character_status
 	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
-	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
-	private float min_speed;        //初期の速度を保存しておくよう変数
+	private int effect_num = 0;		//何番目のマズルフラッシュが稼働するかの
+	private float min_speed;		//初期の速度を保存しておくよう変数
 	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
@@ -363,48 +363,65 @@ public class Player1 : character_status
 		if (x > 0 && y > 0)
 		{
 			target = transform.position + MOVEX + MOVEY;
-
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Debug.Log("→");
 		}
 		//右下
 		else if (x > 0 && y < 0)
 		{
 			target = transform.position + MOVEX - MOVEY;
-
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Debug.Log("→");
 		}
 		//左下
 		else if (x < 0 && y < 0)
 		{
 			target = transform.position - MOVEX - MOVEY;
-
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Debug.Log("←");
 		}
 		//左上
 		else if (x < 0 && y > 0)
 		{
 			target = transform.position - MOVEX + MOVEY;
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Debug.Log("←");
 
 		}
 		//上
 		else if (y > 0)
 		{
 			target = transform.position + MOVEY;
+			Debug.Log("横に動かず待機");
 
 		}
 		//右
 		else if (x > 0)
 		{
 			target = transform.position + MOVEX;
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Debug.Log("→");
 
 		}
 		//下
 		else if (y < 0)
 		{
 			target = transform.position - MOVEY;
+			Debug.Log("横に動かず待機");
 
 		}
 		//左
 		else if (x < 0)
 		{
 			target = transform.position - MOVEX;
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Debug.Log("←");
 
 		}
 
@@ -449,17 +466,22 @@ public class Player1 : character_status
 		{
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Debug.Log("横に動かず待機");
+
 		}
 		//左入力
 		else if (x < 0)
 		{
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Debug.Log("横に動かず待機");
+
 		}
 		else if (x == 0)
 		{
 			//噴射量を規定の値に戻す
 			particleSystemMain.startLifetime = baseInjectionAmount;
+			Debug.Log("横に動かず待機");
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;

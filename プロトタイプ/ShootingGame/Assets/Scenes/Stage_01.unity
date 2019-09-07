@@ -209,6 +209,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &76279009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 76279011}
+  - component: {fileID: 76279010}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &76279010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76279009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b3fc9c159f3b64bac1a458810739dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameMax: 10
+  Active_Time: 0
+  Active_Time_Max: 5
+--- !u!4 &76279011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76279009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &136513542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6223543701453863859, guid: c5511831683274044a5c606ce4ac0f63,
@@ -1776,7 +1822,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243143466340207320, guid: fbe2e1f9471704d4fad358c1656182b1,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -15607,6 +15653,7 @@ GameObject:
   - component: {fileID: 728411573213675032}
   - component: {fileID: 728411573213675031}
   - component: {fileID: 728411573213675033}
+  - component: {fileID: 728411573213675034}
   m_Layer: 0
   m_Name: BackgroundCamera
   m_TagString: Untagged
@@ -15634,7 +15681,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243707766961580726, guid: fbe2e1f9471704d4fad358c1656182b1,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 19649fb40ed92ae46b90ef921b9cd5b4, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -15787,6 +15834,22 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+--- !u!114 &728411573213675034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728411573213675030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f81cba41c7469042a533927583f0ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  First_clip: {fileID: 8300000, guid: 41f17120565725c40b9aeb11f4794800, type: 3}
+  First_Boss_clip: {fileID: 8300000, guid: b096c3fe8efb17a4c88c722b4c436d36, type: 3}
+  Second_clip: {fileID: 8300000, guid: 25ac569df2989a64bb04c6b0126132a9, type: 3}
+  Final_Boss_clip: {fileID: 8300000, guid: 4d4c0982a72193b4db46a6e93757096b, type: 3}
 --- !u!1001 &1543349492899976709
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -43,7 +43,9 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject P1_Option_Prefab;                            //オプションのプレハブ
 	private GameObject P2_Option_Prefab;						//2P用のオプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
+	//-----------------------------------------------------------------------------------
 	private GameObject[] Effects_Prefab = new GameObject[16];  //particleのプレハブ
+	//---------------------------------------------------------------------------------
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
 	private GameObject One_Boss_Laser_Prefab;                   // ボス1のレーザープレハブ
@@ -184,7 +186,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");		//プレイヤーの弾の着弾時のエフェクト
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");			//ボス登場時のエフェクト
 		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");		//隕石の爆発Effect
-		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");		//ヒトデ型の出現用
 		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bacura_Hit");				//バキュラに当たった時の高い音用

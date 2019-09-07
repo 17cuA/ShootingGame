@@ -19,30 +19,25 @@ public class Enemy_star_Fish : character_status
 
 	private void OnEnable()
 	{
-		P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-		playerPos = P1.transform.position;
-		firstPos = transform.position;
-		//if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		//{
-		//	P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-		//	playerPos = P1.transform.position;
-		//	firstPos = transform.position;
-		//}
-		//else
-		//{
-		//	if(num == 0)
-		//	{
-		//		P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-		//		playerPos = P1.transform.position;
-		//		firstPos = transform.position;
-		//	}
-		//	else
-		//	{
-		//		P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-		//		playerPos = P2.transform.position;
-		//		firstPos = transform.position;
-		//	}
-		//}
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		{
+			P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+			playerPos = P1.transform.position;
+			//firstPos = transform.position;
+		}
+		else
+		{
+			if (num == 0)
+			{
+				P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				playerPos = P1.transform.position;
+			}
+			else
+			{
+				P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				playerPos = P2.transform.position;
+			}
+		}
 	}
 
 	//SetActiveがfalseになった時に呼ばれる
