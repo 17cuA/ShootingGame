@@ -138,7 +138,7 @@ public class Enemy_Beetle : character_status
                     {
                         saveObj = Instantiate(smallBeamObj, muzzleObj.transform.position, new Quaternion(0, 0, 0, 0));
                         saveObj.transform.rotation = Quaternion.Euler(0, 0, shotRotaZ);
-                        shotRotaZ -= 15f;
+                        shotRotaZ -= 30f;
                     }
                 }
             }
@@ -148,11 +148,11 @@ public class Enemy_Beetle : character_status
                 switch(eState)
                 {
                     case State.Front:
-                        speedX = -1;
+                        speedX = -1.5f;
                         break;
 
                     case State.Behind:
-                        speedX = 1;
+                        speedX = 1.5f;
                         break;
 
                 }

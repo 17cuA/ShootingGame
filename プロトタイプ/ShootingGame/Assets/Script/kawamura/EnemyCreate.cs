@@ -172,8 +172,11 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject enemy_MeteorWaveGroup;
 	public GameObject enemy_SlowFollow;
 	public GameObject Enemy_BoundMeteors;
+    public GameObject enemy_Star_Fish_Spowner;
+    public GameObject enemy_Beetle_Group;
 
-	public GameObject saveEnemyObj;
+
+    public GameObject saveEnemyObj;
 
 	public int PreviousCount = 0;
 
@@ -373,6 +376,8 @@ public class EnemyCreate : MonoBehaviour
 		enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
 		enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
 		Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
+        enemy_Star_Fish_Spowner = Resources.Load("Enemy/Enemy_Star_Fish_Spowner") as GameObject;
+        enemy_Beetle_Group = Resources.Load("Enemy/Enemy_BeetleGroup") as GameObject;
 
 		mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
 		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
@@ -445,15 +450,15 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 43;
+			groupCnt = 44;
 			//nowGroupCnt = 36;
 		}
 		//1ボス後
-		else if (Input.GetKeyDown(KeyCode.M))
+		else if (Input.GetKeyDown(KeyCode.B))
 		{
 			turning_frame = 9660;
 			frameCnt = 9660;    //←上の数字から60引いた数にする
-			groupCnt = 44;
+			groupCnt = 45;
 			//nowGroupCnt = 36;
 		}
 
@@ -465,7 +470,7 @@ public class EnemyCreate : MonoBehaviour
 			//groupCnt = 45;
 			turning_frame = 5010;
 			frameCnt = 4950;	//←上の数字から60引いた数にする
-			groupCnt = 54;
+			groupCnt = 56;
 
 		}
 		if (saveEnemyObj != null)
@@ -1225,12 +1230,23 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
-				nextEnemy = "円盤10グループアイテム上下";
-				Next_Condition(300);
+				nextEnemy = "ビートル";
+				Next_Condition(220);
 				nowGroupCnt++;
 			}
-			// 円盤10グループアイテム上下
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
+            //ビートル5体
+            else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
+            {
+                GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
+
+                beetleGroup.transform.position = new Vector3(15, -8, 0);
+                nextEnemy = "円盤10グループアイテム上下";
+                Next_Condition(480);
+                nowGroupCnt++;
+            }
+
+            // 円盤10グループアイテム上下
+            else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
 			{
 				// 円盤10体
 				Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
@@ -1250,7 +1266,7 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// 闘牛突進上3中央アイテム下3中央アイテム
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
 			{
 				Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position + createPosR3.transform.position, transform.rotation);
 				Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position + createPosRm3.transform.position, transform.rotation);
@@ -1260,7 +1276,7 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// 闘牛3
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
 			{
 				Instantiate(enemy_ClamChowder_Group_Three, createPos_FourGroupL.transform.position, transform.rotation);
 
@@ -1269,19 +1285,10 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// 闘牛2上2下
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
 			{
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position + createPos_FourGroupL.transform.position, transform.rotation);
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position + createPos_FourGroupL.transform.position, transform.rotation);
-
-				nextEnemy = "闘牛5中央アイテム";
-				Next_Condition(30);
-				nowGroupCnt++;
-			}
-			// 闘牛5中央アイテム
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
-			{
-				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛5中央アイテム";
 				Next_Condition(30);
@@ -1292,12 +1299,21 @@ public class EnemyCreate : MonoBehaviour
 			{
 				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
+				nextEnemy = "闘牛5中央アイテム";
+				Next_Condition(30);
+				nowGroupCnt++;
+			}
+			// 闘牛5中央アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
+			{
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
+
 				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
 				Next_Condition(300);
 				nowGroupCnt++;
 			}
 			// 円盤10グループアイテム上下狭
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
 			{
 				GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
 				enemy_UFO_Group.transform.position = createPosR2.transform.position + new Vector3(8.5f, 0, 0);
@@ -1310,7 +1326,7 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// 闘牛12中心軸上下グループアイテム
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
 			{
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
@@ -1320,7 +1336,7 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// 闘牛12中心軸グループアイテム
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
 			{
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
@@ -1329,7 +1345,7 @@ public class EnemyCreate : MonoBehaviour
 				nowGroupCnt++;
 			}
 			// ビックコアマーク2🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
 			{
 				GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
 				Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
@@ -1342,18 +1358,28 @@ public class EnemyCreate : MonoBehaviour
 				backActive_Script.TransparencyChangeTrigger();
 				isNowOneBoss = true;
 
-				nextEnemy = "バキュラ群";
+				nextEnemy = "ヒトデ群";
+
 				Next_Condition(540);
 			}
-			//バキュラ群 17030
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+            //ヒトデ群 17030
+            else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+            {
+                Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
+
+                nextEnemy = "バキュラ群)";
+                Next_Condition(630);
+            }
+
+            //バキュラ群 17030
+            else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 46)
 			{
 				Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
 				nextEnemy = "隕石群(5つ)";
 				Next_Condition(1400);
 			}
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
 			{
 				Instantiate(enemy_Bacula_FourOnly, createBaculaGroupPos.transform.position, transform.rotation);
 
@@ -1361,7 +1387,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(60);
 			}
 			//バウンド隕石1
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 46)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1369,7 +1395,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(120);
 			}
 			//バウンド隕石2
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1377,7 +1403,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(120);
 			}
 			//バウンド隕石3
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1385,7 +1411,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(120);
 			}
 			//バウンド隕石4
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 51)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1393,22 +1419,6 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(120);
 			}
 			//バウンド隕石5
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
-			{
-				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
-
-				nextEnemy = "バウンド隕石6";
-				Next_Condition(120);
-			}
-			//バウンド隕石6
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 51)
-			{
-				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
-
-				nextEnemy = "バウンド隕石6";
-				Next_Condition(120);
-			}
-			//バウンド隕石7
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
@@ -1416,8 +1426,24 @@ public class EnemyCreate : MonoBehaviour
 				nextEnemy = "バウンド隕石6";
 				Next_Condition(120);
 			}
-			//バウンド隕石8
+			//バウンド隕石6
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
+			{
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+				nextEnemy = "バウンド隕石6";
+				Next_Condition(120);
+			}
+			//バウンド隕石7
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
+			{
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+				nextEnemy = "バウンド隕石6";
+				Next_Condition(120);
+			}
+			//バウンド隕石8
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
 			{
 				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
@@ -1425,7 +1451,7 @@ public class EnemyCreate : MonoBehaviour
 				Next_Condition(600);
 			}
 			// ラスボス(9900)🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
 			{
 				GameObject Boss_02 = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
 				Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
@@ -1434,7 +1460,7 @@ public class EnemyCreate : MonoBehaviour
 				nextEnemy = " ";
 				Next_Condition(180);
 			}
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
 			{
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
