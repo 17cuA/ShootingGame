@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7472374623782282032}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotMuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,9 +61,9 @@ GameObject:
   - component: {fileID: 8420644104422364043}
   - component: {fileID: 391477900153032536}
   - component: {fileID: 6276941239897375296}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Beetle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +177,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Beetle_Model
       objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737623382, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4279027906737589622, guid: c465fc8459170694aaf64eca427e3a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -251,6 +256,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737623384, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737623386, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737623388, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279027906737623390, guid: c465fc8459170694aaf64eca427e3a8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c465fc8459170694aaf64eca427e3a8e, type: 3}
