@@ -3,6 +3,7 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/07/30　レーザーの挙動
+ * 2019/09/07　フレームのレーザー状態の追加
  */
 
 using System.Collections;
@@ -13,6 +14,10 @@ public class Boss_One_Laser : MonoBehaviour
 {
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
+	public bool State_Laser;
+	public GameObject Laser_Appearance;		// レーザー時の見た目
+	public GameObject Frame_Appearance;     //　フレーム時の見た目
+	public BoxCollider _collider;
 
 	 void Update()
 	{
@@ -32,21 +37,44 @@ public class Boss_One_Laser : MonoBehaviour
 		transform.localPosition = temp;
 	}
 
-	public void Manual_Start(Transform parent)
+	public void Manual_Start(Transform parent,bool laser_mode)
 	{
 		transform.parent = parent;
 		transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
-		//Trail.enabled = true;
+
+		// レーザーモードのとき
+		if(laser_mode)
+		{
+			State_Laser = laser_mode;
+			Laser_Appearance.SetActive(true);
+			Frame_Appearance.SetActive(false);
+			_collider.size = new Vector3(0.2f, 0.1f, 5.0f);
+		}
+		else if(!laser_mode)
+		{
+			State_Laser = laser_mode;
+			State_Laser = laser_mode;
+			Laser_Appearance.SetActive(false);
+			Frame_Appearance.SetActive(true);
+			_collider.size = new Vector3(0.2f, 0.1f, 0.1f);
+		}
 	}
 
 	protected void OnTriggerEnter(Collider col)
 	{
-		if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		if (col.gameObject.tag == "Player")
 		{
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
+		}
+		if (State_Laser)
+		{
+			if (col.GetComponent<One_Boss_BoundBullet>() != null)
+			{
+				col.gameObject.SetActive(false);
+			}
 		}
 	}
 }
