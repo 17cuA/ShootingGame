@@ -101,7 +101,7 @@ public class One_Boss : character_status
 	private float PreviousPosition { get; set; }        // 前の位置
 	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
-	private int[] Core_Mae_HP { get; set; }      
+	private int[] Core_Mae_HP { get; set; }
 	private int Core_Init_HP { get; set; }// コアの初期HP
 
 	private Color[] Base_Color { get; set; }
@@ -279,6 +279,7 @@ public class One_Boss : character_status
 
 				if (Attack_Type_Instruction < 2)
 				{
+					//Player_Tracking_Bound_Bullets_3();
 					Player_Tracking_Bound_Bullets_2();
 				}
 				else
@@ -309,11 +310,6 @@ public class One_Boss : character_status
 							float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 							
 							//// 青抜き、赤入れ
-							//Base_Color[i].r += RGB;
-							//Base_Color[i].b -= RGB;
-							//Emissive_Color[i].r += RGB;
-							//Emissive_Color[i].b -= RGB;
-
 							// Gの値ははじめ増やして、後半減らす
 							if (Base_Color[i].r >= 1.0f)
 							{
@@ -336,16 +332,6 @@ public class One_Boss : character_status
 						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
 
 						Core_Mae_HP[i] = core[i].hp;
-
-						//if (core[i].hp < Core_Init_HP / 3)
-						//{
-						//	var color = default(Color);
-						//	ColorUtility.TryParseHtmlString("#FF0000", out color);
-						//	core_renderer[i].material.SetColor("_Color", color);
-
-						//	ColorUtility.TryParseHtmlString("#BF0000", out color);
-						//	core_renderer[i].material.SetColor("_Emissive_Color", color);
-						//}
 					}
 				}
 
@@ -777,13 +763,45 @@ public class One_Boss : character_status
 		{
 			Timeline_Player.Play(Bullet_timeline);
 			Attack_Step++;
+			Is_Attack_Now = true;
 		}
 		else if (Attack_Step == 1)
 		{
-			Shot_Delay++;
-			if (Shot_Delay  ==  Shot_DelayMax)
+			Flame++;
+			if(Flame % 6 == 0)
 			{
+				Bullet_num_Set(Check_Bits());
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				}
+			}
 
+			Shot_Delay++;
+			if(Shot_Delay == (Shot_DelayMax / 3))
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+			else if(Shot_Delay == (Shot_DelayMax / 3) * 2)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+			else if(Shot_Delay == Shot_DelayMax)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+
+			if(Is_end_of_timeline)
+			{
+				Is_Attack_Now = false;
+				Attack_Step = 0;
+				Attack_Type_Instruction = 2;
+				Flame = 0;
+				Shot_Delay = 0;
 			}
 		}
 	}
@@ -932,7 +950,7 @@ public class One_Boss : character_status
 				if (obj.activeSelf)
 				{
 					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
+					laser.Manual_Start(obj.transform,true);
 				}
 			}
 			Shot_Delay = 0;
@@ -1011,5 +1029,16 @@ public class One_Boss : character_status
 		}
 
 		return num;
+	}
+
+	private new void OnTriggerEnter(Collider col)
+	{
+		if (now_rush)
+		{
+			if (col.GetComponent<One_Boss_BoundBullet>() != null)
+			{
+				col.gameObject.SetActive(false);
+			}
+		}
 	}
 }

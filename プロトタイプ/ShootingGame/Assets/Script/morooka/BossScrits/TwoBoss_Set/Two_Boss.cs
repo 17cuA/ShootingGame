@@ -27,7 +27,8 @@ public class Two_Boss : character_status
 			eBack_Rotation,
 		eSmasher_1,
 		eSmasher_2,
-		eSmasher_Stop,
+		eIdol,
+		eCrossing,
 	}
 	[Header("ボス形成パーツ")]
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
@@ -82,7 +83,7 @@ public class Two_Boss : character_status
 		// 角度保存
 		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
 
-		Animation_Name = new string[8]
+		Animation_Name = new string[9]
 		{
 			"Bio_Laser",
 			"Merry_Go_Round",
@@ -91,7 +92,8 @@ public class Two_Boss : character_status
 			"Back_Rotation",
 			"Smasher_1",
 			"Smasher_2",
-			"Smasher_Stop",
+			"Idol",
+			"Crossing",
 		};
 
 		Damage_Collider = new List<Collider>();
@@ -128,26 +130,36 @@ public class Two_Boss : character_status
 			Attack_End();
 			Attack_Type_Instruction = 3;
 		}
+
 		// 攻撃
 		if (Attack_Type_Instruction == 0)
 		{
 			Beam_Attack();
 		}
-		else if(Attack_Type_Instruction == 1)
+		else if (Attack_Type_Instruction == 1)
 		{
 			Bacula_And_Smasher();
 		}
-		else if(Attack_Type_Instruction == 2)
+		else if (Attack_Type_Instruction == 2)
 		{
 			Rotation_Attack();
 		}
-		else if(Attack_Type_Instruction == 3)
+		else if (Attack_Type_Instruction == 3)
 		{
 			Laser_Attack();
 		}
+		else if(Attack_Type_Instruction == 4)
+		{
+			Crossing_Attack();
+		}
 		else
 		{
-			Attack_Type_Instruction = 0;
+			Attack_Seconds += Time.deltaTime;
+			if (Attack_Seconds >= 3.15f)
+			{
+				Attack_Seconds = 0.0f;
+				Attack_Type_Instruction = 0;
+			}
 		}
 
 		// シャッター破壊後コア破壊できる
@@ -363,7 +375,7 @@ public class Two_Boss : character_status
 		else if (Attack_Step == 1)
 		{
 			Attack_Seconds += Time.deltaTime;
-			if(Attack_Seconds >= 2.1f)
+			if(Attack_Seconds >= 2.14f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[2].transform.position, multiple[2].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[2].transform);
@@ -372,7 +384,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[5].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 4.1f)
+			if (Attack_Seconds >= 3.21)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[1].transform);
@@ -381,7 +393,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[4].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 6.1f)
+			if (Attack_Seconds >= 5.0f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[0].transform.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[0].transform);
@@ -391,7 +403,7 @@ public class Two_Boss : character_status
 				Laser.Add(l);
 			}
 
-			if (Attack_Seconds >= 9.19f)
+			if (Attack_Seconds >= 10.16f)
 			{
 				foreach(var l in Laser)
 				{
@@ -399,6 +411,55 @@ public class Two_Boss : character_status
 				}
 				Laser.Clear();
 				Next_Step();
+			}
+		}
+		// 攻撃終了
+		else if (Attack_Step == 2)
+		{
+			if (Animation_End())
+			{
+				Attack_End();
+			}
+		}
+	}
+	#endregion
+
+	#region　交差攻撃
+	private void Crossing_Attack()
+	{
+		// 攻撃準備
+		if (Attack_Step == 0)
+		{
+			Laser = new List<Two_Boss_Laser>();
+			Animation_Playback(Animation_Name[(int)Attack_Index.eCrossing]);
+			Next_Step();
+		}
+		else if (Attack_Step == 1)
+		{
+			Attack_Seconds += Time.deltaTime;
+			if (Attack_Seconds >= 3.0f)
+			{
+				foreach(var mul in multiple)
+				{
+					// 子供のマズル情報格納
+					Transform objT = mul.transform.GetChild(0);
+					Two_Boss_Laser tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, mul.transform.up).GetComponent<Two_Boss_Laser>();
+					// レーザーの初期設定
+					tl.Manual_Start(mul.transform);
+					// レーザー情報の格納
+					Laser.Add(tl);
+				}
+				// レーザーの削除
+				if (Attack_Seconds >= 13.2f)
+				{
+					foreach (var l in Laser)
+					{
+						l.Delete_processing();
+					}
+					Laser.Clear();
+					// 次のステップ
+					Next_Step();
+				}
 			}
 		}
 		// 攻撃終了
@@ -430,6 +491,7 @@ public class Two_Boss : character_status
 		Attack_Step = 0;
 		Frames_In_Function = 0;
 		Attack_Type_Instruction++;
+		Animation_Playback(Animation_Name[(int)Attack_Index.eIdol]);
 	}
 
 	#region タイムラインの再生
