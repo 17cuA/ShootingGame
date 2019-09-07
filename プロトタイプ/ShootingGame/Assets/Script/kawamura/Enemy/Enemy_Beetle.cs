@@ -17,6 +17,7 @@ public class Enemy_Beetle : character_status
 
 	GameObject smallBeamObj;		//弾取得用
     GameObject saveObj;
+    GameObject childObj;
 	GameObject muzzleObj;			//発射位置用
 	Vector3 velocity;		
 	Vector3 defaultPos;				//初期位置セーブ
@@ -25,6 +26,7 @@ public class Enemy_Beetle : character_status
 	//主に上に上がる挙動（登場挙動）の時に使う
 	//[Header("入力用　Xスピード")]
 	public float speedX;
+    public float default_SpeedX;
 	[Header("入力用　Xスピード")]
 	public float defaultSpeedX_Value;
 	[Header("入力用　Yスピード")]
@@ -37,6 +39,7 @@ public class Enemy_Beetle : character_status
 	public float speedZ_Value;      //Zスピードの値
 	[Header("入力用　Yの移動する距離")]
 	public float moveY_Max;			//Yの最大移動値
+    public float default_MoveY_Max;
 	public float savePosY;          //前のY座標を入れる（移動量を求めるため）
     //--------------------------------------------------------------
 
@@ -50,6 +53,7 @@ public class Enemy_Beetle : character_status
     [Header("入力用　攻撃間隔の時間フレーム")]
     public float shot_DelayMax;
     public float shotRotaZ;
+    public float default_Shot_DelayCnt;
     //--------------------------------------------------------------
 
     public bool once;				//一回だけ行う処理
@@ -58,6 +62,8 @@ public class Enemy_Beetle : character_status
 
 	new void Start()
     {
+        default_SpeedX = speedX;
+        default_Shot_DelayCnt = shot_DelayCnt;
         smallBeamObj = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
         muzzleObj = transform.GetChild(1).gameObject;
 		defaultSpeedY_Value = speedY;
@@ -164,10 +170,21 @@ public class Enemy_Beetle : character_status
 
         }
 		HSV_Change();
+        if (hp < 1)
+        {
+            Died_Process();
+        }
         if (transform.localPosition.x < -35)
         {
             Destroy(this.gameObject);
         }
 		base.Update();
 	}
+    void ResetEnemy()
+    {
+        speedX = default_SpeedX;
+        speedY = defaultSpeedY_Value;
+        moveY_Max = default_MoveY_Max;
+        shot_DelayCnt = default_Shot_DelayCnt;
+    }
 }
