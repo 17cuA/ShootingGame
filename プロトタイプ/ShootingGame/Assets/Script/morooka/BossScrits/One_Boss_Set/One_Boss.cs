@@ -792,6 +792,7 @@ public class One_Boss : character_status
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
 					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
 				}
 			}
 
