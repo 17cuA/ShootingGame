@@ -517,12 +517,12 @@ public class EnemyCreate : MonoBehaviour
 		//}
 
 		//第一ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 43 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 44 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 54 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 56 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
