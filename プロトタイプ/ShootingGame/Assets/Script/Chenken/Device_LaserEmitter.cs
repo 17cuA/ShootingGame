@@ -387,6 +387,7 @@ class Device_LaserEmitter : MonoBehaviour
 				{
 					if (audioSource.isPlaying) audioSource.Stop();
 					audioSource.clip = laserEnd;
+                    audioSource.loop = false;
 					audioSource.Play();
 				}
 			}
