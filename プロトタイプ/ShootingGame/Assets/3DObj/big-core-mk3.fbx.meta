@@ -128,6 +128,8 @@ ModelImporter:
     7400020: Idol
     7400022: Bio_Laser
     9500000: //RootNode
+    11100000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -138,8 +140,8 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
-    motionNodeName: <Root Transform>
+    optimizeGameObjects: 1
+    motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -147,13 +149,34 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - barrier1
+    - barrier002
+    - barrier003
+    - barrier004
+    - base
+    - core
+    - Dummy001
+    - Dummy001/option1
+    - Dummy001/option2
+    - Dummy001/option3
+    - Dummy001/option4
+    - Dummy001/option5
+    - Dummy001/option6
+    - engine_base_left
+    - engine_base_right
+    - engine_weapon_left
+    - engine_weapon_right
+    - smasher_left
+    - smasher_right
+    - weapon_left
+    - weapon_right
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
@@ -472,7 +495,117 @@ ModelImporter:
   humanDescription:
     serializedVersion: 2
     human: []
-    skeleton: []
+    skeleton:
+    - name: big-core-mk3(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: -0.00000006303509, z: -0.00000006303509, w: 0.7071068}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: barrier1
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032328914, y: -8.702588, z: -0.0000028601758}
+      rotation: {x: 0.7071068, y: -5.3383146e-15, z: -4.710277e-15, w: 0.7071067}
+      scale: {x: 1.219174, y: 1.100392, z: 1}
+    - name: barrier002
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032322633, y: -6.0750275, z: -0.0000028565048}
+      rotation: {x: 0.7071068, y: -5.3383146e-15, z: -4.710277e-15, w: 0.7071067}
+      scale: {x: 1.219174, y: 1.100392, z: 1}
+    - name: barrier003
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032316265, y: -3.4132552, z: -0.0000028527868}
+      rotation: {x: 0.7071068, y: -5.3383146e-15, z: -4.710277e-15, w: 0.7071067}
+      scale: {x: 1.219174, y: 1.100392, z: 1}
+    - name: barrier004
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032309717, y: -0.6765354, z: -0.0000028489635}
+      rotation: {x: 0.7071068, y: -5.3383146e-15, z: -4.710277e-15, w: 0.7071067}
+      scale: {x: 1.219174, y: 1.100392, z: 1}
+    - name: base
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032309562, y: 3.3394675, z: 0.011867163}
+      rotation: {x: 0.7071068, y: -5.3383146e-15, z: -4.710277e-15, w: 0.7071067}
+      scale: {x: 1.219174, y: 1.100392, z: 1}
+    - name: core
+      parentName: big-core-mk3(Clone)
+      position: {x: 0.0032295198, y: 5.3948956, z: 0.000000007536581}
+      rotation: {x: 2.3283064e-10, y: -3.3087225e-24, z: -1.4210855e-14, w: 1}
+      scale: {x: 1.10279, y: 1.1161, z: 1.1161}
+    - name: Dummy001
+      parentName: big-core-mk3(Clone)
+      position: {x: -0.28343898, y: -90.11299, z: -0.00000012588639}
+      rotation: {x: 0, y: -0, z: -0.00000023841858, w: 1}
+      scale: {x: 1, y: 0.9999996, z: 0.9999998}
+    - name: option1
+      parentName: Dummy001
+      position: {x: 20.890558, y: 96.13923, z: -0.00011337183}
+      rotation: {x: 0.000000010536713, y: 0.7071067, z: -0.000000010536712, w: 0.7071068}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: option2
+      parentName: Dummy001
+      position: {x: 20.890558, y: 87.3091, z: -0.00011337183}
+      rotation: {x: 0.000000010536713, y: 0.7071067, z: -0.000000010536712, w: 0.7071068}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: option3
+      parentName: Dummy001
+      position: {x: 20.890558, y: 78.166046, z: -0.00011337183}
+      rotation: {x: 0.000000010536713, y: 0.7071067, z: -0.000000010536712, w: 0.7071068}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: option4
+      parentName: Dummy001
+      position: {x: -20.17791, y: 96.13923, z: -0.000008952566}
+      rotation: {x: -1.8599982e-22, y: -0.7071067, z: -1.8599977e-22, w: 0.7071069}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: option5
+      parentName: Dummy001
+      position: {x: -20.17791, y: 87.3091, z: -0.000008952566}
+      rotation: {x: -1.8599982e-22, y: -0.7071067, z: -1.8599977e-22, w: 0.7071069}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: option6
+      parentName: Dummy001
+      position: {x: -20.17791, y: 78.166046, z: -0.000008952566}
+      rotation: {x: -1.8599982e-22, y: -0.7071067, z: -1.8599977e-22, w: 0.7071069}
+      scale: {x: 0.577019, y: 0.577019, z: 0.811117}
+    - name: engine_base_left
+      parentName: big-core-mk3(Clone)
+      position: {x: -6.9573154, y: 11.51382, z: -0.06440179}
+      rotation: {x: 0.00000013315803, y: 1, z: -0.00000039947415, w: -0.000000077265206}
+      scale: {x: 0.878468, y: 0.79288, z: 0.79288}
+    - name: engine_base_right
+      parentName: big-core-mk3(Clone)
+      position: {x: 6.9637647, y: 11.513835, z: -0.11242633}
+      rotation: {x: 2.3283064e-10, y: -0, z: -0, w: 1}
+      scale: {x: 0.878468, y: 0.79288, z: 0.79288}
+    - name: engine_weapon_left
+      parentName: big-core-mk3(Clone)
+      position: {x: -12.301048, y: 16.673319, z: -0.069468595}
+      rotation: {x: 0.00000013315803, y: 1, z: -0.00000039947415, w: -0.000000077431444}
+      scale: {x: 1.498158, y: 1.158868, z: 1.61666}
+    - name: engine_weapon_right
+      parentName: big-core-mk3(Clone)
+      position: {x: 12.073904, y: 16.673334, z: 0.013147861}
+      rotation: {x: 1.5602503e-10, y: -0, z: -0, w: 1}
+      scale: {x: 1.498158, y: 1.158868, z: 1.61666}
+    - name: smasher_left
+      parentName: big-core-mk3(Clone)
+      position: {x: -9.813853, y: -11.430063, z: -0.13915022}
+      rotation: {x: 0.00000013315803, y: 1, z: -0.00000039947415, w: -0.00000007735843}
+      scale: {x: 1.4981579, y: 1.158868, z: 1.4946679}
+    - name: smasher_right
+      parentName: big-core-mk3(Clone)
+      position: {x: 9.962878, y: -11.430053, z: 0.08283017}
+      rotation: {x: 1.7390206e-10, y: -2.220446e-16, z: -2.1316282e-14, w: 1}
+      scale: {x: 1.4981579, y: 1.158868, z: 1.4946679}
+    - name: weapon_left
+      parentName: big-core-mk3(Clone)
+      position: {x: -10.22724, y: 1.4503902, z: -0.06946766}
+      rotation: {x: 0.00000013315803, y: 1, z: -0.00000039947415, w: -0.000000077431444}
+      scale: {x: 1.498158, y: 1.158868, z: 1.61666}
+    - name: weapon_right
+      parentName: big-core-mk3(Clone)
+      position: {x: 10.369304, y: 1.4504063, z: 0.01314784}
+      rotation: {x: 1.5602503e-10, y: -0, z: -0, w: 1}
+      scale: {x: 1.498158, y: 1.158868, z: 1.61666}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -485,7 +618,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

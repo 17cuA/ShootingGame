@@ -45,7 +45,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
-	[SerializeField,Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
+	[SerializeField, Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
 	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 
@@ -69,12 +69,15 @@ public class Two_Boss : character_status
 	private List<Collider> Damage_Collider { get; set; }		// コライダーの段階
 	private int Under_Attack { get; set; }
 	private float Survival_Time { get; set; }			// せい☆ぞん　時間
-	private float Survival_Time_Cnt { get; set; }		// 生存時間カウンター
+	private float Survival_Time_Cnt { get; set; }       // 生存時間カウンター
+
+	private bool Update_Ok { get; set; }		// アップデート
 
 	private new void Start()
 	{
 		base.Start();
-		Timeline_Player = GetComponent<PlayableDirector>();
+		Update_Ok = false;
+ 		Timeline_Player = GetComponent<PlayableDirector>();
 		Attack_Step = 0;
 		Attack_Type_Instruction = 0;
 		Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
@@ -112,6 +115,8 @@ public class Two_Boss : character_status
 		Laser = new List<Two_Boss_Laser>();
 
 		Survival_Time = 180.0f;
+
+		Timeline_Player.Play(Start_Play);
 	}
 
 	// Update is called once per frame
@@ -131,50 +136,61 @@ public class Two_Boss : character_status
 			Attack_Type_Instruction = 3;
 		}
 
-		// 攻撃
-		if (Attack_Type_Instruction == 0)
+		if(!Update_Ok)
 		{
-			Beam_Attack();
-		}
-		else if (Attack_Type_Instruction == 1)
-		{
-			Bacula_And_Smasher();
-		}
-		else if (Attack_Type_Instruction == 2)
-		{
-			Rotation_Attack();
-		}
-		else if (Attack_Type_Instruction == 3)
-		{
-			Laser_Attack();
-		}
-		else if(Attack_Type_Instruction == 4)
-		{
-			Crossing_Attack();
-		}
-		else
-		{
-			Attack_Seconds += Time.deltaTime;
-			if (Attack_Seconds >= 3.15f)
+			if (Is_end_of_timeline)
 			{
-				Attack_Seconds = 0.0f;
-				Attack_Type_Instruction = 0;
+				Update_Ok = true;
 			}
 		}
+		else if(Update_Ok)
+		{
+			// 攻撃
+			if (Attack_Type_Instruction == 0)
+			{
+				Beam_Attack();
+			}
+			else if (Attack_Type_Instruction == 1)
+			{
+				Bacula_And_Smasher();
+			}
+			else if (Attack_Type_Instruction == 2)
+			{
+				Rotation_Attack();
+			}
+			else if (Attack_Type_Instruction == 3)
+			{
+				Laser_Attack();
+			}
+			else if (Attack_Type_Instruction == 4)
+			{
+				Crossing_Attack();
+			}
+			else
+			{
+				Attack_Seconds += Time.deltaTime;
+				if (Attack_Seconds >= 3.15f)
+				{
+					Attack_Seconds = 0.0f;
+					Attack_Type_Instruction = 0;
+				}
+			}
 
-		// シャッター破壊後コア破壊できる
-		// 前のやつが死んだら、次のコライダーを使用できる
-		if (!Damage_Collider[Under_Attack].gameObject.activeSelf)
-		{
-			if (Under_Attack < Damage_Collider.Count -1 )
+			// シャッター破壊後コア破壊できる
+			// 前のやつが死んだら、次のコライダーを使用できる
+			if (!Damage_Collider[Under_Attack].gameObject.activeSelf)
 			{
-				Under_Attack++;
-				Damage_Collider[Under_Attack].enabled = true;
+				if (Under_Attack < Damage_Collider.Count - 1)
+				{
+					Under_Attack++;
+					Damage_Collider[Under_Attack].enabled = true;
+				}
 			}
+
 		}
 
 		// コア破壊で死亡
-		if(Is_Core_Annihilation())
+		if (Is_Core_Annihilation())
 		{
 			animation_data.Stop();
 
