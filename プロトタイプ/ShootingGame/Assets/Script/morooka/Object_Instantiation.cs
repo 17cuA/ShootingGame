@@ -118,6 +118,9 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eTWO_BOSS_LASER:
 					obj = Obj_Storage.Storage_Data.Two_Boss_Laser.Active_Obj();
 					break;
+				//case Game_Master.OBJECT_NAME.eMANTA_LASER:
+				//	obj = Obj_Storage
+				//	break;
 				default:
 					break;
 			}

@@ -14,14 +14,17 @@ public class Enemy_Manta : character_status
 	}
 	Move_Type type;     //行動の管理用
 
-	[SerializeField]
+	[SerializeField,Header("バレットを発射位置用オブジェクト")]
 	private GameObject[] Shot_Mazle;        //unity側で設定
 	int mazlecnt;		//マズル選択用
 
 	float Beam_Delay;					//弾発射管理変数
-	public float Beam_DelayMax;		//弾発射感覚決定用変数（unity側にて決定）
+	public float Beam_DelayMax;     //弾発射感覚決定用変数（unity側にて決定）
 
 
+	[SerializeField, Header("ビーム攻撃発射位置")]
+	private GameObject[] Beam_Mazle;		//ビーム用位置情報
+	bool Is_Laser_Attack;			//レーザー攻撃が出来るかどうか
 
 	private void OnEnable()
 	{
@@ -73,6 +76,24 @@ public class Enemy_Manta : character_status
 			Shot_Delay = 0;
 		}
 
+	}
+
+	void Fire_Laser()
+	{
+				Shot_Delay++;
+
+		if (Shot_Delay > Shot_DelayMax)
+		{
+			foreach (GameObject obj in Beam_Mazle)
+			{
+				if (obj.activeSelf)
+				{
+					//Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
+					//laser.Manual_Start(obj.transform,true);
+				}
+			}
+			Shot_Delay = 0;
+		}
 	}
 
 }

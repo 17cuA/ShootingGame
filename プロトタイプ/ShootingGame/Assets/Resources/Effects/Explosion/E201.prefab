@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 431033229938605496}
   - component: {fileID: 1678080445890961795}
   - component: {fileID: 6707751927108483086}
-  - component: {fileID: 1237891723877714551}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: EffectRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4833,20 +4832,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1237891723877714551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2843991559780814453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba38482341f21564dba32fab1ad26189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  frame_Max: 45
 --- !u!1 &7072507446955301481
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,7 +4844,7 @@ GameObject:
   - component: {fileID: 7489784166259993534}
   - component: {fileID: 4134551994537626587}
   - component: {fileID: 8715351422989646875}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: E201
   m_TagString: Untagged
   m_Icon: {fileID: 0}

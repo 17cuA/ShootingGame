@@ -58,6 +58,10 @@ public class Wireless_sinario : MonoBehaviour
 	private Outline outline2;
 
 	private int frameMax;
+
+	private bool Is_Start_Wireless;     //無線が始まるまでの判定用
+	private bool Is_Finish_Wireless;		//無線が終わったかどうか(）
+
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
