@@ -198,11 +198,12 @@ public class Wireless_sinario : MonoBehaviour
 								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
 								break;
 						}
+						Debug.Log("音声が鳴りました");
+
 					}
 					if (soundcnt == 1)
 					{
 						Sound_Active();
-						Debug.Log("音声が鳴りました");
 					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)

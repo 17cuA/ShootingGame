@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-	AudioSource audiosource;//ＢＧＭを流しているAudioSource
+	AudioSource audiosource1;//ＢＧＭを流しているAudioSource
+	AudioSource audiosource2;//ＢＧＭを流すAudioSource
 
 	public AudioClip First_clip;				//開戦時のＢＧＭ
 	public AudioClip First_Boss_clip;			//最初のボスのＢＧＭ
@@ -16,11 +17,12 @@ public class BGMManager : MonoBehaviour
 	[Range(0, 1)]
 	float fade_num;             //フェードを行う際に使用
 	private bool Is_fadeout;		//フェードアウトを行うかどうか
-	private bool Is_fadein;			//フェードインを行うかどうか
+	private bool Is_fadein;         //フェードインを行うかどうか
+	private bool Is_Change;
     // Start is called before the first frame update
     void Start()
     {
-		audiosource = GetComponent<AudioSource>();
+		audiosource1 = GetComponent<AudioSource>();
     }
 
 	// Update is called once per frame
@@ -28,32 +30,50 @@ public class BGMManager : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire1"))
 		{
-			audiosource.clip = First_clip;
-			audiosource.Play();
+			audiosource1.Play();
+		}
+		if(Input.GetButtonDown("Fire2"))
+		{
+			Is_Change = true;
+		}
+		if(Is_Change)
+		{
+			active_change();
 		}
 	}
 
 	void fade_out()
 	{
-		if(Is_fadeout)
+		if(!Is_fadeout)
 		{
 			if (fade_num <= 1)
 			{
-				audiosource.volume = 1f - fade_num;
+				audiosource1.volume = 1f - fade_num;
+				fade_num += 0.05f;
 			}
-			fade_num++;
+			else
+			{
+				Is_fadeout = true;
+				Is_fadein = false;
+			}
 		}
 	}
 
 	void fade_in()
 	{
-		if(Is_fadein)
+		if(!Is_fadein)
 		{
 			if(fade_num <= 1)
 			{
-				audiosource.volume = fade_num;
+				audiosource1.volume = fade_num;
+				fade_num += 0.05f;
+
 			}
-			fade_num++;
+			else
+			{
+				Is_fadein = true;
+				Is_Change = false;
+			}
 		}
 	}
 
@@ -63,16 +83,34 @@ public class BGMManager : MonoBehaviour
 		{
 			//ボス戦ように変更
 			case 0:
-				audiosource.clip = First_Boss_clip;
+				audiosource1.clip = First_Boss_clip;
 				break;
 				//ボス戦後に変更
 			case 1:
-				audiosource.clip = Second_clip;
+				audiosource1.clip = Second_clip;
 				break;
 				//最後のボスように変更
 			case 2:
-				audiosource.clip = Final_Boss_clip;
+				audiosource1.clip = Final_Boss_clip;
+				break;
+			default:
+				changecnt = 0;
 				break;
 		}
 	}
+	void active_change()
+	{
+		if(Is_Change)
+		{
+			fade_out();
+			fade_in();
+		}
+		else
+		{
+			changecnt++;
+			Change_BGM();
+
+		}
+	}
+
 }
