@@ -849,23 +849,23 @@ public class One_Boss : character_status
 			//	}
 			//}
 
-			if (Shot_Delay == (Shot_DelayMax / 3))
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
-			}
-			else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
-			}
-			else if (Shot_Delay == Shot_DelayMax)
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			//if (Shot_Delay == (Shot_DelayMax / 3))
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			//}
+			//else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			//}
+			//else if (Shot_Delay == Shot_DelayMax)
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
 
-				Shot_Delay -= Shot_DelayMax * 2;
-			}
+			//	Shot_Delay -= Shot_DelayMax * 2;
+			//}
 
 			fafaa = true;
 
