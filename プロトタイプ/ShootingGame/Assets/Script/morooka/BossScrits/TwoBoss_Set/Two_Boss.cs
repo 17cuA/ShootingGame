@@ -47,6 +47,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
 	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
+	[SerializeField, Tooltip("メッシュ")] private Renderer[] Mesh_Renderer;
 
 	//------------------------------------------------------------------------------------------------------
 	// Unity側では触れないもの
@@ -142,6 +143,10 @@ public class Two_Boss : character_status
 				Update_Ok = true;
 				Destroy(transform.GetChild(1).gameObject);
 				Destroy(transform.GetChild(2).gameObject);
+				foreach (var r in Mesh_Renderer)
+				{
+					r.enabled = true;
+				}
 			}
 		}
 		else if(Update_Ok)
