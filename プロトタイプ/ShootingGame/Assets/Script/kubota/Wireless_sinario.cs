@@ -173,39 +173,31 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				if(currentLine > 0)
 				{
-					//各配列に対応したように鳴らす
-					switch (No)
+					if (No == 0)
 					{
-						case 0:
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
-							break;
-						case 1:
-							if(Start_cnt > 90)
-							{
+						Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
+					}
+					else if (Start_cnt > 90)
+					{
+						//各配列に対応したように鳴らす
+						switch (No)
+						{
+							case 1:
 								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[1]);
-							}
-							break;
-						case 2:
-							if (Start_cnt > 90)
-							{
+								break;
+							case 2:
 								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
 								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
-							}
-							break;
-						case 3:
-							if(Start_cnt > 90)
-							{
+								break;
+							case 3:
 								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
 								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
-							}
-							break;
-						case 4:
-							if (Start_cnt > 90)
-							{
+								break;
+							case 4:
 								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[6]);
 								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
-							}
-							break;
+								break;
+						}
 					}
 					if (soundcnt == 1)
 					{
