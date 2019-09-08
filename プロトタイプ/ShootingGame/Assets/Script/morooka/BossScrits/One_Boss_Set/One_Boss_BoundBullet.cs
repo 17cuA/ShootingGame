@@ -18,17 +18,19 @@ public class One_Boss_BoundBullet : bullet_status
 	private Vector3 Ray_Direction { get; set; }
 	private GameObject mae { get; set; }
 	private GameObject boss { get; set; }
+	private Collider _Collider { get; set; }
 
 	private new void Start()
-    {
+	{
 		base.Start();
 		Ray_Direction = transform.right;
 		boss = Obj_Storage.Storage_Data.GetBoss(1);
+		_Collider = GetComponent<Collider>();
 	}
 
-    // Update is called once per frame
-    private new void Update()
-    {
+	// Update is called once per frame
+	private new void Update()
+	{
 		base.Update();
 		Ray_Direction = transform.right;
 		transform.position -= Ray_Direction.normalized * shot_speed;
@@ -43,13 +45,15 @@ public class One_Boss_BoundBullet : bullet_status
 				mae = hit_mesh.transform.gameObject;
 				Ray_Direction = ReflectionCalculation(Ray_Direction, hit_mesh.normal);
 				transform.right = Ray_Direction;
-			}
+				_Collider.isTrigger = false;
+;			}
 		}
 	}
 
 	private void OnEnable()
 	{
 		mae = null;
+		if (_Collider != null)_Collider.isTrigger = true;
 	}
 
 	/// <summary>
@@ -70,10 +74,21 @@ public class One_Boss_BoundBullet : bullet_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-        if(col.tag == "Player_Bullet")
+		if (col.tag == "Player_Bullet")
 		{
 			gameObject.SetActive(false);
 			col.GetComponent<bullet_status>().Player_Bullet_Des();
+			col.gameObject.SetActive(false);
+		}
+	}
+
+	private void OnCollisionEnter(Collision col)
+	{
+		if (col.gameObject.tag == "Player_Bullet")
+		{
+			Debug.Log("Player_Bullet");
+			gameObject.SetActive(false);
+			col.gameObject.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
 		}
 	}

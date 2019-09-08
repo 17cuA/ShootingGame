@@ -40,6 +40,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
+	[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -112,6 +113,8 @@ public class One_Boss : character_status
 
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
+
+	private bool fafaa;
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -758,6 +761,8 @@ public class One_Boss : character_status
 			Timeline_Player.time = 0.0f;
 			// ディレイ調節
 			Shot_Delay = -60;
+			// 枠組み使用開始
+			framework.SetActive(true);
 			// 次の動きへ
 			Attack_Step++;
 			//--------------追加-----------------
@@ -828,23 +833,49 @@ public class One_Boss : character_status
 		else if (Attack_Step == 3)
 		{
 			Flame++;
+			Shot_Delay++;
 
 			//　レーザー撃ち出し
 			Laser_Shooting();
 
-			// バウンド弾撃ちだし
-			if (Flame % 30 == 0)
+			//// バウンド弾撃ちだし
+			//if (Flame % 30 == 0)
+			//{
+			//	Bullet_num_Set(Check_Bits());
+			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+			//	{
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//	}
+			//}
+
+			if (Shot_Delay == (Shot_DelayMax / 3))
 			{
-				Bullet_num_Set(Check_Bits());
-				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-				}
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
 			}
+			else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+			else if (Shot_Delay == Shot_DelayMax)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+
+				Shot_Delay -= Shot_DelayMax * 2;
+			}
+
+			fafaa = true;
 
 			if (Is_end_of_timeline)
 			{
+				// 枠組み使用終了
+				framework.SetActive(false);
+
+				fafaa = false;
+
 				Flame = 0;
 				Timeline_Player.Stop();
 				Attack_Step = 0;
@@ -946,7 +977,7 @@ public class One_Boss : character_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		if (now_rush)
+		if (now_rush || fafaa)
 		{
 			if (col.GetComponent<One_Boss_BoundBullet>() != null)
 			{
