@@ -28,7 +28,7 @@ public class EnemyGroupManage : MonoBehaviour
 	private void Awake()
 	{
         myName = gameObject.name;
-        if(myName== "Enemy_Bacula_Four")
+		if (myName == "Enemy_Bacula_Four" || myName == "Enemy_BossBacula_Four")
         {
             parentObj = transform.parent.gameObject;
             bacuManager = parentObj.GetComponent<BaculasManager>();
@@ -70,8 +70,10 @@ public class EnemyGroupManage : MonoBehaviour
 
 	void Update()
 	{
+		//倒された敵の数と倒されずに画面外に出た敵の数の合計が最初の子供の数と同じになったら
 		if (defeatedEnemyCnt + notDefeatedEnemyCnt == childNum)
 		{
+			//倒されたのと画面外に出たカウントをリセット
 			notDefeatedEnemyCnt = 0;
 			defeatedEnemyCnt = 0;
 			itemPos = new Vector3(0, 0, 0);
