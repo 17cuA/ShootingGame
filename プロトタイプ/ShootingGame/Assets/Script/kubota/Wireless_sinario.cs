@@ -27,7 +27,6 @@ public class Wireless_sinario : MonoBehaviour
     private int lastUpdateCharacter = -1;       //表示中の文字数
 	private int VoiceNo;					//無線の声の情報を取得数するための要素数として使用
     //-------------------------------------------------------------------------------
-    bool one = false;                       // 一度だけ動かすために使う判定型の変数
     public int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
     public bool Is_Display;               //Onになったら文章表示
 
@@ -60,8 +59,11 @@ public class Wireless_sinario : MonoBehaviour
 	private int frameMax;
 
 	private bool Is_Start_Wireless;     //無線が始まるまでの判定用
-	private bool Is_Finish_Wireless;		//無線が終わったかどうか(）
-
+	private bool Is_Finish_Wireless;        //無線が終わったかどうか(）
+	public AudioSource audiosource;         //無線受信時の音などを鳴らすよう
+	private int soundcnt;
+	private bool Is_SoundOn;
+	int staratcnt;
     void Start()
     {
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
@@ -75,8 +77,10 @@ public class Wireless_sinario : MonoBehaviour
 		outline = outline2.effectColor;
 		SetNext_sinario();
 		//SetNextLine();
-		one = false;
 		frameMax = 180;
+		Is_SoundOn = false;
+		soundcnt = 0;
+		staratcnt = 0;
 	}
 
     void Update()
@@ -85,25 +89,30 @@ public class Wireless_sinario : MonoBehaviour
 		//ゲーム内のモードが無線状態の時
         if(Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
+			staratcnt++;
             uiText.color = color;
 			//if(!outline.IsActive()) outline.enabled = true;
 			outline2.effectColor = outline;
+			//受信時の音
+			if(soundcnt == 0 && staratcnt > 180)
+			{
+				Sound_Active();
+				soundcnt++;
+			}
 			Worddisplay();
-        }
+		}
 		else
 		{
 			uiText.color = Color.clear;
 			outline2.effectColor = Color.clear;
 			//if (outline.IsActive()) outline.enabled = false;
 		}
-		Debug.Log(scenarios.Length);
-
 		if (/*Input.GetKeyDown(KeyCode.Space) || */Is_using_wireless)
 		{
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			SetNextLine();
-			Is_using_wireless = false;
 
+			Is_using_wireless = false;
 		}
 
 	}
@@ -116,10 +125,10 @@ public class Wireless_sinario : MonoBehaviour
 		{
 			return;
 		}
+
 		//-------------------------------------------------------------------------------
 		if (isShowOver)
 		{
-            frame++;
 			//既定のシナリオまでだしたら
 			if (Time.time >= unShowTimer)
 			{
@@ -129,16 +138,16 @@ public class Wireless_sinario : MonoBehaviour
 					currentLine = 0;
                     frame = 0;
 					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
-					//デバック用
-					if (Input.GetKeyDown(KeyCode.Alpha0))
-					{
-						currentLine = 0;
-						frame = 0;
-						Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
-					}
-
 				}
 				isShowOver = false;
+			}
+								//デバック用
+			if (Input.GetKeyDown(KeyCode.Alpha0))
+			{
+				currentLine = 0;
+				frame = 0;
+				Voice_Manager.VOICE_Obj.Sinario_Stop();
+				Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 			}
 		}
 		else
@@ -204,16 +213,14 @@ public class Wireless_sinario : MonoBehaviour
 				}
 			}
 		}
-
-
-			//経過した　時間が想定表示時間の何％か確認し、表示文字数を出す。
-			int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
-			//表示文字数が前回の表示文字数と異なるならテキストを更新する。
-			if (displayCharacterCount != lastUpdateCharacter)
-			{
-				uiText.text = currentText.Substring(0, displayCharacterCount);
-				lastUpdateCharacter = displayCharacterCount;
-			}
+		//経過した　時間が想定表示時間の何％か確認し、表示文字数を出す。
+		int displayCharacterCount = (int)(Mathf.Clamp01((Time.time - timeElapsed) / timeUntilDisplay) * currentText.Length);
+		//表示文字数が前回の表示文字数と異なるならテキストを更新する。
+		if (displayCharacterCount != lastUpdateCharacter)
+		{
+			uiText.text = currentText.Substring(0, displayCharacterCount);
+			lastUpdateCharacter = displayCharacterCount;
+		}
 	}
     //次に表示する文字を確認
     void SetNextLine()
@@ -280,5 +287,40 @@ public class Wireless_sinario : MonoBehaviour
 			default:
 				break;
 		}
+	}
+	void Sound_Active()
+	{
+		if(!Is_SoundOn)
+		{
+			switch(soundcnt)
+			{
+				//無線開始時
+				case 0:
+					audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[23]);
+					soundcnt++;
+					Is_SoundOn = true;
+					break;
+					//無線中
+				case 1:
+					if(audiosource.clip != Obj_Storage.Storage_Data.audio_se[24])audiosource.clip = Obj_Storage.Storage_Data.audio_se[24];
+					if(!audiosource.isPlaying)
+					{
+						audiosource.loop = true;
+						audiosource.Play();
+						Is_SoundOn = true;
+					}
+					break;
+					//無線終了時
+				case 2:
+					audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[25]);
+					Is_SoundOn = true;
+					break;
+				default:
+					break;
+			}
+		}
+
+
+
 	}
 }

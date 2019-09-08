@@ -37,4 +37,9 @@ public class Voice_Manager : MonoBehaviour
 	{
 		if(!Sinario_audio.isPlaying)	Sinario_audio.PlayOneShot(voice);
 	}
+
+	public void Sinario_Stop()
+	{
+		if (Sinario_audio.isPlaying) Sinario_audio.Stop();
+	}
 }

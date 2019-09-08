@@ -61,7 +61,7 @@ public class Blink : MonoBehaviour
 	{
 		HS_Step = GetComponent<Helper_SceneTranslation>();
 
-		string character = "INSERT_COIN";
+		string character = "FREE_PLAY";
 		please_push_button_parent = new GameObject();
 		please_push_button_parent.transform.parent = transform;
 		please_push_button = new Character_Display(character.Length, "morooka/SS", please_push_button_parent, please_push_button_pos);
