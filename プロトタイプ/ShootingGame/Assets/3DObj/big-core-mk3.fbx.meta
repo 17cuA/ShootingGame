@@ -127,15 +127,86 @@ ModelImporter:
     7400018: Smasher_2
     7400020: Idol
     7400022: Bio_Laser
+    7400024: Bio_Laser //// Dummy002
+    7400026: Merry_Go_Round //// Dummy002
+    7400028: Straight_Line //// Dummy002
+    7400030: Smasher_1 //// Dummy002
+    7400032: Smasher_2 //// Dummy002
+    7400034: Before_Rotation //// Dummy002
+    7400036: Back_Rotation //// Dummy002
+    7400038: Crossing //// Dummy002
+    7400040: Idol //// Dummy002
+    7400042: Def
     9500000: //RootNode
     11100000: //RootNode
+    11100002: barrier002
+    11100004: barrier003
+    11100006: barrier004
+    11100008: barrier1
+    11100010: base
+    11100012: core
+    11100014: Dummy001
+    11100016: engine_base_left
+    11100018: engine_base_right
+    11100020: engine_weapon_left
+    11100022: engine_weapon_right
+    11100024: option1
+    11100026: option2
+    11100028: option3
+    11100030: option4
+    11100032: option5
+    11100034: option6
+    11100036: smasher_left
+    11100038: smasher_right
+    11100040: weapon_left
+    11100042: weapon_right
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: d3452523dee25d745bcf94fd49fac957, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 51a23b6403c4b5642ba63cc826366cb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 - Default
+    second: {fileID: 2100000, guid: 0a731e58cb0f8d64694fda8acf0b89af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 04 - Default
+    second: {fileID: 2100000, guid: 3ef0ab62053f5b7489396bb700e082d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 05 - Default
+    second: {fileID: 2100000, guid: 307387506c630f14e8519835143be002, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 94db052bdd02ccd42bc2dca8907c98b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08 - Default
+    second: {fileID: 2100000, guid: 5cde8d28dd6e13c4aa3cdbd8b5fedcf3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 09 - Default
+    second: {fileID: 2100000, guid: 57f6407097fae5149b79418bea093e3b, type: 2}
   materials:
     importMaterials: 1
-    materialName: 0
-    materialSearch: 1
-    materialLocation: 1
+    materialName: 1
+    materialSearch: 0
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -397,7 +468,7 @@ ModelImporter:
       curves: []
       events: []
       transformMask: []
-      maskType: 3
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
@@ -425,7 +496,7 @@ ModelImporter:
       curves: []
       events: []
       transformMask: []
-      maskType: 3
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
@@ -440,6 +511,34 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Def
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -485,7 +584,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 1
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1

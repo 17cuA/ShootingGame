@@ -42,7 +42,6 @@ public class Two_Boss : character_status
 	[Header("アニメーション用")]
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
 	[SerializeField, Tooltip("出現タイムライン")] private PlayableAsset Start_Play;
-	[SerializeField, Tooltip("死亡タイムライン")] private PlayableAsset Ded_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
 	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
 	[SerializeField, Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
@@ -141,6 +140,8 @@ public class Two_Boss : character_status
 			if (Is_end_of_timeline)
 			{
 				Update_Ok = true;
+				Destroy(transform.GetChild(1).gameObject);
+				Destroy(transform.GetChild(2).gameObject);
 			}
 		}
 		else if(Update_Ok)
