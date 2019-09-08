@@ -40,7 +40,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
-	[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
+	//[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -114,7 +114,7 @@ public class One_Boss : character_status
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
 
-	private bool fafaa;
+	//private bool fafaa;
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -762,7 +762,7 @@ public class One_Boss : character_status
 			// ディレイ調節
 			Shot_Delay = -60;
 			// 枠組み使用開始
-			framework.SetActive(true);
+			//framework.SetActive(true);
 			// 次の動きへ
 			Attack_Step++;
 			//--------------追加-----------------
@@ -867,14 +867,14 @@ public class One_Boss : character_status
 			//	Shot_Delay -= Shot_DelayMax * 2;
 			//}
 
-			fafaa = true;
+			//fafaa = true;
 
 			if (Is_end_of_timeline)
 			{
-				// 枠組み使用終了
-				framework.SetActive(false);
+				//// 枠組み使用終了
+				//framework.SetActive(false);
 
-				fafaa = false;
+				//fafaa = false;
 
 				Flame = 0;
 				Timeline_Player.Stop();
@@ -977,7 +977,7 @@ public class One_Boss : character_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		if (now_rush || fafaa)
+		if (now_rush)
 		{
 			if (col.GetComponent<One_Boss_BoundBullet>() != null)
 			{
