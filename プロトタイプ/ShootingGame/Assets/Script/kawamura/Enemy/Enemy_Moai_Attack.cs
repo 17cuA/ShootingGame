@@ -6,9 +6,15 @@ public class Enemy_Moai_Attack : MonoBehaviour
 {
 	public GameObject parentObj;
     public GameObject ringBulletObj;    //弾をロードして入れる
+	public GameObject miniMoaiGroupObj;		//ミニモアイ群をロードして入れる
     public GameObject saveRingBullet;   //生成したオブジェクトを入れる
     GameObject saveObj;
+	public GameObject miniMoaiPos;
+
     public Quaternion shotRota;
+
+	public float miniMoai_DelayCnt;
+	public float miniMoai_DelayMax;
 
 	public string parentName;
 
@@ -26,7 +32,9 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		parentObj = transform.parent.gameObject;
 		parentName = parentObj.name;
         find_Angle_Script = gameObject.GetComponent<Find_Angle>();
+		//miniMoaiPos = transform.GetChild(0).gameObject;
         ringBulletObj = Resources.Load("Bullet/Enemy_RingBullet") as GameObject;
+		miniMoaiGroupObj = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;
     }
 
 
@@ -49,7 +57,12 @@ public class Enemy_Moai_Attack : MonoBehaviour
 			}
 			else if (parentName == "Enemy_Moai_MiniMoaiDischarge")
 			{
-
+				miniMoai_DelayCnt++;
+				if (miniMoai_DelayCnt > miniMoai_DelayMax)
+				{
+					MiniMoaiCreate();
+					miniMoai_DelayCnt = 0;
+				}
 			}
 
 		}
@@ -77,4 +90,10 @@ public class Enemy_Moai_Attack : MonoBehaviour
         }
         ringShot_DelayCnt = 0;
     }
+
+	void MiniMoaiCreate()
+	{
+		GameObject save = Instantiate(miniMoaiGroupObj, miniMoaiPos.transform.position, Quaternion.Euler(0, 0, 0));
+		save.transform.position = miniMoaiPos.transform.position;
+	}
 }

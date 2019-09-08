@@ -20,7 +20,7 @@ public class MoaiAnimation : MonoBehaviour
 
 	private float distance_two;
 
-	Enemy_Moai moai_Script;
+	public Enemy_Moai moai_Script;
     Enemy_Moai_Attack moaiAttack_Script;
 
 
@@ -40,6 +40,7 @@ public class MoaiAnimation : MonoBehaviour
 	}
 	void Start()
 	{
+		moai_Script = transform.parent.gameObject.GetComponent<Enemy_Moai>();
 		distance_two = Vector3.Distance(startMarker, endMarker);
 
 		anim = this.gameObject.GetComponent<Animation>();

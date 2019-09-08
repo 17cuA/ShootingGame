@@ -46,8 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentObj: {fileID: 0}
   ringBulletObj: {fileID: 0}
+  miniMoaiGroupObj: {fileID: 0}
   saveRingBullet: {fileID: 0}
+  miniMoaiPos: {fileID: 4453159829879307610}
   shotRota: {x: 0, y: 0, z: 0, w: 0}
+  miniMoai_DelayCnt: 0
+  miniMoai_DelayMax: 0
   parentName: 
   bulletRota_Value: 30
   ringShot_DelayCnt: 0
@@ -80,8 +84,9 @@ GameObject:
   - component: {fileID: 382191774884029168}
   - component: {fileID: 382191774893804820}
   - component: {fileID: 382191774270305251}
-  - component: {fileID: 382191774270305250}
   - component: {fileID: 2182734655614418947}
+  - component: {fileID: 5898047944924560432}
+  - component: {fileID: 3339254097923884710}
   m_Layer: 9
   m_Name: Enemy_Moai_RingShot
   m_TagString: Enemy
@@ -141,26 +146,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &382191774270305250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382191774884331216}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b475de875f137cd4c967ce0cf2b43e04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedY: 0
-  startMarker: {x: 0, y: 0, z: 0}
-  endMarker: {x: 0, y: 0, z: 0}
-  testSpeed: 1
-  moveSpeed: 0
-  anim: {fileID: 0}
-  isOpen: 1
-  isClose: 0
 --- !u!114 &2182734655614418947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,11 +158,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2562237208cc5ff44928df4cbd37bd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ringBulletObj: {fileID: 0}
-  saveRingBullet: {fileID: 0}
-  shotRota: {x: 0, y: 0, z: 0, w: 0}
+  speed: 0
+  hp: 0
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  capsuleCollider: {fileID: 0}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  score: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  white_material: {fileID: 0}
+  Opponent: 0
   bulletRota_Value: 0
   isMouthOpen: 0
+--- !u!136 &5898047944924560432
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.063519605
+  m_Height: 0.1877795
+  m_Direction: 1
+  m_Center: {x: -1.0840698e-17, y: -0.04369409, z: 0.011878049}
+--- !u!136 &3339254097923884710
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.033649817
+  m_Height: 0.09279354
+  m_Direction: 1
+  m_Center: {x: -3.685803e-17, y: 0.081533305, z: -0.018873911}
 --- !u!1 &382191774884331220
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,8 +292,8 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -298,7 +326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331222}
   m_LocalRotation: {x: 1, y: -0, z: 0, w: 6.123234e-17}
-  m_LocalPosition: {x: -0, y: -0.1015, z: 0.043}
+  m_LocalPosition: {x: -0, y: -0.059, z: 0.043}
   m_LocalScale: {x: 0.03937008, y: 0.03937008, z: 0.03937008}
   m_Children: []
   m_Father: {fileID: 382191774884029168}
@@ -357,8 +385,8 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331222}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -379,6 +407,7 @@ MonoBehaviour:
   startMarker: {x: 0, y: 0, z: 0}
   endMarker: {x: 0, y: 0, z: 0}
   testSpeed: 1
+  moai_Script: {fileID: 0}
   moveSpeed: 0
   anim: {fileID: 0}
   isOpen: 1
@@ -406,7 +435,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4453159829879307610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.045, z: 0.0323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

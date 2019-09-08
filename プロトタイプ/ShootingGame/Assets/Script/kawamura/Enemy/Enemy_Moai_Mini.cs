@@ -12,7 +12,7 @@ public class Enemy_Moai_Mini : character_status
 	public Vector3 startPos;
 	public Vector3 endPos;
 	// スピード
-	public float lerpSpeed = 1.0F;
+	public float lerpSpeed = 0;
 	//二点間の距離を入れる
 	private float distance_two;
 
@@ -42,6 +42,7 @@ public class Enemy_Moai_Mini : character_status
 		//rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		//rotaZ = transform.eulerAngles.z;
+		HP_Setting();
 		base.Start();
 	}
 
@@ -49,6 +50,7 @@ public class Enemy_Moai_Mini : character_status
 	{
 		if(once)
 		{
+			//ResetMoai();
 			startPos = transform.localPosition;
 			rotaY_Value = Random.Range(2, 5);
 			rotate_Direction = Random.Range(1, 3);	//intだと最大値-1が範囲になるので2ではなく3を書いている
@@ -70,19 +72,39 @@ public class Enemy_Moai_Mini : character_status
 
 		if (miniMoaiGroup_Script.isChildMove)
 		{
-			float present_Location = (Time.time * speed) / distance_two;
-			transform.localPosition = Vector3.Lerp(startPos, endPos, present_Location);
+			//float present_Location = (Time.time * lerpSpeed) / distance_two;
+			transform.localPosition = Vector3.Lerp(startPos, endPos, lerpSpeed);
+			lerpSpeed += 0.035f;
 			if (transform.localPosition == endPos)
 			{
 				miniMoaiGroup_Script.isChildMove = false;
+				lerpSpeed = 0;
 			}
 		}
 
+		if (hp < 1)
+		{
+			miniMoaiGroup_Script.defeatedEnemyCnt++;
+			ResetMoai();
+			Died_Process();
+		}
 		base.Update();
 	}
 	void ResetMoai()
 	{
 		transform.localPosition = new Vector3(0, 0, 0);
 		transform.rotation = Quaternion.Euler(0, -90, 0);
+	}
+
+	new  void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.name == "WallLeft")
+		{
+			ResetMoai();
+			miniMoaiGroup_Script.notDefeatedEnemyCnt++;
+			gameObject.SetActive(false);
+		}
+
+		base.OnTriggerEnter(col);
 	}
 }
