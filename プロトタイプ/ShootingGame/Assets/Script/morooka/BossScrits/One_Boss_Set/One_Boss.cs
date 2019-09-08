@@ -40,6 +40,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
+	[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -112,6 +113,8 @@ public class One_Boss : character_status
 
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
+
+	private bool fafaa;
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -277,23 +280,28 @@ public class One_Boss : character_status
 				}
 
 
-				if (Attack_Type_Instruction < 2)
+				//if (Attack_Type_Instruction < 2)
+				//{
+				//	Player_Tracking_Bound_Bullets_3();
+				//	//Player_Tracking_Bound_Bullets_2();
+				//}
+				//else
+				//{
+				if (Number_Of_Lasers == 0)
 				{
 					//Player_Tracking_Bound_Bullets_3();
-					Player_Tracking_Bound_Bullets_2();
+					Laser_And_Bouncing_Bullets();
 				}
+				//else if (Number_Of_Lasers == 1)
+				//{
+				//	//Laser_Clearing_2();
+				//	Laser_Time();
+				//}
 				else
 				{
-					if (Number_Of_Lasers < 1)
-					{
-						//Laser_Clearing_2();
-						Laser_Time();
-					}
-					else
-					{
-						Rush_2();
-					}
+					Rush_2();
 				}
+				//}
 
 				base.Update();
 				Survival_Time_Cnt++;
@@ -410,136 +418,6 @@ public class One_Boss : character_status
 	}
 	#endregion
 
-	#region レーザーの薙ぎ払い攻撃_2
-	/// <summary>
-	/// レーザーの薙ぎ払い攻撃_2
-	/// </summary>
-	private void Laser_Clearing_2()
-	{
-		if (Attack_Step == 0)
-		{
-			maenoiti = transform.position;
-			Attack_Step++;
-			Is_Attack_Now = true;
-		}
-		else if (Attack_Step == 1)
-		{
-			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
-			{
-				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
-				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
-			}
-			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
-			{
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 2)
-		{
-			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
-			{
-				supply[0].gameObject.SetActive(true);
-				supply[1].gameObject.SetActive(true);
-
-				supply[0].SetUp();
-				supply[1].SetUp();
-			}
-
-			if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
-			{
-				supply[0].gameObject.SetActive(false);
-				supply[1].gameObject.SetActive(false);
-
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 3)
-		{
-			Flame++;
-			Laser_Shooting();
-
-			if (Flame >= 30)
-			{
-				if (transform.rotation.eulerAngles != For_body_Upward)
-				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Upward), rotational_speed);
-				}
-				else if (transform.rotation.eulerAngles == For_body_Upward)
-				{
-					Attack_Step++;
-					Flame = 0;
-				}
-			}
-		}
-		else if (Attack_Step == 4)
-		{
-			Flame++;
-			Laser_Shooting();
-
-			if (Flame >= 30)
-			{
-				if (transform.rotation.eulerAngles != For_body_Downward)
-				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(For_body_Downward), rotational_speed);
-				}
-				else if (transform.rotation.eulerAngles == For_body_Downward)
-				{
-					Attack_Step++;
-					Flame = 0;
-				}
-			}
-		}
-		else if (Attack_Step == 5)
-		{
-			Flame++;
-			Laser_Shooting();
-
-			if (Flame >= 30)
-			{
-				if (transform.rotation != Quaternion.identity)
-				{
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, rotational_speed);
-				}
-				else if (transform.rotation == Quaternion.identity)
-				{
-					Attack_Step++;
-					Flame = 0;
-				}
-			}
-		}
-		else if (Attack_Step == 6)
-		{
-			Flame++;
-			Laser_Shooting();
-			if (Flame == 60)
-			{
-				Attack_Step++;
-				Flame = 0;
-			}
-		}
-		else if (Attack_Step == 7)
-		{
-			Flame++;
-			if (Flame == 30)
-			{
-				Attack_Step = 0;
-				Attack_Type_Instruction = 0;
-				Flame = 0;
-				Number_Of_Lasers++;
-				Is_Attack_Now = false;
-			}
-		}
-	}
-	#endregion
-
 	#region タイムラインレーザー
 	private void Laser_Time()
 	{
@@ -641,119 +519,6 @@ public class One_Boss : character_status
 			Is_Attack_Now = false;
 		}
 	}
-		#endregion
-
-	#region プレイヤーを追従しバウンド弾_2
-		/// <summary>
-		/// プレイヤーを追従しバウンド弾_2
-		/// </summary>
-		private void Player_Tracking_Bound_Bullets_2()
-	{
-		if (Vector_Size(maenoiti, transform.position) < Speed_Change_Distance)
-		{
-			if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-		}
-		if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
-		{
-			if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-		}
-		transform.position = Moving_To_Target_S(transform.position, Target, Now_Speed);
-		Turning();
-
-		if (Attack_Step == 0)
-		{
-			Is_Attack_Now = true;
-			//Flame++;
-			//if (Flame == 40)
-			//{
-			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-			//	{
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[1].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//	}
-			//	Attack_Step++;
-			//	Flame = 0;
-			//}
-
-			if (Vector_Size(transform.position, IntermediatePosition) <= Lowest_Speed)
-			{
-				Bullet_num_Set(Check_Bits());
-
-				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[1].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-				}
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 1)
-		{
-			if (transform.position == Target)
-			{
-				Attack_Type_Instruction++;
-				Attack_Step = 0;
-				Flame = 0;
-
-				Bullet_num_Set(Check_Bits());
-
-				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[2].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-				}
-			}
-
-			//Flame++;
-			//if (Flame == 40)
-			//{
-			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-			//	{
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[2].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//	}
-			//	Attack_Step++;
-			//	Flame = 0;
-			//}
-		}
-		else if (Attack_Step == 2)
-		{
-			//Flame++;
-			//if (Flame == 30)
-			//{
-			//	Flame = 0;
-			//	Attack_Step = 0;
-			//	Attack_Type_Instruction++;
-			//	Attack_Now = false;
-			//}
-		}
-
-		if (transform.position == Target)
-		{
-			int[] rand_I = new int[3] { -1, 0, 1 };
-			maenoiti = transform.position;
-			int a_temp = rand_I[Random.Range(0, rand_I.Length)];
-			if (8 == a_temp + A_Num)
-			{
-				a_temp = 0;
-			}
-			else if (a_temp + A_Num == -1)
-			{
-				a_temp = 7;
-			}
-			int b_temp = rand_I[Random.Range(0, rand_I.Length)];
-			if (b_temp + B_Num == -1 || 5 == b_temp + B_Num)
-			{
-				b_temp = 0;
-			}
-
-			A_Num += a_temp;
-			B_Num += b_temp;
-			Target = Pos_set[A_Num, B_Num];
-
-			IntermediatePosition = new Vector3((maenoiti.x + Target.x) / 2.0f, (maenoiti.y + Target.y) / 2.0f, 0.0f);
-		}
-	}
 	#endregion
 
 	# region プレイヤーを追従しバウンド弾_3
@@ -762,13 +527,25 @@ public class One_Boss : character_status
 		if (Attack_Step == 0)
 		{
 			Timeline_Player.Play(Bullet_timeline);
+			Timeline_Player.time = 0.0f;
 			Attack_Step++;
 			Is_Attack_Now = true;
+			Shot_Delay = -60;
 		}
 		else if (Attack_Step == 1)
 		{
 			Flame++;
-			if(Flame % 6 == 0)
+
+			foreach (GameObject obj in laser_muzzle)
+			{
+				if (obj.activeSelf)
+				{
+					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
+					laser.Manual_Start(obj.transform);
+				}
+			}
+
+			if (Flame % 20 == 0)
 			{
 				Bullet_num_Set(Check_Bits());
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
@@ -793,13 +570,16 @@ public class One_Boss : character_status
 			{
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+
+				Shot_Delay -= Shot_DelayMax * 2;
 			}
 
 			if(Is_end_of_timeline)
 			{
 				Is_Attack_Now = false;
 				Attack_Step = 0;
-				Attack_Type_Instruction = 2;
+				Is_end_of_timeline = false;
+				Number_Of_Lasers++;
 				Flame = 0;
 				Shot_Delay = 0;
 			}
@@ -935,26 +715,190 @@ public class One_Boss : character_status
 	}
 	#endregion
 
+	/// <summary>
+	/// レーザーとバウンド弾
+	/// </summary>
+	private void Laser_And_Bouncing_Bullets()
+	{
+		// レーザーチャージ
+		if (Attack_Step == 0)
+		{	
+			// 攻撃開始
+			Is_Attack_Now = true;
+
+			// チャージ音
+			if (audioSource.clip == laserEnd)
+			{
+				audioSource.clip = laserBegin;
+				audioSource.Stop();
+				audioSource.loop = true;
+				audioSource.Play();
+			}
+
+			// チャージエフェクト再生
+			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
+			{
+				supply[0].gameObject.SetActive(true);
+				supply[1].gameObject.SetActive(true);
+
+				supply[0].SetUp();
+				supply[1].SetUp();
+			}
+			// チャージエフェクト終了
+			if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
+			{
+				supply[0].gameObject.SetActive(false);
+				supply[1].gameObject.SetActive(false);
+
+				Attack_Step++;
+			}
+		}
+		// タイムライン再生
+		else if(Attack_Step == 1)
+		{
+			// デフォルト位置での揺れ
+			Timeline_Player.Play(Bullet_timeline);
+			Timeline_Player.time = 0.0f;
+			// ディレイ調節
+			Shot_Delay = -60;
+			// 枠組み使用開始
+			framework.SetActive(true);
+			// 次の動きへ
+			Attack_Step++;
+			//--------------追加-----------------
+			// レーザー音
+			if (audioSource.clip == laserBegin)
+			{
+				audioSource.clip = laserContinuing;
+				audioSource.Stop();
+				audioSource.loop = true;
+				audioSource.Play();
+			}
+			//-----------------------------------
+		}
+		// 攻撃
+		else if(Attack_Step == 2)
+		{
+			Flame++;
+			Shot_Delay++;
+
+			//　レーザー撃ち出し
+			Laser_Shooting();
+
+			// バウンド弾撃ちだし
+			if (Flame % 30 == 0)
+			{
+				Bullet_num_Set(Check_Bits());
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				}
+			}
+
+			// ビーム撃ちだし
+			if (Shot_Delay == (Shot_DelayMax / 3))
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+			else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+			}
+			else if (Shot_Delay == Shot_DelayMax)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
+
+				Shot_Delay -= Shot_DelayMax * 2;
+			}
+
+			// タイムライン終了時
+			if (Is_end_of_timeline)
+			{
+				// 薙ぎ払い攻撃
+				Timeline_Player.Play(layser_timeline);
+				Timeline_Player.time = 0.0;
+
+
+				// 次のステップへ
+				Attack_Step++;
+				Is_end_of_timeline = false;
+				Flame = 0;
+				Shot_Delay = 0;
+			}
+		}
+		else if (Attack_Step == 3)
+		{
+			Flame++;
+			Shot_Delay++;
+
+			//　レーザー撃ち出し
+			Laser_Shooting();
+
+			//// バウンド弾撃ちだし
+			//if (Flame % 30 == 0)
+			//{
+			//	Bullet_num_Set(Check_Bits());
+			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+			//	{
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//	}
+			//}
+
+			//if (Shot_Delay == (Shot_DelayMax / 3))
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			//}
+			//else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+			//}
+			//else if (Shot_Delay == Shot_DelayMax)
+			//{
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
+
+			//	Shot_Delay -= Shot_DelayMax * 2;
+			//}
+
+			fafaa = true;
+
+			if (Is_end_of_timeline)
+			{
+				// 枠組み使用終了
+				framework.SetActive(false);
+
+				fafaa = false;
+
+				Flame = 0;
+				Timeline_Player.Stop();
+				Attack_Step = 0;
+				Is_Attack_Now = false;
+				Number_Of_Lasers++;
+			}
+		}
+	}
+
 	#region レーザー打ち出し
 	/// <summary>
 	/// レーザー撃ち出し
 	/// </summary>
 	private void Laser_Shooting()
 	{
-		Shot_Delay++;
-
-		if (Shot_Delay > Shot_DelayMax)
-		{
 			foreach (GameObject obj in laser_muzzle)
 			{
 				if (obj.activeSelf)
 				{
 					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform,true);
+					laser.Manual_Start(obj.transform);
 				}
 			}
-			Shot_Delay = 0;
-		}
 	}
 	#endregion
 
@@ -1033,7 +977,7 @@ public class One_Boss : character_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		if (now_rush)
+		if (now_rush || fafaa)
 		{
 			if (col.GetComponent<One_Boss_BoundBullet>() != null)
 			{

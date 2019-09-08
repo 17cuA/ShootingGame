@@ -132,7 +132,7 @@ public class bullet_status : MonoBehaviour
             effect.transform.position = gameObject.transform.position;
             particle.Play();
         }
-		else if(gameObject.tag == "Player_Bullet " && col.name == "Enemy_Bacula")
+		else if(gameObject.tag == "Player_Bullet " && col.name == "Bacula")
 		{
 			character_status obj = col.GetComponent<character_status>();
 			if (obj != null)
@@ -142,7 +142,6 @@ public class bullet_status : MonoBehaviour
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
-			SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
 			particle.Play();
 			gameObject.SetActive(false);
 			Player_Bullet_Des();

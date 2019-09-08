@@ -37,27 +37,27 @@ public class Boss_One_Laser : MonoBehaviour
 		transform.localPosition = temp;
 	}
 
-	public void Manual_Start(Transform parent,bool laser_mode)
+	public void Manual_Start(Transform parent)
 	{
 		transform.parent = parent;
 		transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
 
 		// レーザーモードのとき
-		if(laser_mode)
-		{
-			State_Laser = laser_mode;
-			Laser_Appearance.SetActive(true);
-			Frame_Appearance.SetActive(false);
-			_collider.size = new Vector3(0.2f, 0.1f, 5.0f);
-		}
-		else if(!laser_mode)
-		{
-			State_Laser = laser_mode;
-			State_Laser = laser_mode;
-			Laser_Appearance.SetActive(false);
-			Frame_Appearance.SetActive(true);
-			_collider.size = new Vector3(0.2f, 0.1f, 0.1f);
-		}
+		//if(laser_mode)
+		//{
+		//	State_Laser = laser_mode;
+		//	Laser_Appearance.SetActive(true);
+		//	Frame_Appearance.SetActive(false);
+		//	_collider.size = new Vector3(0.2f, 0.1f, 5.0f);
+		//}
+		//else if(!laser_mode)
+		//{
+		//	State_Laser = laser_mode;
+		//	State_Laser = laser_mode;
+		//	Laser_Appearance.SetActive(false);
+		//	Frame_Appearance.SetActive(true);
+		//	_collider.size = new Vector3(0.2f, 0.1f, 0.1f);
+		//}
 	}
 
 	protected void OnTriggerEnter(Collider col)

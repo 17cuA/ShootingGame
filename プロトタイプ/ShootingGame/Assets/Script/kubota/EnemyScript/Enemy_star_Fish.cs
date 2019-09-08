@@ -40,12 +40,12 @@ public class Enemy_star_Fish : character_status
 			if (num == 0)
 			{
 				P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				playerPos = P1.transform.position;
+				playerPos = P1.direction;
 			}
 			else
 			{
 				P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				playerPos = P2.transform.position;
+				playerPos = P2.direction;
 			}
 		}
 	}
@@ -61,7 +61,6 @@ public class Enemy_star_Fish : character_status
 	new void Update()
 	{
 		transform.position -= calcPos() * speed;
-		Debug.Log(calcPos() * speed + transform.position);
 		if(hp < 1)
 		{
             if (haveItem)

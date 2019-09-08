@@ -92,7 +92,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[23];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[26];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 	//無線のに使う情報
 	private string name_Wireless_curtain_up = "curtain_up";		  //開戦時
@@ -192,7 +192,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[0] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bacura_Hit");				//バキュラに当たった時の高い音用
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");	//隕石の爆発音
 		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
-		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");	
+		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
 		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/power_up_Kapuseru t");	//アイテム使用パワーアップ音(ステータス変化)
@@ -213,6 +213,11 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");		//プレイヤーの死亡時の音
 		audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");			//プレイヤー登場の音
 		audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)");	//中ボス用の爆発音
+		audio_se[23] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display");			//無線受信時
+		audio_se[24] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Parmanent");	//無線のボイスの裏で流すよう
+		audio_se[25] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Close");	//無線終了時
+
+
 		//------------------------------------------------------------------------------
 		audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");		//開戦時
 		audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");		//前半ボス前
@@ -221,7 +226,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");		//後半ボス前1
 		audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");		//後半ボス前2
 		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");		//後半ボス後1
-		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//後半ボス後2
+		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");		//後半ボス後2
 		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//ゲームオーバー
 		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_10");
 		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_11");

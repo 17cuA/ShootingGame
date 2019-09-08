@@ -22,6 +22,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Entry;
 	[Header("バキュラヒットSE")]
 	public AudioSource Baculor;
+	[Header("無線開始時などに使う用")]
+	public AudioSource Wireless;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -66,5 +68,11 @@ public class SE_Manager : MonoBehaviour
 	{
 		if (Baculor.isPlaying) Baculor.Stop();
 		if (Is_Active) Baculor.PlayOneShot(se);
+	}
+
+	public void Wirelss_SE(AudioClip se)
+	{
+		if (Wireless.isPlaying) Baculor.Stop();
+		if (Is_Active) Wireless.PlayOneShot(se);
 	}
 }

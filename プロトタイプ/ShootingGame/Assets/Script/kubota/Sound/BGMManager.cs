@@ -11,6 +11,8 @@ public class BGMManager : MonoBehaviour
 	public AudioClip Second_clip;			//ボス語のＢＧＭ
 	public AudioClip Final_Boss_clip;           //最後のボスのＢＧＭ
 
+	public int changecnt;			//交換した回数カウント用
+
 	[Range(0, 1)]
 	float fade_num;             //フェードを行う際に使用
 	private bool Is_fadeout;		//フェードアウトを行うかどうか
@@ -33,12 +35,44 @@ public class BGMManager : MonoBehaviour
 
 	void fade_out()
 	{
-		if(fade_num <= 1)
+		if(Is_fadeout)
 		{
-			audiosource.volume = 1f - fade_num;
+			if (fade_num <= 1)
+			{
+				audiosource.volume = 1f - fade_num;
+			}
+			fade_num++;
 		}
-		fade_num++;
 	}
 
+	void fade_in()
+	{
+		if(Is_fadein)
+		{
+			if(fade_num <= 1)
+			{
+				audiosource.volume = fade_num;
+			}
+			fade_num++;
+		}
+	}
 
+	void Change_BGM()
+	{
+		switch(changecnt)
+		{
+			//ボス戦ように変更
+			case 0:
+				audiosource.clip = First_Boss_clip;
+				break;
+				//ボス戦後に変更
+			case 1:
+				audiosource.clip = Second_clip;
+				break;
+				//最後のボスように変更
+			case 2:
+				audiosource.clip = Final_Boss_clip;
+				break;
+		}
+	}
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4106160285139764409}
   - component: {fileID: 2686598092729110163}
   - component: {fileID: 8203384967423180408}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FireSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4711,7 +4711,7 @@ GameObject:
   - component: {fileID: 2198145029032629583}
   - component: {fileID: 4632925056874996308}
   - component: {fileID: 6282800785836046585}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: AmbiguousSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9485,7 +9485,7 @@ GameObject:
   - component: {fileID: 5119778334533526781}
   - component: {fileID: 8017609608166026713}
   - component: {fileID: 4978827839392986182}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FireSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14250,7 +14250,7 @@ GameObject:
   - component: {fileID: 1979343997844554793}
   - component: {fileID: 8069810274556274650}
   - component: {fileID: 772789063634220058}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: E204
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18953,7 +18953,7 @@ GameObject:
   - component: {fileID: 6827650497461771704}
   - component: {fileID: 4671300833408253933}
   - component: {fileID: 548378410481305007}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23653,7 +23653,7 @@ GameObject:
   - component: {fileID: 9051898754605813107}
   - component: {fileID: 9174936034563877773}
   - component: {fileID: 9175065343368443679}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28445,7 +28445,7 @@ GameObject:
   - component: {fileID: 9043629390223817503}
   - component: {fileID: 9174933900069115967}
   - component: {fileID: 9175185976584626459}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Explosion_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33201,7 +33201,7 @@ GameObject:
   - component: {fileID: 9052229112915535903}
   - component: {fileID: 9174723114922681929}
   - component: {fileID: 9175456914092654095}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37876,7 +37876,7 @@ GameObject:
   - component: {fileID: 9043359015575402599}
   - component: {fileID: 9174060945591674453}
   - component: {fileID: 9175250256963030921}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: IntelligibilitySmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42646,11 +42646,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1979343997844554793}
     m_Modifications:
-    - target: {fileID: 7072507446955301481, guid: 8d39241ac31e33d468980aa95352bf77,
-        type: 3}
-      propertyPath: m_Name
-      value: E201
-      objectReference: {fileID: 0}
     - target: {fileID: 7523270890782197874, guid: 8d39241ac31e33d468980aa95352bf77,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -42705,6 +42700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072507446955301481, guid: 8d39241ac31e33d468980aa95352bf77,
+        type: 3}
+      propertyPath: m_Name
+      value: E201
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d39241ac31e33d468980aa95352bf77, type: 3}
