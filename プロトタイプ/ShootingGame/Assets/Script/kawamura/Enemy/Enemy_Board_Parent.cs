@@ -31,6 +31,7 @@ public class Enemy_Board_Parent : MonoBehaviour
     public float damageDelay;
 
 	public string myName;
+	public string parentName;
 
 	float rotaZ;
 
@@ -48,6 +49,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	void Start()
     {
         parentObj = transform.parent.gameObject;
+		parentName = parentObj.name;
         egm = parentObj.GetComponent<EnemyGroupManage>();
         speedX_Max = speedX;
         speedX_Min = -speedX;

@@ -457,7 +457,7 @@ public class EnemyCreate : MonoBehaviour
 		else if (Input.GetKeyDown(KeyCode.B))
 		{
 			turning_frame = 9660;
-			frameCnt = 9660;    //←上の数字から60引いた数にする
+			frameCnt = 9600;    //←上の数字から60引いた数にする
 			groupCnt = 45;
 			//nowGroupCnt = 36;
 		}
@@ -879,7 +879,7 @@ public class EnemyCreate : MonoBehaviour
 		#endregion
 		if (true)
 		{
-			// 円盤グループアイテム上
+			// 円盤グループアイテム上 0
 			if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 			{
 				// 元の円盤
@@ -892,7 +892,7 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
 				nextEnemy = "円盤グループアイテム下";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 円盤グループアイテム下
@@ -908,7 +908,7 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
-				Next_Condition(360);
+				Next_Condition(330);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置突進中央2体アイテム
@@ -916,7 +916,7 @@ public class EnemyCreate : MonoBehaviour
 			{
 				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
-				Next_Condition(300);
+				Next_Condition(270);
 				nextEnemy = "闘牛5";
 				nowGroupCnt++;
 			}
@@ -926,7 +926,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "円盤グループアイテム上下";
-				Next_Condition(360);
+				Next_Condition(330);
 			}
 			// 円盤グループアイテム上下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
@@ -945,7 +945,7 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group.transform.rotation = transform.rotation;
 
 				nextEnemy = "円盤グループアイテム上下狭";
-				Next_Condition(240);
+				Next_Condition(210);
 				nowGroupCnt++;
 			}
 			// 円盤グループアイテム上下狭
@@ -960,7 +960,7 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group8.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛3";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛3
@@ -997,7 +997,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置突進中央2体アイテム
@@ -1006,7 +1006,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置突進";
-				Next_Condition(210);
+				Next_Condition(180);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置突進
@@ -1015,7 +1015,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
-				Next_Condition(210);
+				Next_Condition(180);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置突進中央2体アイテム
@@ -1024,7 +1024,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置突進";
-				Next_Condition(240);
+				Next_Condition(180);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置突進
@@ -1080,7 +1080,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "ビッグコア出現";
-				Next_Condition(600);
+				Next_Condition(540);
 				nowGroupCnt++;
 			}
 			// ビッグコア出現🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
@@ -1092,7 +1092,7 @@ public class EnemyCreate : MonoBehaviour
 				Boss_Middle.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(180);
+				Next_Condition(150);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
@@ -1102,7 +1102,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(180);
+				Next_Condition(150);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
@@ -1112,7 +1112,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(240);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
@@ -1122,7 +1122,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(180);
+				Next_Condition(150);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
@@ -1132,7 +1132,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(180);
+				Next_Condition(150);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
@@ -1142,7 +1142,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "ハエ4広右2アイテム";
-				Next_Condition(700);
+				Next_Condition(780);
 				nowGroupCnt++;
 			}
 			// ハエ4広右2アイテム
@@ -1151,7 +1151,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ハエ4広";
-				Next_Condition(360);
+				Next_Condition(300);
 				nowGroupCnt++;
 			}
 			// ハエ4広
@@ -1160,7 +1160,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Beelzebub_Group_FourWide, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "戦艦";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 戦艦
@@ -1173,7 +1173,7 @@ public class EnemyCreate : MonoBehaviour
 				b1.Is_up = false;
 
 				nextEnemy = "闘牛斜め中央2アイテム";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め中央2アイテム
@@ -1182,7 +1182,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "戦艦上下";
-				Next_Condition(360);
+				Next_Condition(330);
 				nowGroupCnt++;
 			}
 			// 戦艦上下
@@ -1197,7 +1197,7 @@ public class EnemyCreate : MonoBehaviour
 				b2.Is_up = true;
 
 				nextEnemy = "闘牛12中央軸グループアイテム";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛12中央軸グループアイテム
@@ -1208,7 +1208,7 @@ public class EnemyCreate : MonoBehaviour
 				group_Script.isItemDrop = true;
 
 				nextEnemy = "戦艦";
-				Next_Condition(360);
+				Next_Condition(330);
 				nowGroupCnt++;
 			}
 			// 戦艦
@@ -1221,7 +1221,7 @@ public class EnemyCreate : MonoBehaviour
 				b1.Is_up = false;
 
 				nextEnemy = "闘牛12中央軸上下グループアイテム";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛12中央軸上下グループアイテム
@@ -1231,7 +1231,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
 				nextEnemy = "ビートル";
-				Next_Condition(220);
+				Next_Condition(210);
 				nowGroupCnt++;
 			}
             //ビートル5体
@@ -1241,7 +1241,7 @@ public class EnemyCreate : MonoBehaviour
 
                 beetleGroup.transform.position = new Vector3(15, -8, 0);
                 nextEnemy = "円盤10グループアイテム上下";
-                Next_Condition(480);
+                Next_Condition(420);
                 nowGroupCnt++;
             }
 
@@ -1272,7 +1272,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position + createPosRm3.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛3";
-				Next_Condition(300);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛3
@@ -1309,7 +1309,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置突進中央2体アイテム";
-				Next_Condition(300);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 円盤10グループアイテム上下狭
@@ -1322,7 +1322,7 @@ public class EnemyCreate : MonoBehaviour
 				enemy_UFO_Group2.transform.position = createPosRm2.transform.position + new Vector3(8.5f, 0, 0);
 
 				nextEnemy = "闘牛12中心軸上下グループアイテム";
-				Next_Condition(300);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛12中心軸上下グループアイテム
@@ -1332,7 +1332,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛12中心軸グループアイテム";
-				Next_Condition(210);
+				Next_Condition(180);
 				nowGroupCnt++;
 			}
 			// 闘牛12中心軸グループアイテム
@@ -1341,7 +1341,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "BigCore-MkⅡ";
-				Next_Condition(180);
+				Next_Condition(210);
 				nowGroupCnt++;
 			}
 			// ビックコアマーク2🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
@@ -1368,7 +1368,7 @@ public class EnemyCreate : MonoBehaviour
                 Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
                 nextEnemy = "バキュラ群)";
-                Next_Condition(630);
+                Next_Condition(600);
             }
 
             //バキュラ群 17030
@@ -1377,7 +1377,7 @@ public class EnemyCreate : MonoBehaviour
 				Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
 				nextEnemy = "隕石群(5つ)";
-				Next_Condition(1400);
+				Next_Condition(1380);
 			}
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
 			{
@@ -1458,7 +1458,7 @@ public class EnemyCreate : MonoBehaviour
 				isNowTwoBoss = true;
 
 				nextEnemy = " ";
-				Next_Condition(180);
+				Next_Condition(210);
 			}
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
 			{

@@ -24,10 +24,16 @@ public class Enemy_RingBullet : bullet_status
 	}
 	private new void OnTriggerEnter(Collider col)
 	{
-        if (col.tag == "Player_Bullet" || col.gameObject.name == "face" || col.gameObject.name == "mouth")
+        if (col.tag == "Player_Bullet")
 		{
-			gameObject.SetActive(false);
-		}
+            gameObject.SetActive(false);
+            col.GetComponent<bullet_status>().Player_Bullet_Des();
+            col.gameObject.SetActive(false);
+        }
+        else if(col.gameObject.name == "face" || col.gameObject.name == "mouth")
+        {
+            gameObject.SetActive(false);
+        }
         base.OnTriggerEnter(col);
 	}
 

@@ -13,7 +13,7 @@ public class Enemy_BeetleRoll : MonoBehaviour
 	public int rollCnt;							//回転した回数を数える
 	public float rotaZ;                         //代入する角度の値
 	[Header("入力用　回転する最大値")]
-	public float rotaZ_Max;                 //回転する最大値（この値を減らしていって、どれくらい回転したかを見る。この値が残りの回転する）
+	public float rotaZ_Max;                 //回転する最大値（この値を減らしていって、どれくらい回転したかを見る。この値が残りの回転角度）
 	[Header("入力用　回転速度を減速し始める大きさ")]
 	public float deceleration_Start;		//回転の減速開始をする角度
 	[Header("入力用　角度を変える数値の大きさ設定")]
