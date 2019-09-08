@@ -11,6 +11,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
     GameObject saveObj;
 	public GameObject miniMoaiPos;
 
+    public Enemy_Moai moai_Script;
     public Quaternion shotRota;
 
 	public float miniMoai_DelayCnt;
@@ -31,6 +32,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
     {
 		parentObj = transform.parent.gameObject;
 		parentName = parentObj.name;
+        moai_Script = parentObj.GetComponent<Enemy_Moai>();
         find_Angle_Script = gameObject.GetComponent<Find_Angle>();
 		//miniMoaiPos = transform.GetChild(0).gameObject;
         ringBulletObj = Resources.Load("Bullet/Enemy_RingBullet") as GameObject;
@@ -41,7 +43,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
     void Update()
     {
 
-        if(isMouthOpen)
+        if (moai_Script.isMouthOpen)
         {
 			if (parentName == "Enemy_Moai_RingShot")
 			{

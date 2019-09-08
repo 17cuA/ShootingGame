@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3440181608266800135}
   - component: {fileID: 5259193096014521891}
+  - component: {fileID: 3778098801091904238}
   m_Layer: 9
   m_Name: bick_core_mk3
   m_TagString: Enemy
@@ -135,6 +136,23 @@ MonoBehaviour:
   EF_plefab: {fileID: 7507819870535526857, guid: d9e9674e5d95abd45b5a800227958aa0,
     type: 3}
   animation_data: {fileID: 9116227398910803921}
+--- !u!320 &3778098801091904238
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498584347527707481}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: a104391239f695149873d90670dc11eb, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &3345257911636247361
 GameObject:
   m_ObjectHideFlags: 0
