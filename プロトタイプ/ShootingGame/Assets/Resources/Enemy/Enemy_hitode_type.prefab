@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1292538653}
   - component: {fileID: 1292538652}
   - component: {fileID: 1292538654}
+  - component: {fileID: 5399802975822105388}
   m_Layer: 9
   m_Name: Enemy_hitode_type
   m_TagString: Enemy
@@ -98,6 +99,27 @@ MonoBehaviour:
   Is_Dead: 0
   white_material: {fileID: 0}
   Opponent: 0
+  playerPos: {x: 0, y: 0, z: 0}
+  firstPos: {x: 0, y: 0, z: 0}
+  P1: {fileID: 0}
+  P2: {fileID: 0}
+  num: 0
+  haveItem: 0
+--- !u!114 &5399802975822105388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6600552449547890624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19f2bc610d1f4049a787dc6918d53d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  isQuitting: 0
+  isDrop: 0
 --- !u!1 &6600552449547890626
 GameObject:
   m_ObjectHideFlags: 0

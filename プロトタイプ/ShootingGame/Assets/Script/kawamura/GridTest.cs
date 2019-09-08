@@ -25,6 +25,10 @@ public class GridTest : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject save = Instantiate(Resources.Load("Bullet/Player_Bullet_1P")as GameObject, transform.position, transform.rotation);
+        }
 		// ① 移動中かどうかの判定。移動中でなければ入力を受付
 		if (transform.position == target)
 		{

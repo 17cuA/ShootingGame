@@ -1,19 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_star_Fish : character_status
 {
+    GameObject item;
 	public Vector3 playerPos;
 	public Vector3 firstPos;
 	public Player1 P1;
 	public Player2 P2;
 	public int num = 0;
-	
-	// Start is called before the first frame update
-	new void Start()
+
+    public bool haveItem = false;
+    // Start is called before the first frame update
+    new void Start()
 	{
-		base.Start();
+        if (gameObject.GetComponent<DropItem>())
+        {
+            DropItem dItem = gameObject.GetComponent<DropItem>();
+            haveItem = true;
+        }
+        item = Resources.Load("Item/Item_Test") as GameObject;
+
+        base.Start();
 		//firstPos = transform.position;
 	}
 
@@ -54,7 +64,14 @@ public class Enemy_star_Fish : character_status
 		Debug.Log(calcPos() * speed + transform.position);
 		if(hp < 1)
 		{
-			base.Died_Process();
+            if (haveItem)
+            {
+                //Instantiate(item, this.transform.position, transform.rotation);
+                Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
+
+            }
+
+            base.Died_Process();
 		}
 		base.Update();
 	}
