@@ -46,10 +46,10 @@ public class Ranking_Strage : MonoBehaviour
 		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
 		{
 			Strage_Data = GetComponent<Ranking_Strage>();
-			Set_Score(kDefaultName, Game_Master.display_score_1P, ref player1Rank);
+			Set_Score(kDefaultName, Game_Master.display_score_1P + ResultDisplay.kClearbonusValue, ref player1Rank);
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			{
-				Set_Score(kDefaultName, Game_Master.display_score_2P, ref player2Rank);
+				Set_Score(kDefaultName, Game_Master.display_score_2P + ResultDisplay.kClearbonusValue, ref player2Rank);
 			}
 			_Display = GetComponent<RankingDisplay>();
 			_Display.Init();

@@ -38,17 +38,12 @@ public class PauseManager : MonoBehaviour
 	{
 		pauseMask = transform.GetChild(0).gameObject;
 		pauseText = transform.GetChild(1).gameObject;
-		allAudios = GameObject.FindObjectsOfType<AudioSource>();
 
 		Time.timeScale = 1f;
 		isPause = false;
 		PauseComponent.Resume();
 		pauseMask.SetActive(false);
 		pauseText.SetActive(false);
-		for (var i = 0; i < allAudios.Length; ++i)
-		{
-			allAudios[i].volume = 1.0f;
-		}
 	}
 
 	void Update()
@@ -57,6 +52,7 @@ public class PauseManager : MonoBehaviour
 		{
 			if ((Input.GetKeyDown(controlKey) && isUseKey) /*|| (Input.GetButtonDown(controlName) && !isUseKey)*/)
 			{
+				allAudios = GameObject.FindObjectsOfType<AudioSource>();
 				DebugManager.OperationDebug("-----一時停止-----", "GM");
 				Time.timeScale = 0f;
 				isPause = !isPause;
@@ -66,6 +62,11 @@ public class PauseManager : MonoBehaviour
 				for(var i = 0; i < allAudios.Length; ++i)
 				{
 					allAudios[i].volume = pauseVolume;
+					if(allAudios[i].gameObject.name == "One_Boss")
+					{
+						allAudios[i].Pause();
+						allAudios[i].volume = 0f;
+					}
 				}
 			}
 			
@@ -74,6 +75,7 @@ public class PauseManager : MonoBehaviour
 		{
 			if((Input.GetKeyDown(controlKey) && isUseKey) /*|| (Input.GetButtonDown(controlName) && !isUseKey)*/)
 			{
+				allAudios = GameObject.FindObjectsOfType<AudioSource>();
 				DebugManager.OperationDebug("-----ゲーム再開-----", "GM");
 				Time.timeScale = 1f;
 				isPause = !isPause;
@@ -82,7 +84,9 @@ public class PauseManager : MonoBehaviour
 				pauseText.SetActive(false);
 				for (var i = 0; i < allAudios.Length; ++i)
 				{
+					allAudios[i].UnPause();
 					allAudios[i].volume = 1.0f;
+
 				}
 			}
 		}

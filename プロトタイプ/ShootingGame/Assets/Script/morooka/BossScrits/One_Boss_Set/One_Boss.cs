@@ -40,7 +40,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
-	[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
+	//[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
@@ -114,7 +114,7 @@ public class One_Boss : character_status
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
 
-	private bool fafaa;
+	//private bool fafaa;
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -246,6 +246,15 @@ public class One_Boss : character_status
 
 	private new void Update()
 	{
+		if(PauseManager.IsPause)
+		{
+			Timeline_Player.Pause();
+		}
+		else
+		{
+			Timeline_Player.Resume();
+		}
+
 		if (!PauseManager.IsPause)
 		{
 			if (Survival_Time_Cnt >= Survival_Time && !Is_Attack_Now && !End_Flag)
@@ -479,15 +488,6 @@ public class One_Boss : character_status
 			Timeline_Player.Play(layser_timeline);
 			Timeline_Player.time = 0.0;
 			Attack_Step++;
-			//--------------追加-----------------
-			if (audioSource.clip == laserBegin)
-			{
-				audioSource.clip = laserContinuing;
-				audioSource.Stop();
-				audioSource.loop = true;
-				audioSource.Play();
-			}
-			//-----------------------------------
 		}
 		// ここから打ち出し！！！！
 		else if(Attack_Step == 4)
@@ -501,13 +501,7 @@ public class One_Boss : character_status
 			{
 				Timeline_Player.Stop();
 				Attack_Step++;
-
-				//---------------追加-----------------
-				audioSource.clip = laserEnd;
-				audioSource.Stop();
-				audioSource.loop = false;
-				audioSource.Play();
-				//------------------------------------
+				
 			}
 		}
 		else if(Attack_Step==5)
@@ -762,11 +756,14 @@ public class One_Boss : character_status
 			// ディレイ調節
 			Shot_Delay = -60;
 			// 枠組み使用開始
-			framework.SetActive(true);
+			//framework.SetActive(true);
 			// 次の動きへ
 			Attack_Step++;
+		}
+		// 攻撃
+		else if(Attack_Step == 2)
+		{
 			//--------------追加-----------------
-			// レーザー音
 			if (audioSource.clip == laserBegin)
 			{
 				audioSource.clip = laserContinuing;
@@ -775,10 +772,6 @@ public class One_Boss : character_status
 				audioSource.Play();
 			}
 			//-----------------------------------
-		}
-		// 攻撃
-		else if(Attack_Step == 2)
-		{
 			Flame++;
 			Shot_Delay++;
 
@@ -786,7 +779,7 @@ public class One_Boss : character_status
 			Laser_Shooting();
 
 			// バウンド弾撃ちだし
-			if (Flame % 30 == 0)
+			if (Flame % 80 == 0)
 			{
 				Bullet_num_Set(Check_Bits());
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
@@ -838,16 +831,16 @@ public class One_Boss : character_status
 			//　レーザー撃ち出し
 			Laser_Shooting();
 
-			//// バウンド弾撃ちだし
-			//if (Flame % 30 == 0)
-			//{
-			//	Bullet_num_Set(Check_Bits());
-			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-			//	{
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//	}
-			//}
+			// バウンド弾撃ちだし
+			if (Flame % 80 == 0)
+			{
+				Bullet_num_Set(Check_Bits());
+				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				}
+			}
 
 			//if (Shot_Delay == (Shot_DelayMax / 3))
 			//{
@@ -867,20 +860,27 @@ public class One_Boss : character_status
 			//	Shot_Delay -= Shot_DelayMax * 2;
 			//}
 
-			fafaa = true;
+			//fafaa = true;
 
 			if (Is_end_of_timeline)
 			{
-				// 枠組み使用終了
-				framework.SetActive(false);
+				//// 枠組み使用終了
+				//framework.SetActive(false);
 
-				fafaa = false;
+				//fafaa = false;
 
 				Flame = 0;
 				Timeline_Player.Stop();
 				Attack_Step = 0;
 				Is_Attack_Now = false;
 				Number_Of_Lasers++;
+
+				//---------------追加-----------------
+				audioSource.clip = laserEnd;
+				audioSource.Stop();
+				audioSource.loop = false;
+				audioSource.Play();
+				//------------------------------------
 			}
 		}
 	}
@@ -977,7 +977,7 @@ public class One_Boss : character_status
 
 	private new void OnTriggerEnter(Collider col)
 	{
-		if (now_rush || fafaa)
+		if (now_rush)
 		{
 			if (col.GetComponent<One_Boss_BoundBullet>() != null)
 			{

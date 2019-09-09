@@ -35,6 +35,10 @@ public class One_Boss_BoundBullet : bullet_status
 		Ray_Direction = transform.right;
 		transform.position -= Ray_Direction.normalized * shot_speed;
 
+		var v3 = transform.position;
+		v3.z = 0.0f;
+		transform.position = v3;
+
 		Debug.DrawRay(transform.position, -Ray_Direction.normalized * length_on_landing, Color.red);
 		if (Physics.Raycast(transform.position, -Ray_Direction.normalized, out hit_mesh, length_on_landing)
 			&& boss.activeSelf)
