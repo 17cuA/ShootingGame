@@ -78,12 +78,12 @@ public class big_core_mk3_EF : MonoBehaviour
 		EF_Base.transform.rotation = Quaternion.Euler(Base_IniRo + ef_base_rotation);
 		EF_Weapon_R.transform.rotation = Quaternion.Euler(WeaponR_IniRo + ef_weapon_right_rotation);
 		EF_Weapon_L.transform.rotation = Quaternion.Euler(WeaponL_IniRo + ef_weapon_left_rotation);
-		Multipl_1.transform.rotation = Quaternion.Euler(Multipl_IniRo_1 + ef_multipl_1_rotation);
-		Multipl_2.transform.rotation = Quaternion.Euler(Multipl_IniRo_2 + ef_multipl_2_rotation);
-		Multipl_3.transform.rotation = Quaternion.Euler(Multipl_IniRo_3 + ef_multipl_3_rotation);
-		Multipl_4.transform.rotation = Quaternion.Euler(Multipl_IniRo_4 + ef_multipl_4_rotation);
-		Multipl_5.transform.rotation = Quaternion.Euler(Multipl_IniRo_5 + ef_multipl_5_rotation);
-		Multipl_6.transform.rotation = Quaternion.Euler(Multipl_IniRo_6 + ef_multipl_6_rotation);
+		Multipl_1.transform.eulerAngles = Multipl_IniRo_1 + ef_multipl_1_rotation;
+		Multipl_2.transform.eulerAngles = Multipl_IniRo_2 + ef_multipl_2_rotation;
+		Multipl_3.transform.eulerAngles = Multipl_IniRo_3 + ef_multipl_3_rotation;
+		Multipl_4.transform.eulerAngles = Multipl_IniRo_4 + ef_multipl_4_rotation;
+		Multipl_5.transform.eulerAngles = Multipl_IniRo_5 + ef_multipl_5_rotation;
+		Multipl_6.transform.eulerAngles = Multipl_IniRo_6 + ef_multipl_6_rotation;
 
 		if(is_deleat)
 		{
