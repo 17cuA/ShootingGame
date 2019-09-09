@@ -49,6 +49,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 	[SerializeField, Tooltip("メッシュ")] private Renderer[] Mesh_Renderer;
 	[SerializeField, Tooltip("スマッシャージェット")] private ParticleSystem[] smasher_jet;
+	[SerializeField, Tooltip("スマッシャーノズル")] private ParticleSystem[] smasher_nozzle;
 
 	//------------------------------------------------------------------------------------------------------
 	// Unity側では触れないもの
@@ -353,7 +354,11 @@ public class Two_Boss : character_status
 			{
 				Attack_Seconds += Time.deltaTime;
 				Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_1]);
-				if(Attack_Seconds>=0.2f)	smasher_jet[0].Play();
+				if (Attack_Seconds >= 0.2f)
+				{
+					smasher_jet[0].Play();
+					smasher_nozzle[0].Play();
+				}
 				Next_Step();
 			}
 		}
@@ -370,6 +375,7 @@ public class Two_Boss : character_status
 				{
 					Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_2]);
 					smasher_jet[1].Play();
+					smasher_nozzle[1].Play();
 					Next_Step();
 				}
 			}
