@@ -148,7 +148,7 @@ MonoBehaviour:
   Is_end_of_timeline: 0
   Start_Play: {fileID: 11400000, guid: a104391239f695149873d90670dc11eb, type: 2}
   Smasher_Play: {fileID: 11400000, guid: a104391239f695149873d90670dc11eb, type: 2}
-  Multiple_1_Play: {fileID: 0}
+  Merry_1_Play: {fileID: 11400000, guid: 8507901b08a5d6045babf8b245fb1d54, type: 2}
   Boss_Bacula: {fileID: 8139595580689651976, guid: ea21967bab897654fb2d8030063d4635,
     type: 3}
   EF_plefab: {fileID: 7507819870535526857, guid: d9e9674e5d95abd45b5a800227958aa0,
@@ -187,7 +187,7 @@ PlayableDirector:
   m_GameObject: {fileID: 2498584347527707481}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: a104391239f695149873d90670dc11eb, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 8507901b08a5d6045babf8b245fb1d54, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -197,6 +197,8 @@ PlayableDirector:
     value: {fileID: 6647863687791981910}
   - key: {fileID: 114589729037061856, guid: 9b19d7e095cbe7545afe02364b8c425f, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 114882441663390774, guid: 8507901b08a5d6045babf8b245fb1d54, type: 2}
+    value: {fileID: 6647863687791981910}
   m_ExposedReferences:
     m_References: []
 --- !u!95 &6647863687791981910
@@ -436,6 +438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: big-core-mk3_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 2830898093941824246, guid: 8dbe042157db60946a3e79937cd7397d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2830898093941851862, guid: 8dbe042157db60946a3e79937cd7397d,
         type: 3}

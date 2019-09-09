@@ -43,7 +43,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
 	[SerializeField, Tooltip("出現タイムライン")] private PlayableAsset Start_Play;
 	[SerializeField, Tooltip("スマッシャータイムライン")] private PlayableAsset Smasher_Play;
-	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Multiple_1_Play;
+	[SerializeField, Tooltip("マルチプルタイムライン")] private PlayableAsset Merry_1_Play;
 	[SerializeField, Tooltip("ボスバキュラ")]private GameObject Boss_Bacula;
 	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
@@ -297,6 +297,8 @@ public class Two_Boss : character_status
 		if (Attack_Step == 0)
 		{
 			Animation_Playback(Animation_Name[(int)Attack_Index.eMerry_Go_Round]);
+			Timeline_Player.Play(Merry_1_Play);
+			Timeline_Player.time = 0.0;
 			Next_Step();
 		}
 		else if (Attack_Step == 1)
