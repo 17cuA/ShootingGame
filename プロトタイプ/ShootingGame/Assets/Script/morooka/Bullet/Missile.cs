@@ -138,13 +138,15 @@ public class Missile : bullet_status
 	private void OnDisable()
 	{
 		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-		//Instantiate(Obj_Storage.Storage_Data.particle[particleID], gameObject.transform.position, Obj_Storage.Storage_Data.particle[particleID].transform.rotation);
-		GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
-		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+		if (Obj_Storage.Storage_Data.Effects[16] != null)
+		{
+			GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 
-		//爆発の位置をランダムに変更
-		effect.transform.position = transform.position;
-		/*********************************************************/
-		particle.Play();
+			//爆発の位置をランダムに変更
+			effect.transform.position = transform.position;
+			/*********************************************************/
+			particle.Play();
+		}
 	}
 }
