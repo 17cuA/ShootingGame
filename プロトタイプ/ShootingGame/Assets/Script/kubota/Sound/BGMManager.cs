@@ -102,15 +102,19 @@ public class BGMManager : MonoBehaviour
 	{
 		if(Is_Change)
 		{
-			fade_out();
-			fade_in();
+			if(!Is_fadeout)
+			{
+				fade_out();
+			}
+			if(!Is_fadein)
+			{
+				fade_in();
+			}
 		}
 		else
 		{
 			changecnt++;
 			Change_BGM();
-
 		}
 	}
-
 }
