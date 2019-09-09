@@ -44,7 +44,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject P2_Option_Prefab;						//2P用のオプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
 	//-----------------------------------------------------------------------------------
-	private GameObject[] Effects_Prefab = new GameObject[16];  //particleのプレハブ
+	private GameObject[] Effects_Prefab = new GameObject[17];  //particleのプレハブ
 	//---------------------------------------------------------------------------------
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
@@ -84,7 +84,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling One_Boss_BousndBullet;
 	public Object_Pooling Two_Boss_Laser;						//２ボスのレーザー、プーリング
 	//effect関係-----------------------------------------------------
-	public Object_Pooling[] Effects = new Object_Pooling[16];
+	public Object_Pooling[] Effects = new Object_Pooling[17];
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
 	private string File_name = "E_Pattern";                     //csvファイルの名前
@@ -187,7 +187,8 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");			//ボス登場時のエフェクト
 		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");		//隕石の爆発Effect
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");		//ヒトデ型の出現用
-		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");      //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");		//ミサイルの爆発
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/Teacher_SE/bacura_hit");				//バキュラに当たった時の高い音用
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");	//隕石の爆発音
@@ -306,7 +307,8 @@ public class Obj_Storage : MonoBehaviour
 		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");					//ボス登場時のエフェクト
 		Effects[13] = new Object_Pooling(Effects_Prefab[13], 6, "Meteor_explosion");					//隕石爆発Effect
 		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");					//ボスの弾その２
-		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");					//ボスの弾その3
+		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");                    //ボスの弾その3
+		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");		// ミサイルの爆発
 		//---------------------------------------------------------------------------------------------------
 		//敵キャラのプーリング化-------------------------------------------------------------------------------
 		enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab,1, "enemy_UFO_Group");

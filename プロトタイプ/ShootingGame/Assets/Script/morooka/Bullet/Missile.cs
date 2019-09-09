@@ -22,12 +22,13 @@ public class Missile : bullet_status
 	private float ray_length;       // レイの長さ
 	private RaycastHit hit_mesh;            // 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
+	[SerializeField, Tooltip("爆発")] public ParticleSystem Bomb_EF;        // 爆発エフェクト
+
 	private int Act_Step { get; set; }                  // 行動の変更用
 	private int Running_Flame { get; set; }             // 起動している間のフレーム
 	public Vector3 Ray_Direction { get; set; }          // レイの向き
 	public float Length_On_Landing { get; set; }		// 落下時のレイの長さ
 	public float Length_On_Gliding {get; set;}			// 滑空時のレイの長さ
-	public GameObject Bomb_EF { get; set; }			// 爆発エフェクト
 
 	private new void Start()
 	{
@@ -136,6 +137,16 @@ public class Missile : bullet_status
 
 	private void OnDisable()
 	{
-		//Instantiate(Bomb_EF, transform.position, Quaternion.identity);
+		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+		if (Obj_Storage.Storage_Data.Effects[16] != null)
+		{
+			GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+
+			//爆発の位置をランダムに変更
+			effect.transform.position = transform.position;
+			/*********************************************************/
+			particle.Play();
+		}
 	}
 }
