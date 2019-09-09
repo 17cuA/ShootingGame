@@ -66,7 +66,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 					miniMoai_DelayCnt = 0;
 				}
 			}
-
 		}
 		//if (Input.GetKeyDown(KeyCode.O))
 		//{
