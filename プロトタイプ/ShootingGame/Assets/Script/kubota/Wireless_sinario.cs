@@ -130,7 +130,7 @@ public class Wireless_sinario : MonoBehaviour
 			if (Time.time >= unShowTimer)
 			{
 				//無線のモードから通常のモードに治す
-				if (currentLine == 2)
+				if (currentLine >= 2)
 				{
 					currentLine = 0;
                     frame = 0;
@@ -283,19 +283,19 @@ public class Wireless_sinario : MonoBehaviour
 			case 2:
 				//前半ボス後
 				scenarios = First_falf_boss_after;
-				frameMax = 180;
+				frameMax = 240;
 				unShowTime = 5f;
 				break;
 			case 3:
 				//後半ボス前
 				scenarios = Second_half_boss_before;
-				frameMax = 180;
+				frameMax = 240;
 
 				break;
 			case 4:
 				//後半ボス後
 				scenarios = Second_half_boss_after;
-				frameMax = 180;
+				frameMax = 240;
 
 				break;
 			default:

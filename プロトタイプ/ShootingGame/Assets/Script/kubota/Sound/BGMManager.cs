@@ -15,7 +15,7 @@ public class BGMManager : MonoBehaviour
 	public int changecnt;			//交換した回数カウント用
 
 	[Range(0, 1)]
-	float fade_num;             //フェードを行う際に使用
+	public float fade_num;             //フェードを行う際に使用
 	private bool Is_fadeout;		//フェードアウトを行うかどうか
 	private bool Is_fadein;         //フェードインを行うかどうか
 	private bool Is_Change;
@@ -23,15 +23,16 @@ public class BGMManager : MonoBehaviour
     void Start()
     {
 		audiosource1 = GetComponent<AudioSource>();
+		fade_num = 1;
     }
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetButtonDown("Fire1"))
-		{
-			audiosource1.Play();
-		}
+		//if (Input.GetButtonDown("Fire1"))
+		//{
+		//	audiosource1.Play();
+		//}
 		if(Input.GetButtonDown("Fire2"))
 		{
 			Is_Change = true;
@@ -46,10 +47,10 @@ public class BGMManager : MonoBehaviour
 	{
 		if(!Is_fadeout)
 		{
-			if (fade_num <= 1)
+			if (fade_num >= 0)
 			{
-				audiosource1.volume = 1f - fade_num;
-				fade_num += 0.05f;
+				audiosource1.volume = fade_num;
+				fade_num -= 0.05f;
 			}
 			else
 			{
@@ -71,6 +72,8 @@ public class BGMManager : MonoBehaviour
 			}
 			else
 			{
+				changecnt++;
+				Change_BGM();
 				Is_fadein = true;
 				Is_Change = false;
 			}
@@ -110,11 +113,6 @@ public class BGMManager : MonoBehaviour
 			{
 				fade_in();
 			}
-		}
-		else
-		{
-			changecnt++;
-			Change_BGM();
 		}
 	}
 }
