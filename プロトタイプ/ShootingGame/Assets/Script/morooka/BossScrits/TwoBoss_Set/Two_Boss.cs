@@ -356,8 +356,8 @@ public class Two_Boss : character_status
 				Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_1]);
 				if (Attack_Seconds >= 0.2f)
 				{
-					smasher_jet[0].Play();
-					smasher_nozzle[0].Play();
+					smasher_jet[1].Play();
+					smasher_nozzle[1].Play();
 				}
 				Next_Step();
 			}
@@ -374,8 +374,8 @@ public class Two_Boss : character_status
 				else if (Vector3.Distance(transform.position, target) < 0.01f)
 				{
 					Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_2]);
-					smasher_jet[1].Play();
-					smasher_nozzle[1].Play();
+					smasher_jet[0].Play();
+					smasher_nozzle[0].Play();
 					Next_Step();
 				}
 			}
