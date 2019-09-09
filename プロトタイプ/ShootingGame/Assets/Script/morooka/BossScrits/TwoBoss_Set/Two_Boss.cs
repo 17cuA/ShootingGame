@@ -341,10 +341,10 @@ public class Two_Boss : character_status
 		}
 		else if (Attack_Step == 1)
 		{
-			var target = new Vector3(13.0f, -1.5f, 0.0f);
+			var target = new Vector3(13.0f, -1.0f, 0.0f);
 			if (Vector3.Distance(transform.position, target) > 0.1f)
 			{
-				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
+				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 2.0f);
 			}
 			else if (Vector3.Distance(transform.position, target) < 0.1f)
 			{
@@ -354,12 +354,12 @@ public class Two_Boss : character_status
 		}
 		else if (Attack_Step == 2)
 		{
-			if(!animation_data.isPlaying)
+			if (!animation_data.isPlaying)
 			{
-				var target = new Vector3(13.0f, 1.5f, 0.0f);
+				var target = new Vector3(13.0f, 1.0f, 0.0f);
 				if (Vector3.Distance(transform.position, target) > 0.01f)
 				{
-					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
+					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 2.0f);
 				}
 				else if (Vector3.Distance(transform.position, target) < 0.01f)
 				{
@@ -368,15 +368,18 @@ public class Two_Boss : character_status
 				}
 			}
 		}
-		else if(Attack_Step == 3)
+		else if (Attack_Step == 3)
 		{
-			var target = new Vector3(13.0f, 0.0f, 0.0f);
-			transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
-			if (Vector3.Distance(transform.position, target) < 0.01f) Next_Step(); 
+			if (!animation_data.isPlaying)
+			{
+				var target = new Vector3(13.0f, 0.0f, 0.0f);
+				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 2.0f);
+				if (Vector3.Distance(transform.position, target) < 0.01f) Next_Step();
+			}
 		}
-		else if(Attack_Step == 4)
+		else if (Attack_Step == 4)
 		{
-			if(!animation_data.isPlaying)
+			if (!animation_data.isPlaying)
 			{
 				Attack_End();
 			}
