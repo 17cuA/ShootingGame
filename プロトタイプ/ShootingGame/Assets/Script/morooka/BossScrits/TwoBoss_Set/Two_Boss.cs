@@ -48,6 +48,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("最終EF")] private GameObject EF_plefab;
 	[SerializeField, Tooltip("Animation格納")] private Animation animation_data;
 	[SerializeField, Tooltip("メッシュ")] private Renderer[] Mesh_Renderer;
+	[SerializeField, Tooltip("スマッシャージェット")] private ParticleSystem[] smasher_jet;
 
 	//------------------------------------------------------------------------------------------------------
 	// Unity側では触れないもの
@@ -344,11 +345,13 @@ public class Two_Boss : character_status
 			var target = new Vector3(13.0f, -1.0f, 0.0f);
 			if (Vector3.Distance(transform.position, target) > 0.1f)
 			{
-				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 2.0f);
+				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 1.5f);
 			}
 			else if (Vector3.Distance(transform.position, target) < 0.1f)
 			{
+				Attack_Seconds += Time.deltaTime;
 				Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_1]);
+				if(Attack_Seconds>=0.2f)	smasher_jet[0].Play();
 				Next_Step();
 			}
 		}
@@ -364,6 +367,7 @@ public class Two_Boss : character_status
 				else if (Vector3.Distance(transform.position, target) < 0.01f)
 				{
 					Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_2]);
+					smasher_jet[1].Play();
 					Next_Step();
 				}
 			}
