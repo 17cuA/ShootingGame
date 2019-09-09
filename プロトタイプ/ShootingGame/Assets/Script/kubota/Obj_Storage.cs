@@ -195,7 +195,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
-		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/power_up_Kapuseru t");	//アイテム使用パワーアップ音(ステータス変化)
+		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_kettei_PowerUp");	//アイテム使用パワーアップ音(ステータス変化)
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");			//HP持ちエネミーのカウンター音(ダメージ減ってない)
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
