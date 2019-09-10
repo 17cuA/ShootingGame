@@ -144,6 +144,7 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject enemy_ClamChowder_Group_Five;
 	public GameObject enemy_ClamChowder_Group_Five_NoItem;
 	public GameObject enemy_ClamChowder_Group_FourBehind;
+	public GameObject enemy_ClamChowder_Group_Two;
 	public GameObject enemy_ClamChowder_Group_Two_Top;
 	public GameObject enemy_ClamChowder_Group_Two_Under;
 	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
@@ -351,6 +352,7 @@ public class EnemyCreate : MonoBehaviour
 		enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
 		enemy_ClamChowder_Group_Five_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
 		enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
+		enemy_ClamChowder_Group_Two = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two") as GameObject;
 		enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
 		enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
 		enemy_ClamChowder_Group_TwoWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp") as GameObject;
@@ -440,7 +442,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 5010;
 			frameCnt = 5010;
-			groupCnt = 19;
+			groupCnt = 20;
 			//nowGroupCnt = 17;
 		}
 		//中ボス後
@@ -448,7 +450,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 6750;
 			frameCnt = 6750;
-			groupCnt = 26;
+			groupCnt = 27;
 			//nowGroupCnt = 21;
 		}
 		//1ボス
@@ -456,7 +458,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 44;
+			groupCnt = 46;
 			//nowGroupCnt = 36;
 		}
 		//1ボス後
@@ -464,7 +466,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 45;
+			groupCnt = 47;
 			//nowGroupCnt = 36;
 		}
 
@@ -477,7 +479,7 @@ public class EnemyCreate : MonoBehaviour
 			isDebug = true;
 			turning_frame = 5010;
 			frameCnt = 4950;	//←上の数字から60引いた数にする
-			groupCnt = 56;
+			groupCnt = 57;
 
 		}
 		if (saveEnemyObj != null)
@@ -524,12 +526,12 @@ public class EnemyCreate : MonoBehaviour
 		//}
 
 		//第一ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 44 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 46 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 56 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 58 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
@@ -886,21 +888,27 @@ public class EnemyCreate : MonoBehaviour
 		//          }
 		//      }
 		#endregion
-		if (false)
+		if (true)
 		{
 			// 円盤上10
 			if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
 			{
-
+				Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+				GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group.transform.rotation = transform.rotation;
 
 				nextEnemy = "円盤下10";
-				Next_Condition(210);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 円盤下10
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
 			{
-
+				Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+				GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛斜め配置4中央アイテム2";
 				Next_Condition(300);
@@ -909,7 +917,7 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛斜め配置4中央アイテム2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置4";
 				Next_Condition(150);
@@ -918,16 +926,24 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛斜め配置4
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "円盤上10下10";
-				Next_Condition(270);
+				Next_Condition(360);
 				nowGroupCnt++;
 			}
 			// 円盤上10下10
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
 			{
+				Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+				GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group.transform.rotation = transform.rotation;
 
+				Object_Pooling pEnemy_UFO_Group2 = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+				GameObject enemy_UFO_Group2 = pEnemy_UFO_Group2.Active_Obj();
+				enemy_UFO_Group2.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group2.transform.rotation = transform.rotation;
 
 				nextEnemy = "円盤上10下10狭";
 				Next_Condition(210);
@@ -936,7 +952,13 @@ public class EnemyCreate : MonoBehaviour
 			// 円盤上10下10狭
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
 			{
+				GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group7.transform.rotation = transform.rotation;
 
+				GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group8.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛縦3";
 				Next_Condition(270);
@@ -945,43 +967,44 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛縦3
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 7)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Three, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 8)
 			{
-
-
+				Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroupL.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroupL.transform.position, transform.rotation);
+				
 				nextEnemy = "闘牛縦7中央アイテム";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛縦7中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 9)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛縦7中央アイテム";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛縦7中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 10)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置4中央2アイテム";
-				Next_Condition(300);
+				Next_Condition(360);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置4中央2アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置4";
 				Next_Condition(90);
@@ -990,25 +1013,31 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛斜め配置4
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 12)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "円盤上10下10狭";
-				Next_Condition(180);
+				Next_Condition(360);
 				nowGroupCnt++;
 			}
 			// 円盤上10下10狭
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 13)
 			{
+				GameObject enemy_UFO_Group7 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group7.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group7.transform.rotation = transform.rotation;
 
+				GameObject enemy_UFO_Group8 = Obj_Storage.Storage_Data.enemy_UFO_Group.Active_Obj();
+				enemy_UFO_Group8.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
+				enemy_UFO_Group8.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛斜め配置4中央2アイテム";
-				Next_Condition(180);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛斜め配置4中央2アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 14)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛斜め配置4";
 				Next_Condition(90);
@@ -1017,52 +1046,54 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛斜め配置4
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation); Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛縦3中央アイテム";
-				Next_Condition(240);
+				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛縦3中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 17)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroupL.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛縦3中央アイテム";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛縦3中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 18)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroupL.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛縦7";
-				Next_Condition(30);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛縦7
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "ビッグコア";
 				Next_Condition(510);
@@ -1071,7 +1102,10 @@ public class EnemyCreate : MonoBehaviour
 			// ビッグコア
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
 			{
-
+				GameObject Boss_Middle = Obj_Storage.Storage_Data.Boss_Middle.Active_Obj();
+				saveEnemyObj = Boss_Middle;
+				Boss_Middle.transform.position = createMiddleBossPos.transform.position;
+				Boss_Middle.transform.rotation = transform.rotation;
 
 				nextEnemy = "闘牛上2下2";
 				Next_Condition(180);
@@ -1080,61 +1114,66 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(210);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(210);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(210);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(210);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
 
 				nextEnemy = "ハエ上2下2広";
-				Next_Condition(810);
+				Next_Condition(750);
 				nowGroupCnt++;
 			}
 			// ハエ上2下2広
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
 			{
-
+				Instantiate(enemy_Beelzebub_Group_FourWide, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ハエ上2下2広右2アイテム";
-				Next_Condition(270);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// ハエ上2下2広右2アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 28)
 			{
-
+				Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ビートル5";
 				Next_Condition(270);
@@ -1143,34 +1182,47 @@ public class EnemyCreate : MonoBehaviour
 			// ビートル5
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 29)
 			{
-
+				GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
+				beetleGroup.transform.position = new Vector3(15, -8, 0);
 
 				nextEnemy = "戦艦";
-				Next_Condition(270);
+				Next_Condition(300);
 				nowGroupCnt++;
 			}
 			// 戦艦
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
 			{
-
+				GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
+				Battle_Ship1.transform.position = createPosR0.transform.position;
+				BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+				b1.is_sandwich = false;
+				b1.Is_up = false;
 
 				nextEnemy = "戦艦上下";
-				Next_Condition(270);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 戦艦上下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 31)
 			{
+				GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+				BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+				b1.Is_up = false;
 
+				GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+				BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+				b2.Is_up = true;
 
 				nextEnemy = "闘牛直進12";
-				Next_Condition(270);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛直進12
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
 			{
-
+				GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+				group_Script = saveObj.GetComponent<EnemyGroupManage>();
+				group_Script.isItemDrop = true;
 
 				nextEnemy = "闘牛直進12";
 				Next_Condition(270);
@@ -1179,7 +1231,9 @@ public class EnemyCreate : MonoBehaviour
 			// 闘牛直進12
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
 			{
-
+				GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+				group_Script = saveObj.GetComponent<EnemyGroupManage>();
+				group_Script.isItemDrop = true;
 
 				nextEnemy = "戦艦";
 				Next_Condition(270);
@@ -1188,208 +1242,239 @@ public class EnemyCreate : MonoBehaviour
 			// 戦艦
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
 			{
+				GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
+				Battle_Ship1.transform.position = createPosR0.transform.position;
+				BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+				b1.is_sandwich = false;
+				b1.Is_up = false;
 
-
-				nextEnemy = "ハエ上2下2広右2アイテム";
-				Next_Condition(270);
+				nextEnemy = "闘牛12直進上下";
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
-			// ハエ上2下2広右2アイテム
+			// 闘牛12直進上下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
 			{
-
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
 				nextEnemy = "ハエ上2下2広右2アイテム";
-				Next_Condition(270);
+				Next_Condition(330);
 				nowGroupCnt++;
 			}
 			// ハエ上2下2広右2アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
 			{
+				Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
+				nextEnemy = "ハエ上2下2広右2アイテム";
+				Next_Condition(240);
+				nowGroupCnt++;
+			}
+			// ハエ上2下2広右2アイテム
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+			{
+				Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ビートル5";
 				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// ビートル5
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
 			{
-
+				GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
+				beetleGroup.transform.position = new Vector3(15, -8, 0);
 
 				nextEnemy = "闘牛縦3";
-				Next_Condition(270);
+				Next_Condition(300);
 				nowGroupCnt++;
 			}
 			// 闘牛縦3
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 38)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Three, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛上2下2";
-				Next_Condition(270);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛上2下2
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 39)
-			{
-
-
-				nextEnemy = "闘牛縦7中央アイテム";
-				Next_Condition(270);
-				nowGroupCnt++;
-			}
-			// 闘牛縦7中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 40)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroupL.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛縦7中央アイテム";
-				Next_Condition(270);
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
 			// 闘牛縦7中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 41)
 			{
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
-
-				nextEnemy = "闘牛直進12上下";
-				Next_Condition(270);
+				nextEnemy = "闘牛縦7中央アイテム";
+				Next_Condition(45);
 				nowGroupCnt++;
 			}
-			// 闘牛直進12上下
+			// 闘牛縦7中央アイテム
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 42)
 			{
-
+				Instantiate(enemy_ClamChowder_Group_Five, createPos_FourGroupL.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛直進12上下";
-				Next_Condition(270);
+				Next_Condition(240);
 				nowGroupCnt++;
 			}
 			// 闘牛直進12上下
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 43)
 			{
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
+				nextEnemy = "闘牛直進12上下";
+				Next_Condition(270);
+				nowGroupCnt++;
+			}
+			// 闘牛直進12上下
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+			{
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+				Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
 
 				nextEnemy = "闘牛直進12";
 				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// 闘牛直進12
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 44)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
 			{
-
+				GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+				group_Script = saveObj.GetComponent<EnemyGroupManage>();
+				group_Script.isItemDrop = true;
 
 				nextEnemy = "ビッグコアマーク2";
 				Next_Condition(270);
 				nowGroupCnt++;
 			}
 			// ビッグコアマーク2
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 45)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 46)
 			{
+				GameObject Boss_01 = Obj_Storage.Storage_Data.Boss_1.Active_Obj();
+				Boss_01.transform.position = new Vector3(10.0f, 0.0f, 0.0f);
 
+				GameObject mistSaveObj = Instantiate(mistEffectObj, transform.position, transform.rotation);
+				mistEffectObj.transform.position = new Vector3(0, 0, 3);
+				mistParticle = mistSaveObj.GetComponent<ParticleSystem>();
+				backActive_Script = mistSaveObj.GetComponent<BackgroundActivation>();
+				mistParticle.Play();
+				backActive_Script.TransparencyChangeTrigger();
+				isNowOneBoss = true;
 
 				nextEnemy = "ヒトデ12";
 				Next_Condition(270);
 			}
 			// ヒトデ12
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 46)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
 			{
-
+				Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
 				nextEnemy = "バキュラ16エリア";
 				Next_Condition(270);
 			}
 			// バキュラ16エリア
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
 			{
-
+				Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア1";
 				Next_Condition(270);
 			}
 			// 隕石エリア1
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア2";
 				Next_Condition(270);
 			}
 			// 隕石エリア2
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア3";
 				Next_Condition(270);
 			}
 			// 隕石エリア3
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 51)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ヒトデ12";
 				Next_Condition(270);
 			}
 			// ヒトデ12
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 51)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
 			{
-
+				Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア4";
 				Next_Condition(270);
 			}
 			// 隕石エリア4
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア5";
 				Next_Condition(270);
 			}
 			// 隕石エリア5
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア6";
 				Next_Condition(270);
 			}
 			// 隕石エリア6
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア7";
 				Next_Condition(270);
 			}
 			// 隕石エリア7
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "隕石エリア8";
 				Next_Condition(270);
 			}
 			// 隕石エリア8
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
 			{
-
+				Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
 				nextEnemy = "ビッグコアマーク3";
 				Next_Condition(270);
 			}
 			// ビッグコアマーク3
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 58)
 			{
-
+				GameObject Boss_02 = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
+				Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
+				isNowTwoBoss = true;
 
 				nextEnemy = "None";
 				Next_Condition(270);
 			}
 			// クリア
-			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 58)
+			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 59)
 			{
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
