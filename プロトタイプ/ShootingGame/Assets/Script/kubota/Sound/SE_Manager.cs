@@ -30,6 +30,11 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Boss_Move;
 	[Header("シャウト用")]
 	public AudioSource Shout;
+	[Header("ボスのコアシールドとコアにあたった時の音")]
+	public AudioSource Core;
+	[Header("ボスのコア以外のところを攻撃したときになる音")]
+	public AudioSource Boss_Body;
+
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -88,11 +93,14 @@ public class SE_Manager : MonoBehaviour
 		if (Is_Active) Shout.PlayOneShot(se);
 	}
 
-	
 	//ボスの動きの時に使用する
 	public void Boss_SE(AudioClip se)
 	{
 		if (Boss_Move.isPlaying) Boss_Move.Stop();
 		if (Is_Active) Boss_Move.PlayOneShot(se);
 	}
+
+
+
+
 }
