@@ -2554,7 +2554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540139476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.7, y: -1.36, z: 0}
+  m_LocalPosition: {x: -10.67, y: 1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 324136013}
@@ -2589,6 +2589,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   target: {x: 0, y: 0, z: 0}
@@ -3028,6 +3029,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bacula
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3081,16 +3092,6 @@ PrefabInstance:
     - target: {fileID: 6108812973272898559, guid: db79ba8d6ceb1144f9d376616ba76908,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bacula
-      objectReference: {fileID: 0}
-    - target: {fileID: 6108812973272898556, guid: db79ba8d6ceb1144f9d376616ba76908,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4192,6 +4193,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6080018692665480896, guid: aaa88e3fc87513448815e5db53ddd4af,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Moai_MiniMoaiDischarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080018692665480896, guid: aaa88e3fc87513448815e5db53ddd4af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6080018692664986336, guid: aaa88e3fc87513448815e5db53ddd4af,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4261,16 +4272,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 27.000015
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080018692665480896, guid: aaa88e3fc87513448815e5db53ddd4af,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Moai_MiniMoaiDischarge
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080018692665480896, guid: aaa88e3fc87513448815e5db53ddd4af,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5721788381056526355, guid: aaa88e3fc87513448815e5db53ddd4af,
         type: 3}
@@ -4375,6 +4376,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 382191774884331216, guid: 0cf6423239a47584786ab7a317027878,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Moai_RingShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 382191774884331216, guid: 0cf6423239a47584786ab7a317027878,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 382191774884029168, guid: 0cf6423239a47584786ab7a317027878,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4428,16 +4439,6 @@ PrefabInstance:
     - target: {fileID: 382191774884029168, guid: 0cf6423239a47584786ab7a317027878,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 382191774884331216, guid: 0cf6423239a47584786ab7a317027878,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Moai_RingShot
-      objectReference: {fileID: 0}
-    - target: {fileID: 382191774884331216, guid: 0cf6423239a47584786ab7a317027878,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 382191774884029174, guid: 0cf6423239a47584786ab7a317027878,

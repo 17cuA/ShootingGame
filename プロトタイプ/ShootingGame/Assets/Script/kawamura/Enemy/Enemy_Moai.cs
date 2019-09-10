@@ -8,7 +8,8 @@ public class Enemy_Moai : character_status
 	public Vector4 moaiColor;
 
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
-
+	public Renderer[] moai_material_save;
+	 
 	public float speedX;
 	public float speedX_Value;
 	public float speedY;
