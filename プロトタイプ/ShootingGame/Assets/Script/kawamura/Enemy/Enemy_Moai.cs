@@ -31,6 +31,7 @@ public class Enemy_Moai : character_status
 			Died_Process();
 		}
 		HpColorChange();
+		for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
 		base.Update();
     }
 
