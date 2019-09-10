@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// InputManagerをスクリプタブルオブジェクトにできなかったため作成
+/// InputManagerをいい感じにできなかったため作成
 /// </summary>
 public class InputManagerObject : MonoBehaviour
 {
@@ -21,8 +21,21 @@ public class InputManagerObject : MonoBehaviour
 
 	void Start()
 	{
+		bool findSame = false;
+		InputManagerObject[] temps = FindObjectsOfType<InputManagerObject>();
+		for (int i = 0; i < temps.Length; ++i)
+		{
+			if (temps[i].name == gameObject.name && !findSame)
+			{
+				findSame = true;
+			}
+			else if (temps[i].name == gameObject.name && findSame)
+			{
+				Destroy(gameObject);
+				return;
+			}
+		}
 		inputManager.Init();
-		print("init input");
 		DontDestroyOnLoad(gameObject);
 	}
 

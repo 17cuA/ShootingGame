@@ -13,6 +13,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 	public AudioClip Decision_SE;			//プレイヤー数決定時の音
 	public int Set_Step { get; private set; }
 
+	public DemoMovieControl DMC;		//デモ修正のため　
 	//private bool 
 	private void Start()
 	{
@@ -23,12 +24,16 @@ public class Helper_SceneTranslation : MonoBehaviour
 	{
 		if (Set_Step == 0)
 		{
-			//if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
-			if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+			if(!DMC.IsPlayingMovie)
 			{
-				audioSource?.PlayOneShot(audioClip);
-				Set_Step++;
+			  	if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				{
+					audioSource?.PlayOneShot(audioClip);
+					DMC.IsStopDemoMovie = true;
+					Set_Step++;
+				}
 			}
+			//if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 		}
 		else if(Set_Step==1)
 		{
@@ -41,6 +46,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 			else if(Input.GetButtonDown("Fire2") || Input.GetButtonDown("P2_Fire2"))
 			{
 				Set_Step--;
+				DMC.IsStopDemoMovie = false;
 			}
 		}
 		else if(Set_Step == 2)
