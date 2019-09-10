@@ -20,18 +20,73 @@ public class One_Boss_BoundBullet : bullet_status
 	private GameObject boss { get; set; }
 	private Collider _Collider { get; set; }
 
+
+	//----------------------追加--------------------------
+	private GameObject deathEffect;
+	[SerializeField] private float deathEffectLifeTime;
+	private float deathEffectLifeTimer;
+	private ParticleSystem[] particleSystems;
+	//---------------------------------------------------
+
 	private new void Start()
 	{
 		base.Start();
 		Ray_Direction = transform.right;
 		boss = Obj_Storage.Storage_Data.GetBoss(1);
 		_Collider = GetComponent<Collider>();
+
+		deathEffect = transform.GetChild(2).gameObject;
+		particleSystems = GetComponentsInChildren<ParticleSystem>();
 	}
 
 	// Update is called once per frame
 	private new void Update()
 	{
-		base.Update();
+		//----------------------------------------------------------------------
+		if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
+			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		{
+			if (gameObject.tag == "Player_Bullet")
+			{
+				switch (Bullet_Type)
+				{
+					case Type.Player1:
+						if (P1.Bullet_cnt > 0) P1.Bullet_cnt--;
+						break;
+					case Type.Player2:
+						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
+						break;
+					case Type.Player1_Option:
+						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+						break;
+					case Type.Player2_Option:
+						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+						break;
+					case Type.Enemy:
+						break;
+					case Type.None:
+						break;
+					default:
+						break;
+				}
+
+				//if (P1 != null) P1.Bullet_cnt--;
+				//if (P2 != null) P2.Bullet_cnt--;
+			}
+
+			deathEffectLifeTimer = 0;
+			deathEffect.SetActive(false);
+			transform.GetChild(0).gameObject.SetActive(true);
+			transform.GetChild(1).gameObject.SetActive(true);
+			_Collider.enabled = true;
+			gameObject.SetActive(false);
+			for (var i = 0; i < particleSystems.Length; ++i)
+			{
+				particleSystems[i].Stop();
+			}
+		}
+		//---------------------------------------------------------------------
+
 		Ray_Direction = transform.right;
 		transform.position -= Ray_Direction.normalized * shot_speed;
 
@@ -51,6 +106,57 @@ public class One_Boss_BoundBullet : bullet_status
 				transform.right = Ray_Direction;
 				_Collider.isTrigger = false;
 ;			}
+		}
+
+		//--------------------------------------------------------
+		if (gameObject.activeSelf)
+		{
+			if (deathEffect.activeSelf)
+			{
+				for (var i = 0; i < particleSystems.Length; ++i)
+				{
+					if (particleSystems[i].isStopped) particleSystems[i].Play();
+				}
+
+				deathEffectLifeTimer += Time.deltaTime;
+
+				if (transform.GetChild(0).gameObject.activeSelf)
+					transform.GetChild(0).gameObject.SetActive(false);
+
+				if (transform.GetChild(1).gameObject.activeSelf)
+					transform.GetChild(1).gameObject.SetActive(false);
+
+				if (_Collider.enabled)
+					_Collider.enabled = false;
+			}
+
+			if (deathEffectLifeTimer >= deathEffectLifeTime)
+			{
+				deathEffectLifeTimer = 0;
+				deathEffect.SetActive(false);
+				transform.GetChild(0).gameObject.SetActive(true);
+				transform.GetChild(1).gameObject.SetActive(true);
+				_Collider.enabled = true;
+				gameObject.SetActive(false);
+				for (var i = 0; i < particleSystems.Length; ++i)
+				{
+					particleSystems[i].Stop();
+				}
+			}
+
+			if (!transform.GetChild(0).gameObject.activeSelf && !transform.GetChild(1).gameObject.activeSelf && !transform.GetChild(2).gameObject.activeSelf)
+			{
+				deathEffectLifeTimer = 0;
+				deathEffect.SetActive(false);
+				transform.GetChild(0).gameObject.SetActive(true);
+				transform.GetChild(1).gameObject.SetActive(true);
+				_Collider.enabled = true;
+				gameObject.SetActive(false);
+				for (var i = 0; i < particleSystems.Length; ++i)
+				{
+					particleSystems[i].Stop();
+				}
+			}
 		}
 	}
 
@@ -80,9 +186,13 @@ public class One_Boss_BoundBullet : bullet_status
 	{
 		if (col.tag == "Player_Bullet")
 		{
-			gameObject.SetActive(false);
+			//gameObject.SetActive(false);
+
+			deathEffect.SetActive(true);
+
 			col.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
+
 		}
 	}
 
@@ -91,7 +201,10 @@ public class One_Boss_BoundBullet : bullet_status
 		if (col.gameObject.tag == "Player_Bullet")
 		{
 			Debug.Log("Player_Bullet");
-			gameObject.SetActive(false);
+			//gameObject.SetActive(false);
+
+			deathEffect.SetActive(true);
+
 			col.gameObject.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
 		}

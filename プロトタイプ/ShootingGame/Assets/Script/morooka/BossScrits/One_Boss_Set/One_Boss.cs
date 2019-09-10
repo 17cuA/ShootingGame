@@ -124,6 +124,11 @@ public class One_Boss : character_status
 	private AudioSource audioSource;
 	//---------------------------------------------------------
 
+	//---------------------------------------------------------
+	//弾を消す用保存データ
+	private List<GameObject> unactiveOperateBullets = new List<GameObject>();
+	//---------------------------------------------------------
+
 	private new void Start()
 	{
 		//-------------追加--------------
@@ -784,8 +789,11 @@ public class One_Boss : character_status
 				Bullet_num_Set(Check_Bits());
 				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
 				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+				  　var bullet1 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+					var bullet2 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+
+					unactiveOperateBullets.Add(bullet1);
+					unactiveOperateBullets.Add(bullet2);
 				}
 			}
 
@@ -816,6 +824,17 @@ public class One_Boss : character_status
 				Timeline_Player.time = 0.0;
 
 
+				//-----------------追加-------------------
+				//----------------弾を消す----------------
+				for (var i = 0; i < unactiveOperateBullets.Count; ++i)
+				{
+					if(!unactiveOperateBullets[i].transform.GetChild(2).gameObject.activeSelf)
+						unactiveOperateBullets[i].transform.GetChild(2).gameObject.SetActive(true);
+				}
+				unactiveOperateBullets.Clear();
+				//----------------弾を消す----------------
+				//-----------------追加-------------------
+
 				// 次のステップへ
 				Attack_Step++;
 				Is_end_of_timeline = false;
@@ -831,16 +850,19 @@ public class One_Boss : character_status
 			//　レーザー撃ち出し
 			Laser_Shooting();
 
+
+			//-----------------------------------------------------------弾を出さないようにする----------------------------------------------------------------------------
 			// バウンド弾撃ちだし
-			if (Flame % 80 == 0)
-			{
-				Bullet_num_Set(Check_Bits());
-				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-				}
-			}
+			//if (Flame % 80 == 0)
+			//{
+			//	Bullet_num_Set(Check_Bits());
+			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
+			//	{
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
+			//	}
+			//}
+			//-----------------------------------------------------------弾を出さないようにする-----------------------------------------------------------------------------
 
 			//if (Shot_Delay == (Shot_DelayMax / 3))
 			//{
