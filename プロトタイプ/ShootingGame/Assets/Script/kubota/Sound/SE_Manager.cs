@@ -26,6 +26,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Wireless;
 	[Header("プレイヤーの武器変更用")]
 	public AudioSource Weapon;
+	[Header("ボスの動きの時に鳴らすボスのEffect")]
+	public AudioSource Boss_Move;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -76,5 +78,13 @@ public class SE_Manager : MonoBehaviour
 	{
 		if (Weapon.isPlaying) Weapon.Stop();
 		if (Is_Active) Weapon.PlayOneShot(se);
+	}	
+	
+	
+	//ボスの動きの時に使用する
+	public void Boss_SE(AudioClip se)
+	{
+		if (Boss_Move.isPlaying) Boss_Move.Stop();
+		if (Is_Active) Boss_Move.PlayOneShot(se);
 	}
 }
