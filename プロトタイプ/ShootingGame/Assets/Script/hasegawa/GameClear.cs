@@ -34,7 +34,7 @@ namespace Costom
 
 		GameObject pressButtonDisplayParent;											// PressButtonをまとめるオブジェクト
 		Character_Display pressButtonDisplay;											// PressButtonを表示するためのもの
-		Vector2 pressButtonDisplayPosition = new Vector2(-3840f / 2f / 2f + 25f, -450f);	// PressButtonの位置
+		Vector2 pressButtonDisplayPosition = new Vector2(25f, -450f);					// PressButtonの位置
 		float pressButtonSize = 0.24f;													// PressButtonの大きさ
 		int blinkFrame = 0;																// 点滅するためのフレーム数
 		const int kBlinkFrameMax = 60;													// 点滅させる1周期のフレーム数

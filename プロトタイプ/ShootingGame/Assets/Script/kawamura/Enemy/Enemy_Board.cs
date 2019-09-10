@@ -48,7 +48,7 @@ public class Enemy_Board : character_status
 		base.Update();
     }
 
-    private void OnTriggerExit(Collider col)
+    new void OnTriggerEnter(Collider col)
     {
 		if (col.gameObject.name == "WallLeft")
 		{
@@ -58,6 +58,7 @@ public class Enemy_Board : character_status
 		{
 			hp = 0;
 		}
+		base.OnTriggerEnter(col);
     }
 
     void Enemy_Reset()
