@@ -164,7 +164,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = true;
+		Is_Change_Auto = false;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
 		target = direction;
@@ -791,6 +791,11 @@ public class Player2 : character_status
 		}
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
+
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		powerup.Play();
 
 		//Debug.Log("ビットン生成");
 		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");
