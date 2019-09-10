@@ -28,6 +28,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Weapon;
 	[Header("ボスの動きの時に鳴らすボスのEffect")]
 	public AudioSource Boss_Move;
+	[Header("シャウト用")]
+	public AudioSource Shout;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -79,7 +81,13 @@ public class SE_Manager : MonoBehaviour
 		if (Weapon.isPlaying) Weapon.Stop();
 		if (Is_Active) Weapon.PlayOneShot(se);
 	}	
-	
+	//敵を倒した際に叫ぶよう
+	public void Enemy_Scleem(AudioClip se)
+	{
+		if (Shout.isPlaying) Shout.Stop();
+		if (Is_Active) Shout.PlayOneShot(se);
+	}
+
 	
 	//ボスの動きの時に使用する
 	public void Boss_SE(AudioClip se)
