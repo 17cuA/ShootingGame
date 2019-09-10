@@ -13,6 +13,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 	public AudioClip Decision_SE;			//プレイヤー数決定時の音
 	public int Set_Step { get; private set; }
 
+	//private bool 
 	private void Start()
 	{
 		isLoaded = false;
