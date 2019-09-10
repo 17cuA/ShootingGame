@@ -41,7 +41,7 @@ public class RankingDisplay : MonoBehaviour
 	// 名前入力用
 	private float inputNameSize = 0f;
 	private Character_Display input1PNameDisplay;
-	private InputRankingName input1PNameClass;
+	[SerializeField] private InputRankingName input1PNameClass;
 	private Vector2 input1PNamePos = Vector2.zero;
 	private string previous1PName = "";
 	public bool IsDecision1P { get { return input1PNameClass.IsDecision; } }
@@ -49,7 +49,7 @@ public class RankingDisplay : MonoBehaviour
 	private Vector2 name1PSubscriptTextPosition = new Vector2(-3840f / 2f / 2f - 80f * 3f, -1080f / 2f / 7f * 5f);
 
 	private Character_Display input2PNameDisplay;
-	private InputRankingName input2PNameClass;
+	[SerializeField] private InputRankingName input2PNameClass;
 	private Vector2 input2PNamePos = Vector2.zero;
 	private string previous2PName = "";
 	public bool IsDecision2P

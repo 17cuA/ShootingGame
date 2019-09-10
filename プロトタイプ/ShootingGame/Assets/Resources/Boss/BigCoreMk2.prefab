@@ -138,6 +138,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960351}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -216,6 +217,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960329}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -262,6 +264,7 @@ GameObject:
   - component: {fileID: 2979631196825160026}
   - component: {fileID: 1742155195148778092}
   - component: {fileID: 718701159736949721}
+  - component: {fileID: 5982171466733222205}
   m_Layer: 9
   m_Name: Body_Core_Right
   m_TagString: Enemy
@@ -312,6 +315,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960297}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -346,6 +350,24 @@ CapsuleCollider:
   m_Height: 9
   m_Direction: 1
   m_Center: {x: 2.66, y: 0, z: -1.8}
+--- !u!114 &5982171466733222205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950047215133070725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1806704c15476a45a40e9affc4ee541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partInstance: {fileID: 3051152079791960619}
+  red_baseColorTexture: {fileID: 2800000, guid: 268171205b5dbdc41a9152cb8fd7b9f5,
+    type: 3}
+  red_emissiveTexture: {fileID: 2800000, guid: c7aa84f70ca0c5f47a7a5d01d4b2be43, type: 3}
+  particleSystem: {fileID: 0}
+  transitionLimitHp: 100
 --- !u!1 &1166618724644555258
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +442,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960349}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -471,6 +494,7 @@ GameObject:
   - component: {fileID: 7474189406771008518}
   - component: {fileID: 6329437233945297761}
   - component: {fileID: 745245955621584922}
+  - component: {fileID: 1024172605444806673}
   m_Layer: 9
   m_Name: Body_Core_Left
   m_TagString: Enemy
@@ -521,6 +545,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960343}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -555,6 +580,24 @@ CapsuleCollider:
   m_Height: 9
   m_Direction: 1
   m_Center: {x: 2.66, y: 0, z: -1.8}
+--- !u!114 &1024172605444806673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2424706955617710135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1806704c15476a45a40e9affc4ee541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partInstance: {fileID: 3051152079791960617}
+  red_baseColorTexture: {fileID: 2800000, guid: 268171205b5dbdc41a9152cb8fd7b9f5,
+    type: 3}
+  red_emissiveTexture: {fileID: 2800000, guid: c7aa84f70ca0c5f47a7a5d01d4b2be43, type: 3}
+  particleSystem: {fileID: 0}
+  transitionLimitHp: 100
 --- !u!1 &2438126635802557721
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +762,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960325}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -797,6 +841,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960327}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -875,6 +920,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960323}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -953,6 +999,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960345}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -1067,6 +1114,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960347}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -5844,6 +5892,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960331}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -5892,6 +5941,7 @@ GameObject:
   - component: {fileID: 1639908088014509220}
   - component: {fileID: 5808164588654007464}
   - component: {fileID: 2011481934495219547}
+  - component: {fileID: 2117894717538376125}
   m_Layer: 9
   m_Name: Parts_Core
   m_TagString: Enemy
@@ -5942,6 +5992,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960299}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -5960,6 +6011,24 @@ CapsuleCollider:
   m_Height: 7.32
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2117894717538376125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422148228144225420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1806704c15476a45a40e9affc4ee541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partInstance: {fileID: 3051152079791960621}
+  red_baseColorTexture: {fileID: 2800000, guid: 268171205b5dbdc41a9152cb8fd7b9f5,
+    type: 3}
+  red_emissiveTexture: {fileID: 2800000, guid: c7aa84f70ca0c5f47a7a5d01d4b2be43, type: 3}
+  particleSystem: {fileID: 0}
+  transitionLimitHp: 100
 --- !u!1 &7161159178748965296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6034,6 +6103,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960335}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -6049,6 +6119,7 @@ GameObject:
   - component: {fileID: 8260119936289212755}
   - component: {fileID: 578456144874499174}
   - component: {fileID: 2166605134481553542}
+  - component: {fileID: 8896298899044634471}
   m_Layer: 9
   m_Name: Parts_Core
   m_TagString: Enemy
@@ -6099,6 +6170,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960301}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -6117,6 +6189,24 @@ CapsuleCollider:
   m_Height: 7.32
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8896298899044634471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481800653408450338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1806704c15476a45a40e9affc4ee541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partInstance: {fileID: 3051152079791960623}
+  red_baseColorTexture: {fileID: 2800000, guid: 268171205b5dbdc41a9152cb8fd7b9f5,
+    type: 3}
+  red_emissiveTexture: {fileID: 2800000, guid: c7aa84f70ca0c5f47a7a5d01d4b2be43, type: 3}
+  particleSystem: {fileID: 0}
+  transitionLimitHp: 100
 --- !u!1 &7620373652503452916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6191,6 +6281,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960333}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -6305,6 +6396,7 @@ MonoBehaviour:
   - {fileID: 3051152079789960321}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   supported_objects:
@@ -6414,6 +6506,7 @@ MonoBehaviour:
   object_material: []
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   rotational_speed: 0.3
