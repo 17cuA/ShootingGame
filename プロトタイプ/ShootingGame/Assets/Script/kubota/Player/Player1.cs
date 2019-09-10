@@ -208,8 +208,16 @@ public class Player1 : character_status
 				//アニメーションが再生されていなければ
 				if (rotation_cnt == 0 && Start_animation_frame > frame_max)
 				{
-					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(Entry_anim_Data[0]);
-					else Entry_anim.Play(Entry_anim_Data[1]);
+					PlayableAsset timeLineAnimClip = null;
+					if(timeLineAnimClip == null)
+					{
+						if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) timeLineAnimClip = Resources.Load("PlayerEntry_1P_1Play") as PlayableAsset;
+						else																	timeLineAnimClip = Resources.Load("PlayerEntry_1P_2Play") as PlayableAsset;
+					}
+					
+
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(timeLineAnimClip);
+					else Entry_anim.Play(timeLineAnimClip);
 					rotation_cnt = 1;
 					if (Is_Animation)
 					{

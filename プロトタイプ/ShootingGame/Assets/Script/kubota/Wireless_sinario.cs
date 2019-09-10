@@ -157,6 +157,10 @@ public class Wireless_sinario : MonoBehaviour
 				frame = 0;
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
 				Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
+				uiText.text = "";
+				Sound_Active();
+				soundcnt = 0;
+				Start_cnt = 0;
 			}
 		}
 		else
