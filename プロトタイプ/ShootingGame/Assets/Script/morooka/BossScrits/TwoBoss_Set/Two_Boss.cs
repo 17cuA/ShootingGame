@@ -20,16 +20,17 @@ public class Two_Boss : character_status
 	/// </summary>
 	private enum Attack_Index
 	{
-			eBio_Laser,
-			eMerry_Go_Round,
-			eStraight_Line,
-			eBefore_Rotation,
-			eBack_Rotation,
+		eBio_Laser,
+		eMerry_Go_Round,
+		eStraight_Line,
+		eBefore_Rotation,
+		eBack_Rotation,
 		eSmasher_1,
 		eSmasher_2,
 		eIdol,
 		eCrossing,
 	}
+
 	[Header("ボス形成パーツ")]
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
@@ -75,6 +76,14 @@ public class Two_Boss : character_status
 
 	private bool Update_Ok { get; set; }        // アップデート
 
+	private Vector3[] shutter_Init
+	{
+		get;set;
+	}		// なぜか移動するから
+	private Vector3 core_Init
+	{
+		get;set;
+	}		// なぜか移動するから
 
 	private new void Start()
 	{
@@ -121,6 +130,12 @@ public class Two_Boss : character_status
 
 		Timeline_Player.Play(Start_Play);
 
+		shutter_Init = new Vector3[shutter.Length];
+		for (int i = 0; i < shutter_Init.Length; i++)
+		{
+			shutter_Init[i] = shutter[i].transform.localPosition;
+		}
+		core_Init = core[0].transform.localPosition;
 	}
 
 	// Update is called once per frame
@@ -239,6 +254,15 @@ public class Two_Boss : character_status
 			}
 			base.Died_Process();
 		}
+
+		for (int i = 0; i < shutter_Init.Length; i++)
+		{
+			if (shutter[i].gameObject.activeSelf)
+			{
+				shutter[i].transform.localPosition = shutter_Init[i];
+			}
+		}
+		core[0].transform.localPosition = core_Init;
 	}
 
 	#region ビーム攻撃
