@@ -49,6 +49,7 @@ MonoBehaviour:
   miniMoaiGroupObj: {fileID: 0}
   saveRingBullet: {fileID: 0}
   miniMoaiPos: {fileID: 4453159829879307610}
+  moai_Script: {fileID: 0}
   shotRota: {x: 0, y: 0, z: 0, w: 0}
   miniMoai_DelayCnt: 0
   miniMoai_DelayMax: 0
@@ -56,6 +57,12 @@ MonoBehaviour:
   bulletRota_Value: 30
   ringShot_DelayCnt: 0
   ringShot_DelayMax: 0.8
+  moaiLaserObj: {fileID: 0}
+  supply: []
+  laser_muzzle: []
+  laserBegin: {fileID: 0}
+  laserContinuing: {fileID: 0}
+  laserEnd: {fileID: 0}
   isMouthOpen: 1
 --- !u!114 &722692490
 MonoBehaviour:
@@ -87,6 +94,7 @@ GameObject:
   - component: {fileID: 2182734655614418947}
   - component: {fileID: 5898047944924560432}
   - component: {fileID: 3339254097923884710}
+  - component: {fileID: 8572043566640231700}
   m_Layer: 9
   m_Name: Enemy_Moai_RingShot
   m_TagString: Enemy
@@ -176,6 +184,10 @@ MonoBehaviour:
   Is_Dead: 0
   white_material: {fileID: 0}
   Opponent: 0
+  moaiColor: {x: 0, y: 0, z: 0, w: 0}
+  moai_material: []
+  test: 0
+  HpMax: 0
   bulletRota_Value: 0
   isMouthOpen: 0
 --- !u!136 &5898047944924560432
@@ -200,12 +212,24 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382191774884331216}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.033649817
   m_Height: 0.09279354
   m_Direction: 1
   m_Center: {x: -3.685803e-17, y: 0.081533305, z: -0.018873911}
+--- !u!114 &8572043566640231700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382191774884331216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &382191774884331220
 GameObject:
   m_ObjectHideFlags: 0

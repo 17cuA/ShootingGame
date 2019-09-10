@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8007422724670772421}
   - component: {fileID: 9095522435299636671}
   - component: {fileID: 1534225700193830453}
+  - component: {fileID: 1337816334581200987}
   m_Layer: 14
   m_Name: Enemy_RingBullet
   m_TagString: Untagged
@@ -80,6 +81,18 @@ MonoBehaviour:
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
   Bullet_Type: 0
+--- !u!114 &1337816334581200987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192101567438493315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3410851899942218157
 PrefabInstance:
   m_ObjectHideFlags: 0
