@@ -99,8 +99,17 @@ public class SE_Manager : MonoBehaviour
 		if (Boss_Move.isPlaying) Boss_Move.Stop();
 		if (Is_Active) Boss_Move.PlayOneShot(se);
 	}
-
-
-
+	  //ボスのコアとコアシールドに当たった時
+	 public void Boss_Core(AudioClip se)
+	{
+		  if(Core.isPlaying) Core.Stop();
+		  if(Is_Active)Core.PlayOneShot(se);
+	}
+	//ボスのボディに当たった時の音
+	public void Boss_Body_SE(AudioClip se)
+	{
+		  if(Boss_Body.isPlaying) Boss_Body.Stop();
+		  if(Is_Active)Boss_Body.PlayOneShot(se);
+	}
 
 }

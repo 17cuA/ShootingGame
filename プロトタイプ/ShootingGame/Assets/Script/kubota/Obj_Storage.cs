@@ -92,7 +92,7 @@ public class Obj_Storage : MonoBehaviour
 	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
 	private int column;                                         //配列の列を入れる変数
 
-	public AudioClip[] audio_se = new AudioClip[26];    //ＳＥを読み込むための配列
+	public AudioClip[] audio_se = new AudioClip[29];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 	//無線のに使う情報
 	private string name_Wireless_curtain_up = "curtain_up";		  //開戦時
@@ -196,7 +196,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_Scream");				//叫ぶ声
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
-		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_kettei_PowerUp");	//アイテム使用パワーアップ音(ステータス変化)
+		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei_neo");	//アイテム使用パワーアップ音(ステータス変化)
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");			//HP持ちエネミーのカウンター音(ダメージ減ってない)
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
@@ -217,6 +217,9 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[23] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display");			//無線受信時
 		audio_se[24] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Parmanent");	//無線のボイスの裏で流すよう
 		audio_se[25] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Close");	//無線終了時
+		audio_se[26] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_BOSS_No_Hit");				//ボスのボディにあたった
+		audio_se[27] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_CoreShield_destruction");	//ボスのコアシールドを壊したとき
+		audio_se[28] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_BOSS_Core_Hit");				//ボスのコアに当たった時
 
 
 		//------------------------------------------------------------------------------

@@ -10,10 +10,14 @@ using UnityEngine.UI;
 /// <summary>
 /// ランキングの名前入力用
 /// </summary>
+[System.Serializable]
 public class InputRankingName
 {
 	const int kNameLength = 3;				// 名前の長さ
 	char[] name = new char[kNameLength];	// 入力用文字配列
+
+	[SerializeField] private AudioSource Move;			//文字切り替え時
+	[SerializeField] private AudioSource Decition;		//文字の決定時
 	// 名前をストリングで返すプロパティ
 	public string Name
 	{
@@ -183,10 +187,12 @@ public class InputRankingName
 		if (inputY > 0f)
 		{
 			++name[selectPos];
+
 		}
 		if (inputY < 0f)
 		{
 			--name[selectPos];
+
 		}
 		// 規定文字以内に収める
 		if (name[selectPos] > 'Z')
