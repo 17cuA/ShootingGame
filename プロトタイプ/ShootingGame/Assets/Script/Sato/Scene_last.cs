@@ -33,6 +33,9 @@ public class Scene_last : MonoBehaviour
 	private Color mu;
 	private Color ari;
 
+	//追加--------------------------
+	private int frame;		//自動でタイトルに行くように
+	//------------------------------
 	private void Start()
 	{
 		Game_Last_String = string_to_display;
@@ -68,6 +71,7 @@ public class Scene_last : MonoBehaviour
 	void Update()
 	{
 		d++;
+		frame++;
         if(d == 30)
 		{
 			please_push_button.Color_Change(mu);
@@ -78,7 +82,7 @@ public class Scene_last : MonoBehaviour
 			d = 0;
 		}
 
-		if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
+		if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl) || frame > 1200)
 		{
 			Scene_Manager.Manager.Screen_Transition_To_Caution();
 		}
