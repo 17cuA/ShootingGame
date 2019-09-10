@@ -9,10 +9,16 @@ public class Enemy_Moai : character_status
 
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
 
-	public float test;
+	public float speedX;
+	public float speedX_Value;
+	public float speedY;
+	public float speedY_Value;
+
+	public float color_Value;
 	public float HpMax;
 	public float bulletRota_Value;  //発射する弾の角度範囲用
 
+	public bool isMove = false;
 	public bool isMouthOpen = false;
 	new void Start()
     {
@@ -46,14 +52,14 @@ public class Enemy_Moai : character_status
 		}
 
 		//test = 1 - hp / HpMax;
-		test = hp / HpMax;
+		color_Value = hp / HpMax;
 
 		//setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 		//moaiColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 
 		for (int i = 0; i < moai_material.Length; i++)
 		{
-			moaiColor = new Vector4(1, test,test, 1);
+			moaiColor = new Vector4(1, color_Value, color_Value, 1);
 			moai_material[i].material.SetVector("_BaseColor", moaiColor);
 		}
 
