@@ -24,6 +24,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Baculor;
 	[Header("無線開始時などに使う用")]
 	public AudioSource Wireless;
+	[Header("プレイヤーの武器変更用")]
+	public AudioSource Weapon;
 	private void Awake()
 	{
 		SE_Obj = GetComponent<SE_Manager>();
@@ -69,10 +71,10 @@ public class SE_Manager : MonoBehaviour
 		if (Baculor.isPlaying) Baculor.Stop();
 		if (Is_Active) Baculor.PlayOneShot(se);
 	}
-
-	public void Wirelss_SE(AudioClip se)
+	//プレイヤーのバレット変更用
+	public void weapon_Change(AudioClip se)
 	{
-		if (Wireless.isPlaying) Baculor.Stop();
-		if (Is_Active) Wireless.PlayOneShot(se);
+		if (Weapon.isPlaying) Weapon.Stop();
+		if (Is_Active) Weapon.PlayOneShot(se);
 	}
 }

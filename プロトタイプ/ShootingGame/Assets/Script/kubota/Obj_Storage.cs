@@ -192,7 +192,7 @@ public class Obj_Storage : MonoBehaviour
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/Teacher_SE/bacura_hit");				//バキュラに当たった時の高い音用
 		audio_se[1] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_4(Inseki)");	//隕石の爆発音
-		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/05_gradius_se_SelectMove");
+		audio_se[2] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_BulletMode_Change");	//ラピッドとバーストの切り替え
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/06_gradius_se_Select_OK");
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
