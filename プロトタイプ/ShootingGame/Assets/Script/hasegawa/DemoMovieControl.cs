@@ -105,7 +105,7 @@ public class DemoMovieControl : MonoBehaviour
 		{
 			displayPlane.color += new Color(0f, 0f, 0f, 1f / 60f);
 		}
-		else if (frame < 30)
+		else if (frame < 60)
 		{
 			displayPlane.color -= new Color(0f, 0f, 0f, 1f / 60f);
 			if (displayPlane.color.a < 0f)
