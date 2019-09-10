@@ -73,7 +73,8 @@ public class Two_Boss : character_status
 	private float Survival_Time { get; set; }			// せい☆ぞん　時間
 	private float Survival_Time_Cnt { get; set; }       // 生存時間カウンター
 
-	private bool Update_Ok { get; set; }		// アップデート
+	private bool Update_Ok { get; set; }        // アップデート
+
 
 	private new void Start()
 	{
@@ -119,6 +120,7 @@ public class Two_Boss : character_status
 		Survival_Time = 180.0f;
 
 		Timeline_Player.Play(Start_Play);
+
 	}
 
 	// Update is called once per frame
@@ -312,9 +314,9 @@ public class Two_Boss : character_status
 				Shot_Delay++;
 				if(Shot_Delay >= Shot_DelayMax /5)
 				{
-					foreach(var mul in muzzle)
+					for (var i = 0; i < muzzle.Length; i++)
 					{
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, mul.transform.position, mul.transform.forward);
+						multiple[i].Bullet_Shot(muzzle[i].transform);
 					}
 					Shot_Delay = 0;
 				}
