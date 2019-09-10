@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Two_Boss_Parts : character_status
 {
@@ -30,6 +31,20 @@ public class Two_Boss_Parts : character_status
 	private Color Damege_Color { get; set; }
 	private bool Is_Bomb { get; set; }
 
+	private int rism_Cnt
+	{
+		get; set;
+	}
+	private int rism_Index
+	{
+
+		get;set;
+	}
+	private int[] rism_Max
+	{
+		get; set;
+	}       // リズム
+
 	private new void Start()
 	{
 		base.Start();
@@ -37,6 +52,10 @@ public class Two_Boss_Parts : character_status
 		renderer = GetComponent<MeshRenderer>();
 		Damege_Color = new Color(104.0f / 255.0f, 76.0f / 255.0f, 46.0f / 255.0f);
 		Is_Bomb = false;
+
+		rism_Cnt = 0;
+		rism_Index = 0;
+		rism_Max = new int[6] { 3, 4, 4, 9,5,6 };
 	}
 	private new void Update()
 	{
@@ -48,7 +67,9 @@ public class Two_Boss_Parts : character_status
 				{
 					material_Reset();
 					ParticleCreation(0);
-					renderer.material.SetVector("_BaseColor", Damege_Color); 
+					renderer.material.SetVector("_Color", Damege_Color);
+					GetComponent<Collider>().enabled = false;
+
 					Is_Bomb = true;
 					object_material = null;
 				}
@@ -57,6 +78,7 @@ public class Two_Boss_Parts : character_status
 			else
 			{
   				base.Update();
+				Debug.Log(Is_Bomb);
 			}
 		}
 		else
@@ -73,6 +95,31 @@ public class Two_Boss_Parts : character_status
 				}
 				base.Died_Judgment();
 				base.Died_Process();
+			}
+		}
+	}
+
+	public void Bullet_Shot(Transform tra, int i = 7)
+	{
+		if (i < 7)
+		{
+			rism_Index = i;
+		}
+
+		Shot_Delay++;
+		if (Shot_Delay >= Shot_DelayMax)
+		{
+			rism_Cnt++;
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, tra.position, tra.forward);
+			if (rism_Cnt >= rism_Max[rism_Index])
+			{
+				rism_Index++;
+				if (rism_Index == rism_Max.Length)
+				{
+					rism_Index = 0;
+				}
+				rism_Cnt = 0;
+				Shot_Delay = 0;
 			}
 		}
 	}

@@ -73,7 +73,8 @@ public class Two_Boss : character_status
 	private float Survival_Time { get; set; }			// せい☆ぞん　時間
 	private float Survival_Time_Cnt { get; set; }       // 生存時間カウンター
 
-	private bool Update_Ok { get; set; }		// アップデート
+	private bool Update_Ok { get; set; }        // アップデート
+
 
 	private new void Start()
 	{
@@ -119,6 +120,7 @@ public class Two_Boss : character_status
 		Survival_Time = 180.0f;
 
 		Timeline_Player.Play(Start_Play);
+
 	}
 
 	// Update is called once per frame
@@ -164,11 +166,13 @@ public class Two_Boss : character_status
 			}
 			else if (Attack_Type_Instruction == 2)
 			{
-				Rotation_Attack();
+				Laser_Attack();
+
 			}
 			else if (Attack_Type_Instruction == 3)
 			{
-				Laser_Attack();
+				Rotation_Attack();
+
 			}
 			else if (Attack_Type_Instruction == 4)
 			{
@@ -310,9 +314,9 @@ public class Two_Boss : character_status
 				Shot_Delay++;
 				if(Shot_Delay >= Shot_DelayMax /5)
 				{
-					foreach(var mul in muzzle)
+					for (var i = 0; i < muzzle.Length; i++)
 					{
-						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, mul.transform.position, mul.transform.forward);
+						multiple[i].Bullet_Shot(muzzle[i].transform);
 					}
 					Shot_Delay = 0;
 				}
@@ -421,7 +425,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[5].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 3.21)
+			if (Attack_Seconds >= 4.0f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[1].transform);
@@ -440,7 +444,7 @@ public class Two_Boss : character_status
 				Laser.Add(l);
 			}
 
-			if (Attack_Seconds >= 10.16f)
+			if (Attack_Seconds >= 14.06f)
 			{
 				foreach(var l in Laser)
 				{
