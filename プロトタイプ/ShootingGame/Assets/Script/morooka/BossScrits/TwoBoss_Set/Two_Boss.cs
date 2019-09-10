@@ -164,11 +164,13 @@ public class Two_Boss : character_status
 			}
 			else if (Attack_Type_Instruction == 2)
 			{
-				Rotation_Attack();
+				Laser_Attack();
+
 			}
 			else if (Attack_Type_Instruction == 3)
 			{
-				Laser_Attack();
+				Rotation_Attack();
+
 			}
 			else if (Attack_Type_Instruction == 4)
 			{
