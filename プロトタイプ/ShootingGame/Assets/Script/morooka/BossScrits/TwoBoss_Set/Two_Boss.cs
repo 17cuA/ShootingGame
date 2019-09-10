@@ -252,6 +252,7 @@ public class Two_Boss : character_status
 				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
 				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 			}
+			base.Died_Judgment();
 			base.Died_Process();
 		}
 
@@ -397,7 +398,7 @@ public class Two_Boss : character_status
 				var target = new Vector3(13.0f, 1.0f, 0.0f);
 				if (Vector3.Distance(transform.position, target) > 0.01f)
 				{
-					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 2.0f);
+					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 1.5f);
 				}
 				else if (Vector3.Distance(transform.position, target) < 0.01f)
 				{

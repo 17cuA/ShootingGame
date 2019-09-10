@@ -320,42 +320,42 @@ public class One_Boss : character_status
 				base.Update();
 				Survival_Time_Cnt++;
 
-				// 一定HP以下の時コアの色を変える
-				for (int i = 0; i < core.Length; i++)
-				{
-					if (core[i].gameObject.activeSelf)
-					{
-						// HPが前フレームより少ないとき
-						if (core[i].hp < Core_Mae_HP[i])
-						{
-							// RGBの変化数
-							float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
+				//// 一定HP以下の時コアの色を変える
+				//for (int i = 0; i < core.Length; i++)
+				//{
+				//	if (core[i].gameObject.activeSelf)
+				//	{
+				//		// HPが前フレームより少ないとき
+				//		if (core[i].hp < Core_Mae_HP[i])
+				//		{
+				//			// RGBの変化数
+				//			float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
 							
-							//// 青抜き、赤入れ
-							// Gの値ははじめ増やして、後半減らす
-							if (Base_Color[i].r >= 1.0f)
-							{
-								Base_Color[i].b -= (RGB * 2.0f);
-								Emissive_Color[i].b -= RGB;
+				//			//// 青抜き、赤入れ
+				//			// Gの値ははじめ増やして、後半減らす
+				//			if (Base_Color[i].r >= 1.0f)
+				//			{
+				//				Base_Color[i].b -= (RGB * 2.0f);
+				//				Emissive_Color[i].b -= RGB;
 
-								Base_Color[i].g -= (RGB * 2.0f);
-								Emissive_Color[i].g -= (RGB * 2.0f);
-							}
-							else if(Base_Color[i].r <= 1.0f)
-							{
-								Base_Color[i].r += (RGB * 2.0f);
-								Emissive_Color[i].r += RGB;
+				//				Base_Color[i].g -= (RGB * 2.0f);
+				//				Emissive_Color[i].g -= (RGB * 2.0f);
+				//			}
+				//			else if(Base_Color[i].r <= 1.0f)
+				//			{
+				//				Base_Color[i].r += (RGB * 2.0f);
+				//				Emissive_Color[i].r += RGB;
 
-								Base_Color[i].g += (RGB * 2.0f);
-								Emissive_Color[i].g += (RGB * 2.0f);
-							}
-						}
-						core_renderer[i].material.SetColor("_Color", Base_Color[i]);
-						core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
+				//				Base_Color[i].g += (RGB * 2.0f);
+				//				Emissive_Color[i].g += (RGB * 2.0f);
+				//			}
+				//		}
+				//		core_renderer[i].material.SetColor("_Color", Base_Color[i]);
+				//		core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
 
-						Core_Mae_HP[i] = core[i].hp;
-					}
-				}
+				//		Core_Mae_HP[i] = core[i].hp;
+				//	}
+				//}
 
 				// パーツのコアが壊れたら死亡
 				if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)

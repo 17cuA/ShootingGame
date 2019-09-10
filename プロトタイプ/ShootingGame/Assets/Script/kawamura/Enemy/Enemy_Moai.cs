@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class Enemy_Moai : character_status
 {
+	public enum AttackState
+	{
+		RingShot,
+		MiniMoai,
+		Laser,
+		Stay,
+	}
+
+	public AttackState attackState;
+
+	GameObject mouthObj;
+	GameObject moaiAttackObj;
     GameObject saveObj;
+
+	MoaiAnimation moaiAnime_Script;
+	Enemy_Moai_Attack moaiAttack_Script;
+
+	Vector3 velocity;
 	public Vector4 moaiColor;
 
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
@@ -13,11 +30,30 @@ public class Enemy_Moai : character_status
 	public float speedX;
 	public float speedX_Value;
 	public float speedY;
+	[Header("入力用 Y速度値")]
 	public float speedY_Value;
+	public float rotaY;
+	[Header("入力用 回転変化値")]
+	public float rotaY_Value;
+	public float defaultRotaY_Value;
+	[Header("入力用 回転最大値")]
+	public float rotationYMax;
 
 	public float color_Value;
 	public float HpMax;
 	public float bulletRota_Value;  //発射する弾の角度範囲用
+
+	//攻撃関係の管理で使うよ！--------------------------------------------
+	public int ringShotCnt;         //リング攻撃した数
+	[Header("入力用 リング攻撃回数")]
+	public int ringShotMax;     //リング攻撃回数
+	public float ringShotDelay;
+
+	public int miniMoaisCnt;
+	[Header("入力用 ミニモアイを出す回数")]
+	public int miniMoaisMax;
+	public float attackDelay;
+	//攻撃関係の管理で使うやつの終わりだよ！-----------------------------
 
 	public bool isAppearance = true;		//最初の登場用
 	public bool isMove = false;
@@ -27,6 +63,14 @@ public class Enemy_Moai : character_status
 	public bool isLaser = false;
 	new void Start()
     {
+		mouthObj = transform.GetChild(1).gameObject;
+		moaiAnime_Script = mouthObj.GetComponent<MoaiAnimation>();
+
+		moaiAttackObj = transform.GetChild(2).gameObject;
+		moaiAttack_Script = mouthObj.GetComponent<Enemy_Moai_Attack>();
+		speedY = speedY_Value;
+		defaultRotaY_Value = rotaY_Value;
+		rotaY = 90;
 		HpMax = hp;
 
 		HP_Setting();
@@ -36,6 +80,78 @@ public class Enemy_Moai : character_status
 
 	new void Update()
     {
+		if (isAppearance)
+		{
+			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+
+			if (transform.position.y > -6.5f)
+			{
+				rotaY += rotaY_Value;
+				rotationYMax -= rotaY_Value;
+				//if (rotationYMax < 0)
+				//{
+				//	rotaY_Value = 0;
+				//}
+				if (rotationYMax < 20f)
+				{
+					rotaY_Value = defaultRotaY_Value * (rotationYMax / 180f);
+				}
+				if (transform.position.y > -0.8f)
+				{
+					speedY = speedY_Value * (transform.position.y / -6.5f);
+				}
+			}
+
+			transform.rotation = Quaternion.Euler(0, rotaY, 0);
+
+			if (transform.position.y > 0)
+			{
+				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+				isAppearance = false;
+				moaiAnime_Script.isOpen = true;
+			}
+			
+		}
+		if (isMouthOpen)
+		{
+			switch (attackState)
+			{
+				case AttackState.RingShot:
+					if (ringShotCnt > ringShotMax) 
+					{
+						isMouthOpen = false;
+						moaiAnime_Script.isClose = true;
+						attackState = AttackState.MiniMoai;
+						ringShotCnt = 0;
+						moaiAttack_Script.ringShot_DelayCnt = 0;
+					}
+
+					break;
+
+				case AttackState.MiniMoai:
+					if (isMiniMoai)
+					{
+						isMouthOpen = false;
+						moaiAnime_Script.isClose = true;
+					}
+					if (miniMoaisCnt > miniMoaisMax)
+					{
+						isMouthOpen = false;
+						moaiAnime_Script.isClose = true;
+						attackState = AttackState.Laser;
+						miniMoaisCnt = 0;
+					}
+					
+					break;
+
+				case AttackState.Laser:
+
+					break;
+
+			}
+		}
+
 		if (hp < 1)
 		{
 			Died_Process();
