@@ -288,10 +288,13 @@ public class character_status : MonoBehaviour
 	//ダメージを食らうとダメージエフェクトが走るように
 	public void Damege_Effect()
 	{
-		for (int i = 0; i < object_material.Length; i++)
+		if (object_material != null)
 		{
-			object_material[i].material = white_material;
-			if(!check) check = true;
+			for (int i = 0; i < object_material.Length; i++)
+			{
+				object_material[i].material = white_material;
+				if (!check) check = true;
+			}
 		}
 	}
 	//ダメージを受けた時のエフェクトが元のエフェクトに戻すための関数
