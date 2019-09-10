@@ -454,6 +454,14 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Death_Enter()
 	{
+		var changeTransfrom = transform.GetChild(0).GetChild(6);
+		for (var i = 0; i < changeTransfrom.childCount; ++i)
+		{
+			if(i < changeTransfrom.childCount - 4)
+				changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion"); 
+			else
+				changeTransfrom.GetChild(i).GetChild(0).gameObject.layer = LayerMask.NameToLayer("Explosion");
+		}
 		DebugManager.OperationDebug("中ボス破壊", "中ボス");
 		animator.enabled = true;
 		animator.Play("Death");
