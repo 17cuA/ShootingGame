@@ -479,7 +479,7 @@ public class EnemyCreate : MonoBehaviour
 			isDebug = true;
 			turning_frame = 5010;
 			frameCnt = 4950;	//←上の数字から60引いた数にする
-			groupCnt = 57;
+			groupCnt = 58;
 
 		}
 		if (saveEnemyObj != null)
@@ -576,10 +576,11 @@ public class EnemyCreate : MonoBehaviour
 				{
 					backActive_Script.TransparencyChangeTrigger();
 					isNowTwoBoss = false;
-					//Wireless_sinario.Is_using_wireless = true;
-				}
-			}
-			isTwoBossAlive = false;
+					Wireless_sinario.Is_using_wireless = true;
+                    isTwoBossAlive = false;
+
+                }
+            }
 		}
 
 		if (isBaculaDestroy)
@@ -1470,8 +1471,22 @@ public class EnemyCreate : MonoBehaviour
 				Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
 				isNowTwoBoss = true;
 
-				nextEnemy = "None";
-				Next_Condition(270);
+                if (isDebug)
+                {
+                    GameObject mistSaveObj = Instantiate(mistEffectObj, transform.position, transform.rotation);
+                    mistEffectObj.transform.position = new Vector3(0, 0, 3);
+                    mistParticle = mistSaveObj.GetComponent<ParticleSystem>();
+                    backActive_Script = mistSaveObj.GetComponent<BackgroundActivation>();
+                    mistParticle.Play();
+                    backActive_Script.TransparencyChangeTrigger();
+                }
+                else
+                {
+                    backActive_Script.TransparencyChangeTrigger();
+                }
+
+                nextEnemy = "None";
+				Next_Condition(120);
 			}
 			// クリア
 			else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 59)
