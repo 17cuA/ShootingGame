@@ -792,6 +792,11 @@ public class Player2 : character_status
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
 
+		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		powerup.Play();
+
 		//Debug.Log("ビットン生成");
 		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");
 	}
