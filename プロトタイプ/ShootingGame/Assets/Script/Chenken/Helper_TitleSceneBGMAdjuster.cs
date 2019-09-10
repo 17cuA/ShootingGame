@@ -10,8 +10,6 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 	//[SerializeField] [Range(0.5f, 1)] private float fadeOutFromVolume = 1;
 	//[SerializeField] [Range(0, 0.5f)] private float fadeOutToVolue = 0;
 	[SerializeField] private float fadeOutSpeed;
-	[Header("------タイトルBGM------")]
-	[SerializeField] private AudioClip titleAudioClip;
 
 	private AudioSource audioSource;
 	private bool isFadeOutOn = false;
@@ -39,9 +37,14 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetButtonDown("Fire1") && SceneManager.GetActiveScene().name == "Title")
+		if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1") && SceneManager.GetActiveScene().name == "Title")
 		{
 			enterCount++;
+		}
+
+		if(Input.GetButtonDown("Fire2") || Input.GetButtonDown("P2_Fire2") && SceneManager.GetActiveScene().name == "Title")
+		{
+			enterCount--;
 		}
 
 		if(enterCount == 2)
@@ -54,7 +57,7 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 			audioSource.volume -= fadeOutSpeed * 0.0166667f;
 		}
 
-		if(SceneManager.GetActiveScene().name != "Title" && SceneManager.GetActiveScene().name != "Caution"&& SceneManager.GetActiveScene().name != "RogoScenes")
+		if(SceneManager.GetActiveScene().name != "Title" /*&& SceneManager.GetActiveScene().name != "Caution"&& SceneManager.GetActiveScene().name != "RogoScenes"*/)
 		{
 			audioSource.volume = 1f;
 			audioSource.Stop();

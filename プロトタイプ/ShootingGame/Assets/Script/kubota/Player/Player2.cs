@@ -521,6 +521,7 @@ public class Player2 : character_status
 		{
 			Debug.Log("モードチェンジ");
 			Is_Change_Auto = !Is_Change_Auto;
+			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
 		}
 
 		//マニュアル発射の時
