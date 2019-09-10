@@ -12,6 +12,8 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 	[SerializeField] private float fadeOutSpeed;
 
 	private AudioSource audioSource;
+	public AudioSource KetteiSE;		//決定の音が入っているaudiosource
+
 	private bool isFadeOutOn = false;
 	private int enterCount = 0;
 
@@ -55,6 +57,7 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 		if(isFadeOutOn)
 		{
 			audioSource.volume -= fadeOutSpeed * 0.0166667f;
+			KetteiSE.volume -= fadeOutSpeed * 0.0166667f;
 		}
 
 		if(SceneManager.GetActiveScene().name != "Title" /*&& SceneManager.GetActiveScene().name != "Caution"&& SceneManager.GetActiveScene().name != "RogoScenes"*/)
