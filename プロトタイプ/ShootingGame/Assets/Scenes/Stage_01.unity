@@ -16093,6 +16093,7 @@ GameObject:
   - component: {fileID: 728411573213675031}
   - component: {fileID: 728411573213675033}
   - component: {fileID: 728411573213675034}
+  - component: {fileID: 728411573213675035}
   m_Layer: 0
   m_Name: BackgroundCamera
   m_TagString: Untagged
@@ -16291,6 +16292,28 @@ MonoBehaviour:
   Final_Boss_clip: {fileID: 8300000, guid: 4d4c0982a72193b4db46a6e93757096b, type: 3}
   changecnt: 0
   fade_num: 0
+--- !u!114 &728411573213675035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728411573213675030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c2d47c668fb82499c8278bb8442de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBGMClip: {fileID: 8300000, guid: 6eae8df45737ea0449981903c3091c01, type: 3}
+  oneBossBGMClip: {fileID: 8300000, guid: b096c3fe8efb17a4c88c722b4c436d36, type: 3}
+  oneBossOverBGMClip: {fileID: 8300000, guid: 25ac569df2989a64bb04c6b0126132a9, type: 3}
+  twoBossBGMClip: {fileID: 8300000, guid: 4d4c0982a72193b4db46a6e93757096b, type: 3}
+  fadeInStartVolume: 0
+  fadeInTime: 2
+  isFadeIn: 0
+  fadeOutOverVolume: 0
+  fadeOutTime: 2
+  isFadeOut: 0
 --- !u!1001 &1543349492899976709
 PrefabInstance:
   m_ObjectHideFlags: 0
