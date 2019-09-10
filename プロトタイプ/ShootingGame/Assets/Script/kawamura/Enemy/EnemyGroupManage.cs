@@ -28,32 +28,40 @@ public class EnemyGroupManage : MonoBehaviour
 	private void Awake()
 	{
         myName = gameObject.name;
-		if (myName == "Enemy_Bacula_Four" || myName == "Enemy_BossBacula_Four")
-        {
-            parentObj = transform.parent.gameObject;
-            bacuManager = parentObj.GetComponent<BaculasManager>();
-            childNum = transform.childCount * 16;
-            remainingEnemiesCnt = childNum;
+		if (myName == "Enemy_Bacula_Four")
+		{
+			parentObj = transform.parent.gameObject;
+			bacuManager = parentObj.GetComponent<BaculasManager>();
+			childNum = transform.childCount * 16;
+			remainingEnemiesCnt = childNum;
 
-        }
-        else
-        {
-            childNum = transform.childCount;
-            remainingEnemiesCnt = childNum;
-            childObjects = new GameObject[childNum];
-            for (int i = 0; i < childNum; i++)
-            {
-                childObjects[i] = transform.GetChild(i).gameObject;
-            }
+		}
+		else if (myName == "Enemy_BossBacula_Four(Clone)" || myName == "Enemy_BossBacula_Four")
+		{
+			//parentObj = transform.parent.gameObject;
+			//bacuManager = parentObj.GetComponent<BaculasManager>();
+			childNum = transform.childCount * 16;
+			remainingEnemiesCnt = childNum;
 
-        }
+		}
+		else
+		{
+			childNum = transform.childCount;
+			remainingEnemiesCnt = childNum;
+			childObjects = new GameObject[childNum];
+			for (int i = 0; i < childNum; i++)
+			{
+				childObjects[i] = transform.GetChild(i).gameObject;
+			}
+
+		}
         item = Resources.Load("Item/Item_Test") as GameObject;
 
     }
 
     private void OnEnable()
 	{
-        if (myName != "Enemy_Bacula_Four")
+		if (myName != "Enemy_Bacula_Four" &&myName != "Enemy_BossBacula_Four(Clone)")
         {
             for (int i = 0; i < childNum; i++)
             {

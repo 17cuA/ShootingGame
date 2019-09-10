@@ -27,8 +27,10 @@ public class DemoMovieControl : MonoBehaviour
 	[SerializeField, Tooltip("ムービーに遷移するまでの秒数")] float transitionTime = 0;
 	int TransitionFrame { get { return (int)(transitionTime * 60f); } }
 	[SerializeField, Tooltip("画面を覆うImage")] Image displayPlane;
-	bool IsPlayingMovie { get { return playState == MoviePlayState.ePlaying; } }
+	public bool IsPlayingMovie { get { return playState == MoviePlayState.ePlaying; } }
 	bool isInput = false;
+	public bool IsStopDemoMovie { set { isStop = value; } }
+	bool isStop = false;
 
 	void Start()
 	{
@@ -77,7 +79,7 @@ public class DemoMovieControl : MonoBehaviour
 
 	void Update()
 	{
-		if (!videoPlayer || !videoRawImage) { return; }
+		if (!videoPlayer || !videoRawImage || isStop) { return; }
 		if (playState == MoviePlayState.ePlaying)
 		{
 			PlayBehaviour();
@@ -101,11 +103,11 @@ public class DemoMovieControl : MonoBehaviour
 		// ムービーが終わりに近づくにつれて暗転させる
 		if (videoPlayer.frame >= (long)videoPlayer.frameCount - 30 || isInput)
 		{
-			displayPlane.color += new Color(0f, 0f, 0f, 2f / 60f);
+			displayPlane.color += new Color(0f, 0f, 0f, 1f / 60f);
 		}
-		else if (frame < 30)
+		else if (frame < 60)
 		{
-			displayPlane.color -= new Color(0f, 0f, 0f, 2f / 60f);
+			displayPlane.color -= new Color(0f, 0f, 0f, 1f / 60f);
 			if (displayPlane.color.a < 0f)
 			{
 				displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 0f);
