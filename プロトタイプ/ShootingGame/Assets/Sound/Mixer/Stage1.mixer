@@ -34,6 +34,7 @@ AudioMixerController:
     - 48d04018ef4971b4d8956cf1cc8238a6
     - a5896239cb52fcc4c94d65767e866920
     - 3978f989d0893684cb7a1980cee5cb34
+    - 001d81732220eca40976ac5ab5b6c7e7
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -61,6 +62,7 @@ AudioMixerGroupController:
   - {fileID: 243012685745726984}
   - {fileID: 243873519568998064}
   - {fileID: 243727882422944856}
+  - {fileID: 243002018607802282}
   - {fileID: 243142221431369842}
   m_Volume: ac5a541f0c872b84caa14601113333d6
   m_Pitch: cc7c412ecd723d746bd44693843bbe8b
@@ -127,6 +129,24 @@ AudioMixerSnapshotController:
     2396622ff7e26644682c9ea1f887ec42: 0.1
     bef1e56f48dddbb4cb026ffd71d07e40: -1.7612991
   m_TransitionOverrides: {}
+--- !u!243 &243002018607802282
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Scleem
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 001d81732220eca40976ac5ab5b6c7e7
+  m_Children: []
+  m_Volume: 9e95c681242434a4da2e43e7b8e2d4b3
+  m_Pitch: fe1ecc99064b41b4288e494ffa11debd
+  m_Effects:
+  - {fileID: 244535086101761546}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &243012685745726984
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -521,6 +541,20 @@ AudioMixerEffectController:
   m_EffectID: a1a17246ea7107748a055484039bafa4
   m_EffectName: Attenuation
   m_MixLevel: ce07502b3c431b94884e10bb869a9b11
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244535086101761546
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 8bd1a0397acf21b4383cff3b66aefa06
+  m_EffectName: Attenuation
+  m_MixLevel: ffc83acc3b2724c4db822a7542258118
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
