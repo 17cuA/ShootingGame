@@ -215,7 +215,9 @@ public class EnemyCreate : MonoBehaviour
 
 	public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
+	public bool isDebug = false;
 	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
+
 	void Start()
 	{
 		//位置オブジェクト取得
@@ -472,6 +474,7 @@ public class EnemyCreate : MonoBehaviour
 			//turning_frame = 17750;
 			//frameCnt = 17750;
 			//groupCnt = 45;
+			isDebug = true;
 			turning_frame = 5010;
 			frameCnt = 4950;	//←上の数字から60引いた数にする
 			groupCnt = 56;
@@ -562,13 +565,14 @@ public class EnemyCreate : MonoBehaviour
 				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
 		}
+		//第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		if (twoBoss_Script != null)
 		{
 			if (twoBoss_Script.Is_Dead)
 			{
 				if(isTwoBossAlive)
 				{
-					isNowTwoBoss = false;
+					backActive_Script.TransparencyChangeTrigger();
 					isNowTwoBoss = false;
 					//Wireless_sinario.Is_using_wireless = true;
 				}
@@ -1960,6 +1964,20 @@ public class EnemyCreate : MonoBehaviour
 				GameObject Boss_02 = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
 				Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
 				isNowTwoBoss = true;
+
+				if (isDebug)
+				{
+					GameObject mistSaveObj = Instantiate(mistEffectObj, transform.position, transform.rotation);
+					mistEffectObj.transform.position = new Vector3(0, 0, 3);
+					mistParticle = mistSaveObj.GetComponent<ParticleSystem>();
+					backActive_Script = mistSaveObj.GetComponent<BackgroundActivation>();
+					mistParticle.Play();
+					backActive_Script.TransparencyChangeTrigger();
+				}
+				else
+				{
+					backActive_Script.TransparencyChangeTrigger();
+				}
 
 				nextEnemy = " ";
 				Next_Condition(210);

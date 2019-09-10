@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 8537104471487634673}
   - component: {fileID: 4172956176755794114}
   - component: {fileID: 5072226613571820116}
+  - component: {fileID: 371823958625947646}
   m_Layer: 9
   m_Name: Enemy_Moai
   m_TagString: Enemy
@@ -344,6 +345,12 @@ MonoBehaviour:
   Is_Dead: 0
   white_material: {fileID: 0}
   Opponent: 0
+  moaiColor: {x: 0, y: 0, z: 0, w: 0}
+  moai_material:
+  - {fileID: 7889906012219686118}
+  - {fileID: 7889906012219686116}
+  test: 0
+  HpMax: 0
   bulletRota_Value: 0
   isMouthOpen: 0
 --- !u!136 &4172956176755794114
@@ -368,12 +375,24 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7889906012221612578}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.033649817
   m_Height: 0.09279354
   m_Direction: 1
   m_Center: {x: -3.685803e-17, y: 0.081533305, z: -0.018873911}
+--- !u!114 &371823958625947646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7889906012221612578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7889906012221612580
 GameObject:
   m_ObjectHideFlags: 0
