@@ -425,7 +425,7 @@ public class Two_Boss : character_status
 				l.Manual_Start(multiple[5].transform);
 				Laser.Add(l);
 			}
-			if (Attack_Seconds >= 3.21)
+			if (Attack_Seconds >= 4.0f)
 			{
 				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
 				l.Manual_Start(multiple[1].transform);
@@ -444,7 +444,7 @@ public class Two_Boss : character_status
 				Laser.Add(l);
 			}
 
-			if (Attack_Seconds >= 10.16f)
+			if (Attack_Seconds >= 14.06f)
 			{
 				foreach(var l in Laser)
 				{
