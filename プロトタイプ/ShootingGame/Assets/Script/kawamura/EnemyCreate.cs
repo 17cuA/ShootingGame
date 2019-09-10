@@ -577,6 +577,7 @@ public class EnemyCreate : MonoBehaviour
 					//Wireless_sinario.Is_using_wireless = true;
 				}
 			}
+			isTwoBossAlive = false;
 		}
 
 		if (isBaculaDestroy)

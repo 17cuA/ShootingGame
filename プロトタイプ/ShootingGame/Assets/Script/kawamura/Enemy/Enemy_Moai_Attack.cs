@@ -10,6 +10,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
     public GameObject saveRingBullet;   //生成したオブジェクトを入れる
     GameObject saveObj;
     public GameObject miniMoaiPos;
+	public GameObject[] laserPos;
 
     public Enemy_Moai moai_Script;
     public Quaternion shotRota;
@@ -141,21 +142,25 @@ public class Enemy_Moai_Attack : MonoBehaviour
             }
 
             // チャージエフェクト再生
-            if (!supply[0].gameObject.activeSelf)// && !supply[1].gameObject.activeSelf)
+            if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf&& !supply[2].gameObject.activeSelf)
             {
                 supply[0].gameObject.SetActive(true);
-                //supply[1].gameObject.SetActive(true);
+                supply[1].gameObject.SetActive(true);
+				supply[2].gameObject.SetActive(true);
 
-                supply[0].SetUp();
-                //supply[1].SetUp();
-            }
-            // チャージエフェクト終了
-            if (supply[0].Completion_Confirmation())// && supply[1].Completion_Confirmation())
+				supply[0].SetUp();
+                supply[1].SetUp();
+				supply[2].SetUp();
+
+			}
+			// チャージエフェクト終了
+			if (supply[0].Completion_Confirmation()&& supply[1].Completion_Confirmation() && supply[2].Completion_Confirmation())
             {
                 supply[0].gameObject.SetActive(false);
-                //supply[1].gameObject.SetActive(false);
+                supply[1].gameObject.SetActive(false);
+				supply[2].gameObject.SetActive(false);
 
-                Attack_Step++;
+				Attack_Step++;
             }
         }
         else if (Attack_Step == 1)
@@ -176,23 +181,31 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
     void LaserCreate()
     {
-        //foreach (GameObject obj in laser_muzzle)
-        //{
-        //    if (obj.activeSelf)
-        //    {
-        //        GameObject save = Instantiate(moaiLaserObj, obj.transform.position, transform.rotation);
-        //        Moai_Laser laser = save.GetComponent<Moai_Laser>();
-        //        laser.Manual_Start(obj.transform);
+		//foreach (GameObject obj in laser_muzzle)
+		//{
+		//    if (obj.activeSelf)
+		//    {
+		//        GameObject save = Instantiate(moaiLaserObj, obj.transform.position, transform.rotation);
+		//        Moai_Laser laser = save.GetComponent<Moai_Laser>();
+		//        laser.Manual_Start(obj.transform);
 
-        //        //Moai_Laser laser = Instantiate(moaiLaserObj, obj.transform.position, transform.rotation).GetComponent<Moai_Laser>();
-        //        //Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-        //        //laser.Manual_Start(obj.transform);
-        //    }
-        //}
-        GameObject save = Instantiate(moaiLaserObj, transform.position, transform.rotation);
-        save.transform.rotation = Quaternion.Euler(0, 180, transform.rotation.z);
-        Moai_Laser laser = save.GetComponent<Moai_Laser>();
-        //laser.Manual_Start(transform);
+		//        //Moai_Laser laser = Instantiate(moaiLaserObj, obj.transform.position, transform.rotation).GetComponent<Moai_Laser>();
+		//        //Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
+		//        //laser.Manual_Start(obj.transform);
+		//    }
+		//}
+		for (int i = 0; i < laserPos.Length; i++)
+		{
+			saveObj= Instantiate(moaiLaserObj, transform.position, transform.rotation);
+			saveObj.transform.position = laserPos[i].transform.position;
+			saveObj.transform.parent = parentObj.transform;
+			saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			saveObj = null;
+		}
+		//GameObject save = Instantiate(moaiLaserObj, transform.position, transform.rotation);
+		//save.transform.rotation = Quaternion.Euler(0, 180, transform.rotation.z);
+		//Moai_Laser laser = save.GetComponent<Moai_Laser>();
+		//laser.Manual_Start(transform);
 
-    }
+	}
 }
