@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5440962470326217104
 Transform:
   m_ObjectHideFlags: 0
@@ -144,8 +144,6 @@ MonoBehaviour:
   miniMoaiPos: {fileID: 6196829489784218024}
   laserPos:
   - {fileID: 5176195834466767233}
-  - {fileID: 1374829542031314298}
-  - {fileID: 8748690101226960407}
   moai_Script: {fileID: 0}
   shotRota: {x: 0, y: 0, z: 0, w: 0}
   miniMoai_DelayCnt: 0
@@ -153,12 +151,16 @@ MonoBehaviour:
   parentName: 
   bulletRota_Value: 30
   ringShot_DelayCnt: 0
+  ringStateNum: 1
   ringShot_DelayMax: 0.8
+  ringShotBurstBullet_DelayMax: 0
+  burst_DelayCnt: 0
+  burst_DelayMax: 0
+  burstBulletCnt: 0
+  burstBulletMax: 0
   moaiLaserObj: {fileID: 0}
   supply:
   - {fileID: 6533632390675108830}
-  - {fileID: 4977438397877748086}
-  - {fileID: 2792139458457828288}
   laser_muzzle:
   - {fileID: 5176195834466767233}
   laserBegin: {fileID: 8300000, guid: 3ebafe3f47dbfa449bebc9ee5f240afc, type: 3}
@@ -306,7 +308,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7889906012221612578}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 10.37, y: 0, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_Children:
@@ -319,7 +321,7 @@ Transform:
   - {fileID: 7536251266067875165}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &7889906012212253158
 Animator:
   serializedVersion: 3
@@ -389,6 +391,7 @@ MonoBehaviour:
   - {fileID: 0}
   white_material: {fileID: 0}
   Opponent: 0
+  attackState: 0
   moaiColor: {x: 0, y: 0, z: 0, w: 0}
   moai_material:
   - {fileID: 7889906012219686118}
@@ -403,6 +406,12 @@ MonoBehaviour:
   color_Value: 0
   HpMax: 0
   bulletRota_Value: 0
+  ringShotCnt: 0
+  ringShotMax: 0
+  ringShotDelay: 0
+  miniMoaisCnt: 0
+  miniMoaisMax: 0
+  attackDelay: 0
   isAppearance: 1
   isMove: 0
   isMouthOpen: 0
@@ -670,7 +679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7536251266067875165
 Transform:
   m_ObjectHideFlags: 0
@@ -801,18 +810,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3690637100813125200}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2792139458457828288 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1551607620125785488, guid: 8ed7d2131c03de5468862ae4fd38d685,
-    type: 3}
-  m_PrefabInstance: {fileID: 3690637100813125200}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca04b581e55e2142addbbf700d7f1e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5702765362937851470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -828,7 +825,7 @@ PrefabInstance:
     - target: {fileID: 4702219707493596479, guid: 8ed7d2131c03de5468862ae4fd38d685,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9177580115938662239, guid: 8ed7d2131c03de5468862ae4fd38d685,
         type: 3}
@@ -1055,15 +1052,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5808239653555698918}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4977438397877748086 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1551607620125785488, guid: 8ed7d2131c03de5468862ae4fd38d685,
-    type: 3}
-  m_PrefabInstance: {fileID: 5808239653555698918}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca04b581e55e2142addbbf700d7f1e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

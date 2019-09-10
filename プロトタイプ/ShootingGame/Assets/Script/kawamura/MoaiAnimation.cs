@@ -44,10 +44,20 @@ public class MoaiAnimation : MonoBehaviour
 		distance_two = Vector3.Distance(startMarker, endMarker);
 
 		anim = this.gameObject.GetComponent<Animation>();
+		isOpen = false;
 	}
 
 	void Update()
 	{
+		if (moai_Script.attackState == Enemy_Moai.AttackState.MiniMoai)
+		{
+			speedY = 1.3f;
+		}
+		else
+		{
+			speedY = 0.5f;
+		}
+
 		if (isOpen)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
@@ -56,6 +66,7 @@ public class MoaiAnimation : MonoBehaviour
 			{
 				transform.localPosition = new Vector3(defaultPos.x, defaultPos.y - 0.0388f, defaultPos.z);
 				isOpen = false;
+				//isClose = true;
 				moai_Script.isMouthOpen = true;
 			}
 		}
@@ -67,6 +78,7 @@ public class MoaiAnimation : MonoBehaviour
 			{
 				transform.localPosition = defaultPos;
 				isClose = false;
+				isOpen = true;
 			}
 		}
 		//present_Location = (Time.time * testSpeed) / distance_two;

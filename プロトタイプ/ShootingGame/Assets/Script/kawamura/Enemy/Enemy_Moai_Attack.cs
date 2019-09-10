@@ -23,11 +23,20 @@ public class Enemy_Moai_Attack : MonoBehaviour
     [Header("入力用　発射する弾の角度範囲設定")]
     public float bulletRota_Value;      //発射する弾の角度範囲用
     public float ringShot_DelayCnt;     //弾発射のディレイカウント
+	public int ringStateNum = 1;		// 1だと拡散2だと自機狙いバースト
     [Header("入力用　弾発射の間隔(秒)")]
     public float ringShot_DelayMax;     //弾発射のディレイマックス
+	[Header("入力用　弾発射の間隔(秒)")]
+	public float ringShotBurstBullet_DelayMax;    //バースト内弾のディレイマックス
+	public float burst_DelayCnt;
+	[Header("入力用　バースト同士の間隔(秒)")]
+	public float burst_DelayMax;
+	public float burstBulletCnt;
+	[Header("入力用　バースト内の発射数")]
+	public float burstBulletMax;
 
-    //レーザー---------------------------------------
-    public GameObject moaiLaserObj;
+	//レーザー---------------------------------------
+	public GameObject moaiLaserObj;
     [SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
     [SerializeField, Tooltip("レーザーの発射位置")] private GameObject[] laser_muzzle;
 
@@ -70,29 +79,80 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
         if (moai_Script.isMouthOpen)
         {
-            if (parentName == "Enemy_Moai_RingShot")
-            {
-                ringShot_DelayCnt += Time.deltaTime;
-                if (ringShot_DelayCnt > ringShot_DelayMax)
-                {
-                    RingShot();
-                }
-            }
-            else if (parentName == "Enemy_Moai")
-            {
-                Laser_Attack();
-            }
-            else if (parentName == "Enemy_Moai_MiniMoaiDischarge")
-            {
-                miniMoai_DelayCnt++;
-                if (miniMoai_DelayCnt > miniMoai_DelayMax)
-                {
-                    MiniMoaiCreate();
-                    miniMoai_DelayCnt = 0;
-                }
-            }
+			switch (moai_Script.attackState)
+			{
+				case Enemy_Moai.AttackState.RingShot:
+					if (ringStateNum == 1)
+					{
+						ringShot_DelayCnt += Time.deltaTime;
+						if (ringShot_DelayCnt > ringShot_DelayMax)
+						{
+							RingShot();
+						}
+					}
+					else if (ringStateNum == 2)
+					{
+						burst_DelayCnt+=Time.deltaTime;
+						if (burst_DelayCnt > burst_DelayMax)
+						{
+							ringShot_DelayCnt += Time.deltaTime;
+							if (ringShot_DelayCnt > ringShotBurstBullet_DelayMax)
+							{
+								RingShotBurst();
+								if (burstBulletCnt > burstBulletMax)
+								{
 
-        }
+								}
+							}
+
+						}
+
+					}
+
+					break;
+
+				case Enemy_Moai.AttackState.MiniMoai:
+					//miniMoai_DelayCnt++;
+					//if (miniMoai_DelayCnt > miniMoai_DelayMax)
+					//{
+					//	MiniMoaiCreate();
+					//	miniMoai_DelayCnt = 0;
+					//}
+					MiniMoaiCreate();
+					moai_Script.miniMoaisCnt++;
+					moai_Script.isMiniMoai = true;
+
+					break;
+
+				case Enemy_Moai.AttackState.Laser:
+					Laser_Attack();
+
+					break;
+
+			}
+			//if (parentName == "Enemy_Moai_RingShot")
+			//{
+			//    ringShot_DelayCnt += Time.deltaTime;
+			//    if (ringShot_DelayCnt > ringShot_DelayMax)
+			//    {
+			//        RingShot();
+			//    }
+			//}
+			//else if (parentName == "Enemy_Moai")
+			//{
+			//    Laser_Attack();
+			//}
+			//else if (parentName == "Enemy_Moai_MiniMoaiDischarge")
+			//{
+			//    miniMoai_DelayCnt++;
+			//    if (miniMoai_DelayCnt > miniMoai_DelayMax)
+			//    {
+			//        MiniMoaiCreate();
+			//        miniMoai_DelayCnt = 0;
+			//    }
+			//}
+
+		}
         //if (Input.GetKeyDown(KeyCode.O))
         //{
         //    for (int i = 0; i < 10; i++)
@@ -115,10 +175,17 @@ public class Enemy_Moai_Attack : MonoBehaviour
             saveRingBullet = Instantiate(ringBulletObj, transform.position, transform.rotation);
             saveRingBullet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-(180f - find_Angle_Script.degree - bulletRota_Value), -(180f - find_Angle_Script.degree + bulletRota_Value)));
         }
+		moai_Script.ringShotCnt++;
         ringShot_DelayCnt = 0;
     }
 
-    void MiniMoaiCreate()
+	void RingShotBurst()
+	{
+		saveRingBullet = Instantiate(ringBulletObj, transform.position, transform.rotation);
+		saveRingBullet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-(180f - find_Angle_Script.degree - bulletRota_Value), -(180f - find_Angle_Script.degree + bulletRota_Value)));
+		burstBulletCnt++;
+	}
+	void MiniMoaiCreate()
     {
         GameObject save = Instantiate(miniMoaiGroupObj, miniMoaiPos.transform.position, Quaternion.Euler(0, 0, 0));
         save.transform.position = miniMoaiPos.transform.position;
@@ -142,23 +209,23 @@ public class Enemy_Moai_Attack : MonoBehaviour
             }
 
             // チャージエフェクト再生
-            if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf&& !supply[2].gameObject.activeSelf)
+            if (!supply[0].gameObject.activeSelf)// && !supply[1].gameObject.activeSelf&& !supply[2].gameObject.activeSelf)
             {
                 supply[0].gameObject.SetActive(true);
-                supply[1].gameObject.SetActive(true);
-				supply[2].gameObject.SetActive(true);
+    //            supply[1].gameObject.SetActive(true);
+				//supply[2].gameObject.SetActive(true);
 
 				supply[0].SetUp();
-                supply[1].SetUp();
-				supply[2].SetUp();
+    //            supply[1].SetUp();
+				//supply[2].SetUp();
 
 			}
 			// チャージエフェクト終了
-			if (supply[0].Completion_Confirmation()&& supply[1].Completion_Confirmation() && supply[2].Completion_Confirmation())
+			if (supply[0].Completion_Confirmation())//&& supply[1].Completion_Confirmation() && supply[2].Completion_Confirmation())
             {
                 supply[0].gameObject.SetActive(false);
-                supply[1].gameObject.SetActive(false);
-				supply[2].gameObject.SetActive(false);
+    //            supply[1].gameObject.SetActive(false);
+				//supply[2].gameObject.SetActive(false);
 
 				Attack_Step++;
             }
@@ -198,8 +265,9 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		{
 			saveObj= Instantiate(moaiLaserObj, transform.position, transform.rotation);
 			saveObj.transform.position = laserPos[i].transform.position;
-			saveObj.transform.parent = parentObj.transform;
-			saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			//saveObj.transform.parent = parentObj.transform;
+			//saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+			saveObj.transform.localRotation = Quaternion.Euler(0, 180, 0);
 			saveObj = null;
 		}
 		//GameObject save = Instantiate(moaiLaserObj, transform.position, transform.rotation);
