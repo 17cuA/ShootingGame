@@ -8,7 +8,7 @@ public class Enemy_Moai : character_status
 	public Vector4 moaiColor;
 
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
-	public Renderer[] moai_material_save;
+	public Material[] moai_material_save;
 	 
 	public float speedX;
 	public float speedX_Value;
@@ -19,8 +19,12 @@ public class Enemy_Moai : character_status
 	public float HpMax;
 	public float bulletRota_Value;  //発射する弾の角度範囲用
 
+	public bool isAppearance = true;		//最初の登場用
 	public bool isMove = false;
 	public bool isMouthOpen = false;
+	public bool isRingShot = true;
+	public bool isMiniMoai = false;
+	public bool isLaser = false;
 	new void Start()
     {
 		HpMax = hp;
@@ -32,14 +36,14 @@ public class Enemy_Moai : character_status
 
 	new void Update()
     {
-
 		if (hp < 1)
 		{
 			Died_Process();
 		}
-		HpColorChange();
-		for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
 		base.Update();
+
+		HpColorChange();
+		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
     }
 
 
@@ -61,7 +65,10 @@ public class Enemy_Moai : character_status
 		for (int i = 0; i < moai_material.Length; i++)
 		{
 			moaiColor = new Vector4(1, color_Value, color_Value, 1);
+			//moai_material[i].material = moai_material_save[i];
 			moai_material[i].material.SetVector("_BaseColor", moaiColor);
+			//moai_material_save[i].material.SetVector("_BaseColor", moaiColor);
+
 		}
 
 		//      foreach (Renderer renderer in object_material)

@@ -61,7 +61,7 @@ public class EnemyGroupManage : MonoBehaviour
 
     private void OnEnable()
 	{
-        if (myName != "Enemy_Bacula_Four")
+		if (myName != "Enemy_Bacula_Four" &&myName != "Enemy_BossBacula_Four(Clone)")
         {
             for (int i = 0; i < childNum; i++)
             {
