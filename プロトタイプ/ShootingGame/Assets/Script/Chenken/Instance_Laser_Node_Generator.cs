@@ -176,6 +176,18 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	private GameObject CreateNode(Vector3 pos, Vector3 rotation, float trailWidth, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
+
+		if (transform.parent.parent.name == "Player1(Clone)")
+		{
+			node.GetComponent<LaserLine>().IsPlayer1Laser = true;
+			node.GetComponent<LaserLine>().IsPlayer2Laser = false;
+		}
+		if (transform.parent.parent.name == "Player2(Clone)")
+		{
+			node.GetComponent<LaserLine>().IsPlayer2Laser = true;
+			node.GetComponent<LaserLine>().IsPlayer1Laser = false;
+		}
+
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
 		node.transform.localEulerAngles = rotation;
 		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
