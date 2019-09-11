@@ -1115,7 +1115,7 @@ public class EnemyCreate : MonoBehaviour
 			isNowOneBoss = true;
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(540);
+			Next_Condition(480);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
