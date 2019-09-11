@@ -1160,10 +1160,11 @@ public class EnemyCreate : MonoBehaviour
 		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
 		{
-			//GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
+			GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
+			moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(5000);
+			Next_Condition(1590);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
