@@ -155,6 +155,8 @@ public class Wireless_sinario : MonoBehaviour
 			//デバック用
 			if (Input.GetKeyDown(KeyCode.Alpha0))
 			{
+				No++;
+				SetNext_sinario();
 				currentLine = 0;
 				frame = 0;
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
@@ -207,8 +209,8 @@ public class Wireless_sinario : MonoBehaviour
 							break;
 						case 2:
 							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[22]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[23]);
 							break;
 						case 3:
 							//モアイの音声
