@@ -61,7 +61,7 @@ public class FollowPositions : MonoBehaviour
 			{
 				if (GameObject.Find("Player"))
 				{
-					playerObj = GameObject.Find("Player");
+					playerObj = Obj_Storage.Storage_Data.GetPlayer();/*GameObject.Find("Player")*/;
 					pl1 = playerObj.GetComponent<Player1>();
 					check = true;
 					defCheck = true;
@@ -73,7 +73,7 @@ public class FollowPositions : MonoBehaviour
 			{
 				if (GameObject.Find("Player_2"))
 				{
-					playerObj = GameObject.Find("Player_2");
+					playerObj = Obj_Storage.Storage_Data.GetPlayer2();/*GameObject.Find("Player_2")*/;
 					pl2 = playerObj.GetComponent<Player2>();
 					check = true;
 					defCheck = true;
@@ -112,12 +112,12 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				if (Input.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
 				{
 					isFreeze = false;
 					//transform.parent = null;
 				}
-				else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				else if (Input.GetButton(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
 				{
 					isFreeze = true;
 					//transform.parent = playerObj.transform;

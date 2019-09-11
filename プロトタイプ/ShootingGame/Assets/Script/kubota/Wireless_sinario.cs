@@ -13,6 +13,7 @@ public class Wireless_sinario : MonoBehaviour
 	public string[] Curtain_up;
 	public string[] First_half_boss_before;
 	public string[] First_falf_boss_after;
+	//public string[] Moai;			//モアイのシナリオ
 	public string[] Second_half_boss_before;
 	public string[] Second_half_boss_after;
 
@@ -37,6 +38,7 @@ public class Wireless_sinario : MonoBehaviour
 		Curtain_up,                         //開戦時
 		First_half_boss_before,             //前半ボス前
 		First_falf_boss_after,              //前半ボス後
+		//Moai,								//モアイ
 		Second_half_boss_before,            //後半ボス前
 		Second_half_boss_after              //後半ボス後
 	}
@@ -297,8 +299,10 @@ public class Wireless_sinario : MonoBehaviour
 				//後半ボス後
 				scenarios = Second_half_boss_after;
 				frameMax = 240;
-
 				break;
+			//case 5:
+				
+			//	break;
 			default:
 				break;
 		}
