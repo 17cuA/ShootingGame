@@ -124,7 +124,7 @@ public class Two_Boss : character_status
 		Under_Attack = 0;
 		Laser = new List<Two_Boss_Laser>();
 
-		Survival_Time = 180.0f;
+		Survival_Time = 60.0f * 5.0f;
 
 		Timeline_Player.Play(Start_Play);
 
