@@ -18,7 +18,7 @@ public class InputRankingName
 
 	[SerializeField] private AudioSource Move;			//文字切り替え時
 	[SerializeField] private AudioSource Decition;      //文字の決定時
-	[SerializeField] private AudioSource Return;			//文字の一つ前に戻るとき
+	[SerializeField] private AudioSource Return_Sound;			//文字の一つ前に戻るとき
 	// 名前をストリングで返すプロパティ
 	public string Name
 	{
@@ -163,8 +163,8 @@ public class InputRankingName
 		if (Input.GetKeyDown(cancelKeyCode) || Input.GetButtonDown(cancelButtonName))
 		{
 			--selectPos;
-			if (Return.isPlaying) Return.Stop();
-			Return.Play();
+			if (Return_Sound.isPlaying) Return_Sound.Stop();
+			Return_Sound.Play();
 		}
 		// 要素数が文字数より大きくならないように補正する
 		if (selectPos > kNameLength)
