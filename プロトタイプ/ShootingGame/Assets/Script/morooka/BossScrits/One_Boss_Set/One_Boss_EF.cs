@@ -12,10 +12,15 @@ using UnityEngine;
 public class One_Boss_EF : MonoBehaviour
 {
 	public bool Is_Animation_End;
+	public Renderer renderer;
 
 	private void Update()
 	{
-		if(Is_Animation_End)
+		//if(Is_Animation_End)
+		//{
+		//	Destroy(gameObject);
+		//}
+		if(!renderer.isVisible)
 		{
 			Destroy(gameObject);
 		}

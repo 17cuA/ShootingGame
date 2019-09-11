@@ -17,6 +17,11 @@ public class Helper_TwoBossCorePart : MonoBehaviour
 	private void Awake()
 	{
 		partScript = GetComponent<Two_Boss_Parts>();
+	
+	}
+
+	private void Start()
+	{
 		renderer = partInstance.GetComponent<Renderer>();
 	}
 
