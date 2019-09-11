@@ -41,8 +41,10 @@ public class Enemy_Moai_Mini : character_status
 		
 		//rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
-		//rotaZ = transform.eulerAngles.z;
-		HP_Setting();
+        startPos = transform.localPosition;
+
+        //rotaZ = transform.eulerAngles.z;
+        HP_Setting();
 		base.Start();
 	}
 
@@ -50,8 +52,8 @@ public class Enemy_Moai_Mini : character_status
 	{
 		if(once)
 		{
-			//ResetMoai();
-			startPos = transform.localPosition;
+
+            //ResetMoai();
 			rotaY_Value = Random.Range(2, 5);
 			rotate_Direction = Random.Range(1, 3);	//intだと最大値-1が範囲になるので2ではなく3を書いている
 
@@ -74,7 +76,7 @@ public class Enemy_Moai_Mini : character_status
 		{
 			//float present_Location = (Time.time * lerpSpeed) / distance_two;
 			transform.localPosition = Vector3.Lerp(startPos, endPos, lerpSpeed);
-			lerpSpeed += 0.035f;
+			lerpSpeed += 0.04f;
 			if (transform.localPosition == endPos)
 			{
 				miniMoaiGroup_Script.isChildMove = false;
@@ -92,8 +94,12 @@ public class Enemy_Moai_Mini : character_status
 	}
 	void ResetMoai()
 	{
-		transform.localPosition = new Vector3(0, 0, 0);
-		transform.rotation = Quaternion.Euler(0, -90, 0);
+        //transform.localPosition = new Vector3(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, -90, 0);
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, -90, 0);
+        lerpSpeed = 0;
+        once = true;
 	}
 
 	new  void OnTriggerEnter(Collider col)

@@ -49,9 +49,14 @@ public class MoaiAnimation : MonoBehaviour
 
 	void Update()
 	{
-		if (moai_Script.attackState == Enemy_Moai.AttackState.MiniMoai)
+        if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+        {
+            return;
+        }
+
+        if (moai_Script.attackState == Enemy_Moai.AttackState.MiniMoai)
 		{
-			speedY = 1.3f;
+			speedY = 2f;
 		}
 		else
 		{

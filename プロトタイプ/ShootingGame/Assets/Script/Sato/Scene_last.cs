@@ -82,7 +82,7 @@ public class Scene_last : MonoBehaviour
 			d = 0;
 		}
 
-		if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl) || frame > 1200)
+		if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl)/* || frame > 1200*/)
 		{
 			Scene_Manager.Manager.Screen_Transition_To_Title();
 		}

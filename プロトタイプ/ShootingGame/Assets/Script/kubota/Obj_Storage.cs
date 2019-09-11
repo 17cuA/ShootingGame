@@ -250,9 +250,9 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");		//後半ボス後1
 		audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");		//後半ボス後2
 		audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");		//ゲームオーバー
-		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_10");
-		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_11");
-		audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_12");
+		audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");		//OK
+		audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");		//アステロイド地帯の説明
+		audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");		//了解（ラジャー）
 		audio_voice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");		//アイテム使用時のボイス（スピードアップ）
 		audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");		//アイテム使用時のボイス（ミサイル）
 		audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");		//アイテム使用時のボイス（ダブル）
@@ -261,12 +261,12 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");		//アイテム使用時のボイス（フォースフィールド）
 		audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");		//アイテム使用時のボイス（マックススピード）
 		audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");		//アイテム使用時のボイス（イニットスピード）
-		audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_21");
-		audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_22");
-		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_23");
-		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_24");
-		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_25");
-		audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_18_cut");
+		audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");			//モアイ1
+		audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");			//モアイ2
+		audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");			//前半ボス後更新1
+		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");			//前半ボス後更新２
+		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");			//了解（落ち着いた感じ）
+		audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");			//敵の自爆
 		//--------------------------------------------------------------------------------------------------------
 		enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
 		enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
@@ -442,6 +442,9 @@ public class Obj_Storage : MonoBehaviour
 				break;
 			case 2:
 				boss = Boss_2.Get_Obj()[0];
+				break;
+			case 3:
+				boss = Moai.Get_Obj()[0];
 				break;
 			default:
 				Debug.Log("引数違いますよ");

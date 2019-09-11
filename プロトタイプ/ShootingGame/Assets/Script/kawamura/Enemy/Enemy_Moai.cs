@@ -32,6 +32,9 @@ public class Enemy_Moai : character_status
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
 	public Material[] moai_material_save;
 
+	public float wireles_DelayCnt;
+	public float wireles_DelayMax;
+
 	public float speedX;
 	public float speedX_Value;
 	public float speedY;
@@ -75,6 +78,7 @@ public class Enemy_Moai : character_status
 	public bool isAppearance = true;        //最初の登場用
 	public bool isExit = false;                 //退場用
 	public bool isMove = false;
+	public bool isWireles = true;
 	public bool isMouthOpen = false;
 	public bool isRingShot = true;
 	public bool isMiniMoai = false;
@@ -103,9 +107,20 @@ public class Enemy_Moai : character_status
 	{
 		Physics.gravity = new Vector3(0, -0.3f, 0);
 
+        if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+        {
+            hp = 1800;
+            for (int i = 0; i < object_material.Length; i++)
+            {
+                object_material[i].material = self_material[i];
+            }
+
+            return;
+        }
+
 		if (isAppearance)
 		{
-			hp = 2000;
+			hp = 1800;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -153,7 +168,6 @@ public class Enemy_Moai : character_status
 				isAppearance = false;
 				moaiAnime_Script.isOpen = true;
 			}
-
 		}
 		else if (isDead)
 		{
@@ -188,10 +202,26 @@ public class Enemy_Moai : character_status
 		}
 		else
 		{
-			aliveCnt += Time.deltaTime;
-		}
+            aliveCnt += Time.deltaTime;
+            //if(isWireles)
+            //{
+            //	wireles_DelayCnt += Time.deltaTime;
+            //	if (wireles_DelayCnt > wireles_DelayMax)
+            //	{
+            //		isWireles = false;
+            //		moaiAnime_Script.isOpen = true;
+            //	}
 
-		if (attackLoopCnt >= 3)
+            //}
+            //else
+            //{
+            //	aliveCnt += Time.deltaTime;
+
+            //}
+        }
+
+
+        if (attackLoopCnt >= 3)
 		{
 			moaiAnime_Script.isOpen = false;
 		}
@@ -242,7 +272,7 @@ public class Enemy_Moai : character_status
 			}
 		}
 
-		if (aliveCnt > 150)
+		if (aliveCnt > 135)
 		{
 			isExit = true;
 		}
@@ -266,19 +296,20 @@ public class Enemy_Moai : character_status
 			//Died_Process();
 		}
 
-		//if (isDead)
-		//{
-		//	for (int i = 0; i < object_material.Length; i++)
-		//	{
-		//		object_material[i].material = self_material[i];
-		//	}
+        //if (isDead)
+        //{
+        //	for (int i = 0; i < object_material.Length; i++)
+        //	{
+        //		object_material[i].material = self_material[i];
+        //	}
 
-		//}
-		if (!isDead)
+        //}
+        if (!isDead) 
 		{
-			base.Update();
+             base.Update();
 
-		}
+
+        }
 		HpColorChange();
 
 		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;

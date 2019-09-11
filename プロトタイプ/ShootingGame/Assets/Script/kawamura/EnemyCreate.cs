@@ -178,6 +178,7 @@ public class EnemyCreate : MonoBehaviour
 	public GameObject Enemy_BoundMeteors;
     public GameObject enemy_Star_Fish_Spowner;
 	public GameObject enemy_Beetle_Group;
+	public GameObject enemy_Beetle_Group_Three;
 	public GameObject enemy_MoaiBossGroup;
 
 
@@ -210,14 +211,19 @@ public class EnemyCreate : MonoBehaviour
 	GameObject twoBossObj;
 	Two_Boss twoBoss_Script;
 
+	GameObject moaiObj;
+	Enemy_Moai moai_Script;
+
 	public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
 	public bool isMiddleBossDead = false;
 	public bool isOneBossAlive = false;
 	public bool isTwoBossAlive = false;
+	public bool isMoaiAlive = false;
 
 	public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
+	public bool isNowMoai = false;
 	public bool isDebug = false;
 	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 	
@@ -389,6 +395,7 @@ public class EnemyCreate : MonoBehaviour
 		Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
         enemy_Star_Fish_Spowner = Resources.Load("Enemy/Enemy_Star_Fish_Spowner") as GameObject;
         enemy_Beetle_Group = Resources.Load("Enemy/Enemy_BeetleGroup") as GameObject;
+		enemy_Beetle_Group_Three = Resources.Load("Enemy/Enemy_BeetleGroup_Three") as GameObject;
 
 		enemy_MoaiBossGroup = Resources.Load("Enemy/Enemy_MoaiBossGroup") as GameObject;
 
@@ -414,6 +421,9 @@ public class EnemyCreate : MonoBehaviour
 		twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
 		twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
 		isTwoBossAlive = true;
+
+		moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
+		moai_Script = moaiObj.GetComponent<Enemy_Moai>();
 	}
 
 	void Update()
@@ -424,7 +434,7 @@ public class EnemyCreate : MonoBehaviour
 		}
 		PreviousCount = frameCnt;
 
-		if (!isNowOneBoss && !isNowTwoBoss)
+		if (!isNowOneBoss && !isNowTwoBoss && !isNowMoai)
 		{
 			frameCnt++;
 		}
@@ -467,14 +477,21 @@ public class EnemyCreate : MonoBehaviour
 			//nowGroupCnt = 36;
 		}
 		//1ボス後
-		else if (Input.GetKeyDown(KeyCode.B))
+		else if (!Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.B))
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
 			groupCnt = 47;
 			//nowGroupCnt = 36;
 		}
-
+		// モアイ
+		else if (Input.GetKeyDown(KeyCode.B))
+		{
+			turning_frame = 9660;
+			frameCnt = 9600;    //←上の数字から60引いた数にする
+			groupCnt = 52;
+			//nowGroupCnt = 36;
+		}
 		//ラスボス
 		else if (Input.GetKeyDown(KeyCode.L))
 		{
@@ -484,7 +501,7 @@ public class EnemyCreate : MonoBehaviour
 			isDebug = true;
 			turning_frame = 5010;
 			frameCnt = 4950;	//←上の数字から60引いた数にする
-			groupCnt = 73;
+			groupCnt = 74;
 
 		}
 		if (saveEnemyObj != null)
@@ -535,8 +552,14 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
+        //モアイ出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
+  //      if (groupCnt == 52 && frameCnt == turning_frame - 30f)
+		//{
+		//	Wireless_sinario.Is_using_wireless = true;
+		//}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 73 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 74 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
@@ -570,6 +593,19 @@ public class EnemyCreate : MonoBehaviour
 
 				//if(frame > 180) SceneManager.LoadScene("GameClear");
 				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+			}
+		}
+
+		if (moai_Script != null)
+		{
+			if (moai_Script.Is_Dead)
+			{
+				if(isMoaiAlive)
+				{
+					Wireless_sinario.Is_using_wireless = true;
+					isNowMoai = false;
+					isMoaiAlive = false;
+				}
 			}
 		}
 		//第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
@@ -912,11 +948,11 @@ public class EnemyCreate : MonoBehaviour
 			Next_Condition(270);
 			nowGroupCnt++;
 		}
-		// ビートル5
+		// ビートル3
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 29)
 		{
-			GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
-			beetleGroup.transform.position = new Vector3(15, -8, 0);
+			GameObject beetleGroup_Three = Instantiate(enemy_Beetle_Group_Three, createPosRm3.transform.position, transform.rotation);
+			beetleGroup_Three.transform.position = new Vector3(15, -8, 0);
 
 			nextEnemy = "戦艦";
 			Next_Condition(360);
@@ -1106,7 +1142,7 @@ public class EnemyCreate : MonoBehaviour
 			isNowOneBoss = true;
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(540);
+			Next_Condition(120);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
@@ -1114,7 +1150,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
 			nextEnemy = "バキュラ16";
-			Next_Condition(600);
+			Next_Condition(780);
 		}
 		// バキュラ16
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
@@ -1145,11 +1181,22 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-			nextEnemy = "ヒトデ24";
+			nextEnemy = "モアイ";
 			Next_Condition(360);
 		}
-		// ヒトデ24
+		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
+		{
+			GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
+			moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
+            Wireless_sinario.Is_using_wireless = true;
+            isNowMoai = true;
+
+			nextEnemy = "ヒトデ24";
+			Next_Condition(500);
+		}
+		// ヒトデ24
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
 		{
 			Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
@@ -1157,7 +1204,7 @@ public class EnemyCreate : MonoBehaviour
 			Next_Condition(600);
 		}
 		// 円盤上10狭下10射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1174,7 +1221,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 円盤上10下10狭射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1191,7 +1238,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 円盤上10狭下10射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 55)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1207,37 +1254,8 @@ public class EnemyCreate : MonoBehaviour
 			Next_Condition(180);
 			nowGroupCnt++;
 		}
-		// 闘牛斜め配置4
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 56)
-		{
-			Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
-
-			nextEnemy = "ビートル5";
-			Next_Condition(135);
-			nowGroupCnt++;
-		}
-		// ビートル5
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
-		{
-			GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
-			beetleGroup.transform.position = new Vector3(15, -8, 0);
-
-			nextEnemy = "ビートル5";
-			Next_Condition(480);
-			nowGroupCnt++;
-		}
-		// ビートル5
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 58)
-		{
-			GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
-			beetleGroup.transform.position = new Vector3(15, -8, 0);
-
-			nextEnemy = "ハエ上2下2広右2アイテム";
-			Next_Condition(540);
-			nowGroupCnt++;
-		}
 		// ハエ上2下2広右2アイテム
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 59)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 57)
 		{
 			Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
@@ -1246,7 +1264,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 円盤上10下10射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 60)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 58)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1263,7 +1281,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 戦艦
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 61)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 59)
 		{
 			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
 			Battle_Ship1.transform.position = createPosR0.transform.position;
@@ -1276,7 +1294,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 円盤上10下10射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 62)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 60)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1293,7 +1311,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 戦艦上下
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 63)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 61)
 		{
 			GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 			BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
@@ -1308,7 +1326,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 闘牛直進12
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 64)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 62)
 		{
 			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
 			group_Script = saveObj.GetComponent<EnemyGroupManage>();
@@ -1319,7 +1337,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// 円盤上10下10狭射撃
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 65)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 63)
 		{
 			Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group") as GameObject, 1, "enemy_UFO_Group");
 			GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
@@ -1336,12 +1354,31 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// ハエ上2下2広右2アイテム
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 66)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 64)
 		{
 			Instantiate(enemy_Beelzebub_Group_FourWide_Item, createPosR0.transform.position, transform.rotation);
 
 			nextEnemy = "闘牛直進12上下";
 			Next_Condition(180);
+			nowGroupCnt++;
+		}
+		// 闘牛斜め配置4
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 65)
+		{
+			Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
+
+			nextEnemy = "ビートル5";
+			Next_Condition(135);
+			nowGroupCnt++;
+		}
+		// ビートル5
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 66)
+		{
+			GameObject beetleGroup = Instantiate(enemy_Beetle_Group, createPosRm3.transform.position, transform.rotation);
+			beetleGroup.transform.position = new Vector3(15, -8, 0);
+
+			nextEnemy = "ビートル5";
+			Next_Condition(540);
 			nowGroupCnt++;
 		}
 		// 闘牛直進12上下
@@ -1376,7 +1413,7 @@ public class EnemyCreate : MonoBehaviour
 			nowGroupCnt++;
 		}
 		// ヒトデ24
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 70)
 		{
 			Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
@@ -1384,37 +1421,31 @@ public class EnemyCreate : MonoBehaviour
 			Next_Condition(600);
 		}
 		// 隕石20
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 70)
-		{
-			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
-
-			nextEnemy = "隕石20";
-			Next_Condition(240);
-		}
-		// 隕石20
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 70)
-		{
-			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
-
-			nextEnemy = "隕石20";
-			Next_Condition(240);
-		}
-		// 隕石20
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 71)
 		{
 			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-			nextEnemy = "モアイ";
-			Next_Condition(345);
+			nextEnemy = "隕石20";
+			Next_Condition(240);
 		}
-		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		// 隕石20
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 72)
 		{
-			nextEnemy = "ビッグコアマーク3";
-			Next_Condition(120);
+			Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+
+			nextEnemy = "隕石20";
+			Next_Condition(240);
+		}
+		// バキュラ16
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 73)
+		{
+			Instantiate(enemy_Bacula_Sixteen, createBaculaGroupPos.transform.position, transform.rotation);
+
+			nextEnemy = "モアイ";
+			Next_Condition(1830);
 		}
 		// ビッグコアマーク3🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 73)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 74)
 		{
 			GameObject Boss_02 = Obj_Storage.Storage_Data.Boss_2.Active_Obj();
 			Boss_02.transform.position = new Vector3(13.0f, 0.0f, 0.0f);
@@ -1438,7 +1469,7 @@ public class EnemyCreate : MonoBehaviour
 			Next_Condition(120);
 		}
 		// クリア
-		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 74)
+		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 75)
 		{
 			Scene_Manager.Manager.Screen_Transition_To_Clear();
 		}

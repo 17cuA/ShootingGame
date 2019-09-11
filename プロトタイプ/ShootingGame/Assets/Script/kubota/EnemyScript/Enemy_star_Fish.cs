@@ -32,6 +32,7 @@ public class Enemy_star_Fish : character_status
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
 			P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+			//if(P1.Is_Resporn)
 			playerPos = P1.transform.position;
 			//firstPos = transform.position;
 		}

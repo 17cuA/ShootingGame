@@ -67,10 +67,15 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 	{
 		if (once)
 		{
+            for (int i = 0; i < childObjects.Length; i++)
+            {
+                childObjects[i].gameObject.SetActive(true);
+            }
 			defaultPos = transform.position;
 			startPos = defaultPos;
 
 			endPos = new Vector3(defaultPos.x - 3.5f, -1.21f, 0);
+            isChildMove = false;
 			isMove = false;
 			once = false;
 		}
