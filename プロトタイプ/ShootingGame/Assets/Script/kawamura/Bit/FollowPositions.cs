@@ -112,12 +112,12 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				if (Input.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
 				{
 					isFreeze = false;
 					//transform.parent = null;
 				}
-				else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				else if (Input.GetButton(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
 				{
 					isFreeze = true;
 					//transform.parent = playerObj.transform;
