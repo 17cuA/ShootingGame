@@ -443,6 +443,9 @@ public class Obj_Storage : MonoBehaviour
 			case 2:
 				boss = Boss_2.Get_Obj()[0];
 				break;
+			case 3:
+				boss = Moai.Get_Obj()[0];
+				break;
 			default:
 				Debug.Log("引数違いますよ");
 				break;

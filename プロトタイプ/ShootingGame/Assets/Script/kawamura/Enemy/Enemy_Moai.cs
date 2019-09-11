@@ -105,7 +105,7 @@ public class Enemy_Moai : character_status
 
 		if (isAppearance)
 		{
-			hp = 2000;
+			hp = 1800;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -242,7 +242,7 @@ public class Enemy_Moai : character_status
 			}
 		}
 
-		if (aliveCnt > 150)
+		if (aliveCnt > 135)
 		{
 			isExit = true;
 		}

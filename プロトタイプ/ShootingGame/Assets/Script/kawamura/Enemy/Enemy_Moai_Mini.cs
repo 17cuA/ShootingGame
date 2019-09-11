@@ -74,7 +74,7 @@ public class Enemy_Moai_Mini : character_status
 		{
 			//float present_Location = (Time.time * lerpSpeed) / distance_two;
 			transform.localPosition = Vector3.Lerp(startPos, endPos, lerpSpeed);
-			lerpSpeed += 0.035f;
+			lerpSpeed += 0.04f;
 			if (transform.localPosition == endPos)
 			{
 				miniMoaiGroup_Script.isChildMove = false;
