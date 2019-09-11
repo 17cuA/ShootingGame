@@ -15877,7 +15877,7 @@ GameObject:
   - component: {fileID: 2138190238}
   - component: {fileID: 2138190239}
   m_Layer: 0
-  m_Name: CoreShield_Core
+  m_Name: CoreShield&Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16305,6 +16305,11 @@ PrefabInstance:
       propertyPath: Weapon
       value: 
       objectReference: {fileID: 344868039637971822}
+    - target: {fileID: 344868039040152453, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: Core
+      value: 
+      objectReference: {fileID: 2138190239}
     - target: {fileID: 2035079497047024309, guid: c5511831683274044a5c606ce4ac0f63,
         type: 3}
       propertyPath: OutputAudioMixerGroup
