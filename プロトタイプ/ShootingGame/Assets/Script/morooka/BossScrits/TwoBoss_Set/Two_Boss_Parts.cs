@@ -49,53 +49,58 @@ public class Two_Boss_Parts : character_status
 
 	private new void Start()
 	{
-		base.Start();
 		Initial_Position = transform.position;
-		renderer = GetComponent<MeshRenderer>();
-		Damege_Color = new Color(104.0f / 255.0f, 76.0f / 255.0f, 46.0f / 255.0f);
-		Is_Bomb = false;
-
-		rism_Cnt = 0;
-		rism_Index = 0;
-		rism_Max = new int[6] { 3, 4, 4, 9,5,6 };
-		if(is_mul)
+		if (is_mul)
 		{
 			smoke = transform.GetChild(1).GetComponent<ParticleSystem>();
 			smoke.Stop();
+			rism_Cnt = 0;
+			rism_Index = 0;
+			rism_Max = new int[6] { 3, 4, 4, 9, 5, 6 };
+
+		}
+		else
+		{
+			base.Start();
+			renderer = GetComponent<MeshRenderer>();
+			Damege_Color = new Color(104.0f / 255.0f, 76.0f / 255.0f, 46.0f / 255.0f);
+			Is_Bomb = false;
+
+
 		}
 	}
 	private new void Update()
 	{
 		if (is_mul)
 		{
-			if (hp < 1)
-			{
-				if (!Is_Bomb)
-				{
-					material_Reset();
-					ParticleCreation(0);
-					renderer.material.SetVector("_Color", Damege_Color);
-					base.object_material = new Renderer[0];
-					smoke.Play();
+			//if (hp < 1)
+			//{
+			//	if (!Is_Bomb)
+			//	{
+			//		material_Reset();
+			//		ParticleCreation(0);
+			//		renderer.material.SetVector("_Color", Damege_Color);
+			//		base.object_material = new Renderer[0];
+			//		smoke.Play();
 
-					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-					{
-						Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
-					}
-					else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-					{
-						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
-						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
-					}
+			//		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			//		{
+			//			Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+			//		}
+			//		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			//		{
+			//			Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+			//			Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+			//		}
 
-					Is_Bomb = true;
-					object_material = null;
-				}
-			}
-			else
-			{
-  				base.Update();
-			}
+			//		Is_Bomb = true;
+			//		object_material = null;
+			//	}
+			//}
+			//else
+			//{
+  	//			base.Update();
+			//}
 		}
 		else
 		{
