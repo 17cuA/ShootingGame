@@ -85,7 +85,7 @@ namespace Costom
 			// 入力を受けたらScene移行
 			if ((Input.anyKeyDown && rankingDisplay.IsDecision1P && rankingDisplay.IsDecision2P) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 			{
-				//Ranking_Strage.Strage_Data.Ranking_Save();
+				Ranking_Strage.Strage_Data.Ranking_Save();
 				Scene_Manager.Manager.Screen_Transition_To_Title();
 			}
 			// リザルトの時に入力を受けたら画面の暗転に移る
