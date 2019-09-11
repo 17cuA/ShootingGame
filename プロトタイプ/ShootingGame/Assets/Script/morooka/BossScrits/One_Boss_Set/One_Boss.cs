@@ -402,7 +402,9 @@ public class One_Boss : character_status
 					for (var i = 0; i < unactiveOperateBullets.Count; ++i)
 					{
 						if (!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+						{
 							unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
+						}
 					}
 					unactiveOperateBullets.Clear();
 					//----------------弾を消す----------------
@@ -840,6 +842,8 @@ public class One_Boss : character_status
 				  　var bullet1 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
 					var bullet2 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
 
+					bullet1.GetComponent<One_Boss_BoundBullet>().RougeSeed();
+					bullet2.GetComponent<One_Boss_BoundBullet>().RougeSeed();
 					unactiveOperateBullets.Add(bullet1);
 					unactiveOperateBullets.Add(bullet2);
 				}
@@ -876,8 +880,10 @@ public class One_Boss : character_status
 				//----------------弾を消す----------------
 				for (var i = 0; i < unactiveOperateBullets.Count; ++i)
 				{
-					if(!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+					if (!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+					{
 						unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
+					}
 				}
 				unactiveOperateBullets.Clear();
 				//----------------弾を消す----------------
