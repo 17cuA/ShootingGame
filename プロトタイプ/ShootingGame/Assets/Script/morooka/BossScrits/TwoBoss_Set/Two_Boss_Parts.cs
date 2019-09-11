@@ -78,6 +78,16 @@ public class Two_Boss_Parts : character_status
 					base.object_material = new Renderer[0];
 					smoke.Play();
 
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+					{
+						Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+					}
+					else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+					{
+						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+					}
+
 					Is_Bomb = true;
 					object_material = null;
 				}
@@ -85,7 +95,6 @@ public class Two_Boss_Parts : character_status
 			else
 			{
   				base.Update();
-				Debug.Log(Is_Bomb);
 			}
 		}
 		else

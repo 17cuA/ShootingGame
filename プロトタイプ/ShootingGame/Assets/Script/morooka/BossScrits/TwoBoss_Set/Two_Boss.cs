@@ -124,7 +124,7 @@ public class Two_Boss : character_status
 		Under_Attack = 0;
 		Laser = new List<Two_Boss_Laser>();
 
-		Survival_Time = 180.0f;
+		Survival_Time = 60.0f * 5.0f;
 
 		Timeline_Player.Play(Start_Play);
 
@@ -208,12 +208,12 @@ public class Two_Boss : character_status
 			}
 			else
 			{
-				Attack_Seconds += Time.deltaTime;
-				if (Attack_Seconds >= 3.15f)
-				{
+				//Attack_Seconds += Time.deltaTime;
+				//if (Attack_Seconds >= 3.15f)
+				//{
 					Attack_Seconds = 0.0f;
 					Attack_Type_Instruction = 0;
-				}
+				//}
 			}
 
 			// シャッター破壊後コア破壊できる
