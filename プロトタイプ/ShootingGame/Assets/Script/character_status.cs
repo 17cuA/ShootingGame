@@ -36,7 +36,7 @@ public class character_status : MonoBehaviour
 	private bool check;
 
 	public int Opponent;
-
+	public string namenamename;
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -211,6 +211,7 @@ public class character_status : MonoBehaviour
 				}
 				else
 				{
+					namenamename = col.gameObject.name;
 					Damege_Process((int)BS.attack_damage);
 				}
 			}
@@ -246,7 +247,10 @@ public class character_status : MonoBehaviour
 			}
 			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
 			{
-				Damege_Process(3);
+				if (gameObject.name != "Enemy_Moai")
+				{
+					Damege_Process(3);
+				}
 			}
 		}
 	}
