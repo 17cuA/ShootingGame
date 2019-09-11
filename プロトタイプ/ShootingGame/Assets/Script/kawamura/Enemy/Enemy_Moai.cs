@@ -16,7 +16,7 @@ public class Enemy_Moai : character_status
 
 	GameObject mouthObj;
 	GameObject moaiAttackObj;
-    GameObject saveObj;
+	GameObject saveObj;
 
 	MoaiAnimation moaiAnime_Script;
 	Enemy_Moai_Attack moaiAttack_Script;
@@ -26,7 +26,7 @@ public class Enemy_Moai : character_status
 
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
 	public Material[] moai_material_save;
-	 
+
 	public float speedX;
 	public float speedX_Value;
 	public float speedY;
@@ -38,6 +38,9 @@ public class Enemy_Moai : character_status
 	public float defaultRotaY_Value;
 	[Header("入力用 回転最大値")]
 	public float rotationYMax;
+
+	public int attackLoopCnt;
+	public float aliveCnt;
 
 	public float color_Value;
 	public float HpMax;
@@ -55,14 +58,16 @@ public class Enemy_Moai : character_status
 	public float attackDelay;
 	//攻撃関係の管理で使うやつの終わりだよ！-----------------------------
 
-	public bool isAppearance = true;		//最初の登場用
+	public bool isAppearance = true;        //最初の登場用
+	public bool isExit = false;                 //退場用
 	public bool isMove = false;
 	public bool isMouthOpen = false;
 	public bool isRingShot = true;
 	public bool isMiniMoai = false;
-	public bool isLaser = false;
+	public bool isLaserEmd = false;
+
 	new void Start()
-    {
+	{
 		mouthObj = transform.GetChild(1).gameObject;
 		moaiAnime_Script = mouthObj.GetComponent<MoaiAnimation>();
 
@@ -75,56 +80,100 @@ public class Enemy_Moai : character_status
 
 		HP_Setting();
 		base.Start();
-    }
+	}
 
 
 	new void Update()
-    {
+	{
 		if (isAppearance)
 		{
+			hp = 400;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
+
+			if (transform.position.y > 0)
+			{
+
+				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+			}
 
 			if (transform.position.y > -6.5f)
 			{
 				rotaY += rotaY_Value;
 				rotationYMax -= rotaY_Value;
+				if (rotaY > 270f)
+				{
+					rotaY = 270f;
+				}
+
 				//if (rotationYMax < 0)
 				//{
 				//	rotaY_Value = 0;
 				//}
-				if (rotationYMax < 20f)
+				if (rotationYMax < 180f)
 				{
-					rotaY_Value = defaultRotaY_Value * (rotationYMax / 180f);
+					rotaY_Value = defaultRotaY_Value * (rotationYMax / 180f) + 0.35f;
+
 				}
-				if (transform.position.y > -0.8f)
+				if (transform.position.y > -6.5f)
 				{
-					speedY = speedY_Value * (transform.position.y / -6.5f);
+					speedY = speedY_Value * (transform.position.y / -6.5f) + 0.5f;
 				}
 			}
 
+			//if (rotaY < -90)
+			//{
+
+			//	rotaY = -90;
+			//}
+
 			transform.rotation = Quaternion.Euler(0, rotaY, 0);
 
-			if (transform.position.y > 0)
+			if (transform.position.y >= 0 && rotaY >= 270)
 			{
 				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 				isAppearance = false;
 				moaiAnime_Script.isOpen = true;
 			}
-			
+
 		}
+		else if (isExit)
+		{
+			speedY = 3;
+			rotaY_Value = -1f;
+			rotaY += rotaY_Value;
+			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
+			gameObject.transform.position += velocity * Time.deltaTime;
+			transform.rotation = Quaternion.Euler(0, rotaY, 0);
+
+			if (transform.position.y > 12)
+			{
+
+				gameObject.SetActive(false);
+			}
+		}
+		else
+		{
+			aliveCnt += Time.deltaTime;
+		}
+
+		if (attackLoopCnt >= 3)
+		{
+			moaiAnime_Script.isOpen = false;
+		}
+
 		if (isMouthOpen)
 		{
 			switch (attackState)
 			{
 				case AttackState.RingShot:
-					if (ringShotCnt > ringShotMax) 
+					if (ringShotCnt > ringShotMax)
 					{
 						isMouthOpen = false;
 						moaiAnime_Script.isClose = true;
 						attackState = AttackState.MiniMoai;
 						ringShotCnt = 0;
-						moaiAttack_Script.ringShot_DelayCnt = 0;
+						//moaiAttack_Script.ringShot_DelayCnt = 0;
 					}
 
 					break;
@@ -142,14 +191,26 @@ public class Enemy_Moai : character_status
 						attackState = AttackState.Laser;
 						miniMoaisCnt = 0;
 					}
-					
+
 					break;
 
 				case AttackState.Laser:
-
+					if (isLaserEmd)
+					{
+						isMouthOpen = false;
+						moaiAnime_Script.isClose = true;
+						attackState = AttackState.RingShot;
+						isLaserEmd = false;
+						attackLoopCnt++;
+					}
 					break;
 
 			}
+		}
+
+		if (aliveCnt > 150)
+		{
+			isExit = true;
 		}
 
 		if (hp < 1)
@@ -157,41 +218,41 @@ public class Enemy_Moai : character_status
 			Died_Process();
 		}
 		base.Update();
-
 		HpColorChange();
 		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
-    }
 
 
-	void HpColorChange()
-	{
-		v_Value = 1.0f - transform.position.z * 0.015f;
-
-		if (v_Value > 1.0f)
+		void HpColorChange()
 		{
-			v_Value = 1.0f;
+			v_Value = 1.0f - transform.position.z * 0.015f;
+
+			if (v_Value > 1.0f)
+			{
+				v_Value = 1.0f;
+			}
+
+			//test = 1 - hp / HpMax;
+			color_Value = hp / HpMax;
+
+			//setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
+			//moaiColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
+
+			for (int i = 0; i < moai_material.Length; i++)
+			{
+				moaiColor = new Vector4(1, color_Value, color_Value, 1);
+				//moai_material[i].material = moai_material_save[i];
+				moai_material[i].material.SetVector("_BaseColor", moaiColor);
+				//moai_material_save[i].material.SetVector("_BaseColor", moaiColor);
+
+			}
+
+			//      foreach (Renderer renderer in object_material)
+			//{
+			//          renderer.material.SetVector("_BaseColor", setColor);
+			//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
+			//}
+
 		}
-
-		//test = 1 - hp / HpMax;
-		color_Value = hp / HpMax;
-
-		//setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
-		//moaiColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
-
-		for (int i = 0; i < moai_material.Length; i++)
-		{
-			moaiColor = new Vector4(1, color_Value, color_Value, 1);
-			//moai_material[i].material = moai_material_save[i];
-			moai_material[i].material.SetVector("_BaseColor", moaiColor);
-			//moai_material_save[i].material.SetVector("_BaseColor", moaiColor);
-
-		}
-
-		//      foreach (Renderer renderer in object_material)
-		//{
-		//          renderer.material.SetVector("_BaseColor", setColor);
-		//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-		//}
-
 	}
 }
+

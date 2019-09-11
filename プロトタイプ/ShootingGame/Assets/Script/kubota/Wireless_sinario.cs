@@ -85,7 +85,6 @@ public class Wireless_sinario : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log("サウンドカウント＝" + soundcnt);
 		//ゲーム内のモードが無線状態の時
 		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
 		{
@@ -128,7 +127,6 @@ public class Wireless_sinario : MonoBehaviour
 		}
 		if (first_start < 120)
 		{
-			Debug.Log("実行停止");
 			return;
 		}
 		//-------------------------------------------------------------------------------
@@ -140,6 +138,8 @@ public class Wireless_sinario : MonoBehaviour
 				//無線のモードから通常のモードに治す
 				if (currentLine >= 2)
 				{
+					No++;
+					SetNext_sinario();
 					currentLine = 0;
 					frame = 0;
 					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
@@ -214,17 +214,9 @@ public class Wireless_sinario : MonoBehaviour
 							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
 							break;
 					}
-					Debug.Log("音声が鳴りました");
-
-					//}
-					//if (soundcnt == 1)
-					//{
-					//	Sound_Active();
-					//}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)
 				{
-					Debug.Log("入力処理");
 					// 完了してないなら文字をすべて表示する
 					timeUntilDisplay = 0;
 				}
@@ -264,13 +256,6 @@ public class Wireless_sinario : MonoBehaviour
 		timeElapsed = Time.time;
 		currentLine++;
 		lastUpdateCharacter = -1;
-		if (scenarios.Length == currentLine)
-		{
-			Debug.Log("シナリオ変更");
-			No++;
-			SetNext_sinario();
-			//Linesmatch(0, 0);
-		}
 	}
 
 	//どの行を表示するのかを合わせる関数

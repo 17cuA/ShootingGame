@@ -127,6 +127,11 @@ public class One_Boss : character_status
 	//---------------------------------------------------------
 	//弾を消す用保存データ
 	private List<GameObject> unactiveOperateBullets = new List<GameObject>();
+	[SerializeField] private ParticleSystem markParticle;
+	[SerializeField] private int markCount = 0;
+	[SerializeField] private float markIntervalTime;
+	private float markIntervalTimer;
+	private bool showMark = false;
 	//---------------------------------------------------------
 
 	private new void Start()
@@ -251,7 +256,8 @@ public class One_Boss : character_status
 
 	private new void Update()
 	{
-		if(PauseManager.IsPause)
+
+		if (PauseManager.IsPause)
 		{
 			Timeline_Player.Pause();
 		}
@@ -262,6 +268,31 @@ public class One_Boss : character_status
 
 		if (!PauseManager.IsPause)
 		{
+
+			if (showMark)
+			{
+				Debug.Log("--------------突進表示------------");
+				//-------------------------------------------
+				markIntervalTimer += Time.deltaTime;
+				if (markIntervalTimer >= markIntervalTime && markCount < 3)
+				{
+					markParticle.Play();
+					markCount++;
+					markIntervalTimer = 0;
+				}
+				//-------------------------------------------
+				if(markCount == 3)
+				{
+					showMark = false;
+				}
+			}
+			else
+			{
+				markCount = 0;
+				markIntervalTimer = 0;
+			}
+
+
 			if (Survival_Time_Cnt >= Survival_Time && !Is_Attack_Now && !End_Flag)
 			{
 				maenoiti = transform.position;
@@ -364,6 +395,18 @@ public class One_Boss : character_status
 					Attack_Step = 0;
 					Timeline_Player.time = 60.0;
 					End_Flag = true;
+
+
+					//-----------------追加-------------------
+					//----------------弾を消す----------------
+					for (var i = 0; i < unactiveOperateBullets.Count; ++i)
+					{
+						if (!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+							unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
+					}
+					unactiveOperateBullets.Clear();
+					//----------------弾を消す----------------
+					//-----------------追加-------------------
 				}
 			}
 			else if (End_Flag && !Start_Flag && Update_Flag)
@@ -674,6 +717,11 @@ public class One_Boss : character_status
 		}
 		else if (Attack_Step == 1)
 		{
+			//----------------
+			showMark = true;
+			//----------------
+
+
 			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
 			{
 				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
@@ -828,8 +876,8 @@ public class One_Boss : character_status
 				//----------------弾を消す----------------
 				for (var i = 0; i < unactiveOperateBullets.Count; ++i)
 				{
-					if(!unactiveOperateBullets[i].transform.GetChild(2).gameObject.activeSelf)
-						unactiveOperateBullets[i].transform.GetChild(2).gameObject.SetActive(true);
+					if(!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+						unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
 				}
 				unactiveOperateBullets.Clear();
 				//----------------弾を消す----------------
