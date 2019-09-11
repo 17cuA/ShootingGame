@@ -15,19 +15,26 @@ public class Helper_SceneTranslation : MonoBehaviour
 	public AudioSource BGM;
 	public int Set_Step { get; private set; }
 
-	public DemoMovieControl DMC;		//デモ修正のため　
+	public DemoMovieControl DMC;		//デモ修正のため
+	List<InputManagerObject> inputManagerList = new List<InputManagerObject>();
 	//private bool 
 	private void Start()
 	{
 		isLoaded = false;
 		Set_Step = 0;
+		inputManagerList.AddRange(FindObjectsOfType<InputManagerObject>());
 	}
 	public void Update()
 	{
-
+		bool isSettingConfig = false;
+		foreach (InputManagerObject manager in inputManagerList)
+		{
+			isSettingConfig = manager.IsInputSetting;
+			if (isSettingConfig) { break; }
+		}
 		if (Set_Step == 0)
 		{
-			if(!DMC.IsPlayingMovie)
+			if(!DMC.IsPlayingMovie && !isSettingConfig)
 			{
 				if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 				{
@@ -38,7 +45,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 			}
 			//if (Input.anyKeyDown && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.F4) && !Input.GetKey(KeyCode.LeftControl))
 		}
-		else if(Set_Step==1)
+		else if(Set_Step==1 && !isSettingConfig)
 		{
 			if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 			{
