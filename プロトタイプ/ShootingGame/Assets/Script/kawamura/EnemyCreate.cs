@@ -211,14 +211,19 @@ public class EnemyCreate : MonoBehaviour
 	GameObject twoBossObj;
 	Two_Boss twoBoss_Script;
 
+	GameObject moaiObj;
+	Enemy_Moai moai_Script;
+
 	public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
 	public bool isMiddleBossDead = false;
 	public bool isOneBossAlive = false;
 	public bool isTwoBossAlive = false;
+	public bool isMoaiAlive = false;
 
 	public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
+	public bool isNowMoai = false;
 	public bool isDebug = false;
 	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 	
@@ -416,6 +421,9 @@ public class EnemyCreate : MonoBehaviour
 		twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
 		twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
 		isTwoBossAlive = true;
+
+		moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
+		moai_Script = moaiObj.GetComponent<Enemy_Moai>();
 	}
 
 	void Update()
@@ -426,7 +434,7 @@ public class EnemyCreate : MonoBehaviour
 		}
 		PreviousCount = frameCnt;
 
-		if (!isNowOneBoss && !isNowTwoBoss)
+		if (!isNowOneBoss && !isNowTwoBoss && !isNowMoai)
 		{
 			frameCnt++;
 		}
@@ -544,6 +552,11 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
+
+		if (groupCnt == 53 && frameCnt == turning_frame - 480f)
+		{
+			Wireless_sinario.Is_using_wireless = true;
+		}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		if (groupCnt == 74 && frameCnt == turning_frame - 60f)
 		{
@@ -579,6 +592,19 @@ public class EnemyCreate : MonoBehaviour
 
 				//if(frame > 180) SceneManager.LoadScene("GameClear");
 				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+			}
+		}
+
+		if (moai_Script != null)
+		{
+			if (moai_Script.Is_Dead)
+			{
+				if(isMoaiAlive)
+				{
+					Wireless_sinario.Is_using_wireless = true;
+					isNowMoai = false;
+					isMoaiAlive = false;
+				}
 			}
 		}
 		//第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
@@ -1115,7 +1141,7 @@ public class EnemyCreate : MonoBehaviour
 			isNowOneBoss = true;
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(480);
+			Next_Condition(120);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 47)
@@ -1123,7 +1149,7 @@ public class EnemyCreate : MonoBehaviour
 			Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
 			nextEnemy = "バキュラ16";
-			Next_Condition(600);
+			Next_Condition(780);
 		}
 		// バキュラ16
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 48)
@@ -1157,14 +1183,16 @@ public class EnemyCreate : MonoBehaviour
 			nextEnemy = "モアイ";
 			Next_Condition(360);
 		}
-		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
 		{
 			GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
 			moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
 
+			isNowMoai = true;
+
 			nextEnemy = "ヒトデ24";
-			Next_Condition(1590);
+			Next_Condition(500);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)

@@ -32,6 +32,9 @@ public class Enemy_Moai : character_status
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
 	public Material[] moai_material_save;
 
+	public float wireles_DelayCnt;
+	public float wireles_DelayMax;
+
 	public float speedX;
 	public float speedX_Value;
 	public float speedY;
@@ -75,6 +78,7 @@ public class Enemy_Moai : character_status
 	public bool isAppearance = true;        //最初の登場用
 	public bool isExit = false;                 //退場用
 	public bool isMove = false;
+	public bool isWireles = true;
 	public bool isMouthOpen = false;
 	public bool isRingShot = true;
 	public bool isMiniMoai = false;
@@ -151,7 +155,7 @@ public class Enemy_Moai : character_status
 			{
 				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 				isAppearance = false;
-				moaiAnime_Script.isOpen = true;
+				//moaiAnime_Script.isOpen = true;
 			}
 
 		}
@@ -188,8 +192,23 @@ public class Enemy_Moai : character_status
 		}
 		else
 		{
-			aliveCnt += Time.deltaTime;
+			if(isWireles)
+			{
+				wireles_DelayCnt += Time.deltaTime;
+				if (wireles_DelayCnt > wireles_DelayMax)
+				{
+					isWireles = false;
+					moaiAnime_Script.isOpen = true;
+				}
+
+			}
+			else
+			{
+				aliveCnt += Time.deltaTime;
+
+			}
 		}
+
 
 		if (attackLoopCnt >= 3)
 		{
