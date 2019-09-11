@@ -41,7 +41,6 @@ public class Object_Pooling
 		obj_name = name;
 		//プレハブを保存
 		prefab = Create_obj;
-		if (obj.Count == Create_num) Get_Name();
 	}
 	//リストをすべて返す関数
 	public List<GameObject> Get_Obj()
@@ -82,11 +81,6 @@ public class Object_Pooling
 		gameObject.SetActive(Is_Active);    //活動するかどうかの変更
 		obj.Add(gameObject);                                            // 生成をした値を配列に入れる
 		return gameObject;
-	}
-
-	public void Get_Name()
-	{
-		Debug.Log(z.name + "	Completed");
 	}
 
 	public void Set_Parent_Obj(ref GameObject childe)

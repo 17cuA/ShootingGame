@@ -9,26 +9,39 @@ public class Helper_OneBossCorePart : MonoBehaviour
 	[SerializeField] private Texture2D red_baseColorTexture;
 	[SerializeField] private Texture2D red_emissiveTexture;
 	[SerializeField] private ParticleSystem particleSystem;
-	[SerializeField] private int transitionLimitHp = 100;
-	private new Renderer renderer;
+	[SerializeField] private float transitionLimitHpPercent = 0.3f;
+	[SerializeField] private int coreHpMax;
+	private MeshRenderer renderer;
 	private bool change = false;
 	private bool hasChanged = false;
+	private Material redMaterial;
 
-	private void Awake()
+
+	private void Start()
 	{
 		partScript = GetComponent<One_Boss_Parts>();
-		renderer = partInstance.GetComponent<Renderer>();
+		renderer = partInstance.GetComponent<MeshRenderer>();
+		coreHpMax = partScript.hp;
+		change = false;
+		hasChanged = false;
 	}
+
 
 	private void Update()
     {
-        if(partScript.hp <= transitionLimitHp)
+        if(partScript.hp <= transitionLimitHpPercent * coreHpMax)
 		{
 			change = true;
 		}
 
+		if (!change)
+			return;
+
+		renderer.material.SetTexture("_BaseColorMap", red_baseColorTexture);
+		renderer.material.SetTexture("_EmissiveColorMap", red_emissiveTexture);
+
 		//Hp > limitHp || isCHanged  return 
-		if (!change || hasChanged)
+		if (hasChanged)
 			return;
 
 		if (particleSystem != null)
@@ -36,10 +49,7 @@ public class Helper_OneBossCorePart : MonoBehaviour
 			particleSystem.transform.position = transform.position;
 			particleSystem?.Stop();
 			particleSystem?.Play();
+			hasChanged = true;
 		}
-
-		renderer.material.SetTexture("_BaseColorMap", red_baseColorTexture);
-		renderer.material.SetTexture("_EmissiveColorMap", red_emissiveTexture);
-		hasChanged = true;
     }
 }
