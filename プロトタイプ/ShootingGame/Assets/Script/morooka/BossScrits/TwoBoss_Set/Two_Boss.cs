@@ -183,6 +183,10 @@ public class Two_Boss : character_status
 		}
 		else if(Update_Ok)
 		{
+			var v3 = transform.position;
+			v3.z = 0.0f;
+			transform.position = v3;
+
 			// 攻撃
 			if (Attack_Type_Instruction == 0)
 			{

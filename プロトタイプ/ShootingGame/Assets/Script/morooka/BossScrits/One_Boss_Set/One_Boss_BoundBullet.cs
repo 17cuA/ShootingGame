@@ -26,6 +26,10 @@ public class One_Boss_BoundBullet : bullet_status
 	[SerializeField] private float deathEffectLifeTime;
 	private float deathEffectLifeTimer;
 	private ParticleSystem[] particleSystems;
+
+	[SerializeField] private bool canDropItem;
+	private float dropItemRandomNum = 10;
+	[SerializeField] private float dropItemSeed;
 	//---------------------------------------------------
 
 	private new void Start()
@@ -77,6 +81,7 @@ public class One_Boss_BoundBullet : bullet_status
 			deathEffectLifeTimer = 0;
 			deathEffect.SetActive(false);
 			transform.GetChild(0).gameObject.SetActive(true);
+			transform.GetChild(2).gameObject.SetActive(true);
 			_Collider.enabled = true;
 			gameObject.SetActive(false);
 			for (var i = 0; i < particleSystems.Length; ++i)
@@ -122,6 +127,9 @@ public class One_Boss_BoundBullet : bullet_status
 				if (transform.GetChild(0).gameObject.activeSelf)
 					transform.GetChild(0).gameObject.SetActive(false);
 
+				if (transform.GetChild(2).gameObject.activeSelf)
+					transform.GetChild(2).gameObject.SetActive(false);
+
 
 				if (_Collider.enabled)
 					_Collider.enabled = false;
@@ -132,6 +140,7 @@ public class One_Boss_BoundBullet : bullet_status
 				deathEffectLifeTimer = 0;
 				deathEffect.SetActive(false);
 				transform.GetChild(0).gameObject.SetActive(true);
+				transform.GetChild(2).gameObject.SetActive(true);
 				_Collider.enabled = true;
 				gameObject.SetActive(false);
 				for (var i = 0; i < particleSystems.Length; ++i)
@@ -140,11 +149,12 @@ public class One_Boss_BoundBullet : bullet_status
 				}
 			}
 
-			if (!transform.GetChild(0).gameObject.activeSelf && !transform.GetChild(1).gameObject.activeSelf)
+			if (!transform.GetChild(0).gameObject.activeSelf && !transform.GetChild(1).gameObject.activeSelf && !transform.GetChild(2).gameObject.activeSelf)
 			{
 				deathEffectLifeTimer = 0;
 				deathEffect.SetActive(false);
 				transform.GetChild(0).gameObject.SetActive(true);
+				transform.GetChild(2).gameObject.SetActive(true);
 				_Collider.enabled = true;
 				gameObject.SetActive(false);
 				for (var i = 0; i < particleSystems.Length; ++i)
@@ -177,6 +187,24 @@ public class One_Boss_BoundBullet : bullet_status
 		return vecocity;
 	}
 
+	//------------------------------------------
+	public void RougeSeed()
+	{
+		dropItemSeed = 0;
+		dropItemSeed = UnityEngine.Random.Range(0, 100f);
+		canDropItem = dropItemSeed > dropItemRandomNum ? false : true;
+		if (canDropItem)
+		{
+			transform.GetChild(0).gameObject.SetActive(false);
+			transform.GetChild(2).gameObject.SetActive(true);
+		}
+		else
+		{
+			transform.GetChild(0).gameObject.SetActive(true);
+			transform.GetChild(2).gameObject.SetActive(false);
+		}
+	}
+
 	private new void OnTriggerEnter(Collider col)
 	{
 		if (col.tag == "Player_Bullet")
@@ -184,6 +212,8 @@ public class One_Boss_BoundBullet : bullet_status
 			//gameObject.SetActive(false);
 
 			deathEffect.SetActive(true);
+			if (canDropItem)
+				StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position,Vector3.left);
 
 			col.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
@@ -199,6 +229,8 @@ public class One_Boss_BoundBullet : bullet_status
 			//gameObject.SetActive(false);
 
 			deathEffect.SetActive(true);
+			if (canDropItem)
+				StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position, Vector3.left);
 
 			col.gameObject.GetComponent<bullet_status>().Player_Bullet_Des();
 			col.gameObject.SetActive(false);
