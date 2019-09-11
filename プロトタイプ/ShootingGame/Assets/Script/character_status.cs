@@ -36,7 +36,7 @@ public class character_status : MonoBehaviour
 	private bool check;
 
 	public int Opponent;
-
+	public string namenamename;
 	public void Start()
 	{
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
@@ -77,7 +77,6 @@ public class character_status : MonoBehaviour
 					material_Reset();
 					framecnt = 0;
 					check = false;
-					Debug.Log("fack");
 					return;
 				}
 			}
@@ -212,6 +211,7 @@ public class character_status : MonoBehaviour
 				}
 				else
 				{
+					namenamename = col.gameObject.name;
 					Damege_Process((int)BS.attack_damage);
 				}
 			}
@@ -239,11 +239,18 @@ public class character_status : MonoBehaviour
 				{
 					SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
 				}
+				if(gameObject.name == "Shiled_father")
+				{
+					SE_Manager.SE_Obj.Boss_Core(Obj_Storage.Storage_Data.audio_se[7]);
+				}
 
 			}
 			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
 			{
-				Damege_Process(3);
+				if (gameObject.name != "Enemy_Moai")
+				{
+					Damege_Process(3);
+				}
 			}
 		}
 	}

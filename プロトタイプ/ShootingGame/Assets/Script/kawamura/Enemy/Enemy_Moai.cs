@@ -14,9 +14,14 @@ public class Enemy_Moai : character_status
 
 	public AttackState attackState;
 
+	GameObject faceObj;
 	GameObject mouthObj;
 	GameObject moaiAttackObj;
 	GameObject saveObj;
+
+
+
+	public Rigidbody moai_rigidbody;
 
 	MoaiAnimation moaiAnime_Script;
 	Enemy_Moai_Attack moaiAttack_Script;
@@ -39,6 +44,11 @@ public class Enemy_Moai : character_status
 	[Header("入力用 回転最大値")]
 	public float rotationYMax;
 
+	public float rotaX;
+	public float rotaX_Value;
+	public float rotaZ;
+	public float rotaZ_Value;
+
 	public int attackLoopCnt;
 	public float aliveCnt;
 
@@ -58,6 +68,10 @@ public class Enemy_Moai : character_status
 	public float attackDelay;
 	//攻撃関係の管理で使うやつの終わりだよ！-----------------------------
 
+	public ParticleSystem explosionEffect;
+
+
+
 	public bool isAppearance = true;        //最初の登場用
 	public bool isExit = false;                 //退場用
 	public bool isMove = false;
@@ -65,9 +79,10 @@ public class Enemy_Moai : character_status
 	public bool isRingShot = true;
 	public bool isMiniMoai = false;
 	public bool isLaserEmd = false;
-
+	public bool isDead = false;
 	new void Start()
 	{
+		faceObj = transform.GetChild(0).gameObject;
 		mouthObj = transform.GetChild(1).gameObject;
 		moaiAnime_Script = mouthObj.GetComponent<MoaiAnimation>();
 
@@ -77,6 +92,7 @@ public class Enemy_Moai : character_status
 		defaultRotaY_Value = rotaY_Value;
 		rotaY = 90;
 		HpMax = hp;
+		isDead = false;
 
 		HP_Setting();
 		base.Start();
@@ -85,9 +101,11 @@ public class Enemy_Moai : character_status
 
 	new void Update()
 	{
+		Physics.gravity = new Vector3(0, -0.3f, 0);
+
 		if (isAppearance)
 		{
-			hp = 400;
+			hp = 2000;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -136,6 +154,22 @@ public class Enemy_Moai : character_status
 				moaiAnime_Script.isOpen = true;
 			}
 
+		}
+		else if (isDead)
+		{
+			rotaX_Value = 0.1f;
+			rotaX -= rotaX_Value;
+			rotaY_Value = 0.1f;
+			rotaY -= 0.1f;
+			rotaZ_Value = 0.5f;
+			rotaZ -= rotaZ_Value;
+
+			transform.rotation = Quaternion.Euler(rotaX, rotaY, 0);
+
+			if (transform.position.y < -10f)
+			{
+				gameObject.SetActive(false);
+			}
 		}
 		else if (isExit)
 		{
@@ -213,12 +247,40 @@ public class Enemy_Moai : character_status
 			isExit = true;
 		}
 
-		if (hp < 1)
+		if (hp < 1&& !isDead)
 		{
-			Died_Process();
+			isDead = true;
+			moai_rigidbody.useGravity = true;
+			moaiAnime_Script.isOpen = false;
+			moaiAnime_Script.isClose = false;
+			rotaY = -90f;
+			
+			faceObj.layer= LayerMask.NameToLayer("Explosion"); 
+			mouthObj.layer= LayerMask.NameToLayer("Explosion");
+			MoaiDead();
+			//for (int i = 0; i < object_material.Length; i++)
+			//{
+			//	object_material[i].material = self_material[i];
+			//}
+
+			//Died_Process();
 		}
-		base.Update();
+
+		//if (isDead)
+		//{
+		//	for (int i = 0; i < object_material.Length; i++)
+		//	{
+		//		object_material[i].material = self_material[i];
+		//	}
+
+		//}
+		if (!isDead)
+		{
+			base.Update();
+
+		}
 		HpColorChange();
+
 		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
 
 
@@ -232,7 +294,7 @@ public class Enemy_Moai : character_status
 			}
 
 			//test = 1 - hp / HpMax;
-			color_Value = hp / HpMax;
+			color_Value = (float)hp / HpMax;
 
 			//setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 			//moaiColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
@@ -253,6 +315,14 @@ public class Enemy_Moai : character_status
 			//}
 
 		}
+	}
+	void MoaiDead()
+	{
+		//Game_Master.MY.Score_Addition(score, Opponent);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+
+		explosionEffect.gameObject.SetActive(true);
+
 	}
 }
 

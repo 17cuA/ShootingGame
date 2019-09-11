@@ -158,7 +158,6 @@ public class Entrance_And_Exit : MonoBehaviour
 			{
 				transform.localRotation = Quaternion.Euler(rotation_speed, 0, 0);
 				rotation_speed -= 10;
-				Debug.Log("hei");
 			}
 			else if(transform.localRotation.x < 0)
 			{
