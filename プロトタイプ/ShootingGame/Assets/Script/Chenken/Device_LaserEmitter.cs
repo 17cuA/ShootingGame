@@ -15,6 +15,8 @@ class Device_LaserEmitter : MonoBehaviour
 	[Header("Fireボタン/キー　設定")]
 	public KeyCode firekey;
 	public string fireButtonName;
+	InputManagerObject inputManager1P;
+	InputManagerObject inputManager2P;
 
 	//--------------------------- 直線型レーザー（タイプ１） ----------------------------------
 	[Header("--------直線型レーザー--------")]
@@ -263,6 +265,9 @@ class Device_LaserEmitter : MonoBehaviour
 		this.emitterRotateCore = new EmitterRotateCore(this.transform.parent.position);
 		this.emitterLaunchCore = new EmitterLaunchCore(new StraightLaunchDevice(this.straightLaserOverloadDuration, this.straightLaserLaunchInterval, this.straightLaserGeneratorParent));
 
+		inputManager1P = GameObject.Find("InputManager_1P").GetComponent<InputManagerObject>();
+		inputManager2P = GameObject.Find("InputManager_2P").GetComponent<InputManagerObject>();
+
 		if (isPlayerUseAudio)
 		{
 			this.audioSource = GetComponent<AudioSource>();
@@ -276,12 +281,13 @@ class Device_LaserEmitter : MonoBehaviour
 		}
 		else if (parentObj.name == "Player(Clone)")
 		{
-			fireButtonName = "Fire1";
+
+			fireButtonName = inputManager1P.Manager.Button["Shot"];
 			isOption = false;
 		}
 		else if (parentObj.name == "Player2(Clone)")
 		{
-			fireButtonName = "P2_Fire1";
+			fireButtonName = inputManager2P.Manager.Button["Shot"];
 			isOption = false;
 		}
 
@@ -295,11 +301,11 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			if (bf.bState == Bit_Formation_3.BitState.Player1)
 			{
-				fireButtonName = "Fire1";
+				fireButtonName = inputManager1P.Manager.Button["Shot"];
 			}
 			else if (bf.bState == Bit_Formation_3.BitState.Player2)
 			{
-				fireButtonName = "P2_Fire1";
+				fireButtonName = inputManager2P.Manager.Button["Shot"];
 			}
 		}
 

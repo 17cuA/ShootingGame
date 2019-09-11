@@ -286,11 +286,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager:
-    defaultButtonNameList: []
-    useButtonNameList: []
+    defaultButtonNameList:
+    - Fire1
+    - Fire2
+    - Fire3
+    - Bit_Freeze
+    useButtonNameList:
+    - Shot
+    - Item
+    - ShotSwitch
+    - Multiple
     decisionTime: 1
     textFont: {fileID: 12800000, guid: 8891d14dd26f3824ea2c6e2cca5818f3, type: 3}
     textPositionX: 0
+  settingKey: 286
+  debugAreaPosition: {x: 10, y: 10}
 --- !u!4 &163090909
 Transform:
   m_ObjectHideFlags: 0
@@ -2994,11 +3004,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager:
-    defaultButtonNameList: []
-    useButtonNameList: []
+    defaultButtonNameList:
+    - P2_Fire1
+    - P2_Fire2
+    - P2_Fire3
+    - P2_Bit_Freeze
+    useButtonNameList:
+    - Shot
+    - Item
+    - ShotSwitch
+    - Multiple
     decisionTime: 1
     textFont: {fileID: 12800000, guid: 8891d14dd26f3824ea2c6e2cca5818f3, type: 3}
-    textPositionX: 0
+    textPositionX: 1920
+  settingKey: 287
+  debugAreaPosition: {x: 1920, y: 10}
 --- !u!4 &1147433236
 Transform:
   m_ObjectHideFlags: 0
