@@ -4749,7 +4749,7 @@ GameObject:
   - component: {fileID: 3111064614976830354}
   m_Layer: 14
   m_Name: LaserLine
-  m_TagString: Untagged
+  m_TagString: Player_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4801,6 +4801,10 @@ MonoBehaviour:
   Travelling_Direction: {x: 1, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
   Bullet_Type: 0
+  isPlay1Laser: 0
+  isPlay2Laser: 0
+  redMaterial: {fileID: 2100000, guid: 0869e8e39c5d3784c90140970a4556fe, type: 2}
+  blueMaterial: {fileID: 2100000, guid: d5518a1be2fb8ac43ac5d1627e72d01e, type: 2}
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
@@ -4819,7 +4823,6 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d5518a1be2fb8ac43ac5d1627e72d01e, type: 2}
   - {fileID: 2100000, guid: d5518a1be2fb8ac43ac5d1627e72d01e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

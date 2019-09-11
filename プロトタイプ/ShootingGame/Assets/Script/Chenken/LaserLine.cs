@@ -16,8 +16,8 @@ public class LaserLine : Player_Bullet
 	}
 
 	private new Rigidbody rigidbody;
-	private bool isPlay1Laser = false;
-	private bool isPlay2Laser = false;
+	public bool isPlay1Laser = false;
+	public bool isPlay2Laser = false;
 	public bool IsPlayer1Laser
 	{
 		get
@@ -42,6 +42,8 @@ public class LaserLine : Player_Bullet
 		}
 	}
 
+	public Material redMaterial;
+	public Material blueMaterial;
 	private void Awake()
     {
 		this.trailRenderer = GetComponent<TrailRenderer>();
@@ -56,6 +58,8 @@ public class LaserLine : Player_Bullet
 				transform.GetChild(0).gameObject.SetActive(true);
 			if (transform.GetChild(1).gameObject.activeSelf)
 				transform.GetChild(1).gameObject.SetActive(false);
+			if(trailRenderer.material != blueMaterial)
+				trailRenderer.material = blueMaterial;
 		}
 
 		if (isPlay2Laser)
@@ -64,6 +68,8 @@ public class LaserLine : Player_Bullet
 				transform.GetChild(0).gameObject.SetActive(false);
 			if (!transform.GetChild(1).gameObject.activeSelf)
 				transform.GetChild(1).gameObject.SetActive(true);
+			if(trailRenderer.material != redMaterial)
+				trailRenderer.material = redMaterial;
 		}
 
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
