@@ -10,7 +10,9 @@ public class Helper_SceneTranslation : MonoBehaviour
 	public AudioSource audioSource; //ユニティ側にて設定
 	public AudioClip audioClip;         //unity側から設定
 	public AudioSource Decision;
-	public AudioClip Decision_SE;			//プレイヤー数決定時の音
+	public AudioClip Decision_SE;           //プレイヤー数決定時の音
+
+	public AudioSource BGM;
 	public int Set_Step { get; private set; }
 
 	public DemoMovieControl DMC;		//デモ修正のため　
@@ -22,11 +24,12 @@ public class Helper_SceneTranslation : MonoBehaviour
 	}
 	public void Update()
 	{
+
 		if (Set_Step == 0)
 		{
 			if(!DMC.IsPlayingMovie)
 			{
-			  	if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 				{
 					audioSource?.PlayOneShot(audioClip);
 					DMC.IsStopDemoMovie = true;
@@ -37,7 +40,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 		}
 		else if(Set_Step==1)
 		{
-			if(Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+			if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
 			{
 				Set_Step++;
 				if (Decision.isPlaying) Decision.Stop();

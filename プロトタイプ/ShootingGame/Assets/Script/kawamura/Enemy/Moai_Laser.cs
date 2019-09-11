@@ -16,10 +16,11 @@ public class Moai_Laser : MonoBehaviour
         if (transform.position.x >= 18.0f || transform.position.x <= -18.0f
             || transform.position.y >= 6.0f || transform.position.y <= -6.0f)
         {
-            //GameObject obj = gameObject;
-            //Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
-            gameObject.SetActive(false);
-        }
+			//GameObject obj = gameObject;
+			//Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
+			//gameObject.SetActive(false);
+			Destroy(gameObject);
+		}
     }
 
     private void LateUpdate()
