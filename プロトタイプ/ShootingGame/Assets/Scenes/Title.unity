@@ -1212,11 +1212,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8775363544633275437, guid: 6715c00a90fa7d641a9a453e394b1aa1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4837575548925283903, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_Sprite
@@ -1231,6 +1226,11 @@ PrefabInstance:
     - target: {fileID: 4837575548925283903, guid: 6715c00a90fa7d641a9a453e394b1aa1,
         type: 3}
       propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775363544633275437, guid: 6715c00a90fa7d641a9a453e394b1aa1,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8ff245b1a986e4aacb6ca0ca3bfd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  please_push_button_pos: {x: -10.5, y: -300, z: 0}
+  please_push_button_pos: {x: 15.2, y: -300, z: 0}
   please_push_button_size: 0.25
   play_select_pos: {x: 40, y: -300, z: 0}
   play_select_size: 0.25
