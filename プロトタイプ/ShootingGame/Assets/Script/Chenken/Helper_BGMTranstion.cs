@@ -58,6 +58,7 @@ public class Helper_BGMTranstion : MonoBehaviour
 					audioSource.clip = oneBossBGMClip;
 					isFadeIn = true;
 					audioSource.Play();
+					
 				}
 				else if(currentWirelessNumber == 2)
 				{
