@@ -195,7 +195,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
 
-		if(node.GetComponents<PauseComponent>() == null)
+		if(node.GetComponent<PauseComponent>() == null)
 			node.AddComponent<PauseComponent>();
 
 		return node;
