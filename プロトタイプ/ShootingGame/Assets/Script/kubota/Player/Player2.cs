@@ -97,6 +97,9 @@ public class Player2 : character_status
 	public bool Is_Burst;      //バースト発射するかどうかの判定
 
 	private bool one;
+
+	InputManagerObject inputManager;    // ボタン入力を保存してあるやつ
+	public InputManagerObject InputManager { get { return inputManager; } }
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -179,6 +182,8 @@ public class Player2 : character_status
 
 		//------------------------------------------------
 		one = false;
+		inputManager = GameObject.Find("InputManager_2P").GetComponent<InputManagerObject>();
+
 	}
 
 	new void Update()
@@ -317,7 +322,7 @@ public class Player2 : character_status
 				Bullet_Create();
 
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton("P2_Fire2"))
+				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton(inputManager.Manager.Button["Item"]))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P2_PowerManager.Instance.Upgrade();
@@ -517,7 +522,7 @@ public class Player2 : character_status
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (Input.GetButtonDown("P2_Fire3"))
+		if (Input.GetButtonDown(inputManager.Manager.Button["ShotSwitch"]))
 		{
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
@@ -529,7 +534,7 @@ public class Player2 : character_status
 			Shot_DelayMax = 2;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				if (Input.GetButtonDown("P2_Fire1") || Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetButtonDown(inputManager.Manager.Button["Shot"]) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
 					switch (bullet_Type)
@@ -565,7 +570,7 @@ public class Player2 : character_status
 			Shot_DelayMax = 5;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				if (Input.GetButton("P2_Fire1") || Input.GetKey(KeyCode.Space))
+				if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
 				{
 					Is_Burst = true;
 				}

@@ -137,7 +137,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl1.Is_Resporn)
 				{
-					if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+					if (Input.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -149,7 +149,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						defPos = new Vector3(0, 0, 0);
 						savePos = transform.position;
 					}
-					else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+					else if (Input.GetButton(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -179,7 +179,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl2.Is_Resporn)
 				{
-					if (Input.GetButtonUp("P2_Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+					if (Input.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -192,7 +192,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						savePos = transform.position;
 
 					}
-					else if (Input.GetButton("P2_Bit_Freeze") || Input.GetKey(KeyCode.Y))
+					else if (Input.GetButton(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}

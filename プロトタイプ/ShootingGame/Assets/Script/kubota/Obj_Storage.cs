@@ -43,6 +43,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject P1_Option_Prefab;                            //オプションのプレハブ
 	private GameObject P2_Option_Prefab;						//2P用のオプションのプレハブ
 	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
+
 	//-----------------------------------------------------------------------------------
 	private GameObject[] Effects_Prefab = new GameObject[17];  //particleのプレハブ
 	//---------------------------------------------------------------------------------
@@ -50,7 +51,13 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
 	private GameObject One_Boss_Laser_Prefab;                   // ボス1のレーザープレハブ
 	private GameObject One_Boss_BousndBullet_Prefab;		// ボス1のバウンド弾プレハブ
-    private GameObject Two_Boss_Laser_Prefab;					//ボス２のレーザープレハブ
+    private GameObject Two_Boss_Laser_Prefab;                   //ボス２のレーザープレハブ
+	private GameObject Moai_Prefab;             //モアイのプレハブ
+	private GameObject Moai_Mini_Group_Prefab;              //小さいモアイグループのプレハブ
+	private GameObject Moai_Bullet_Prefab;                  //モアイのバレットのプレハブ
+	private GameObject Moai_Eye_Laser_Prefab;       //モアイの目のレーザーのプレハブ
+	private GameObject Moai_Mouth_Laser_Prefab;		//モアイの口のレーザーのプレハブ
+
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
 	public Object_Pooling Medium_Size_Enemy1;
@@ -82,8 +89,13 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Laser_Line;
 	public Object_Pooling One_Boss_Laser;
 	public Object_Pooling One_Boss_BousndBullet;
-	public Object_Pooling Two_Boss_Laser;						//２ボスのレーザー、プーリング
-	//effect関係-----------------------------------------------------
+	public Object_Pooling Two_Boss_Laser;                       //２ボスのレーザー、プーリング
+	public Object_Pooling Moai;                       //モアイ
+	public Object_Pooling Moai_Mini_Group;                       //小さいモアイの群れ
+	public Object_Pooling Moai_Bullet;                       //モアイの弾
+	public Object_Pooling Moai_Eye_Laser;                       //モアイの目のレーザー
+	public Object_Pooling Moai_Mouth_Laser;                       //モアイの口のレーザー
+																//effect関係-----------------------------------------------------
 	public Object_Pooling[] Effects = new Object_Pooling[17];
 	//マップの作製時に使う処理
 	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
@@ -170,7 +182,13 @@ public class Obj_Storage : MonoBehaviour
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
-		Two_Boss_Laser_Prefab = Resources.Load("Bullet/Two_Boss_Laser")as GameObject;		//２ボスレーザー用のプレハブ修正
+		Two_Boss_Laser_Prefab = Resources.Load("Bullet/Two_Boss_Laser")as GameObject;       //２ボスレーザー用のプレハブ修正
+
+		Moai_Prefab = Resources.Load("Boss/Enemy_Moai") as GameObject;          //モアイのロード
+		Moai_Mini_Group_Prefab = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;          //モアイの群れのロード
+		Moai_Bullet_Prefab = Resources.Load("Bullet/Enemy_RingBullet") as GameObject;          //モアイの弾ロード
+		Moai_Eye_Laser_Prefab = Resources.Load("Bullet/Moai_EyeLaser") as GameObject;          //モアイの目の光線ロード
+		Moai_Mouth_Laser_Prefab = Resources.Load("Bullet/Moai_MouthLaser") as GameObject;          //モアイの口からのビームロード
 
 		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
@@ -294,6 +312,13 @@ public class Obj_Storage : MonoBehaviour
 		One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 100, "One_Boss_Laser");
 		One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 20, "One_Boss_BousndBullet");
 		Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab,100, "Two_Boss_Laser");
+
+		Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");
+		Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 2, "Moai_Mini_Group");
+		Moai_Bullet = new Object_Pooling(Moai_Bullet_Prefab, 50, "Moai_Prefab");
+		Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 258, "Moai_Eye_Laser");
+		Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 25, "Moai_Mouth_Laser");
+
 		//effect---------------------------------------------------------------------------------------------
 		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");					//プレイヤーの爆発
 		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");		//プレイヤーが登場するときのジェット噴射
