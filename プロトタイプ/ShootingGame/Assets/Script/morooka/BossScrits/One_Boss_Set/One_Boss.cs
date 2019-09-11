@@ -401,8 +401,8 @@ public class One_Boss : character_status
 					//----------------弾を消す----------------
 					for (var i = 0; i < unactiveOperateBullets.Count; ++i)
 					{
-						if (!unactiveOperateBullets[i].transform.GetChild(2).gameObject.activeSelf)
-							unactiveOperateBullets[i].transform.GetChild(2).gameObject.SetActive(true);
+						if (!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+							unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
 					}
 					unactiveOperateBullets.Clear();
 					//----------------弾を消す----------------
@@ -876,8 +876,8 @@ public class One_Boss : character_status
 				//----------------弾を消す----------------
 				for (var i = 0; i < unactiveOperateBullets.Count; ++i)
 				{
-					if(!unactiveOperateBullets[i].transform.GetChild(2).gameObject.activeSelf)
-						unactiveOperateBullets[i].transform.GetChild(2).gameObject.SetActive(true);
+					if(!unactiveOperateBullets[i].transform.GetChild(1).gameObject.activeSelf)
+						unactiveOperateBullets[i].transform.GetChild(1).gameObject.SetActive(true);
 				}
 				unactiveOperateBullets.Clear();
 				//----------------弾を消す----------------

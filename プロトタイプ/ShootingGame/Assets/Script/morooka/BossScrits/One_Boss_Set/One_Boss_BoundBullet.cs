@@ -35,7 +35,7 @@ public class One_Boss_BoundBullet : bullet_status
 		boss = Obj_Storage.Storage_Data.GetBoss(1);
 		_Collider = GetComponent<Collider>();
 
-		deathEffect = transform.GetChild(2).gameObject;
+		deathEffect = transform.GetChild(1).gameObject;
 		particleSystems = GetComponentsInChildren<ParticleSystem>();
 	}
 
@@ -77,7 +77,6 @@ public class One_Boss_BoundBullet : bullet_status
 			deathEffectLifeTimer = 0;
 			deathEffect.SetActive(false);
 			transform.GetChild(0).gameObject.SetActive(true);
-			transform.GetChild(1).gameObject.SetActive(true);
 			_Collider.enabled = true;
 			gameObject.SetActive(false);
 			for (var i = 0; i < particleSystems.Length; ++i)
@@ -123,8 +122,6 @@ public class One_Boss_BoundBullet : bullet_status
 				if (transform.GetChild(0).gameObject.activeSelf)
 					transform.GetChild(0).gameObject.SetActive(false);
 
-				if (transform.GetChild(1).gameObject.activeSelf)
-					transform.GetChild(1).gameObject.SetActive(false);
 
 				if (_Collider.enabled)
 					_Collider.enabled = false;
@@ -135,7 +132,6 @@ public class One_Boss_BoundBullet : bullet_status
 				deathEffectLifeTimer = 0;
 				deathEffect.SetActive(false);
 				transform.GetChild(0).gameObject.SetActive(true);
-				transform.GetChild(1).gameObject.SetActive(true);
 				_Collider.enabled = true;
 				gameObject.SetActive(false);
 				for (var i = 0; i < particleSystems.Length; ++i)
@@ -144,12 +140,11 @@ public class One_Boss_BoundBullet : bullet_status
 				}
 			}
 
-			if (!transform.GetChild(0).gameObject.activeSelf && !transform.GetChild(1).gameObject.activeSelf && !transform.GetChild(2).gameObject.activeSelf)
+			if (!transform.GetChild(0).gameObject.activeSelf && !transform.GetChild(1).gameObject.activeSelf)
 			{
 				deathEffectLifeTimer = 0;
 				deathEffect.SetActive(false);
 				transform.GetChild(0).gameObject.SetActive(true);
-				transform.GetChild(1).gameObject.SetActive(true);
 				_Collider.enabled = true;
 				gameObject.SetActive(false);
 				for (var i = 0; i < particleSystems.Length; ++i)
