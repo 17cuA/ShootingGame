@@ -18,6 +18,7 @@ public class InputManagerObject : MonoBehaviour
 	/// 入力の設定を行っている最中かどうか
 	/// </summary>
 	public bool IsInputSetting { get; private set; }
+	[SerializeField] Vector2 debugAreaPosition;
 
 	void Start()
 	{
@@ -50,5 +51,22 @@ public class InputManagerObject : MonoBehaviour
 		{
 			IsInputSetting = !inputManager.SettingButton();
 		}
+	}
+	void OnGUI()
+	{
+		if (IsInputSetting) { return; }
+		string displayText = "";
+		Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 350f, 0f);
+		foreach(string key in inputManager.Button.Keys)
+		{
+			if (Input.GetButton(inputManager.Button[key]))
+			{
+				displayText += "Input " + key + "\n";
+				displayAreaSize.height += 60f;
+			}
+		}
+		if (displayText == "") { return; }
+		GUI.TextField(displayAreaSize, displayText);
+		GUI.skin.textField.fontSize = 50;
 	}
 }
