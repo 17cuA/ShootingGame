@@ -239,6 +239,10 @@ public class character_status : MonoBehaviour
 				{
 					SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
 				}
+				if(gameObject.name == "Shiled_father")
+				{
+					SE_Manager.SE_Obj.Boss_Core(Obj_Storage.Storage_Data.audio_se[7]);
+				}
 
 			}
 			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
