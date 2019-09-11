@@ -12,23 +12,25 @@ public class Star_Fish_Spown : MonoBehaviour
 	private int Create_Pos_cnt;             //生成位置を決めるための
 
 	public float Active_Time;      //活動する時間
+	public int Active_Frame;	//活動しているフレーム数
 	[Header("動き続ける時間を設定")]
-	public float Active_Time_Max;			//活動限界時間
+	public float Active_Time_Max;           //活動限界時間
+	public int Active_Frame_Max;			//活動しているフレーム最大数
 	private void Start()
 	{
 		//生成位置を決められたポジションに配置
-		pos[0] = new Vector3(7.0f, 3.15f, 0.0f);
-		pos[1] = new Vector3(7.0f, 0.996f, 0.0f);
-		pos[2] = new Vector3(6.0f, 2.158f, 0.0f);
-		pos[3] = new Vector3(3.154f, 4.15f, 0.0f);
-		pos[4] = new Vector3(2.158f, -3.154f, 0.0f);
-		pos[5] = new Vector3(0.996f, 4.15f, 0.0f);
-		pos[6] = new Vector3(7.0f, -3.154f, 0.0f);
-		pos[7] = new Vector3(7.0f, -0.996f, 0.0f);
-		pos[8]= new Vector3(6.0f, -2.158f, 0.0f);
-		pos[9] = new Vector3(3.154f, -4.15f, 0.0f);
-		pos[10] = new Vector3(2.158f, 3.154f, 0.0f);
-		pos[11] = new Vector3(0.996f, -4.15f, 0.0f);
+		pos[0] = new Vector3(7.0f + 9.0f, 3.15f, 0.0f);
+		pos[1] = new Vector3(7.0f + 9.0f, 0.996f, 0.0f);
+		pos[2] = new Vector3(6.0f + 9.0f, 2.158f, 0.0f);
+		pos[3] = new Vector3(3.154f + 9.0f, 4.15f, 0.0f);
+		pos[4] = new Vector3(2.158f + 9.0f, -3.154f, 0.0f);
+		pos[5] = new Vector3(0.996f + 9.0f, 4.15f, 0.0f);
+		pos[6] = new Vector3(7.0f + 9.0f, -3.154f, 0.0f);
+		pos[7] = new Vector3(7.0f + 9.0f, -0.996f, 0.0f);
+		pos[8]= new Vector3(6.0f + 9.0f, -2.158f, 0.0f);
+		pos[9] = new Vector3(3.154f + 9.0f, -4.15f, 0.0f);
+		pos[10] = new Vector3(2.158f + 9.0f, 3.154f, 0.0f);
+		pos[11] = new Vector3(0.996f + 9.0f, -4.15f, 0.0f);
 	}
 	private void OnEnable()
 	{
@@ -42,11 +44,17 @@ public class Star_Fish_Spown : MonoBehaviour
     void Update()
     {
 		//稼働時間をカウントし、規定の時間を越したら活動をやめる-----------
-		Active_Time += Time.deltaTime;
-		if(Active_Time > Active_Time_Max)
+		//Active_Time += Time.deltaTime;
+		//if(Active_Time > Active_Time_Max)
+		//{
+		//	gameObject.SetActive(false);
+		//}
+		
+		if(Active_Frame > Active_Frame_Max)
 		{
 			gameObject.SetActive(false);
 		}
+		Active_Frame++;
 		//------------------------------------------------
 		//生成処理
 		Respown_Enemy();

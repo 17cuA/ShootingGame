@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a58230f61d1b94fbe1047e023dcd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  hp: 24
+  speed: 8.86
+  hp: 18
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   capsuleCollider: {fileID: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   - {fileID: 5746041200412279338}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
   eState: 0
