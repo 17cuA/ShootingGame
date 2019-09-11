@@ -45,6 +45,8 @@ public class Two_Boss_Parts : character_status
 		get; set;
 	}       // リズム
 
+	private ParticleSystem smoke { get; set; }
+
 	private new void Start()
 	{
 		base.Start();
@@ -56,6 +58,11 @@ public class Two_Boss_Parts : character_status
 		rism_Cnt = 0;
 		rism_Index = 0;
 		rism_Max = new int[6] { 3, 4, 4, 9,5,6 };
+		if(is_mul)
+		{
+			smoke = transform.GetChild(1).GetComponent<ParticleSystem>();
+			smoke.Stop();
+		}
 	}
 	private new void Update()
 	{
@@ -69,16 +76,25 @@ public class Two_Boss_Parts : character_status
 					ParticleCreation(0);
 					renderer.material.SetVector("_Color", Damege_Color);
 					base.object_material = new Renderer[0];
+					smoke.Play();
+
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+					{
+						Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+					}
+					else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+					{
+						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+						Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+					}
 
 					Is_Bomb = true;
 					object_material = null;
 				}
-
 			}
 			else
 			{
   				base.Update();
-				Debug.Log(Is_Bomb);
 			}
 		}
 		else

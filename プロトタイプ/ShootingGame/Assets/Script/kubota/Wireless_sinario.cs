@@ -140,6 +140,9 @@ public class Wireless_sinario : MonoBehaviour
 				//無線のモードから通常のモードに治す
 				if (currentLine >= 2)
 				{
+					Debug.Log("シナリオ変更");
+					No++;
+					SetNext_sinario();
 					currentLine = 0;
 					frame = 0;
 					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
@@ -264,13 +267,6 @@ public class Wireless_sinario : MonoBehaviour
 		timeElapsed = Time.time;
 		currentLine++;
 		lastUpdateCharacter = -1;
-		if (scenarios.Length == currentLine)
-		{
-			Debug.Log("シナリオ変更");
-			No++;
-			SetNext_sinario();
-			//Linesmatch(0, 0);
-		}
 	}
 
 	//どの行を表示するのかを合わせる関数

@@ -35,8 +35,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
 	[SerializeField, Tooltip("オプションマズル")] private GameObject[] muzzle;
-	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] no_damage_collider;
-	[SerializeField, Tooltip("イエスダメージコライダー")] private Collider[] yes_damage_collider;
+	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] set_collider;
 	[SerializeField, Tooltip("シャッター")] private Two_Boss_Parts[] shutter;
 	[SerializeField, Tooltip("EF用")] private GameObject[] parts_All;
 
@@ -122,11 +121,10 @@ public class Two_Boss : character_status
 		{
 			col.enabled = false;
 		}
-		Damage_Collider[0].enabled = true;
 		Under_Attack = 0;
 		Laser = new List<Two_Boss_Laser>();
 
-		Survival_Time = 180.0f;
+		Survival_Time = 60.0f * 5.0f;
 
 		Timeline_Player.Play(Start_Play);
 
@@ -136,6 +134,13 @@ public class Two_Boss : character_status
 			shutter_Init[i] = shutter[i].transform.localPosition;
 		}
 		core_Init = core[0].transform.localPosition;
+
+		// コライダーの非使用
+		foreach (var col in set_collider)
+		{
+			col.enabled = false;
+		}
+
 	}
 
 	// Update is called once per frame
@@ -162,6 +167,14 @@ public class Two_Boss : character_status
 				Update_Ok = true;
 				Destroy(transform.GetChild(1).gameObject);
 				Destroy(transform.GetChild(2).gameObject);
+				Damage_Collider[0].enabled = true;
+
+				// コライダーの使用
+				foreach (var col in set_collider)
+				{
+					col.enabled = true;
+				}
+
 				foreach (var r in Mesh_Renderer)
 				{
 					r.enabled = true;
@@ -195,12 +208,12 @@ public class Two_Boss : character_status
 			}
 			else
 			{
-				Attack_Seconds += Time.deltaTime;
-				if (Attack_Seconds >= 3.15f)
-				{
+				//Attack_Seconds += Time.deltaTime;
+				//if (Attack_Seconds >= 3.15f)
+				//{
 					Attack_Seconds = 0.0f;
 					Attack_Type_Instruction = 0;
-				}
+				//}
 			}
 
 			// シャッター破壊後コア破壊できる
