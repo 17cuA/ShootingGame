@@ -79,6 +79,7 @@ public class Helper_BGMTranstion : MonoBehaviour
 		if(Wireless_sinario.Is_using_wireless)
 		{
 			currentWirelessNumber++;
+			DebugManager.OperationDebug("現在のBGM:" + currentWirelessNumber,"BGM");
 			isFadeOut = true;
 		}
     }

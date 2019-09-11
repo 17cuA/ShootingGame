@@ -264,10 +264,13 @@ public class Wireless_sinario : MonoBehaviour
 		timeElapsed = Time.time;
 		currentLine++;
 		lastUpdateCharacter = -1;
-		if (scenarios.Length == currentLine)
+		if (scenarios.Length > currentLine)
 		{
 			Debug.Log("シナリオ変更");
-			No++;
+			if(No < 4)
+			{
+				No++;
+			}
 			SetNext_sinario();
 			//Linesmatch(0, 0);
 		}
