@@ -47,14 +47,17 @@ public class Enemy_Moai_Attack : MonoBehaviour
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("レーザーの発射位置")] private GameObject[] laser_muzzle;
 
-	private int Attack_Step
-	{
-		get; set;
-	}           // 関数内 攻撃ステップ
+	public int Attack_Step;
+	//{
+	//	get; set;
+	//}           // 関数内 攻撃ステップ
 	private bool Is_Attack_Now
 	{
 		get; set;
 	}            // 現在攻撃しているか
+
+	public bool isLaserEnd = false;
+	public bool LaserEndOnce = true;
 
 	//レーザー音追加
 	[SerializeField] private AudioClip laserBegin;
@@ -147,7 +150,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		}
 		void RingShot()
 		{
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 15; i++)
 			{
 				//shotRota = new Quaternion(0, 0, Random.Range(-50, 50), 0);
 
@@ -221,17 +224,49 @@ public class Enemy_Moai_Attack : MonoBehaviour
 				}
 				//-----------------------------------
 
+				//isLaserEnd = false;
+
 				if (laserTimeCnt < 8)
 				{
 					LaserCreate();
 					EyeLaserCreate();
+					if (laserTimeCnt > 4.5f)
+					{
+						if (LaserEndOnce)
+						{
+							audioSource.clip = laserEnd;
+							audioSource.Stop();
+							audioSource.loop = false;
+							audioSource.Play();
+							LaserEndOnce = false;
+						}
+
+					}
 				}
+				else
+				{
+					isLaserEnd = true;
+				}
+
+				//if (isLaserEnd)
+				//{
+				//	if (LaserEndOnce)
+				//	{
+				//		audioSource.clip = laserEnd;
+				//		audioSource.Stop();
+				//		audioSource.loop = false;
+				//		audioSource.Play();
+				//		LaserEndOnce = false;
+				//	}
+				//}
 
 				laserTimeCnt += Time.deltaTime;
 				if (laserTimeCnt > 10)
 				{
 					Attack_Step = 0;
 					Is_Attack_Now = false;
+					isLaserEnd = false;
+					LaserEndOnce = true;
 					//moai_Script.isMouthOpen = false;
 					moai_Script.isLaserEmd = true;
 					eyeLaser_Script[0].rotaZ = 17;
