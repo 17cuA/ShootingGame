@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 6428909672756101863}
   - component: {fileID: 5439300503713057687}
   m_Layer: 9
-  m_Name: ' Shield03'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8901041680220223042}
   - component: {fileID: 3884318066320596108}
   m_Layer: 9
-  m_Name: Shield01_Left
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 3723791121617175069}
   - component: {fileID: 6586581914295027102}
   m_Layer: 9
-  m_Name: ' Shield02'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 4317954866405040870}
   - component: {fileID: 9137745343655708058}
   m_Layer: 9
-  m_Name: ' Shield01'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 3621802560471505960}
   - component: {fileID: 8559018277565569451}
   m_Layer: 9
-  m_Name: ' Shield02'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 7237735067592727163}
   - component: {fileID: 5261207350010761660}
   m_Layer: 9
-  m_Name: Shield03_Right
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 4789583281987260238}
   - component: {fileID: 2021572080517571933}
   m_Layer: 9
-  m_Name: ' Shield03'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 4587257751363214890}
   - component: {fileID: 6636078617913515925}
   m_Layer: 9
-  m_Name: ' Shield01'
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5834,7 +5834,7 @@ GameObject:
   - component: {fileID: 1015789281356522385}
   - component: {fileID: 5763678818529600700}
   m_Layer: 9
-  m_Name: Shield02_Left
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6047,7 +6047,7 @@ GameObject:
   - component: {fileID: 3871895936489874497}
   - component: {fileID: 3062349573690618264}
   m_Layer: 9
-  m_Name: Shield01_Right
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6227,7 +6227,7 @@ GameObject:
   - component: {fileID: 4323723742439168477}
   - component: {fileID: 8541666033541127117}
   m_Layer: 9
-  m_Name: Shield03_Left
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6342,7 +6342,7 @@ GameObject:
   - component: {fileID: 4701646682857420122}
   - component: {fileID: 1601171152856600390}
   m_Layer: 9
-  m_Name: Shield02_Right
+  m_Name: Shiled_father
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8113,11 +8113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8260119936289212755}
     m_Modifications:
-    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
-        type: 3}
-      propertyPath: m_Name
-      value: E105
-      objectReference: {fileID: 0}
     - target: {fileID: 4199125886256200114, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8192,6 +8187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
+        type: 3}
+      propertyPath: m_Name
+      value: E105
       objectReference: {fileID: 0}
     - target: {fileID: 8986928741646274869, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
@@ -8431,11 +8431,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6378512050908654561}
     m_Modifications:
-    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
-        type: 3}
-      propertyPath: m_Name
-      value: E105 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 4199125886256200114, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8510,6 +8505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
+        type: 3}
+      propertyPath: m_Name
+      value: E105 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8986928741646274869, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
@@ -8648,11 +8648,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1639908088014509220}
     m_Modifications:
-    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
-        type: 3}
-      propertyPath: m_Name
-      value: E105
-      objectReference: {fileID: 0}
     - target: {fileID: 4199125886256200114, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8728,6 +8723,11 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
+        type: 3}
+      propertyPath: m_Name
+      value: E105
+      objectReference: {fileID: 0}
     - target: {fileID: 8986928741646274869, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
       propertyPath: playOnAwake
@@ -8759,11 +8759,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4709224921559166722}
     m_Modifications:
-    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
-        type: 3}
-      propertyPath: m_Name
-      value: E105
-      objectReference: {fileID: 0}
     - target: {fileID: 4199125886256200114, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8838,6 +8833,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538931925881906456, guid: 3b31826956d219d4da5ee7bf530143df,
+        type: 3}
+      propertyPath: m_Name
+      value: E105
       objectReference: {fileID: 0}
     - target: {fileID: 8986928741646274869, guid: 3b31826956d219d4da5ee7bf530143df,
         type: 3}
