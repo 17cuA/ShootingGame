@@ -73,7 +73,7 @@ public class Wireless_sinario : MonoBehaviour
 		Is_Display = false;
 		frame = 0;
 		first_start = 0;
-		No = 3;
+		No = 0;
 		uiText.text = "";
 		color = uiText.color;
 		outline = outline2.effectColor;
