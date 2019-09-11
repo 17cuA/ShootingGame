@@ -59,10 +59,8 @@ public class Two_Boss_Laser : MonoBehaviour
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
-
-			Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		}
-		else	if (col.gameObject != transform.parent && col.gameObject.layer != 14)
+		else	if (col.gameObject != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
 			{
 				Delete_processing();
 			}
