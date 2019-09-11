@@ -140,6 +140,7 @@ public class Game_Master : MonoBehaviour
         {
             case "Title":
 				display_score_1P = 0;
+				display_score_2P = 0;
 				Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 				break;
             case "Stage_01":
