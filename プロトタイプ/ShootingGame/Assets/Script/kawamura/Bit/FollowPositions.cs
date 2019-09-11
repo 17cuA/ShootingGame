@@ -97,12 +97,12 @@ public class FollowPositions : MonoBehaviour
 		{
 			if (isFollow1P)
 			{
-				if (Input.GetButtonUp("Bit_Freeze") || Input.GetKeyUp(KeyCode.Y))
+				if (Input.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
 				{
 					isFreeze = false;
 					//transform.parent = null;
 				}
-				else if (Input.GetButton("Bit_Freeze") || Input.GetKey(KeyCode.Y))
+				else if (Input.GetButton(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
 				{
 					isFreeze = true;
 					//transform.parent = playerObj.transform;

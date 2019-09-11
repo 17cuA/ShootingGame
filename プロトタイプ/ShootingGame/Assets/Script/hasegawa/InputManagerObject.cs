@@ -13,11 +13,14 @@ using UnityEngine.SceneManagement;
 public class InputManagerObject : MonoBehaviour
 {
 	[SerializeField, Tooltip("入力情報")] InputManager inputManager = new InputManager();
+	[SerializeField, Tooltip("設定状態にするキー")] KeyCode settingKey = KeyCode.F5;
 	public InputManager Manager { get { return inputManager; } }
 	/// <summary>
 	/// 入力の設定を行っている最中かどうか
 	/// </summary>
 	public bool IsInputSetting { get; private set; }
+	[SerializeField] Vector2 debugAreaPosition;
+	DemoMovieControl demoMovieControl;
 
 	void Start()
 	{
@@ -42,13 +45,33 @@ public class InputManagerObject : MonoBehaviour
 	void Update()
 	{
 		if (SceneManager.GetActiveScene().name != "Title") { return; }
-		if (Input.GetKeyDown(KeyCode.F5))
+		if (!demoMovieControl) { demoMovieControl = FindObjectOfType<DemoMovieControl>(); }
+		if (Input.GetKeyDown(settingKey))
 		{
 			IsInputSetting = true;
+			demoMovieControl.IsStopDemoMovie = false;
 		}
 		if (IsInputSetting)
 		{
 			IsInputSetting = !inputManager.SettingButton();
+			demoMovieControl.IsStopDemoMovie = IsInputSetting;
 		}
+	}
+	void OnGUI()
+	{
+		if (IsInputSetting) { return; }
+		string displayText = "";
+		Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
+		foreach(string key in inputManager.Button.Keys)
+		{
+			if (Input.GetButton(inputManager.Button[key]))
+			{
+				displayText += "Input " + key + "\n";
+				displayAreaSize.height += 60f;
+			}
+		}
+		if (displayText == "") { return; }
+		GUI.TextField(displayAreaSize, displayText);
+		GUI.skin.textField.fontSize = 50;
 	}
 }
