@@ -107,6 +107,17 @@ public class Enemy_Moai : character_status
 	{
 		Physics.gravity = new Vector3(0, -0.3f, 0);
 
+        if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+        {
+            hp = 1800;
+            for (int i = 0; i < object_material.Length; i++)
+            {
+                object_material[i].material = self_material[i];
+            }
+
+            return;
+        }
+
 		if (isAppearance)
 		{
 			hp = 1800;
@@ -155,9 +166,8 @@ public class Enemy_Moai : character_status
 			{
 				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 				isAppearance = false;
-				//moaiAnime_Script.isOpen = true;
+				moaiAnime_Script.isOpen = true;
 			}
-
 		}
 		else if (isDead)
 		{
@@ -192,25 +202,26 @@ public class Enemy_Moai : character_status
 		}
 		else
 		{
-			if(isWireles)
-			{
-				wireles_DelayCnt += Time.deltaTime;
-				if (wireles_DelayCnt > wireles_DelayMax)
-				{
-					isWireles = false;
-					moaiAnime_Script.isOpen = true;
-				}
+            aliveCnt += Time.deltaTime;
+            //if(isWireles)
+            //{
+            //	wireles_DelayCnt += Time.deltaTime;
+            //	if (wireles_DelayCnt > wireles_DelayMax)
+            //	{
+            //		isWireles = false;
+            //		moaiAnime_Script.isOpen = true;
+            //	}
 
-			}
-			else
-			{
-				aliveCnt += Time.deltaTime;
+            //}
+            //else
+            //{
+            //	aliveCnt += Time.deltaTime;
 
-			}
-		}
+            //}
+        }
 
 
-		if (attackLoopCnt >= 3)
+        if (attackLoopCnt >= 3)
 		{
 			moaiAnime_Script.isOpen = false;
 		}
@@ -285,19 +296,20 @@ public class Enemy_Moai : character_status
 			//Died_Process();
 		}
 
-		//if (isDead)
-		//{
-		//	for (int i = 0; i < object_material.Length; i++)
-		//	{
-		//		object_material[i].material = self_material[i];
-		//	}
+        //if (isDead)
+        //{
+        //	for (int i = 0; i < object_material.Length; i++)
+        //	{
+        //		object_material[i].material = self_material[i];
+        //	}
 
-		//}
-		if (!isDead)
+        //}
+        if (!isDead) 
 		{
-			base.Update();
+             base.Update();
 
-		}
+
+        }
 		HpColorChange();
 
 		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;

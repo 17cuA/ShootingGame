@@ -9,7 +9,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
 	public GameObject ringBulletObj;    //弾をロードして入れる
 	public GameObject miniMoaiGroupObj;     //ミニモアイ群をロードして入れる
 	public GameObject saveRingBullet;   //生成したオブジェクトを入れる
-	GameObject saveObj;
+	public GameObject saveObj;
 	public GameObject miniMoaiPos;
 	public GameObject moaiLaserPos;
 	public GameObject[] laserPos;
@@ -100,8 +100,12 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
 	void Update()
 	{
+        if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+        {
+            return;
+        }
 
-		if (moai_Script.isMouthOpen && moai_Script.attackLoopCnt < 3 && !moai_Script.isDead)
+        if (moai_Script.isMouthOpen && moai_Script.attackLoopCnt < 3 && !moai_Script.isDead)
 		{
 			switch (moai_Script.attackState)
 			{
@@ -156,7 +160,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
                 //shotRota = new Quaternion(0, 0, Random.Range(-50, 50), 0);
                 //Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.)
                 saveRingBullet = Obj_Storage.Storage_Data.Moai_Bullet.Active_Obj();
-                saveObj.transform.position = this.transform.position;
+                saveRingBullet.transform.position = transform.position;
                 //saveRingBullet = Instantiate(ringBulletObj, transform.position, transform.rotation);
 				saveRingBullet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-(180f - find_Angle_Script.degree - bulletRota_Value), -(180f - find_Angle_Script.degree + bulletRota_Value)));
 			}

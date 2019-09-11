@@ -554,10 +554,10 @@ public class EnemyCreate : MonoBehaviour
 		}
         //モアイ出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
-        if (groupCnt == 52 && frameCnt == turning_frame - 30f)
-		{
-			Wireless_sinario.Is_using_wireless = true;
-		}
+  //      if (groupCnt == 52 && frameCnt == turning_frame - 30f)
+		//{
+		//	Wireless_sinario.Is_using_wireless = true;
+		//}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		if (groupCnt == 74 && frameCnt == turning_frame - 60f)
 		{
@@ -1189,8 +1189,8 @@ public class EnemyCreate : MonoBehaviour
 		{
 			GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
 			moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
-
-			isNowMoai = true;
+            Wireless_sinario.Is_using_wireless = true;
+            isNowMoai = true;
 
 			nextEnemy = "ヒトデ24";
 			Next_Condition(500);
