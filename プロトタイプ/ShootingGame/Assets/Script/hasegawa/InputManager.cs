@@ -136,7 +136,7 @@ public class InputManager
 		for (int i = 0; i < useButtonNameList.Count; ++i)
 		{
 			// ボタン名の情報
-			inputInfoText.text += "\n" + useButtonNameList[i] + " ";
+			inputInfoText.text += "\n" + useButtonNameList[i] + " : ";
 			// 入力状態の情報
 			if (settingButtonNum == i)
 			{
