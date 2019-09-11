@@ -258,7 +258,9 @@ MonoBehaviour:
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
-  m_AfterStackBundles: []
+  m_AfterStackBundles:
+  - assemblyQualifiedName: UnityEngine.Rendering.PostProcessing.MyMotionBulr, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!20 &441007192
 Camera:
   m_ObjectHideFlags: 0
@@ -1380,7 +1382,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4229179365117203088}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!82 &4229179365117203091
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1388,7 +1390,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4229179365117203088}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243992032179403216, guid: 1973227f63f96804f85a595c3fc85ff6,
     type: 2}
@@ -1605,4 +1607,6 @@ MonoBehaviour:
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
-  m_AfterStackBundles: []
+  m_AfterStackBundles:
+  - assemblyQualifiedName: UnityEngine.Rendering.PostProcessing.MyMotionBulr, Unity.Postprocessing.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

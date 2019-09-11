@@ -176,13 +176,28 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	private GameObject CreateNode(Vector3 pos, Vector3 rotation, float trailWidth, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
+
+		if (transform.parent.parent.parent.name == "Player" || (transform.parent.parent.parent.GetComponent<Bit_Formation_3>() != null && transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1))
+		{
+			node.GetComponent<LaserLine>().IsPlayer1Laser = true;
+			node.GetComponent<LaserLine>().IsPlayer2Laser = false;
+		}
+		if (transform.parent.parent.parent.name == "Player_2" || (transform.parent.parent.parent.GetComponent<Bit_Formation_3>() != null && transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player2))
+		{
+			node.GetComponent<LaserLine>().IsPlayer2Laser = true;
+			node.GetComponent<LaserLine>().IsPlayer1Laser = false;
+		}
+
 		node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
 		node.transform.localEulerAngles = rotation;
 		node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
 		node.GetComponent<LaserLine>().TrailRenderer.Clear();
 		node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
 		node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
-		node.AddComponent<PauseComponent>();
+
+		if(node.GetComponent<PauseComponent>() == null)
+			node.AddComponent<PauseComponent>();
+
 		return node;
 	}
 }
