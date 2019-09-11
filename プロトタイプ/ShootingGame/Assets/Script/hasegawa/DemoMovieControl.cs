@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 /// <summary>
 /// ムービーの自動再生の手助けをする
@@ -31,6 +32,7 @@ public class DemoMovieControl : MonoBehaviour
 	bool isInput = false;
 	public bool IsStopDemoMovie { set { isStop = value; } }
 	bool isStop = false;
+	[SerializeField] PlayableDirector titleCameraWork;
 
 	void Start()
 	{
@@ -105,7 +107,7 @@ public class DemoMovieControl : MonoBehaviour
 		{
 			displayPlane.color += new Color(0f, 0f, 0f, 1f / 60f);
 		}
-		else if (frame < 63)
+		else if (frame < 73 && frame > 10)
 		{
 			displayPlane.color -= new Color(0f, 0f, 0f, 1f / 60f);
 			if (displayPlane.color.a < 0f)
@@ -114,7 +116,7 @@ public class DemoMovieControl : MonoBehaviour
 			}
 		}
 		// 完全に暗転したらムービーを停止させる
-		if (displayPlane.color.a >= 1f)
+		if (displayPlane.color.a >= 1f && frame > 10)
 		{
 			playState = MoviePlayState.eStop;
 			videoPlayer.Stop();
@@ -123,6 +125,7 @@ public class DemoMovieControl : MonoBehaviour
 			isInput = false;
 			frame = 0;
 			displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 1f);
+			titleCameraWork.Play();
 		}
 	}
 
@@ -153,6 +156,7 @@ public class DemoMovieControl : MonoBehaviour
 			videoPlayer.Play();
 			frame = 0;
 			displayPlane.color = new Color(displayPlane.color.r, displayPlane.color.g, displayPlane.color.b, 1f);
+			titleCameraWork.Stop();
 		}
 	}
 }

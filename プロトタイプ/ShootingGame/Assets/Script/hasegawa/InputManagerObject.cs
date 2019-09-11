@@ -57,21 +57,21 @@ public class InputManagerObject : MonoBehaviour
 			demoMovieControl.IsStopDemoMovie = IsInputSetting;
 		}
 	}
-	void OnGUI()
-	{
-		if (IsInputSetting) { return; }
-		string displayText = "";
-		Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
-		foreach(string key in inputManager.Button.Keys)
-		{
-			if (Input.GetButton(inputManager.Button[key]))
-			{
-				displayText += "Input " + key + "\n";
-				displayAreaSize.height += 60f;
-			}
-		}
-		if (displayText == "") { return; }
-		GUI.TextField(displayAreaSize, displayText);
-		GUI.skin.textField.fontSize = 50;
-	}
+	//void OnGUI()
+	//{
+	//	if (IsInputSetting) { return; }
+	//	string displayText = "";
+	//	Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
+	//	foreach(string key in inputManager.Button.Keys)
+	//	{
+	//		if (Input.GetButton(inputManager.Button[key]))
+	//		{
+	//			displayText += "Input " + key + "\n";
+	//			displayAreaSize.height += 60f;
+	//		}
+	//	}
+	//	if (displayText == "") { return; }
+	//	GUI.TextField(displayAreaSize, displayText);
+	//	GUI.skin.textField.fontSize = 50;
+	//}
 }
