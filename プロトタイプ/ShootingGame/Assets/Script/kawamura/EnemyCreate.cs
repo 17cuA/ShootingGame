@@ -552,8 +552,9 @@ public class EnemyCreate : MonoBehaviour
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
+        //モアイ出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
-		if (groupCnt == 53 && frameCnt == turning_frame - 480f)
+        if (groupCnt == 52 && frameCnt == turning_frame - 30f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
