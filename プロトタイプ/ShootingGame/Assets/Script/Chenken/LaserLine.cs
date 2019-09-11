@@ -98,7 +98,7 @@ public class LaserLine : Player_Bullet
 			gameObject.SetActive(false);
 			Player_Bullet_Des();
 		}
-        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy" && col.gameObject.name != "One_Boss_LaserLine" && col.gameObject.name != "Two_Boss_Laser")
+        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy" && col.gameObject.name != "One_Boss_Laser" && col.gameObject.name != "Two_Boss_Laser")
         {
             //add:0513_takada 爆発エフェクトのテスト
             //AddExplosionProcess();
