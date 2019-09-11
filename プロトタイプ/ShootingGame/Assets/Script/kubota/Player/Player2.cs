@@ -519,7 +519,6 @@ public class Player2 : character_status
 	{
 		if (Input.GetButtonDown("P2_Fire3"))
 		{
-			Debug.Log("モードチェンジ");
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
 		}
@@ -679,7 +678,6 @@ public class Player2 : character_status
 	private void SpeedUp()
 	{
 		speed *= 1.2f;
-		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -691,7 +689,6 @@ public class Player2 : character_status
 	private void ActiveMissile()
 	{
 		activeMissile = true;
-		Debug.Log("ミサイル導入");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -702,7 +699,6 @@ public class Player2 : character_status
 	//二連をできるように
 	private void ActiveDouble()
 	{
-		Debug.Log("ダブル導入");
 		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
@@ -715,7 +711,6 @@ public class Player2 : character_status
 	//レーザーを打てるように
 	private void ActiveLaser()
 	{
-		Debug.Log("レーザーに変更");
 		bullet_Type = Bullet_Type.Laser;
 		//プレイヤーパワーアップ時のエフェクト発動処理----------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
@@ -733,7 +728,6 @@ public class Player2 : character_status
 		activeShield = true;            //シールドが発動するかどうかの判定
 		Set_Shield(3);
 		shield_Effect.Play();               //パーティクルの稼働
-		Debug.Log("シールド発動");
 		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();

@@ -77,7 +77,6 @@ public class character_status : MonoBehaviour
 					material_Reset();
 					framecnt = 0;
 					check = false;
-					Debug.Log("fack");
 					return;
 				}
 			}
