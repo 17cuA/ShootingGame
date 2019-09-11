@@ -77,7 +77,6 @@ public class character_status : MonoBehaviour
 					material_Reset();
 					framecnt = 0;
 					check = false;
-					Debug.Log("fack");
 					return;
 				}
 			}
@@ -238,6 +237,10 @@ public class character_status : MonoBehaviour
 				if(gameObject.name == "Bacula")
 				{
 					SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
+				}
+				if(gameObject.name == "Shiled_father")
+				{
+					SE_Manager.SE_Obj.Boss_Core(Obj_Storage.Storage_Data.audio_se[7]);
 				}
 
 			}

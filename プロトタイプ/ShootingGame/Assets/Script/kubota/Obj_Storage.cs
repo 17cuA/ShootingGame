@@ -197,17 +197,17 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");		//プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");		//アイテム取得音(バー移動)
 		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei_neo");	//アイテム使用パワーアップ音(ステータス変化)
-		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/10_gradius_se_Shot_Hit");			//HP持ちエネミーのカウンター音(ダメージ減ってない)
+		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");			//コアシールドヒット音
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
-		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/13_gradius_se_SpeedUp");			//スピードアップの声
-		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/14_gradius_se_LASER");			//レーザー攻撃の声
-		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/15_gradius_se_Double");			//ダブルの声
-		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/16_gradius_se_LIPLE_LASER");		//リップルレーザーの声
-		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/17_gradius_se_OPTION");			//オプションの声
-		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/18_gradius_se_FORCE_FIELD");		//フォースフィールド（シールド）
-		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/power_up_kettei");			//パワーアップの音(使用しない)
+		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");			//スピードアップの声使ってない
+		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");           //レーザー攻撃の声使ってない
+		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
+		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //リップルレーザーの声使ってない
+		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //オプションの声使ってない
+		audio_se[15] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //フォースフィールド（シールド）使ってない
+		audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei_neo");			//パワーアップの音(使用しない)
 		audio_se[17] = Resources.Load<AudioClip>("Sound/Teacher_SE/gradius_SE_Player_Laser");	//レーザーの発射音
         audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)");		//小型爆発
         audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");	//戦艦タイプの爆発音
