@@ -117,33 +117,64 @@ public class Obj_Storage : MonoBehaviour
 
 	public List<List<string[]>> Wireless_Sinario = new List<List<string[]>>();
 
-	//仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
-	public GameObject enemy_UFO_Group_prefab;
-	public GameObject enemy_ClamChowder_Group_Four_prefab;
-	public GameObject enemy_ClamChowder_Group_Two_Top_prefab;
-	public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
-	public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
-	public GameObject enemy_ClamChowder_Group_Seven_prefab;
-	//public GameObject enemy_MiddleBoss_Father_prefab;
-	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
-	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
-	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
-	public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
+    //仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
+    public GameObject enemy_UFO_Group_prefab;
+    public GameObject enemy_UFO_Group_NoneShot_prefab;
+    public GameObject enemy_ClamChowder_Group_Two_Top_prefab;
+    public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab;
+    public GameObject enemy_ClamChowder_Group_Three_prefab;
+    public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
+    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
+    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
+    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
+    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
+    public GameObject enemy_ClamChowder_Group_Four_prefab;
+    public GameObject enemy_ClamChowder_Group_Four_NoItem_prefab;
+    public GameObject enemy_ClamChowder_Group_Five_prefab;
+    public GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
+    public GameObject enemy_ClamChowder_Group_Seven_prefab;
+    //public GameObject enemy_MiddleBoss_Father_prefab;
+    public GameObject enemy_ClamChowder_Group_Straight_prefab;
+    public GameObject enemy_Beelzebub_Group_FourWide_prefab;
+    public GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
+    public GameObject enemy_BeetleGroup_prefab;
+    public GameObject enemy_BeetleGroup_Three_prefab;
+    public GameObject boundMeteors_prefab;
+    public GameObject enemy_Bacula_Sixteen_prefab;
+    public GameObject enemy_Bacula_FourOnly_prefab;
+    //public GameObject enemy_Star_Fish_Spowner_prefab;
 
-	public Object_Pooling enemy_UFO_Group;
-	public Object_Pooling enemy_ClamChowder_Group_Four;
-	public Object_Pooling enemy_ClamChowder_Group_Two_Top;
-	public Object_Pooling enemy_ClamChowder_Group_Two_Under;
-	public Object_Pooling enemy_ClamChowder_Group_Three_Item;
-	public Object_Pooling enemy_ClamChowder_Group_Seven;
-	//public Object_Pooling enemy_MiddleBoss_Father;
-	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
-	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
-	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
-	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+    public Object_Pooling enemy_UFO_Group;
+    public Object_Pooling enemy_UFO_Group_NoneShot;
+    public Object_Pooling enemy_ClamChowder_Group_Two_Top;
+    public Object_Pooling enemy_ClamChowder_Group_Two_Under;
+    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyUp;
+    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyDown;
+    public Object_Pooling enemy_ClamChowder_Group_Three;
+    public Object_Pooling enemy_ClamChowder_Group_Three_Item;
+    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
+    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
+    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+    public Object_Pooling enemy_ClamChowder_Group_Four;
+    public Object_Pooling enemy_ClamChowder_Group_Four_NoItem;
+    public Object_Pooling enemy_ClamChowder_Group_Five;
+    public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
+    public Object_Pooling enemy_ClamChowder_Group_Seven;
+    //public Object_Pooling enemy_MiddleBoss_Father;
+    public Object_Pooling enemy_ClamChowder_Group_Straight;
+    public Object_Pooling enemy_Beelzebub_Group_FourWide;
+    public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
+    public Object_Pooling enemy_BeetleGroup;
+    public Object_Pooling enemy_BeetleGroup_Three;
+    public Object_Pooling boundMeteors;
+    public Object_Pooling enemy_Bacula_Sixteen;
+    public Object_Pooling enemy_Bacula_FourOnly;
 
-	//----------------------------------------------------------
-	private void Awake()
+    //----------------------------------------------------------
+    private void Awake()
 	{
 		Storage_Data = GetComponent<Obj_Storage>();
 	}
@@ -267,21 +298,36 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
 		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
 		audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
-		//--------------------------------------------------------------------------------------------------------
-		enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
-		enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
-		enemy_ClamChowder_Group_Two_Top_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
-		enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
-		enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-		enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-		//enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
-		enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
-		enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
-		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
-		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
-		//--------------------------------------------------------------------------------------------------------
+                                                                                                    //--------------------------------------------------------------------------------------------------------
+        enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+        enemy_UFO_Group_NoneShot_prefab = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
+        enemy_ClamChowder_Group_Two_Top_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+        enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUP") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
+        enemy_ClamChowder_Group_Three_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
+        enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+        enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
+        enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
+        enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
+        enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
+        enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
+        enemy_ClamChowder_Group_Four_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
+        enemy_ClamChowder_Group_Five_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
+        enemy_ClamChowder_Group_Five_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
+        enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+        enemy_ClamChowder_Group_Straight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
+        //enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+        enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
+        enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
+        enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_BeetleGroup") as GameObject;
+        enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_BeetleGroup_Three") as GameObject;
+        boundMeteors_prefab = Resources.Load("Enemy/BoundMeteors") as GameObject;
+        enemy_Bacula_Sixteen_prefab = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
+        enemy_Bacula_FourOnly_prefab = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
+        //--------------------------------------------------------------------------------------------------------
 
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+        Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
 		Enemy1 = new Object_Pooling(Enemy_Prefab, 5, "Enemy_Straight");                 //Enemy(直線のみ)の生成
 		Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
@@ -337,21 +383,36 @@ public class Obj_Storage : MonoBehaviour
 		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
 		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");                    //ボスの弾その3
 		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
-		//---------------------------------------------------------------------------------------------------
-		//敵キャラのプーリング化-------------------------------------------------------------------------------
-		enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
-		enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
-		enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
-		enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
-		enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
-		enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
-		//enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
-		enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-		enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
-		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
-		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
-		//-----------------------------------------------------------------------------------------------------
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+                                                                                            //---------------------------------------------------------------------------------------------------
+                                                                                            //敵キャラのプーリング化-------------------------------------------------------------------------------
+        enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
+        enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
+        enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
+        enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
+        enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
+        enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
+        //enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
+        enemy_ClamChowder_Group_Three = new Object_Pooling(enemy_ClamChowder_Group_Three_prefab, 1, "enemy_ClamChowder_Group_Three");
+        enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
+        enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
+        enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
+        enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
+        enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
+        enemy_ClamChowder_Group_Four_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Four_NoItem_prefab, 1, "enemy_ClamChowder_Group_Four_NoItem");
+        enemy_ClamChowder_Group_Five = new Object_Pooling(enemy_ClamChowder_Group_Five_prefab, 1, "enemy_ClamChowder_Group_Five");
+        enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
+        enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
+        enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
+        enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        //-----------------------------------------------------------------------------------------------------
+        if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
 			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;            //csvファイルを入れる変数
 			StringReader csv = new StringReader(Word.text);                                         //読み込んだデータをcsvの変数の中に格納
