@@ -8,8 +8,6 @@ public class Enemy_star_Fish : character_status
     GameObject item;
 	public Vector3 playerPos;
 	public Vector3 firstPos;
-	public Player1 P1;
-	public Player2 P2;
 	public int num = 0;
 	private Vector3 vector;		//単位ベクトルを入れる
     public bool haveItem = false;
@@ -24,36 +22,6 @@ public class Enemy_star_Fish : character_status
         item = Resources.Load("Item/Item_Test") as GameObject;
         base.Start();
 	}
-
-	private void OnEnable()
-	{
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		{
-			P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-			playerPos = P1.transform.position;
-		}
-		else
-		{
-			if (num == 0)
-			{
-				P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				playerPos = P1.direction;
-			}
-			else
-			{
-				P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				playerPos = P2.direction;
-			}
-		}
-	}
-
-	//SetActiveがfalseになった時に呼ばれる
-	private void OnDisable()
-	{
-		if (P1 != null) P1 = null;
-		if (P2 != null) P2 = null;
-	}
-
 	// Update is called once per frame
 	new void Update()
 	{

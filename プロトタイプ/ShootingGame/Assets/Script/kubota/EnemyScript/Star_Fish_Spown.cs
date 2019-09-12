@@ -15,6 +15,8 @@ public class Star_Fish_Spown : MonoBehaviour
 	[Header("動き続ける時間を設定")]
 	public int Active_Frame_Max;            //活動しているフレーム最大数
 
+	private GameObject P1_obj;
+	private GameObject P2_obj;
 	private Player1 P1;			//1Pの情報
 	private Player2 P2;			  //２Ｐの情報
 
@@ -40,8 +42,10 @@ public class Star_Fish_Spown : MonoBehaviour
 		attack_type = 0;
 		Create_Pos_cnt = 0;
 		Active_Frame = 0;
-		P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-		P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+		P1_obj = Obj_Storage.Storage_Data.GetPlayer();
+		P2_obj = Obj_Storage.Storage_Data.GetPlayer2();
+		P1 = P1_obj.GetComponent<Player1>();
+		P2 = P2_obj.GetComponent<Player2>();
 	}
     void Update()
     {
@@ -74,6 +78,19 @@ public class Star_Fish_Spown : MonoBehaviour
 				//ここでやらなければ、生成位置がずれてしまうため。
 				ESF.firstPos = ESF.transform.position;
 				//攻撃のターゲットを設定
+				if (attack_type % 2 == 0)
+				{
+					if (!P1_obj.activeSelf) ESF.playerPos = P2.transform.position;
+					else if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+					else ESF.playerPos = P1.transform.position;
+				}
+				else
+				{
+					if (!P2_obj.activeSelf) ESF.playerPos = P1.transform.position;
+					else if (P2.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+					else ESF.playerPos = P2.transform.position;
+
+				}
 				ESF.Attack_Target_Decision(attack_type % 2);
 				attack_type++;
 				Create_Pos_cnt++;
@@ -88,7 +105,8 @@ public class Star_Fish_Spown : MonoBehaviour
 				Enemy_star_Fish ESF = Obj_Storage.Storage_Data.StarFish_Enemy.Active_Obj().GetComponent<Enemy_star_Fish>();
 				ESF.transform.position = pos[Create_Pos_cnt];
 				ESF.firstPos = ESF.transform.position;
-				Create_Pos_cnt++;
+				if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+				else ESF.playerPos = P1.transform.position; Create_Pos_cnt++;
 				frame = 0;
 			}
 		}
