@@ -377,6 +377,13 @@ public class Bit_Formation_3 : MonoBehaviour
 			//プレイヤー１のオブジェクトに当たったら
 			if (col.gameObject.name == "Player")
 			{
+				//オプションの再回収------------------------------
+				GameObject effect = Obj_Storage.Storage_Data.Effects[3].Active_Obj();
+				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+				effect.transform.position = col.transform.position;
+				particle.Play();
+				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+				//-----------------------------------------------
 				//オプションパーティクルストップ
 				//option_Particle.Stop();
 				b_Shot.isShot = true;
@@ -547,6 +554,13 @@ public class Bit_Formation_3 : MonoBehaviour
 			//プレイヤー2に当たったら
 			else if (col.gameObject.name == "Player_2")
 			{
+				//回収用パーティクルの発生
+				GameObject effect = Obj_Storage.Storage_Data.Effects[3].Active_Obj();
+				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+				effect.transform.position = col.transform.position;
+				particle.Play();
+				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+				//-------------------------------------------------------------
 				//オプションパーティクルストップ
 				//option_Particle.Stop();
 				b_Shot.isShot = true;

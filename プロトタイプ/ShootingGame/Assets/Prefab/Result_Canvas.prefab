@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2322928362876008251
+--- !u!1 &846306687825259193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5436380723669709989}
-  - component: {fileID: 5727569460642611823}
-  - component: {fileID: 6013596020761373551}
-  - component: {fileID: 2031065934663637924}
-  - component: {fileID: 254026138998753346}
-  - component: {fileID: 2930520275052560000}
+  - component: {fileID: 6986203476798138663}
+  - component: {fileID: 7277384267775172589}
+  - component: {fileID: 8716305599586170605}
+  - component: {fileID: 4012100130978006566}
+  - component: {fileID: 846306687825259190}
   m_Layer: 5
-  m_Name: Ranking_Canvas
+  m_Name: Result_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5436380723669709989
+--- !u!224 &6986203476798138663
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
+  m_GameObject: {fileID: 846306687825259193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
@@ -40,13 +39,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!223 &5727569460642611823
+--- !u!223 &7277384267775172589
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
+  m_GameObject: {fileID: 846306687825259193}
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
@@ -61,13 +60,13 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &6013596020761373551
+--- !u!114 &8716305599586170605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
+  m_GameObject: {fileID: 846306687825259193}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -83,13 +82,13 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &2031065934663637924
+--- !u!114 &4012100130978006566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
+  m_GameObject: {fileID: 846306687825259193}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -100,35 +99,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &254026138998753346
+--- !u!114 &846306687825259190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
+  m_GameObject: {fileID: 846306687825259193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99608536b686e7540ba7021b906cfd39, type: 3}
+  m_Script: {fileID: 11500000, guid: 763c788d85efdf04ca210e5e246c630b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2930520275052560000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322928362876008251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f14448d0bb66ed4ca8497af1b31ca40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input1PNameClass:
-    Move: {fileID: 0}
-    Decition: {fileID: 0}
-    Return_Sound: {fileID: 0}
-  input2PNameClass:
-    Move: {fileID: 0}
-    Decition: {fileID: 0}
-    Return_Sound: {fileID: 0}

@@ -47,27 +47,60 @@ public class Enemy_star_Fish : character_status
 			if (num == 0)
 			{
 				P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				if (P1.Is_Resporn)
+				if(!P1.Died_Judgment())
 				{
-					playerPos = Vector3.left;
+					if (P1.Is_Resporn)
+					{
+						playerPos = Vector3.left;
+					}
+					else
+					{
+						playerPos = P1.transform.position;
+					}
 				}
 				else
 				{
-					playerPos = P1.transform.position;
+					P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+					if (P2.Is_Resporn)
+					{
+						playerPos = Vector3.left;
+					}
+					else
+					{
+						playerPos = P2.transform.position;
+					}
+					playerPos = P2.transform.position;
+
 				}
 			}
 			else
 			{
 				P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				if (P2.Is_Resporn)
+				if (!P2.Died_Judgment())
 				{
-					playerPos = Vector3.left;
+					if (P2.Is_Resporn)
+					{
+						playerPos = Vector3.left;
+					}
+					else
+					{
+						playerPos = P2.transform.position;
+					}
 				}
 				else
 				{
-					playerPos = P2.transform.position;
+					P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+					if (P1.Is_Resporn)
+					{
+						playerPos = Vector3.left;
+					}
+					else
+					{
+						playerPos = P1.transform.position;
+					}
 				}
 			}
+
 		}
 	}
 
