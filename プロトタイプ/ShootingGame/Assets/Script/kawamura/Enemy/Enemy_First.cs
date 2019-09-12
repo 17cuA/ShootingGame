@@ -78,36 +78,6 @@ public class Enemy_First : character_status
 			haveItem = true;
 		}
 	}
-	//追加したよ
-	private void OnEnable()
-	{
-		
-		//if (parentObj)
-		//{
-		//	if (parentObj.name != "enemy_UFO_Group")
-		//	{
-		//		eState = State.Straight;
-		//		speedX = speedX_Straight;
-		//	}
-		//	else
-		//	{
-		//		transform.localPosition = defaultPos_Local;
-		//		if (transform.position.y > 0)
-		//		{
-		//			//transform.localPosition = defaultPos_Local;
-		//			speedX = 5;
-		//			eState = State.TurnDown;
-		//		}
-		//		else
-		//		{
-		//			//transform.localPosition = defaultPos_Local;
-		//			speedX = 5;
-		//			eState = State.TurnUp;
-		//		}
-		//	}
-		//}
-	}
-
 
 	new void Start()
 	{
@@ -123,33 +93,33 @@ public class Enemy_First : character_status
 		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
-			if (parentObj.name == "enemy_UFO_Group")
-			{
-				groupManage = parentObj.GetComponent<EnemyGroupManage>();
-				//transform.position = defaultPos_PlusZ;
-				speedX = 5;
-				//if (transform.position.y > 0)
-				//{
+			//if (parentObj.name == "enemy_UFO_Group")
+			//{
+			groupManage = parentObj.GetComponent<EnemyGroupManage>();
+			//transform.position = defaultPos_PlusZ;
+			speedX = 5;
+			//if (transform.position.y > 0)
+			//{
 
-				//	speedX = 5;
-				//	eState = State.TurnDown;
+			//	speedX = 5;
+			//	eState = State.TurnDown;
+			//}
+			//else
+			//{
+			//	speedX = 5;
+			//	eState = State.TurnUp;
 				//}
-				//else
-				//{
-				//	speedX = 5;
-				//	eState = State.TurnUp;
-				//}
-			}
-			else
-			{
-				eState = State.Straight;
-			}
+			//}
+			//else
+			//{
+			//	eState = State.Straight;
+			//}
 		}
-		else
-		{
-			parentObj = GameObject.Find("TemporaryParent");
-			transform.parent = parentObj.transform;
-		}
+		//else
+		//{
+		//	parentObj = GameObject.Find("TemporaryParent");
+		//	transform.parent = parentObj.transform;
+		//}
 
 		HP_Setting();
 		base.Start();
@@ -162,29 +132,30 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-				if (parentObj.name != "enemy_UFO_Group")
-				{
-					eState = State.Straight;
-					speedX = speedX_Straight;
-				}
-				else
-				{
-					transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y,40.0f);
+                //if (parentObj.name != "enemy_UFO_Group")
+                //{
+                //	eState = State.Straight;
+                //	speedX = speedX_Straight;
+                //}
+                //else
+                //{
+                //transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y,40.0f);
+                transform.localPosition = defaultPos_PlusZ;
 
-					defaultPosY_World = transform.position.y;
-					defaultPosY_Local = transform.localPosition.y;
+                defaultPosY_World = transform.position.y;
+				defaultPosY_Local = transform.localPosition.y;
 
-					endPosY_Local = defaultPosY_World * -0.29f;
+				endPosY_Local = defaultPosY_World * -0.29f;
 
-					//transform.localPosition = defaultPos_Local;
-					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					//transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
+				//transform.localPosition = defaultPos_Local;
+				//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+				//transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
 
-					//transform.localPosition = new Vector3(0, 0, 20.0f);
-					//transform.localPosition = defaultPos_PlusZ;
-					//transform.localPosition = defaultPos_Local;
+				//transform.localPosition = new Vector3(0, 0, 20.0f);
+				//transform.localPosition = defaultPos_PlusZ;
+				//transform.localPosition = defaultPos_Local;
 
-					speedX = 5;
+				speedX = 5;
      //               if (transform.position.y > 0)
 					//{
 					//	//transform.localPosition = defaultPos_Local;
@@ -199,7 +170,7 @@ public class Enemy_First : character_status
      //                   speedY = 5;
 					//	eState = State.TurnUp;
 					//}
-				}
+				//}
 			}
 			once = false;
 		}
@@ -541,11 +512,11 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-				if (parentObj.name == "enemy_UFO_Group")
-				{
-					groupManage.notDefeatedEnemyCnt++;
-					groupManage.remainingEnemiesCnt -= 1;
-				}
+				//if (parentObj.name == "enemy_UFO_Group")
+				//{
+				groupManage.notDefeatedEnemyCnt++;
+				groupManage.remainingEnemiesCnt -= 1;
+				//}
 			}
 			//frame = 0;
 			Enemy_Reset();
@@ -556,11 +527,11 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-				if (parentObj.name == "enemy_UFO_Group")
-				{
-					groupManage.notDefeatedEnemyCnt++;
-					groupManage.remainingEnemiesCnt -= 1;
-				}
+				//if (parentObj.name == "enemy_UFO_Group")
+				//{
+				groupManage.notDefeatedEnemyCnt++;
+				groupManage.remainingEnemiesCnt -= 1;
+				//}
 			}
 
 			Enemy_Reset();

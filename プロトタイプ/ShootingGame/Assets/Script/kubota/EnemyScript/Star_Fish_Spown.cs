@@ -11,11 +11,16 @@ public class Star_Fish_Spown : MonoBehaviour
 	Vector3[] pos = new Vector3[12];    //出現位置を入れておくもの
 	private int Create_Pos_cnt;             //生成位置を決めるための
 
-	public float Active_Time;      //活動する時間
 	public int Active_Frame;	//活動しているフレーム数
 	[Header("動き続ける時間を設定")]
-	public float Active_Time_Max;           //活動限界時間
-	public int Active_Frame_Max;			//活動しているフレーム最大数
+	public int Active_Frame_Max;            //活動しているフレーム最大数
+
+	private GameObject P1_obj;
+	private GameObject P2_obj;
+	private Player1 P1;			//1Pの情報
+	private Player2 P2;			  //２Ｐの情報
+
+
 	private void Start()
 	{
 		//生成位置を決められたポジションに配置
@@ -31,24 +36,19 @@ public class Star_Fish_Spown : MonoBehaviour
 		pos[9] = new Vector3(3.154f + 9.0f, -4.15f, 0.0f);
 		pos[10] = new Vector3(2.158f + 9.0f, 3.154f, 0.0f);
 		pos[11] = new Vector3(0.996f + 9.0f, -4.15f, 0.0f);
-	}
-	private void OnEnable()
-	{
+
 		//各値の初期化
 		frame = 0;
 		attack_type = 0;
 		Create_Pos_cnt = 0;
-		Active_Time = 0;
+		Active_Frame = 0;
+		P1_obj = Obj_Storage.Storage_Data.GetPlayer();
+		P2_obj = Obj_Storage.Storage_Data.GetPlayer2();
+		P1 = P1_obj.GetComponent<Player1>();
+		P2 = P2_obj.GetComponent<Player2>();
 	}
-
     void Update()
     {
-		//稼働時間をカウントし、規定の時間を越したら活動をやめる-----------
-		//Active_Time += Time.deltaTime;
-		//if(Active_Time > Active_Time_Max)
-		//{
-		//	gameObject.SetActive(false);
-		//}
 		
 		if(Active_Frame > Active_Frame_Max)
 		{
@@ -78,6 +78,19 @@ public class Star_Fish_Spown : MonoBehaviour
 				//ここでやらなければ、生成位置がずれてしまうため。
 				ESF.firstPos = ESF.transform.position;
 				//攻撃のターゲットを設定
+				if (attack_type % 2 == 0)
+				{
+					if (!P1_obj.activeSelf) ESF.playerPos = P2.transform.position;
+					else if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+					else ESF.playerPos = P1.transform.position;
+				}
+				else
+				{
+					if (!P2_obj.activeSelf) ESF.playerPos = P1.transform.position;
+					else if (P2.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+					else ESF.playerPos = P2.transform.position;
+
+				}
 				ESF.Attack_Target_Decision(attack_type % 2);
 				attack_type++;
 				Create_Pos_cnt++;
@@ -85,17 +98,22 @@ public class Star_Fish_Spown : MonoBehaviour
 			}
 			else
 			{
-				//稼働にし、規定の位置に移動させる
+				//稼働にし、規定の位置に移動させる-------------------------------------
 				GameObject effect = Obj_Storage.Storage_Data.Effects[14].Active_Obj();
 				effect.transform.position = pos[Create_Pos_cnt];
-
+				//--------------------------------------------------------------
 				Enemy_star_Fish ESF = Obj_Storage.Storage_Data.StarFish_Enemy.Active_Obj().GetComponent<Enemy_star_Fish>();
 				ESF.transform.position = pos[Create_Pos_cnt];
 				ESF.firstPos = ESF.transform.position;
-				Create_Pos_cnt++;
-
+				if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
+				else ESF.playerPos = P1.transform.position; Create_Pos_cnt++;
 				frame = 0;
 			}
 		}
+	}
+
+	void Player_Pos_Get()
+	{
+		
 	}
 }
