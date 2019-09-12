@@ -205,7 +205,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");			//ボス登場時のエフェクト
 		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");		//隕石の爆発Effect
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");		//ヒトデ型の出現用
-		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");      //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Attachment/A003_2P");      //2Pパワーアップエフェクト
 		Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");		//ミサイルの爆発
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/Teacher_SE/bacura_hit");				//バキュラに当たった時の高い音用
