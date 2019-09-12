@@ -224,14 +224,20 @@ public class EnemyCreate : MonoBehaviour
 	GameObject twoBossObj;
 	Two_Boss twoBoss_Script;
 
-	public bool isCreate;       //表示するときにtrueにする
+    GameObject moaiObj;
+    Enemy_Moai moai_Script;
+
+
+    public bool isCreate;       //表示するときにtrueにする
 	public bool isBaculaDestroy = false;
 	public bool isMiddleBossDead = false;
 	public bool isOneBossAlive = false;
 	public bool isTwoBossAlive = false;
+    public bool isMoaiAlive = false;
 
-	public bool isNowOneBoss = false;
+    public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
+    public bool isNowMoai = true;
 	public bool isDebug = false;
 	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 	
@@ -440,9 +446,14 @@ public class EnemyCreate : MonoBehaviour
 		twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
 		twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
 		isTwoBossAlive = true;
-	}
 
-	void Update()
+        moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
+        moai_Script = moaiObj.GetComponent<Enemy_Moai>();
+        isMoaiAlive = true;
+
+    }
+
+    void Update()
 	{
 		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
 		{
@@ -450,7 +461,7 @@ public class EnemyCreate : MonoBehaviour
 		}
 		PreviousCount = frameCnt;
 
-		if (!isNowOneBoss && !isNowTwoBoss)
+        if (!isNowOneBoss && !isNowTwoBoss && !isNowMoai)
 		{
 			frameCnt++;
 		}
@@ -562,7 +573,7 @@ public class EnemyCreate : MonoBehaviour
 			Wireless_sinario.Is_using_wireless = true;
 		}
 		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 73 && frameCnt == turning_frame - 60f)
+		if (groupCnt == 90 && frameCnt == turning_frame - 60f)
 		{
 			Wireless_sinario.Is_using_wireless = true;
 		}
@@ -598,8 +609,21 @@ public class EnemyCreate : MonoBehaviour
 				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
 		}
-		//第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (twoBoss_Script != null)
+
+        if (moai_Script != null)
+        {
+            if (moai_Script.Is_Dead)
+            {
+                if (isMoaiAlive)
+                {
+                    isNowMoai = false;
+                    isMoaiAlive = false;
+                }
+            }
+        }
+
+        //第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+        if (twoBoss_Script != null)
 		{
 			if (twoBoss_Script.Is_Dead)
 			{
@@ -1713,7 +1737,7 @@ public class EnemyCreate : MonoBehaviour
     {
         bool bigcoreFlag = false;
         bool bigcoreMK2Flag = false;
-        bool moaiFlag = false;
+        bool moaiFlag = true;
 
         // 円盤上10
         if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
@@ -2259,11 +2283,11 @@ public class EnemyCreate : MonoBehaviour
         {
             if (moaiFlag)
             {
-                //GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
-                //moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
-                //Wireless_sinario.Is_using_wireless = true;
-                //isNowMoai = true;
-                //Next_Condition(620);
+                GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
+                moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
+                Wireless_sinario.Is_using_wireless = true;
+                isNowMoai = true;
+                Next_Condition(620);
             }
             else
             {
