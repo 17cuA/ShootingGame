@@ -117,7 +117,7 @@ public class ResultDisplay : MonoBehaviour
 		result1PTotalScoreTextDisplay.Character_Preference("TOTAL_SCORE");
 		result1PTotalScoreTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// トータルスコア
-		uint total1PScore = Game_Master.display_score_1P + kClearbonusValue;
+		uint total1PScore = Game_Master.display_score_1P + clearbonus;
 		GameObject result1PTotalScoresParent = new GameObject("1PTotalScore");
 		result1PTotalScoresParent.transform.parent = transform;
 		result1PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result1PTotalScoresParent, result1PTotalScorePosition);
@@ -170,7 +170,7 @@ public class ResultDisplay : MonoBehaviour
 		result2PTotalScoreTextDisplay.Character_Preference("TOTAL_SCORE");
 		result2PTotalScoreTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// トータルスコア
-		uint total2PScore = Game_Master.display_score_2P + kClearbonusValue;
+		uint total2PScore = Game_Master.display_score_2P + clearbonus;
 		GameObject result2PTotalScoresParent = new GameObject("2PTotalScore");
 		result2PTotalScoresParent.transform.parent = transform;
 		result2PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result2PTotalScoresParent, result2PTotalScorePosition);
