@@ -13,7 +13,7 @@ public class Wireless_sinario : MonoBehaviour
 	public string[] Curtain_up;
 	public string[] First_half_boss_before;
 	public string[] First_falf_boss_after;
-	//public string[] Moai;			//モアイのシナリオ
+	public string[] Moai;			//モアイのシナリオ
 	public string[] Second_half_boss_before;
 	public string[] Second_half_boss_after;
 
@@ -38,7 +38,7 @@ public class Wireless_sinario : MonoBehaviour
 		Curtain_up,                         //開戦時
 		First_half_boss_before,             //前半ボス前
 		First_falf_boss_after,              //前半ボス後
-		//Moai,								//モアイ
+		Moai,								//モアイ
 		Second_half_boss_before,            //後半ボス前
 		Second_half_boss_after              //後半ボス後
 	}
@@ -155,6 +155,8 @@ public class Wireless_sinario : MonoBehaviour
 			//デバック用
 			if (Input.GetKeyDown(KeyCode.Alpha0))
 			{
+				No++;
+				SetNext_sinario();
 				currentLine = 0;
 				frame = 0;
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
@@ -193,6 +195,7 @@ public class Wireless_sinario : MonoBehaviour
 				{
 					if (No == 0)
 					{
+						//開戦時
 						Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
 					}
 					//else if (Start_cnt > 90)
@@ -201,20 +204,32 @@ public class Wireless_sinario : MonoBehaviour
 					switch (No)
 					{
 						case 1:
+							//前半ボス前
 							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[1]);
 							break;
 						case 2:
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
+							//前半ボス後
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[22]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[23]);
 							break;
 						case 3:
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
+							//モアイの音声
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
+
 							break;
 						case 4:
+							//後半ボス前
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
+
+							break;
+						case 5:
+							//後半ボス後
 							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[6]);
 							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
 							break;
+
 					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)
@@ -290,19 +305,22 @@ public class Wireless_sinario : MonoBehaviour
 				unShowTime = 5f;
 				break;
 			case 3:
-				//後半ボス前
-				scenarios = Second_half_boss_before;
+				//モアイ
+				scenarios = Moai;
 				frameMax = 240;
+				unShowTime = 5.5f;
 
 				break;
 			case 4:
+				//後半ボス前
+				scenarios = Second_half_boss_before;
+				frameMax = 240;
+				break;
+			case 5:
 				//後半ボス後
 				scenarios = Second_half_boss_after;
 				frameMax = 240;
 				break;
-			//case 5:
-				
-			//	break;
 			default:
 				break;
 		}
