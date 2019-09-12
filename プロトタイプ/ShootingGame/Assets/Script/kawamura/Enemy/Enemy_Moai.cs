@@ -280,7 +280,12 @@ public class Enemy_Moai : character_status
 			}
 		}
 
-		if (aliveCnt > 116)
+		if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.H))
+		{
+			hp = 0;
+		}
+
+			if (aliveCnt > 116)
 		{
 			isExit = true;
 			Is_Dead = true;

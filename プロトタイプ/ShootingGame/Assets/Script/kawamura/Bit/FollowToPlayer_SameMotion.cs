@@ -68,6 +68,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				//プレイヤーがいたら入れる
 				if (GameObject.Find("Player"))
 				{
+					playerObj = Obj_Storage.Storage_Data.GetPlayer();
 					playerObj = GameObject.Find("Player");
 					pl1 = playerObj.GetComponent<Player1>();
 					//配列にとりあえず追従位置を入れる
@@ -87,7 +88,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				//プレイヤーがいたら入れる
 				if (GameObject.Find("Player_2"))
 				{
-					playerObj = GameObject.Find("Player_2");
+					playerObj = Obj_Storage.Storage_Data.GetPlayer2();
 					pl2 = playerObj.GetComponent<Player2>();
 					//配列にとりあえず追従位置を入れる
 					for (int i = 0; i < array_Num; i++)
