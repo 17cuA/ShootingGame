@@ -14,6 +14,33 @@ public class Enemy_Moai_Attack : MonoBehaviour
 	public GameObject moaiLaserPos;
 	public GameObject[] laserPos;
 
+	//バースト
+	private Transform Enemy_transform;  //自身のtransform
+	public GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
+	//public GameObject parentObj;
+	ShotCheck sc;
+
+	public string myName;
+	[Header("バーストとバーストの間隔を計る")]
+	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
+	[Header("バーストとバーストの間隔")]
+	public float Shot_Delay_Max;                     //１つのバーストの間隔
+	public float burst_delay;                      //バーストの1発1発の間隔時間を計る
+	[Header("バースト内の弾の間隔")]
+	public float burst_Delay_Max;           //バーストの1発1発の間隔
+	[Header("バーストで撃つ数")]
+	public int burst_ShotNum;                   //撃つバースト数
+	[Header("バーストを撃つ回数")]
+	public int burst_Times;
+	public int burst_Num;                   //バーストを撃った回数
+	public int burst_Shot_Cnt;                 //何発撃ったかのカウント
+	public bool isShot = false;
+	public bool isBurst = false;        //バーストを撃つかどうか
+	public bool once;
+
+	//
+
+
 	public Enemy_Moai moai_Script;
 	public Quaternion shotRota;
 
