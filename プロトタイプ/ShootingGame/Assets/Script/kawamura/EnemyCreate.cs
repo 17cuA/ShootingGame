@@ -1735,8 +1735,8 @@ public class EnemyCreate : MonoBehaviour
 
     private void CreateEnemyGroup_01_TypeB()
     {
-        bool bigcoreFlag = false;
-        bool bigcoreMK2Flag = false;
+        bool bigcoreFlag = true;
+        bool bigcoreMK2Flag = true;
         bool moaiFlag = true;
 
         // 円盤上10
