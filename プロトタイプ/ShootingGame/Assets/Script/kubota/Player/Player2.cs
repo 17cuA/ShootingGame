@@ -100,6 +100,9 @@ public class Player2 : character_status
 
 	InputManagerObject inputManager;    // ボタン入力を保存してあるやつ
 	public InputManagerObject InputManager { get { return inputManager; } }
+
+	public ParticleSystem[] Maltiple_Catch;     //マルチプルのエフェクト
+
 	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
@@ -125,17 +128,17 @@ public class Player2 : character_status
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
 	{
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
@@ -683,7 +686,7 @@ public class Player2 : character_status
 	private void SpeedUp()
 	{
 		speed *= 1.2f;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -694,7 +697,7 @@ public class Player2 : character_status
 	private void ActiveMissile()
 	{
 		activeMissile = true;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -706,7 +709,7 @@ public class Player2 : character_status
 	{
 		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -718,7 +721,7 @@ public class Player2 : character_status
 	{
 		bullet_Type = Bullet_Type.Laser;
 		//プレイヤーパワーアップ時のエフェクト発動処理----------------------------------------------------------------------
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -734,7 +737,7 @@ public class Player2 : character_status
 		Set_Shield(3);
 		shield_Effect.Play();               //パーティクルの稼働
 		//------------------------------------------------------------------------
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
@@ -792,7 +795,7 @@ public class Player2 : character_status
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
 
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();

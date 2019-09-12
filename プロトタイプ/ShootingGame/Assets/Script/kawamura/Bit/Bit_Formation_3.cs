@@ -377,6 +377,18 @@ public class Bit_Formation_3 : MonoBehaviour
 			//プレイヤー１のオブジェクトに当たったら
 			if (col.gameObject.name == "Player")
 			{
+				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+
+				int i = 0;
+				while (i < pl1.Maltiple_Catch.Length)
+				{
+					if (!pl1.Maltiple_Catch[i].isPlaying)
+					{
+						pl1.Maltiple_Catch[i].Play();
+						break;
+					}
+					i++;
+				}
 				//オプションパーティクルストップ
 				//option_Particle.Stop();
 				b_Shot.isShot = true;
@@ -550,7 +562,17 @@ public class Bit_Formation_3 : MonoBehaviour
 				//オプションパーティクルストップ
 				//option_Particle.Stop();
 				b_Shot.isShot = true;
-
+				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+				int i = 0;
+				while (i < pl2.Maltiple_Catch.Length)
+				{
+					if (!pl2.Maltiple_Catch[i].isPlaying)
+					{
+						pl2.Maltiple_Catch[i].Play();
+						break;
+					}
+					i++;
+				}
 				//プレイヤー1を追従していたら
 				if (bState == BitState.Player1)
 				{
