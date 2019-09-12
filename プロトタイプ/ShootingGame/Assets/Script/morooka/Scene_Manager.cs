@@ -23,9 +23,8 @@ public class Scene_Manager : MonoBehaviour
 	{
 		eCAUTION,
 		eROGO,
+		eCAUTION_AND_LOGO,
 		eTITLE,
-		eMENU,
-        eINSTRUCTION,
         eSTAGE_01,
 		eSTAGE_02,
 		eGAME_OVER,
@@ -51,7 +50,14 @@ public class Scene_Manager : MonoBehaviour
 	private void Awake()
 	{
 		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-		Renderer_For_Fade.color = Color.black;
+		if (SceneManager.GetActiveScene().buildIndex == (int)SCENE_NAME.eTITLE) 
+		{
+			Renderer_For_Fade.color = Color.white;
+		}
+		else
+		{
+			Renderer_For_Fade.color = Color.black;
+		}
 	}
 
 	void Start()
@@ -82,7 +88,15 @@ public class Scene_Manager : MonoBehaviour
     {
 		if(Is_Fade_In_Intermediate && !Is_Fade_Out_Intermediate)
 		{
-			Fade_In();
+			if(Fade_In())
+			{
+				//今が注意書き、ロゴの時
+				if(Now_Scene == SCENE_NAME.eCAUTION_AND_LOGO)
+				{
+					//白くする
+					Renderer_For_Fade.color = Color.white;
+				}
+			}
 		}
 		else if(!Is_Fade_In_Intermediate && Is_Fade_Out_Intermediate)
 		{
@@ -169,6 +183,18 @@ public class Scene_Manager : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 注意書きとロゴシーンに移動
+	/// </summary>
+	public void Screen_Transition_To_Caution_And_Logo()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eCAUTION_AND_LOGO;
+	}
+
+	/// <summary>
 	/// タイトルに移動
 	/// </summary>
 	public void Screen_Transition_To_Title()
@@ -178,19 +204,6 @@ public class Scene_Manager : MonoBehaviour
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eTITLE;
-	}
-
-	/// <summary>
-	/// メニューに移動
-	/// </summary>
-	public void Screen_Transition_To_Menu()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eMENU;
 	}
 
 	/// <summary>
@@ -242,19 +255,6 @@ public class Scene_Manager : MonoBehaviour
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
 	}
-
-    /// <summary>
-    /// ゲーム説明に移動
-    /// </summary>
-    public void Screen_Transition_To_Instruction()
-    {
-        if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-        {
-            Is_Fade_Out_Intermediate = true;
-        }
-
-        Next_Scene = SCENE_NAME.eINSTRUCTION;
-    }
 
     /// <summary>
     /// 任意のシーンに移動
