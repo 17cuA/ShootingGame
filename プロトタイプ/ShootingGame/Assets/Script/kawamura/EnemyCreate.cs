@@ -1187,13 +1187,13 @@ public class EnemyCreate : MonoBehaviour
 		// モアイ🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 52)
 		{
-			GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
-			moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
-            Wireless_sinario.Is_using_wireless = true;
-            isNowMoai = true;
+			//GameObject moai = Obj_Storage.Storage_Data.Moai.Active_Obj();
+			//moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
+   //         Wireless_sinario.Is_using_wireless = true;
+   //         isNowMoai = true;
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(620);
+			Next_Condition(0);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
