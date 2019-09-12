@@ -140,7 +140,7 @@ public class Obj_Storage : MonoBehaviour
     public GameObject enemy_Beelzebub_Group_FourWide_prefab;
     public GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
     public GameObject enemy_BeetleGroup_prefab;
-    public GameObject enemy_BeetleGroup_Three_prefab;
+    //public GameObject enemy_BeetleGroup_Three_prefab;
     public GameObject boundMeteors_prefab;
     public GameObject enemy_Bacula_Sixteen_prefab;
     public GameObject enemy_Bacula_FourOnly_prefab;
@@ -168,7 +168,7 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling enemy_Beelzebub_Group_FourWide;
     public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
     public Object_Pooling enemy_BeetleGroup;
-    public Object_Pooling enemy_BeetleGroup_Three;
+    //public Object_Pooling enemy_BeetleGroup_Three;
     public Object_Pooling boundMeteors;
     public Object_Pooling enemy_Bacula_Sixteen;
     public Object_Pooling enemy_Bacula_FourOnly;
@@ -321,7 +321,7 @@ public class Obj_Storage : MonoBehaviour
         enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
         enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
         enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_BeetleGroup") as GameObject;
-        enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_BeetleGroup_Three") as GameObject;
+        //enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_BeetleGroup_Three") as GameObject;
         boundMeteors_prefab = Resources.Load("Enemy/BoundMeteors") as GameObject;
         enemy_Bacula_Sixteen_prefab = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
         enemy_Bacula_FourOnly_prefab = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
@@ -383,8 +383,8 @@ public class Obj_Storage : MonoBehaviour
 		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
 		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");                    //ボスの弾その3
 		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
-                                                                                            //---------------------------------------------------------------------------------------------------
-                                                                                            //敵キャラのプーリング化-------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------
+        //敵キャラのプーリング化-------------------------------------------------------------------------------
         enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
         enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
         enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
@@ -404,13 +404,13 @@ public class Obj_Storage : MonoBehaviour
         enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
         enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
         enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
-        enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+        enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_Beelzebub_Group_FourWide");
+        enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_Beelzebub_Group_FourWide_Item");
+        enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_BeetleGroup");
+        //enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_BeetleGroup_Three");
+        boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "boundMeteors");
+        enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_Bacula_Sixteen");
+        enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_Bacula_FourOnly");
         //-----------------------------------------------------------------------------------------------------
         if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{

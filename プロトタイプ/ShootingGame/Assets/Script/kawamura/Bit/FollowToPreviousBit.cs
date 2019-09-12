@@ -119,8 +119,8 @@ public class FollowToPreviousBit : MonoBehaviour
 			if (isFollow1P)
 			{
 				//プレイヤーがいたら入れる
-				playerObj = GameObject.Find("Player");
-				pl1 = playerObj.GetComponent<Player1>();
+				playerObj = Obj_Storage.Storage_Data.GetPlayer();
+                pl1 = playerObj.GetComponent<Player1>();
 				//isMove = true;
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
@@ -131,8 +131,8 @@ public class FollowToPreviousBit : MonoBehaviour
 			else if (isFollow2P)
 			{
 				//プレイヤーがいたら入れる
-				playerObj = GameObject.Find("Player_2");
-				pl2 = playerObj.GetComponent<Player2>();
+				playerObj = Obj_Storage.Storage_Data.GetPlayer2();
+                pl2 = playerObj.GetComponent<Player2>();
 				//isMove = true;
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
