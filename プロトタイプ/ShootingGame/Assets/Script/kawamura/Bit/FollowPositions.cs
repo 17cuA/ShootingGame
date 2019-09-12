@@ -180,7 +180,6 @@ public class FollowPositions : MonoBehaviour
 			}
 			isResetPosEnd = true;
 			isFreeze = false;
-
 		}
 	}
 }

@@ -2026,6 +2026,7 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   target: {x: 0, y: 0, z: 0}
   step: 10
   Direction: {x: 0, y: 0, z: 0, w: 0}
@@ -2210,7 +2211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
       propertyPath: audio_se.Array.size
-      value: 26
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
       propertyPath: audio_voice.Array.size
@@ -3403,6 +3404,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 27.000015
       objectReference: {fileID: 0}
+    - target: {fileID: 6080018692664986342, guid: aaa88e3fc87513448815e5db53ddd4af,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.059
+      objectReference: {fileID: 0}
     - target: {fileID: 5721788381056526355, guid: aaa88e3fc87513448815e5db53ddd4af,
         type: 3}
       propertyPath: hp
@@ -3412,11 +3418,6 @@ PrefabInstance:
         type: 3}
       propertyPath: attackState
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080018692664986342, guid: aaa88e3fc87513448815e5db53ddd4af,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.059
       objectReference: {fileID: 0}
     - target: {fileID: 5849403703306469975, guid: aaa88e3fc87513448815e5db53ddd4af,
         type: 3}
