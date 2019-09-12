@@ -11,7 +11,7 @@ public class Enemy_star_Fish : character_status
 	public Player1 P1;
 	public Player2 P2;
 	public int num = 0;
-
+	private Vector3 vector;		//単位ベクトルを入れる
     public bool haveItem = false;
     // Start is called before the first frame update
     new void Start()
@@ -22,9 +22,7 @@ public class Enemy_star_Fish : character_status
             haveItem = true;
         }
         item = Resources.Load("Item/Item_Test") as GameObject;
-
         base.Start();
-		//firstPos = transform.position;
 	}
 
 	private void OnEnable()
@@ -33,7 +31,6 @@ public class Enemy_star_Fish : character_status
 		{
 			P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
 			playerPos = P1.transform.position;
-			//firstPos = transform.position;
 		}
 		else
 		{
@@ -60,16 +57,14 @@ public class Enemy_star_Fish : character_status
 	// Update is called once per frame
 	new void Update()
 	{
-		transform.position -= calcPos() * speed;
+		if (vector == new Vector3(0, 0, 0)) vector = calcPos();		//単位ベクトルの取得 
+		transform.position -= vector * speed;
 		if(hp < 1)
 		{
             if (haveItem)
             {
-                //Instantiate(item, this.transform.position, transform.rotation);
                 Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
-
             }
-
             base.Died_Process();
 		}
 		base.Update();
