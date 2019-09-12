@@ -168,6 +168,14 @@ public class Enemy_Moai : character_status
 				isAppearance = false;
 				moaiAnime_Script.isOpen = true;
 			}
+
+			for (int i = 0; i < object_material.Length; i++)
+			{
+				object_material[i].material = self_material[i];
+			}
+
+			return;
+
 		}
 		else if (isDead)
 		{
@@ -272,14 +280,16 @@ public class Enemy_Moai : character_status
 			}
 		}
 
-		if (aliveCnt > 135)
+		if (aliveCnt > 116)
 		{
 			isExit = true;
+			Is_Dead = true;
 		}
 
 		if (hp < 1&& !isDead)
 		{
 			isDead = true;
+			Is_Dead = true;
 			moai_rigidbody.useGravity = true;
 			moaiAnime_Script.isOpen = false;
 			moaiAnime_Script.isClose = false;

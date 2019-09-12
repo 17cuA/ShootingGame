@@ -193,7 +193,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");	//プレイヤー爆発
 		Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");		//プレイヤー登場時に使用するジェット噴射
 		Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");		//プレイヤーのマズルファイア
-		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Explosion/E001");		//バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Attachment/A006");		//オプション回収用
 		Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Explosion/E100");		//敵キャラの爆発エフェクト
 		Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Explosion/E201");		//敵キャラコアシールドの破壊エフェクト
 		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");		//プレイヤーパワーアップエフェクト
@@ -205,7 +205,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");			//ボス登場時のエフェクト
 		Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");		//隕石の爆発Effect
 		Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");		//ヒトデ型の出現用
-		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Explosion/E001");      //バグが起きないようにプレイヤーの爆発を仮置き
+		Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Attachment/A003_2P");      //2Pパワーアップエフェクト
 		Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");		//ミサイルの爆発
 
 		audio_se[0] = Resources.Load<AudioClip>("Sound/Teacher_SE/bacura_hit");				//バキュラに当たった時の高い音用
@@ -219,7 +219,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");	//敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");	//ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
-		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");			//スピードアップの声使ってない
+		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch");			//ドロップしたオプションの回収
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");           //レーザー攻撃の声使ってない
 		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
 		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //リップルレーザーの声使ってない

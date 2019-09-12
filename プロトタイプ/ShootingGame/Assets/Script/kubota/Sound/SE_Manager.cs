@@ -34,6 +34,8 @@ public class SE_Manager : MonoBehaviour
 	public AudioSource Core;
 	[Header("ボスのコア以外のところを攻撃したときになる音")]
 	public AudioSource Boss_Body;
+	[Header("落としたマルチプルを取得した際になる音")]
+	public AudioSource Maltiple_Catch;
 
 	private void Awake()
 	{
@@ -111,5 +113,10 @@ public class SE_Manager : MonoBehaviour
 		  if(Boss_Body.isPlaying) Boss_Body.Stop();
 		  if(Is_Active)Boss_Body.PlayOneShot(se);
 	}
-
+	//マルチプルを再取得した際
+	public void Maltiple_Catch_SE(AudioClip se)
+	{
+		if (Maltiple_Catch.isPlaying) Maltiple_Catch.Stop();
+		if (Is_Active) Maltiple_Catch.PlayOneShot(se);
+	}
 }

@@ -187,12 +187,26 @@ MonoBehaviour:
   ringBulletObj: {fileID: 0}
   miniMoaiGroupObj: {fileID: 0}
   saveRingBullet: {fileID: 0}
+  saveObj: {fileID: 0}
   miniMoaiPos: {fileID: 6196829489784218024}
   moaiLaserPos: {fileID: 0}
   laserPos:
   - {fileID: 5176195834466767233}
   - {fileID: 1374829542031314298}
   - {fileID: 8748690101226960407}
+  Bullet: {fileID: 0}
+  myName: 
+  Shot_Delay: 0
+  Shot_Delay_Max: 0
+  burst_delay: 0
+  burst_Delay_Max: 0
+  burst_ShotNum: 0
+  burst_Times: 0
+  burst_Num: 0
+  burst_Shot_Cnt: 0
+  isShot: 0
+  isBurst: 0
+  once: 0
   moai_Script: {fileID: 0}
   shotRota: {x: 0, y: 0, z: 0, w: 0}
   eyeLaser_Script:
@@ -487,7 +501,7 @@ MonoBehaviour:
   ringShotMax: 10
   ringShotDelay: 0
   miniMoaisCnt: 0
-  miniMoaisMax: 5
+  miniMoaisMax: 8
   attackDelay: 0
   explosionEffect: {fileID: 7455656651668378175}
   isAppearance: 1

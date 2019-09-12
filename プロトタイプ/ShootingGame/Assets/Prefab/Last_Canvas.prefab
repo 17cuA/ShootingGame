@@ -186,6 +186,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: Last
       objectReference: {fileID: 0}
+    - target: {fileID: 4612620297522296861, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: game_last_pos.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: score_pos.x
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: score_pos.y
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: please_push_button_pos.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: please_push_button_pos.y
+      value: -360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
+      propertyPath: please_push_button_size
+      value: 0.24
+      objectReference: {fileID: 0}
     - target: {fileID: 9087733628125206968, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -305,30 +334,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: game_last_pos.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: score_pos.x
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: score_pos.y
-      value: -200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: please_push_button_pos.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: please_push_button_pos.y
-      value: -360
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100893209, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}
-      propertyPath: please_push_button_size
-      value: 0.24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c1e0d8a2b83f6c42a070dd7971d73c8, type: 3}

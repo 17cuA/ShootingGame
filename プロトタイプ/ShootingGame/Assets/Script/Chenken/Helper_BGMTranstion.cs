@@ -51,26 +51,32 @@ public class Helper_BGMTranstion : MonoBehaviour
 			audioSource.volume = Mathf.Lerp(1.0f, fadeOutOverVolume, fadeOutTimer / fadeOutTime);
 			if(fadeOutTimer >= fadeOutTime)
 			{
-				isFadeOut = false;
 				fadeOutTimer = 0;
-				if(currentWirelessNumber == 1)
+				isFadeOut = false;
+				//1 boss
+				if (currentWirelessNumber == 1)
 				{
 					audioSource.clip = oneBossBGMClip;
 					isFadeIn = true;
-					audioSource.Play();
-					
+					audioSource.Play();		
 				}
+				//1 boss over
 				else if(currentWirelessNumber == 2)
 				{
 					audioSource.clip = oneBossOverBGMClip;
 					isFadeIn = true;
 					audioSource.Play();
 				}
-				else if(currentWirelessNumber == 3)
+				//2 boss
+				else if(currentWirelessNumber == 4)
 				{
 					audioSource.clip = twoBossBGMClip;
 					isFadeIn = true;
 					audioSource.Play();
+				}
+				else
+				{
+					isFadeIn = true;
 				}
 			}
 		}

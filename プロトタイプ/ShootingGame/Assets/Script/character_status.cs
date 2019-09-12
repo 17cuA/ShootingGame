@@ -133,7 +133,8 @@ public class character_status : MonoBehaviour
             //爆発処理の作成
             ParticleCreation(13);
             Is_Dead = true;
-            Reset_Status();        }
+            Reset_Status();
+		}
         else if (gameObject.tag != "Player")
 		{
 			//スコア
