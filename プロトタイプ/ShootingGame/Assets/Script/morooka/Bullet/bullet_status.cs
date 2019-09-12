@@ -54,10 +54,12 @@ public class bullet_status : MonoBehaviour
 				Player_Number = 2;
 				break;
 			case Type.Player1_Option:
-                //bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
-				break;
+                bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+                Player_Number = 1;
+                break;
 			case Type.Player2_Option:
-                //bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+                bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+                Player_Number = 2;
                 break;
 			case Type.Enemy:
 				break;
