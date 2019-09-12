@@ -11,6 +11,8 @@ public class Enemy_Moai_Mini : character_status
 
 	public Vector3 startPos;
 	public Vector3 endPos;
+
+	public int myNumber;
 	// スピード
 	public float lerpSpeed = 0;
 	//二点間の距離を入れる
@@ -41,20 +43,28 @@ public class Enemy_Moai_Mini : character_status
 		
 		//rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
-		//rotaZ = transform.eulerAngles.z;
-		HP_Setting();
+        startPos = transform.localPosition;
+
+        //rotaZ = transform.eulerAngles.z;
+        HP_Setting();
 		base.Start();
 	}
 
 	new void Update()
 	{
-		if(once)
+		hp = 1000;
+		if (myNumber == miniMoaiGroup_Script.EmptyNum)
 		{
-			//ResetMoai();
-			startPos = transform.localPosition;
-			rotaY_Value = Random.Range(2, 5);
-			rotate_Direction = Random.Range(1, 3);	//intだと最大値-1が範囲になるので2ではなく3を書いている
+			gameObject.SetActive(false);
+		}
 
+		if (once)
+		{
+			Is_Dead = false;
+            //ResetMoai();
+			rotaY_Value = Random.Range(2, 5);
+			rotate_Direction = Random.Range(1, 3);  //intだと最大値-1が範囲になるので2ではなく3を書いている
+			lerpSpeed = 0;
 			if (rotate_Direction == 2)
 			{
 				rotaY_Value *= -1;
@@ -74,7 +84,7 @@ public class Enemy_Moai_Mini : character_status
 		{
 			//float present_Location = (Time.time * lerpSpeed) / distance_two;
 			transform.localPosition = Vector3.Lerp(startPos, endPos, lerpSpeed);
-			lerpSpeed += 0.035f;
+			lerpSpeed += 0.04f;
 			if (transform.localPosition == endPos)
 			{
 				miniMoaiGroup_Script.isChildMove = false;
@@ -82,18 +92,37 @@ public class Enemy_Moai_Mini : character_status
 			}
 		}
 
-		if (hp < 1)
+		//if (hp < 1)
+		//{
+		//	miniMoaiGroup_Script.defeatedEnemyCnt++;
+		//	ResetMoai();
+		//	Game_Master.MY.Score_Addition(score, Opponent);
+		//	SE_Manager.SE_Obj.SE_Explosion_small(Obj_Storage.Storage_Data.audio_se[18]);
+		//	//爆発処理の作成
+		//	ParticleCreation(4);
+		//	Is_Dead = true;
+		//	Reset_Status();
+		//	material_Reset();
+		//	gameObject.SetActive(false);
+
+		//	//Died_Process();
+		//}
+		for (int i = 0; i < object_material.Length; i++)
 		{
-			miniMoaiGroup_Script.defeatedEnemyCnt++;
-			ResetMoai();
-			Died_Process();
+			object_material[i].material = self_material[i];
 		}
-		base.Update();
+		return;
+		//base.Update();
 	}
 	void ResetMoai()
 	{
-		transform.localPosition = new Vector3(0, 0, 0);
-		transform.rotation = Quaternion.Euler(0, -90, 0);
+        //transform.localPosition = new Vector3(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, -90, 0);
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, -90, 0);
+		Reset_Status();
+        lerpSpeed = 0;
+        once = true;
 	}
 
 	new  void OnTriggerEnter(Collider col)

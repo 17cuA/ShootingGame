@@ -11,15 +11,35 @@ public class Moai_Laser : MonoBehaviour
     public GameObject Frame_Appearance;     //　フレーム時の見た目
     public BoxCollider _collider;
 
+    public string myName;
+
+    private void Start()
+    {
+        myName = gameObject.name;
+    }
+
     void Update()
     {
         if (transform.position.x >= 18.0f || transform.position.x <= -18.0f
             || transform.position.y >= 6.0f || transform.position.y <= -6.0f)
         {
-			//GameObject obj = gameObject;
-			//Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
-			//gameObject.SetActive(false);
-			Destroy(gameObject);
+
+            if (myName == "Moai_Mouth_Laser")
+            {
+                GameObject obj = gameObject;
+
+                Obj_Storage.Storage_Data.Moai_Mouth_Laser.Set_Parent_Obj(ref obj);
+
+            }
+            else if(myName == "Moai_Eye_Laser")
+            {
+                GameObject obj = gameObject;
+
+                Obj_Storage.Storage_Data.Moai_Eye_Laser.Set_Parent_Obj(ref obj);
+
+            }
+			gameObject.SetActive(false);
+			//Destroy(gameObject);
 		}
     }
 

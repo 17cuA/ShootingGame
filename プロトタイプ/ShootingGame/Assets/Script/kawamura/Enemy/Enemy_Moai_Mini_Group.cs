@@ -13,6 +13,8 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 	public Vector3 startPos;
 	public Vector3 endPos;
 
+	public int EmptyNum;
+
 
 	//[Header("入力用 スピードX")]
 	public float speedX;
@@ -67,10 +69,16 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 	{
 		if (once)
 		{
+			EmptyNum = Random.Range(1, 7);
+            for (int i = 0; i < childObjects.Length; i++)
+            {
+                childObjects[i].gameObject.SetActive(true);
+            }
 			defaultPos = transform.position;
 			startPos = defaultPos;
 
 			endPos = new Vector3(defaultPos.x - 3.5f, -1.21f, 0);
+            isChildMove = false;
 			isMove = false;
 			once = false;
 		}
@@ -84,8 +92,6 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 				isLerp = false;
 				lerpSpeed = 0;
 			}
-
-
 		}
 
 		if (isMove)
