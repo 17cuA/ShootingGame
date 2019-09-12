@@ -320,7 +320,7 @@ public class Obj_Storage : MonoBehaviour
         //enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
         enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
         enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
-        enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_BeetleGroup") as GameObject;
+        enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_Beetle_Group") as GameObject;
         //enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_BeetleGroup_Three") as GameObject;
         boundMeteors_prefab = Resources.Load("Enemy/BoundMeteors") as GameObject;
         enemy_Bacula_Sixteen_prefab = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
@@ -381,7 +381,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
 		Effects[13] = new Object_Pooling(Effects_Prefab[13], 6, "Meteor_explosion");                    //隕石爆発Effect
 		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
-		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "Boss_Bullet3");                    //ボスの弾その3
+		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
 		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
         //---------------------------------------------------------------------------------------------------
         //敵キャラのプーリング化-------------------------------------------------------------------------------

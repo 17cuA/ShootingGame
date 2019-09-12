@@ -98,6 +98,9 @@ public class Player1 : character_status
 
 	InputManagerObject inputManager;	// ボタン入力を保存してあるやつ
 	public InputManagerObject InputManager { get { return inputManager; } }
+
+
+	public ParticleSystem[] Maltiple_Catch;		//マルチプルのエフェクト
     //プレイヤーがアクティブになった瞬間に呼び出される
     private void OnEnable()
 	{

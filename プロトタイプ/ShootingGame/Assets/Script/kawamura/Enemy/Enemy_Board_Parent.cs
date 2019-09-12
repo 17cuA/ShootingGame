@@ -52,7 +52,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 		parentName = parentObj.name;
         egm = parentObj.GetComponent<EnemyGroupManage>();
         speedX_Max = speedX;
-        speedX_Min = -speedX;
+        speedX_Min = -1;
     }
 
     void Update()
