@@ -46,38 +46,10 @@ public class One_Boss_BoundBullet : bullet_status
 	// Update is called once per frame
 	private new void Update()
 	{
-		//----------------------------------------------------------------------
+		//修正済み----------------------------------------------------------------------
 		if (transform.position.x >= 19.0f || transform.position.x <= -19.0f
 			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
 		{
-			if (gameObject.tag == "Player_Bullet")
-			{
-				switch (Bullet_Type)
-				{
-					case Type.Player1:
-						if (P1.Bullet_cnt > 0) P1.Bullet_cnt--;
-						break;
-					case Type.Player2:
-						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
-						break;
-					case Type.Player1_Option:
-						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-						break;
-					case Type.Player2_Option:
-						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-						break;
-					case Type.Enemy:
-						break;
-					case Type.None:
-						break;
-					default:
-						break;
-				}
-
-				//if (P1 != null) P1.Bullet_cnt--;
-				//if (P2 != null) P2.Bullet_cnt--;
-			}
-
 			deathEffectLifeTimer = 0;
 			deathEffect.SetActive(false);
 			transform.GetChild(0).gameObject.SetActive(true);

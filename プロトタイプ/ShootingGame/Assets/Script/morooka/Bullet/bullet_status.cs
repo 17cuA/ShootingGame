@@ -88,27 +88,24 @@ public class bullet_status : MonoBehaviour
 				switch (Bullet_Type)
 				{
 					case Type.Player1:
-						if (P1.Bullet_cnt > 0) P1.Bullet_cnt--;
+						if (P1.Bullet_cnt > 0)P1.Bullet_cnt--;
 						break;
 					case Type.Player2:
-						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
+						if (P2.Bullet_cnt > 0)P2.Bullet_cnt--;
 						break;
 					case Type.Player1_Option:
-                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-                        break;
-                    case Type.Player2_Option:
-                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-                        break;
-                    case Type.Enemy:
+						if (bShot.Bullet_cnt > 0)bShot.Bullet_cnt--;
+						break;
+					case Type.Player2_Option:
+						if (bShot.Bullet_cnt > 0)bShot.Bullet_cnt--;
+						break;
+					case Type.Enemy:
 						break;
 					case Type.None:
 						break;
 					default:
 						break;
 				}
-
-				//if (P1 != null) P1.Bullet_cnt--;
-				//if (P2 != null) P2.Bullet_cnt--;
 			}
 			gameObject.SetActive(false);
 		}
@@ -240,9 +237,17 @@ public class bullet_status : MonoBehaviour
 				break;
 			case Type.Player1:
 				P1.Bullet_cnt = 0;
+				if(P1.Is_Change_Auto)
+				{
+					P1.shoot_number = 0;
+				}
 				break;
 			case Type.Player2:
 				P2.Bullet_cnt = 0;
+				if(P2.Is_Change_Auto)
+				{
+					P2.shoot_number = 0;
+				}
 				break;
 			case Type.Player1_Option:
 				bShot.Bullet_cnt = 0;

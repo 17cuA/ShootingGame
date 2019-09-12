@@ -125,17 +125,17 @@ public class Player2 : character_status
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
 	{
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
-		P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
+		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
@@ -149,7 +149,7 @@ public class Player2 : character_status
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
+		Set_Shield(3);							//シールドに防御可能回数文の値を入れる
 		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
@@ -229,23 +229,6 @@ public class Player2 : character_status
 					Is_Resporn_End = true;
 
 				}
-
-
-				//if(transform.position.z == 0)
-				//{
-				//	resporn_Injection.Stop();
-				//	injection.Play();
-				//	startTime = 0;
-				//	movetime = 0;
-				//	rotation_cnt = 0;
-				//	Is_Resporn = false;
-				//}
-				//if (transform.position == direction)
-				//{
-				//	resporn_Injection.Stop();
-				//	startTime = 0;
-				//	Is_Resporn = false;
-				//}
 			}
 			else
 			{
@@ -278,7 +261,7 @@ public class Player2 : character_status
 				if (hp < 1)
 				{
 					if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
-					P2_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
+					P2_PowerManager.Instance.ResetSelect();             //アイテム取得回数をリセットする
 					Remaining--;                                        //残機を1つ減らす
 					P2_PowerManager.Instance.ResetAllPowerUpgradeCount();
 					//敵等に当たらないようにするためにレイヤーを変更
@@ -435,55 +418,6 @@ public class Player2 : character_status
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
 
-	//コントローラーの操作　使ってない
-	private void Player_Move()
-	{
-		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
-		y = Input.GetAxis("P2_Vertical");              //y軸の入力
-
-		//プレイヤーの移動に上下左右制限を設ける
-		if (transform.position.y >= 4.5f && y > 0) y = 0;
-		if (transform.position.y <= -4.5f && y < 0) y = 0;
-		if (transform.position.x >= 17.0f && x > 0) x = 0;
-		if (transform.position.x <= -17.0f && x < 0) x = 0;
-
-		vector3 = new Vector3(x, y, 0);     //移動のベクトルをvector3に入れる
-
-		// プレイヤー機体の旋回
-		// プレイヤーの向き(Y軸の正負)で角度算出
-		if (transform.eulerAngles.x != (swing_facing * y))
-		{
-			// 参考にしたURL↓
-			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
-			// Unity にある Mathf.LerpAngle 関数を使用
-			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
-			transform.eulerAngles = new Vector3(angle, 0, 0);
-			facing_cnt++;
-		}
-		else
-		{
-			facing_cnt = 0;
-		}
-		//右入力
-		if (0 < x)
-		{
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-		}
-		//左入力
-		else if (x < 0)
-		{
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-		}
-		else if (x == 0)
-		{
-			//噴射量を規定の値に戻す
-			particleSystemMain.startLifetime = baseInjectionAmount;
-		}
-		//位置情報の更新
-		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
 	{
@@ -512,13 +446,6 @@ public class Player2 : character_status
 		}
 	}
 
-	//プレイヤーの方向転換
-	private void Change_In_Direction()
-	{
-		//方向に−１をかけて反転した物を入れる
-		Direction *= new Quaternion(0, -1, 0, 0);
-		transform.rotation = Direction;
-	}
 	//弾の発射
 	public void Bullet_Create()
 	{
@@ -797,7 +724,6 @@ public class Player2 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 
-		//Debug.Log("ビットン生成");
 		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player2");
 	}
 	//速度を初期のに戻す

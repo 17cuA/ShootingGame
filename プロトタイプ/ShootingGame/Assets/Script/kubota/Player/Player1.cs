@@ -96,8 +96,6 @@ public class Player1 : character_status
 
 	public bool Is_Burst;      //バースト発射するかどうかの判定
 
-	private bool one;
-
 	InputManagerObject inputManager;	// ボタン入力を保存してあるやつ
 	public InputManagerObject InputManager { get { return inputManager; } }
     //プレイヤーがアクティブになった瞬間に呼び出される
@@ -115,7 +113,6 @@ public class Player1 : character_status
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
-
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
@@ -125,17 +122,17 @@ public class Player1 : character_status
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
 	{
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
-		P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
+		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
+		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
+		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
+		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
+		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
+		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
 	}
 	new void Start()
 	{
@@ -181,7 +178,6 @@ public class Player1 : character_status
 		Is_Animation = true;
 		Is_Resporn_End = false;
 		//------------------------------------------------
-		one = false;
 		inputManager = GameObject.Find("InputManager_1P").GetComponent<InputManagerObject>();
 	}
 
@@ -276,8 +272,8 @@ public class Player1 : character_status
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					P1_PowerManager.Instance.ResetAllPowerUpgradeCount();
 					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
-
 					Remaining--;                                        //残機を1つ減らす
+
 					//残機が残っていなければ
 					if (Remaining < 1)
 					{
@@ -304,7 +300,6 @@ public class Player1 : character_status
 				//プレイヤーの移動処理
 				if (transform.position == target)
 				{
-					//MoveX();
 					SetTargetPosition();
 				}
 
@@ -370,14 +365,12 @@ public class Player1 : character_status
 		{
 			facing_cnt = 0;
 		}
-
 		//右上
 		if (x > 0 && y > 0)
 		{
 			target = transform.position + MOVEX + MOVEY;
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-			Debug.Log("→");
 		}
 		//右下
 		else if (x > 0 && y < 0)
@@ -385,7 +378,6 @@ public class Player1 : character_status
 			target = transform.position + MOVEX - MOVEY;
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-			Debug.Log("→");
 		}
 		//左下
 		else if (x < 0 && y < 0)
@@ -393,7 +385,6 @@ public class Player1 : character_status
 			target = transform.position - MOVEX - MOVEY;
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-			Debug.Log("←");
 		}
 		//左上
 		else if (x < 0 && y > 0)
@@ -401,14 +392,11 @@ public class Player1 : character_status
 			target = transform.position - MOVEX + MOVEY;
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-			Debug.Log("←");
-
 		}
 		//上
 		else if (y > 0)
 		{
 			target = transform.position + MOVEY;
-			Debug.Log("横に動かず待機");
 
 		}
 		//右
@@ -417,14 +405,12 @@ public class Player1 : character_status
 			target = transform.position + MOVEX;
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-			Debug.Log("→");
 
 		}
 		//下
 		else if (y < 0)
 		{
 			target = transform.position - MOVEY;
-			Debug.Log("横に動かず待機");
 
 		}
 		//左
@@ -433,7 +419,6 @@ public class Player1 : character_status
 			target = transform.position - MOVEX;
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
 			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-			Debug.Log("←");
 
 		}
 
@@ -442,61 +427,6 @@ public class Player1 : character_status
 	void Move()
 	{
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-	}
-
-	//コントローラーの操作　使ってない
-	private void Player_Move()
-	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
-
-		//プレイヤーの移動に上下左右制限を設ける
-		if (transform.position.y >= 4.5f && y > 0) y = 0;
-		if (transform.position.y <= -4.5f && y < 0) y = 0;
-		if (transform.position.x >= 17.0f && x > 0) x = 0;
-		if (transform.position.x <= -17.0f && x < 0) x = 0;
-
-		vector3 = new Vector3(x, y, 0);     //移動のベクトルをvector3に入れる
-
-		// プレイヤー機体の旋回
-		// プレイヤーの向き(Y軸の正負)で角度算出
-		if (transform.eulerAngles.x != (swing_facing * y))
-		{
-			// 参考にしたURL↓
-			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
-			// Unity にある Mathf.LerpAngle 関数を使用
-			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
-			transform.eulerAngles = new Vector3(angle, 0, 0);
-			facing_cnt++;
-		}
-		else
-		{
-			facing_cnt = 0;
-		}
-		//右入力
-		if (0 < x)
-		{
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-			Debug.Log("横に動かず待機");
-
-		}
-		//左入力
-		else if (x < 0)
-		{
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-			Debug.Log("横に動かず待機");
-
-		}
-		else if (x == 0)
-		{
-			//噴射量を規定の値に戻す
-			particleSystemMain.startLifetime = baseInjectionAmount;
-			Debug.Log("横に動かず待機");
-		}
-		//位置情報の更新
-		transform.position = transform.position + vector3 * Time.deltaTime * speed;
 	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
@@ -539,7 +469,6 @@ public class Player1 : character_status
 	{
 		if (Input.GetButtonDown(inputManager.Manager.Button["ShotSwitch"]))
 		{
-			Debug.Log("モードチェンジ");
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
 		}
@@ -583,13 +512,19 @@ public class Player1 : character_status
 		}
 		else
 		{
+			if (Input.GetButtonDown(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			{
+				Is_Burst = true;
+			}
+			if (Input.GetButtonUp(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			{
+				//shoot_number = 0;
+				Is_Burst = false;
+			}
 			Shot_DelayMax = 5;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
-				{
-					Is_Burst = true;
-				}
+
 				if(Is_Burst)
 				{
 					// 連続で4発まで撃てるようにした
@@ -627,20 +562,55 @@ public class Player1 : character_status
 					{
 						shoot_number = 0;
 						effect_num = 0;
-						Is_Burst = false;
 					}
 					else
 					{
 						shoot_number++;
+					}
+				}
+				else
+				{
+					if(shoot_number != 0 && shoot_number < 5)
+					{
+						switch (bullet_Type)
+						{
+							case Bullet_Type.Single:
+								Single_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
 
+								break;
+							case Bullet_Type.Double:
+								Double_Fire();
+								effect_mazle_fire[effect_num].Play();
+								effect_num++;
+								shoot_number++;
+
+								break;
+							default:
+								break;
+						}
+						if (activeMissile && missile_dilay_cnt > missile_dilay_max)
+						{
+							Missile_Fire();
+							missile_dilay_cnt = 0;
+						}
+						Shot_Delay = 0;
+
+						shoot_number++;
+					}
+					else
+					{
+						shoot_number = 0;
 					}
 				}
 			}
 			//if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
-			if(!Is_Burst)
-			{
-				shoot_number = 0;
-			}
+			//if(!Is_Burst)
+			//{
+			//	shoot_number = 0;
+			//}
 			if (effect_num > 4)
 			{
 				effect_num = 0;
@@ -698,7 +668,6 @@ public class Player1 : character_status
 	private void SpeedUp()
 	{
 		speed *= 1.4f;
-		Debug.Log("スピードUP");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -710,7 +679,6 @@ public class Player1 : character_status
 	private void ActiveMissile()
 	{
 		activeMissile = true;
-		Debug.Log("ミサイル導入");
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -721,7 +689,6 @@ public class Player1 : character_status
 	//二連をできるように
 	private void ActiveDouble()
 	{
-		Debug.Log("ダブル導入");
 		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
