@@ -103,10 +103,12 @@ public class ResultDisplay : MonoBehaviour
 		result1PClearbonusTextDisplay.Character_Preference("CLEAR_BONUS");
 		result1PClearbonusTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// クリアボーナス
+		uint clearbonus = kClearbonusValue;
+		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_OVER) { clearbonus = 0; }
 		GameObject result1PClearbonusesParent = new GameObject("1PClearbonus");
 		result1PClearbonusesParent.transform.parent = transform;
 		result1PClearbonusDisplay = new Character_Display(10, "morooka/SS", result1PClearbonusesParent, result1PClearbonusPosition);
-		result1PClearbonusDisplay.Character_Preference(kClearbonusValue.ToString("D10"));
+		result1PClearbonusDisplay.Character_Preference(clearbonus.ToString("D10"));
 		result1PClearbonusDisplay.Size_Change(Vector2.one / kWholeScaleWeight);
 		// トータルスコアのテキスト
 		GameObject result1PTotalScoreTextsParent = new GameObject("1PTotalScoreText");
@@ -115,7 +117,7 @@ public class ResultDisplay : MonoBehaviour
 		result1PTotalScoreTextDisplay.Character_Preference("TOTAL_SCORE");
 		result1PTotalScoreTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// トータルスコア
-		uint total1PScore = Game_Master.display_score_1P + kClearbonusValue;
+		uint total1PScore = Game_Master.display_score_1P + clearbonus;
 		GameObject result1PTotalScoresParent = new GameObject("1PTotalScore");
 		result1PTotalScoresParent.transform.parent = transform;
 		result1PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result1PTotalScoresParent, result1PTotalScorePosition);
@@ -154,10 +156,12 @@ public class ResultDisplay : MonoBehaviour
 		result2PClearbonusTextDisplay.Character_Preference("CLEAR_BONUS");
 		result2PClearbonusTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// クリアボーナス
+		uint clearbonus = kClearbonusValue;
+		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_OVER) { clearbonus = 0; }
 		GameObject result2PClearbonusesParent = new GameObject("2PClearbonus");
 		result2PClearbonusesParent.transform.parent = transform;
 		result2PClearbonusDisplay = new Character_Display(10, "morooka/SS", result2PClearbonusesParent, result2PClearbonusPosition);
-		result2PClearbonusDisplay.Character_Preference(kClearbonusValue.ToString("D10"));
+		result2PClearbonusDisplay.Character_Preference(clearbonus.ToString("D10"));
 		result2PClearbonusDisplay.Size_Change(Vector2.one / kWholeScaleWeight);
 		// トータルスコアのテキスト
 		GameObject result2PTotalScoreTextsParent = new GameObject("2PTotalScoreText");
@@ -166,7 +170,7 @@ public class ResultDisplay : MonoBehaviour
 		result2PTotalScoreTextDisplay.Character_Preference("TOTAL_SCORE");
 		result2PTotalScoreTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// トータルスコア
-		uint total2PScore = Game_Master.display_score_2P + kClearbonusValue;
+		uint total2PScore = Game_Master.display_score_2P + clearbonus;
 		GameObject result2PTotalScoresParent = new GameObject("2PTotalScore");
 		result2PTotalScoresParent.transform.parent = transform;
 		result2PTotalScoreDisplay = new Character_Display(10, "morooka/SS", result2PTotalScoresParent, result2PTotalScorePosition);
