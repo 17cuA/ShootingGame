@@ -873,8 +873,9 @@ public class EnemyCreate : MonoBehaviour
         // 円盤上10
         if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
         {
-            Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group.transform.rotation = transform.rotation;
 
@@ -885,8 +886,9 @@ public class EnemyCreate : MonoBehaviour
         // 円盤下10
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 2)
         {
-            Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group.transform.rotation = transform.rotation;
 
@@ -897,7 +899,8 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛斜め配置4中央アイテム2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 3)
         {
-            Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
+            GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+            //Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
 
             nextEnemy = "闘牛斜め配置4";
             Next_Condition(120);
@@ -906,7 +909,9 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛斜め配置4
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 4)
         {
-            Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+            GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four_NoItem.Active_Obj();
+
+            //Instantiate(enemy_ClamChowder_Group_Four_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
 
             nextEnemy = "円盤上10下10";
             Next_Condition(360);
@@ -915,13 +920,15 @@ public class EnemyCreate : MonoBehaviour
         // 円盤上10下10
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 5)
         {
-            Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group.transform.rotation = transform.rotation;
 
-            Object_Pooling pEnemy_UFO_Group2 = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group2 = pEnemy_UFO_Group2.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group2 = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group2 = pEnemy_UFO_Group2.Active_Obj();
+            GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group2.transform.position = createPosRm3.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
@@ -932,13 +939,15 @@ public class EnemyCreate : MonoBehaviour
         // 円盤上10下10狭
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 6)
         {
-            Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+            GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group.transform.position = createPosR1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group.transform.rotation = transform.rotation;
 
-            Object_Pooling pEnemy_UFO_Group2 = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-            GameObject enemy_UFO_Group2 = pEnemy_UFO_Group2.Active_Obj();
+            //Object_Pooling pEnemy_UFO_Group2 = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+            //GameObject enemy_UFO_Group2 = pEnemy_UFO_Group2.Active_Obj();
+            GameObject enemy_UFO_Group2 = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
             enemy_UFO_Group2.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
