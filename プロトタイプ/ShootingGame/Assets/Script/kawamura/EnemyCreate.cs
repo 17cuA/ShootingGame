@@ -424,6 +424,7 @@ public class EnemyCreate : MonoBehaviour
 
 		moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
 		moai_Script = moaiObj.GetComponent<Enemy_Moai>();
+		isMoaiAlive = true;
 	}
 
 	void Update()
@@ -602,7 +603,6 @@ public class EnemyCreate : MonoBehaviour
 			{
 				if(isMoaiAlive)
 				{
-					Wireless_sinario.Is_using_wireless = true;
 					isNowMoai = false;
 					isMoaiAlive = false;
 				}
