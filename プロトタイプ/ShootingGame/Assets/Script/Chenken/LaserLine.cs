@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Power;
 
+[RequireComponent(typeof(PauseComponent))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class LaserLine : Player_Bullet
 {
@@ -15,32 +16,9 @@ public class LaserLine : Player_Bullet
 		}
 	}
 
-	private new Rigidbody rigidbody;
-	public bool isPlay1Laser = false;
-	public bool isPlay2Laser = false;
-	public bool IsPlayer1Laser
-	{
-		get
-		{
-			return isPlay1Laser;
-		}
-		set
-		{
-			isPlay1Laser = value;
-		}
-	}
 
-	public bool IsPlayer2Laser
-	{
-		get
-		{
-			return isPlay2Laser;
-		}
-		set
-		{
-			isPlay2Laser = value;
-		}
-	}
+	private new Rigidbody rigidbody;
+
 
 	public Material redMaterial;
 	public Material blueMaterial;
@@ -50,10 +28,43 @@ public class LaserLine : Player_Bullet
 		this.rigidbody = GetComponent<Rigidbody>();
 	}
 
+	private new void Start()
+	{
+		base.Start();
+		this.Travelling_Direction = Vector3.right;
+	}
+
 	private new void Update()
     {
-		if(isPlay1Laser)
+		if (gameObject.name == "Option_Player1_Laser")
 		{
+			if (!transform.GetChild(0).gameObject.activeSelf)
+				transform.GetChild(0).gameObject.SetActive(true);
+			if (transform.GetChild(1).gameObject.activeSelf)
+				transform.GetChild(1).gameObject.SetActive(false);
+			if (trailRenderer.material != blueMaterial)
+				trailRenderer.material = blueMaterial;
+
+			if (base.Player_Number != 1)
+				base.Player_Number = 1;
+		}
+
+		else if(gameObject.name == "Option_Player2_Laser")
+		{
+			if (transform.GetChild(0).gameObject.activeSelf)
+				transform.GetChild(0).gameObject.SetActive(false);
+			if (!transform.GetChild(1).gameObject.activeSelf)
+				transform.GetChild(1).gameObject.SetActive(true);
+			if (trailRenderer.material != redMaterial)
+				trailRenderer.material = redMaterial;
+
+			if (base.Player_Number != 2)
+				base.Player_Number = 2;
+		}
+
+		else if (gameObject.name == "Player_Laser")
+		{
+
 			if (!transform.GetChild(0).gameObject.activeSelf)
 				transform.GetChild(0).gameObject.SetActive(true);
 			if (transform.GetChild(1).gameObject.activeSelf)
@@ -65,8 +76,9 @@ public class LaserLine : Player_Bullet
 				base.Player_Number = 1;
 		}
 
-		if (isPlay2Laser)
+		else if (gameObject.name == "Player2_Laser")
 		{
+
 			if (transform.GetChild(0).gameObject.activeSelf)
 				transform.GetChild(0).gameObject.SetActive(false);
 			if (!transform.GetChild(1).gameObject.activeSelf)
@@ -77,10 +89,14 @@ public class LaserLine : Player_Bullet
 			if (base.Player_Number != 2)
 				base.Player_Number = 2;
 		}
+		
+
 
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
 		|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
 		{
+			trailRenderer.Clear();
+
 			gameObject.SetActive(false);
 		}
 
@@ -103,6 +119,9 @@ public class LaserLine : Player_Bullet
 			particle.Play();
 			gameObject.SetActive(false);
 			Player_Bullet_Des();
+
+
+			trailRenderer.Clear();
 		}
         else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy" && col.gameObject.name != "One_Boss_Laser" && col.gameObject.name != "Two_Boss_Laser")
         {
@@ -123,6 +142,8 @@ public class LaserLine : Player_Bullet
 			//{
 			//    if (P2 != null) P2.Bullet_cnt--;
 			//}
+
+			trailRenderer.Clear();
 			gameObject.SetActive(false);
         }
         else if (col.gameObject.tag == "Boss_Gard")
@@ -131,7 +152,9 @@ public class LaserLine : Player_Bullet
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             effect.transform.position = gameObject.transform.position;
             particle.Play();
-            gameObject.SetActive(false);
+
+			trailRenderer.Clear();
+			gameObject.SetActive(false);
         }
     }
 }
