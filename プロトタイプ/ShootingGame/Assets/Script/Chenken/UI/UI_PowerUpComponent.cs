@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PowerUpComponent : MonoBehaviour
 {
@@ -13,9 +14,24 @@ public class UI_PowerUpComponent : MonoBehaviour
 	[SerializeField]private bool isResize = false;
     [SerializeField]private bool isEnlarge = false;
 
+	private Image image;
+
 	private void Awake()
 	{
 		currentScale = targetScale = 1f;
+		image = GetComponent<Image>();
+	}
+
+	public Sprite Sprite
+	{
+		get
+		{
+			return image.sprite;
+		}
+		set
+		{
+			image.sprite = value;
+		}
 	}
 
 
@@ -87,7 +103,7 @@ public class UI_PowerUpComponent : MonoBehaviour
 			return;
 		}
 
-        currentScale = enlargeScale;
+        currentScale = transform.localScale.x;
 		targetScale = 1f - 0.01f;
 	}
 
@@ -97,4 +113,16 @@ public class UI_PowerUpComponent : MonoBehaviour
         isResize = false;
         changeTimer = 0;
     }
+
+	public void Black()
+	{
+		image.material = null;
+		image.color = new Color(0.65f, 0.65f, 0.65f, 1);
+	}
+
+	public void Blight(Material material)
+	{
+		image.material = material;
+		image.color = new Color(1, 1, 1, 1);
+	}
 }

@@ -4747,9 +4747,10 @@ GameObject:
   - component: {fileID: 6580657217836235303}
   - component: {fileID: 927928307}
   - component: {fileID: 3111064614976830354}
+  - component: {fileID: 5981766357182210780}
   m_Layer: 14
   m_Name: LaserLine
-  m_TagString: Untagged
+  m_TagString: Player_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4781,8 +4782,8 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.15
-  m_Height: 0.15
-  m_Direction: 1
+  m_Height: 0.5
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6580657217836235303
 MonoBehaviour:
@@ -4796,17 +4797,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1f1b8c4e5014d4080eb6a054df35ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: 0.8
+  shot_speed: 1.2
   attack_damage: 1
   Travelling_Direction: {x: 1, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
   Bullet_Type: 0
-  isPlayer1Laser: 0
-  isPlayer2Laser: 0
-  player1LaserMaterial: {fileID: 2100000, guid: d5518a1be2fb8ac43ac5d1627e72d01e,
-    type: 2}
-  player2LaserMaterial: {fileID: 2100000, guid: 1b98a4d0c5a94dc46870bf2729a667e3,
-    type: 2}
+  redMaterial: {fileID: 2100000, guid: 1b98a4d0c5a94dc46870bf2729a667e3, type: 2}
+  blueMaterial: {fileID: 2100000, guid: d5518a1be2fb8ac43ac5d1627e72d01e, type: 2}
 --- !u!96 &927928307
 TrailRenderer:
   serializedVersion: 2
@@ -4918,6 +4915,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5981766357182210780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580657217836235302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7556076953521740979
 GameObject:
   m_ObjectHideFlags: 0
