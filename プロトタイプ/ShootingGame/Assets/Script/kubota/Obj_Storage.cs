@@ -214,7 +214,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[3] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_Scream");               //叫ぶ声
 		audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");       //プレイヤーバレット音
 		audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");     //アイテム取得音(バー移動)
-		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei_neo");   //アイテム使用パワーアップ音(ステータス変化)
+		audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei");   //アイテム使用パワーアップ音(ステータス変化)
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");         //コアシールドヒット音
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
@@ -292,7 +292,7 @@ public class Obj_Storage : MonoBehaviour
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
 		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 8, "Player_Missile");        //プレイヤーのミサイルの生成
-		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 20, "PlayerMissile_TowWay");
+		PlayerMissile_TowWay = new Object_Pooling(Player_Missile_Tow_Way_Prefab, 10, "PlayerMissile_TowWay");
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
 		BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
