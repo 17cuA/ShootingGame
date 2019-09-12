@@ -98,7 +98,7 @@ public class InputRankingName
 	/// </summary>
 	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
 	/// <param name="decisionKeyCode">決定するキーの名前</param>
-	/// <param name="cancelKeyCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
 	public InputRankingName(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO")
 	{
@@ -117,10 +117,90 @@ public class InputRankingName
 	/// <param name="decisionButtonName">決定するボタンの名前</param>
 	/// <param name="decisionKeyCode">決定するキーの名前</param>
 	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
-	/// <param name="cancelKeyCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
 	public InputRankingName(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO")
 	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionButtonName = decisionButtonName;
+		this.decisionKeyCode = decisionKeyCode;
+		this.cancelButtonName = cancelButtonName;
+		this.cancelKeyCode = cancelKeyCode;
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public void Init(string selectAxisName, string defaultName = "UFO")
+	{
+		nameImageList = new List<Image>(kNameLength);
+		name = new char[kNameLength];
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionButtonName">決定するボタンの名前</param>
+	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public void Init(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO")
+	{
+		nameImageList = new List<Image>(kNameLength);
+		name = new char[kNameLength];
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionButtonName = decisionButtonName;
+		this.cancelButtonName = cancelButtonName;
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionKeyCode">決定するキーの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public void Init(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO")
+	{
+		nameImageList = new List<Image>(kNameLength);
+		name = new char[kNameLength];
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.decisionKeyCode = decisionKeyCode;
+		this.cancelKeyCode = cancelKeyCode;
+	}
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="decisionButtonName">決定するボタンの名前</param>
+	/// <param name="decisionKeyCode">決定するキーの名前</param>
+	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	public void Init(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO")
+	{
+		nameImageList = new List<Image>(kNameLength);
+		name = new char[kNameLength];
 		for (int i = 0; i < kNameLength; ++i)
 		{
 			name[i] = defaultName[i];

@@ -127,12 +127,14 @@ public class RankingDisplay : MonoBehaviour
 	void Update()
 	{
 		// ゲームクリアシーンでなければ処理しない
-		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR) { return; }
+		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR && Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_OVER) { return; }
 		// 画面更新
 		Update1PDisplay();
 		// 1Pプレイの時は以降を処理しない
-		if (Game_Master.Number_Of_People != Game_Master.PLAYER_NUM.eTWO_PLAYER) { return; }
-		Update2PDisplay();
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Update2PDisplay();
+		}
 	}
 	/// <summary>
 	/// 1P画面更新
@@ -289,7 +291,7 @@ public class RankingDisplay : MonoBehaviour
 		player1TextDisplay.Centering();
 
 		// 名前入力表示
-		input1PNameClass = new InputRankingName("Vertical", "Fire1", KeyCode.Space, "Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+		input1PNameClass.Init("Vertical", "Fire1", KeyCode.Space, "Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
 		GameObject inputNameParent = new GameObject("InputName");
 		inputNameParent.transform.parent = transform;
 		input1PNamePos.x = -3840f / 2f / 2f + 150f * 3f;
@@ -357,7 +359,7 @@ public class RankingDisplay : MonoBehaviour
 		player2TextDisplay.Centering();
 
 		// 名前入力表示
-		input2PNameClass = new InputRankingName("P2_Vertical", "P2_Fire1", KeyCode.Space, "P2_Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+		input2PNameClass.Init("P2_Vertical", "P2_Fire1", KeyCode.Space, "P2_Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
 		GameObject inputNameParent = new GameObject("InputName");
 		inputNameParent.transform.parent = transform;
 		input2PNamePos.x = 3840f / 2f / 2f + 150f * 3f;

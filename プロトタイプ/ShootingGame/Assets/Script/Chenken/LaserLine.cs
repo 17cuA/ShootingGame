@@ -60,6 +60,9 @@ public class LaserLine : Player_Bullet
 				transform.GetChild(1).gameObject.SetActive(false);
 			if(trailRenderer.material != blueMaterial)
 				trailRenderer.material = blueMaterial;
+
+			if(base.Player_Number != 1)
+				base.Player_Number = 1;
 		}
 
 		if (isPlay2Laser)
@@ -70,6 +73,9 @@ public class LaserLine : Player_Bullet
 				transform.GetChild(1).gameObject.SetActive(true);
 			if(trailRenderer.material != redMaterial)
 				trailRenderer.material = redMaterial;
+
+			if (base.Player_Number != 2)
+				base.Player_Number = 2;
 		}
 
 		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
