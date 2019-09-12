@@ -1193,7 +1193,7 @@ public class EnemyCreate : MonoBehaviour
             isNowMoai = true;
 
 			nextEnemy = "ヒトデ24";
-			Next_Condition(500);
+			Next_Condition(620);
 		}
 		// ヒトデ24
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 53)
