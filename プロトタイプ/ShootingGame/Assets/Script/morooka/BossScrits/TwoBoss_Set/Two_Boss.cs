@@ -38,6 +38,7 @@ public class Two_Boss : character_status
 	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] set_collider;
 	[SerializeField, Tooltip("シャッター")] private Two_Boss_Parts[] shutter;
 	[SerializeField, Tooltip("EF用")] private GameObject[] parts_All;
+	[SerializeField, Tooltip("狙撃系マズル")] private GameObject[] Snipes;
 
 	[Header("アニメーション用")]
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
@@ -141,6 +142,12 @@ public class Two_Boss : character_status
 			col.enabled = false;
 		}
 
+		//武器の使用不可
+		foreach(var sp in Snipes)
+		{
+			sp.SetActive(false);
+		}
+
 	}
 
 	// Update is called once per frame
@@ -175,6 +182,14 @@ public class Two_Boss : character_status
 					col.enabled = true;
 				}
 
+				// 武器の使用
+				for(int i = 0; i<Snipes.Length/2;i++)
+				{
+					Snipes[i].SetActive(true);
+					Snipes[i].GetComponent<Sniper_Muzzle>().Shot_Delay -= i * 60;
+					Snipes[i+3].SetActive(true);
+					Snipes[i+3].GetComponent<Sniper_Muzzle>().Shot_Delay -= i * 60;
+				}
 				foreach (var r in Mesh_Renderer)
 				{
 					r.enabled = true;
