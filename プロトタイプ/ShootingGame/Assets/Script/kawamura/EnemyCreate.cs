@@ -235,6 +235,8 @@ public class EnemyCreate : MonoBehaviour
     public bool isTwoBossAlive = false;
     public bool isMoaiAlive = false;
 
+    public bool isMiddleBossSkip = true;
+
     public bool isNowOneBoss = false;
     public bool isNowTwoBoss = false;
     public bool isNowMoai = false;
@@ -544,16 +546,15 @@ public class EnemyCreate : MonoBehaviour
         //中ボス撃破
         if (middleBoss_Script != null)
         {
-            if (middleBoss_Script.Is_Dead)
+            if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
             {
                 if (frameCnt < 7210)
                 {
                     frameCnt = 7160;
                     turning_frame = 7210; //←今爆発がでかいのでちょっと間を空けます
                     groupCnt = 25;
+                    isMiddleBossSkip = false;
                 }
-                isMiddleBossDead = false;
-
             }
         }
 
