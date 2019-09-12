@@ -548,7 +548,7 @@ public class EnemyCreate : MonoBehaviour
             {
                 if (frameCnt < 7210)
                 {
-                    frameCnt = 7060;
+                    frameCnt = 7160;
                     turning_frame = 7210; //←今爆発がでかいのでちょっと間を空けます
                     groupCnt = 25;
                 }
@@ -1737,11 +1737,7 @@ public class EnemyCreate : MonoBehaviour
     {
         bool bigcoreFlag = true;
         bool bigcoreMK2Flag = true;
-<<<<<<< HEAD
-        bool moaiFlag = false;
-=======
         bool moaiFlag = true;
->>>>>>> master_3
 
         // 円盤上10
         if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
