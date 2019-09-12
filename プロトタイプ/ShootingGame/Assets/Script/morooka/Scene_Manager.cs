@@ -23,7 +23,7 @@ public class Scene_Manager : MonoBehaviour
 	{
 		eCAUTION,
 		eROGO,
-		eCAUTION_AND_LOGO,
+		//eCAUTION_AND_LOGO,
 		eTITLE,
         eSTAGE_01,
 		eSTAGE_02,
@@ -50,14 +50,14 @@ public class Scene_Manager : MonoBehaviour
 	private void Awake()
 	{
 		Renderer_For_Fade = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-		if (SceneManager.GetActiveScene().buildIndex == (int)SCENE_NAME.eTITLE) 
-		{
-			Renderer_For_Fade.color = Color.white;
-		}
-		else
-		{
+		//if (SceneManager.GetActiveScene().buildIndex == (int)SCENE_NAME.eTITLE) 
+		//{
+		//	Renderer_For_Fade.color = Color.white;
+		//}
+		//else
+		//{
 			Renderer_For_Fade.color = Color.black;
-		}
+		//}
 	}
 
 	void Start()
@@ -67,20 +67,9 @@ public class Scene_Manager : MonoBehaviour
 		Fade_In_Quantity = (255.0f / fade_in_speed) / 255.0f;
 		Fade_Out_Quantity = (255.0f / fade_out_speed) / 255.0f;
 
-		if (Now_Scene != SCENE_NAME.eTITLE)
-		{
 			Is_Fade_Finished = false;
 			Is_Fade_In_Intermediate = true;
 			Is_Fade_Out_Intermediate = false;
-		}
-		else if(Now_Scene == SCENE_NAME.eTITLE)
-		{
-			Renderer_For_Fade.color = Color.clear;
-			Is_Fade_Finished = true;
-			Is_Fade_In_Intermediate = false;
-			Is_Fade_Out_Intermediate = false;
-		}
-
 		Transition_Deferred_Cnt = 0;
 	}
 
@@ -88,15 +77,16 @@ public class Scene_Manager : MonoBehaviour
     {
 		if(Is_Fade_In_Intermediate && !Is_Fade_Out_Intermediate)
 		{
-			if(Fade_In())
-			{
-				//今が注意書き、ロゴの時
-				if(Now_Scene == SCENE_NAME.eCAUTION_AND_LOGO)
-				{
-					//白くする
-					Renderer_For_Fade.color = Color.white;
-				}
-			}
+			Fade_In();
+			//if(Fade_In())
+			//{
+			//	////今が注意書き、ロゴの時
+			//	//if(Now_Scene == SCENE_NAME.eCAUTION_AND_LOGO)
+			//	//{
+			//	//	//白くする
+			//	//	Renderer_For_Fade.color = Color.white;
+			//	//}
+			//}
 		}
 		else if(!Is_Fade_In_Intermediate && Is_Fade_Out_Intermediate)
 		{
@@ -182,17 +172,17 @@ public class Scene_Manager : MonoBehaviour
 		Next_Scene = SCENE_NAME.eROGO;
 	}
 
-	/// <summary>
-	/// 注意書きとロゴシーンに移動
-	/// </summary>
-	public void Screen_Transition_To_Caution_And_Logo()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-		Next_Scene = SCENE_NAME.eCAUTION_AND_LOGO;
-	}
+	///// <summary>
+	///// 注意書きとロゴシーンに移動
+	///// </summary>
+	//public void Screen_Transition_To_Caution_And_Logo()
+	//{
+	//	if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+	//	{
+	//		Is_Fade_Out_Intermediate = true;
+	//	}
+	//	Next_Scene = SCENE_NAME.eCAUTION_AND_LOGO;
+	//}
 
 	/// <summary>
 	/// タイトルに移動
