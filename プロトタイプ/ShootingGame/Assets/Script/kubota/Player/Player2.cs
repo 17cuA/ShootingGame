@@ -683,7 +683,7 @@ public class Player2 : character_status
 	private void SpeedUp()
 	{
 		speed *= 1.2f;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -694,7 +694,7 @@ public class Player2 : character_status
 	private void ActiveMissile()
 	{
 		activeMissile = true;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -706,7 +706,7 @@ public class Player2 : character_status
 	{
 		if (Laser.activeSelf) { Laser.SetActive(false); }   //もし、レーザーが稼働状態であるならば、非アクティブにする
 		bullet_Type = Bullet_Type.Double;
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -718,7 +718,7 @@ public class Player2 : character_status
 	{
 		bullet_Type = Bullet_Type.Laser;
 		//プレイヤーパワーアップ時のエフェクト発動処理----------------------------------------------------------------------
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
@@ -734,7 +734,7 @@ public class Player2 : character_status
 		Set_Shield(3);
 		shield_Effect.Play();               //パーティクルの稼働
 		//------------------------------------------------------------------------
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
@@ -792,7 +792,7 @@ public class Player2 : character_status
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);                //パワーアップ音
 
-		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
@@ -805,7 +805,10 @@ public class Player2 : character_status
 	{
 		speed = min_speed;
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
-
+		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
+		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
+		effect.transform.position = gameObject.transform.position;
+		powerup.Play();
 		//SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	private void Init_speed_died()
