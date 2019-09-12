@@ -43,7 +43,7 @@ public class Ranking_Strage : MonoBehaviour
 			Strage_Data = GetComponent<Ranking_Strage>();
 			Ranking_Lode();
 		}
-		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR)
+		else if(Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_CLEAR || Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eGAME_OVER)
 		{
 			Strage_Data = GetComponent<Ranking_Strage>();
 			Set_Score(kDefaultName, Game_Master.display_score_1P + ResultDisplay.kClearbonusValue, ref player1Rank);
