@@ -4869,21 +4869,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 8926580507827180078, guid: c26c13f0d209f204bba136ad3f118fc1,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1772318905883602406, guid: c26c13f0d209f204bba136ad3f118fc1,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1772318905883602406, guid: c26c13f0d209f204bba136ad3f118fc1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f6a405d9b8bbb347b258f1523b4bb1b, type: 2}
     - target: {fileID: 2036299554481838985, guid: c26c13f0d209f204bba136ad3f118fc1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e68e37948f2868f4d850ed4c18ea64a2, type: 2}
+    - target: {fileID: 8926580507827180078, guid: c26c13f0d209f204bba136ad3f118fc1,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c26c13f0d209f204bba136ad3f118fc1, type: 3}
 --- !u!4 &1383943378264541626 stripped
