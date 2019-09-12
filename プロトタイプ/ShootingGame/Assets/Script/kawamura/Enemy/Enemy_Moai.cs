@@ -280,6 +280,7 @@ public class Enemy_Moai : character_status
 		if (hp < 1&& !isDead)
 		{
 			isDead = true;
+			Is_Dead = true;
 			moai_rigidbody.useGravity = true;
 			moaiAnime_Script.isOpen = false;
 			moaiAnime_Script.isClose = false;
