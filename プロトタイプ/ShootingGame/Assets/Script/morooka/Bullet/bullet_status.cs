@@ -20,7 +20,7 @@ public class bullet_status : MonoBehaviour
     public Player1 P1 { get; private set; }
     public Player2 P2 { get; private set; }
     public Bit_Shot bShot { get; set; }
-	public int Player_Number { get; private set; }
+	public int Player_Number { get;  set; }
 
 	public enum Type
 	{
