@@ -17,7 +17,8 @@ public class InputRankingName
 	char[] name = new char[kNameLength];	// 入力用文字配列
 
 	[SerializeField] private AudioSource Move;			//文字切り替え時
-	[SerializeField] private AudioSource Decition;		//文字の決定時
+	[SerializeField] private AudioSource Decition;      //文字の決定時
+	[SerializeField] private AudioSource Return_SE;		//一つ前のやつに戻るとき
 	// 名前をストリングで返すプロパティ
 	public string Name
 	{
@@ -156,10 +157,16 @@ public class InputRankingName
 		if (Input.GetButtonDown(decisionButtonName) || Input.GetKeyDown(decisionKeyCode))
 		{
 			++selectPos;
+			if (Decition.isPlaying) Decition.Stop();
+			Decition.Play();
+
 		}
 		if (Input.GetKeyDown(cancelKeyCode) || Input.GetButtonDown(cancelButtonName))
 		{
 			--selectPos;
+			if (Return_SE.isPlaying) Return_SE.Stop();
+			Return_SE.Play();
+
 		}
 		// 要素数が文字数より大きくならないように補正する
 		if (selectPos > kNameLength)
@@ -187,12 +194,14 @@ public class InputRankingName
 		if (inputY > 0f)
 		{
 			++name[selectPos];
-
+			if (Move.isPlaying) Move.Stop();
+			Move.Play();
 		}
 		if (inputY < 0f)
 		{
 			--name[selectPos];
-
+			if (Move.isPlaying) Move.Stop();
+			Move.Play();
 		}
 		// 規定文字以内に収める
 		if (name[selectPos] > 'Z')
