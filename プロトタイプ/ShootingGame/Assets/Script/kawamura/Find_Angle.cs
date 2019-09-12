@@ -9,6 +9,7 @@ using System;
 public class Find_Angle : MonoBehaviour
 {
 	public GameObject playerObj;   //プレイヤー（向く対象）情報を入れる変数
+	public GameObject player2Obj;
 	Vector3 playerPos;      //プレイヤー（向く対象）の座標を入れる変数
 	Vector3 midBossPos;     //自分の座標を入れる変数
 	Vector3 dif;            //対象と自分の座標の差を入れる変数
