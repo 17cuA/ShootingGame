@@ -237,7 +237,7 @@ public class EnemyCreate : MonoBehaviour
 
     public bool isNowOneBoss = false;
 	public bool isNowTwoBoss = false;
-    public bool isNowMoai = true;
+    public bool isNowMoai = false;
 	public bool isDebug = false;
 	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 	
