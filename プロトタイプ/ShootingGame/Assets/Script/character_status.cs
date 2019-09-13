@@ -345,17 +345,14 @@ public class character_status : MonoBehaviour
             if(player1.activeSelf && !player2.activeSelf)
             {
                 player2.SetActive(true);
-                player2.GetComponent<Player2>().ResponPreparation();
-                player2.GetComponent<Player2>().Remaining = bonusRemaining;
-
+                player2.GetComponent<Player2>().ResponPreparation(bonusRemaining);
 
             }
 
             else if(player2.activeSelf && !player1.activeSelf)
             {
                 player1.SetActive(true);
-                player1.GetComponent<Player1>().ResponPreparation();
-                player1.GetComponent<Player1>().Remaining = bonusRemaining;
+                player1.GetComponent<Player1>().ResponPreparation(bonusRemaining);
             }
         }
     }
