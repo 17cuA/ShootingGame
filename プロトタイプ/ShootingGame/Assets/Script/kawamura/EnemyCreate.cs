@@ -672,7 +672,7 @@ public class EnemyCreate : MonoBehaviour
             Wireless_sinario.Is_using_wireless = true;
         }
         //第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-        if (groupCnt == 74 && frameCnt == turning_frame - 60f)
+        if (groupCnt == 92 && frameCnt == turning_frame - 60f)
         {
             Wireless_sinario.Is_using_wireless = true;
         }
@@ -921,8 +921,8 @@ public class EnemyCreate : MonoBehaviour
                 {
                     saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three.Active_Obj();
                     saveEnemyObj.transform.position = createPos_FourGroupL.transform.position+pos;
-					//Instantiate(enemy_ClamChowder_Group_FourTriangle_NoItem, pos, transform.rotation);
-				}
+                    //Instantiate(enemy_ClamChowder_Group_FourTriangle_NoItem, pos, transform.rotation);
+                }
                 else
                 {
                     saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
@@ -979,10 +979,10 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.BEETLE_GROUP_THREE:
-                //saveEnemyObj = Obj_Storage.Storage_Data.enemy_BeetleGroup_Three.Active_Obj();
-                //saveEnemyObj.transform.position = new Vector3(15, -8, 0);
-                GameObject beetleGroup_Three = Instantiate(enemy_Beetle_Group_Three, createPosRm3.transform.position, transform.rotation);
-                beetleGroup_Three.transform.position = new Vector3(15, -8, 0);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_BeetleGroup_Three.Active_Obj();
+                saveEnemyObj.transform.position = new Vector3(15, -8, 0);
+                //GameObject beetleGroup_Three = Instantiate(enemy_Beetle_Group_Three, createPosRm3.transform.position, transform.rotation);
+                //beetleGroup_Three.transform.position = new Vector3(15, -8, 0);
                 break;
 
             case EnemyType.BEETLE_GROUP_FIVE:
@@ -4886,9 +4886,9 @@ public class EnemyCreate : MonoBehaviour
 
     private void CreateEnemyGroup_01_TypeE()
     {
-        bool bigcoreFlag = false;
-        bool bigcoreMK2Flag = false;
-        bool moaiFlag = false;
+        bool bigcoreFlag = true;
+        bool bigcoreMK2Flag = true;
+        bool moaiFlag = true;
 
         // 円盤上10
         if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
