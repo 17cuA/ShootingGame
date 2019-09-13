@@ -87,4 +87,9 @@ public class Object_Pooling
 	{
 		childe.transform.parent = z.transform;
 	}
+
+	public GameObject Get_Parent_Obj()
+	{
+		return z;
+	}
 }
