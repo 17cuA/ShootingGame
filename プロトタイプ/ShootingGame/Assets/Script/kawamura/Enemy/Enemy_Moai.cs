@@ -190,6 +190,10 @@ public class Enemy_Moai : character_status
 
 			transform.rotation = Quaternion.Euler(rotaX, rotaY, 0);
 
+            if (transform.position.y < -9.5f)
+            {
+                Is_Dead = true;
+            }
 			if (transform.position.y < -10f)
 			{
 				gameObject.SetActive(false);
@@ -204,9 +208,13 @@ public class Enemy_Moai : character_status
 			gameObject.transform.position += velocity * Time.deltaTime;
 			transform.rotation = Quaternion.Euler(0, rotaY, 0);
 
+            if (transform.position.y > 11.5f)
+            {
+                Is_Dead = true;
+            }
 			if (transform.position.y > 12)
 			{
-                Is_Dead = true;
+                //Is_Dead = true;
 				gameObject.SetActive(false);
 			}
 		}
