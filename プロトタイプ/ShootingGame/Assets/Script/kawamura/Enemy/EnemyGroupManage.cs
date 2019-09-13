@@ -28,15 +28,15 @@ public class EnemyGroupManage : MonoBehaviour
 	private void Awake()
 	{
         myName = gameObject.name;
-		if (myName == "Enemy_Bacula_Four")
-		{
-			parentObj = transform.parent.gameObject;
-			bacuManager = parentObj.GetComponent<BaculasManager>();
-			childNum = transform.childCount * 16;
-			remainingEnemiesCnt = childNum;
+        if (myName == "Enemy_Bacula_Four")
+        {
+            parentObj = transform.parent.gameObject;
+            bacuManager = parentObj.GetComponent<BaculasManager>();
+            childNum = transform.childCount * 16;
+            remainingEnemiesCnt = childNum;
 
-		}
-		else if (myName == "Enemy_BossBacula_Four(Clone)" || myName == "Enemy_BossBacula_Four")
+        }
+        else if (myName == "Enemy_BossBacula_Four(Clone)" || myName == "Enemy_BossBacula_Four" || myName == "Enemy_Bacula_Group_Six(Clone)" || myName == "Enemy_Bacula_Group_Six(Clone)")      
 		{
 			//parentObj = transform.parent.gameObject;
 			//bacuManager = parentObj.GetComponent<BaculasManager>();
