@@ -10,153 +10,153 @@ using StorageReference;
 
 public class EnemyCreate : MonoBehaviour
 {
-	//生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が左右の最大）
-	#region CreatePosTop
-	public GameObject createPosT17;
-	public GameObject createPosT16;
-	public GameObject createPosT15;
-	public GameObject createPosT14;
-	public GameObject createPosT13;
-	public GameObject createPosT12;
-	public GameObject createPosT11;
-	public GameObject createPosT10;
-	public GameObject createPosT9;
-	public GameObject createPosT8;
-	public GameObject createPosT7;
-	public GameObject createPosT6;
-	public GameObject createPosT5;
-	public GameObject createPosT4;
-	public GameObject createPosT3;
-	public GameObject createPosT2;
-	public GameObject createPosT1;
-	public GameObject createPosT0;
-	public GameObject createPosTm1;
-	public GameObject createPosTm2;
-	public GameObject createPosTm3;
-	public GameObject createPosTm4;
-	public GameObject createPosTm5;
-	public GameObject createPosTm6;
-	public GameObject createPosTm7;
-	public GameObject createPosTm8;
-	public GameObject createPosTm9;
-	public GameObject createPosTm10;
-	public GameObject createPosTm11;
-	public GameObject createPosTm12;
-	public GameObject createPosTm13;
-	public GameObject createPosTm14;
-	public GameObject createPosTm15;
-	public GameObject createPosTm16;
-	public GameObject createPosTm17;
-	#endregion
+    //生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が左右の最大）
+    #region CreatePosTop
+    public GameObject createPosT17;
+    public GameObject createPosT16;
+    public GameObject createPosT15;
+    public GameObject createPosT14;
+    public GameObject createPosT13;
+    public GameObject createPosT12;
+    public GameObject createPosT11;
+    public GameObject createPosT10;
+    public GameObject createPosT9;
+    public GameObject createPosT8;
+    public GameObject createPosT7;
+    public GameObject createPosT6;
+    public GameObject createPosT5;
+    public GameObject createPosT4;
+    public GameObject createPosT3;
+    public GameObject createPosT2;
+    public GameObject createPosT1;
+    public GameObject createPosT0;
+    public GameObject createPosTm1;
+    public GameObject createPosTm2;
+    public GameObject createPosTm3;
+    public GameObject createPosTm4;
+    public GameObject createPosTm5;
+    public GameObject createPosTm6;
+    public GameObject createPosTm7;
+    public GameObject createPosTm8;
+    public GameObject createPosTm9;
+    public GameObject createPosTm10;
+    public GameObject createPosTm11;
+    public GameObject createPosTm12;
+    public GameObject createPosTm13;
+    public GameObject createPosTm14;
+    public GameObject createPosTm15;
+    public GameObject createPosTm16;
+    public GameObject createPosTm17;
+    #endregion
 
-	//生成位置下側（Uなので上側、mUはマイナスなのでmがついてる、17が左右の最大）
-	#region CreatePosUnder
-	public GameObject createPosU17;
-	public GameObject createPosU16;
-	public GameObject createPosU15;
-	public GameObject createPosU14;
-	public GameObject createPosU13;
-	public GameObject createPosU12;
-	public GameObject createPosU11;
-	public GameObject createPosU10;
-	public GameObject createPosU9;
-	public GameObject createPosU8;
-	public GameObject createPosU7;
-	public GameObject createPosU6;
-	public GameObject createPosU5;
-	public GameObject createPosU4;
-	public GameObject createPosU3;
-	public GameObject createPosU2;
-	public GameObject createPosU1;
-	public GameObject createPosU0;
-	public GameObject createPosUm1;
-	public GameObject createPosUm2;
-	public GameObject createPosUm3;
-	public GameObject createPosUm4;
-	public GameObject createPosUm5;
-	public GameObject createPosUm6;
-	public GameObject createPosUm7;
-	public GameObject createPosUm8;
-	public GameObject createPosUm9;
-	public GameObject createPosUm10;
-	public GameObject createPosUm11;
-	public GameObject createPosUm12;
-	public GameObject createPosUm13;
-	public GameObject createPosUm14;
-	public GameObject createPosUm15;
-	public GameObject createPosUm16;
-	public GameObject createPosUm17;
-	#endregion
+    //生成位置下側（Uなので上側、mUはマイナスなのでmがついてる、17が左右の最大）
+    #region CreatePosUnder
+    public GameObject createPosU17;
+    public GameObject createPosU16;
+    public GameObject createPosU15;
+    public GameObject createPosU14;
+    public GameObject createPosU13;
+    public GameObject createPosU12;
+    public GameObject createPosU11;
+    public GameObject createPosU10;
+    public GameObject createPosU9;
+    public GameObject createPosU8;
+    public GameObject createPosU7;
+    public GameObject createPosU6;
+    public GameObject createPosU5;
+    public GameObject createPosU4;
+    public GameObject createPosU3;
+    public GameObject createPosU2;
+    public GameObject createPosU1;
+    public GameObject createPosU0;
+    public GameObject createPosUm1;
+    public GameObject createPosUm2;
+    public GameObject createPosUm3;
+    public GameObject createPosUm4;
+    public GameObject createPosUm5;
+    public GameObject createPosUm6;
+    public GameObject createPosUm7;
+    public GameObject createPosUm8;
+    public GameObject createPosUm9;
+    public GameObject createPosUm10;
+    public GameObject createPosUm11;
+    public GameObject createPosUm12;
+    public GameObject createPosUm13;
+    public GameObject createPosUm14;
+    public GameObject createPosUm15;
+    public GameObject createPosUm16;
+    public GameObject createPosUm17;
+    #endregion
 
-	//生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
-	#region CreatePosRight
-	public GameObject createPosR5;
-	public GameObject createPosR4;
-	public GameObject createPosR3;
-	public GameObject createPosR2;
-	public GameObject createPosR1;
-	public GameObject createPosR0;
-	public GameObject createPos_FourGroupR;
-	public GameObject createPosRm1;
-	public GameObject createPosRm2;
-	public GameObject createPosRm3;
-	public GameObject createPosRm4;
-	public GameObject createPosRm5;
-	#endregion
+    //生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
+    #region CreatePosRight
+    public GameObject createPosR5;
+    public GameObject createPosR4;
+    public GameObject createPosR3;
+    public GameObject createPosR2;
+    public GameObject createPosR1;
+    public GameObject createPosR0;
+    public GameObject createPos_FourGroupR;
+    public GameObject createPosRm1;
+    public GameObject createPosRm2;
+    public GameObject createPosRm3;
+    public GameObject createPosRm4;
+    public GameObject createPosRm5;
+    #endregion
 
-	//生成位置左側
-	#region CreatePosLeft
-	public GameObject createPosL5;
-	public GameObject createPosL4;
-	public GameObject createPosL3;
-	public GameObject createPosL2;
-	public GameObject createPosL1;
-	public GameObject createPosL0;
-	public GameObject createPos_FourGroupL;
-	public GameObject createPosLm1;
-	public GameObject createPosLm2;
-	public GameObject createPosLm3;
-	public GameObject createPosLm4;
-	public GameObject createPosLm5;
-	#endregion
+    //生成位置左側
+    #region CreatePosLeft
+    public GameObject createPosL5;
+    public GameObject createPosL4;
+    public GameObject createPosL3;
+    public GameObject createPosL2;
+    public GameObject createPosL1;
+    public GameObject createPosL0;
+    public GameObject createPos_FourGroupL;
+    public GameObject createPosLm1;
+    public GameObject createPosLm2;
+    public GameObject createPosLm3;
+    public GameObject createPosLm4;
+    public GameObject createPosLm5;
+    #endregion
 
-	//中ボス位置と戦艦位置
-	public GameObject createMiddleBossPos;
-	public GameObject createBattleShipPos;
+    //中ボス位置と戦艦位置
+    public GameObject createMiddleBossPos;
+    public GameObject createBattleShipPos;
 
-	//バキュラ位置
-	public GameObject createBaculaGroupPos;
+    //バキュラ位置
+    public GameObject createBaculaGroupPos;
 
-	//隕石生成位置
-	public GameObject createMeteorPosR4_814;
-	public GameObject createMeteorPosR2_988;
-	public GameObject createMeteorPosR1_494;
-	public GameObject createMeteorPosR0;
-	public GameObject createMeteorPosRm1_162;
-	public GameObject createMeteorPosRm2_822;
-	public GameObject createMeteorPosRm3_57;
-	public GameObject createMeteorPosRm4_814;
+    //隕石生成位置
+    public GameObject createMeteorPosR4_814;
+    public GameObject createMeteorPosR2_988;
+    public GameObject createMeteorPosR1_494;
+    public GameObject createMeteorPosR0;
+    public GameObject createMeteorPosRm1_162;
+    public GameObject createMeteorPosRm2_822;
+    public GameObject createMeteorPosRm3_57;
+    public GameObject createMeteorPosRm4_814;
 
     //public GameObject enemy_UFO_Group;
     public GameObject enemy_UFO_Group_Five;
-	public GameObject enemy_ClamChowder_Group_Four;
-	public GameObject enemy_ClamChowder_Group_Four_NoItem;
+    public GameObject enemy_ClamChowder_Group_Four;
+    public GameObject enemy_ClamChowder_Group_Four_NoItem;
 
-	public GameObject enemy_ClamChowder_Group_Five;
-	public GameObject enemy_ClamChowder_Group_Five_NoItem;
-	public GameObject enemy_ClamChowder_Group_FourBehind;
-	public GameObject enemy_ClamChowder_Group_Two;
-	public GameObject enemy_ClamChowder_Group_Two_Top;
-	public GameObject enemy_ClamChowder_Group_Two_Under;
-	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
-	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown;
-	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_Item;
-	public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_Item;
-	public GameObject enemy_ClamChowder_Group_Three;
-	public GameObject enemy_ClamChowder_Group_Three_Item;
-	public GameObject enemy_ClamChowder_Group_SevenWave;
-	public GameObject enemy_Clamchowder_Group_Straight;
-	public GameObject enemy_Clamchowder_Group_StraightBehind;
+    public GameObject enemy_ClamChowder_Group_Five;
+    public GameObject enemy_ClamChowder_Group_Five_NoItem;
+    public GameObject enemy_ClamChowder_Group_FourBehind;
+    public GameObject enemy_ClamChowder_Group_Two;
+    public GameObject enemy_ClamChowder_Group_Two_Top;
+    public GameObject enemy_ClamChowder_Group_Two_Under;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_Item;
+    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_Item;
+    public GameObject enemy_ClamChowder_Group_Three;
+    public GameObject enemy_ClamChowder_Group_Three_Item;
+    public GameObject enemy_ClamChowder_Group_SevenWave;
+    public GameObject enemy_Clamchowder_Group_Straight;
+    public GameObject enemy_Clamchowder_Group_StraightBehind;
     public GameObject enemy_ClamChowder_Group_FourTriangle;
     public GameObject enemy_ClamChowder_Group_FourTriangle_NoItem;
     public GameObject enemy_ClamChowder_Group_TwelveStraight;
@@ -171,24 +171,24 @@ public class EnemyCreate : MonoBehaviour
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
     //public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
     public GameObject enemy_BattleShip;
-	public GameObject enemy_Beelzebub_Group_FourNomal;
-	public GameObject enemy_Beelzebub_Group_FourBack;
-	public GameObject enemy_Beelzebub_Group_FourWide;
-	public GameObject enemy_Beelzebub_Group_FourWide_Item;
+    public GameObject enemy_Beelzebub_Group_FourNomal;
+    public GameObject enemy_Beelzebub_Group_FourBack;
+    public GameObject enemy_Beelzebub_Group_FourWide;
+    public GameObject enemy_Beelzebub_Group_FourWide_Item;
     public GameObject enemy_Beelzebub_Group_EightNormal_Item;
     public GameObject enemy_Bacula_Sixteen;
-	public GameObject enemy_Bacula_FourOnly;
-	public GameObject enemy_Meteor;
-	public GameObject enemy_Meteor_Top;
-	public GameObject enemy_Meteor_Under;
-	public GameObject enemy_Meteors;
-	public GameObject enemy_Meteor_Mini;
-	public GameObject enemy_MeteorWaveGroup;
-	public GameObject enemy_SlowFollow;
-	public GameObject Enemy_BoundMeteors;
+    public GameObject enemy_Bacula_FourOnly;
+    public GameObject enemy_Meteor;
+    public GameObject enemy_Meteor_Top;
+    public GameObject enemy_Meteor_Under;
+    public GameObject enemy_Meteors;
+    public GameObject enemy_Meteor_Mini;
+    public GameObject enemy_MeteorWaveGroup;
+    public GameObject enemy_SlowFollow;
+    public GameObject Enemy_BoundMeteors;
     public GameObject enemy_Star_Fish_Spowner;
 
-	public GameObject enemy_Beetle_Group;
+    public GameObject enemy_Beetle_Group;
     public GameObject enemy_Beetle_Group_Three;
     public GameObject enemy_Beetle_Group_Seven;
 
@@ -197,196 +197,198 @@ public class EnemyCreate : MonoBehaviour
 
     public GameObject saveEnemyObj;
 
-	public int PreviousCount = 0;
+    public int PreviousCount = 0;
 
-	public int frameCnt = 0;    //フレームカウント：これの値で生成のタイミングをはかる
-	public int groupCnt = 1;    //画面に出す群れのカウント
-	public int nowGroupCnt;
-	public int[] groupCntArray;
-	//float plusNum = 60;			//
-	//float plusNum2 = 60;		//この三つは強引に表示のフレームをずらすために使ったので消した方がいいけど面倒
-	//float plusNum3 = 60;        //
+    public int frameCnt = 0;    //フレームカウント：これの値で生成のタイミングをはかる
+    public int groupCnt = 1;    //画面に出す群れのカウント
+    public int nowGroupCnt;
+    public int[] groupCntArray;
+    //float plusNum = 60;			//
+    //float plusNum2 = 60;		//この三つは強引に表示のフレームをずらすために使ったので消した方がいいけど面倒
+    //float plusNum3 = 60;        //
 
-	public int turning_frame = 180;
-	public string nextEnemy;
+    public int turning_frame = 180;
+    public string nextEnemy;
 
-	public EnemyGroupManage group_Script;
+    public EnemyGroupManage group_Script;
 
-	GameObject middleBossOBj;
-	Enemy_MiddleBoss middleBoss_Script;
+    GameObject middleBossOBj;
+    Enemy_MiddleBoss middleBoss_Script;
 
-	GameObject oneBossOBj;
-	One_Boss oneBoss_Script;
-	GameObject mistEffectObj;
-	ParticleSystem mistParticle;
-	public BackgroundActivation backActive_Script;
+    GameObject oneBossOBj;
+    One_Boss oneBoss_Script;
+    GameObject mistEffectObj;
+    ParticleSystem mistParticle;
+    public BackgroundActivation backActive_Script;
 
-	GameObject twoBossObj;
-	Two_Boss twoBoss_Script;
+    GameObject twoBossObj;
+    Two_Boss twoBoss_Script;
 
     GameObject moaiObj;
     Enemy_Moai moai_Script;
 
 
     public bool isCreate;       //表示するときにtrueにする
-	public bool isBaculaDestroy = false;
-	public bool isMiddleBossDead = false;
-	public bool isOneBossAlive = false;
-	public bool isTwoBossAlive = false;
+    public bool isBaculaDestroy = false;
+    public bool isMiddleBossDead = false;
+    public bool isOneBossAlive = false;
+    public bool isTwoBossAlive = false;
     public bool isMoaiAlive = false;
 
+    public bool isMiddleBossSkip = true;
+
     public bool isNowOneBoss = false;
-	public bool isNowTwoBoss = false;
+    public bool isNowTwoBoss = false;
     public bool isNowMoai = false;
-	public bool isDebug = false;
-	public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
-	
-	void Start()
-	{
-		//位置オブジェクト取得
-		//上側取得
-		#region CreatePosTop
-		createPosT17 = GameObject.Find("CreatePos_Top_17");
-		createPosT16 = GameObject.Find("CreatePos_Top_16");
-		createPosT15 = GameObject.Find("CreatePos_Top_15");
-		createPosT14 = GameObject.Find("CreatePos_Top_14");
-		createPosT13 = GameObject.Find("CreatePos_Top_13");
-		createPosT12 = GameObject.Find("CreatePos_Top_12");
-		createPosT11 = GameObject.Find("CreatePos_Top_11");
-		createPosT10 = GameObject.Find("CreatePos_Top_10");
-		createPosT9 = GameObject.Find("CreatePos_Top_9");
-		createPosT8 = GameObject.Find("CreatePos_Top_8");
-		createPosT7 = GameObject.Find("CreatePos_Top_7");
-		createPosT6 = GameObject.Find("CreatePos_Top_6");
-		createPosT5 = GameObject.Find("CreatePos_Top_5");
-		createPosT4 = GameObject.Find("CreatePos_Top_4");
-		createPosT3 = GameObject.Find("CreatePos_Top_3");
-		createPosT2 = GameObject.Find("CreatePos_Top_2");
-		createPosT1 = GameObject.Find("CreatePos_Top_1");
-		createPosT0 = GameObject.Find("CreatePos_Top_0");
-		createPosTm1 = GameObject.Find("CreatePos_Top_-1");
-		createPosTm2 = GameObject.Find("CreatePos_Top_-2");
-		createPosTm3 = GameObject.Find("CreatePos_Top_-3");
-		createPosTm4 = GameObject.Find("CreatePos_Top_-4");
-		createPosTm5 = GameObject.Find("CreatePos_Top_-5");
-		createPosTm6 = GameObject.Find("CreatePos_Top_-6");
-		createPosTm7 = GameObject.Find("CreatePos_Top_-7");
-		createPosTm8 = GameObject.Find("CreatePos_Top_-8");
-		createPosTm9 = GameObject.Find("CreatePos_Top_-9");
-		createPosTm10 = GameObject.Find("CreatePos_Top_-10");
-		createPosTm11 = GameObject.Find("CreatePos_Top_-11");
-		createPosTm12 = GameObject.Find("CreatePos_Top_-12");
-		createPosTm13 = GameObject.Find("CreatePos_Top_-13");
-		createPosTm14 = GameObject.Find("CreatePos_Top_-14");
-		createPosTm15 = GameObject.Find("CreatePos_Top_-15");
-		createPosTm16 = GameObject.Find("CreatePos_Top_-16");
-		createPosTm17 = GameObject.Find("CreatePos_Top_-17");
-		#endregion
+    public bool isDebug = false;
+    public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
 
-		//下側取得
-		#region CreatePosUnder
-		createPosU17 = GameObject.Find("CreatePos_Under_17");
-		createPosU16 = GameObject.Find("CreatePos_Under_16");
-		createPosU15 = GameObject.Find("CreatePos_Under_15");
-		createPosU14 = GameObject.Find("CreatePos_Under_14");
-		createPosU13 = GameObject.Find("CreatePos_Under_13");
-		createPosU12 = GameObject.Find("CreatePos_Under_12");
-		createPosU11 = GameObject.Find("CreatePos_Under_11");
-		createPosU10 = GameObject.Find("CreatePos_Under_10");
-		createPosU9 = GameObject.Find("CreatePos_Under_9");
-		createPosU8 = GameObject.Find("CreatePos_Under_8");
-		createPosU7 = GameObject.Find("CreatePos_Under_7");
-		createPosU6 = GameObject.Find("CreatePos_Under_6");
-		createPosU5 = GameObject.Find("CreatePos_Under_5");
-		createPosU4 = GameObject.Find("CreatePos_Under_4");
-		createPosU3 = GameObject.Find("CreatePos_Under_3");
-		createPosU2 = GameObject.Find("CreatePos_Under_2");
-		createPosU1 = GameObject.Find("CreatePos_Under_1");
-		createPosU0 = GameObject.Find("CreatePos_Under_0");
-		createPosUm1 = GameObject.Find("CreatePos_Under_-1");
-		createPosUm2 = GameObject.Find("CreatePos_Under_-2");
-		createPosUm3 = GameObject.Find("CreatePos_Under_-3");
-		createPosUm4 = GameObject.Find("CreatePos_Under_-4");
-		createPosUm5 = GameObject.Find("CreatePos_Under_-5");
-		createPosUm6 = GameObject.Find("CreatePos_Under_-6");
-		createPosUm7 = GameObject.Find("CreatePos_Under_-7");
-		createPosUm8 = GameObject.Find("CreatePos_Under_-8");
-		createPosUm9 = GameObject.Find("CreatePos_Under_-9");
-		createPosUm10 = GameObject.Find("CreatePos_Under_-10");
-		createPosUm11 = GameObject.Find("CreatePos_Under_-11");
-		createPosUm12 = GameObject.Find("CreatePos_Under_-12");
-		createPosUm13 = GameObject.Find("CreatePos_Under_-13");
-		createPosUm14 = GameObject.Find("CreatePos_Under_-14");
-		createPosUm15 = GameObject.Find("CreatePos_Under_-15");
-		createPosUm16 = GameObject.Find("CreatePos_Under_-16");
-		createPosUm17 = GameObject.Find("CreatePos_Under_-17");
-		#endregion
+    void Start()
+    {
+        //位置オブジェクト取得
+        //上側取得
+        #region CreatePosTop
+        createPosT17 = GameObject.Find("CreatePos_Top_17");
+        createPosT16 = GameObject.Find("CreatePos_Top_16");
+        createPosT15 = GameObject.Find("CreatePos_Top_15");
+        createPosT14 = GameObject.Find("CreatePos_Top_14");
+        createPosT13 = GameObject.Find("CreatePos_Top_13");
+        createPosT12 = GameObject.Find("CreatePos_Top_12");
+        createPosT11 = GameObject.Find("CreatePos_Top_11");
+        createPosT10 = GameObject.Find("CreatePos_Top_10");
+        createPosT9 = GameObject.Find("CreatePos_Top_9");
+        createPosT8 = GameObject.Find("CreatePos_Top_8");
+        createPosT7 = GameObject.Find("CreatePos_Top_7");
+        createPosT6 = GameObject.Find("CreatePos_Top_6");
+        createPosT5 = GameObject.Find("CreatePos_Top_5");
+        createPosT4 = GameObject.Find("CreatePos_Top_4");
+        createPosT3 = GameObject.Find("CreatePos_Top_3");
+        createPosT2 = GameObject.Find("CreatePos_Top_2");
+        createPosT1 = GameObject.Find("CreatePos_Top_1");
+        createPosT0 = GameObject.Find("CreatePos_Top_0");
+        createPosTm1 = GameObject.Find("CreatePos_Top_-1");
+        createPosTm2 = GameObject.Find("CreatePos_Top_-2");
+        createPosTm3 = GameObject.Find("CreatePos_Top_-3");
+        createPosTm4 = GameObject.Find("CreatePos_Top_-4");
+        createPosTm5 = GameObject.Find("CreatePos_Top_-5");
+        createPosTm6 = GameObject.Find("CreatePos_Top_-6");
+        createPosTm7 = GameObject.Find("CreatePos_Top_-7");
+        createPosTm8 = GameObject.Find("CreatePos_Top_-8");
+        createPosTm9 = GameObject.Find("CreatePos_Top_-9");
+        createPosTm10 = GameObject.Find("CreatePos_Top_-10");
+        createPosTm11 = GameObject.Find("CreatePos_Top_-11");
+        createPosTm12 = GameObject.Find("CreatePos_Top_-12");
+        createPosTm13 = GameObject.Find("CreatePos_Top_-13");
+        createPosTm14 = GameObject.Find("CreatePos_Top_-14");
+        createPosTm15 = GameObject.Find("CreatePos_Top_-15");
+        createPosTm16 = GameObject.Find("CreatePos_Top_-16");
+        createPosTm17 = GameObject.Find("CreatePos_Top_-17");
+        #endregion
 
-		//右側取得
-		#region CreatePosRight
-		createPosR5 = GameObject.Find("CreatePos_Right_5");
-		createPosR4 = GameObject.Find("CreatePos_Right_4");
-		createPosR3 = GameObject.Find("CreatePos_Right_3");
-		createPosR2 = GameObject.Find("CreatePos_Right_2");
-		createPosR1 = GameObject.Find("CreatePos_Right_1");
-		createPosR0 = GameObject.Find("CreatePos_Right_0");
-		createPos_FourGroupR = GameObject.Find("CreatePos_FourGroupR");
-		createPosRm1 = GameObject.Find("CreatePos_Right_-1");
-		createPosRm2 = GameObject.Find("CreatePos_Right_-2");
-		createPosRm3 = GameObject.Find("CreatePos_Right_-3");
-		createPosRm4 = GameObject.Find("CreatePos_Right_-4");
-		createPosRm5 = GameObject.Find("CreatePos_Right_-5");
-		#endregion
+        //下側取得
+        #region CreatePosUnder
+        createPosU17 = GameObject.Find("CreatePos_Under_17");
+        createPosU16 = GameObject.Find("CreatePos_Under_16");
+        createPosU15 = GameObject.Find("CreatePos_Under_15");
+        createPosU14 = GameObject.Find("CreatePos_Under_14");
+        createPosU13 = GameObject.Find("CreatePos_Under_13");
+        createPosU12 = GameObject.Find("CreatePos_Under_12");
+        createPosU11 = GameObject.Find("CreatePos_Under_11");
+        createPosU10 = GameObject.Find("CreatePos_Under_10");
+        createPosU9 = GameObject.Find("CreatePos_Under_9");
+        createPosU8 = GameObject.Find("CreatePos_Under_8");
+        createPosU7 = GameObject.Find("CreatePos_Under_7");
+        createPosU6 = GameObject.Find("CreatePos_Under_6");
+        createPosU5 = GameObject.Find("CreatePos_Under_5");
+        createPosU4 = GameObject.Find("CreatePos_Under_4");
+        createPosU3 = GameObject.Find("CreatePos_Under_3");
+        createPosU2 = GameObject.Find("CreatePos_Under_2");
+        createPosU1 = GameObject.Find("CreatePos_Under_1");
+        createPosU0 = GameObject.Find("CreatePos_Under_0");
+        createPosUm1 = GameObject.Find("CreatePos_Under_-1");
+        createPosUm2 = GameObject.Find("CreatePos_Under_-2");
+        createPosUm3 = GameObject.Find("CreatePos_Under_-3");
+        createPosUm4 = GameObject.Find("CreatePos_Under_-4");
+        createPosUm5 = GameObject.Find("CreatePos_Under_-5");
+        createPosUm6 = GameObject.Find("CreatePos_Under_-6");
+        createPosUm7 = GameObject.Find("CreatePos_Under_-7");
+        createPosUm8 = GameObject.Find("CreatePos_Under_-8");
+        createPosUm9 = GameObject.Find("CreatePos_Under_-9");
+        createPosUm10 = GameObject.Find("CreatePos_Under_-10");
+        createPosUm11 = GameObject.Find("CreatePos_Under_-11");
+        createPosUm12 = GameObject.Find("CreatePos_Under_-12");
+        createPosUm13 = GameObject.Find("CreatePos_Under_-13");
+        createPosUm14 = GameObject.Find("CreatePos_Under_-14");
+        createPosUm15 = GameObject.Find("CreatePos_Under_-15");
+        createPosUm16 = GameObject.Find("CreatePos_Under_-16");
+        createPosUm17 = GameObject.Find("CreatePos_Under_-17");
+        #endregion
 
-		//左側取得
-		#region CreatePosLeft
-		createPosL5 = GameObject.Find("CreatePos_Left_5");
-		createPosL4 = GameObject.Find("CreatePos_Left_4");
-		createPosL3 = GameObject.Find("CreatePos_Left_3");
-		createPosL2 = GameObject.Find("CreatePos_Left_2");
-		createPosL1 = GameObject.Find("CreatePos_Left_1");
-		createPosL0 = GameObject.Find("CreatePos_Left_0");
-		createPos_FourGroupL = GameObject.Find("CreatePos_FourGroupL");
-		createPosLm1 = GameObject.Find("CreatePos_Left_-1");
-		createPosLm2 = GameObject.Find("CreatePos_Left_-2");
-		createPosLm3 = GameObject.Find("CreatePos_Left_-3");
-		createPosLm4 = GameObject.Find("CreatePos_Left_-4");
-		createPosLm5 = GameObject.Find("CreatePos_Left_-5");
-		#endregion
+        //右側取得
+        #region CreatePosRight
+        createPosR5 = GameObject.Find("CreatePos_Right_5");
+        createPosR4 = GameObject.Find("CreatePos_Right_4");
+        createPosR3 = GameObject.Find("CreatePos_Right_3");
+        createPosR2 = GameObject.Find("CreatePos_Right_2");
+        createPosR1 = GameObject.Find("CreatePos_Right_1");
+        createPosR0 = GameObject.Find("CreatePos_Right_0");
+        createPos_FourGroupR = GameObject.Find("CreatePos_FourGroupR");
+        createPosRm1 = GameObject.Find("CreatePos_Right_-1");
+        createPosRm2 = GameObject.Find("CreatePos_Right_-2");
+        createPosRm3 = GameObject.Find("CreatePos_Right_-3");
+        createPosRm4 = GameObject.Find("CreatePos_Right_-4");
+        createPosRm5 = GameObject.Find("CreatePos_Right_-5");
+        #endregion
 
-		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
-		createBattleShipPos = GameObject.Find("CreateBattleshipPos");
+        //左側取得
+        #region CreatePosLeft
+        createPosL5 = GameObject.Find("CreatePos_Left_5");
+        createPosL4 = GameObject.Find("CreatePos_Left_4");
+        createPosL3 = GameObject.Find("CreatePos_Left_3");
+        createPosL2 = GameObject.Find("CreatePos_Left_2");
+        createPosL1 = GameObject.Find("CreatePos_Left_1");
+        createPosL0 = GameObject.Find("CreatePos_Left_0");
+        createPos_FourGroupL = GameObject.Find("CreatePos_FourGroupL");
+        createPosLm1 = GameObject.Find("CreatePos_Left_-1");
+        createPosLm2 = GameObject.Find("CreatePos_Left_-2");
+        createPosLm3 = GameObject.Find("CreatePos_Left_-3");
+        createPosLm4 = GameObject.Find("CreatePos_Left_-4");
+        createPosLm5 = GameObject.Find("CreatePos_Left_-5");
+        #endregion
 
-		createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
+        createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
+        createBattleShipPos = GameObject.Find("CreateBattleshipPos");
 
-		createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
-		createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
-		createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
-		createMeteorPosR0 = GameObject.Find("CreateMeteorPos_Right_0");
-		createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
-		createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
-		createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
-		createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
+        createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
+
+        createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
+        createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
+        createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
+        createMeteorPosR0 = GameObject.Find("CreateMeteorPos_Right_0");
+        createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
+        createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
+        createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
+        createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
 
         //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
         enemy_UFO_Group_Five = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
         enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
-		enemy_ClamChowder_Group_Four_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
-		enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
-		enemy_ClamChowder_Group_Five_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
-		enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
-		enemy_ClamChowder_Group_Two = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two") as GameObject;
-		enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
-		enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
-		enemy_ClamChowder_Group_TwoWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp") as GameObject;
-		enemy_ClamChowder_Group_TwoWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
-		enemy_ClamChowder_Group_TwoWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp_Item") as GameObject;
-		enemy_ClamChowder_Group_TwoWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown_Item") as GameObject;
-		enemy_ClamChowder_Group_Three = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
-		enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-		enemy_ClamChowder_Group_SevenWave = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-		enemy_Clamchowder_Group_Straight = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
-		enemy_Clamchowder_Group_StraightBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_StraightBehind") as GameObject;
+        enemy_ClamChowder_Group_Four_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
+        enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
+        enemy_ClamChowder_Group_Five_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
+        enemy_ClamChowder_Group_FourBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourBehind") as GameObject;
+        enemy_ClamChowder_Group_Two = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two") as GameObject;
+        enemy_ClamChowder_Group_Two_Top = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+        enemy_ClamChowder_Group_Two_Under = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyUp = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyDown = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUp_Item") as GameObject;
+        enemy_ClamChowder_Group_TwoWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown_Item") as GameObject;
+        enemy_ClamChowder_Group_Three = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
+        enemy_ClamChowder_Group_Three_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+        enemy_ClamChowder_Group_SevenWave = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+        enemy_Clamchowder_Group_Straight = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
+        enemy_Clamchowder_Group_StraightBehind = Resources.Load("Enemy/Enemy_ClamChowder_Group_StraightBehind") as GameObject;
         enemy_ClamChowder_Group_FourTriangle = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle") as GameObject;
         enemy_ClamChowder_Group_FourTriangle_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle_NoItem") as GameObject;
         enemy_ClamChowder_Group_TwelveStraight = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwelveStraight") as GameObject;
@@ -401,22 +403,22 @@ public class EnemyCreate : MonoBehaviour
         //enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
         //enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
         enemy_BattleShip = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
-		enemy_Beelzebub_Group_FourNomal = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourNomal") as GameObject;
-		enemy_Beelzebub_Group_FourBack = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourBack") as GameObject;
-		enemy_Beelzebub_Group_FourWide = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
-		enemy_Beelzebub_Group_FourWide_Item = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
+        enemy_Beelzebub_Group_FourNomal = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourNomal") as GameObject;
+        enemy_Beelzebub_Group_FourBack = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourBack") as GameObject;
+        enemy_Beelzebub_Group_FourWide = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
+        enemy_Beelzebub_Group_FourWide_Item = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
         enemy_Beelzebub_Group_EightNormal_Item = Resources.Load("Enemy/Enemy_Beelzebub_Group_EightNormal_Item") as GameObject;
         enemy_Bacula_Sixteen = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
-		enemy_Bacula_FourOnly = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
+        enemy_Bacula_FourOnly = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
 
-		enemy_Meteor = Resources.Load("Enemy/Enemy_Meteor") as GameObject;
-		enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
-		enemy_Meteor_Top = Resources.Load("Enemy/Enemy_Meteor_Top") as GameObject;
-		enemy_Meteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
-		enemy_Meteors = Resources.Load("Enemy/Meteors") as GameObject;
-		enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
-		enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
-		Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
+        enemy_Meteor = Resources.Load("Enemy/Enemy_Meteor") as GameObject;
+        enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
+        enemy_Meteor_Top = Resources.Load("Enemy/Enemy_Meteor_Top") as GameObject;
+        enemy_Meteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
+        enemy_Meteors = Resources.Load("Enemy/Meteors") as GameObject;
+        enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
+        enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
+        Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
         enemy_Star_Fish_Spowner = Resources.Load("Enemy/Enemy_Star_Fish_Spowner") as GameObject;
         enemy_Beetle_Group = Resources.Load("Enemy/Enemy_Beetle_Group") as GameObject;
         enemy_Beetle_Group_Three = Resources.Load("Enemy/Enemy_Beetle_Group_Three") as GameObject;
@@ -424,28 +426,28 @@ public class EnemyCreate : MonoBehaviour
 
         enemy_MoaiBossGroup = Resources.Load("Enemy/Enemy_MoaiBossGroup") as GameObject;
 
-		mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
-		mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
-		//backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
+        mistEffectObj = Resources.Load("Effects/Other/O004") as GameObject;
+        mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
+        //backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
 
-		//群れカウント初期化
-		groupCnt = 1;
-		nowGroupCnt = 1;
-		for (int i = 0; i < groupCntArray.Length; i++)
-		{
-			groupCntArray[i] = i;
-		}
+        //群れカウント初期化
+        groupCnt = 1;
+        nowGroupCnt = 1;
+        for (int i = 0; i < groupCntArray.Length; i++)
+        {
+            groupCntArray[i] = i;
+        }
 
-		middleBossOBj = Obj_Storage.Storage_Data.GetMiddleBoss();
-		middleBoss_Script = middleBossOBj.GetComponent<Enemy_MiddleBoss>();
+        middleBossOBj = Obj_Storage.Storage_Data.GetMiddleBoss();
+        middleBoss_Script = middleBossOBj.GetComponent<Enemy_MiddleBoss>();
 
-		oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
-		oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
-		isOneBossAlive = true;
+        oneBossOBj = Obj_Storage.Storage_Data.GetBoss(1);
+        oneBoss_Script = oneBossOBj.GetComponent<One_Boss>();
+        isOneBossAlive = true;
 
-		twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
-		twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
-		isTwoBossAlive = true;
+        twoBossObj = Obj_Storage.Storage_Data.GetBoss(2);
+        twoBoss_Script = twoBossObj.GetComponent<Two_Boss>();
+        isTwoBossAlive = true;
 
         moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
         moai_Script = moaiObj.GetComponent<Enemy_Moai>();
@@ -454,161 +456,160 @@ public class EnemyCreate : MonoBehaviour
     }
 
     void Update()
-	{
-		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
-		{
-			return;
-		}
-		PreviousCount = frameCnt;
+    {
+        if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+        {
+            return;
+        }
+        PreviousCount = frameCnt;
 
         if (!isNowOneBoss && !isNowTwoBoss && !isNowMoai)
-		{
-			frameCnt++;
-		}
+        {
+            frameCnt++;
+        }
 
-		//次の敵を出す
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			frameCnt = turning_frame;
-		}
+        //次の敵を出す
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            frameCnt = turning_frame;
+        }
 
-		//ラスボス一つ手前
-		//if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
-		//{
-		//	turning_frame = 5010;
-		//	frameCnt = 5010;
-		//	groupCnt = 53;
-		//}
-		//中ボス
-		if (Input.GetKeyDown(KeyCode.J))
-		{
-			turning_frame = 5010;
-			frameCnt = 5010;
-			groupCnt = 17;
-			//nowGroupCnt = 17;
-		}
-		//中ボス後
-		else if (Input.GetKeyDown(KeyCode.K))
-		{
-			turning_frame = 6750;
-			frameCnt = 6750;
-			groupCnt = 25;
-			//nowGroupCnt = 21;
-		}
-		//1ボス
-		else if (Input.GetKeyDown(KeyCode.M))
-		{
-			turning_frame = 9660;
-			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 46;
-			//nowGroupCnt = 36;
-		}
-		//1ボス後
-		else if (Input.GetKeyDown(KeyCode.B))
-		{
-			turning_frame = 9660;
-			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 47;
-			//nowGroupCnt = 36;
-		}
+        //ラスボス一つ手前
+        //if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
+        //{
+        //	turning_frame = 5010;
+        //	frameCnt = 5010;
+        //	groupCnt = 53;
+        //}
+        //中ボス
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            turning_frame = 5010;
+            frameCnt = 5010;
+            groupCnt = 17;
+            //nowGroupCnt = 17;
+        }
+        //中ボス後
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            turning_frame = 6750;
+            frameCnt = 6750;
+            groupCnt = 25;
+            //nowGroupCnt = 21;
+        }
+        //1ボス
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            turning_frame = 9660;
+            frameCnt = 9600;    //←上の数字から60引いた数にする
+            groupCnt = 46;
+            //nowGroupCnt = 36;
+        }
+        //1ボス後
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            turning_frame = 9660;
+            frameCnt = 9600;    //←上の数字から60引いた数にする
+            groupCnt = 47;
+            //nowGroupCnt = 36;
+        }
 
-		//ラスボス
-		else if (Input.GetKeyDown(KeyCode.L))
-		{
-			//turning_frame = 17750;
-			//frameCnt = 17750;
-			//groupCnt = 45;
-			isDebug = true;
-			turning_frame = 5010;
-			frameCnt = 4950;	//←上の数字から60引いた数にする
-			groupCnt = 90;
+        //ラスボス
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            //turning_frame = 17750;
+            //frameCnt = 17750;
+            //groupCnt = 45;
+            isDebug = true;
+            turning_frame = 5010;
+            frameCnt = 4950;    //←上の数字から60引いた数にする
+            groupCnt = 90;
 
-		}
-		if (saveEnemyObj != null)
-		{
+        }
+        if (saveEnemyObj != null)
+        {
 
-		}
+        }
 
-		//if (isMiddleBossDead)
-		//{
-		//    if (frameCnt < 7210)
-		//    {
-		//        frameCnt = 7210;
-		//        turning_frame = 7210;
+        //if (isMiddleBossDead)
+        //{
+        //    if (frameCnt < 7210)
+        //    {
+        //        frameCnt = 7210;
+        //        turning_frame = 7210;
 
-		//        groupCnt = 26;
-		//    }
-		//    isMiddleBossDead = false;
-		//}
+        //        groupCnt = 26;
+        //    }
+        //    isMiddleBossDead = false;
+        //}
 
-		//中ボス撃破
-		if (middleBoss_Script != null)
-		{
-			if (middleBoss_Script.Is_Dead)
-			{
-				if (frameCnt < 7210)
-				{
-					frameCnt = 7060;
-					turning_frame = 7210;　//←今爆発がでかいのでちょっと間を空けます
-					groupCnt = 25;
-				}
-				isMiddleBossDead = false;
+        //中ボス撃破
+        if (middleBoss_Script != null)
+        {
+            if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
+            {
+                if (frameCnt < 7210)
+                {
+                    frameCnt = 7160;
+                    turning_frame = 7210; //←今爆発がでかいのでちょっと間を空けます
+                    groupCnt = 25;
+                    isMiddleBossSkip = false;
+                }
+            }
+        }
 
-			}
-		}
+        //if (isOneBossAlive)
+        //{
+        //    if (frameCnt < 39900)
+        //    {
+        //        frameCnt = 39900;
+        //        //turning_frame = 40930;
+        //    }
+        //    isOneBossAlive = false;
+        //}
 
-		//if (isOneBossAlive)
-		//{
-		//    if (frameCnt < 39900)
-		//    {
-		//        frameCnt = 39900;
-		//        //turning_frame = 40930;
-		//    }
-		//    isOneBossAlive = false;
-		//}
+        //第一ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+        if (groupCnt == 46 && frameCnt == turning_frame - 60f)
+        {
+            Wireless_sinario.Is_using_wireless = true;
+        }
+        //第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+        if (groupCnt == 90 && frameCnt == turning_frame - 60f)
+        {
+            Wireless_sinario.Is_using_wireless = true;
+        }
 
-		//第一ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 46 && frameCnt == turning_frame - 60f)
-		{
-			Wireless_sinario.Is_using_wireless = true;
-		}
-		//第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (groupCnt == 90 && frameCnt == turning_frame - 60f)
-		{
-			Wireless_sinario.Is_using_wireless = true;
-		}
+        //第一ボスを撃破したら間隔を詰める🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+        if (oneBoss_Script != null)
+        {
+            if (oneBoss_Script.Is_Dead)
+            {
+                if (isOneBossAlive)
+                {
+                    //if (frameCnt < 39660)
+                    //{
+                    //    if (backActive_Script)
+                    //    {
+                    //        backActive_Script.TransparencyChangeTrigger();
+                    //        Wireless_sinario.Is_using_wireless = true;
+                    //    }
+                    //    frameCnt = 39630;
 
-		//第一ボスを撃破したら間隔を詰める🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-		if (oneBoss_Script != null)
-		{
-			if (oneBoss_Script.Is_Dead)
-			{
-				if (isOneBossAlive)
-				{
-					//if (frameCnt < 39660)
-					//{
-					//    if (backActive_Script)
-					//    {
-					//        backActive_Script.TransparencyChangeTrigger();
-					//        Wireless_sinario.Is_using_wireless = true;
-					//    }
-					//    frameCnt = 39630;
+                    //    //turning_frame = 40930;
+                    //}
+                    if (backActive_Script)
+                    {
+                        backActive_Script.TransparencyChangeTrigger();
+                        Wireless_sinario.Is_using_wireless = true;
+                    }
+                    isNowOneBoss = false;
+                    isOneBossAlive = false;
+                }
 
-					//    //turning_frame = 40930;
-					//}
-					if (backActive_Script)
-					{
-						backActive_Script.TransparencyChangeTrigger();
-						Wireless_sinario.Is_using_wireless = true;
-					}
-					isNowOneBoss = false;
-					isOneBossAlive = false;
-				}
-
-				//if(frame > 180) SceneManager.LoadScene("GameClear");
-				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
-			}
-		}
+                //if(frame > 180) SceneManager.LoadScene("GameClear");
+                //if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
+            }
+        }
 
         if (moai_Script != null)
         {
@@ -624,45 +625,45 @@ public class EnemyCreate : MonoBehaviour
 
         //第二ボスを撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
         if (twoBoss_Script != null)
-		{
-			if (twoBoss_Script.Is_Dead)
-			{
-				if(isTwoBossAlive)
-				{
-					backActive_Script.TransparencyChangeTrigger();
-					isNowTwoBoss = false;
-					Wireless_sinario.Is_using_wireless = true;
+        {
+            if (twoBoss_Script.Is_Dead)
+            {
+                if (isTwoBossAlive)
+                {
+                    backActive_Script.TransparencyChangeTrigger();
+                    isNowTwoBoss = false;
+                    Wireless_sinario.Is_using_wireless = true;
                     isTwoBossAlive = false;
 
                 }
             }
-		}
+        }
 
-		if (isBaculaDestroy)
-		{
-			if (frameCnt < turning_frame)
-			{
-				frameCnt = turning_frame;
-			}
-			isBaculaDestroy = false;
-		}
-		//CreateCheck();
-		CreateEnemyGroup_01();
-		//switch(Scene_Manager.Manager.Now_Scene)
-		//{
-		//          case Scene_Manager.SCENE_NAME.eSTAGE_01:
-		//              CreateEnemyGroup_01();
+        if (isBaculaDestroy)
+        {
+            if (frameCnt < turning_frame)
+            {
+                frameCnt = turning_frame;
+            }
+            isBaculaDestroy = false;
+        }
+        //CreateCheck();
+        CreateEnemyGroup_01();
+        //switch(Scene_Manager.Manager.Now_Scene)
+        //{
+        //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
+        //              CreateEnemyGroup_01();
 
-		//          case Scene_Manager.SCENE_NAME.eSTAGE_01:
-		//		CreateEnemyGroup_01();
-		//		break;
-		//	case Scene_Manager.SCENE_NAME.eSTAGE_02:
-		//		CreateEnemyGroup_02();
-		//		break;
-		//	default:
-		//		break;
-		//}
-	}
+        //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
+        //		CreateEnemyGroup_01();
+        //		break;
+        //	case Scene_Manager.SCENE_NAME.eSTAGE_02:
+        //		CreateEnemyGroup_02();
+        //		break;
+        //	default:
+        //		break;
+        //}
+    }
 
     //--------------------------------------------------------------------
 
@@ -878,9 +879,9 @@ public class EnemyCreate : MonoBehaviour
                 break;
         }
     }
-	//敵を出す関数
-	private void CreateEnemyGroup_01()
-	{
+    //敵を出す関数
+    private void CreateEnemyGroup_01()
+    {
         if (false)
         {
             CreateEnemyGroup_01_TypeA();
@@ -1914,7 +1915,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
@@ -1922,7 +1923,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.R4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
@@ -1930,7 +1931,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
@@ -1938,7 +1939,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.R4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
@@ -1946,7 +1947,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
@@ -1954,7 +1955,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.R4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180);
+            Next_Condition(195);
         }
         // 円盤5弾
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 24)
@@ -1962,7 +1963,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
             nextEnemy = "円盤5弾";
-            Next_Condition(180 + 180);
+            Next_Condition(195 + 120);
         }
         // ハエ上2下2広
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 25)
@@ -2236,7 +2237,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Bacula_FourOnly, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バキュラ4";
-            Next_Condition(210);
+            Next_Condition(180);
         }
         // バキュラ4
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 49)
@@ -2244,7 +2245,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_Bacula_FourOnly, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "バキュラ4";
-            Next_Condition(360);
+            Next_Condition(180);
         }
         // バキュラ4
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 50)
@@ -2317,7 +2318,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
             nextEnemy = "円盤上10下10狭射撃";
-            Next_Condition(120);
+            Next_Condition(75);
             nowGroupCnt++;
         }
         // 円盤上10下10狭射撃
@@ -2334,7 +2335,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
             nextEnemy = "円盤上10狭下10射撃";
-            Next_Condition(120);
+            Next_Condition(75);
             nowGroupCnt++;
         }
         // 円盤上10狭下10射撃
@@ -2351,7 +2352,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
             nextEnemy = "円盤上10下10狭射撃";
-            Next_Condition(120);
+            Next_Condition(75);
             nowGroupCnt++;
         }
         // 円盤上10下10狭射撃
@@ -2600,7 +2601,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 76)
@@ -2608,7 +2609,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 77)
@@ -2616,7 +2617,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 78)
@@ -2624,7 +2625,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 79)
@@ -2632,7 +2633,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 80)
@@ -2640,7 +2641,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 81)
@@ -2648,7 +2649,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 82)
@@ -2656,7 +2657,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 83)
@@ -2664,7 +2665,7 @@ public class EnemyCreate : MonoBehaviour
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
-            Next_Condition(15);
+            Next_Condition(30);
         }
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 84)
@@ -2678,99 +2679,88 @@ public class EnemyCreate : MonoBehaviour
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 85)
         {
             Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * 2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * 3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * 4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * -1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * -2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * -3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * -4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * 5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * 6.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * -5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * -6.0f, 0.0f), transform.rotation);
-
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * 2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * 3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * 4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * -2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * -3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * -4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * 5.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * -5.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
-            Next_Condition(30);
+            Next_Condition(75);
         }
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 86)
         {
             Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * 2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * 3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * 4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * -1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * -2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * -3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * -4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * 5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * 6.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * -5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * -6.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * 2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * 3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * 4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * -2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * -3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * -4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * 5.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * -5.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
-            Next_Condition(30);
+            Next_Condition(75);
         }
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 87)
         {
             Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * 2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * 3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * 4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * -1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * -2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * -3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * -4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * 5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * 6.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * -5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * -6.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * 2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * 3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * 4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * -2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * -3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * -4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * 5.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * -5.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
-            Next_Condition(30);
+            Next_Condition(75);
         }
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 88)
         {
             Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * 2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * 3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * 4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * -1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * -2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * -3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * -4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * 5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * 6.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * -5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * -6.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * 2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * 3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * 4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * -2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * -3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * -4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * 5.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * -5.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
-            Next_Condition(30);
+            Next_Condition(75);
         }
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 89)
         {
             Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * 2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * 3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * 4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.69f * -1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.69f * -2.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.69f * -3.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.69f * -4.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * 5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * 6.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.69f * -5.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(12.0f, 0.69f * -6.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * 2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * 3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * 4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(4.0f, 0.81f * -2.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(6.0f, 0.81f * -3.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(8.0f, 0.81f * -4.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * 5.0f, 0.0f), transform.rotation);
+            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(10.0f, 0.81f * -5.0f, 0.0f), transform.rotation);
 
             nextEnemy = "ビッグコアマーク3";
             Next_Condition(480);
@@ -2807,250 +2797,250 @@ public class EnemyCreate : MonoBehaviour
     }
     //---------------------------------------------------------------------
 
-	//---------------------------------------------------------------------
-	void CreateCheck()
-	{
-		//groupCntが1の時のを出すタイミング
-		if (Is_A_Specified_Frame(180))
-		{
-			isCreate = true;
-		}
-		//groupCntが2の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1000))
-		{
-			isCreate = true;
-		}
-		//groupCntが3の時のを出すタイミング
-		else if (Is_A_Specified_Frame(720))
-		{
-			isCreate = true;
-		}
-		//groupCntが4の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1020))
-		{
-			isCreate = true;
-		}
-		//groupCntが5の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1140))
-		{
-			isCreate = true;
-		}
-		//groupCntが6の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1500))
-		{
-			isCreate = true;
-		}
-		//groupCntが7の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1620))
-		{
-			isCreate = true;
-		}
-		//groupCntが8の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1740))
-		{
-			isCreate = true;
-		}
-		//groupCntが9の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1920))
-		{
-			isCreate = true;
-		}
-		//groupCntが10の時のを出すタイミング
-		else if (Is_A_Specified_Frame(1860))
-		{
-			isCreate = true;
-		}
-		//groupCntが11の時のを出すタイミング
-		else if (Is_A_Specified_Frame(2010))
-		{
-			isCreate = true;
-		}
-		//groupCntが12の時のを出すタイミング
-		else if (Is_A_Specified_Frame(2660))
-		{
-			isCreate = true;
-		}
-		//groupCntが13の時のを出すタイミング
-		else if (Is_A_Specified_Frame(3780))
-		{
-			isCreate = true;
-		}
-		//groupCntが14の時のを出すタイミング
-		else if (Is_A_Specified_Frame(3820))
-		{
-			isCreate = true;
-		}
-		//groupCntが15の時のを出すタイミング
-		else if (Is_A_Specified_Frame(3860))
-		{
-			isCreate = true;
-		}
-		//groupCntが16の時のを出すタイミング
-		else if (Is_A_Specified_Frame(4230))
-		{
-			isCreate = true;
-		}
-		//groupCntが17の時のを出すタイミング
-		else if (Is_A_Specified_Frame(4410))
-		{
-			isCreate = true;
-		}
-		//groupCntが18の時のを出すタイミング
-		else if (Is_A_Specified_Frame(4590))
-		{
-			isCreate = true;
-		}
-		//groupCntが19の時のを出すタイミング
-		else if (Is_A_Specified_Frame(4600))
-		{
-			isCreate = true;
-		}
-		//groupCntが20の時のを出すタイミング
-		else if (Is_A_Specified_Frame(5070))
-		{
-			isCreate = true;
-		}
-		// 21
-		else if (Is_A_Specified_Frame(5250))
-		{
-			isCreate = true;
-		}
-		// 22
-		else if (Is_A_Specified_Frame(5450))
-		{
-			isCreate = true;
-		}
-	}
-	#region
-	//  void CreateCheck()
-	//  {
-	//if(second >= 4300 + 470 + 180 + 300 + 200 && 4300 + 470 + 180 + 300 + 200 >= psecond)
-	//{
-	//	isCreate = true;
-	//}
-	//// 21
-	//else if (second >= 4300 + 470 + 180 + 300 && 4300 + 470 + 180 + 300 >= psecond)
-	//{
-	//	isCreate = true;
-	//}
-	////groupCntが20の時のを出すタイミング
-	//else if (second >= 4300 + 470 + 300 && 4300 + 470 + 300 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが19の時のを出すタイミング
-	//else if (second >= 3820 + 470 + 300 && 3820 + 470 + 300 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが18の時のを出すタイミング
-	//else if (second >= 3820 + 470 + 300 && 3820 + 470 + 300 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが17の時のを出すタイミング
-	//else if (second >= 3640 + 470 + 300 && 3640 + 470 + 300 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが16の時のを出すタイミング
-	//else if (second >= 3460 + 470 +300 && 3460 + 470 + 300 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが15の時のを出すタイミング
-	//else if (second >= 3430 + 470+80-120 && 3430 + 470 + 80 - 120 >= psecond)
-	//{
-	//	isCreate = true;
-	//}
-	////groupCntが14の時のを出すタイミング
-	//else if (second >= 3430 + 470+40-120 && 3430 + 470 + 40 - 120 >= psecond)
-	//{
-	//	isCreate = true;
-	//}
-	////groupCntが13の時のを出すタイミング
-	//else if (second >= 3430 + 470-120 && 3430 + 470 - 120 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが12の時のを出すタイミング
-	//else if (second >= 2890 + 470 - 700 && 2890 + 470 - 700 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが11の時のを出すタイミング
-	//else if (second >= 2120 - 260 && 2120 - 260 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが10の時のを出すタイミング
-	//else if (second >= 2010 && 2010 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが9の時のを出すタイミング
-	//else if (second >= 1920 && 1920 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが8の時のを出すタイミング
-	//else if (second >= 1740 && 1740 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが7の時のを出すタイミング
-	//else if (second >= 1620 && 1620 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが6の時のを出すタイミング
-	//else if (second >= 1500 && 1500 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが5の時のを出すタイミング
-	//else if (second >= 1140 && 1140 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが4の時のを出すタイミング
-	//else if (second >= 1020 && 1020 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが3の時のを出すタイミング
-	//else if (second >= 720 && 720 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが2の時のを出すタイミング
-	//else if (second >= 420 && 420 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	////groupCntが1の時のを出すタイミング
-	//else if (second >= 120 && 120 >= psecond)
-	//      {
-	//          isCreate = true;
-	//}
-	//  }
-	//---------------------------------------------------------------------
-	#endregion
+    //---------------------------------------------------------------------
+    void CreateCheck()
+    {
+        //groupCntが1の時のを出すタイミング
+        if (Is_A_Specified_Frame(180))
+        {
+            isCreate = true;
+        }
+        //groupCntが2の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1000))
+        {
+            isCreate = true;
+        }
+        //groupCntが3の時のを出すタイミング
+        else if (Is_A_Specified_Frame(720))
+        {
+            isCreate = true;
+        }
+        //groupCntが4の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1020))
+        {
+            isCreate = true;
+        }
+        //groupCntが5の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1140))
+        {
+            isCreate = true;
+        }
+        //groupCntが6の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1500))
+        {
+            isCreate = true;
+        }
+        //groupCntが7の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1620))
+        {
+            isCreate = true;
+        }
+        //groupCntが8の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1740))
+        {
+            isCreate = true;
+        }
+        //groupCntが9の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1920))
+        {
+            isCreate = true;
+        }
+        //groupCntが10の時のを出すタイミング
+        else if (Is_A_Specified_Frame(1860))
+        {
+            isCreate = true;
+        }
+        //groupCntが11の時のを出すタイミング
+        else if (Is_A_Specified_Frame(2010))
+        {
+            isCreate = true;
+        }
+        //groupCntが12の時のを出すタイミング
+        else if (Is_A_Specified_Frame(2660))
+        {
+            isCreate = true;
+        }
+        //groupCntが13の時のを出すタイミング
+        else if (Is_A_Specified_Frame(3780))
+        {
+            isCreate = true;
+        }
+        //groupCntが14の時のを出すタイミング
+        else if (Is_A_Specified_Frame(3820))
+        {
+            isCreate = true;
+        }
+        //groupCntが15の時のを出すタイミング
+        else if (Is_A_Specified_Frame(3860))
+        {
+            isCreate = true;
+        }
+        //groupCntが16の時のを出すタイミング
+        else if (Is_A_Specified_Frame(4230))
+        {
+            isCreate = true;
+        }
+        //groupCntが17の時のを出すタイミング
+        else if (Is_A_Specified_Frame(4410))
+        {
+            isCreate = true;
+        }
+        //groupCntが18の時のを出すタイミング
+        else if (Is_A_Specified_Frame(4590))
+        {
+            isCreate = true;
+        }
+        //groupCntが19の時のを出すタイミング
+        else if (Is_A_Specified_Frame(4600))
+        {
+            isCreate = true;
+        }
+        //groupCntが20の時のを出すタイミング
+        else if (Is_A_Specified_Frame(5070))
+        {
+            isCreate = true;
+        }
+        // 21
+        else if (Is_A_Specified_Frame(5250))
+        {
+            isCreate = true;
+        }
+        // 22
+        else if (Is_A_Specified_Frame(5450))
+        {
+            isCreate = true;
+        }
+    }
+    #region
+    //  void CreateCheck()
+    //  {
+    //if(second >= 4300 + 470 + 180 + 300 + 200 && 4300 + 470 + 180 + 300 + 200 >= psecond)
+    //{
+    //	isCreate = true;
+    //}
+    //// 21
+    //else if (second >= 4300 + 470 + 180 + 300 && 4300 + 470 + 180 + 300 >= psecond)
+    //{
+    //	isCreate = true;
+    //}
+    ////groupCntが20の時のを出すタイミング
+    //else if (second >= 4300 + 470 + 300 && 4300 + 470 + 300 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが19の時のを出すタイミング
+    //else if (second >= 3820 + 470 + 300 && 3820 + 470 + 300 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが18の時のを出すタイミング
+    //else if (second >= 3820 + 470 + 300 && 3820 + 470 + 300 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが17の時のを出すタイミング
+    //else if (second >= 3640 + 470 + 300 && 3640 + 470 + 300 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが16の時のを出すタイミング
+    //else if (second >= 3460 + 470 +300 && 3460 + 470 + 300 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが15の時のを出すタイミング
+    //else if (second >= 3430 + 470+80-120 && 3430 + 470 + 80 - 120 >= psecond)
+    //{
+    //	isCreate = true;
+    //}
+    ////groupCntが14の時のを出すタイミング
+    //else if (second >= 3430 + 470+40-120 && 3430 + 470 + 40 - 120 >= psecond)
+    //{
+    //	isCreate = true;
+    //}
+    ////groupCntが13の時のを出すタイミング
+    //else if (second >= 3430 + 470-120 && 3430 + 470 - 120 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが12の時のを出すタイミング
+    //else if (second >= 2890 + 470 - 700 && 2890 + 470 - 700 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが11の時のを出すタイミング
+    //else if (second >= 2120 - 260 && 2120 - 260 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが10の時のを出すタイミング
+    //else if (second >= 2010 && 2010 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが9の時のを出すタイミング
+    //else if (second >= 1920 && 1920 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが8の時のを出すタイミング
+    //else if (second >= 1740 && 1740 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが7の時のを出すタイミング
+    //else if (second >= 1620 && 1620 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが6の時のを出すタイミング
+    //else if (second >= 1500 && 1500 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが5の時のを出すタイミング
+    //else if (second >= 1140 && 1140 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが4の時のを出すタイミング
+    //else if (second >= 1020 && 1020 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが3の時のを出すタイミング
+    //else if (second >= 720 && 720 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが2の時のを出すタイミング
+    //else if (second >= 420 && 420 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    ////groupCntが1の時のを出すタイミング
+    //else if (second >= 120 && 120 >= psecond)
+    //      {
+    //          isCreate = true;
+    //}
+    //  }
+    //---------------------------------------------------------------------
+    #endregion
 
-	/// <summary>
-	/// 指定されたフレームかどうか
-	/// </summary>
-	/// <param name="specified_frame"> 指定フレーム </param>
-	/// <returns> あっているか </returns>
-	private bool Is_A_Specified_Frame(int specified_frame)
-	{
-		return frameCnt >= specified_frame && specified_frame >= PreviousCount;
-	}
+    /// <summary>
+    /// 指定されたフレームかどうか
+    /// </summary>
+    /// <param name="specified_frame"> 指定フレーム </param>
+    /// <returns> あっているか </returns>
+    private bool Is_A_Specified_Frame(int specified_frame)
+    {
+        return frameCnt >= specified_frame && specified_frame >= PreviousCount;
+    }
 
-	private void Next_Condition(int add_frame)
-	{
-		groupCnt++;
-		//nowGroupCnt++;
-		turning_frame += add_frame;
-	}
+    private void Next_Condition(int add_frame)
+    {
+        groupCnt++;
+        //nowGroupCnt++;
+        turning_frame += add_frame;
+    }
 }

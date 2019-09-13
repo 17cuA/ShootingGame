@@ -66,12 +66,16 @@ public class Helper_BGMTranstion : MonoBehaviour
 					isFadeIn = true;
 					audioSource.Play();
 				}
-				else if(currentWirelessNumber == 3)
+				else if(currentWirelessNumber == 4)
 				{
 					audioSource.clip = twoBossBGMClip;
 					isFadeIn = true;
 					audioSource.Play();
 				}
+                else
+                {
+                    isFadeIn = true;
+                }
 			}
 		}
 
