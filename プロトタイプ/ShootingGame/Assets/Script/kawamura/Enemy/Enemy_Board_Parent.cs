@@ -86,6 +86,11 @@ public class Enemy_Board_Parent : MonoBehaviour
 				//isCreate = false;
 			}
 		}
+
+		if (parentObj.name == "Enemy_BossBacula_Four")
+		{
+
+		}
 		else if (!isCreate)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
