@@ -251,7 +251,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
 		//装備セレクトで使用するもの------------------------------------------------------
 		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch");           //ドロップしたオプションの回収
-		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");           //レーザー攻撃の声使ってない
+		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_5(Moyai)");           //モアイの爆発
 		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
 		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //リップルレーザーの声使ってない
 		audio_se[14] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //オプションの声使ってない
