@@ -474,68 +474,82 @@ public class EnemyCreate : MonoBehaviour
             frameCnt = turning_frame;
         }
 
-        //ラスボス一つ手前
-        //if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
-        //{
-        //	turning_frame = 5010;
-        //	frameCnt = 5010;
-        //	groupCnt = 53;
-        //}
-        //中ボス
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            turning_frame = 5010;
-            frameCnt = 5010;
-            groupCnt = 17;
-            //nowGroupCnt = 17;
-        }
-        //中ボス後
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            turning_frame = 6750;
-            frameCnt = 6750;
-            groupCnt = 25;
-            //nowGroupCnt = 21;
-        }
-        //1ボス
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            turning_frame = 9660;
-            frameCnt = 9600;    //←上の数字から60引いた数にする
-            groupCnt = 46;
-            //nowGroupCnt = 36;
-        }
-        //1ボス後
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            turning_frame = 9660;
-            frameCnt = 9600;    //←上の数字から60引いた数にする
-            groupCnt = 47;
-            //nowGroupCnt = 36;
-        }
+		//ラスボス一つ手前
+		//if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.B))
+		//{
+		//	turning_frame = 5010;
+		//	frameCnt = 5010;
+		//	groupCnt = 53;
+		//}
+		//中ボス
+		if (Input.GetKeyDown(KeyCode.J))
+		{
+			turning_frame = 5010;
+			frameCnt = 5010;
+			groupCnt = 17;
+			//nowGroupCnt = 17;
+		}
+		//中ボス後
+		else if (Input.GetKeyDown(KeyCode.K))
+		{
+			turning_frame = 6750;
+			frameCnt = 6750;
+			groupCnt = 25;
+			//nowGroupCnt = 21;
+		}
+		//1ボス
+		else if (Input.GetKeyDown(KeyCode.M))
+		{
+			turning_frame = 9660;
+			frameCnt = 9600;    //←上の数字から60引いた数にする
+			groupCnt = 46;
+			//nowGroupCnt = 36;
+		}
+		//1ボス後
+		else if (!Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.B))
+		{
+			turning_frame = 9660;
+			frameCnt = 9600;    //←上の数字から60引いた数にする
+			groupCnt = 47;
+			//nowGroupCnt = 36;
+		}
+		// モアイ
+		else if (Input.GetKeyDown(KeyCode.B))
+		{
+			turning_frame = 9660;
+			frameCnt = 9600;    //←上の数字から60引いた数にする
+			groupCnt = 55;
+			//nowGroupCnt = 36;
+		}
+		else if (Input.GetKey(KeyCode.U) && Input.GetKeyDown(KeyCode.B))
+		{
+			turning_frame = 9660;
+			frameCnt = 9600;    //←上の数字から60引いた数にする
+			groupCnt = 56;
+			//nowGroupCnt = 36;
+		}
+		//ラスボス
+		else if (Input.GetKeyDown(KeyCode.L))
+		{
+			//turning_frame = 17750;
+			//frameCnt = 17750;
+			//groupCnt = 45;
+			isDebug = true;
+			turning_frame = 5010;
+			frameCnt = 4950;    //←上の数字から60引いた数にする
+			groupCnt = 90;
 
-        //ラスボス
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            //turning_frame = 17750;
-            //frameCnt = 17750;
-            //groupCnt = 45;
-            isDebug = true;
-            turning_frame = 5010;
-            frameCnt = 4950;    //←上の数字から60引いた数にする
-            groupCnt = 90;
-
-        }
+		}
 		else if (Input.GetKeyDown(KeyCode.C))
-        {
-            //turning_frame = 17750;
-            //frameCnt = 17750;
-            //groupCnt = 45;
-            turning_frame = 5010;
-            frameCnt = 4950;    //←上の数字から60引いた数にする
-            groupCnt = 82;
+		{
+			//turning_frame = 17750;
+			//frameCnt = 17750;
+			//groupCnt = 45;
+			turning_frame = 5010;
+			frameCnt = 4950;    //←上の数字から60引いた数にする
+			groupCnt = 82;
 
-        }
+		}
 
         if (saveEnemyObj != null)
         {
@@ -2086,18 +2100,21 @@ public class EnemyCreate : MonoBehaviour
 			group_Script.isItemDrop = true;
 
 			nextEnemy = "闘牛直進12";
-			Next_Condition(120);
+			Next_Condition(150);
 			nowGroupCnt++;
 		}
 		// 闘牛直進12
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
 		{
-			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR1.transform.position, transform.rotation);
+			GameObject saveObj2 = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosRm1.transform.position, transform.rotation);
 			group_Script = saveObj.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
+			group_Script = saveObj2.GetComponent<EnemyGroupManage>();
 			group_Script.isItemDrop = true;
 
 			nextEnemy = "戦艦";
-			Next_Condition(120);
+			Next_Condition(150);
 			nowGroupCnt++;
 		}
 		// 闘牛直進12
@@ -2121,27 +2138,45 @@ public class EnemyCreate : MonoBehaviour
 			b1.Is_up = false;
 
 			nextEnemy = "闘牛12直進上下";
-			Next_Condition(240);
+			Next_Condition(210);
 			nowGroupCnt++;
 		}
 		// 闘牛12直進上下
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35)
 		{
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f, 3.5f, 0.0f), transform.rotation);
+			GameObject saveObj2 = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f, -3.5f, 0.0f), transform.rotation);
+			group_Script = saveObj.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
+			group_Script = saveObj2.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
 
 			nextEnemy = "ハエ上2下2広右2アイテム";
-			Next_Condition(120);
+			Next_Condition(150);
 			nowGroupCnt++;
 		}
 		// 闘牛12直進上下
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 36)
 		{
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
-			Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosR3.transform.position, transform.rotation);
+			//Instantiate(enemy_Clamchowder_Group_Straight, createPosRm3.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f,4.5f,0.0f), transform.rotation);
+			GameObject saveObj2 = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f, 2.5f, 0.0f), transform.rotation);
+			group_Script = saveObj.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
+			group_Script = saveObj2.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
+			GameObject saveObj3 = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f, -4.5f, 0.0f), transform.rotation);
+			GameObject saveObj4 = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(0.0f, -2.5f, 0.0f), transform.rotation);
+			group_Script = saveObj3.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
+			group_Script = saveObj4.GetComponent<EnemyGroupManage>();
+			group_Script.isItemDrop = true;
 
 			nextEnemy = "ハエ上2下2広右2アイテム";
-			Next_Condition(480);
+			Next_Condition(450);
 			nowGroupCnt++;
 		}
 		// ハエ8アイテム4
