@@ -254,6 +254,7 @@ public class Two_Boss : character_status
 			animation_data.Stop();
 
 			big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
+			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			ef_2.EF_Base.transform.position = parts_All[0].transform.position;
 			ef_2.EF_Weapon_R.transform.position = parts_All[1].transform.position;
 			ef_2.EF_Weapon_L.transform.position = parts_All[2].transform.position;

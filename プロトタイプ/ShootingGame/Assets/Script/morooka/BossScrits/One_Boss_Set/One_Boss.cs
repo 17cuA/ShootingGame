@@ -451,6 +451,7 @@ public class One_Boss : character_status
 		else if(Attack_Step == 1)
 		{
 			Instantiate(End_Plefab, transform.position, Quaternion.identity);
+			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			gameObject.SetActive(false);
 			if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
