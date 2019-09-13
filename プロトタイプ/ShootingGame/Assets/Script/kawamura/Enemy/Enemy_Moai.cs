@@ -107,7 +107,7 @@ public class Enemy_Moai : character_status
 
 	new void Update()
 	{
-		Physics.gravity = new Vector3(0, -0.3f, 0);
+		Physics.gravity = new Vector3(0, -0.32f, 0);
 
         if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
