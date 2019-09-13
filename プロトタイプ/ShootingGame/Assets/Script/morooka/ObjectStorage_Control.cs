@@ -60,8 +60,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			{
 				if (Medium_Boss_Data.Is_Dead)
 				{
-					Destroy(Obj_Storage.Storage_Data.Boss_Middle.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Boss_Middle = null;
+					Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_Middle);
 				}
 			}
 
@@ -73,20 +72,16 @@ public class ObjectStorage_Control : MonoBehaviour
 					// バウンドバレットの削除
 					if (Boss_Frame_Cnt == 0)
 					{
-						Destroy(Obj_Storage.Storage_Data.One_Boss_BousndBullet.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.One_Boss_BousndBullet = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_BousndBullet);
 					}
 					// レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
 					{
-						Destroy(Obj_Storage.Storage_Data.One_Boss_Laser.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.One_Boss_Laser = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_Laser);
 					}
 					else if (Boss_Frame_Cnt == 2)
 					{
-						Des_Obj(ref Obj_Storage.Storage_Data.Boss_1);
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_1);
 						Boss_Frame_Cnt = 0;
 					}
 				}
@@ -99,18 +94,15 @@ public class ObjectStorage_Control : MonoBehaviour
 					// レーザーの削除
 					if (Boss_Frame_Cnt == 0)
 					{
-						Destroy(Obj_Storage.Storage_Data.Two_Boss_Laser.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.Two_Boss_Laser = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Two_Boss_Laser);
 					}
 					else if(Boss_Frame_Cnt == 1)
 					{
-						Des_Obj(ref Obj_Storage.Storage_Data.Boss_2);
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
 					}
 					else if(Boss_Frame_Cnt == 2)
 					{
-						Des_Obj(ref Obj_Storage.Storage_Data.Laser_Line);
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Laser_Line);
 						Boss_Frame_Cnt = 0;
 					}
 				}
@@ -124,34 +116,26 @@ public class ObjectStorage_Control : MonoBehaviour
 					// バレットの削除
 					if (Boss_Frame_Cnt == 0)
 					{
-						Destroy(Obj_Storage.Storage_Data.Moai_Bullet.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.Moai_Bullet = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Bullet);
 					}
 					// 目レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
 					{
-						Destroy(Obj_Storage.Storage_Data.Moai_Eye_Laser.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.Moai_Eye_Laser = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Eye_Laser);
 					}
 					// モアイミニの削除
 					else if (Boss_Frame_Cnt == 2)
 					{
-						Destroy(Obj_Storage.Storage_Data.Moai_Mini_Group.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.Moai_Mini_Group = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mini_Group);
 					}
 					// 口レーザーの削除
 					else if (Boss_Frame_Cnt == 3)
 					{
-						Destroy(Obj_Storage.Storage_Data.Moai_Mouth_Laser.Get_Parent_Obj());
-						Obj_Storage.Storage_Data.Moai_Mouth_Laser = null;
-						Boss_Frame_Cnt++;
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mouth_Laser);
 					}
 					else if(Boss_Frame_Cnt == 4)
 					{
-						Des_Obj(ref Obj_Storage.Storage_Data.Moai);
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai);
 						Boss_Frame_Cnt = 0;
 					}
 				}
@@ -159,7 +143,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			#endregion
 
 			#region ラスボス前に消すもの
-			if(EnemyCreate_Data.groupCnt >= 92 && !Is_Processed_Normal)
+			if(EnemyCreate_Data.frameCnt >= 13797 && !Is_Processed_Normal)
 			{
 				// 隕石削除
 				if (Normal_Frame_Cnt == 0)
@@ -284,5 +268,12 @@ public class ObjectStorage_Control : MonoBehaviour
 		Destroy(poo.Get_Parent_Obj().gameObject);
 		poo = null;
 		Normal_Frame_Cnt++;
+	}
+	private void Des_Obj_B(ref Object_Pooling poo)
+	{
+		Debug.Log(poo.Get_Parent_Obj().name);
+		Destroy(poo.Get_Parent_Obj().gameObject);
+		poo = null;
+		Boss_Frame_Cnt++;
 	}
 }
