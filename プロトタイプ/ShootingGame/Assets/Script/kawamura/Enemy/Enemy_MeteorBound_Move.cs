@@ -26,6 +26,11 @@ public class Enemy_MeteorBound_Move : MonoBehaviour
 		velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 		gameObject.transform.position += velocity * Time.deltaTime;
 
+        if (transform.position.x > -20)
+        {
+            gameObject.SetActive(false);
+        }
+
 	}
 
 }
