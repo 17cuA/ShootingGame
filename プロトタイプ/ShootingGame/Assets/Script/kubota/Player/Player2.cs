@@ -571,13 +571,19 @@ public class Player2 : character_status
 		}
 		else
 		{
+			if (Input.GetButtonUp(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			{
+				Is_Burst = false;
+				shoot_number = 0;
+				return;
+			}
+			else if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			{
+				Is_Burst = true;
+			}
 			Shot_DelayMax = 5;
 			if (Shot_Delay > Shot_DelayMax)
 			{
-				if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
-				{
-					Is_Burst = true;
-				}
 				if (Is_Burst)
 				{
 					// 連続で4発まで撃てるようにした
@@ -615,20 +621,12 @@ public class Player2 : character_status
 					{
 						shoot_number = 0;
 						effect_num = 0;
-						Is_Burst = false;
-
 					}
 					else
 					{
 						shoot_number++;
-
 					}
 				}
-			}
-			//if (Input.GetButtonUp("Fire1") || Input.GetKey(KeyCode.Space))
-			if (!Is_Burst)
-			{
-				shoot_number = 0;
 			}
 			if (effect_num > 4)
 			{
