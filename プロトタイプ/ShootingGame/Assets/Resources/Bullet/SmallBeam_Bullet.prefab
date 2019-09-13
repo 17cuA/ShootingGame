@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2860206300086564212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.523985, y: 2.4208643, z: -14.381554}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 6516609171465618747}
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e83b200c8446e44901307aae505b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shot_speed: -0.3
-  attack_damage: 0
+  shot_speed: -0.2
+  attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
   Bullet_Type: 0
@@ -168,6 +168,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 513627207076900082}
     m_Modifications:
+    - target: {fileID: 4294020481056029185, guid: 68353c468ab237a4c828f03a8a6d90d4,
+        type: 3}
+      propertyPath: m_Name
+      value: B102
+      objectReference: {fileID: 0}
+    - target: {fileID: 4294020481056029185, guid: 68353c468ab237a4c828f03a8a6d90d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1295285690233008452, guid: 68353c468ab237a4c828f03a8a6d90d4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -242,16 +252,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4294020481056029185, guid: 68353c468ab237a4c828f03a8a6d90d4,
-        type: 3}
-      propertyPath: m_Name
-      value: B102
-      objectReference: {fileID: 0}
-    - target: {fileID: 4294020481056029185, guid: 68353c468ab237a4c828f03a8a6d90d4,
-        type: 3}
-      propertyPath: m_Layer
-      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3107872545949015090, guid: 68353c468ab237a4c828f03a8a6d90d4,
         type: 3}

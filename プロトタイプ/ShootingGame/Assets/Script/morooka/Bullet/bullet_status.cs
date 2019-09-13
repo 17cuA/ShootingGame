@@ -82,8 +82,8 @@ public class bullet_status : MonoBehaviour
 
 	protected void Update()
 	{
-		if (transform.position.x >= 18.3f || transform.position.x <= -18.3f
-			|| transform.position.y >= 5.5f || transform.position.y <= -5.5f)
+		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
+			|| transform.position.y >= 6f || transform.position.y <= -6f)
 		{
 			if (gameObject.tag == "Player_Bullet")
 			{

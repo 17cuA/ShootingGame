@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Enemy_RingBullet : bullet_status
 {
-    // Start is called before the first frame update
+	GameObject[] childEffectObj;
     new void Start()
     {
 		base.Start();

@@ -51,8 +51,19 @@ public class Enemy_Board_Parent : MonoBehaviour
         parentObj = transform.parent.gameObject;
 		parentName = parentObj.name;
         egm = parentObj.GetComponent<EnemyGroupManage>();
-        speedX_Max = speedX;
-        speedX_Min = 1;
+
+        if (parentName == "Enemy_BossBacula_Four(Clone)")
+        {
+            speedX = 0;
+            speedX_Max = 0;
+            speedX_Min = 0;
+        }
+        else
+        {
+            speedX_Max = speedX;
+            //speedX_Min = -2;
+
+        }
     }
 
     void Update()
@@ -86,9 +97,14 @@ public class Enemy_Board_Parent : MonoBehaviour
 				//isCreate = false;
 			}
 		}
+
+		if (parentObj.name == "Enemy_BossBacula_Four")
+		{
+
+		}
 		else if (!isCreate)
 		{
-			velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+			velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
 		}
@@ -103,10 +119,10 @@ public class Enemy_Board_Parent : MonoBehaviour
         }
         else if (!isDamage)
         {
-            if (speedX < speedX_Max)
+            if (speedX > speedX_Max)
             {
-                speedX += 0.05f;
-                if (speedX > speedX_Max)
+                speedX -= 0.05f;
+                if (speedX < speedX_Max)
                 {
                     speedX = speedX_Max;
                 }
