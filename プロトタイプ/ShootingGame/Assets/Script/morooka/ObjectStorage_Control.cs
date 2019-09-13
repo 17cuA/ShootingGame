@@ -105,6 +105,11 @@ public class ObjectStorage_Control : MonoBehaviour
 					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj(ref Obj_Storage.Storage_Data.Boss_2);
+						Boss_Frame_Cnt++;
+					}
+					else if(Boss_Frame_Cnt == 2)
+					{
+						Des_Obj(ref Obj_Storage.Storage_Data.Laser_Line);
 						Boss_Frame_Cnt = 0;
 					}
 				}
@@ -203,16 +208,16 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 30) Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy);
 				else if (Normal_Frame_Cnt == 31) Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
 				else if (Normal_Frame_Cnt == 32) Des_Obj(ref Obj_Storage.Storage_Data.StarFish_Enemy);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
+				else if (Normal_Frame_Cnt == 33) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle           );
+				else if (Normal_Frame_Cnt == 34) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle_NoItem    );
+				else if (Normal_Frame_Cnt == 35) Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beelzebub_Group_EightNormal_Item   );
+				else if (Normal_Frame_Cnt == 36) Des_Obj(ref Obj_Storage.Storage_Data.enemy_UFO_Group_Five                     );
+				else if (Normal_Frame_Cnt == 37) Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beetle_Group_Seven                 );
+				else if (Normal_Frame_Cnt == 38) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_SevenStraight    );
+				else if (Normal_Frame_Cnt == 39) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_SixStraight      );
+				else if (Normal_Frame_Cnt == 40) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_UpSevenDiagonal  );
+				else if (Normal_Frame_Cnt == 41) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal);
+				else if (Normal_Frame_Cnt == 42) Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); Is_Processed_Normal = true;
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
