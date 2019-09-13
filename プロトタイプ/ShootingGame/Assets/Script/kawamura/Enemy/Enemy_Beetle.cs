@@ -142,8 +142,11 @@ public class Enemy_Beetle : character_status
                     shotRotaZ = 30f;
                     for (int i = 0; i < 3; i++)
                     {
-                        saveObj = Instantiate(smallBeamObj, muzzleObj.transform.position, new Quaternion(0, 0, 0, 0));
+                        saveObj = Obj_Storage.Storage_Data.SmallBeam_Bullet_E.Active_Obj();
+                        saveObj.transform.position = muzzleObj.transform.position;
                         saveObj.transform.rotation = Quaternion.Euler(0, 0, shotRotaZ);
+                        //saveObj = Instantiate(smallBeamObj, muzzleObj.transform.position, new Quaternion(0, 0, 0, 0));
+                        //saveObj.transform.rotation = Quaternion.Euler(0, 0, shotRotaZ);
                         shotRotaZ -= 30f;
                     }
                 }

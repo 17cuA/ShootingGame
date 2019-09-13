@@ -206,7 +206,7 @@ public class Enemy_Moai : character_status
 
 			if (transform.position.y > 12)
 			{
-
+                Is_Dead = true;
 				gameObject.SetActive(false);
 			}
 		}
@@ -290,13 +290,13 @@ public class Enemy_Moai : character_status
 			if (aliveCnt > 116)
 		{
 			isExit = true;
-			Is_Dead = true;
+			//Is_Dead = true;
 		}
 
 		if (hp < 1&& !isDead)
 		{
 			isDead = true;
-			Is_Dead = true;
+			//Is_Dead = true;
 			moai_rigidbody.useGravity = true;
 			moaiAnime_Script.isOpen = false;
 			moaiAnime_Script.isClose = false;
