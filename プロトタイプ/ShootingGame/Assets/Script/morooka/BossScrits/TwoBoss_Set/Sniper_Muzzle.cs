@@ -11,6 +11,7 @@ public class Sniper_Muzzle : character_status
 {
 	[SerializeField, Tooltip("１Pを狙う方")] private bool Is_Aim_1P;
 	public ParticleSystem par;
+	public Two_Boss_Parts core;
 
 	private GameObject Player1_Trans { get; set; }      // プレイヤー1のトランスフォーム
 	private GameObject Player2_Trans { get; set; }       // プレイヤー2のトランスフォーム
@@ -39,6 +40,11 @@ public class Sniper_Muzzle : character_status
 
 	private new void Update()
 	{
+		if(core.hp < 400)
+		{
+			Shot_DelayMax = 60;
+		}
+
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
 			// 1Pが生きているとき
@@ -58,7 +64,7 @@ public class Sniper_Muzzle : character_status
 				{
 					Vector3 temp_1 = transform.position;
 					temp_1.z = 0.0f;
-					Vector3 temp_2 = Player1_Save_Pos - temp_1;
+					Vector2 temp_2 = Player1_Save_Pos - temp_1;
 					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET,temp_1, temp_2);
 					par.Play();
 					Shot_Delay = 0;
@@ -86,7 +92,7 @@ public class Sniper_Muzzle : character_status
 					{
 						Vector3 temp_1 = transform.position;
 						temp_1.z = 0.0f;
-						Vector3 temp_2 = Player1_Save_Pos - temp_1;
+						Vector2 temp_2 = Player1_Save_Pos - temp_1;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, temp_1, temp_2);
 						par.Play();
 						Shot_Delay = 0;
@@ -113,7 +119,7 @@ public class Sniper_Muzzle : character_status
 					{
 						Vector3 temp_1 = transform.position;
 						temp_1.z = 0.0f;
-						Vector3 temp_2 = Player2_Save_Pos - temp_1;
+						Vector2 temp_2 = Player2_Save_Pos - temp_1;
 						Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, temp_1, temp_2);
 						par.Play();
 						Shot_Delay = 0;
