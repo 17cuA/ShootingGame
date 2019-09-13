@@ -61,7 +61,8 @@ public class Helper_SceneTranslation : MonoBehaviour
 		}
 		else if(Set_Step == 2)
 		{
-			Scene_Manager.Manager.Scene_Transition(sceneName);
+			Scene_Manager.Manager.Screen_Transition_To_LoadStageScene();
+			//SceneManager.LoadScene("LoadScene");
 		}
 	}
 }

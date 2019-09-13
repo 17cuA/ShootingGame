@@ -44,7 +44,7 @@ public class Helper_SceneLoadAsync : MonoBehaviour
 		}
 
 
-		if ((int)(progress * 100) == 100 && isAutoLoading)
+		if ((int)(progress * 100) == 100)
 		{
 			async.allowSceneActivation = true;
 			isAutoLoading = false;
@@ -53,6 +53,8 @@ public class Helper_SceneLoadAsync : MonoBehaviour
 
 	private IEnumerator LoadScene()
 	{
+		yield return new WaitForEndOfFrame();
+
 		async = SceneManager.LoadSceneAsync(SceneName);
 
 		async.allowSceneActivation = false;
