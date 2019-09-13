@@ -97,9 +97,9 @@ public class Game_Master : MonoBehaviour
 		eENEMY_NUM1,								// エネミー1番
 		eUFOTYPE_ENEMY,                         // UFOタイプエネミー
 		eUFOTYPE_ENEMY_ITEM,                // UFOタイプエネミーのアイテム落とす版
-		eUFOMOTHERTYPE_ENEMY,			// UFO母艦タイプエネミー
+		eUFOMOTHERTYPE_ENEMY,				// UFO母艦タイプエネミー
 		eBEELZEBUBTYPE_ENEMY,				// ハエ型エネミー
-		eCLAMCHOWDERTYPE_ENEMY,		// 貝型エネミー
+		eCLAMCHOWDERTYPE_ENEMY,				// 貝型エネミー
 		eOCTOPUSTYPE_ENEMY,					// タコ型エネミー
 		eMANTA_LASER,						//マンタ型のエネミー用レーザー
 	}
@@ -115,6 +115,12 @@ public class Game_Master : MonoBehaviour
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 	public string[] Name_List {  get; private set; }
 	public static PLAYER_NUM Number_Of_People { get; private set; }             // 設定保存
+
+	public static int[] Is_Player_Alive { get; set; }              //プレイヤーが死んでいるかどうかの判定用
+	private One_Boss One_Bossinfo;      //前半ボスの情報
+	private Two_Boss Two_Bossinfo;      //後半ボスの情報
+	private Enemy_MiddleBoss Middle_Bossinfo;   //ビックコアの情報
+	private Enemy_Moai Moai_Bossinfo;			//モアイの情報
 
     private void Awake()
 	{
@@ -204,5 +210,35 @@ public class Game_Master : MonoBehaviour
 	{
 		Number_Of_People = set_num;
 		return Number_Of_People;
+	}
+	//死亡した味方の復活処理
+	private void RespornPlayer()
+	{
+
+		if (Middle_Bossinfo.Is_Dead || One_Bossinfo.Is_Dead || Moai_Bossinfo.Is_Dead || Two_Bossinfo.Is_Dead)
+		{
+			if(Is_Player_Alive[0] == 0 && Is_Player_Alive[1] == 1)
+			{
+				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				P1.Remaining = 2;
+				if(P2.Remaining < 2)
+				{
+					P2.Remaining = 2;
+				}
+
+			}
+			else if(Is_Player_Alive[0] == 1 && Is_Player_Alive[1] == 0)
+			{
+				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				P2.Remaining = 2;
+				if (P1.Remaining < 2)
+				{
+					P1.Remaining = 2;
+				}
+			}
+
+		}
 	}
 }
