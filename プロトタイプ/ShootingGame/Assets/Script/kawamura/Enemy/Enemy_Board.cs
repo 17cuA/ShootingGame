@@ -35,8 +35,8 @@ public class Enemy_Board : character_status
             saveHp = hp;
             ebp.damageDelay = 0;
             ebp.isDamage = true;
-			ebp.speedX -= 0.4f;
-            if (ebp.speedX < ebp.speedX_Min)
+			ebp.speedX += 0.4f;
+            if (ebp.speedX > ebp.speedX_Min)
             {
                 ebp.speedX = ebp.speedX_Min;
             }

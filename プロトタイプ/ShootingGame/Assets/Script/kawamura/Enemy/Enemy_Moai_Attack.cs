@@ -131,8 +131,12 @@ public class Enemy_Moai_Attack : MonoBehaviour
         {
             return;
         }
+		if (moai_Script.isDead)
+		{
+			audioSource.Stop();
+		}
 
-        if (moai_Script.isMouthOpen && moai_Script.attackLoopCnt < 3 && !moai_Script.isDead)
+		if (moai_Script.isMouthOpen && moai_Script.attackLoopCnt < 3 && !moai_Script.isDead)
 		{
 			switch (moai_Script.attackState)
 			{
