@@ -2081,7 +2081,7 @@ public class EnemyCreate : MonoBehaviour
 		// 闘牛直進12
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 31)
 		{
-			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
 			group_Script = saveObj.GetComponent<EnemyGroupManage>();
 			group_Script.isItemDrop = true;
 
@@ -2092,7 +2092,7 @@ public class EnemyCreate : MonoBehaviour
 		// 闘牛直進12
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 32)
 		{
-			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
 			group_Script = saveObj.GetComponent<EnemyGroupManage>();
 			group_Script.isItemDrop = true;
 
@@ -2103,7 +2103,7 @@ public class EnemyCreate : MonoBehaviour
 		// 闘牛直進12
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 33)
 		{
-			GameObject saveObj = Instantiate(enemy_Clamchowder_Group_Straight, createPosR0.transform.position, transform.rotation);
+			GameObject saveObj = Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
 			group_Script = saveObj.GetComponent<EnemyGroupManage>();
 			group_Script.isItemDrop = true;
 
