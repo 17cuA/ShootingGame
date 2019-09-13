@@ -171,7 +171,7 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
 		P2_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
-		Is_Change_Auto = false;
+		Is_Change_Auto = true;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
 		target = direction;
@@ -258,19 +258,6 @@ public class Player2 : character_status
 				if (Input.GetKeyDown(KeyCode.Alpha1)) Damege_Process(1);
 				if (Input.GetKeyDown(KeyCode.Alpha2)) P2_PowerManager.Instance.Pick();
 				if (Input.GetKeyDown(KeyCode.Alpha3)) hp = 1000;
-				if (Input.GetKeyDown(KeyCode.Alpha4))
-				{
-					hp = 0;
-					Remaining--;
-					ParticleCreation(0);        //爆発のエフェクト発動
-					Reset_Status();             //体力の修正
-					invincible = false;         //無敵状態にするかどうかの処理
-					invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-					bullet_Type = Bullet_Type.Single;
-					Is_Resporn = true;
-					Laser.SetActive(false);
-					return;
-				}
 				if (Input.GetKeyDown(KeyCode.Alpha5)) Remaining++;
 				//---------------------------
 
@@ -305,7 +292,8 @@ public class Player2 : character_status
 						invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						target = direction;
-						transform.position = new Vector3(-12, -2, -20);
+						transform.position = new Vector3(-12, -2, -20);         //復活アニメーションの開始位置へ
+						Is_Burst = false;
 						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}

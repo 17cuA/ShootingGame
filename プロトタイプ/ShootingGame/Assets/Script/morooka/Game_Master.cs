@@ -97,9 +97,9 @@ public class Game_Master : MonoBehaviour
 		eENEMY_NUM1,								// エネミー1番
 		eUFOTYPE_ENEMY,                         // UFOタイプエネミー
 		eUFOTYPE_ENEMY_ITEM,                // UFOタイプエネミーのアイテム落とす版
-		eUFOMOTHERTYPE_ENEMY,			// UFO母艦タイプエネミー
+		eUFOMOTHERTYPE_ENEMY,				// UFO母艦タイプエネミー
 		eBEELZEBUBTYPE_ENEMY,				// ハエ型エネミー
-		eCLAMCHOWDERTYPE_ENEMY,		// 貝型エネミー
+		eCLAMCHOWDERTYPE_ENEMY,				// 貝型エネミー
 		eOCTOPUSTYPE_ENEMY,					// タコ型エネミー
 		eMANTA_LASER,						//マンタ型のエネミー用レーザー
 	}
@@ -205,4 +205,11 @@ public class Game_Master : MonoBehaviour
 		Number_Of_People = set_num;
 		return Number_Of_People;
 	}
+	//private void ChangePlayNum()
+	//{
+	//	if(Number_Of_People == PLAYER_NUM.eONE_PLAYER)
+	//	{
+	//		if(Input.GetButtonDown)
+	//	}
+	//}
 }
