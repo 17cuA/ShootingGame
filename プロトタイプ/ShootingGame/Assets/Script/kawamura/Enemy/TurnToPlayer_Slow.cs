@@ -101,7 +101,7 @@ public class TurnToPlayer_Slow : character_status
 	}
 	new void Update()
 	{
-		if (transform.position.x <= -19.0f|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		if (transform.position.x <= -19.0f|| transform.position.y >= 6f || transform.position.y <= -6f)
 		{
 			gameObject.SetActive(false);
 		}

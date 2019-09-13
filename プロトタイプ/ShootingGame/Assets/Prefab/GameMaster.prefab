@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 541882103}
   - component: {fileID: 541882102}
   - component: {fileID: 1726588924}
+  - component: {fileID: 276323781233332384}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   P1: {fileID: 0}
+  P2: {fileID: 0}
   Boss:
   - {fileID: 0}
   - {fileID: 0}
@@ -138,12 +140,38 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   enemy_UFO_Group_prefab: {fileID: 0}
-  enemy_ClamChowder_Group_Four_prefab: {fileID: 0}
+  enemy_UFO_Group_NoneShot_prefab: {fileID: 0}
   enemy_ClamChowder_Group_Two_Top_prefab: {fileID: 0}
   enemy_ClamChowder_Group_Two_Under_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Three_prefab: {fileID: 0}
   enemy_ClamChowder_Group_Three_Item_prefab: {fileID: 0}
-  enemy_ClamChowder_Group_Seven_prefab: {fileID: 0}
   enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab: {fileID: 0}
   enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab: {fileID: 0}
   enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab: {fileID: 0}
   enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Four_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Four_NoItem_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Five_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Five_NoItem_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Seven_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_Straight_prefab: {fileID: 0}
+  enemy_Beelzebub_Group_FourWide_prefab: {fileID: 0}
+  enemy_Beelzebub_Group_FourWide_Item_prefab: {fileID: 0}
+  enemy_BeetleGroup_prefab: {fileID: 0}
+  boundMeteors_prefab: {fileID: 0}
+  enemy_Bacula_Sixteen_prefab: {fileID: 0}
+  enemy_Bacula_FourOnly_prefab: {fileID: 0}
+--- !u!114 &276323781233332384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417715682554785829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec63302415fb3074489c96b223b57309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

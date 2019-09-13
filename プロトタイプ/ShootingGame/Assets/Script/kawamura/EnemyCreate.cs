@@ -223,7 +223,7 @@ public class EnemyCreate : MonoBehaviour
     public EnemyGroupManage group_Script;
 
     GameObject middleBossOBj;
-    Enemy_MiddleBoss middleBoss_Script;
+    private Enemy_MiddleBoss middleBoss_Script;
 
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
@@ -524,8 +524,8 @@ public class EnemyCreate : MonoBehaviour
         //中ボス
         if (Input.GetKeyDown(KeyCode.J))
 		{
-            turning_frame = 2655;
-            frameCnt = 2655;
+            turning_frame = 2655-120;
+            frameCnt = 2655 - 120;
             groupCnt = 14;
 
             //turning_frame = 2655;
@@ -536,8 +536,8 @@ public class EnemyCreate : MonoBehaviour
         //中ボス後
         else if (Input.GetKeyDown(KeyCode.K))
 		{
-            turning_frame = 4410;
-            frameCnt = 4350;
+            turning_frame = 4410 - 120 - 735;
+            frameCnt = 4350 - 120 - 735;
             groupCnt = 22;
 
             //turning_frame = 6750;
@@ -548,8 +548,8 @@ public class EnemyCreate : MonoBehaviour
 		//1ボス
 		else if (Input.GetKeyDown(KeyCode.M))
         {
-            turning_frame = 8410;
-            frameCnt = 8350;    //←上の数字から60引いた数にする
+            turning_frame = 8410 - 120 - 735 - 60;
+            frameCnt = 8350 - 120 - 735 - 60;    //←上の数字から60引いた数にする
             groupCnt = 35;
             //turning_frame = 9660;
             //frameCnt = 9600;    //←上の数字から60引いた数にする
@@ -559,8 +559,8 @@ public class EnemyCreate : MonoBehaviour
 		//1ボス後
 		else if (!Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.B))
 		{
-            turning_frame = 8530;
-            frameCnt = 8470;    //←上の数字から60引いた数にする
+            turning_frame = 8530 - 120 - 735 - 60;
+            frameCnt = 8470 - 120 - 735 - 60;    //←上の数字から60引いた数にする
             groupCnt = 36;
             //turning_frame = 9660;
             //frameCnt = 9600;    //←上の数字から60引いた数にする
@@ -570,8 +570,8 @@ public class EnemyCreate : MonoBehaviour
 		// モアイ
 		else if (Input.GetKeyDown(KeyCode.B))
 		{
-            turning_frame = 10000;
-            frameCnt = 9940;    //←上の数字から60引いた数にする
+            turning_frame = 10000 - 120 - 735 - 60;
+            frameCnt = 9940 - 120 - 735 - 60;    //←上の数字から60引いた数にする
             groupCnt = 40;
 
             //turning_frame = 9660;
@@ -582,8 +582,8 @@ public class EnemyCreate : MonoBehaviour
         // モアイ後
 		else if (Input.GetKey(KeyCode.U) && Input.GetKeyDown(KeyCode.B))
 		{
-            turning_frame = 10638;
-            frameCnt = 10578;    //←上の数字から60引いた数にする
+            turning_frame = 10638 - 120 - 735 - 60;
+            frameCnt = 10578 - 120 - 735 - 60;    //←上の数字から60引いた数にする
             groupCnt = 58;
 
             //turning_frame = 9660;
@@ -595,8 +595,8 @@ public class EnemyCreate : MonoBehaviour
 		else if (Input.GetKeyDown(KeyCode.L))
 		{
             isDebug = true;
-            turning_frame = 15012;
-            frameCnt = 14952;    //←上の数字から60引いた数にする
+            turning_frame = 15012 - 120 - 735 - 60;
+            frameCnt = 14952 - 120 - 735 - 60;    //←上の数字から60引いた数にする
             groupCnt = 92;
 
             //isDebug = true;
@@ -641,20 +641,36 @@ public class EnemyCreate : MonoBehaviour
         //    isMiddleBossDead = false;
         //}
 
+
         //中ボス撃破
-        if (middleBoss_Script != null)
+        if (middleBoss_Script != null && isMiddleBossSkip)
         {
-            if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
+            if (middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 7210)
-                {
-                    frameCnt = 7200;
-                    turning_frame = 7210; //←今爆発がでかいのでちょっと間を空けます
-                    groupCnt = 22;
-                    isMiddleBossSkip = false;
-                }
+                frameCnt = 3255+300 - 60;
+                turning_frame = 3255+300; //←今爆発がでかいのでちょっと間を空けます
+                groupCnt = 22;
+                isMiddleBossSkip = false;
             }
         }
+
+        ////中ボス撃破
+        //if (middleBoss_Script != null)
+        //{
+        //    if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
+        //    {
+        //        if
+
+
+        //        //if (frameCnt < 3195 - 480)
+        //        //{
+        //        //    frameCnt = 3195 - 480;
+        //        //    turning_frame = 3195; //←今爆発がでかいのでちょっと間を空けます
+        //        //    groupCnt = 22;
+        //        //    isMiddleBossSkip = false;
+        //        //}
+        //    }
+        //}
 
         //if (isOneBossAlive)
         //{
@@ -4985,7 +5001,8 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛上2下2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 11)
         {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TOPANDUNEDR, CreatePos.FOURGROUPL, false);
+
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TOPANDUNEDR, CreatePos.FOURGROUPL, false);
 
             nextEnemy = "闘牛縦7中央アイテム";
             Next_Condition(45);
@@ -5021,73 +5038,70 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛上2下2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 15)
         {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+            saveEnemyObj.transform.position = createPosR4.transform.position;
+
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+            saveEnemyObj.transform.position = createPosRm4.transform.position;
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
             nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
+            Next_Condition(180);
         }
         // 闘牛上2下2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 16)
         {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+            saveEnemyObj.transform.position = createPosR4.transform.position;
+
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+            saveEnemyObj.transform.position = createPosRm4.transform.position;
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
             nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
+            Next_Condition(180);
         }
         // 闘牛上2下2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 17)
         {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+            saveEnemyObj.transform.position = createPosR4.transform.position;
+
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+            saveEnemyObj.transform.position = createPosRm4.transform.position;
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
             nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
+            Next_Condition(180);
         }
         // 闘牛上2下2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 18)
         {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+            saveEnemyObj.transform.position = createPosR4.transform.position;
+
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+            saveEnemyObj.transform.position = createPosRm4.transform.position;
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
+            //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
             nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
+            Next_Condition(160+120);
         }
-        // 闘牛上2下2
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19)
-        {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
-
-            nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
-        }
-        // 闘牛上2下2
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
-        {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
-
-            nextEnemy = "闘牛上2下2";
-            Next_Condition(195);
-        }
-        // 闘牛上2下2
-        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21)
-        {
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
-            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
-
-            nextEnemy = "闘牛上2下2";
-            Next_Condition(195 + 210);
-        }
+        // からうち
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 19) Next_Condition(5);
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20) Next_Condition(5);
+        else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 21) Next_Condition(5);
         // ハエ2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 22)
         {
             CreateEnemy(EnemyType.BEELZEBUB_GROUP_TWOWIDE, CreatePos.R0, true);
 
             nextEnemy = "ハエ上2下2広右2アイテム";
-            Next_Condition(420);
+            Next_Condition(360);
             nowGroupCnt++;
         }
         // ビートル3
