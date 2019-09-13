@@ -51,8 +51,19 @@ public class Enemy_Board_Parent : MonoBehaviour
         parentObj = transform.parent.gameObject;
 		parentName = parentObj.name;
         egm = parentObj.GetComponent<EnemyGroupManage>();
-        speedX_Max = speedX;
-        speedX_Min = -2;
+
+        if (parentName == "Enemy_BossBacula_Four(Clone)")
+        {
+            speedX = 0;
+            speedX_Max = 0;
+            speedX_Min = 0;
+        }
+        else
+        {
+            speedX_Max = speedX;
+            //speedX_Min = -2;
+
+        }
     }
 
     void Update()
