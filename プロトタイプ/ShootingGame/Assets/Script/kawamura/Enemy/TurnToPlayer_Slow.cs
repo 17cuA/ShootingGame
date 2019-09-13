@@ -101,8 +101,11 @@ public class TurnToPlayer_Slow : character_status
 	}
 	new void Update()
 	{
-
-        frameCnt++;
+		if (transform.position.x <= -19.0f|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		{
+			gameObject.SetActive(false);
+		}
+			frameCnt++;
 		if(frameCnt> followStartTime)
 		{
 			isFollow = true;
