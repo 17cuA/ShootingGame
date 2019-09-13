@@ -13,7 +13,7 @@ public class Small_BeamBullet : bullet_status
 
 	private new void Update()
 	{
-		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f || transform.position.y >= 10.0f || transform.position.y <= -10.0f)
+		if (transform.position.x >= 18.4f || transform.position.x <= -18.4f || transform.position.y >= 5.9f || transform.position.y <= -5.9f)
 		{
 			Destroy(gameObject);
 			//gameObject.SetActive(false);
