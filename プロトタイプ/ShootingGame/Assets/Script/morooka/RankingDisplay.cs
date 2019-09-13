@@ -44,7 +44,7 @@ public class RankingDisplay : MonoBehaviour
 	[SerializeField] private InputRankingName input1PNameClass;
 	private Vector2 input1PNamePos = Vector2.zero;
 	private string previous1PName = "";
-	public bool IsDecision1P { get { return input1PNameClass.IsDecision; } }
+	public bool IsDecision1P { get { return input1PNameClass.IsDecision || Ranking_Strage.Strage_Data.Player1Rank >= Ranking_Strage.Max_num; } }
 	private Character_Display name1PSubscriptTextDisplay;
 	private Vector2 name1PSubscriptTextPosition = new Vector2(-3840f / 2f / 2f - 80f * 3f, -1080f / 2f / 7f * 5f);
 
@@ -60,7 +60,7 @@ public class RankingDisplay : MonoBehaviour
 			{
 				return true;
 			}
-			return input2PNameClass.IsDecision;
+			return input2PNameClass.IsDecision || Ranking_Strage.Strage_Data.Player2Rank >= Ranking_Strage.Max_num;
 		}
 	}
 	private Character_Display name2PSubscriptTextDisplay;
@@ -127,12 +127,14 @@ public class RankingDisplay : MonoBehaviour
 	void Update()
 	{
 		// ゲームクリアシーンでなければ処理しない
-		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR) { return; }
+		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR && Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_OVER) { return; }
 		// 画面更新
 		Update1PDisplay();
 		// 1Pプレイの時は以降を処理しない
-		if (Game_Master.Number_Of_People != Game_Master.PLAYER_NUM.eTWO_PLAYER) { return; }
-		Update2PDisplay();
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Update2PDisplay();
+		}
 	}
 	/// <summary>
 	/// 1P画面更新
@@ -140,14 +142,17 @@ public class RankingDisplay : MonoBehaviour
 	void Update1PDisplay()
 	{
 		// 名前変更
-		input1PNameClass.SelectingName();
-		// NGワードであれば初めに戻す
-		if (input1PNameClass.IsDecision && ngWordsList.Contains(input1PNameClass.Name))
+		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
 		{
-			input1PNameClass.InitSelectPosition();
+			input1PNameClass.SelectingName();
+			// NGワードであれば初めに戻す
+			if (input1PNameClass.IsDecision && ngWordsList.Contains(input1PNameClass.Name))
+			{
+				input1PNameClass.InitSelectPosition();
+			}
+			// 表示の更新
+			input1PNameDisplay.Character_Preference(input1PNameClass.Name);
 		}
-		// 表示の更新
-		input1PNameDisplay.Character_Preference(input1PNameClass.Name);
 		// ランキングの中心に来るオブジェクトの補正
 		if (centerElementNum1P < 2) { centerElementNum1P = 2; }
 		else if (centerElementNum1P > Ranking_Strage.Max_num - 3) { centerElementNum1P = Ranking_Strage.Max_num - 3; }
@@ -156,30 +161,36 @@ public class RankingDisplay : MonoBehaviour
 		// ランキングの列を中心に合わせる
 		CorrectCenter1PRankingColumn();
 		// 変更された名前を逐一保存していく
-		Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].name = input1PNameClass.Name;
-		// 表示の変更
-		string displayString = (Ranking_Strage.Strage_Data.Player1Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].score.ToString("D10");
-		ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
 		{
-			ranking2PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
+			Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].name = input1PNameClass.Name;
+			// 表示の変更
+			string displayString = (Ranking_Strage.Strage_Data.Player1Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].score.ToString("D10");
+			ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				ranking2PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
+			}
+			previous1PName = input1PNameClass.Name;
 		}
-		previous1PName = input1PNameClass.Name;
 	}
 	/// <summary>
 	/// 2P画面更新
 	/// </summary>
 	void Update2PDisplay()
 	{
-		// 名前変更
-		input2PNameClass.SelectingName();
-		// ngワードであれば初めに戻す
-		if (input2PNameClass.IsDecision && ngWordsList.Contains(input2PNameClass.Name))
+		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
 		{
-			input2PNameClass.InitSelectPosition();
+			// 名前変更
+			input2PNameClass.SelectingName();
+			// ngワードであれば初めに戻す
+			if (input2PNameClass.IsDecision && ngWordsList.Contains(input2PNameClass.Name))
+			{
+				input2PNameClass.InitSelectPosition();
+			}
+			// 表示の更新
+			input2PNameDisplay.Character_Preference(input2PNameClass.Name);
 		}
-		// 表示の更新
-		input2PNameDisplay.Character_Preference(input2PNameClass.Name);
 		// ランキングの中心に来るオブジェクトの補正
 		if (centerElementNum2P < 2) { centerElementNum2P = 2; }
 		else if (centerElementNum2P > Ranking_Strage.Max_num - 3) { centerElementNum2P = Ranking_Strage.Max_num - 3; }
@@ -188,12 +199,15 @@ public class RankingDisplay : MonoBehaviour
 		// ランキングの列を中心に合わせる
 		CorrectCenter2PRankingColumn();
 		// 変更された名前を逐一保存していく
-		Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].name = input2PNameClass.Name;
-		// 表示の変更
-		string displayString = (Ranking_Strage.Strage_Data.Player2Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].score.ToString("D10");
-		ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
-		ranking1PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
-		previous2PName = input2PNameClass.Name;
+		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
+		{
+			Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].name = input2PNameClass.Name;
+			// 表示の変更
+			string displayString = (Ranking_Strage.Strage_Data.Player2Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].score.ToString("D10");
+			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
+			ranking1PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
+			previous2PName = input2PNameClass.Name;
+		}
 	}
 	/// <summary>
 	/// 1P要素番号centerElementNumの要素行を1Pランキングの中心にオフセットする処理
@@ -289,25 +303,28 @@ public class RankingDisplay : MonoBehaviour
 		player1TextDisplay.Centering();
 
 		// 名前入力表示
-		input1PNameClass = new InputRankingName("Vertical", "Fire1", KeyCode.Space, "Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
-		GameObject inputNameParent = new GameObject("InputName");
-		inputNameParent.transform.parent = transform;
-		input1PNamePos.x = -3840f / 2f / 2f + 150f * 3f;
-		input1PNamePos.y = -1080f / 2f / 7f * 5f;
-		inputNameSize = 1.2f;
-		input1PNameDisplay = new Character_Display(input1PNameClass.Name.Length, "morooka/SS", inputNameParent, input1PNamePos);
-		input1PNameDisplay.Character_Preference(input1PNameClass.Name);
-		input1PNameClass.NameImageList = input1PNameDisplay.Display_Characters;
-		input1PNameDisplay.Size_Change(Vector3.one * inputNameSize / kWholeScaleWeight);
-		input1PNameDisplay.Centering();
-		previous1PName = Ranking_Strage.kDefaultName;
-		// 添え字表示
-		GameObject nameSubscriptTextParent = new GameObject("Name");
-		nameSubscriptTextParent.transform.parent = transform;
-		name1PSubscriptTextDisplay = new Character_Display("YOUR_NAME".Length, "morooka/SS", nameSubscriptTextParent, name1PSubscriptTextPosition);
-		name1PSubscriptTextDisplay.Character_Preference("YOUR_NAME");
-		name1PSubscriptTextDisplay.Size_Change(Vector2.one * 0.8f / kWholeScaleWeight);
-		name1PSubscriptTextDisplay.Centering();
+		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
+		{
+			input1PNameClass.Init("Vertical", "Fire1", KeyCode.Space, "Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+			GameObject inputNameParent = new GameObject("InputName");
+			inputNameParent.transform.parent = transform;
+			input1PNamePos.x = -3840f / 2f / 2f + 150f * 3f;
+			input1PNamePos.y = -1080f / 2f / 7f * 5f;
+			inputNameSize = 1.2f;
+			input1PNameDisplay = new Character_Display(input1PNameClass.Name.Length, "morooka/SS", inputNameParent, input1PNamePos);
+			input1PNameDisplay.Character_Preference(input1PNameClass.Name);
+			input1PNameClass.NameImageList = input1PNameDisplay.Display_Characters;
+			input1PNameDisplay.Size_Change(Vector3.one * inputNameSize / kWholeScaleWeight);
+			input1PNameDisplay.Centering();
+			previous1PName = Ranking_Strage.kDefaultName;
+			// 添え字表示
+			GameObject nameSubscriptTextParent = new GameObject("Name");
+			nameSubscriptTextParent.transform.parent = transform;
+			name1PSubscriptTextDisplay = new Character_Display("YOUR_NAME".Length, "morooka/SS", nameSubscriptTextParent, name1PSubscriptTextPosition);
+			name1PSubscriptTextDisplay.Character_Preference("YOUR_NAME");
+			name1PSubscriptTextDisplay.Size_Change(Vector2.one * 0.8f / kWholeScaleWeight);
+			name1PSubscriptTextDisplay.Centering();
+		}
 
 		// ランキング表示
 		dataArray = Ranking_Strage.Strage;
@@ -341,7 +358,14 @@ public class RankingDisplay : MonoBehaviour
 			ranking1PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight);
 			ranking1PDisplay[i].Centering();
 		}
-		centerElementNum1P = Ranking_Strage.Strage_Data.Player1Rank;
+		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
+		{
+			centerElementNum1P = Ranking_Strage.Strage_Data.Player1Rank;
+		}
+		else
+		{
+			centerElementNum1P = 0;
+		}
 	}
 	/// <summary>
 	/// 2Pのランキング画面セッティング
@@ -357,25 +381,28 @@ public class RankingDisplay : MonoBehaviour
 		player2TextDisplay.Centering();
 
 		// 名前入力表示
-		input2PNameClass = new InputRankingName("P2_Vertical", "P2_Fire1", KeyCode.Space, "P2_Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
-		GameObject inputNameParent = new GameObject("InputName");
-		inputNameParent.transform.parent = transform;
-		input2PNamePos.x = 3840f / 2f / 2f + 150f * 3f;
-		input2PNamePos.y = -1080f / 2f / 7f * 5f;
-		inputNameSize = 1.2f;
-		input2PNameDisplay = new Character_Display(input2PNameClass.Name.Length, "morooka/SS", inputNameParent, input2PNamePos);
-		input2PNameDisplay.Character_Preference(input2PNameClass.Name);
-		input2PNameClass.NameImageList = input2PNameDisplay.Display_Characters;
-		input2PNameDisplay.Size_Change(Vector3.one * inputNameSize / kWholeScaleWeight);
-		input2PNameDisplay.Centering();
-		previous2PName = Ranking_Strage.kDefaultName;
-		// 添え字表示
-		GameObject nameSubscriptTextParent = new GameObject("Name");
-		nameSubscriptTextParent.transform.parent = transform;
-		name2PSubscriptTextDisplay = new Character_Display("YOUR_NAME".Length, "morooka/SS", nameSubscriptTextParent, name2PSubscriptTextPosition);
-		name2PSubscriptTextDisplay.Character_Preference("YOUR_NAME");
-		name2PSubscriptTextDisplay.Size_Change(Vector2.one * 0.8f / kWholeScaleWeight);
-		name2PSubscriptTextDisplay.Centering();
+		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
+		{
+			input2PNameClass.Init("P2_Vertical", "P2_Fire1", KeyCode.Space, "P2_Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+			GameObject inputNameParent = new GameObject("InputName");
+			inputNameParent.transform.parent = transform;
+			input2PNamePos.x = 3840f / 2f / 2f + 150f * 3f;
+			input2PNamePos.y = -1080f / 2f / 7f * 5f;
+			inputNameSize = 1.2f;
+			input2PNameDisplay = new Character_Display(input2PNameClass.Name.Length, "morooka/SS", inputNameParent, input2PNamePos);
+			input2PNameDisplay.Character_Preference(input2PNameClass.Name);
+			input2PNameClass.NameImageList = input2PNameDisplay.Display_Characters;
+			input2PNameDisplay.Size_Change(Vector3.one * inputNameSize / kWholeScaleWeight);
+			input2PNameDisplay.Centering();
+			previous2PName = Ranking_Strage.kDefaultName;
+			// 添え字表示
+			GameObject nameSubscriptTextParent = new GameObject("Name");
+			nameSubscriptTextParent.transform.parent = transform;
+			name2PSubscriptTextDisplay = new Character_Display("YOUR_NAME".Length, "morooka/SS", nameSubscriptTextParent, name2PSubscriptTextPosition);
+			name2PSubscriptTextDisplay.Character_Preference("YOUR_NAME");
+			name2PSubscriptTextDisplay.Size_Change(Vector2.one * 0.8f / kWholeScaleWeight);
+			name2PSubscriptTextDisplay.Centering();
+		}
 
 		// ランキング表示
 		dataArray = Ranking_Strage.Strage;
@@ -409,6 +436,13 @@ public class RankingDisplay : MonoBehaviour
 			ranking2PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight);
 			ranking2PDisplay[i].Centering();
 		}
-		centerElementNum2P = Ranking_Strage.Strage_Data.Player2Rank;
+		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
+		{
+			centerElementNum2P = Ranking_Strage.Strage_Data.Player2Rank;
+		}
+		else
+		{
+			centerElementNum2P = 0;
+		}
 	}
 }

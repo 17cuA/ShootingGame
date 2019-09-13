@@ -60,7 +60,7 @@ public class InputManager
 		{
 			Canvas anyCanvas = GameObject.FindObjectOfType<Canvas>();
 			inputInfoText = new GameObject("InputInfo").AddComponent<Text>();
-			inputInfoText.transform.parent = anyCanvas.transform;
+			inputInfoText.rectTransform.SetParent(anyCanvas.transform);
 			inputInfoText.rectTransform.localPosition = new Vector2(textPositionX, 0f);
 			inputInfoText.font = textFont;
 			inputInfoText.fontSize = 50;
