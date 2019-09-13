@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6639488532561612270}
   m_Layer: 9
-  m_Name: Enemy_Beelzebub_Group_EightNomal_Item
+  m_Name: Enemy_Beelzebub_Group_EightNormal_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeelzebubType_Enemy_Item (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6808023977070366617, guid: 971a173f809d5ec4da272311519396db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 971a173f809d5ec4da272311519396db, type: 3}
@@ -285,6 +290,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeelzebubType_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 72782433919951560, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f02cf4c30c6d449bde2cee5b4b4d59, type: 3}
 --- !u!4 &3234712677995913493 stripped
@@ -303,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 1714891372222125979, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 1714891372222125979, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
         type: 3}
@@ -378,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 1714891372222125979, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 1714891372222125979, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
         type: 3}
@@ -510,6 +520,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeelzebubType_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 72782433919951560, guid: 27f02cf4c30c6d449bde2cee5b4b4d59,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f02cf4c30c6d449bde2cee5b4b4d59, type: 3}
 --- !u!4 &3234712677002032516 stripped
@@ -584,6 +599,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BeelzebubType_Enemy_Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 6808023977070366617, guid: 971a173f809d5ec4da272311519396db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 971a173f809d5ec4da272311519396db, type: 3}
