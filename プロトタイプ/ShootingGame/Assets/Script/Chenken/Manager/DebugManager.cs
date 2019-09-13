@@ -13,7 +13,7 @@ public class DebugManager : MonoBehaviour
 	[SerializeField] private bool isColliderEnabled = true;
 	[Header("入力DEBUGキー")]
 	[SerializeField] private KeyCode playersOperationDebugKey = KeyCode.F4;
-	[SerializeField] private bool isPlayersOperationDebugging = false;
+	private static bool isPlayersOperationDebugging = false;
 
 	private GameObject UIChild;
 	private static Text debugText;
@@ -23,10 +23,9 @@ public class DebugManager : MonoBehaviour
 	[SerializeField] private float updateTime = 2;
 	private float updateTimer;
 
+
 	private void Awake()
 	{
-		Application.logMessageReceived += HandleLog;
-
 		scrollRect = GetComponentInChildren<ScrollRect>();
 		debugText = GetComponentInChildren<Text>();
 		UIChild = transform.GetChild(0).gameObject;
@@ -80,12 +79,16 @@ public class DebugManager : MonoBehaviour
 				isPlayersOperationDebugging = false;
 				if (UIChild.activeSelf)
 					UIChild.SetActive(false);
+
+				Application.logMessageReceived -= HandleLog;
 			}
 			else
 			{
 				isPlayersOperationDebugging = true;
 				if (!UIChild.activeSelf)
 					UIChild.SetActive(true);
+
+				Application.logMessageReceived += HandleLog;
 			}
 		}
 
@@ -105,6 +108,9 @@ public class DebugManager : MonoBehaviour
 	/// <param name="userName"></param>
 	public static void OperationDebug(string context, string userName)
 	{
+		if (isPlayersOperationDebugging == false)
+			return;
+
         if(SceneManager.GetActiveScene().name != "Stage_01")
             return;
 

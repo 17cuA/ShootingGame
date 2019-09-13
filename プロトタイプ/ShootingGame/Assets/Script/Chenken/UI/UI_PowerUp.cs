@@ -97,19 +97,17 @@ public class UI_PowerUp : MonoBehaviour
 				{
 					current.gameObject.transform.position = displays[P1_PowerManager.Instance.Position].transform.position;
 					displays[P1_PowerManager.Instance.Position].Enlarge();
-					displays[P1_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
-                    displays[P1_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
-                    displays[P1_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
+					displays[P1_PowerManager.Instance.Position].Blight(flowLightMaterial);
 
 
 					for (var i = start; i < end; ++i)
 					{
-						if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != P1_PowerManager.Instance.Position)
+						if ( i != P1_PowerManager.Instance.Position)
 						{
-							displays[i].Resize();
-							displays[i].GetComponent<Canvas>().sortingOrder = 0;
-                            displays[i].GetComponent<Image>().material = null;
-                            displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
+							displays[i].Black();
+
+							if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
+								displays[i].Resize();
 						}
 					}
 				}
@@ -122,10 +120,8 @@ public class UI_PowerUp : MonoBehaviour
 					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
 					{
 						displays[i].Resize();
-						displays[i].GetComponent<Canvas>().sortingOrder = 0;
-                        displays[i].GetComponent<Image>().material = null;
-                        displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
-                        current.gameObject.transform.position = Vector3.zero;
+						displays[i].Black();
+						current.gameObject.transform.position = Vector3.zero;
 					}
 				}
 			}
@@ -140,14 +136,14 @@ public class UI_PowerUp : MonoBehaviour
 				{
 					if (power.Type == P1_PowerManager.Power.PowerType.INITSPEED)
 					{
-						if (displays[i].GetComponent<Image>().sprite != initSpeed)
-							displays[i].GetComponent<Image>().sprite = initSpeed;
+						if (displays[i].Sprite != initSpeed)
+							displays[i].Sprite = initSpeed;
 					}
 
 					if (power.Type == P1_PowerManager.Power.PowerType.SPEEDUP)
 					{
-						if (displays[i].GetComponent<Image>().sprite != speedUp)
-							displays[i].GetComponent<Image>().sprite = speedUp;
+						if (displays[i].Sprite != speedUp)
+							displays[i].Sprite = speedUp;
 					}
 
 					if (transform.GetChild(i - start).GetChild(0).gameObject.activeSelf)
@@ -164,7 +160,6 @@ public class UI_PowerUp : MonoBehaviour
 		}
 		if(isPlayer2)
 		{
-
 			var currentPower = P2_PowerManager.Instance.CurrentPower;
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
@@ -183,19 +178,18 @@ public class UI_PowerUp : MonoBehaviour
 				{
 					current.gameObject.transform.position = displays[P2_PowerManager.Instance.Position].transform.position;
 					displays[P2_PowerManager.Instance.Position].Enlarge();
-					displays[P2_PowerManager.Instance.Position].GetComponent<Canvas>().sortingOrder = 1;
-                    displays[P2_PowerManager.Instance.Position].GetComponent<Image>().material = flowLightMaterial;
-                    displays[P2_PowerManager.Instance.Position].GetComponent<Image>().color = new Color(1,1,1,1);
-                
+					displays[P2_PowerManager.Instance.Position].Blight(flowLightMaterial);
+
 
 					for (var i = start; i < end; ++i)
 					{
-						if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f) && i != P2_PowerManager.Instance.Position)
+						if (i != P2_PowerManager.Instance.Position)
 						{
-							displays[i].Resize();
-							displays[i].GetComponent<Canvas>().sortingOrder = 0;
-                            displays[i].GetComponent<Image>().material = null;
-                            displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
+							displays[i].Black();
+
+							if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
+								displays[i].Resize();
+
 						}
 					}
 				}
@@ -207,10 +201,8 @@ public class UI_PowerUp : MonoBehaviour
 					if (displays[i].transform.localScale != new Vector3(1f, 1f, 1f))
 					{
 						displays[i].Resize();
-						displays[i].GetComponent<Canvas>().sortingOrder = 0;
-                        displays[i].GetComponent<Image>().material = null;
-                        displays[i].GetComponent<Image>().color = new Color(0.65f,0.65f,0.65f,1);
-                        current.gameObject.transform.position = Vector3.zero;
+						displays[i].Black();
+						current.gameObject.transform.position = Vector3.zero;
 					}
 				}
 			}
@@ -225,14 +217,14 @@ public class UI_PowerUp : MonoBehaviour
 				{
 					if (power.Type == P2_PowerManager.Power.PowerType.INITSPEED)
 					{
-						if (displays[i].GetComponent<Image>().sprite != initSpeed)
-							displays[i].GetComponent<Image>().sprite = initSpeed;
+						if (displays[i].Sprite != initSpeed)
+							displays[i].Sprite = initSpeed;
 					}
 
 					if (power.Type == P2_PowerManager.Power.PowerType.SPEEDUP)
 					{
-						if (displays[i].GetComponent<Image>().sprite != speedUp)
-							displays[i].GetComponent<Image>().sprite = speedUp;
+						if (displays[i].Sprite != speedUp)
+							displays[i].Sprite = speedUp;
 					}
 
 					if (transform.GetChild(i - start).GetChild(0).gameObject.activeSelf)

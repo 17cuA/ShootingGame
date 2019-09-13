@@ -162,6 +162,7 @@ public class Player1 : character_status
 		Is_Resporn = true;                  //復活のアニメーションを行うかどうかの判定用
 		invincible = true;					// 無敵時間の設定
 		for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
+		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
