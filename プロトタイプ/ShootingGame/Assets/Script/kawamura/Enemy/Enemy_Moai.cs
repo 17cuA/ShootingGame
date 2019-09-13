@@ -32,6 +32,8 @@ public class Enemy_Moai : character_status
 	public Renderer[] moai_material;                                  // オブジェクトのマテリアル情報
 	public Material[] moai_material_save;
 
+	public int MoaiHpMax;
+
 	public float wireles_DelayCnt;
 	public float wireles_DelayMax;
 
@@ -105,11 +107,11 @@ public class Enemy_Moai : character_status
 
 	new void Update()
 	{
-		Physics.gravity = new Vector3(0, -0.3f, 0);
+		Physics.gravity = new Vector3(0, -0.32f, 0);
 
         if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
-            hp = 1800;
+			hp = MoaiHpMax; ;
             for (int i = 0; i < object_material.Length; i++)
             {
                 object_material[i].material = self_material[i];
@@ -120,7 +122,7 @@ public class Enemy_Moai : character_status
 
 		if (isAppearance)
 		{
-			hp = 1800;
+			hp = 3600;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -204,7 +206,7 @@ public class Enemy_Moai : character_status
 
 			if (transform.position.y > 12)
 			{
-
+                Is_Dead = true;
 				gameObject.SetActive(false);
 			}
 		}
@@ -288,13 +290,13 @@ public class Enemy_Moai : character_status
 			if (aliveCnt > 116)
 		{
 			isExit = true;
-			Is_Dead = true;
+			//Is_Dead = true;
 		}
 
 		if (hp < 1&& !isDead)
 		{
 			isDead = true;
-			Is_Dead = true;
+			//Is_Dead = true;
 			moai_rigidbody.useGravity = true;
 			moaiAnime_Script.isOpen = false;
 			moaiAnime_Script.isClose = false;

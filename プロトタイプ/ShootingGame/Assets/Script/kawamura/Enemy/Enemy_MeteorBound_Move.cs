@@ -17,7 +17,7 @@ public class Enemy_MeteorBound_Move : MonoBehaviour
 
 	void Start()
 	{
-		speedX = Random.Range(-2.0f, -15.0f);
+		speedX = Random.Range(-2.0f, -8.0f);
 		speedY = Random.Range(-0.3f, 0.3f);
 	}
 
@@ -25,6 +25,11 @@ public class Enemy_MeteorBound_Move : MonoBehaviour
 	{
 		velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 		gameObject.transform.position += velocity * Time.deltaTime;
+
+        if (transform.position.x > -20)
+        {
+            gameObject.SetActive(false);
+        }
 
 	}
 

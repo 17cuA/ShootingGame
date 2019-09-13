@@ -84,32 +84,57 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;
 
-        if (myName == "taiho")
-        {
-            if (isShot/* && transform.position.x < 15f && transform.position.x > -17.5*/)
-            {
-                if (isBurst)
-                {
-                    //バーストショット関数呼び出し
-                    if (burst_Times > burst_Num)
-                    {
-                        BurstShot();
-                    }
-                }
+		if (myName == "taiho")
+		{
+			if (isShot/* && transform.position.x < 15f && transform.position.x > -17.5*/)
+			{
+				if (isBurst)
+				{
+					//バーストショット関数呼び出し
+					if (burst_Times > burst_Num)
+					{
+						BurstShot();
+					}
+				}
 
-                else if (Shot_Delay > Shot_Delay_Max)
-                {
-                    isBurst = true;
-                    Shot_Delay = 0;
-                }
-                else
-                {
-                    Shot_Delay += Time.deltaTime;
-                }
-            }
+				else if (Shot_Delay > Shot_Delay_Max)
+				{
+					isBurst = true;
+					Shot_Delay = 0;
+				}
+				else
+				{
+					Shot_Delay += Time.deltaTime;
+				}
+			}
 
-        }
-        else if (isShot && transform.position.z == 0 && transform.position.x < 17.5f && transform.position.x > -17.5 && transform.position.y < 5 && transform.position.y > -5)
+		}
+		else if (myName == "Enemy_Moai(Clone)")
+		{
+			if (isShot/* && transform.position.x < 15f && transform.position.x > -17.5*/)
+			{
+				if (isBurst)
+				{
+					//バーストショット関数呼び出し
+					if (burst_Times > burst_Num)
+					{
+						BurstShot();
+					}
+				}
+
+				else if (Shot_Delay > Shot_Delay_Max)
+				{
+					isBurst = true;
+					Shot_Delay = 0;
+				}
+				else
+				{
+					Shot_Delay += Time.deltaTime;
+				}
+			}
+
+		}
+		else if (isShot && transform.position.z == 0 && transform.position.x < 17.5f && transform.position.x > -17.5 && transform.position.y < 5 && transform.position.y > -5)
 		{
 			if (isBurst)
 			{
