@@ -242,15 +242,20 @@ public class bullet_status : MonoBehaviour
 				break;
 			case Type.Player1:
 				P1.Bullet_cnt = 0;
+				P1.shoot_number = 0;
 				break;
 			case Type.Player2:
 				P2.Bullet_cnt = 0;
+				P2.shoot_number = 0;
 				break;
 			case Type.Player1_Option:
 				bShot.Bullet_cnt = 0;
+				bShot.shotNum = 0;
 				break;
 			case Type.Player2_Option:
 				bShot.Bullet_cnt = 0;
+				bShot.shotNum = 0;
+
 				break;
 			case Type.Enemy:
 				break;
