@@ -4,6 +4,7 @@
 /*
  * 2019/07/03：残機表示
  * 2019/08/23：１P、２PUI別け
+ * 2019/09/13：残機復活適応
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -130,7 +131,7 @@ public class Remaining_Display : MonoBehaviour
 		}
 
 		//表示中のアイコンの数とプレイヤーの残機の数が違うとき
-		if(Player_Data_1P.Remaining < Remaining_Num_1P)
+		if(Player_Data_1P.Remaining != Remaining_Num_1P)
 		{
 			// 表示中のアイコンの非表示化
 			Remaining_Num_1P = Player_Data_1P.Remaining;
@@ -140,7 +141,7 @@ public class Remaining_Display : MonoBehaviour
 		// 2Pがいるとき
 		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
-			if(Player_Data_2P.Remaining < Remaining_Num_2P)
+			if(Player_Data_2P.Remaining != Remaining_Num_2P)
 			{
 				// 表示中のアイコンの非表示化
 				Remaining_Num_2P = Player_Data_2P.Remaining;
