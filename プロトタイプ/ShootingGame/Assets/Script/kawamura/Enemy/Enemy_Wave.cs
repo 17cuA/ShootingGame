@@ -947,6 +947,7 @@ public class Enemy_Wave : character_status
 
 	void Enemy_Reset()
 	{
+        startTime = 0;
 		speedZ = 0;
 		speedY = 0;
 		once = true;
