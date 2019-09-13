@@ -505,7 +505,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 5010;
 			frameCnt = 5010;
-			groupCnt = 17;
+			groupCnt = 14;
 			//nowGroupCnt = 17;
 		}
 		//中ボス後
@@ -513,7 +513,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 6750;
 			frameCnt = 6750;
-			groupCnt = 25;
+			groupCnt = 22;
 			//nowGroupCnt = 21;
 		}
 		//1ボス
@@ -521,7 +521,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 46;
+			groupCnt = 35;
 			//nowGroupCnt = 36;
 		}
 		//1ボス後
@@ -529,7 +529,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 47;
+			groupCnt = 34;
 			//nowGroupCnt = 36;
 		}
 		// モアイ
@@ -537,7 +537,7 @@ public class EnemyCreate : MonoBehaviour
 		{
 			turning_frame = 9660;
 			frameCnt = 9600;    //←上の数字から60引いた数にする
-			groupCnt = 55;
+			groupCnt = 40;
 			//nowGroupCnt = 36;
 		}
 		else if (Input.GetKey(KeyCode.U) && Input.GetKeyDown(KeyCode.B))
@@ -556,7 +556,7 @@ public class EnemyCreate : MonoBehaviour
 			isDebug = true;
 			turning_frame = 5010;
 			frameCnt = 4950;    //←上の数字から60引いた数にする
-			groupCnt = 90;
+			groupCnt = 74;
 
 		}
 		else if (Input.GetKeyDown(KeyCode.C))
@@ -596,7 +596,7 @@ public class EnemyCreate : MonoBehaviour
                 {
                     frameCnt = 7200;
                     turning_frame = 7210; //←今爆発がでかいのでちょっと間を空けます
-                    groupCnt = 25;
+                    groupCnt = 22;
                     isMiddleBossSkip = false;
                 }
             }
@@ -613,12 +613,12 @@ public class EnemyCreate : MonoBehaviour
         //}
 
         //第一ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-        if (groupCnt == 46 && frameCnt == turning_frame - 60f)
+        if (groupCnt == 35 && frameCnt == turning_frame - 60f)
         {
             Wireless_sinario.Is_using_wireless = true;
         }
         //第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
-        if (groupCnt == 91 && frameCnt == turning_frame - 60f)
+        if (groupCnt == 74 && frameCnt == turning_frame - 60f)
         {
             Wireless_sinario.Is_using_wireless = true;
         }
@@ -810,36 +810,46 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_STRAIGHT:
-                Instantiate(enemy_Clamchowder_Group_Straight, pos, transform.rotation);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Straight.Active_Obj();
+                saveEnemyObj.transform.position = pos;
+                //Instantiate(enemy_Clamchowder_Group_Straight, pos, transform.rotation);
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_FOUR:
                 if (!isItem)
                 {
-                    //GameObject saveObjA = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
-                    //saveObjA.transform.position = pos;
-                    Instantiate(enemy_ClamChowder_Group_Four_NoItem, pos, transform.rotation);
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
+                    //Instantiate(enemy_ClamChowder_Group_Four_NoItem, pos, transform.rotation);
                 }
                 else
                 {
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four_NoItem.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
                     //GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four_NoItem.Active_Obj();
-                    GameObject saveObjB = Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
-                    saveObjB.transform.position = createPos_FourGroupL.transform.position;
+                    //GameObject saveObjB = Instantiate(enemy_ClamChowder_Group_Four, createPos_FourGroupL.transform.position, transform.rotation);
+                    //saveObjB.transform.position = createPos_FourGroupL.transform.position;
                 }
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_FIVE:
-                Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Five_NoItem.Active_Obj();
+                saveEnemyObj.transform.position= createPos_FourGroupL.transform.position;
+                //Instantiate(enemy_ClamChowder_Group_Five_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_FOURTRIANGLE:
                 if (!isItem)
                 {
-                    Instantiate(enemy_ClamChowder_Group_FourTriangle_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle_NoItem.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
+                    //Instantiate(enemy_ClamChowder_Group_FourTriangle_NoItem, createPos_FourGroupL.transform.position, transform.rotation);
                 }
                 else
                 {
-                    Instantiate(enemy_ClamChowder_Group_FourTriangle, createPos_FourGroupL.transform.position, transform.rotation);
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
+                    //Instantiate(enemy_ClamChowder_Group_FourTriangle, createPos_FourGroupL.transform.position, transform.rotation);
                 }
                 break;
 
@@ -854,19 +864,20 @@ public class EnemyCreate : MonoBehaviour
             case EnemyType.CLAMCHOWDER_GROUP_THREE:
                 if (!isItem)
                 {
-					GameObject saveObjC = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three.Active_Obj();
-					saveObjC.transform.position = createPos_FourGroupL.transform.position+pos;
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position+pos;
 					//Instantiate(enemy_ClamChowder_Group_FourTriangle_NoItem, pos, transform.rotation);
 				}
                 else
                 {
-                    GameObject saveObjC = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
-                    saveObjC.transform.position = createPos_FourGroupL.transform.position + pos;
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item.Active_Obj();
+                    saveEnemyObj.transform.position = createPos_FourGroupL.transform.position + pos;
                     //Instantiate(enemy_ClamChowder_Group_Three_Item, createPos_FourGroupL.transform.position, transform.rotation);
                 }
                 break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_THREESTRAIGHT:
+                
                 Instantiate(enemy_ClamChowder_Group_ThreeStraight, pos, transform.rotation);
                 break;
 
@@ -875,29 +886,30 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_TOPANDUNEDR:
-                GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
-                GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
-                saveObj.transform.position = createPos_FourGroupL.transform.position;
-                saveObj2.transform.position = createPos_FourGroupL.transform.position;
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top.Active_Obj();
+                saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
+
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under.Active_Obj();
+                saveEnemyObj.transform.position = createPos_FourGroupL.transform.position;
                 //Instantiate(enemy_ClamChowder_Group_Two_Top, createPos_FourGroupL.transform.position, transform.rotation);
                 //Instantiate(enemy_ClamChowder_Group_Two_Under, createPos_FourGroupL.transform.position, transform.rotation);
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP:
-				GameObject saveObjE = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
-				saveObjE.transform.position = pos;
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+                saveEnemyObj.transform.position = pos;
 				//Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, pos, transform.rotation);
 				break;
 
             case EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN:
-				GameObject saveObjD = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
-				saveObjD.transform.position = pos;
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+                saveEnemyObj.transform.position = pos;
 				//Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, pos, transform.rotation);
                 break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_TENSTRAIGHT:
-				GameObject saveObjF = Instantiate(enemy_ClamChowder_Group_TenStraight, pos, transform.rotation);
-				group_Script = saveObjF.GetComponent<EnemyGroupManage>();
+                saveEnemyObj = Instantiate(enemy_ClamChowder_Group_TenStraight, pos, transform.rotation);
+				group_Script = saveEnemyObj.GetComponent<EnemyGroupManage>();
 				group_Script.isItemDrop = isItem;
 				break;
 
@@ -906,12 +918,16 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.CLAMCHOWDER_GROUP_SEVEN:
-                Instantiate(enemy_ClamChowder_Group_Seven, pos, transform.rotation);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
+                saveEnemyObj.transform.position = pos;
+                //Instantiate(enemy_ClamChowder_Group_Seven, pos, transform.rotation);
                 break;
 
             case EnemyType.BEETLE_GROUP_THREE:
-                GameObject beetleGroup_Three = Instantiate(enemy_Beetle_Group_Three, createPosRm3.transform.position, transform.rotation);
-                beetleGroup_Three.transform.position = new Vector3(15, -8, 0);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_BeetleGroup_Three.Active_Obj();
+                saveEnemyObj.transform.position = new Vector3(15, -8, 0);
+                //GameObject beetleGroup_Three = Instantiate(enemy_Beetle_Group_Three, createPosRm3.transform.position, transform.rotation);
+                //beetleGroup_Three.transform.position = new Vector3(15, -8, 0);
                 break;
 
             case EnemyType.BEETLE_GROUP_FIVE:
@@ -920,20 +936,26 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.BEETLE_GROUP_SEVEN:
-                GameObject beetleGroup_Seven = Instantiate(enemy_Beetle_Group_Seven, createPosRm3.transform.position, transform.rotation);
-                beetleGroup_Seven.transform.position = new Vector3(15, -8, 0);
+                saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beetle_Group_Seven.Active_Obj();
+                saveEnemyObj.transform.position = new Vector3(15, -8, 0);
+                //GameObject beetleGroup_Seven = Instantiate(enemy_Beetle_Group_Seven, createPosRm3.transform.position, transform.rotation);
+                //beetleGroup_Seven.transform.position = new Vector3(15, -8, 0);
                 break;
 
             case EnemyType.BEELZEBUB_GROUP_FOURWIDE:
 				if (!isItem)
 				{
-					Instantiate(enemy_Beelzebub_Group_FourWide, pos, transform.rotation);
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide.Active_Obj();
+                    saveEnemyObj.transform.position = pos;
+					//Instantiate(enemy_Beelzebub_Group_FourWide, pos, transform.rotation);
 				}
 				else
 				{
-					Instantiate(enemy_Beelzebub_Group_FourWide_Item, pos, transform.rotation);
-				}
-				break;
+                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide_Item.Active_Obj();
+                    saveEnemyObj.transform.position = pos;
+                    //Instantiate(enemy_Beelzebub_Group_FourWide_Item, pos, transform.rotation);
+                }
+                break;
 
             case EnemyType.BEELZEBUB_GROUP_TWOWIDE:
                 Instantiate(enemy_Beelzebub_Group_TwoWide, pos, transform.rotation);
@@ -949,30 +971,42 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.BATTLESHIP:
-				GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, pos, enemy_BattleShip.transform.rotation);
-				BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+                saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+                saveEnemyObj.transform.position = pos;
+				//GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, pos, enemy_BattleShip.transform.rotation);
+				BattleshipType_Enemy b1 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
 				b1.is_sandwich = false;
 				b1.Is_up = false;
 				break;
 
 			case EnemyType.BATTLESHIP_TOP:
-				GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-				BattleshipType_Enemy b4 = Battle_Ship4.GetComponent<BattleshipType_Enemy>();
+                saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+                //GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+				BattleshipType_Enemy b4 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
 				b4.Is_up = false;
 				break;
 
             case EnemyType.BATTLESHIP_UNDER:
-                GameObject Battle_Ship5 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-                BattleshipType_Enemy b5 = Battle_Ship5.GetComponent<BattleshipType_Enemy>();
+                saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+
+                //GameObject Battle_Ship5 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+                BattleshipType_Enemy b5 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
                 b5.Is_up = true;
                 break;
 
             case EnemyType.BATTLESHIP_TOPANDUNDER:
-				GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-				BattleshipType_Enemy b3 = Battle_Ship3.GetComponent<BattleshipType_Enemy>();
+                saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+                //GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+				BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
 				b3.Is_up = false;
-				GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-				BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+
+                saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+                //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+                BattleshipType_Enemy b2 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
 				b2.Is_up = true;
 				break;
 
@@ -4224,9 +4258,11 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 26)
         {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
-            Battle_Ship1.transform.position = createPosR0.transform.position;
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            BattleshipType_Enemy b1 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
             b1.is_sandwich = false;
             b1.Is_up = false;
 
@@ -4349,7 +4385,9 @@ public class EnemyCreate : MonoBehaviour
         // 隕石20
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 35 + 1 + 1)
         {
-            Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.boundMeteors.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "隕石20";
             Next_Condition(210);
@@ -4366,7 +4404,9 @@ public class EnemyCreate : MonoBehaviour
         // 隕石20
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 37 + 1 + 1)
         {
-            Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.boundMeteors.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
             nextEnemy = "隕石20";
             Next_Condition(210);
@@ -4675,7 +4715,9 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 66 + 1)
         {
-            Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_UpSevenDiagonal.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
             Next_Condition(45);
@@ -4683,7 +4725,9 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 67 + 1)
         {
-            Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
             Next_Condition(45);
@@ -4691,7 +4735,9 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛右上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 68 + 1)
         {
-            Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_UpSevenDiagonal.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛左下斜め配置7射撃";
             Next_Condition(45);
@@ -4699,7 +4745,9 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛左下斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 69 + 1)
         {
-            Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal.Active_Obj();
+            saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
+            //Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
             nextEnemy = "闘牛右上斜め配置7射撃";
             Next_Condition(45);
@@ -4707,9 +4755,11 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 70 + 1)
         {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
-            Battle_Ship1.transform.position = createPosR0.transform.position;
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            BattleshipType_Enemy b1 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
             b1.is_sandwich = false;
             b1.Is_up = false;
 
