@@ -835,4 +835,17 @@ public class Player1 : character_status
 		//フレーム加算
 		cnt++;
 	}
+
+
+    //-------------------
+    public void ResponPreparation()
+    {
+        rotation_cnt = 0;
+		transform.position = new Vector3(-12, 0, -20);
+		Start_animation_frame = 0;
+		Is_Resporn = true;
+		Is_Animation = true;
+		Is_Resporn_End = false;
+        Reset_Status();
+    }
 }

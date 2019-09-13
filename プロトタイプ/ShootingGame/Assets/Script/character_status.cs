@@ -331,4 +331,32 @@ public class character_status : MonoBehaviour
 	{
 		return self_material[num];
 	}
+
+    
+    //追加
+    //残機増やす
+    public void BossRemainingBouns(int bonusRemaining)
+    {
+        if(transform.name == "Middle_Boss" || transform.name == "One_Boss" || transform.name == "Two_Boss" || transform.name == "Moai")
+        {
+            var player1 = Obj_Storage.Storage_Data.GetPlayer();
+            var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+
+            if(player1.activeSelf && !player2.activeSelf)
+            {
+                player2.SetActive(true);
+                player2.GetComponent<Player2>().ResponPreparation();
+                player2.GetComponent<Player2>().Remaining = bonusRemaining;
+
+
+            }
+
+            else if(player2.activeSelf && !player1.activeSelf)
+            {
+                player1.SetActive(true);
+                player1.GetComponent<Player1>().ResponPreparation();
+                player1.GetComponent<Player1>().Remaining = bonusRemaining;
+            }
+        }
+    }
 }
