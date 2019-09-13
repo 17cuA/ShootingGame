@@ -21,8 +21,8 @@ public class Boss_One_Laser : MonoBehaviour
 
 	 void Update()
 	{
-		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
-			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
+			|| transform.position.y >=8.5f || transform.position.y <= -8.5f)
 		{
 			GameObject obj = gameObject;
 			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
