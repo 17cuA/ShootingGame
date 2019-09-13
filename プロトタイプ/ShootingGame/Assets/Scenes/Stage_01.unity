@@ -2144,7 +2144,6 @@ GameObject:
   - component: {fileID: 538717630}
   - component: {fileID: 538717629}
   - component: {fileID: 538717628}
-  - component: {fileID: 538717631}
   m_Layer: 0
   m_Name: BGMAudioPlayer
   m_TagString: Untagged
@@ -2278,21 +2277,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538717627}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_Father: {fileID: 1900640040}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &538717631
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538717627}
-  m_Enabled: 1
 --- !u!1 &542542223
 GameObject:
   m_ObjectHideFlags: 0
@@ -16738,7 +16729,6 @@ GameObject:
   - component: {fileID: 728411573213675024}
   - component: {fileID: 1312326746}
   - component: {fileID: 728411573213675032}
-  - component: {fileID: 728411573213675031}
   - component: {fileID: 728411573213675033}
   - component: {fileID: 728411573213675034}
   - component: {fileID: 728411573213675035}
@@ -16749,14 +16739,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &728411573213675031
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728411573213675030}
-  m_Enabled: 1
 --- !u!82 &728411573213675032
 AudioSource:
   m_ObjectHideFlags: 0
