@@ -13,15 +13,12 @@ public class ObjectStorage_Control : MonoBehaviour
 	public EnemyCreate EnemyCreate_Data;        // エネミークリエイトの情報
 
 	// ボスの情報
+	public character_status Medium_Boss_Data { get; set; }		// 中ボスの情報
 	public character_status One_Boss_Data { get; set; }			// 1ボスの情報
 	public character_status Tow_Boss_Data { get; set; }			// 2ボスの情報
 	public character_status Moai_Boss_Data { get; set; }		// モアイの情報
 
-	// 処理したかどうかの確認用
-	private bool Is_Processed_One { get; set; }		// 一ボス用
-	private bool Is_Processed_Tow { get; set; }			// 二ボス用
-	private bool Is_Processed_Moai { get; set; }			// モアイ用
-	private bool Is_Processed_Normal { get; set; }		// ふつうの敵用
+	private bool Is_Processed_Normal { get; set; }		// ふつうのオブジェクトの削除
 
 	private int Boss_Frame_Cnt { get; set; }     // フレーム別けようのカウント(ボス)
 	private int Normal_Frame_Cnt { get; set; }		// エネミー軍の削除用
@@ -41,13 +38,10 @@ public class ObjectStorage_Control : MonoBehaviour
 		{
 			if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eSTAGE_01)
 			{
+				Medium_Boss_Data = Obj_Storage.Storage_Data.Boss_Middle.Get_Obj()[0].GetComponent<character_status>();
 				One_Boss_Data = Obj_Storage.Storage_Data.GetBoss(1).GetComponent<character_status>();
 				Moai_Boss_Data = Obj_Storage.Storage_Data.GetBoss(3).GetComponent<character_status>();
 				Tow_Boss_Data = Obj_Storage.Storage_Data.GetBoss(2).GetComponent<character_status>();
-
-				Is_Processed_One = false;
-				Is_Processed_Tow = false;
-				Is_Processed_Moai = false;
 			}
 			else
 			{
@@ -60,70 +54,100 @@ public class ObjectStorage_Control : MonoBehaviour
 		if (Scene_Manager.Manager.Now_Scene == Scene_Manager.SCENE_NAME.eSTAGE_01)
 		{
 			#region ボスの削除
-			// 1ボスの削除
-			if (One_Boss_Data.Is_Dead && !Is_Processed_One)
+			// 中ボスの削除
+			if (Medium_Boss_Data != null)
 			{
-				// バウンドバレットの削除
-				if (Boss_Frame_Cnt == 0)
+				if (Medium_Boss_Data.Is_Dead)
 				{
-					Destroy(Obj_Storage.Storage_Data.One_Boss_BousndBullet.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.One_Boss_BousndBullet = null;
-					Boss_Frame_Cnt++;
-				}
-				// レーザーの削除
-				else if (Boss_Frame_Cnt == 1)
-				{
-					Destroy(Obj_Storage.Storage_Data.One_Boss_Laser.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.One_Boss_Laser = null;
-					Boss_Frame_Cnt = 0;
-					Is_Processed_One = true;
+					Destroy(Obj_Storage.Storage_Data.Boss_Middle.Get_Parent_Obj());
+					Obj_Storage.Storage_Data.Boss_Middle = null;
 				}
 			}
 
-			// 2ボスの削除
-			if (Tow_Boss_Data.Is_Dead && !Is_Processed_Tow)
+			// 1ボスの削除
+			if (One_Boss_Data != null)
 			{
-				// レーザーの削除
-				if (Boss_Frame_Cnt == 0)
+				if (One_Boss_Data.Is_Dead)
 				{
-					Destroy(Obj_Storage.Storage_Data.Two_Boss_Laser.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Two_Boss_Laser = null;
-					Is_Processed_Tow = true;
-					Boss_Frame_Cnt = 0;
+					// バウンドバレットの削除
+					if (Boss_Frame_Cnt == 0)
+					{
+						Destroy(Obj_Storage.Storage_Data.One_Boss_BousndBullet.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.One_Boss_BousndBullet = null;
+						Boss_Frame_Cnt++;
+					}
+					// レーザーの削除
+					else if (Boss_Frame_Cnt == 1)
+					{
+						Destroy(Obj_Storage.Storage_Data.One_Boss_Laser.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.One_Boss_Laser = null;
+						Boss_Frame_Cnt++;
+					}
+					else if (Boss_Frame_Cnt == 2)
+					{
+						Des_Obj(ref Obj_Storage.Storage_Data.Boss_1);
+						Boss_Frame_Cnt = 0;
+					}
+				}
+			}
+			// 2ボスの削除
+			if (Tow_Boss_Data != null)
+			{
+				if (Tow_Boss_Data.Is_Dead)
+				{
+					// レーザーの削除
+					if (Boss_Frame_Cnt == 0)
+					{
+						Destroy(Obj_Storage.Storage_Data.Two_Boss_Laser.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.Two_Boss_Laser = null;
+						Boss_Frame_Cnt++;
+					}
+					else if(Boss_Frame_Cnt == 1)
+					{
+						Des_Obj(ref Obj_Storage.Storage_Data.Boss_2);
+						Boss_Frame_Cnt = 0;
+					}
 				}
 			}
 
 			// モアイの削除
-			if (Moai_Boss_Data.Is_Dead && !Is_Processed_Moai)
+			if (Moai_Boss_Data != null)
 			{
-				// バレットの削除
-				if (Boss_Frame_Cnt == 0)
+				if (Moai_Boss_Data.Is_Dead)
 				{
-					Destroy(Obj_Storage.Storage_Data.Moai_Bullet.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Moai_Bullet = null;
-					Boss_Frame_Cnt++;
-				}
-				// 目レーザーの削除
-				else if (Boss_Frame_Cnt == 1)
-				{
-					Destroy(Obj_Storage.Storage_Data.Moai_Eye_Laser.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Moai_Eye_Laser = null;
-					Boss_Frame_Cnt++;
-				}
-				// モアイミニの削除
-				else if (Boss_Frame_Cnt == 2)
-				{
-					Destroy(Obj_Storage.Storage_Data.Moai_Mini_Group.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Moai_Mini_Group = null;
-					Boss_Frame_Cnt++;
-				}
-				// 口レーザーの削除
-				else if (Boss_Frame_Cnt == 3)
-				{
-					Destroy(Obj_Storage.Storage_Data.Moai_Mouth_Laser.Get_Parent_Obj());
-					Obj_Storage.Storage_Data.Moai_Mouth_Laser = null;
-					Is_Processed_Moai = true;
-					Boss_Frame_Cnt = 0;
+					// バレットの削除
+					if (Boss_Frame_Cnt == 0)
+					{
+						Destroy(Obj_Storage.Storage_Data.Moai_Bullet.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.Moai_Bullet = null;
+						Boss_Frame_Cnt++;
+					}
+					// 目レーザーの削除
+					else if (Boss_Frame_Cnt == 1)
+					{
+						Destroy(Obj_Storage.Storage_Data.Moai_Eye_Laser.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.Moai_Eye_Laser = null;
+						Boss_Frame_Cnt++;
+					}
+					// モアイミニの削除
+					else if (Boss_Frame_Cnt == 2)
+					{
+						Destroy(Obj_Storage.Storage_Data.Moai_Mini_Group.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.Moai_Mini_Group = null;
+						Boss_Frame_Cnt++;
+					}
+					// 口レーザーの削除
+					else if (Boss_Frame_Cnt == 3)
+					{
+						Destroy(Obj_Storage.Storage_Data.Moai_Mouth_Laser.Get_Parent_Obj());
+						Obj_Storage.Storage_Data.Moai_Mouth_Laser = null;
+						Boss_Frame_Cnt++;
+					}
+					else if(Boss_Frame_Cnt == 4)
+					{
+						Des_Obj(ref Obj_Storage.Storage_Data.Moai);
+						Boss_Frame_Cnt = 0;
+					}
 				}
 			}
 			#endregion
@@ -211,7 +235,6 @@ public class ObjectStorage_Control : MonoBehaviour
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
-
 			}
 			#endregion
 		}
