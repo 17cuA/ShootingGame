@@ -128,14 +128,14 @@ public class EnemyCreate : MonoBehaviour
     public GameObject createBaculaGroupPos;
 
     //隕石生成位置
-    public GameObject createMeteorPosR4_814;
-    public GameObject createMeteorPosR2_988;
-    public GameObject createMeteorPosR1_494;
+    //public GameObject createMeteorPosR4_814;
+    //public GameObject createMeteorPosR2_988;
+    //public GameObject createMeteorPosR1_494;
     public GameObject createMeteorPosR0;
-    public GameObject createMeteorPosRm1_162;
-    public GameObject createMeteorPosRm2_822;
-    public GameObject createMeteorPosRm3_57;
-    public GameObject createMeteorPosRm4_814;
+    //public GameObject createMeteorPosRm1_162;
+    //public GameObject createMeteorPosRm2_822;
+    //public GameObject createMeteorPosRm3_57;
+    //public GameObject createMeteorPosRm4_814;
 
     //public GameObject enemy_UFO_Group;
     public GameObject enemy_UFO_Group_Five;
@@ -178,12 +178,12 @@ public class EnemyCreate : MonoBehaviour
     public GameObject enemy_Beelzebub_Group_EightNormal_Item;
     public GameObject enemy_Bacula_Sixteen;
     public GameObject enemy_Bacula_FourOnly;
-    public GameObject enemy_Meteor;
-    public GameObject enemy_Meteor_Top;
-    public GameObject enemy_Meteor_Under;
-    public GameObject enemy_Meteors;
-    public GameObject enemy_Meteor_Mini;
-    public GameObject enemy_MeteorWaveGroup;
+    //public GameObject enemy_Meteor;
+    //public GameObject enemy_Meteor_Top;
+    //public GameObject enemy_Meteor_Under;
+    //public GameObject enemy_Meteors;
+    //public GameObject enemy_Meteor_Mini;
+    //public GameObject enemy_MeteorWaveGroup;
     public GameObject enemy_SlowFollow;
     public GameObject Enemy_BoundMeteors;
     public GameObject enemy_Star_Fish_Spowner;
@@ -361,14 +361,14 @@ public class EnemyCreate : MonoBehaviour
 
         createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
 
-        createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
-        createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
-        createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
+        //createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
+        //createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
+        //createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
         createMeteorPosR0 = GameObject.Find("CreateMeteorPos_Right_0");
-        createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
-        createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
-        createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
-        createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
+        //createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
+        //createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
+        //createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
+        //createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
 
         //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
         enemy_UFO_Group_Five = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
@@ -411,12 +411,12 @@ public class EnemyCreate : MonoBehaviour
         enemy_Bacula_Sixteen = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
         enemy_Bacula_FourOnly = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
 
-        enemy_Meteor = Resources.Load("Enemy/Enemy_Meteor") as GameObject;
-        enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
-        enemy_Meteor_Top = Resources.Load("Enemy/Enemy_Meteor_Top") as GameObject;
-        enemy_Meteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
-        enemy_Meteors = Resources.Load("Enemy/Meteors") as GameObject;
-        enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
+        //enemy_Meteor = Resources.Load("Enemy/Enemy_Meteor") as GameObject;
+        //enemy_Meteor_Mini = Resources.Load("Enemy/Enemy_Meteor_Mini") as GameObject;
+        //enemy_Meteor_Top = Resources.Load("Enemy/Enemy_Meteor_Top") as GameObject;
+        //enemy_Meteor_Under = Resources.Load("Enemy/Enemy_Meteor_Under") as GameObject;
+        //enemy_Meteors = Resources.Load("Enemy/Meteors") as GameObject;
+        //enemy_MeteorWaveGroup = Resources.Load("Enemy/Enemy_MeteorWaveGroup") as GameObject;
         enemy_SlowFollow = Resources.Load("Enemy/Enemy_SlowFollow") as GameObject;
         Enemy_BoundMeteors = Resources.Load("Enemy/BoundMeteors") as GameObject;
         enemy_Star_Fish_Spowner = Resources.Load("Enemy/Enemy_Star_Fish_Spowner") as GameObject;
@@ -804,8 +804,9 @@ public class EnemyCreate : MonoBehaviour
         switch (e)
         {
             case EnemyType.UFO_GROUP_NONESHOT:
-                Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
-                GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				//Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
+				//GameObject enemy_UFO_Group = pEnemy_UFO_Group.Active_Obj();
+				GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
                 enemy_UFO_Group.transform.position = pos + new Vector3(8.5f, 0, 0);
                 enemy_UFO_Group.transform.rotation = transform.rotation;
                 //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
@@ -815,10 +816,12 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.UFO_GROUP_FIVE:
-                Object_Pooling pEnemy_UFO_Group_Five = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject, 1, "enemy_UFO_Group");
-                GameObject enemy_UFO_Group_Five = pEnemy_UFO_Group_Five.Active_Obj();
-                enemy_UFO_Group_Five.transform.position = pos + new Vector3(8.5f, 0, 0);
-                enemy_UFO_Group_Five.transform.rotation = transform.rotation;
+				//Object_Pooling pEnemy_UFO_Group_Five = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject, 1, "enemy_UFO_Group");
+				//GameObject enemy_UFO_Group_Five = pEnemy_UFO_Group_Five.Active_Obj();
+
+				GameObject save_enemy_UFO_Group_Five = Instantiate(enemy_UFO_Group_Five, transform.position, transform.rotation);
+				save_enemy_UFO_Group_Five.transform.position = pos + new Vector3(8.5f, 0, 0);
+				save_enemy_UFO_Group_Five.transform.rotation = transform.rotation;
                 //Object_Pooling pEnemy_UFO_Group = new Object_Pooling(Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject, 1, "enemy_UFO_Group");
                 //GameObject enemy_UFO_Group = Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot.Active_Obj();
                 //enemy_UFO_Group.transform.position = createPosR3.transform.position + new Vector3(8.5f, 0, 0);
@@ -1926,6 +1929,15 @@ public class EnemyCreate : MonoBehaviour
 			//CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
 			//nextEnemy = "円盤5弾";
+			//Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyDown, createPosR4.transform.position, transform.rotation);
+			//Instantiate(enemy_ClamChowder_Group_TwoWaveOnlyUp, createPosRm4.transform.position, transform.rotation);
+
+			GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+			GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+
+			saveObj.transform.position = createPosR4.transform.position;
+			saveObj2.transform.position = createPosRm4.transform.position;
+
 			Next_Condition(195);
 		}
 		// 円盤5弾
@@ -1934,6 +1946,11 @@ public class EnemyCreate : MonoBehaviour
 			//CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.R4, false);
 
 			//nextEnemy = "円盤5弾";
+			GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+			GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+
+			saveObj.transform.position = createPosR4.transform.position;
+			saveObj2.transform.position = createPosRm4.transform.position;
 			Next_Condition(195);
 		}
 		// 円盤5弾
@@ -1942,6 +1959,11 @@ public class EnemyCreate : MonoBehaviour
 			//CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
 			//nextEnemy = "円盤5弾";
+			GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+			GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+
+			saveObj.transform.position = createPosR4.transform.position;
+			saveObj2.transform.position = createPosRm4.transform.position;
 			Next_Condition(195);
 		}
 		// 円盤5弾
@@ -1958,6 +1980,11 @@ public class EnemyCreate : MonoBehaviour
 			//CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
 			//nextEnemy = "円盤5弾";
+			GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+			GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+
+			saveObj.transform.position = createPosR4.transform.position;
+			saveObj2.transform.position = createPosRm4.transform.position;
 			Next_Condition(195);
 		}
 		// 円盤5弾
@@ -1974,6 +2001,11 @@ public class EnemyCreate : MonoBehaviour
 			//CreateEnemy(EnemyType.UFO_GROUP_FIVE, CreatePos.Rm4, false);
 
 			//nextEnemy = "円盤5弾";
+			GameObject saveObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown.Active_Obj();
+			GameObject saveObj2 = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp.Active_Obj();
+
+			saveObj.transform.position = createPosR4.transform.position;
+			saveObj2.transform.position = createPosRm4.transform.position;
 			Next_Condition(195 + 120);
 		}
 		// ハエ上2下2広

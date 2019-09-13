@@ -28,7 +28,7 @@ public class Enemy_First : character_status
 	public Quaternion diedAttackRota;
 	public Transform diedAttack_Transform;
 
-	EnemyGroupManage groupManage;
+	public EnemyGroupManage groupManage;
 	Find_Angle fd;
 	Enemy_BurstShot ebs;
 	//Renderer renderer;
@@ -197,12 +197,8 @@ public class Enemy_First : character_status
 
 			}
 
-			if (parentObj == null)
-			{
-
-			}
-			else if (parentObj.name == "enemy_UFO_Group")
-			{
+			if (parentObj != null)
+			{			
 				//群を管理している親の残っている敵カウントマイナス
 				groupManage.remainingEnemiesCnt--;
 				//倒された敵のカウントプラス
