@@ -163,7 +163,7 @@ public class Enemy_BurstShot : MonoBehaviour
 		{
 			if (myName == "Enemy_Bullfight")
 			{
-				Instantiate(Bullet, gameObject.transform.position, transform.rotation);
+				//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, Enemy_transform.position, Enemy_transform.rotation);
 			}
 			//else if (myName == "ClamChowderType_Enemy_Item")
