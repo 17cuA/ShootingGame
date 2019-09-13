@@ -27,6 +27,7 @@ public class ObjectStorage_Control : MonoBehaviour
 	void Start()
     {
 		Is_Set_Start = true;
+		Is_Processed_Normal = false;
 		Boss_Frame_Cnt = 0;
 		Normal_Frame_Cnt = 0;
 	}
@@ -158,7 +159,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			#endregion
 
 			#region ラスボス前に消すもの
-			if(EnemyCreate_Data.frameCnt >= 16368 && !Is_Processed_Normal)
+			if(EnemyCreate_Data.groupCnt >= 92 && !Is_Processed_Normal)
 			{
 				// 隕石削除
 				if (Normal_Frame_Cnt == 0) Des_Obj(ref Obj_Storage.Storage_Data.boundMeteors);
@@ -248,6 +249,7 @@ public class ObjectStorage_Control : MonoBehaviour
 	private void Des_Obj(ref Object_Pooling poo)
 	{
 		Destroy(poo.Get_Parent_Obj());
+		Debug.Log(poo.Get_Parent_Obj().name);
 		poo = null;
 		Normal_Frame_Cnt++;
 	}
