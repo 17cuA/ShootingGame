@@ -1758,7 +1758,7 @@ public class EnemyCreate : MonoBehaviour
         // クリア
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 76)
         {
-            Scene_Manager.Manager.Screen_Transition_To_LoadClearScene();
+            Scene_Manager.Manager.Screen_Transition_To_Clear();
         }
     }
 
@@ -2894,7 +2894,7 @@ public class EnemyCreate : MonoBehaviour
 		// クリア
 		else if (Is_A_Specified_Frame(turning_frame) && groupCnt >= 92)
 		{
-			Scene_Manager.Manager.Screen_Transition_To_LoadClearScene();
+			Scene_Manager.Manager.Screen_Transition_To_Clear();
 		}
     }
     //---------------------------------------------------------------------

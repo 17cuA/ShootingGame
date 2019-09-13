@@ -52,7 +52,7 @@ public class SceneChanger : MonoBehaviour
 			{
 				frame++;
 				//if(frame > 180) SceneManager.LoadScene("GameOver");
-				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_LoadOverScene();
+				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 			}
 		}
 		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
@@ -61,7 +61,7 @@ public class SceneChanger : MonoBehaviour
 			{
 				frame++;
 				//if(frame > 180) SceneManager.LoadScene("GameOver");
-				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_LoadOverScene();
+				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 			}
 		}
 
