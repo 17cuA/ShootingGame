@@ -3989,9 +3989,9 @@ public class EnemyCreate : MonoBehaviour
 
     private void CreateEnemyGroup_01_TypeD()
     {
-        bool bigcoreFlag = false;
-        bool bigcoreMK2Flag = false;
-        bool moaiFlag = false;
+        bool bigcoreFlag = true;
+        bool bigcoreMK2Flag = true;
+        bool moaiFlag = true;
 
         // 円盤上10
         if (Is_A_Specified_Frame(turning_frame) && groupCnt == 1)
