@@ -223,7 +223,7 @@ public class EnemyCreate : MonoBehaviour
     public EnemyGroupManage group_Script;
 
     GameObject middleBossOBj;
-    Enemy_MiddleBoss middleBoss_Script;
+    private Enemy_MiddleBoss middleBoss_Script;
 
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
@@ -641,20 +641,36 @@ public class EnemyCreate : MonoBehaviour
         //    isMiddleBossDead = false;
         //}
 
+
         //中ボス撃破
-        if (middleBoss_Script != null)
+        if (middleBoss_Script != null && isMiddleBossSkip)
         {
-            if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
+            if (middleBoss_Script.Is_Dead)
             {
-                if (frameCnt < 3195 - 480)
-                {
-                    frameCnt = 3195 - 480;
-                    turning_frame = 3195; //←今爆発がでかいのでちょっと間を空けます
-                    groupCnt = 22;
-                    isMiddleBossSkip = false;
-                }
+                frameCnt = 3255 - 60;
+                turning_frame = 3255; //←今爆発がでかいのでちょっと間を空けます
+                groupCnt = 22;
+                isMiddleBossSkip = false;
             }
         }
+
+        ////中ボス撃破
+        //if (middleBoss_Script != null)
+        //{
+        //    if (middleBoss_Script.Is_Dead && isMiddleBossSkip)
+        //    {
+        //        if
+
+
+        //        //if (frameCnt < 3195 - 480)
+        //        //{
+        //        //    frameCnt = 3195 - 480;
+        //        //    turning_frame = 3195; //←今爆発がでかいのでちょっと間を空けます
+        //        //    groupCnt = 22;
+        //        //    isMiddleBossSkip = false;
+        //        //}
+        //    }
+        //}
 
         //if (isOneBossAlive)
         //{
