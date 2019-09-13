@@ -116,6 +116,12 @@ public class Game_Master : MonoBehaviour
 	public string[] Name_List {  get; private set; }
 	public static PLAYER_NUM Number_Of_People { get; private set; }             // 設定保存
 
+	public static int[] Is_Player_Alive { get; set; }              //プレイヤーが死んでいるかどうかの判定用
+	private One_Boss One_Bossinfo;      //前半ボスの情報
+	private Two_Boss Two_Bossinfo;      //後半ボスの情報
+	private Enemy_MiddleBoss Middle_Bossinfo;   //ビックコアの情報
+	private Enemy_Moai Moai_Bossinfo;			//モアイの情報
+
     private void Awake()
 	{
 		if (Name_List == null)
@@ -205,11 +211,34 @@ public class Game_Master : MonoBehaviour
 		Number_Of_People = set_num;
 		return Number_Of_People;
 	}
-	//private void ChangePlayNum()
-	//{
-	//	if(Number_Of_People == PLAYER_NUM.eONE_PLAYER)
-	//	{
-	//		if(Input.GetButtonDown)
-	//	}
-	//}
+	//死亡した味方の復活処理
+	private void RespornPlayer()
+	{
+
+		if (Middle_Bossinfo.Is_Dead || One_Bossinfo.Is_Dead || Moai_Bossinfo.Is_Dead || Two_Bossinfo.Is_Dead)
+		{
+			if(Is_Player_Alive[0] == 0 && Is_Player_Alive[1] == 1)
+			{
+				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				P1.Remaining = 2;
+				if(P2.Remaining < 2)
+				{
+					P2.Remaining = 2;
+				}
+
+			}
+			else if(Is_Player_Alive[0] == 1 && Is_Player_Alive[1] == 0)
+			{
+				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
+				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
+				P2.Remaining = 2;
+				if (P1.Remaining < 2)
+				{
+					P1.Remaining = 2;
+				}
+			}
+
+		}
+	}
 }

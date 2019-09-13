@@ -365,7 +365,7 @@ public class Enemy_Moai : character_status
 	void MoaiDead()
 	{
 		//Game_Master.MY.Score_Addition(score, Opponent);
-		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22	]);
 
 		explosionEffect.gameObject.SetActive(true);
 
