@@ -76,6 +76,10 @@ public class RankingDisplay : MonoBehaviour
 	private Vector3[] rank2PPosition;
 	private GameObject[] rank2PParent;
 
+	int blinkPlayerLineFrame = 0;
+	const int blinkPlayerLineFrameMax = 60;
+	const int blinkPLayerLineInvisibleBorder = 58;
+
 	private List<string> ngWordsList = new List<string>();
 
 	// スクロール用
@@ -86,6 +90,7 @@ public class RankingDisplay : MonoBehaviour
 
 	float scroll2PValue = kStartScrollValue;
 	int centerElementNum2P = 0;
+
 
 	void Start()
 	{
@@ -128,6 +133,8 @@ public class RankingDisplay : MonoBehaviour
 	{
 		// ゲームクリアシーンでなければ処理しない
 		if (Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_CLEAR && Scene_Manager.Manager.Now_Scene != Scene_Manager.SCENE_NAME.eGAME_OVER) { return; }
+		++blinkPlayerLineFrame;
+		if (blinkPlayerLineFrame > blinkPlayerLineFrameMax) { blinkPlayerLineFrame = 0; }
 		// 画面更新
 		Update1PDisplay();
 		// 1Pプレイの時は以降を処理しない
@@ -172,6 +179,7 @@ public class RankingDisplay : MonoBehaviour
 				ranking2PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
 			}
 			previous1PName = input1PNameClass.Name;
+			ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Set_Enable(blinkPlayerLineFrame < blinkPLayerLineInvisibleBorder);
 		}
 	}
 	/// <summary>
@@ -207,6 +215,7 @@ public class RankingDisplay : MonoBehaviour
 			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
 			ranking1PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
 			previous2PName = input2PNameClass.Name;
+			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Set_Enable(blinkPlayerLineFrame < blinkPLayerLineInvisibleBorder);
 		}
 	}
 	/// <summary>
