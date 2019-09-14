@@ -81,20 +81,34 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		//						, new Vector3(this.nodes[nodes.Count - 1].transform.position.x, this.nodes[nodes.Count - 1].transform.position.y, 0));
 		//}
 
+        //node　2　以上
 		if (this.nodes.Count > 2)
 		{
+			this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
+            this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
 
-			this.lineRenderer.positionCount = this.nodes.Count;
-
-			for (var i = 0; i < this.nodes.Count; ++i)
-			{
-				this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
-			}
 		}
-		else
+        //node 1
+		else if(this.nodes.Count > 0)
 		{
-			ResetLineRenderer();
+
+            this.lineRenderer.SetPosition(0,this.nodes[0].transform.position + Vector3.right);
+			this.lineRenderer.SetPosition(1,this.nodes[0].transform.position);
+
 		}
+
+        if(!transform.parent.parent.gameObject.activeSelf || Wireless_sinario.Is_using_wireless)
+        {
+             for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+             {
+                if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
+                { 
+                      Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
+                      Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
+                }
+             }
+        }
+
 
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
 		//{
@@ -232,7 +246,15 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		this.ResetGenerator();
 		this.ResetLineRenderer();
 
-		this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+
+         for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+         {
+            if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
+            { 
+                  Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
+                  Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
+            }
+         }
     }
 }
 

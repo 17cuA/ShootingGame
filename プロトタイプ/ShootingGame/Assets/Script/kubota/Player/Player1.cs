@@ -240,7 +240,7 @@ public class Player1 : character_status
 					injection.Play();
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
-					if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
+					//if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 					Is_Resporn = false;
 					Is_Resporn_End = true;
                 
@@ -480,7 +480,7 @@ public class Player1 : character_status
 			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
-                 if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
+               
 			}
 			else
 			{
@@ -495,6 +495,7 @@ public class Player1 : character_status
 				object_material[i].material = Get_self_material(i);
 			}
 			Is_Change = true;
+            if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 		}
 	}
 	//弾の発射
