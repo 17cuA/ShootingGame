@@ -103,6 +103,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
              {
                 if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
                 { 
+                      this.nodes.Remove(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                       Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                       Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
                 }
