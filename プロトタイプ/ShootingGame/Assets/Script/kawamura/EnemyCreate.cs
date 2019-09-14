@@ -270,7 +270,7 @@ public class EnemyCreate : MonoBehaviour
     private const int bigCoreMK3GroupNum = 74;
     private const int bigCoreMK3GroupFrame = 12291 + 150;
 
-    private bool groupFrameCheckDebugFlag = true;
+    private bool groupFrameCheckDebugFlag = false;
 
     void GroupFrameCheckDebug(string groupName, int groupNum, int groupFrame)
     {
