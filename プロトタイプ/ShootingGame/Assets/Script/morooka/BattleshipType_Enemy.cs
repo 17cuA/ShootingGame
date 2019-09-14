@@ -236,6 +236,15 @@ public class BattleshipType_Enemy : character_status
 	}
 	void OnEnable()
 	{
+        if (Is_up)
+        {
+            defautpos = new Vector3(25, 5, 0);
+        }
+        else
+        {
+            defautpos = new Vector3(25, -5, 0);
+
+        }
         speed = 0.05f;
         Deceleration_Distance = 0;
         Max_Speed = speed;

@@ -1071,18 +1071,18 @@ public class EnemyCreate : MonoBehaviour
             case EnemyType.BATTLESHIP_TOPANDUNDER:
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+                b3.Is_up = false;
 
                 //saveEnemyObj.transform.position = createBattleShipPos.transform.position;
                 saveEnemyObj.transform.position = b3.defautpos;
 
                 //GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-                b3.Is_up = false;
 
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b2 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+                b2.Is_up = true;
                 saveEnemyObj.transform.position = b2.defautpos;
                 //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-				b2.Is_up = true;
 				break;
 
 
@@ -5113,7 +5113,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.BEETLE_GROUP_THREE, CreatePos.L0, false);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "円盤";
             Next_Condition(300);
             nowGroupCnt++;
         }
@@ -5123,7 +5123,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP, CreatePos.R3, true);
             CreateEnemy(EnemyType.UFO_GROUP, CreatePos.Rm3, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "戦艦";
             Next_Condition(300);
             nowGroupCnt++;
         }
@@ -5147,7 +5147,7 @@ public class EnemyCreate : MonoBehaviour
             b1.is_sandwich = false;
             b1.Is_up = false;
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛";
             Next_Condition(300);//300
             nowGroupCnt++;
         }
@@ -5157,7 +5157,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R3, true);
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.Rm3, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛";
             Next_Condition(280);
             nowGroupCnt++;
         }
@@ -5166,7 +5166,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R0, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛";
             Next_Condition(90);
             nowGroupCnt++;
         }
@@ -5176,7 +5176,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R3, true);
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.Rm3, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "戦艦上下";
             Next_Condition(120);
             nowGroupCnt++;
         }
@@ -5185,7 +5185,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛";
             Next_Condition(150);
             nowGroupCnt++;
         }
