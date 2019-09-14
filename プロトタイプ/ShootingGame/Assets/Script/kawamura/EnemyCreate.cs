@@ -257,20 +257,20 @@ public class EnemyCreate : MonoBehaviour
     private const int bigCoreGroupFrame = 2580;
 
     private const int bigCoreNextGroupNum = 20;
-    private const int bigCoreNextGroupFrame = 3600;
+    private const int bigCoreNextGroupFrame = 3600 + 150;
 
     private const int bigCoreMK2GrouNum = 33;
-    private const int bigCoreMK2GroupFrame = 6195;
-    private const int bigCoreMK2NextGroupFrame = 6315;
+    private const int bigCoreMK2GroupFrame = 6195 + 150;
+    private const int bigCoreMK2NextGroupFrame = 6315 + 150;
 
     private const int moaiGroupNum = 39;
-    private const int moaiGroupFrame = 8055;
-    private const int moaiGroupNextGroupFrame = 8175;
+    private const int moaiGroupFrame = 8055 + 150;
+    private const int moaiGroupNextGroupFrame = 8175 + 150;
 
     private const int bigCoreMK3GroupNum = 74;
-    private const int bigCoreMK3GroupFrame = 12291;
+    private const int bigCoreMK3GroupFrame = 12291 + 150;
 
-    private bool groupFrameCheckDebugFlag = false;
+    private bool groupFrameCheckDebugFlag = true;
 
     void GroupFrameCheckDebug(string groupName, int groupNum, int groupFrame)
     {
@@ -1218,7 +1218,7 @@ public class EnemyCreate : MonoBehaviour
             //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
             nextEnemy = "ハエ2";
-            Next_Condition(180+120);
+            Next_Condition(180+120+150);
         }
         // ハエ2
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 20)
