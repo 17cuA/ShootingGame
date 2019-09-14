@@ -348,6 +348,7 @@ class Device_LaserEmitter : MonoBehaviour
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------
 
+
 		if(!this.transform.parent.gameObject.activeSelf && launchDevice.CurrentGenerator != null)
 		{
 			launchDevice.CurrentGenerator.IsFixed = false;
@@ -364,6 +365,7 @@ class Device_LaserEmitter : MonoBehaviour
 		{
 			this.isClose = !this.isClose;
 		}
-	}
+    }
+	
 }
 

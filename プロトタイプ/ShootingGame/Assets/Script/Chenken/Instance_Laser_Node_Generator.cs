@@ -220,5 +220,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 		return node;
 	}
+
+    private void OnDisable()
+    {
+        for(var i = 0; i < nodes.Count; ++i)
+        {
+            nodes[i].gameObject.SetActive(false);
+        }
+
+        this.nodes.Clear();                               //念のため、管理リストクリアする
+		this.ResetGenerator();
+		this.ResetLineRenderer();
+
+		this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+    }
 }
 
