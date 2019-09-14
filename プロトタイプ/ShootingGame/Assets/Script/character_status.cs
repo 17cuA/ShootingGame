@@ -340,6 +340,11 @@ public class character_status : MonoBehaviour
     //残機増やす
     public void BossRemainingBouns(int bonusRemaining)
     {
+        if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+        {
+            return;
+        }
+
         if(transform.name == "Middle_Boss" || transform.name == "One_Boss" || transform.name == "Two_Boss" || transform.name == "Moai")
         {
             var player1 = Obj_Storage.Storage_Data.GetPlayer();
