@@ -483,6 +483,8 @@ public class Enemy_MiddleBoss : character_status
 		{
 			explosionEffect.transform.localPosition = new Vector3(explosionEffect.transform.localPosition.x, explosionEffect.transform.localPosition.y, -3);
 		}		
+
+        base.BossRemainingBouns(2);
 	}
 
 	private void Death_Update()

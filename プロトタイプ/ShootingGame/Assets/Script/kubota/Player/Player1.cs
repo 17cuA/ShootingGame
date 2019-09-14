@@ -199,6 +199,8 @@ public class Player1 : character_status
 			{
 				if (Is_Animation) Start_animation_frame++;
 
+				Is_Burst = false;
+
 				//敵等に当たらないようにするためにレイヤーを変更
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
@@ -238,8 +240,10 @@ public class Player1 : character_status
 					injection.Play();
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
+					if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 					Is_Resporn = false;
 					Is_Resporn_End = true;
+                
 				}
 
 			}
@@ -266,7 +270,7 @@ public class Player1 : character_status
 					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
 
 					Remaining--;                                        //残機を1つ減らす
-																		//残機が残っていなければ
+					//残機が残っていなければ
 					if (Remaining < 1)
 					{
 						//残機がない場合死亡
@@ -282,7 +286,6 @@ public class Player1 : character_status
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						target = direction;
 						transform.position = new Vector3(-12, 0, -20);
-						Is_Burst = false;
 						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
@@ -477,6 +480,7 @@ public class Player1 : character_status
 			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
+                 if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 			}
 			else
 			{
@@ -490,7 +494,6 @@ public class Player1 : character_status
 			{
 				object_material[i].material = Get_self_material(i);
 			}
-			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 			Is_Change = true;
 		}
 	}
@@ -764,7 +767,7 @@ public class Player1 : character_status
 		}
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);     //ボイス
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);               //パワーアップ音
-																							//パワーアップエフェクト	
+		//パワーアップエフェクト	
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -823,4 +826,28 @@ public class Player1 : character_status
 		//フレーム加算
 		cnt++;
 	}
+
+
+    //-------------------
+    public void ResponPreparation(int remain)
+    {
+        base.Is_Dead = false;
+        this.Remaining = remain;
+        Reset_Status();             //体力の修正
+	    invincible = true;         //無敵状態にするかどうかの処理
+		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+		bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
+		target = direction;
+		transform.position = new Vector3(-12, 0, -20);
+		Is_Animation = true;
+		Is_Resporn = true;                      //復活用の処理を行う
+
+        for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
+		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();
+        shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+        Entry_anim.time = 0;
+        Start_animation_frame = 0;
+        Is_Resporn_End = true;                   
+
+    }
 }

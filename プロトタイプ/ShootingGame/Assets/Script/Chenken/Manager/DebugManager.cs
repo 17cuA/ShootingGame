@@ -15,6 +15,8 @@ public class DebugManager : MonoBehaviour
 	[SerializeField] private KeyCode playersOperationDebugKey = KeyCode.F4;
 	private static bool isPlayersOperationDebugging = false;
 
+    [SerializeField] private KeyCode AddRemainingKey = KeyCode.F7;
+
 	private GameObject UIChild;
 	private static Text debugText;
 	private static ScrollRect scrollRect;
@@ -52,23 +54,21 @@ public class DebugManager : MonoBehaviour
 			{
 				OperationDebug("全部のコライダーを外した","GM");
 				isColliderEnabled = false;
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Default"), true);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Player"), true);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Player"), true);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Default"), true);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Enemy"), true);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+				var player1 = Obj_Storage.Storage_Data.GetPlayer();
+                var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+
+                player1.layer = LayerMask.NameToLayer("invisible");
+                player2.layer = LayerMask.NameToLayer("invisible");
 			}
 			else
 			{
 				OperationDebug("外したのコライダーを元に戻した", "GM");
 				isColliderEnabled = true;
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Default"), false);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Player"), false);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Player"), false);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Default"), false);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("2D_Bullet"), LayerMask.NameToLayer("Enemy"), false);
-				Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+				var player1 = Obj_Storage.Storage_Data.GetPlayer();
+                var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+
+                player1.layer = LayerMask.NameToLayer("Player");
+                player2.layer = LayerMask.NameToLayer("Player");
 			}
 		}
 		//プレイヤー操作のショートカット(F4)
@@ -91,6 +91,15 @@ public class DebugManager : MonoBehaviour
 				Application.logMessageReceived += HandleLog;
 			}
 		}
+
+        if(Input.GetKeyDown(AddRemainingKey))
+        {
+            var player1 = Obj_Storage.Storage_Data.GetPlayer();
+            var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+
+            player1.GetComponent<Player1>().Remaining = 9;
+            player2.GetComponent<Player2>().Remaining = 9;
+        }
 
 		updateTimer += Time.deltaTime;
 		if(updateTimer >= updateTime)

@@ -30,6 +30,9 @@ public class Scene_Manager : MonoBehaviour
 		eSTAGE_02,
 		eGAME_OVER,
 		eGAME_CLEAR,
+		eGAME_STAGE_LOAD_SCENE,
+		eGAME_CLEAR_LOAD_SCENE,
+		eGAME_OVER_LOAD_SCENE,
 	}
 
 	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
@@ -256,11 +259,41 @@ public class Scene_Manager : MonoBehaviour
         Next_Scene = SCENE_NAME.eINSTRUCTION;
     }
 
-    /// <summary>
-    /// 任意のシーンに移動
-    /// </summary>
-    /// <param name="name"> シーンの名前 </param>
-    public void Scene_Transition(SCENE_NAME name)
+	public void Screen_Transition_To_LoadStageScene()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+
+		Next_Scene = SCENE_NAME.eGAME_STAGE_LOAD_SCENE;
+	}
+
+	public void Screen_Transition_To_LoadClearScene()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+
+		Next_Scene = SCENE_NAME.eGAME_CLEAR_LOAD_SCENE;
+	}
+
+	public void Screen_Transition_To_LoadOverScene()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+
+		Next_Scene = SCENE_NAME.eGAME_OVER_LOAD_SCENE;
+	}
+
+	/// <summary>
+	/// 任意のシーンに移動
+	/// </summary>
+	/// <param name="name"> シーンの名前 </param>
+	public void Scene_Transition(SCENE_NAME name)
 	{
 		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{

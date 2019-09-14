@@ -24,6 +24,7 @@ public class ObjectStorage_Control : MonoBehaviour
 	private int Normal_Frame_Cnt { get; set; }		// エネミー軍の削除用
 	private bool Is_Set_Start { get; set; }     // 初期化用
 	bool flag;
+	bool flag_2;
 
 	private string[] name = new string[9]
 	{
@@ -153,23 +154,42 @@ public class ObjectStorage_Control : MonoBehaviour
 			}
 			#endregion
 
-			if (Wireless_sinario.Is_using_wireless && !flag)
+			#region　無線時
+			if (Wireless_sinario.Is_using_wireless && !flag && !flag_2)
 			{
-				foreach (var s in name)
+				if (Normal_Frame_Cnt == 0)
 				{
-					GameObject obj = GameObject.Find(s);
-					if (obj != null)
+					foreach (var s in name)
 					{
-						Destroy(obj);
+						GameObject obj = GameObject.Find(s);
+						if (obj != null)
+						{
+							Destroy(obj);
+						}
 					}
+					flag = true;
 				}
 
-				flag = true;
+				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count; i++)
+				{
+					Destroy(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj()[i]);
+					Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().RemoveAt(i);
+				}
+
+				Normal_Frame_Cnt++;
+
+				if(Normal_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length)
+				{
+					Normal_Frame_Cnt = 0;
+					flag_2 = true;
+				}
 			}
 			else
 			{
 				flag = false;
+				flag_2 = false;
 			}
+			#endregion
 
 			#region ラスボス前に消すもの
 			if (EnemyCreate_Data.frameCnt >= 13797 && !Is_Processed_Normal)
@@ -264,8 +284,6 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
 				else if (Normal_Frame_Cnt == 41) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
 				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.PowerUP_Item); }
-				else if (Normal_Frame_Cnt == 43){ Des_Obj(ref Obj_Storage.Storage_Data.Effects[13]);
-			}
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
