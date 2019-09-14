@@ -40,36 +40,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	private void Update()
 	{
-		//--------------------------------------------------ループチェック-------------------------------------------------------------
-		//管理しているレーザー構成オブジェクト個数回実行する
-		for (var i = 0; i < this.nodes.Count; ++i)
-		{
-			//現在検索オブジェクトは非アクティブの場合
-			if(!this.nodes[i].gameObject.activeSelf)
-			{
-				//管理しないようにする
-				this.nodes.Remove(nodes[i]);
-				//検索位置調整する
-				i--;
-				//管理オブジェクト個数を調べ、管理個数は0の場合
-			}
-			//アクティブ状態の場合
-			else
-			{
-				//位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
-				if (this.isFixed)
-					this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
-			}
 
-			if (this.nodes.Count == 0)
-			{
-				this.nodes.Clear();                               //念のため、管理リストクリアする
-				this.ResetGenerator();
-				this.ResetLineRenderer();
-
-				this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
-			}
-		}
 		//------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -82,27 +53,18 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		//}
 
         //node　2　以上
-		if (this.nodes.Count > 2)
-		{
-			this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
-            this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
-
-		}
-        //node 1
-		else if(this.nodes.Count > 0)
-		{
-
-            this.lineRenderer.SetPosition(0,this.nodes[0].transform.position + Vector3.right);
-			this.lineRenderer.SetPosition(1,this.nodes[0].transform.position);
-
-		}
 
         if(!transform.parent.parent.gameObject.activeSelf || Wireless_sinario.Is_using_wireless)
         {
-             for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+             for (int i = 0; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
              {
                 if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
                 { 
+                    if(nodes.IndexOf(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]) == 0)
+                    {
+                        this.nodes[i].transform.position = new Vector3(0,-20,0);
+                    }
+
                     if(this.nodes.Contains(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]))
                         this.nodes.Remove(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                     Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
@@ -110,7 +72,63 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
                 }
              }
         }
+        else
+        {
+            for (var i = 0; i < this.nodes.Count; ++i)
+		    {
+                if(nodes[i] == null)
+                {
+                    nodes.Remove(nodes[i]);
+                    i--;
+                    continue;
+                }
+                
 
+			    //現在検索オブジェクトは非アクティブの場合
+			    if(!this.nodes[i].gameObject.activeSelf)
+			    {
+                    if(i == 0)
+                    {
+                        this.nodes[i].transform.position = new Vector3(0,-20,0);
+                    }
+				    //管理しないようにする
+				    this.nodes.Remove(nodes[i]);
+				    //検索位置調整する
+				    i--;
+				    //管理オブジェクト個数を調べ、管理個数は0の場合
+			    }
+			    //アクティブ状態の場合
+			    else
+			    {
+				    //位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
+				    if (this.isFixed)
+					    this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
+			    }
+
+			    if (this.nodes.Count == 0)
+			    {
+				    this.ResetGenerator();
+				    this.ResetLineRenderer();
+
+				    this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+			    }
+		    }
+
+        }
+        if (this.nodes.Count > 2)
+		  {
+		      this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
+              this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
+
+		  }
+          //node 1
+		  else if(this.nodes.Count > 0)
+		  {
+
+              this.lineRenderer.SetPosition(0,this.nodes[0].transform.position - Vector3.right);
+              this.lineRenderer.SetPosition(1,this.nodes[0].transform.position);
+
+		  }
 
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
 		//{
@@ -241,7 +259,14 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
     {
         for(var i = 0; i < nodes.Count; ++i)
         {
-            nodes[i].gameObject.SetActive(false);
+            if(nodes[i] != null)
+            { 
+                nodes[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                nodes.Remove(nodes[i]);
+            }
         }
 
         this.nodes.Clear();                               //念のため、管理リストクリアする
@@ -249,10 +274,12 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		this.ResetLineRenderer();
 
 
-         for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+         for (int i = 0; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
          {
             if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
             { 
+                 if(this.nodes.Contains(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]))
+                        this.nodes.Remove(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                   Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                   Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
             }
