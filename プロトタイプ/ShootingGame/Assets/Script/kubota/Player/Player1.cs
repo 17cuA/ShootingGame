@@ -240,7 +240,7 @@ public class Player1 : character_status
 					injection.Play();
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
-					if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
+					//if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 					Is_Resporn = false;
 					Is_Resporn_End = true;
                 
