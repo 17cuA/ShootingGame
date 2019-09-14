@@ -28,15 +28,12 @@ public class ObjectStorage_Control : MonoBehaviour
 	bool flag;
 	bool flag_2;
 
-	private string[] name = new string[9]
+	private string[] name = new string[6]
 	{
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
-		"BattleshipType_Enemy(Clone)",
-		"BattleshipType_Enemy(Clone)",
 		"Enemy_ClamChowder_Group_UpSevenDiagonal(Clone)",
 		"Enemy_ClamChowder_Group_DownSevenDiagonal(Clone)",
-		"BattleshipType_Enemy(Clone)",
 		"Enemy_Star_Fish_Spowner(Clone)",
 		"Enemy_ClamChowder_Group_ThreeStraight(Clone)",
 	};
