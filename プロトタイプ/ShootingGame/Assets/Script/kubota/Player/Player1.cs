@@ -238,6 +238,7 @@ public class Player1 : character_status
 					injection.Play();
 					rotation_cnt = 0;
 					Start_animation_frame = 0;
+					if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 					Is_Resporn = false;
 					Is_Resporn_End = true;
 				}
@@ -264,6 +265,7 @@ public class Player1 : character_status
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					P1_PowerManager.Instance.ResetAllPowerUpgradeCount();
 					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
+					 						Is_Burst = false;
 
 					Remaining--;                                        //残機を1つ減らす
 																		//残機が残っていなければ
@@ -282,7 +284,6 @@ public class Player1 : character_status
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						target = direction;
 						transform.position = new Vector3(-12, 0, -20);
-						Is_Burst = false;
 						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
@@ -490,7 +491,6 @@ public class Player1 : character_status
 			{
 				object_material[i].material = Get_self_material(i);
 			}
-			if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 			Is_Change = true;
 		}
 	}
