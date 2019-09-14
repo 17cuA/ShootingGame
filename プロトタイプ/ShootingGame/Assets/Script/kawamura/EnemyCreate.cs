@@ -953,7 +953,8 @@ public class EnemyCreate : MonoBehaviour
                 saveEnemyObj.transform.position = createBattleShipPos.transform.position;
                 //GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 				BattleshipType_Enemy b4 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-				b4.Is_up = false;
+                b4.is_sandwich = true;
+                b4.Is_up = false;
 				break;
 
             case EnemyType.BATTLESHIP_UNDER:
@@ -962,25 +963,29 @@ public class EnemyCreate : MonoBehaviour
 
                 //GameObject Battle_Ship5 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
                 BattleshipType_Enemy b5 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+                b5.is_sandwich = true;
                 b5.Is_up = true;
                 break;
 
             case EnemyType.BATTLESHIP_TOPANDUNDER:
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-
+                b3.is_sandwich = true;
+                b3.Is_up = false;
+                saveEnemyObj.transform.position = new Vector3(25, -5, 0);
                 //saveEnemyObj.transform.position = createBattleShipPos.transform.position;
-                saveEnemyObj.transform.position = b3.defautpos;
+                //saveEnemyObj.transform.position = b3.defautpos;
 
                 //GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-                b3.Is_up = false;
 
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b2 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-                saveEnemyObj.transform.position = b2.defautpos;
+                b2.is_sandwich = true;
+                //saveEnemyObj.transform.position = b2.defautpos;
                 //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 				b2.Is_up = true;
-				break;
+                saveEnemyObj.transform.position = new Vector3(25, 5, 0);
+                break;
 
 
 			case EnemyType.BIGCORE:
@@ -1253,7 +1258,7 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 23)
         {
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+            //CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "戦艦";
             Next_Condition(360);
@@ -1297,7 +1302,14 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 27)
         {
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R0, true);
+            //CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R0, true);
+            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            b1.Is_up = false;
+
+            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            b2.Is_up = true;
 
             nextEnemy = "闘牛縦3直進";
             Next_Condition(150);
@@ -1622,15 +1634,15 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 51)
         {
-            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            //BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            //b1.Is_up = false;
+            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            b1.Is_up = false;
 
-            //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            //BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            //b2.Is_up = true;
+            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            b2.Is_up = true;
 
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+            //CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(150);
@@ -1673,15 +1685,15 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 54)
         {
-            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            //BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            //b1.Is_up = false;
+            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            b1.Is_up = false;
 
-            //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            //BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            //b2.Is_up = true;
+            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            b2.Is_up = true;
 
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R0, true);
+            //CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R0, true);
 
             nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(30);
@@ -1827,7 +1839,8 @@ public class EnemyCreate : MonoBehaviour
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 68)
         {
 
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+            //CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+            CreateEnemy(EnemyType.BEELZEBUB_GROUP_FOURWIDE, CreatePos.R0, true);
 
             nextEnemy = "闘牛130";
             Next_Condition(240);
