@@ -17,7 +17,8 @@ public class Enemy_MeteorBound_Move : MonoBehaviour
 
 	void Start()
 	{
-		speedX = Random.Range(-3.5f, -8.0f);
+        // 隕石バフ効果中 1.25倍
+		speedX = Random.Range(-3.5f * 1.25f, -8.0f * 1.25f);
 		speedY = Random.Range(-0.3f, 0.3f);
 	}
 
