@@ -503,7 +503,7 @@ PrefabInstance:
     - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: straightLaserNodeMax
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
@@ -565,6 +565,11 @@ PrefabInstance:
       propertyPath: laserEnd
       value: 
       objectReference: {fileID: 8300000, guid: bf6345198b201d444a6b4b3330a3758a, type: 3}
+    - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: straightLaserLaunchInterval
+      value: 0.025
+      objectReference: {fileID: 0}
     - target: {fileID: 5696957299922330103, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: m_Volume

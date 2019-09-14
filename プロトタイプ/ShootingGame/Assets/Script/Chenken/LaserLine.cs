@@ -92,8 +92,8 @@ public class LaserLine : Player_Bullet
 		
 
 
-		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
-		|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
+		if (transform.position.x >= 19f || transform.position.x <= -19f
+			|| transform.position.y >= 6f || transform.position.y <= -6f)
 		{
 			trailRenderer.Clear();
 

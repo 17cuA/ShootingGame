@@ -235,7 +235,7 @@ public class Player2 : character_status
 					Start_animation_frame = 0;
 					Is_Resporn = false;
 					Is_Resporn_End = true;
-                     if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
+               
 				}
 
 
@@ -488,6 +488,7 @@ public class Player2 : character_status
 			if (invincible_time > invincible_Max)
 			{
 				invincible = false;
+                   if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 			}
 			else
 			{
