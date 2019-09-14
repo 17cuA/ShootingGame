@@ -16,7 +16,7 @@ public class TurnToPlayer_Slow : character_status
 
     public State eState;
 
-	public GameObject playerObj; // 注視したいオブジェクトをInspectorから入れておく
+	public character_status playerObj; // 注視したいオブジェクトをInspectorから入れておく
 	GameObject item;
 	DropItem dItem;
 
@@ -113,10 +113,44 @@ public class TurnToPlayer_Slow : character_status
 		}
 		if (playerObj == null)
 		{
-			playerObj = GameObject.FindGameObjectWithTag("Player");
+			//playerObj = GameObject.FindGameObjectWithTag("Player");
+
+			// ２P追従化
+			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+			{
+				playerObj = Obj_Storage.Storage_Data.GetPlayer().GetComponent<character_status>();
+			}
+			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+			{
+				if (transform.position.y > 0.0f)
+				{
+					playerObj = Obj_Storage.Storage_Data.GetPlayer().GetComponent<character_status>();
+				}
+				else if(transform.position.y < 0)
+				{
+					playerObj = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<character_status>();
+				}
+			}
+		}
+		else if( playerObj != null )
+		{
+			// 片方のオブジェクトが消えてるとき
+			if(playerObj.Remaining == 0)
+			{
+				// 1P のとき
+				if (Obj_Storage.Storage_Data.GetPlayer().GetComponent<character_status>() == playerObj)
+				{
+					playerObj = playerObj = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<character_status>();
+				}
+				// 2Pのとき
+				if (Obj_Storage.Storage_Data.GetPlayer2().GetComponent<character_status>() == playerObj)
+				{
+					playerObj = playerObj = Obj_Storage.Storage_Data.GetPlayer().GetComponent<character_status>();
+				}
+			}
 		}
 
-        velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
+		velocity = gameObject.transform.rotation * new Vector3(speedX, 0, -0);
         gameObject.transform.position += velocity * Time.deltaTime;
 
         //プレイヤーの方向へ向く角度の値を更新前の値として保存
@@ -429,5 +463,10 @@ public class TurnToPlayer_Slow : character_status
 	//		}
 	//	}
 	//}
+
+	private void OnDisable()
+	{
+		playerObj = null;
+	}
 }
 
