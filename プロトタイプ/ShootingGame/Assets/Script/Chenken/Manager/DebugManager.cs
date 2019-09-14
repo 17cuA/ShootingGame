@@ -17,6 +17,10 @@ public class DebugManager : MonoBehaviour
 
     [SerializeField] private KeyCode AddRemainingKey = KeyCode.F7;
 
+    [Header("復活キー")]
+    [SerializeField] private KeyCode ResponPlayerKey = KeyCode.F8;
+    [SerializeField] private int bonusRemaining = 2;
+
 	private GameObject UIChild;
 	private static Text debugText;
 	private static ScrollRect scrollRect;
@@ -95,6 +99,27 @@ public class DebugManager : MonoBehaviour
 
             player1.GetComponent<Player1>().Remaining = 9;
             player2.GetComponent<Player2>().Remaining = 9;
+        }
+
+        if(Input.GetKeyDown(ResponPlayerKey))
+        {
+            if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+                return;
+
+            var player1 = Obj_Storage.Storage_Data.GetPlayer();
+            var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+
+            if(player1.activeSelf && !player2.activeSelf)
+            {
+                player2.SetActive(true);
+                player2.GetComponent<Player2>().ResponPreparation(bonusRemaining);
+
+            }
+            else if(player2.activeSelf && !player1.activeSelf)
+            {
+                player1.SetActive(true);
+                player1.GetComponent<Player1>().ResponPreparation(bonusRemaining);
+            }
         }
 
 		updateTimer += Time.deltaTime;
