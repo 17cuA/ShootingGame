@@ -97,8 +97,8 @@ public class DebugManager : MonoBehaviour
             var player1 = Obj_Storage.Storage_Data.GetPlayer();
             var player2 = Obj_Storage.Storage_Data.GetPlayer2();
 
-            player1.GetComponent<Player1>().Remaining = 1000;
-            player1.GetComponent<Player2>().Remaining = 1000;
+            player1.GetComponent<Player1>().Remaining = 9;
+            player2.GetComponent<Player2>().Remaining = 9;
         }
 
 		updateTimer += Time.deltaTime;

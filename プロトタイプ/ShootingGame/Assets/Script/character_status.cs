@@ -345,23 +345,23 @@ public class character_status : MonoBehaviour
             return;
         }
 
-        if(transform.name == "Middle_Boss" || transform.name == "One_Boss" || transform.name == "Two_Boss" || transform.name == "Moai")
-        {
-            var player1 = Obj_Storage.Storage_Data.GetPlayer();
-            var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+        //if(transform.name == "Middle_Boss" || transform.name == "One_Boss" || transform.name == "Two_Boss" || transform.name == "Moai")
+        //{
+        //    var player1 = Obj_Storage.Storage_Data.GetPlayer();
+        //    var player2 = Obj_Storage.Storage_Data.GetPlayer2();
 
-            if(player1.activeSelf && !player2.activeSelf)
-            {
-                player2.SetActive(true);
-                player2.GetComponent<Player2>().ResponPreparation(bonusRemaining);
+        //    if(player1.activeSelf && !player2.activeSelf)
+        //    {
+        //        player2.SetActive(true);
+        //        player2.GetComponent<Player2>().ResponPreparation(bonusRemaining);
 
-            }
+        //    }
 
-            else if(player2.activeSelf && !player1.activeSelf)
-            {
-                player1.SetActive(true);
-                player1.GetComponent<Player1>().ResponPreparation(bonusRemaining);
-            }
-        }
+        //    else if(player2.activeSelf && !player1.activeSelf)
+        //    {
+        //        player1.SetActive(true);
+        //        player1.GetComponent<Player1>().ResponPreparation(bonusRemaining);
+        //    }
+        //}
     }
 }
