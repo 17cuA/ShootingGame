@@ -122,7 +122,7 @@ public class Enemy_Moai : character_status
 
 		if (isAppearance)
 		{
-			hp = 3600;
+			hp = 7200;
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
