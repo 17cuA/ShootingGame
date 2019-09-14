@@ -42,13 +42,14 @@ public class BattleshipType_Enemy : character_status
 
 	public float Initial_Speed { get; set; }				// 初速(最低速度)
 	public float Max_Speed { get; set; }					// 最大速度
-	public float Deceleration_Distance { get; set; }		// 加減速開始移動量
-	public bool Is_up { get; set; }
+	public float Deceleration_Distance { get; set; }        // 加減速開始移動量
+    public bool Is_up; //{ get; set; }
     public bool once = true;
 	public GameObject ef;
 
 	private new void Start()
 	{
+        once = false;
 		base.Start();
 		 
 		Now_Target = 0;
@@ -96,8 +97,19 @@ public class BattleshipType_Enemy : character_status
 		{
             if(once)
             {
+
                 if(is_sandwich)
                 {
+                    if (!Is_up)
+                    {
+                        initial_position.y *= -1.0f;
+                        for (int i = 0; i < moving_change_point.Length; i++)
+                        {
+                            moving_change_point[i].y *= -1.0f;
+                        }
+                    }
+                    Original_Position = transform.position = initial_position;
+
                     if (Is_up)
                     {
                         defautpos = new Vector3(25, 5, 0);

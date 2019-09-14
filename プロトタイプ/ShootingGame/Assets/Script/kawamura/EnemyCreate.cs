@@ -958,7 +958,8 @@ public class EnemyCreate : MonoBehaviour
                 saveEnemyObj.transform.position = createBattleShipPos.transform.position;
                 //GameObject Battle_Ship4 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 				BattleshipType_Enemy b4 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-				b4.Is_up = false;
+                b4.is_sandwich = true;
+                b4.Is_up = false;
 				break;
 
             case EnemyType.BATTLESHIP_UNDER:
@@ -967,25 +968,29 @@ public class EnemyCreate : MonoBehaviour
 
                 //GameObject Battle_Ship5 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
                 BattleshipType_Enemy b5 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+                b5.is_sandwich = true;
                 b5.Is_up = true;
                 break;
 
             case EnemyType.BATTLESHIP_TOPANDUNDER:
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-
+                b3.is_sandwich = true;
+                b3.Is_up = false;
+                saveEnemyObj.transform.position = new Vector3(25, -5, 0);
                 //saveEnemyObj.transform.position = createBattleShipPos.transform.position;
-                saveEnemyObj.transform.position = b3.defautpos;
+                //saveEnemyObj.transform.position = b3.defautpos;
 
                 //GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-                b3.Is_up = false;
 
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
                 BattleshipType_Enemy b2 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-                saveEnemyObj.transform.position = b2.defautpos;
+                b2.is_sandwich = true;
+                //saveEnemyObj.transform.position = b2.defautpos;
                 //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 				b2.Is_up = true;
-				break;
+                saveEnemyObj.transform.position = new Vector3(25, 5, 0);
+                break;
 
 
 			case EnemyType.BIGCORE:
