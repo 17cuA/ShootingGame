@@ -1069,15 +1069,18 @@ public class EnemyCreate : MonoBehaviour
 
             case EnemyType.BATTLESHIP_TOPANDUNDER:
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
-                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+                BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+
+                //saveEnemyObj.transform.position = createBattleShipPos.transform.position;
+                saveEnemyObj.transform.position = b3.defautpos;
+
                 //GameObject Battle_Ship3 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-				BattleshipType_Enemy b3 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
-				b3.Is_up = false;
+                b3.Is_up = false;
 
                 saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
-                saveEnemyObj.transform.position = createBattleShipPos.transform.position;
-                //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
                 BattleshipType_Enemy b2 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
+                saveEnemyObj.transform.position = b2.defautpos;
+                //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
 				b2.Is_up = true;
 				break;
 
@@ -5101,7 +5104,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BEELZEBUB_GROUP_TWOWIDE, CreatePos.R0, true);
 
             nextEnemy = "ハエ上2下2広右2アイテム";
-            Next_Condition(360);
+            Next_Condition(270);
             nowGroupCnt++;
         }
         // ビートル3
@@ -5110,7 +5113,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BEETLE_GROUP_THREE, CreatePos.L0, false);
 
             nextEnemy = "戦艦";
-            Next_Condition(360 + 240);
+            Next_Condition(300);
             nowGroupCnt++;
         }
         // 円盤上下射撃
@@ -5129,7 +5132,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "戦艦";
-            Next_Condition(480);
+            Next_Condition(360);
             nowGroupCnt++;
         }
         // 戦艦
@@ -5138,13 +5141,13 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj = Obj_Storage.Storage_Data.BattleShipType_Enemy.Active_Obj();
             saveEnemyObj.transform.position = createPosR0.transform.position;
             //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
-            saveEnemyObj.transform.position = createPosR0.transform.position;
+           // saveEnemyObj.transform.position = createPosR0.transform.position;
             BattleshipType_Enemy b1 = saveEnemyObj.GetComponent<BattleshipType_Enemy>();
             b1.is_sandwich = false;
             b1.Is_up = false;
 
             nextEnemy = "戦艦";
-            Next_Condition(240);
+            Next_Condition(300);
             nowGroupCnt++;
         }
         // 闘牛12直進
@@ -5154,7 +5157,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.Rm3, true);
 
             nextEnemy = "戦艦";
-            Next_Condition(400);
+            Next_Condition(280);
             nowGroupCnt++;
         }
         // 闘牛12直進
@@ -5182,7 +5185,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "戦艦";
-            Next_Condition(300);
+            Next_Condition(150);
             nowGroupCnt++;
         }
         // 闘牛縦3直進
@@ -5502,13 +5505,15 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 69)
         {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
+            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            //b1.Is_up = false;
 
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
+            //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            //b2.Is_up = true;
+
+            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(150);
@@ -5551,13 +5556,15 @@ public class EnemyCreate : MonoBehaviour
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 72)
         {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
+            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            //b1.Is_up = false;
 
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
+            //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            //b2.Is_up = true;
+
+            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
 
             nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(30);
@@ -5703,13 +5710,16 @@ public class EnemyCreate : MonoBehaviour
         //戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 86)
         {
-            GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
-            b1.Is_up = false;
+            //GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
+            //b1.Is_up = false;
 
-            GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
-            BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
-            b2.Is_up = true;
+            //GameObject Battle_Ship2 = Instantiate(enemy_BattleShip, createBattleShipPos.transform.position, enemy_BattleShip.transform.rotation);
+            //BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
+            //b2.Is_up = true;
+
+            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+
             nextEnemy = "闘牛130";
             Next_Condition(240);
 
@@ -5718,9 +5728,15 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 87)
         {
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
             Next_Condition(115);
@@ -5736,9 +5752,16 @@ public class EnemyCreate : MonoBehaviour
             BattleshipType_Enemy b2 = Battle_Ship2.GetComponent<BattleshipType_Enemy>();
             b2.Is_up = true;
 
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
+
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
             Next_Condition(115);
@@ -5746,9 +5769,16 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 89)
         {
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
+
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
 
             nextEnemy = "闘牛130";
             Next_Condition(115);
@@ -5756,18 +5786,32 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 90)
         {
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
+
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
             nextEnemy = "闘牛130";
             Next_Condition(115);
         }
         // 闘牛130
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 91)
         {
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position;
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
+            saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
+            saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
+
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
+            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
 
             nextEnemy = "ビッグコアマーク3";
             Next_Condition(300);
