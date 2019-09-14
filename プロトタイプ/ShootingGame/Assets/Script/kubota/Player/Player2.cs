@@ -194,6 +194,7 @@ public class Player2 : character_status
 	{
 		//デバックキー
 		if (Input.GetKeyDown(KeyCode.Alpha6)) IS_Active = !IS_Active;
+		Is_Burst = false;
 
 		//稼働状態なら動かす
 		if (IS_Active)
@@ -297,7 +298,6 @@ public class Player2 : character_status
 						bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
 						target = direction;
 						transform.position = new Vector3(-12, -2, -20);         //復活アニメーションの開始位置へ
-						Is_Burst = false;
 						Is_Animation = true;
 						Is_Resporn = true;                      //復活用の処理を行う
 					}
