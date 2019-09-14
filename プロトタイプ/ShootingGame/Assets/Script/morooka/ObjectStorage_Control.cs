@@ -200,7 +200,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			#endregion
 
 			#region ラスボス前に消すもの
-			if (EnemyCreate_Data.frameCnt >= 13797 && !Is_Processed_Normal)
+			if (EnemyCreate_Data.isLastBossWireless && !Is_Processed_Normal)
 			{
 				// 隕石削除
 				if (Normal_Frame_Cnt == 0)
