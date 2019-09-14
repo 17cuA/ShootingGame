@@ -223,7 +223,7 @@ public class EnemyCreate : MonoBehaviour
     public EnemyGroupManage group_Script;
 
     GameObject middleBossOBj;
-    private Enemy_MiddleBoss middleBoss_Script;
+    public Enemy_MiddleBoss middleBoss_Script;
 
     GameObject oneBossOBj;
     One_Boss oneBoss_Script;
@@ -571,8 +571,8 @@ public class EnemyCreate : MonoBehaviour
         {
             if (middleBoss_Script.Is_Dead)
             {
-                turning_frame = bigCoreMK3GroupFrame; //←今爆発がでかいのでちょっと間を空けます
-                frameCnt = bigCoreGroupFrame - 60;
+                turning_frame = bigCoreNextGroupFrame; //←今爆発がでかいのでちょっと間を空けます
+                frameCnt = bigCoreNextGroupFrame - 60;
                 groupCnt = bigCoreNextGroupNum;
                 isMiddleBossSkip = false;
             }
