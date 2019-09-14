@@ -154,9 +154,10 @@ public class ObjectStorage_Control : MonoBehaviour
 			}
 			#endregion
 
-			#region　無線時
-			if (Wireless_sinario.Is_using_wireless && !flag && !flag_2)
+			#region　無線時に数を戻す者たち
+			if (Wireless_sinario.Is_using_wireless && (!flag || !flag_2))
 			{
+				//----------------------- 　プーリングされてない-----------------------
 				if (Normal_Frame_Cnt == 0)
 				{
 					foreach (var s in name)
@@ -164,17 +165,23 @@ public class ObjectStorage_Control : MonoBehaviour
 						GameObject obj = GameObject.Find(s);
 						if (obj != null)
 						{
+							Debug.Log(" obj.name");
 							Destroy(obj);
 						}
 					}
 					flag = true;
 				}
+				//----------------------- 　プーリングされてない-----------------------
 
+				//----------------------- エフェクト関係------------------------------
+				var temp = Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count;
 				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count; i++)
 				{
 					Destroy(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj()[i]);
 					Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
+
+				Debug.Log(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Parent_Obj().name + " : " +temp+" : "+ Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count);
 
 				Normal_Frame_Cnt++;
 
@@ -183,6 +190,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					Normal_Frame_Cnt = 0;
 					flag_2 = true;
 				}
+				//----------------------- エフェクト関係------------------------------
 			}
 			else
 			{
