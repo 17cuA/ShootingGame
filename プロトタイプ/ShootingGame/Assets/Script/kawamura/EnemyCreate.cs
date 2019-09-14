@@ -5147,7 +5147,7 @@ public class EnemyCreate : MonoBehaviour
             b1.Is_up = false;
 
             nextEnemy = "戦艦";
-            Next_Condition(300);
+            Next_Condition(300);//300
             nowGroupCnt++;
         }
         // 闘牛12直進
@@ -5203,7 +5203,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_THREESTRAIGHT, CreatePos.R0, false);
 
             nextEnemy = "戦艦";
-            Next_Condition(390);
+            Next_Condition(240);
             nowGroupCnt++;
         }
         // ハエ4
@@ -5212,7 +5212,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BEELZEBUB_GROUP_FOUR, CreatePos.R0, true);
 
             nextEnemy = "戦艦";
-            Next_Condition(360);
+            Next_Condition(200);
             nowGroupCnt++;
         }
         // 闘牛縦14
@@ -5291,7 +5291,7 @@ public class EnemyCreate : MonoBehaviour
                 moai.transform.position = new Vector3(15.44f, -17.0f, 0.0f);
                 Wireless_sinario.Is_using_wireless = true;
                 isNowMoai = true;
-                Next_Condition(620);
+                Next_Condition(120);
             }
             else
             {
