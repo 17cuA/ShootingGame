@@ -20,7 +20,9 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField, Header("移動変更ポイント")] private Vector3[] moving_change_point;
 	[SerializeField, Header("はさみ込むタイプはTrue")] public bool is_sandwich;
 	[SerializeField, Header("マズルパーツ")] private BattleshipType_Battery[] muzzle_parts_scriptes;
+	[SerializeField]private GameObject[] muzzle_parts;
 	[SerializeField, Header("本体パーツ")] private BattleshipType_Battery body_scriptes;
+	[SerializeField] private GameObject body;
 	[SerializeField] private uint parts_score;
 
 	public GameObject pure;
@@ -85,6 +87,26 @@ public class BattleshipType_Enemy : character_status
 	{
 		if (!PauseManager.IsPause)
 		{
+			//if (muzzle_parts_scriptes != null)
+			//{
+			//	// 子供が不能のとき、再起動
+			//	for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+			//	{
+			//		if (!muzzle_parts_scriptes[i].gameObject.activeSelf)
+			//		{
+			//			muzzle_parts_scriptes[i].ReBoot();
+			//			Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
+			//		}
+			//	}
+			//}
+
+			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+			{
+				if (muzzle_parts_scriptes[i].transform.localPosition != muzzle_parts_scriptes[i].Getinitishal_pos())
+					muzzle_parts_scriptes[i].transform.localPosition = muzzle_parts_scriptes[i].Getinitishal_pos();
+			}
+			if (body_scriptes.transform.localPosition != body_scriptes.Getinitishal_pos())
+				body_scriptes.transform.localPosition = body_scriptes.Getinitishal_pos();
 			base.Update();
 
 			HSV_Change();
@@ -212,7 +234,7 @@ public class BattleshipType_Enemy : character_status
 		{
 			transform.position = initial_position;
 		}
-			Now_Target = 0;
+		Now_Target = 0;
 		Shot_Delay = 0;
 
 		if (muzzle_parts_scriptes != null)
@@ -222,14 +244,16 @@ public class BattleshipType_Enemy : character_status
 			{
 				if (!muzzle_parts_scriptes[i].gameObject.activeSelf)
 				{
+					muzzle_parts[i].SetActive(true);
 					muzzle_parts_scriptes[i].ReBoot();
 					Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
 				}
 			}
 		}
 
-		if (body_scriptes.gameObject.activeSelf)
+		if (!body_scriptes.gameObject.activeSelf)
 		{
+			body.SetActive(true);
 			body_scriptes.ReBoot();
 		}
 	}

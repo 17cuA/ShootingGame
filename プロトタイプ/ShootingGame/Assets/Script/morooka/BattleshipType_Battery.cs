@@ -63,4 +63,13 @@ public class BattleshipType_Battery : character_status
 		ns.Person_Who_Shot = gameObject;
 		return obj;
 	}
+
+	/// <summary>
+	/// 初期のローカルポジションの位置を取得
+	/// </summary>
+	/// <returns></returns>
+	public Vector3 Getinitishal_pos()
+	{
+		return Initial_Position;
+	}
 }
