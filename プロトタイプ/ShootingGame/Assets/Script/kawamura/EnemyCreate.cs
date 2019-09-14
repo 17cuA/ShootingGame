@@ -251,7 +251,7 @@ public class EnemyCreate : MonoBehaviour
     public bool isNowTwoBoss = false;
     public bool isNowMoai = false;
     public bool isDebug = false;
-    public bool aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = false;
+    public bool isLastBossWireless = false;
 
     void Start()
     {
@@ -690,6 +690,7 @@ public class EnemyCreate : MonoBehaviour
         //第二ボス出現時に無線をONにする🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
         if (groupCnt == 92 && frameCnt == turning_frame - 60f)
         {
+            isLastBossWireless = true;
             Wireless_sinario.Is_using_wireless = true;
         }
 
