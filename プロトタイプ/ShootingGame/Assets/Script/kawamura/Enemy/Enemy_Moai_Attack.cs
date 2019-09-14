@@ -186,7 +186,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		}
 		void RingShot()
 		{
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 8; i++)
 			{
                 //shotRota = new Quaternion(0, 0, Random.Range(-50, 50), 0);
                 //Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.)
