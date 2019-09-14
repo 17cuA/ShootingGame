@@ -57,8 +57,6 @@ public class DebugManager : MonoBehaviour
 				var player1 = Obj_Storage.Storage_Data.GetPlayer();
                 var player2 = Obj_Storage.Storage_Data.GetPlayer2();
 
-                player1.layer = LayerMask.NameToLayer("invisible");
-                player2.layer = LayerMask.NameToLayer("invisible");
 			}
 			else
 			{
@@ -67,8 +65,6 @@ public class DebugManager : MonoBehaviour
 				var player1 = Obj_Storage.Storage_Data.GetPlayer();
                 var player2 = Obj_Storage.Storage_Data.GetPlayer2();
 
-                player1.layer = LayerMask.NameToLayer("Player");
-                player2.layer = LayerMask.NameToLayer("Player");
 			}
 		}
 		//プレイヤー操作のショートカット(F4)
