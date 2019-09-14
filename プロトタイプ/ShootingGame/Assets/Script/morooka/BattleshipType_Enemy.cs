@@ -44,6 +44,7 @@ public class BattleshipType_Enemy : character_status
 	public float Max_Speed { get; set; }					// 最大速度
 	public float Deceleration_Distance { get; set; }		// 加減速開始移動量
 	public bool Is_up { get; set; }
+    public bool once = true;
 	public GameObject ef;
 
 	private new void Start()
@@ -93,20 +94,37 @@ public class BattleshipType_Enemy : character_status
 	{
 		if (!PauseManager.IsPause)
 		{
-			//if (muzzle_parts_scriptes != null)
-			//{
-			//	// 子供が不能のとき、再起動
-			//	for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
-			//	{
-			//		if (!muzzle_parts_scriptes[i].gameObject.activeSelf)
-			//		{
-			//			muzzle_parts_scriptes[i].ReBoot();
-			//			Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
-			//		}
-			//	}
-			//}
+            if(once)
+            {
+                if(is_sandwich)
+                {
+                    if (Is_up)
+                    {
+                        defautpos = new Vector3(25, 5, 0);
+                        transform.position = defautpos;
+                    }
+                    else
+                    {
+                        defautpos = new Vector3(25, -5, 0);
+                        transform.position = defautpos;
+                    }
+                }
+                once = false;
+            }
+            //if (muzzle_parts_scriptes != null)
+            //{
+            //	// 子供が不能のとき、再起動
+            //	for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+            //	{
+            //		if (!muzzle_parts_scriptes[i].gameObject.activeSelf)
+            //		{
+            //			muzzle_parts_scriptes[i].ReBoot();
+            //			Is_Muzzle_Active[i] = muzzle_parts_scriptes[i].gameObject.activeSelf;
+            //		}
+            //	}
+            //}
 
-			for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
+            for (int i = 0; i < muzzle_parts_scriptes.Length; i++)
 			{
 				if (muzzle_parts_scriptes[i].transform.localPosition != muzzle_parts_scriptes[i].Getinitishal_pos())
 					muzzle_parts_scriptes[i].transform.localPosition = muzzle_parts_scriptes[i].Getinitishal_pos();
@@ -221,6 +239,7 @@ public class BattleshipType_Enemy : character_status
 
 				Instantiate(ef, transform.position, Quaternion.identity);
 
+                once = true;
 				Died_Process();
 
 			}

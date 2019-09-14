@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;      //これを忘れず
 
 public class ObjectStorage_Control : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class ObjectStorage_Control : MonoBehaviour
 
 	private int Boss_Frame_Cnt { get; set; }     // フレーム別けようのカウント(ボス)
 	private int Normal_Frame_Cnt { get; set; }		// エネミー軍の削除用
+	private int wireless_Frame_Cnt { get; set; }		// 無線時のカウンター
 	private bool Is_Set_Start { get; set; }     // 初期化用
 	bool flag;
 	bool flag_2;
@@ -45,6 +47,7 @@ public class ObjectStorage_Control : MonoBehaviour
 		Is_Processed_Normal = false;
 		Boss_Frame_Cnt = 0;
 		Normal_Frame_Cnt = 0;
+		wireless_Frame_Cnt = 0;
 	}
 
 	void Update()
@@ -158,7 +161,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			if (Wireless_sinario.Is_using_wireless && (!flag || !flag_2))
 			{
 				//----------------------- 　プーリングされてない-----------------------
-				if (Normal_Frame_Cnt == 0)
+				if (wireless_Frame_Cnt == 0)
 				{
 					foreach (var s in name)
 					{
@@ -174,20 +177,20 @@ public class ObjectStorage_Control : MonoBehaviour
 				//----------------------- 　プーリングされてない-----------------------
 
 				//----------------------- エフェクト関係------------------------------
-				var temp = Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count;
-				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count; i++)
+				var temp = Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count;
+				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count; i++)
 				{
-					Destroy(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj()[i]);
-					Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().RemoveAt(i);
+					Destroy(Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj()[i]);
+					Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
 
-				Debug.Log(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Parent_Obj().name + " : " +temp+" : "+ Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count);
+				Debug.Log(Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Parent_Obj().name + " : " +temp+" : "+ Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count);
 
 				Normal_Frame_Cnt++;
 
-				if(Normal_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
+				if(wireless_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
 				{
-					Normal_Frame_Cnt = 0;
+					wireless_Frame_Cnt = 0;
 					flag_2 = true;
 				}
 				//----------------------- エフェクト関係------------------------------
@@ -206,6 +209,10 @@ public class ObjectStorage_Control : MonoBehaviour
 				if (Normal_Frame_Cnt == 0)
 				{
 					Des_Obj(ref Obj_Storage.Storage_Data.boundMeteors);
+
+					// 数確認
+					/*var gameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
+					Debug.LogError(gameObjects.Length);*/
 				}
 				// 突進型削除
 				else if (Normal_Frame_Cnt == 1)
@@ -288,10 +295,14 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_SixStraight); }
 				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_UpSevenDiagonal); }
 				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal); }
-				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); Is_Processed_Normal = true; }
+				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); }
 				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
 				else if (Normal_Frame_Cnt == 41) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
-				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.PowerUP_Item); }
+				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.PowerUP_Item);                  // 数確認
+					/*var gameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
+					Debug.LogError(gameObjects.Length);*/
+					Is_Processed_Normal = true;
+				}
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
 				//else if (Normal_Frame_Cnt == 23) Des_Obj(ref Obj_Storage.Storage_Data.);
@@ -317,14 +328,26 @@ public class ObjectStorage_Control : MonoBehaviour
 
 	private void Des_Obj(ref Object_Pooling poo)
 	{
-		Debug.Log(poo.Get_Parent_Obj().name);
+		/*var name_s = poo.Get_Parent_Obj().name;
+		var num_1 = poo.Get_Obj().Count;*/
+
 		Destroy(poo.Get_Parent_Obj().gameObject);
+		poo.Get_Obj().Clear();
 		Normal_Frame_Cnt++;
+
+		/*var num_2 = poo.Get_Obj().Count;
+		Debug.Log(name_s + " : " + "前:"+num_1+"     後:"+num_2+ (Normal_Frame_Cnt - 0));*/
 	}
 	private void Des_Obj_B(ref Object_Pooling poo)
 	{
-		Debug.Log(poo.Get_Parent_Obj().name);
+		/*var name_s = poo.Get_Parent_Obj().name;
+		var num_1 = poo.Get_Obj().Count;*/
+
 		Destroy(poo.Get_Parent_Obj().gameObject);
+		poo.Get_Obj().Clear();
 		Boss_Frame_Cnt++;
+
+		/*var num_2 = poo.Get_Obj().Count;
+		Debug.Log(name_s + " : " + "前:" + num_1 + "     後:" + num_2 + (Normal_Frame_Cnt - 0));*/
 	}
 }

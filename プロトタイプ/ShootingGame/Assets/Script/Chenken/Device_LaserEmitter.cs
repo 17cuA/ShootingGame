@@ -219,10 +219,25 @@ class Device_LaserEmitter : MonoBehaviour
 
 	}
 
-	private void Update()
-	{
-		var launchDevice = emitterLaunchCore.currentLaunchDevice;
+    private void OnDisable()
+    {
 
+        if(Obj_Storage.Storage_Data.Laser_Line != null)
+        { 
+             for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+             {
+                 if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
+                 { 
+                     Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
+                     Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
+                 }
+            }
+        }
+    }
+    private void Update()
+	{
+
+		var launchDevice = emitterLaunchCore.currentLaunchDevice;
 		if (isOption)
 		{
 			if (bf.bState == Bit_Formation_3.BitState.Player1)
