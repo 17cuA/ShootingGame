@@ -4,10 +4,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_RingBullet : bullet_status
 {
 	GameObject[] childEffectObj;
+    float rotaZ;
+    Quaternion deadAttackRotation;
     new void Start()
     {
 		base.Start();
@@ -28,6 +31,7 @@ public class Enemy_RingBullet : bullet_status
 		{
             gameObject.SetActive(false);
             col.GetComponent<bullet_status>().Player_Bullet_Des();
+            DeadAttack();
             col.gameObject.SetActive(false);
         }
         else if(col.gameObject.name == "face" || col.gameObject.name == "mouth")
@@ -36,5 +40,14 @@ public class Enemy_RingBullet : bullet_status
         }
         base.OnTriggerEnter(col);
 	}
-
+    void DeadAttack()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            deadAttackRotation = Quaternion.Euler(0, 0, rotaZ);
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, deadAttackRotation);
+            rotaZ += 45;
+        }
+        rotaZ = 0;
+    }
 }
