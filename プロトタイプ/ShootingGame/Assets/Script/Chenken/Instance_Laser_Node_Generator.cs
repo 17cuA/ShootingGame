@@ -54,17 +54,12 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
         //node　2　以上
 
-        if(!transform.parent.parent.gameObject.activeSelf || Wireless_sinario.Is_using_wireless)
+        if( Wireless_sinario.Is_using_wireless)
         {
-             for (int i = 0; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
+             for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
              {
                 if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
                 { 
-                    if(nodes.IndexOf(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]) == 0)
-                    {
-                        this.nodes[i].transform.position = new Vector3(0,-20,0);
-                    }
-
                     if(this.nodes.Contains(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]))
                         this.nodes.Remove(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                     Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
@@ -255,35 +250,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		return node;
 	}
 
-    private void OnDisable()
-    {
-        for(var i = 0; i < nodes.Count; ++i)
-        {
-            if(nodes[i] != null)
-            { 
-                nodes[i].gameObject.SetActive(false);
-            }
-            else
-            {
-                nodes.Remove(nodes[i]);
-            }
-        }
 
-        this.nodes.Clear();                               //念のため、管理リストクリアする
-		this.ResetGenerator();
-		this.ResetLineRenderer();
-
-
-         for (int i = 0; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
-         {
-            if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf)
-            { 
-                 if(this.nodes.Contains(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]))
-                        this.nodes.Remove(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
-                  Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
-                  Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);
-            }
-         }
-    }
 }
 
