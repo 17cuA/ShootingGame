@@ -918,15 +918,15 @@ public class EnemyCreate : MonoBehaviour
             case EnemyType.BEELZEBUB_GROUP_FOURWIDE:
 				if (!isItem)
 				{
-                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide.Active_Obj();
-                    saveEnemyObj.transform.position = pos;
-					//Instantiate(enemy_Beelzebub_Group_FourWide, pos, transform.rotation);
-				}
+                    //saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide.Active_Obj();
+                    //saveEnemyObj.transform.position = pos;
+                    Instantiate(enemy_Beelzebub_Group_FourWide, pos, transform.rotation);
+                }
 				else
 				{
-                    saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide_Item.Active_Obj();
-                    saveEnemyObj.transform.position = pos;
-                    //Instantiate(enemy_Beelzebub_Group_FourWide_Item, pos, transform.rotation);
+                    //saveEnemyObj = Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide_Item.Active_Obj();
+                    //saveEnemyObj.transform.position = pos;
+                    Instantiate(enemy_Beelzebub_Group_FourWide_Item, pos, transform.rotation);
                 }
                 break;
 
@@ -1037,7 +1037,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.UFO_GROUP_NONESHOT, CreatePos.Rm3, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "闘牛斜め配置中央アイテム";
             Next_Condition(300);
             nowGroupCnt++;
         }
@@ -1046,7 +1046,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_FOUR, CreatePos.L0, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "円盤上下";
             Next_Condition(390);
             nowGroupCnt++;
         }
@@ -1056,7 +1056,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_NONESHOT, CreatePos.R3, true);
             CreateEnemy(EnemyType.UFO_GROUP_NONESHOT, CreatePos.Rm3, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "円盤上下狭";
             Next_Condition(240);
             nowGroupCnt++;
         }
@@ -1066,7 +1066,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP_NONESHOT, CreatePos.R1, true);
             CreateEnemy(EnemyType.UFO_GROUP_NONESHOT, CreatePos.Rm1, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "円盤上下狭";
             Next_Condition(240);
             nowGroupCnt++;
         }
@@ -1075,7 +1075,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_FOURTRIANGLE_B, CreatePos.L0, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "円盤上下狭";
             Next_Condition(240);
             nowGroupCnt++;
         }
@@ -1084,7 +1084,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_FOURTRIANGLE_C, CreatePos.L0, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "闘牛縦3アイテム";
             Next_Condition(240);
             nowGroupCnt++;
         }
@@ -1102,7 +1102,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TOPANDUNEDR, CreatePos.FOURGROUPL, false);
 
-            nextEnemy = "闘牛縦7中央アイテム";
+            nextEnemy = "闘牛縦3アイテム";
             Next_Condition(45);
             nowGroupCnt++;
         }
@@ -1121,7 +1121,7 @@ public class EnemyCreate : MonoBehaviour
 
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TOPANDUNEDR, CreatePos.FOURGROUPL, false);
 
-            nextEnemy = "闘牛縦7中央アイテム";
+            nextEnemy = "闘牛縦7";
             Next_Condition(45);
             nowGroupCnt++;
         }
@@ -1130,7 +1130,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_FIVE, CreatePos.FOURGROUPL, false);
 
-            nextEnemy = "闘牛縦7中央アイテム";
+            nextEnemy = "闘牛縦7";
             Next_Condition(45);
             nowGroupCnt++;
         }
@@ -1206,7 +1206,7 @@ public class EnemyCreate : MonoBehaviour
             //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false);
             //CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false);
 
-            nextEnemy = "闘牛上2下2";
+            nextEnemy = "ハエ2";
             Next_Condition(160+120);
         }
         // からうち
@@ -1220,7 +1220,7 @@ public class EnemyCreate : MonoBehaviour
 
             CreateEnemy(EnemyType.BEELZEBUB_GROUP_TWOWIDE, CreatePos.R0, true);
 
-            nextEnemy = "ハエ上2下2広右2アイテム";
+            nextEnemy = "ビートル3";
             Next_Condition(270);
             nowGroupCnt++;
         }
@@ -1229,7 +1229,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.BEETLE_GROUP_THREE, CreatePos.L0, false);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "円盤上下射撃";
             Next_Condition(300);
             nowGroupCnt++;
         }
@@ -1239,7 +1239,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.UFO_GROUP, CreatePos.R3, true);
             CreateEnemy(EnemyType.UFO_GROUP, CreatePos.Rm3, true);
 
-            nextEnemy = "円盤下10";
+            nextEnemy = "戦艦上下";
             Next_Condition(300);
             nowGroupCnt++;
         }
@@ -1263,7 +1263,7 @@ public class EnemyCreate : MonoBehaviour
             b1.is_sandwich = false;
             b1.Is_up = false;
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛12直進";
             Next_Condition(300);//300
             nowGroupCnt++;
         }
@@ -1273,7 +1273,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R3, true);
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.Rm3, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛12直進";
             Next_Condition(280);
             nowGroupCnt++;
         }
@@ -1282,7 +1282,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R0, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛12直進";
             Next_Condition(90);
             nowGroupCnt++;
         }
@@ -1292,16 +1292,16 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.R3, true);
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_STRAIGHT, CreatePos.Rm3, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "戦艦上下";
             Next_Condition(120);
             nowGroupCnt++;
         }
         // 戦艦上下
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 30)
         {
-            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R3, true);
+            CreateEnemy(EnemyType.BATTLESHIP_TOPANDUNDER, CreatePos.R0, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛縦3直進";
             Next_Condition(150);
             nowGroupCnt++;
         }
@@ -1310,7 +1310,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_THREESTRAIGHT, CreatePos.R0, false);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛縦3直進";
             Next_Condition(120);
             nowGroupCnt++;
         }
@@ -1319,7 +1319,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_THREESTRAIGHT, CreatePos.R0, false);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "ハエ4";
             Next_Condition(240);
             nowGroupCnt++;
         }
@@ -1328,7 +1328,7 @@ public class EnemyCreate : MonoBehaviour
         {
             CreateEnemy(EnemyType.BEELZEBUB_GROUP_FOUR, CreatePos.R0, true);
 
-            nextEnemy = "戦艦";
+            nextEnemy = "闘牛縦14";
             Next_Condition(200);
             nowGroupCnt++;
         }
@@ -1367,7 +1367,7 @@ public class EnemyCreate : MonoBehaviour
 
             Instantiate(enemy_Star_Fish_Spowner, transform.position, transform.rotation);
 
-            nextEnemy = "バキュラ4";
+            nextEnemy = "隕石20";
             Next_Condition(240 + 360);
         }
         // 隕石20
@@ -1377,7 +1377,7 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj.transform.position = createMeteorPosR0.transform.position;
             //Instantiate(Enemy_BoundMeteors, createMeteorPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "隕石20";
+            nextEnemy = "バキュラ6";
             Next_Condition(210);
         }
         // バキュラ6
@@ -1386,7 +1386,7 @@ public class EnemyCreate : MonoBehaviour
             CreateEnemy(EnemyType.BACULA_GROUP_SIX, CreatePos.R0, false);
             //Instantiate(enemy_Bacula_FourOnly, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "バキュラ4";
+            nextEnemy = "隕石20";
             Next_Condition(210 + 240);
         }
         // 隕石20
@@ -1520,7 +1520,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "円盤上10下10射撃";
+            nextEnemy = "戦艦";
             Next_Condition(120);
             nowGroupCnt++;
         }
@@ -1538,7 +1538,7 @@ public class EnemyCreate : MonoBehaviour
             b1.is_sandwich = false;
             b1.Is_up = false;
 
-            nextEnemy = "戦艦";
+            nextEnemy = "円盤上10下10射撃";
             Next_Condition(210);
             nowGroupCnt++;
         }
@@ -1555,7 +1555,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm4.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "円盤上10下10射撃";
+            nextEnemy = "戦艦";
             Next_Condition(90);
             nowGroupCnt++;
         }
@@ -1568,7 +1568,7 @@ public class EnemyCreate : MonoBehaviour
             b1.is_sandwich = false;
             b1.Is_up = false;
 
-            nextEnemy = "戦艦";
+            nextEnemy = "円盤上10下10射撃";
             Next_Condition(30);
             nowGroupCnt++;
         }
@@ -1620,7 +1620,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm4.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "戦艦";
+            nextEnemy = "戦艦上下";
             Next_Condition(120);
             nowGroupCnt++;
         }
@@ -1654,7 +1654,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "戦艦上下";
+            nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(90);
             nowGroupCnt++;
         }
@@ -1705,7 +1705,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "戦艦上下";
+            nextEnemy = "円盤上10下10狭射撃";
             Next_Condition(120);
             nowGroupCnt++;
         }
@@ -1740,7 +1740,7 @@ public class EnemyCreate : MonoBehaviour
             enemy_UFO_Group2.transform.position = createPosRm1.transform.position + new Vector3(8.5f, 0, 0);
             enemy_UFO_Group2.transform.rotation = transform.rotation;
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "闘牛左上斜め配置7射撃";
             Next_Condition(480);
             nowGroupCnt++;
         }
@@ -1749,7 +1749,7 @@ public class EnemyCreate : MonoBehaviour
         // 逆襲の闘牛
         // 
         //--------------------------------------------------------------
-        // 闘牛右上斜め配置7射撃
+        // 闘牛左上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 76)
         {
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
@@ -1762,10 +1762,10 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "闘牛左上斜め配置7射撃";
             Next_Condition(30);
         }
-        // 闘牛右上斜め配置7射撃
+        // 闘牛左上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 78)
         {
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
@@ -1778,10 +1778,10 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "闘牛左上斜め配置7射撃";
             Next_Condition(30);
         }
-        // 闘牛右上斜め配置7射撃
+        // 闘牛左上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 80)
         {
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
@@ -1794,10 +1794,10 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "闘牛左上斜め配置7射撃";
             Next_Condition(30);
         }
-        // 闘牛右上斜め配置7射撃
+        // 闘牛左上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 82)
         {
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
@@ -1810,10 +1810,10 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "闘牛左上斜め配置7射撃";
             Next_Condition(30);
         }
-        // 闘牛右上斜め配置7射撃
+        // 闘牛左上斜め配置7射撃
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 84)
         {
             Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
@@ -1826,7 +1826,7 @@ public class EnemyCreate : MonoBehaviour
         {
             Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
 
-            nextEnemy = "闘牛右上斜め配置7射撃";
+            nextEnemy = "戦艦上下";
             Next_Condition(30);
         }
         //戦艦上下
@@ -1881,10 +1881,6 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
 
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
-
             nextEnemy = "闘牛130";
             Next_Condition(115);
         }
@@ -1898,10 +1894,6 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
 
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
-
             nextEnemy = "闘牛130";
             Next_Condition(115);
         }
@@ -1914,10 +1906,6 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
             saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
-
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
             nextEnemy = "闘牛130";
             Next_Condition(115);
         }
@@ -1930,10 +1918,6 @@ public class EnemyCreate : MonoBehaviour
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f);
             saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight.Active_Obj();
             saveEnemyObj.transform.position = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f);
-
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position, transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f), transform.rotation);
-            //Instantiate(enemy_ClamChowder_Group_TenStraight, createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f), transform.rotation);
 
             nextEnemy = "ビッグコアマーク3";
             Next_Condition(300);
