@@ -255,8 +255,7 @@ class Device_LaserEmitter : MonoBehaviour
 			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
 			if (Input.GetButtonDown(fireButtonName) || Input.GetKeyDown(firekey))
 			{
-				if (launchDevice is StraightLaunchDevice)
-					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
+			    this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 
 				if (audioSource.isPlaying) audioSource.Stop();
 				audioSource.clip = laserBegin;
@@ -269,36 +268,36 @@ class Device_LaserEmitter : MonoBehaviour
 			{
 				if (launchDevice.CurrentGenerator == null)
 				{
-					if (launchDevice is StraightLaunchDevice)
-						this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);			
+					this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);			
 				}
-
-				if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
-				{
+                else
+                { 
+				    if (Time.time >= launchDevice.CanLaunchTime && launchDevice.CurrentGenerator != null)
+				    {
 					
-					if (isPlayerUseAudio)
-					{
+					    if (isPlayerUseAudio)
+					    {
 						
-						//記念すべきAセット by Johnny Yamazaki
-						// ドトールのミラノサンドはおいしいよ
-						if (audioSource.time >= laserBegin.length * 0.6f && audioSource.clip == laserBegin && audioSource.clip != laserEnd)
-						{
-							audioSource.clip = laserContinuing;
-							audioSource.loop = true;
-							audioSource.Play();
-						}
-						if(audioSource.clip == laserEnd && audioSource.time >= laserEnd.length * 0.6f)
-						{
-							if (audioSource.isPlaying) audioSource.Stop();
-							audioSource.clip = laserBegin;
-							audioSource.Play();
-						}
+						    //記念すべきAセット by Johnny Yamazaki
+						    // ドトールのミラノサンドはおいしいよ
+						    if (audioSource.time >= laserBegin.length * 0.6f && audioSource.clip == laserBegin && audioSource.clip != laserEnd)
+						    {
+							    audioSource.clip = laserContinuing;
+							    audioSource.loop = true;
+							    audioSource.Play();
+						    }
+						    if(audioSource.clip == laserEnd && audioSource.time >= laserEnd.length * 0.6f)
+						    {
+							    if (audioSource.isPlaying) audioSource.Stop();
+							    audioSource.clip = laserBegin;
+							    audioSource.Play();
+						    }
 
-					}
+					    }
 
-					if (launchDevice is StraightLaunchDevice)
-						this.emitterLaunchCore.LaunchNode(straightTrailWidth);
-				}
+						 this.emitterLaunchCore.LaunchNode(straightTrailWidth);
+				    }
+                }
 			}
 
 			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey))
