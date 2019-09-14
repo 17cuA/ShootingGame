@@ -58,21 +58,9 @@ public class Object_Pooling
 		{
 			if (obj[i].activeSelf == false)
 			{
-                if(obj[i].transform.parent.name == "Laser_Line")
-                {
-                    //レーザーは画面外だけ所得
-                    if(obj[i].transform.position.x >= 19f || obj[i].transform.position.x <= -19f|| obj[i].transform.position.y >= 6f || obj[i].transform.position.y <= -6f)
-                    {
-                        obj[i].SetActive(true);
-                        return obj[i];
-                    }
-                    
-                }
-                else
-                { 
-				    obj[i].SetActive(true);
-				    return obj[i];
-                }
+				obj[i].SetActive(true);
+				return obj[i];
+                
 			}
 			i++;
 		}

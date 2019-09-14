@@ -726,9 +726,10 @@ public class EnemyCreate : MonoBehaviour
         R4, R3, R2, R1, R0, Rm1, Rm2, Rm3, Rm4,
     }
 
-	private void CreateEnemy(EnemyType e, CreatePos p, bool isItem = false)
+	private GameObject CreateEnemy(EnemyType e, CreatePos p, bool isItem = false)
     {
         Vector3 pos = Vector3.zero;
+
         switch (p)
         {
             case CreatePos.FOURGROUPL:pos = createPos_FourGroupL.transform.position; break;
@@ -894,7 +895,7 @@ public class EnemyCreate : MonoBehaviour
                 saveEnemyObj = Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven.Active_Obj();
                 saveEnemyObj.transform.position = pos;
                 //Instantiate(enemy_ClamChowder_Group_Seven, pos, transform.rotation);
-                break;
+                return saveEnemyObj;
 
             case EnemyType.BEETLE_GROUP_THREE:
                 saveEnemyObj = Obj_Storage.Storage_Data.enemy_BeetleGroup_Three.Active_Obj();
@@ -1009,6 +1010,8 @@ public class EnemyCreate : MonoBehaviour
 			default:
                 break;
         }
+
+        return null;
     }
     //敵を出す関数
     private void CreateEnemyGroup_01()
@@ -1335,6 +1338,7 @@ public class EnemyCreate : MonoBehaviour
         // 闘牛縦14
         else if (Is_A_Specified_Frame(turning_frame) && groupCnt == 34)
         {
+            CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_SEVEN, CreatePos.R0, true);
             CreateEnemy(EnemyType.CLAMCHOWDER_GROUP_SEVEN, CreatePos.R0, true);
 
             nextEnemy = "ビッグコアマーク2";
