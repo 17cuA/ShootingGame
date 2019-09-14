@@ -396,6 +396,7 @@ public class One_Boss : character_status
 					Timeline_Player.time = 60.0;
 					End_Flag = true;
 
+                    base.BossRemainingBouns(2);
 
 					//-----------------追加-------------------
 					//----------------弾を消す----------------
@@ -407,6 +408,11 @@ public class One_Boss : character_status
 						}
 					}
 					unactiveOperateBullets.Clear();
+
+
+
+
+                    BossRemainingBouns(2);
 					//----------------弾を消す----------------
 					//-----------------追加-------------------
 				}

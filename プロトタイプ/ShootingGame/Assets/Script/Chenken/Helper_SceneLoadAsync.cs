@@ -6,40 +6,22 @@ using UnityEngine.UI;
 
 public class Helper_SceneLoadAsync : MonoBehaviour
 {
-	[SerializeField] private bool isAutoLoading = false;
-	public bool IsAutoLoading
-	{
-		get
-		{
-			return isAutoLoading;
-		}
-		set
-		{
-			isAutoLoading = value;
-		}
-	}
-
+	private static bool isAutoLoading = false;
 	AsyncOperation async;   
 	[SerializeField] private string SceneName;
-	[SerializeField] private Slider loadingSlider;
-	[SerializeField] private Text loadingText; 
 	[SerializeField] private float loadingSpeed = 1;
 
 	private float targetValue;
+	private float progress;
 
 	private void Start()
 	{
-		loadingSlider.value = 0.0f;
+		progress = 0f;
+		StartCoroutine("LoadScene");
 	}
 
 	private void Update()
 	{
-		if(isAutoLoading)
-		{
-			StartCoroutine("LoadScene");
-			isAutoLoading = false;
-		}
-
 		if (async == null) return;
 
 		targetValue = async.progress;
@@ -50,32 +32,41 @@ public class Helper_SceneLoadAsync : MonoBehaviour
 			targetValue = 1.0f;
 		}
 
-		if (targetValue != loadingSlider.value)
+		if (targetValue != progress)
 		{
-			loadingSlider.value = Mathf.Lerp(loadingSlider.value, targetValue, Time.deltaTime * loadingSpeed);
+			progress = Mathf.Lerp(progress, targetValue, Time.deltaTime * loadingSpeed);
 
-			if (Mathf.Abs(loadingSlider.value - targetValue) < 0.01f)
+			if (Mathf.Abs(progress - targetValue) < 0.01f)
 			{
 
-				loadingSlider.value = targetValue;
+				progress = targetValue;
 			}
 		}
 
-		loadingText.text = ((int)(loadingSlider.value * 100)).ToString() + "%";
 
-		if ((int)(loadingSlider.value * 100) == 100)
+		if ((int)(progress * 100) == 100)
+		{
 			async.allowSceneActivation = true;
+			isAutoLoading = false;
+		}
 	}
 
 	private IEnumerator LoadScene()
 	{
+		yield return new WaitForEndOfFrame();
+
 		async = SceneManager.LoadSceneAsync(SceneName);
 
-		//async.allowSceneActivation = false;
+		async.allowSceneActivation = false;
 
 		print("Loading:" + async);
 
 		yield return async;
+	}
+
+	public static void TranslateToScene()
+	{
+		isAutoLoading = true;
 	}
 }
 

@@ -243,6 +243,7 @@ public class Player1 : character_status
 					if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 					Is_Resporn = false;
 					Is_Resporn_End = true;
+                    if (gameObject.layer != LayerMask.NameToLayer("Player")) gameObject.layer = LayerMask.NameToLayer("Player");
 				}
 
 			}
@@ -824,4 +825,28 @@ public class Player1 : character_status
 		//フレーム加算
 		cnt++;
 	}
+
+
+    //-------------------
+    public void ResponPreparation(int remain)
+    {
+        base.Is_Dead = false;
+        this.Remaining = remain;
+        Reset_Status();             //体力の修正
+	    invincible = true;         //無敵状態にするかどうかの処理
+		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+		bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
+		target = direction;
+		transform.position = new Vector3(-12, 0, -20);
+		Is_Animation = true;
+		Is_Resporn = true;                      //復活用の処理を行う
+
+        for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
+		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();
+        shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+        Entry_anim.time = 0;
+        Start_animation_frame = 0;
+        Is_Resporn_End = true;                   
+
+    }
 }
