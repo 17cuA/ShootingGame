@@ -178,7 +178,7 @@ public class ObjectStorage_Control : MonoBehaviour
 
 				Normal_Frame_Cnt++;
 
-				if(Normal_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length)
+				if(Normal_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
 				{
 					Normal_Frame_Cnt = 0;
 					flag_2 = true;
