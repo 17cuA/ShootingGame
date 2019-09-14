@@ -25,6 +25,8 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField] private GameObject body;
 	[SerializeField] private uint parts_score;
 
+    public Vector3 defautpos;
+
 	public GameObject pure;
 	public Vector3 Original_Position { get; set; }		// 元の位置
 	public int Now_Target { get; set; }					// 現在の移動目標番号
@@ -73,8 +75,12 @@ public class BattleshipType_Enemy : character_status
 			}
 			Original_Position = transform.position = initial_position;
 		}
-		// 加減速用初期化群
-	   Max_Speed = speed;
+
+        defautpos = initial_position;
+        // 加減速用初期化群
+        speed = 0.05f;
+        Deceleration_Distance = 0;
+        Max_Speed = speed;
 		speed = Initial_Speed = speed / 60.0f;
 		for (int i = 0; i < 60; i++)
 		{
@@ -230,9 +236,20 @@ public class BattleshipType_Enemy : character_status
 	}
 	void OnEnable()
 	{
-		if (is_sandwich)
+        speed = 0.05f;
+        Deceleration_Distance = 0;
+        Max_Speed = speed;
+        speed = Initial_Speed = speed / 60.0f;
+        for (int i = 0; i < 60; i++)
+        {
+            Deceleration_Distance += speed;
+            speed += Initial_Speed;
+        }
+
+        if (is_sandwich)
 		{
-			transform.position = initial_position;
+			//transform.position = initial_position;
+           // transform.position = defautpos;
 		}
 		Now_Target = 0;
 		Shot_Delay = 0;

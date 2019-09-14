@@ -17,7 +17,7 @@ public class Enemy_MeteorBound_Move : MonoBehaviour
 
 	void Start()
 	{
-		speedX = Random.Range(-2.0f, -8.0f);
+		speedX = Random.Range(-3.5f, -8.0f);
 		speedY = Random.Range(-0.3f, 0.3f);
 	}
 

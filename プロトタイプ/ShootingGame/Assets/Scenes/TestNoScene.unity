@@ -894,6 +894,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Moai
       objectReference: {fileID: 0}
+    - target: {fileID: 7889906012221612578, guid: f94a16d8860c7044988649feb80760e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7889906012222111234, guid: f94a16d8860c7044988649feb80760e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2063,6 +2068,7 @@ MonoBehaviour:
   IS_Active: 0
   Bullet_cnt: 0
   Is_Burst: 0
+  Maltiple_Catch: []
 --- !u!1001 &1592635623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2457,6 +2463,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1990893988371133139, guid: cf63f313ba88a8949b8b25f0c77a26ba,
+        type: 3}
+      propertyPath: groupCnt
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf63f313ba88a8949b8b25f0c77a26ba, type: 3}
 --- !u!1001 &1672708985
@@ -2733,6 +2744,7 @@ MonoBehaviour:
   Curtain_up: []
   First_half_boss_before: []
   First_falf_boss_after: []
+  Moai: []
   Second_half_boss_before: []
   Second_half_boss_after: []
   uiText: {fileID: 0}
