@@ -199,6 +199,8 @@ public class Player1 : character_status
 			{
 				if (Is_Animation) Start_animation_frame++;
 
+				Is_Burst = false;
+
 				//敵等に当たらないようにするためにレイヤーを変更
 				if (gameObject.layer != LayerMask.NameToLayer("invisible"))
 				{
@@ -265,10 +267,9 @@ public class Player1 : character_status
 					P1_PowerManager.Instance.ResetSelect();                //アイテム取得回数をリセットする
 					P1_PowerManager.Instance.ResetAllPowerUpgradeCount();
 					if (gameObject.layer != LayerMask.NameToLayer("invisible")) gameObject.layer = LayerMask.NameToLayer("invisible");
-					 						Is_Burst = false;
 
 					Remaining--;                                        //残機を1つ減らす
-																		//残機が残っていなければ
+					//残機が残っていなければ
 					if (Remaining < 1)
 					{
 						//残機がない場合死亡
@@ -764,7 +765,7 @@ public class Player1 : character_status
 		}
 		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);     //ボイス
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);               //パワーアップ音
-																							//パワーアップエフェクト	
+		//パワーアップエフェクト	
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
