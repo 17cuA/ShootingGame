@@ -24,6 +24,7 @@ public class ObjectStorage_Control : MonoBehaviour
 	private int Normal_Frame_Cnt { get; set; }		// エネミー軍の削除用
 	private bool Is_Set_Start { get; set; }     // 初期化用
 	bool flag;
+	bool flag_2;
 
 	private string[] name = new string[9]
 	{
@@ -154,7 +155,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			#endregion
 
 			#region　無線時
-			if (Wireless_sinario.Is_using_wireless && !flag)
+			if (Wireless_sinario.Is_using_wireless && !flag && !flag_2)
 			{
 				if (Normal_Frame_Cnt == 0)
 				{
@@ -166,26 +167,27 @@ public class ObjectStorage_Control : MonoBehaviour
 							Destroy(obj);
 						}
 					}
-					Normal_Frame_Cnt++;
+					flag = true;
 				}
-				else if(Normal_Frame_Cnt == 1)
+
+				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().Count; i++)
 				{
-					foreach (var pool in Obj_Storage.Storage_Data.Effects)
-					{
-						for (int i = 1; i < pool.Get_Obj().Count; i++)
-						{
-							Destroy(pool.Get_Obj()[i]);
-							pool.Get_Obj().RemoveAt(i);
-						}
-					}
+					Destroy(Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj()[i]);
+					Obj_Storage.Storage_Data.Effects[Normal_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
 
+				Normal_Frame_Cnt++;
 
-				flag = true;
+				if(Normal_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length)
+				{
+					Normal_Frame_Cnt = 0;
+					flag_2 = true;
+				}
 			}
 			else
 			{
 				flag = false;
+				flag_2 = false;
 			}
 			#endregion
 
