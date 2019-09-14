@@ -27,24 +27,15 @@ public class ObjectStorage_Control : MonoBehaviour
 
 	private string[] name = new string[9]
 	{
-		"Enemy_ClamChowder_Group_TenStraight				",
-
-		"Enemy_ClamChowder_Group_TenStraight(Clone)			",
-
-		"BattleshipType_Enemy(Clone)						",
-
-		"BattleshipType_Enemy(Clone)						",
-
-		"Enemy_ClamChowder_Group_UpSevenDiagonal(Clone)		",
-
-		"Enemy_ClamChowder_Group_DownSevenDiagonal(Clone)	",
-
-		"BattleshipType_Enemy(Clone)						",
-
-		"Enemy_Star_Fish_Spowner(Clone)						",
-
-		"Enemy_ClamChowder_Group_ThreeStraight(Clone)       ",
-
+		"Enemy_ClamChowder_Group_TenStraight(Clone)",
+		"Enemy_ClamChowder_Group_TenStraight(Clone)",
+		"BattleshipType_Enemy(Clone)",
+		"BattleshipType_Enemy(Clone)",
+		"Enemy_ClamChowder_Group_UpSevenDiagonal(Clone)",
+		"Enemy_ClamChowder_Group_DownSevenDiagonal(Clone)",
+		"BattleshipType_Enemy(Clone)",
+		"Enemy_Star_Fish_Spowner(Clone)",
+		"Enemy_ClamChowder_Group_ThreeStraight(Clone)",
 	};
 
 	void Start()
@@ -123,10 +114,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
-					}
-					else if(Boss_Frame_Cnt == 2)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Laser_Line);
 						Boss_Frame_Cnt = 0;
 					}
 				}
@@ -166,18 +153,18 @@ public class ObjectStorage_Control : MonoBehaviour
 			}
 			#endregion
 
-			if(Wireless_sinario.Is_using_wireless && !flag)
+			if (Wireless_sinario.Is_using_wireless && !flag)
 			{
-				foreach(var s in name)
+				foreach (var s in name)
 				{
 					GameObject obj = GameObject.Find(s);
-					if(obj != null)
+					if (obj != null)
 					{
 						Destroy(obj);
 					}
-
-					flag = true;
 				}
+
+				flag = true;
 			}
 			else
 			{
