@@ -153,16 +153,33 @@ public class ObjectStorage_Control : MonoBehaviour
 			}
 			#endregion
 
+			#region　無線時
 			if (Wireless_sinario.Is_using_wireless && !flag)
 			{
-				foreach (var s in name)
+				if (Normal_Frame_Cnt == 0)
 				{
-					GameObject obj = GameObject.Find(s);
-					if (obj != null)
+					foreach (var s in name)
 					{
-						Destroy(obj);
+						GameObject obj = GameObject.Find(s);
+						if (obj != null)
+						{
+							Destroy(obj);
+						}
+					}
+					Normal_Frame_Cnt++;
+				}
+				else if(Normal_Frame_Cnt == 1)
+				{
+					foreach (var pool in Obj_Storage.Storage_Data.Effects)
+					{
+						for (int i = 1; i < pool.Get_Obj().Count; i++)
+						{
+							Destroy(pool.Get_Obj()[i]);
+							pool.Get_Obj().RemoveAt(i);
+						}
 					}
 				}
+
 
 				flag = true;
 			}
@@ -170,6 +187,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			{
 				flag = false;
 			}
+			#endregion
 
 			#region ラスボス前に消すもの
 			if (EnemyCreate_Data.frameCnt >= 13797 && !Is_Processed_Normal)
