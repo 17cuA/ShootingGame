@@ -42,11 +42,11 @@ public class Enemy_RingBullet : bullet_status
 	}
     void DeadAttack()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 6; i++)
         {
             deadAttackRotation = Quaternion.Euler(0, 0, rotaZ);
             Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, deadAttackRotation);
-            rotaZ += 45;
+            rotaZ += 60;
         }
         rotaZ = 0;
     }
