@@ -36,6 +36,9 @@ public class BattleshipType_Battery : character_status
 		{
 			Died_Process();
 		}
+
+		if (transform.localPosition != Initial_Position) transform.localPosition = Initial_Position;
+
 		base.Update();
 	}
 

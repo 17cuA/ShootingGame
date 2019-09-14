@@ -191,12 +191,15 @@ public class character_status : MonoBehaviour
 						P1_PowerManager.Instance.Pick();
 						SE_Manager.SE_Obj.SE_Item_Catch();
 						col.gameObject.SetActive(false);
+						Game_Master.MY.Score_Addition(1600, 1);
 					}
 					else
 					{
 						P2_PowerManager.Instance.Pick();
 						SE_Manager.SE_Obj.SE_Item_Catch();
 						col.gameObject.SetActive(false);
+						Game_Master.MY.Score_Addition(1600, 2);
+
 					}
 				}
 				else
