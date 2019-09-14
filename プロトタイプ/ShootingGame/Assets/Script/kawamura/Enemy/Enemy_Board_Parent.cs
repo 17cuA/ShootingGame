@@ -136,7 +136,8 @@ public class Enemy_Board_Parent : MonoBehaviour
 		//		speedX = 0;
 		//	}
 		//}
-		if (myName != "Enemy_Bacula")
+
+		if (myName != "Enemy_Bacula"&& myName != "Enemy_BossBacula")
 		{
 			if (transform.position.y > 4.4f)
 			{
@@ -227,7 +228,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         break;
                     case 1:
                         //左上に生成
-                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
+                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula" || myName == "Enemy_BossBacula")
                         {
                             saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -261,7 +262,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         break;
                     case 2:
                         //左下に生成
-                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
+                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula" || myName == "Enemy_BossBacula")
                         {
                             saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -294,7 +295,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                         break;
                     case 3:
                         //右下に生成
-                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
+                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula" || myName == "Enemy_BossBacula")
                         {
                             saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
@@ -337,7 +338,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 
     void DisappearanceTreatment()
     {
-        if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
+        if (myName == "Enemy_Board" || myName == "Enemy_Bacula" || myName == "Enemy_BossBacula")
         {
             //群を管理している親の残っている敵カウントマイナス
             egm.remainingEnemiesCnt -= 16;
