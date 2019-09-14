@@ -16,9 +16,7 @@ public class LaserLine : Player_Bullet
 		}
 	}
 
-
 	private new Rigidbody rigidbody;
-
 
 	public Material redMaterial;
 	public Material blueMaterial;
@@ -117,13 +115,13 @@ public class LaserLine : Player_Bullet
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
+
+            trailRenderer.Clear();
 			gameObject.SetActive(false);
 			Player_Bullet_Des();
 
-
-			trailRenderer.Clear();
 		}
-        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy" && col.gameObject.name != "One_Boss_Laser" && col.gameObject.name != "Two_Boss_Laser")
+        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy" && col.gameObject.name != "One_Boss_Laser" && col.gameObject.name != "Two_Boss_Laser" && col.gameObject.name != "Moai_Eye_Laser"&& col.gameObject.name != "Moai_Mouth_Laser")
         {
             //add:0513_takada 爆発エフェクトのテスト
             //AddExplosionProcess();
