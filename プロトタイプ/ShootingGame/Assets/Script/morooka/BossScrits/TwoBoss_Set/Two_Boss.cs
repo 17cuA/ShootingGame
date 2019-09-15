@@ -558,14 +558,17 @@ public class Two_Boss : character_status
 				// レーザー情報の格納
 				Laser.Add(tl);
 				//2mul
+				objT = multiple[1].transform.GetChild(0);
 				tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
 				tl.Manual_Start(multiple[1].transform);
 				Laser.Add(tl);
 				//4mul
+				objT = multiple[1].transform.GetChild(3);
 				tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[3].transform.up).GetComponent<Two_Boss_Laser>();
 				tl.Manual_Start(multiple[3].transform);
 				Laser.Add(tl);
 				//6mul
+				objT = multiple[1].transform.GetChild(5);
 				tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[5].transform.up).GetComponent<Two_Boss_Laser>();
 				tl.Manual_Start(multiple[5].transform);
 				Laser.Add(tl);
