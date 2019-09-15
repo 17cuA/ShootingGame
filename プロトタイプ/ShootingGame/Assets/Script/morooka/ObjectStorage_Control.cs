@@ -28,15 +28,12 @@ public class ObjectStorage_Control : MonoBehaviour
 	bool flag;
 	bool flag_2;
 
-	private string[] name = new string[9]
+	private string[] name = new string[6]
 	{
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
-		"BattleshipType_Enemy(Clone)",
-		"BattleshipType_Enemy(Clone)",
 		"Enemy_ClamChowder_Group_UpSevenDiagonal(Clone)",
 		"Enemy_ClamChowder_Group_DownSevenDiagonal(Clone)",
-		"BattleshipType_Enemy(Clone)",
 		"Enemy_Star_Fish_Spowner(Clone)",
 		"Enemy_ClamChowder_Group_ThreeStraight(Clone)",
 	};
@@ -118,7 +115,18 @@ public class ObjectStorage_Control : MonoBehaviour
 					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
-						Boss_Frame_Cnt = 0;
+					}
+					else if(Boss_Frame_Cnt == 2)
+					{
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
+					}
+					else if(Boss_Frame_Cnt == 3)
+					{
+						Des_Obj_B(ref Obj_Storage.Storage_Data.BattleShipBullet);
+					}
+					else if(Boss_Frame_Cnt == 4)
+					{
+						Des_Obj_B(ref Obj_Storage.Storage_Data.EnemyBullet);
 					}
 				}
 			}
@@ -241,14 +249,14 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 33) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal); }
 				else if (Normal_Frame_Cnt == 34) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); }
 				else if (Normal_Frame_Cnt == 35) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
-				else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
-				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Enemy); }
-				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Item_Enemy); }
-				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.UfoMotherType_Enemy); }
-				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
-				else if (Normal_Frame_Cnt == 41) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
-				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
-				else if (Normal_Frame_Cnt == 43) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
+				//else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
+				else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Enemy); }
+				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Item_Enemy); }
+				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.UfoMotherType_Enemy); }
+				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
+				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
+				else if (Normal_Frame_Cnt == 41) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
+				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
 					Is_Processed_Normal = true;
 				}
 				/*var gameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));

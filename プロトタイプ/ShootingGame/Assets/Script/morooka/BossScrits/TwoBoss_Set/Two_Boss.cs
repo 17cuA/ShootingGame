@@ -538,7 +538,7 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if (Attack_Seconds >= 3.0f)
 			{
-				foreach(var mul in multiple)
+				foreach (var mul in multiple)
 				{
 					// 子供のマズル情報格納
 					Transform objT = mul.transform.GetChild(0);
@@ -548,6 +548,31 @@ public class Two_Boss : character_status
 					// レーザー情報の格納
 					Laser.Add(tl);
 				}
+
+				//1mul
+				//// 子供のマズル情報格納
+				//Transform objT = multiple[0].transform.GetChild(0);
+				//Two_Boss_Laser tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
+				//// レーザーの初期設定
+				//tl.Manual_Start(multiple[0].transform);
+				//// レーザー情報の格納
+				//Laser.Add(tl);
+				////2mul
+				//objT = multiple[1].transform.GetChild(0);
+				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
+				//tl.Manual_Start(multiple[1].transform);
+				//Laser.Add(tl);
+				////4mul
+				//objT = multiple[1].transform.GetChild(3);
+				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[3].transform.up).GetComponent<Two_Boss_Laser>();
+				//tl.Manual_Start(multiple[3].transform);
+				//Laser.Add(tl);
+				////6mul
+				//objT = multiple[1].transform.GetChild(5);
+				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[5].transform.up).GetComponent<Two_Boss_Laser>();
+				//tl.Manual_Start(multiple[5].transform);
+				//Laser.Add(tl);
+
 				// レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
