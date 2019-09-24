@@ -17,13 +17,13 @@ public class Player1 : character_status
 	private Vector3 vector3;    //進む方向を決める時に使う
 	private float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
-						//グリッド用の変数---------------------------------------
+	//グリッド用の変数---------------------------------------
 	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
 	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
 	public float step = 10f;     // 移動速度
 	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-						 //----------------------------------------------------
+	//----------------------------------------------------
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -41,11 +41,11 @@ public class Player1 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+	//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+	//------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -296,7 +296,6 @@ public class Player1 : character_status
 				//プレイヤーの移動処理
 				if (transform.position == target)
 				{
-					//MoveX();
 					SetTargetPosition();
 				}
 
@@ -710,7 +709,7 @@ public class Player1 : character_status
 		activeShield = true;            //シールドが発動するかどうかの判定
 		Set_Shield(3);
 		shield_Effect.Play();               //パーティクルの稼働
-											//------------------------------------------------------------------------
+		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -782,9 +781,9 @@ public class Player1 : character_status
 	{
 		speed = min_speed;
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
-
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
+	//死亡した時の速度をもとに戻すとき
 	private void Init_speed_died()
 	{
 		speed = min_speed;
@@ -834,18 +833,18 @@ public class Player1 : character_status
     {
         base.Is_Dead = false;
         this.Remaining = remain;
-        Reset_Status();             //体力の修正
-	    invincible = true;         //無敵状態にするかどうかの処理
-		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-		bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
+        Reset_Status();									//体力の修正
+	    invincible = true;								//無敵状態にするかどうかの処理
+		invincible_time = 0;							//無敵時間のカウントする用の変数の初期化
+		bullet_Type = Bullet_Type.Single;		//撃つ弾の種類を変更する
 		target = direction;
 		transform.position = new Vector3(-12, 0, -20);
 		Is_Animation = true;
-		Is_Resporn = true;                      //復活用の処理を行う
+		Is_Resporn = true;								//復活用の処理を行う
 
         for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
 		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();
-        shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
+        shield_Effect.Stop();																					//シールドのエフェクトを動かさないようにする
         Entry_anim.time = 0;
         Start_animation_frame = 0;
         Is_Resporn_End = true;                   
