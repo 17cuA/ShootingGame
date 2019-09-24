@@ -251,12 +251,10 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 35) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
 				//else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
 				else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Enemy); }
-				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Item_Enemy); }
-				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.UfoMotherType_Enemy); }
-				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
-				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
-				else if (Normal_Frame_Cnt == 41) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
-				else if (Normal_Frame_Cnt == 42) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
+				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
+				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
+				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
+				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
 					Is_Processed_Normal = true;
 				}
 				/*var gameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));

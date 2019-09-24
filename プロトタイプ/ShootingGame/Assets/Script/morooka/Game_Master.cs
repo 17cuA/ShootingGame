@@ -124,16 +124,16 @@ public class Game_Master : MonoBehaviour
 
     private void Awake()
 	{
-		if (Name_List == null)
-		{
-			Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
-			Name_List = new string[database_.Database_Array.GetLength(0)];
-			Name_List = database_.goreco(0);
-		}
-		if (Boss_Data == null)
-		{
-			Boss_Data = new Database_Manager("Boss/Boss_Data");
-		}
+		//if (Name_List == null)
+		//{
+		//	Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
+		//	Name_List = new string[database_.Database_Array.GetLength(0)];
+		//	Name_List = database_.goreco(0);
+		//}
+		//if (Boss_Data == null)
+		//{
+		//	Boss_Data = new Database_Manager("Boss/Boss_Data");
+		//}
 		if (MY == null)
 		{
 			MY = GetComponent<Game_Master>();
