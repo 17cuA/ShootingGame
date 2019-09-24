@@ -192,8 +192,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
 
-				Debug.Log(Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Parent_Obj().name + " : " +temp+" : "+ Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count);
-
 				Normal_Frame_Cnt++;
 
 				if(wireless_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
@@ -249,16 +247,13 @@ public class ObjectStorage_Control : MonoBehaviour
 				else if (Normal_Frame_Cnt == 33) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal); }
 				else if (Normal_Frame_Cnt == 34) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); }
 				else if (Normal_Frame_Cnt == 35) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
-				//else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipBullet); }
 				else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Enemy); }
 				else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
 				else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
 				else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
 				else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
-					Is_Processed_Normal = true;
+				Is_Processed_Normal = true;
 				}
-				/*var gameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
-				Debug.LogError(gameObjects.Length);*/
 			}
 			#endregion
 		}
@@ -266,26 +261,14 @@ public class ObjectStorage_Control : MonoBehaviour
 
 	private void Des_Obj(ref Object_Pooling poo)
 	{
-		/*var name_s = poo.Get_Parent_Obj().name;
-		var num_1 = poo.Get_Obj().Count;*/
-
 		Destroy(poo.Get_Parent_Obj().gameObject);
 		poo.Get_Obj().Clear();
 		Normal_Frame_Cnt++;
-
-		/*var num_2 = poo.Get_Obj().Count;
-		Debug.Log(name_s + " : " + "前:"+num_1+"     後:"+num_2+ (Normal_Frame_Cnt - 0));*/
 	}
 	private void Des_Obj_B(ref Object_Pooling poo)
 	{
-		/*var name_s = poo.Get_Parent_Obj().name;
-		var num_1 = poo.Get_Obj().Count;*/
-
 		Destroy(poo.Get_Parent_Obj().gameObject);
 		poo.Get_Obj().Clear();
 		Boss_Frame_Cnt++;
-
-		/*var num_2 = poo.Get_Obj().Count;
-		Debug.Log(name_s + " : " + "前:" + num_1 + "     後:" + num_2 + (Normal_Frame_Cnt - 0));*/
 	}
 }
