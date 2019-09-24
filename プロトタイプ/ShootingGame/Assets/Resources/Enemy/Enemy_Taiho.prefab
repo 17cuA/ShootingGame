@@ -95,6 +95,7 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
 --- !u!1 &6002541278819933753
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec1421930a6fc434cb0b70e0efc4f694, type: 2}
+  - {fileID: 2100000, guid: 6d8109516f590074b817bac289c445ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -229,7 +230,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a48b531ddeaaad74c8aa933560e10be1, type: 2}
+  - {fileID: 2100000, guid: 0e8a93ad6669908458dddce2d86bbc69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -415,6 +416,7 @@ MonoBehaviour:
   burst_Shot_Cnt: 0
   isShot: 1
   isBurst: 0
+  once: 0
 --- !u!1 &8706541846688081378
 GameObject:
   m_ObjectHideFlags: 0

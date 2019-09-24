@@ -202,5 +202,6 @@ public class Enemy_BurstShot : MonoBehaviour
 		Shot_Delay = 0;
 		burst_delay = 0;
 		burst_Num = 0;
+		isBurst = false;
 	}
 }
