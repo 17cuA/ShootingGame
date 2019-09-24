@@ -31,8 +31,6 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Beam_Bullet_E_Prefab;                    //エネミーのビーム型バレットのプレハブ
     private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
     private GameObject UfoType_Enemy_Prefab;                // UFO型エネミーのプレハブ
-	private GameObject UfoType_Enemy_Item_Prefab;           // UFO型エネミー（アイテムドロップ）
-	private GameObject UfoMotherType_Enemy_Prefab;      // UFO母艦型エネミーのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;    // 貝型エネミーのプレハブ
 	private GameObject OctopusType_Enemy_Prefab;            // タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
@@ -74,8 +72,6 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Beam_Bullet_E;
     public Object_Pooling SmallBeam_Bullet_E;
     public Object_Pooling UfoType_Enemy;
-	public Object_Pooling UfoType_Item_Enemy;
-	public Object_Pooling UfoMotherType_Enemy;
 	public Object_Pooling ClamChowderType_Enemy;
 	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
@@ -211,8 +207,6 @@ public class Obj_Storage : MonoBehaviour
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
         SmallBeam_Bullet_E_Prefab= Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
         UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
-		UfoType_Enemy_Item_Prefab = Resources.Load("Enemy/UfoType_Enemy_Item") as GameObject;
-		UfoMotherType_Enemy_Prefab = Resources.Load("Enemy/UfoMotherType_Enemy") as GameObject;
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
 		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
@@ -367,8 +361,6 @@ public class Obj_Storage : MonoBehaviour
         SmallBeam_Bullet_E= new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
         BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
-		UfoType_Item_Enemy = new Object_Pooling(UfoType_Enemy_Item_Prefab, 5, "UfoType_Item_Enemy");    //UFO型のエネミーでアイテムを落とすやつを生成
-		UfoMotherType_Enemy = new Object_Pooling(UfoMotherType_Enemy_Prefab, 1, "UfoMotherType_Enemy");         // UFO母艦型エネミーを生成
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
 		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
