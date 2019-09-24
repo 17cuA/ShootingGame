@@ -73,6 +73,7 @@ public class Sniper_Muzzle : character_status
 		}
 		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
+			// 1Pを狙う
 			if (Is_Aim_1P)
 			{
 				// 1Pが生きているとき
@@ -99,7 +100,12 @@ public class Sniper_Muzzle : character_status
 						Is_Aim_1P = false;
 					}
 				}
+				else if(!Player1_Trans.activeSelf)
+				{
+					Is_Aim_1P = false;
+				}
 			}
+			// 2Pを狙う
 			else if (!Is_Aim_1P)
 			{
 				// 2Pが生きているとき
@@ -125,6 +131,10 @@ public class Sniper_Muzzle : character_status
 						Shot_Delay = 0;
 						Is_Aim_1P = true;
 					}
+				}
+				else if(!Player2_Trans.activeSelf)
+				{
+					Is_Aim_1P = true;
 				}
 			}
 		}
