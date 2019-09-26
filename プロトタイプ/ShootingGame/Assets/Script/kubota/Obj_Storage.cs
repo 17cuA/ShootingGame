@@ -216,7 +216,7 @@ public class Obj_Storage : MonoBehaviour
 		P2_Option_Prefab = Resources.Load("Option/Option_2P") as GameObject;       //2Pオプションのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
-		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;		//中ボス
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
