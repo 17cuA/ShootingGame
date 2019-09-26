@@ -56,7 +56,7 @@ public class MoaiAnimation : MonoBehaviour
 
         if (moai_Script.attackState == Enemy_Moai.AttackState.MiniMoai)
 		{
-			speedY = 2.3f;
+			speedY = 2.0f;
 		}
 		else
 		{
