@@ -27,7 +27,6 @@ public class Missile_Tow_Way : bullet_status
 		Tag_Change("Player_Bullet");
 	}
 
-	// Update is called once per frame
 	private new void Update()
 	{
 		base.Update();
