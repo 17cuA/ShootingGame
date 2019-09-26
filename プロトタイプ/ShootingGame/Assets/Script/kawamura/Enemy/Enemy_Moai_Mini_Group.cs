@@ -23,7 +23,7 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 	public float lerpSpeed;
 	public float moveDelayCnt;      //いったん止まってから動き出すためのカウント
 	[Header("入力用 一時停止時に止まっている時間フレーム")]
-	public float moveDelayMax;		//一時停止の時間
+	public float moveDelayMax;      //一時停止の時間
 
 	public int childNum;                    //最初の敵(子供)の総数
 	public int remainingEnemiesCnt;         //残っている敵の数
@@ -54,7 +54,7 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 
 	private void OnEnable()
 	{
-		
+
 		//defeatedEnemyCnt = 0;
 		//notDefeatedEnemyCnt = 0;
 	}
@@ -70,15 +70,26 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 		if (once)
 		{
 			EmptyNum = Random.Range(1, 7);
-            for (int i = 0; i < childObjects.Length; i++)
-            {
-                childObjects[i].gameObject.SetActive(true);
-            }
+			//EmptyNum = Random.Range(1, 3);
+
+			//if(EmptyNum==1)
+			//{
+			//	EmptyNum = 1;
+			//}
+			//else if(EmptyNum==2)
+			//{
+			//	EmptyNum = 6;
+			//}
+
+			for (int i = 0; i < childObjects.Length; i++)
+			{
+				childObjects[i].gameObject.SetActive(true);
+			}
 			defaultPos = transform.position;
 			startPos = defaultPos;
 
 			endPos = new Vector3(defaultPos.x - 3.5f, -1.21f, 0);
-            isChildMove = false;
+			isChildMove = false;
 			isMove = false;
 			once = false;
 		}
@@ -150,9 +161,5 @@ public class Enemy_Moai_Mini_Group : MonoBehaviour
 	public void WhetherToDropTheItem(bool isDrop)
 	{
 		//isItemDrop = isDrop;
-	}
-	private void OnDisable()
-	{
-
 	}
 }
