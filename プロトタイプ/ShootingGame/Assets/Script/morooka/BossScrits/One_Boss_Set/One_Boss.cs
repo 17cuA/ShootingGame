@@ -7,6 +7,7 @@
  * 2019/08/14　シェーダーでAnimation
  * 2019/08/27　タイムラインで一部制御
  * 2019/08/28　シャッター制御
+ * 2019/09/26　最終的に使わなくなったコードの完全削除
  */
 
 using System.Collections;
@@ -17,16 +18,6 @@ using UnityEngine.Playables;
 
 public class One_Boss : character_status
 {
-	/*
-	 * 2019/07/30　グリッド移動
-	 */
-	//-----------------------------------------------------------------------------------------------------------------------------//
-	Vector3 MOVEX = new Vector3(0.175f, 0, 0); // x軸方向に１マス移動するときの距離
-	Vector3 MOVEY = new Vector3(0, 0.175f, 0); // y軸方向に１マス移動するときの距離
-	Vector3 Target { get; set; }     // 入力受付時、移動後の位置を算出して保存 
-	Vector3 Prev_Pos { get; set; }     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-	//-----------------------------------------------------------------------------------------------------------------------------//
-
 	[Header("ボスの個別で動かしたい形成パーツ")]
 	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
 	[SerializeField, Tooltip("コア")] private One_Boss_Parts[] core;
@@ -40,10 +31,8 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
 	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
 	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
-	//[SerializeField, Tooltip("弾閉じ込めるよう")] private GameObject framework;
 
 	[Header("ボスのアニメーション用")]
-	[SerializeField, Tooltip("atame開始時間")] private double[] anime_start_time;
 	[SerializeField, Tooltip("ワープエフェクト")] private GameObject warp_ef;
 	[SerializeField, Tooltip("スタートアニメーション")] private bool Start_Flag;
 	[SerializeField, Tooltip("アップデートアニメーション")] private bool Update_Flag;
@@ -66,25 +55,11 @@ public class One_Boss : character_status
 	private List<ParticleSystem> Warp_EF { get; set; }
 	//-------------------------------------------------
 
-	// 全体で使用
-	private Vector3 maenoiti { get; set; }						// 前回の位置
-	private Vector3[,] Pos_set { get; set; }					// ポジションのtargetセット
-	public float Max_Speed { get; set; }						 // 最大速度
-	public float Now_Speed { get; set; }						 // 今の速度
-	public float Lowest_Speed { get; set; }					 // 最小速度
-	public float Speed​_Change_Distance { get; set; }		// 速度変更距離
 	private uint Flame { get; set; }								// ボス内でのフレーム数
 	private int Attack_Step { get; set; }							// 関数内 攻撃ステップ
 	//-------------------------------------------------
 
-	private int A_Num { get; set; }
-	private int B_Num { get; set; }
-	private Vector3 IntermediatePosition { get; set; }
-
 	private Vector3[] BoundBullet_Rotation { get; set; }    // バウンドバレットの角度
-
-	private Vector3 For_body_Upward { get; set; }       // 本体の上向き角度
-	private Vector3 For_body_Downward { get; set; }     // 本体の下向き角度
 
 	public GameObject[] Player_Data { get; private set; }       // プレイヤーのデータ
 	public GameObject Now_player_Traget { get; set; }           // ターゲット情報の保管用
@@ -98,9 +73,6 @@ public class One_Boss : character_status
 
 	private  List<List<Collider>> Damage_Stage_Col { get; set; }		// ダメージの段階
 
-	// 旋回用
-	private float PreviousPosition { get; set; }        // 前の位置
-	private Vector3[] SwingAngle { get; set; }          // 旋回角度
 	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
 	private int[] Core_Mae_HP { get; set; }
 	private int Core_Init_HP { get; set; }// コアの初期HP
@@ -113,8 +85,6 @@ public class One_Boss : character_status
 
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
-
-	//private bool fafaa;
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -146,8 +116,6 @@ public class One_Boss : character_status
 
 		base.Start();
 
-		A_Num = B_Num = 0;
-
 		Attack_Step = 0;
 		Start_Flag = true;
 
@@ -156,17 +124,6 @@ public class One_Boss : character_status
 		Survival_Time = (2 * 60 * 60);
 		Survival_Time_Cnt = 0;
 		Is_Attack_Now = false;
-
-		Pos_set = new Vector3[pos_set_prefab.transform.childCount, pos_set_prefab.transform.GetChild(0).childCount];
-		for (int i = 0; i < pos_set_prefab.transform.childCount; i++)
-		{
-			for (int j = 0; j < pos_set_prefab.transform.GetChild(i).childCount; j++)
-			{
-				Pos_set[i, j] = pos_set_prefab.transform.GetChild(i).GetChild(j).position;
-			}
-		}
-
-		Target = Pos_set[0, 0];
 
 		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -180,30 +137,11 @@ public class One_Boss : character_status
 		}
 		Now_player_Traget = Player_Data[0];
 
-		Max_Speed = speed;
-		Now_Speed = Lowest_Speed = Max_Speed / 20.0f;
-		for (int i = 0; i < 30; i++)
-		{
-			Speed​_Change_Distance += Now_Speed;
-			Now_Speed += Lowest_Speed;
-		}
-		Now_Speed = Lowest_Speed;
-
-		For_body_Upward = new Vector3(0.0f, 0.0f, 45.0f);
-		For_body_Downward = new Vector3(0.0f, 0.0f, 360.0f - 45.0f);
-
 		Bullet_num_Set(number_of_fires);
 
 		End_Flag = false;
 
 		Collider_Set(false);
-		//旋回初期化
-		PreviousPosition = transform.position.y;
-		SwingAngle = new Vector3[2]
-		{
-			new Vector3(5.0f,0.0f,0.0f),
-			new Vector3(-5.0f,0.0f,0.0f),
-		};
 
 		Core_Mae_HP = new int[core.Length];
 		for(int i = 0;i<Core_Mae_HP.Length;i++)
@@ -295,7 +233,6 @@ public class One_Boss : character_status
 
 			if (Survival_Time_Cnt >= Survival_Time && !Is_Attack_Now && !End_Flag)
 			{
-				maenoiti = transform.position;
 				Timeline_Player.Pause();
 				Attack_Step = 0;
 				End_Flag = true;
@@ -324,69 +261,17 @@ public class One_Boss : character_status
 					}
 				}
 
-
-				//if (Attack_Type_Instruction < 2)
-				//{
-				//	Player_Tracking_Bound_Bullets_3();
-				//	//Player_Tracking_Bound_Bullets_2();
-				//}
-				//else
-				//{
 				if (Number_Of_Lasers == 0)
 				{
-					//Player_Tracking_Bound_Bullets_3();
 					Laser_And_Bouncing_Bullets();
 				}
-				//else if (Number_Of_Lasers == 1)
-				//{
-				//	//Laser_Clearing_2();
-				//	Laser_Time();
-				//}
 				else
 				{
 					Rush_2();
 				}
-				//}
 
 				base.Update();
 				Survival_Time_Cnt++;
-
-				//// 一定HP以下の時コアの色を変える
-				//for (int i = 0; i < core.Length; i++)
-				//{
-				//	if (core[i].gameObject.activeSelf)
-				//	{
-				//		// HPが前フレームより少ないとき
-				//		if (core[i].hp < Core_Mae_HP[i])
-				//		{
-				//			// RGBの変化数
-				//			float RGB = (1.0f / 255.0f) * (float)(Core_Mae_HP[i] - core[i].hp);
-							
-				//			//// 青抜き、赤入れ
-				//			// Gの値ははじめ増やして、後半減らす
-				//			if (Base_Color[i].r >= 1.0f)
-				//			{
-				//				Base_Color[i].b -= (RGB * 2.0f);
-				//				Emissive_Color[i].b -= RGB;
-
-				//				Base_Color[i].g -= (RGB * 2.0f);
-				//				Emissive_Color[i].g -= (RGB * 2.0f);
-				//			}
-				//			else if(Base_Color[i].r <= 1.0f)
-				//			{
-				//				Base_Color[i].r += (RGB * 2.0f);
-				//				Emissive_Color[i].r += RGB;
-
-				//				Base_Color[i].g += (RGB * 2.0f);
-				//				Emissive_Color[i].g += (RGB * 2.0f);
-				//			}
-				//		}
-				//		core_renderer[i].material.SetColor("_Color", Base_Color[i]);
-				//		core_renderer[i].material.SetColor("_Emissive_Color", Emissive_Color[i]);
-
-				//		Core_Mae_HP[i] = core[i].hp;
-				//	}
-				//}
 
 				// パーツのコアが壊れたら死亡
 				if (!core[0].gameObject.activeSelf && !core[1].gameObject.activeSelf && !core[2].gameObject.activeSelf && !core[3].gameObject.activeSelf)
@@ -468,106 +353,6 @@ public class One_Boss : character_status
 				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
 				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 			}
-			//Timeline_Player.Play(sonota_Timeline);
-			//Timeline_Player.time = 60.0;
-			//Attack_Step++;
-		}
-		else if(Attack_Step == 2)
-		{
-			//Instantiate(End_Plefab, transform.position, Quaternion.identity);
-			//gameObject.SetActive(false);
-			//if (Is_end_of_timeline)
-			//{
-			//	gameObject.SetActive(false);
-			//}
-		}
-	}
-	#endregion
-
-	#region タイムラインレーザー
-	private void Laser_Time()
-	{
-		if (Attack_Step == 0)
-		{
-			maenoiti = transform.position;
-			Attack_Step++;
-			Is_Attack_Now = true;
-		}
-		else if (Attack_Step == 1)
-		{
-			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
-			{
-				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
-				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
-			}
-			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
-			{
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 2)
-		{
-			if (audioSource.clip == laserEnd)
-			{
-				audioSource.clip = laserBegin;
-				audioSource.Stop();
-				audioSource.loop = true;
-				audioSource.Play();
-			}
-
-			if (!supply[0].gameObject.activeSelf && !supply[1].gameObject.activeSelf)
-			{
-				supply[0].gameObject.SetActive(true);
-				supply[1].gameObject.SetActive(true);
-
-				supply[0].SetUp();
-				supply[1].SetUp();
-			}
-
-			if (supply[0].Completion_Confirmation() && supply[1].Completion_Confirmation())
-			{
-				supply[0].gameObject.SetActive(false);
-				supply[1].gameObject.SetActive(false);
-
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 3)
-		{
-			Timeline_Player.Play(layser_timeline);
-			Timeline_Player.time = 0.0;
-			Attack_Step++;
-		}
-		// ここから打ち出し！！！！
-		else if(Attack_Step == 4)
-		{
-			if(Is_Laser_Attack)
-			{	
-				Laser_Shooting();
-			}
-
-			if (Is_end_of_timeline)
-			{
-				Timeline_Player.Stop();
-				Attack_Step++;
-				
-			}
-		}
-		else if(Attack_Step==5)
-		{
-			Attack_Step = 0;
-			Attack_Type_Instruction = 0;
-			Flame = 0;
-			Number_Of_Lasers++;
-			Is_Attack_Now = false;
 		}
 	}
 	#endregion
@@ -638,79 +423,6 @@ public class One_Boss : character_status
 	}
 	#endregion
 
-	#region ターゲット移動
-	/// <summary>
-	/// ターゲットに移動
-	/// </summary>
-	/// <param name="origin"> 元の位置 </param>
-	/// <param name="target"> ターゲットの位置 </param>
-	/// <param name="speed"> 1フレームごとの移動速度 </param>
-	/// <returns> 移動後のポジション </returns>
-	private Vector3 Moving_To_Target(Vector3 origin, Vector3 target, float speed)
-	{
-		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
-		Vector3 return_pos = Vector3.zero;              // 返すポジション
-
-		//direction = target - origin;
-		//return_pos = origin + (direction.normalized * speed);
-
-		return_pos = Vector3.Lerp(origin, target, speed);
-
-		if (Vector_Size(return_pos, target) < Lowest_Speed)
-		{
-			return_pos = target;
-			Now_Speed = 0;
-		}
-
-		return return_pos;
-	}
-	#endregion
-
-	#region ターゲット移動
-	/// <summary>
-	/// ターゲットに移動
-	/// </summary>
-	/// <param name="origin"> 元の位置 </param>
-	/// <param name="target"> ターゲットの位置 </param>
-	/// <param name="speed"> 1フレームごとの移動速度 </param>
-	/// <returns> 移動後のポジション </returns>
-	private Vector3 Moving_To_Target_S(Vector3 origin, Vector3 target, float speed)
-	{
-		Vector3 direction = Vector3.zero;       // 移動する前のターゲットとの向き
-		Vector3 return_pos = Vector3.zero;              // 返すポジション
-
-		direction = target - origin;
-		return_pos = origin + (direction.normalized * speed);
-
-		//return_pos = Vector3.Slerp(origin, target, speed);
-
-		if (Vector_Size(return_pos, target) < speed)
-		{
-			return_pos = target;
-			Now_Speed = Lowest_Speed;
-		}
-
-		return return_pos;
-	}
-	#endregion
-
-	#region ベクトルの長さ出す
-	/// <summary>
-	/// ベクトルの長さを出す
-	/// </summary>
-	/// <param name="a"> 開始座標 </param>
-	/// <param name="b"> 目標座標 </param>
-	/// <returns></returns>
-	private float Vector_Size(Vector3 a, Vector3 b)
-	{
-		float xx = a.x - b.x;
-		float yy = a.y - b.y;
-		float zz = a.z - b.z;
-
-		return Mathf.Sqrt(xx * xx + yy * yy + zz * zz);
-	}
-	#endregion
-
 	#region 突進攻撃2
 	/// <summary>
 	/// 突進攻撃
@@ -719,46 +431,19 @@ public class One_Boss : character_status
 	{
 		if (Attack_Step == 0)
 		{
-			maenoiti = transform.position;
 			Timeline_Player.time = 30.0;
 			Attack_Step++;
 			Is_Attack_Now = true;
 		}
 		else if (Attack_Step == 1)
 		{
-			//----------------
-			showMark = true;
-			//----------------
-
-
-			if (transform.position != Pos_set[0, 0] || transform.rotation != Quaternion.identity)
-			{
-				if (Vector_Size(Target, transform.position) < Speed_Change_Distance)
-				{
-					if (Now_Speed > Lowest_Speed) Now_Speed -= Lowest_Speed;
-				}
-				else if (Vector_Size(maenoiti, transform.position) > Speed_Change_Distance)
-				{
-					if (Now_Speed < Max_Speed) Now_Speed += Lowest_Speed;
-				}
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime);
-				transform.position = Moving_To_Target_S(transform.position, Pos_set[0, 0], Now_Speed * 2.0f);
-			}
-			else if (transform.position == Pos_set[0, 0] && transform.rotation == Quaternion.identity)
-			{
-				Attack_Step++;
-			}
-		}
-		else if (Attack_Step == 2)
-		{
 			now_rush = true;
 			Timeline_Player.Play(sonota_Timeline);
 			Timeline_Player.time = 30.0;
 			Attack_Step++;
 		}
-		else if (Attack_Step == 3)
+		else if (Attack_Step == 2)
 		{
-
 			if(!now_rush)
 			{
 				Timeline_Player.Pause();
@@ -984,27 +669,6 @@ public class One_Boss : character_status
 			}
 	}
 	#endregion
-
-	/// <summary>
-	/// 旋回
-	/// </summary>
-	private void Turning()
-	{
-		float Difference = transform.position.y - PreviousPosition;
-		if (Difference > 0)
-		{
-			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(SwingAngle[0]), Time.deltaTime);
-		}
-		else if (Difference < 0)
-		{
-			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(SwingAngle[1]), Time.deltaTime);
-		}
-		else if (Difference == 0)
-		{
-			transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, Time.deltaTime);
-		}
-		PreviousPosition = transform.position.y;
-	}
 
 	/// <summary>
 	/// コライダーの使用未使用の切り替え
