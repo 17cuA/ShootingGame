@@ -50,7 +50,6 @@ public class SceneChanger : MonoBehaviour
 		{
 			if (P1.Is_Dead)
 			{
-
 				frame++;
 				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 			}

@@ -185,5 +185,6 @@ public class DebugManager : MonoBehaviour
 			OperationDebug(outPut, "Exception");
 		}
 	}
+
 }
 
