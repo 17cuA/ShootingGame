@@ -2,7 +2,7 @@
 //敵を出すスクリプト
 
 //2019/08/03改修
-
+using System;
 using UnityEngine;
 
 public class EnemyCreate : MonoBehaviour
@@ -275,22 +275,22 @@ public class EnemyCreate : MonoBehaviour
     public bool isDebug = false;
     public bool isLastBossWireless = false;
 	// ビッグコアの出現グループ番号と経過フレーム
-    private const int bigCoreGroupNum = 17;
-    private const int bigCoreGroupFrame = 2580;
+    private int bigCoreGroupNum = 17;
+    private int bigCoreGroupFrame = 2580;
 	// ビッグコア後の敵グループの出現グループ番号と経過フレーム
-	private const int bigCoreNextGroupNum = 26;
-    private const int bigCoreNextGroupFrame = 3750;
+	private int bigCoreNextGroupNum = 26;
+    private int bigCoreNextGroupFrame = 3750;
 	// ビッグコア2とビッグコア2後の敵グループの出現グループ番号と経過フレーム
-	private const int bigCoreMK2GrouNum = 43;
-    private const int bigCoreMK2GroupFrame = 6345;
-    private const int bigCoreMK2NextGroupFrame = 6465;
+	private int bigCoreMK2GrouNum = 43;
+    private int bigCoreMK2GroupFrame = 6345;
+    private int bigCoreMK2NextGroupFrame = 6465;
 	// モアイとモアイ後の敵グループの出現グループ番号と経過フレーム
-	private const int moaiGroupNum = 49;
-    private const int moaiGroupFrame = 8205;
-    private const int moaiGroupNextGroupFrame = 8325;
+	private int moaiGroupNum = 49;
+    private int moaiGroupFrame = 8205;
+    private int moaiGroupNextGroupFrame = 8325;
 	// ビッグコア3の出現グループ番号と経過フレーム
-    private const int bigCoreMK3GroupNum = 97;
-    private const int bigCoreMK3GroupFrame = 12185;
+    private int bigCoreMK3GroupNum = 97;
+    private int bigCoreMK3GroupFrame = 12185;
 
 	// Debug
 	// groupFrameCheckDebugFlagをオンにしている時
@@ -305,7 +305,84 @@ public class EnemyCreate : MonoBehaviour
 	// 最初のフレーム
     void Start()
     {
-        //位置オブジェクト取得
+		//EnemyDebugNumberUpload();
+
+		CreatePosUpload();
+
+		ResourcesUpload();
+	}
+
+	private void EnemyDebugNumberUpload()
+	{
+		int allFrame = 0;
+
+		for (int num = 0; num < enemyGroups.Length; num++)
+		{
+			switch(enemyGroups[num].enemyType)
+			{
+				case EnemyType.BIGCORE:
+					bigCoreGroupNum = num;
+					bigCoreGroupFrame = allFrame;
+					break;
+
+				case EnemyType.BIGCOREENDGROUP:
+					bigCoreNextGroupNum = num;
+					bigCoreNextGroupFrame = allFrame;
+					break;
+
+				case EnemyType.BIGCOREMK2:
+					bigCoreMK2GrouNum = num + 1;
+					bigCoreMK2GroupFrame = allFrame;
+					bigCoreMK2NextGroupFrame = allFrame + enemyGroups[num].nextGroupFrame;
+					break;
+
+				case EnemyType.MOAI:
+					moaiGroupNum = num;
+					moaiGroupFrame = allFrame;
+					moaiGroupNextGroupFrame = allFrame + enemyGroups[num].nextGroupFrame;
+					break;
+
+				case EnemyType.BIGCOREMK3:
+					bigCoreMK3GroupNum = num;
+					bigCoreNextGroupFrame = allFrame;
+					break;
+
+				case EnemyType.GAMECLEAR:
+					return;
+			}
+
+			allFrame += enemyGroups[num].nextGroupFrame;
+		}
+	}
+
+	private void EnemyDebugNumberUpdate(EnemyType e, bool isNextGroup)
+	{
+		int allFrame = 0;
+
+		for (int num = 0; num < enemyGroups.Length; num++)
+		{
+			if (e == enemyGroups[num].enemyType)
+			{
+				if(!isNextGroup)
+				{
+					groupCnt = num;
+					turning_frame = allFrame;
+				}
+				else
+				{
+					groupCnt = num + 1;
+					turning_frame = allFrame + enemyGroups[num].nextGroupFrame;
+				}
+				frameCnt = turning_frame - 60;
+				return;
+			}
+			allFrame += enemyGroups[num].nextGroupFrame;
+		}
+	}
+
+	private void CreatePosUpload()
+	{
+		//位置オブジェクト取得
         //上側取得
         #region CreatePosTop
         createPosT17 = GameObject.Find("CreatePos_Top_17");
@@ -414,9 +491,13 @@ public class EnemyCreate : MonoBehaviour
         createPosLm3 = GameObject.Find("CreatePos_Left_-3");
         createPosLm4 = GameObject.Find("CreatePos_Left_-4");
         createPosLm5 = GameObject.Find("CreatePos_Left_-5");
-        #endregion
+		#endregion
+	}
 
-        createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
+	private void ResourcesUpload()
+	{
+		#region リソース取得
+		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
         createBattleShipPos = GameObject.Find("CreateBattleshipPos");
 
         createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
@@ -521,10 +602,11 @@ public class EnemyCreate : MonoBehaviour
         moaiObj = Obj_Storage.Storage_Data.GetBoss(3);
         moai_Script = moaiObj.GetComponent<Enemy_Moai>();
         isMoaiAlive = true;
-    }
+		#endregion
+	}
 
 	// 毎フレーム更新
-    void Update()
+	void Update()
     {
         if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
@@ -537,74 +619,10 @@ public class EnemyCreate : MonoBehaviour
             frameCnt++;
         }
 
-        //次の敵を出す
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-			if(groupCnt < enemyGroups.Length - 1)
-			{
-				frameCnt = turning_frame;
-			}
-        }
+		DebugKeyUpdate();
 
-        //中ボス
-        if (Input.GetKeyDown(KeyCode.J))
-		{
-            turning_frame = bigCoreGroupFrame;
-            frameCnt = bigCoreGroupFrame - 60;
-            groupCnt = bigCoreGroupNum;
-        }
-
-        //中ボス後
-        else if (Input.GetKeyDown(KeyCode.K))
-		{
-            turning_frame = bigCoreNextGroupFrame;
-            frameCnt = bigCoreNextGroupFrame - 60;
-            groupCnt = bigCoreNextGroupNum;
-        }
-
-		//1ボス
-		else if (Input.GetKeyDown(KeyCode.M))
-        {
-            turning_frame = bigCoreMK2GroupFrame;
-            frameCnt = bigCoreMK2GroupFrame - 60;    //←上の数字から60引いた数にする
-            groupCnt = bigCoreMK2GrouNum;
-        }
-
-		//1ボス後
-		else if (!Input.GetKey(KeyCode.H) && Input.GetKeyDown(KeyCode.B))
-		{
-            turning_frame = bigCoreMK2NextGroupFrame;
-            frameCnt = bigCoreMK2NextGroupFrame - 60;    //←上の数字から60引いた数にする
-            groupCnt = bigCoreMK2GrouNum + 1;
-        }
-
-		// モアイ
-		else if (Input.GetKeyDown(KeyCode.B))
-		{
-            turning_frame = moaiGroupFrame;
-            frameCnt = moaiGroupFrame - 60;    //←上の数字から60引いた数にする
-            groupCnt = moaiGroupNum;
-        }
-
-        // モアイ後
-		else if (Input.GetKey(KeyCode.U) && Input.GetKeyDown(KeyCode.B))
-		{
-            turning_frame = moaiGroupNextGroupFrame;
-            frameCnt = moaiGroupNextGroupFrame - 60;    //←上の数字から60引いた数にする
-            groupCnt = moaiGroupNum + 1;
-        }
-
-		//ラスボス
-		else if (Input.GetKeyDown(KeyCode.L))
-		{
-            isDebug = true;
-            turning_frame = bigCoreMK3GroupFrame;
-            frameCnt = bigCoreMK3GroupFrame - 60;    //←上の数字から60引いた数にする
-            groupCnt = bigCoreMK3GroupNum;
-        }
-
-        //中ボス撃破
-        if (middleBoss_Script != null && isMiddleBossSkip)
+		//中ボス撃破
+		if (middleBoss_Script != null && isMiddleBossSkip)
         {
             if (middleBoss_Script.Is_Dead)
             {
@@ -635,17 +653,6 @@ public class EnemyCreate : MonoBehaviour
             {
                 if (isOneBossAlive)
                 {
-                    //if (frameCnt < 39660)
-                    //{
-                    //    if (backActive_Script)
-                    //    {
-                    //        backActive_Script.TransparencyChangeTrigger();
-                    //        Wireless_sinario.Is_using_wireless = true;
-                    //    }
-                    //    frameCnt = 39630;
-
-                    //    //turning_frame = 40930;
-                    //}
                     if (backActive_Script)
                     {
                         backActive_Script.TransparencyChangeTrigger();
@@ -654,9 +661,6 @@ public class EnemyCreate : MonoBehaviour
                     isNowOneBoss = false;
                     isOneBossAlive = false;
                 }
-
-                //if(frame > 180) SceneManager.LoadScene("GameClear");
-                //if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
             }
         }
 
@@ -696,24 +700,39 @@ public class EnemyCreate : MonoBehaviour
             }
             isBaculaDestroy = false;
         }
-
-        //CreateCheck();
+		
         CreateEnemyGroup_01();
-        //switch(Scene_Manager.Manager.Now_Scene)
-        //{
-        //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
-        //              CreateEnemyGroup_01();
-
-        //          case Scene_Manager.SCENE_NAME.eSTAGE_01:
-        //		CreateEnemyGroup_01();
-        //		break;
-        //	case Scene_Manager.SCENE_NAME.eSTAGE_02:
-        //		CreateEnemyGroup_02();
-        //		break;
-        //	default:
-        //		break;
-        //}
     }
+
+	private void DebugKeyUpdate()
+	{
+		// 指定の敵グループを出す
+		if (Input.anyKeyDown) {
+            foreach (KeyCode code in Enum.GetValues(typeof(KeyCode))) {
+				//// 次の敵グループ
+				//if(code == KeyCode.N) { if(groupCnt < enemyGroups.Length - 1)frameCnt = turning_frame; }
+				//// ビッグコア
+				//if (code == KeyCode.J) { EnemyDebugNumberUpdate(EnemyType.BIGCORE, false); }
+				//// ビッグコア後
+				//if(code == KeyCode.K) { EnemyDebugNumberUpdate(EnemyType.BIGCOREENDGROUP, false); }
+				//// ビッグコアMK2
+				//if(code == KeyCode.M) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, false); }
+				//// ビッグコアMK2後
+				//if(code == KeyCode.B) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, true); }
+				//// モアイ
+				//if(code == KeyCode.B & Input.GetKey(KeyCode.H)) { EnemyDebugNumberUpdate(EnemyType.MOAI, false); }
+				//// モアイ後
+				//if(code == KeyCode.B & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
+				//// ビッグコアMK3
+				//if(code == KeyCode.L) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); }
+				 if (Input.GetKeyDown (code)) {
+                  //処理を書く
+                    Debug.Log (code);
+                    break;
+                }
+			}
+        }
+	}
 
 	//--------------------------------------------------------------------
 	// 敵グループの種類の情報
@@ -1195,7 +1214,7 @@ public class EnemyCreate : MonoBehaviour
     }
 
 	// 出現する敵グループ全体の情報
-	public EnemyGroup[] enemyGroups = new EnemyGroup[99]
+	public EnemyGroup[] enemyGroups = new EnemyGroup[150]
 	{
 		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 120),
 		new EnemyGroup("円盤上10", EnemyType.UFO_GROUP_NONESHOT, CreatePos.R3, true, 240),
@@ -1220,9 +1239,11 @@ public class EnemyCreate : MonoBehaviour
 		new EnemyGroup("闘牛上2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false, 0),
 		new EnemyGroup("闘牛下2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false, 180),
 		new EnemyGroup("闘牛上2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false, 0),
+		new EnemyGroup("闘牛下2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false, 240),
+		new EnemyGroup("闘牛上2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false, 0),
 		new EnemyGroup("闘牛下2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false, 180),
 		new EnemyGroup("闘牛上2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYDOWN, CreatePos.R4, false, 0),
-		new EnemyGroup("闘牛下2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false, 450),
+		new EnemyGroup("闘牛下2", EnemyType.CLAMCHOWDER_GROUP_TWOWAVEONLYUP, CreatePos.Rm4, false, 510),
 		new EnemyGroup("ビッグコア後2", EnemyType.BIGCOREENDGROUP, CreatePos.L0, false, 0),
 		new EnemyGroup("ハエ2", EnemyType.BEELZEBUB_GROUP_TWOWIDE, CreatePos.R0, true, 270),
 		new EnemyGroup("ビートル3", EnemyType.BEETLE_GROUP_THREE, CreatePos.L0, false, 300),
@@ -1296,6 +1317,55 @@ public class EnemyCreate : MonoBehaviour
 		new EnemyGroup("円盤下10射撃", EnemyType.UFO_GROUP, CreatePos.Rm3, true, 360),
 		new EnemyGroup("🔲🔲🔲🔲🔲ビッグコアマーク3🔲🔲🔲🔲🔲", EnemyType.BIGCOREMK3, CreatePos.L0, false, 120),
 		new EnemyGroup("ゲームクリア", EnemyType.GAMECLEAR, CreatePos.L0, false, 10000),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("None", EnemyType.NONE, CreatePos.L0, false, 0),
 	};
 
 	//敵を出す関数
@@ -1303,18 +1373,22 @@ public class EnemyCreate : MonoBehaviour
     {
 		if (Is_A_Specified_Frame(turning_frame))
 		{
-			CreateEnemy(enemyGroups[groupCnt].enemyType, enemyGroups[groupCnt].createPos, enemyGroups[groupCnt].isItem);
-			Next_Condition(enemyGroups[groupCnt].nextGroupFrame);
-			nextEnemy = enemyGroups[groupCnt].enemyGroupName;
+			do
+			{
+				CreateEnemy(enemyGroups[groupCnt].enemyType, enemyGroups[groupCnt].createPos, enemyGroups[groupCnt].isItem);
+				Next_Condition(enemyGroups[groupCnt].nextGroupFrame);
+				nextEnemy = enemyGroups[groupCnt].enemyGroupName;
+			}
+			// 次のフレーム経過が0以下の時繰り返し
+			while (enemyGroups[groupCnt].nextGroupFrame <= 0);
 		}
 	}
-
-	// 出現フレームと経過フレームが一致またはそれ以上の時有効
+	
     /// <summary>
-    /// 指定されたフレームかどうか
+    /// 出現フレームと経過フレームが一致またはそれ以上の時有効
     /// </summary>
     /// <param name="specified_frame"> 指定フレーム </param>
-    /// <returns> あっているか </returns>
+    /// <returns > あっているか </returns>
     private bool Is_A_Specified_Frame(int specified_frame)
     {
         return frameCnt >= specified_frame && specified_frame >= PreviousCount;
