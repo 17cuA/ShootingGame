@@ -37,6 +37,13 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		this.emitter      = GameObject.Find("LaserEmitter");
 	}
 
+	private void OnEnable()
+	{
+		this.ResetGenerator();
+		this.ResetLineRenderer();
+		this.nodes.Clear();
+	}
+
 
 	private void Update()
 	{
@@ -77,19 +84,16 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
                     i--;
                     continue;
                 }
-                
 
+
+				var currentCheckedLaserNodeGo = nodes[i].gameObject;
 			    //現在検索オブジェクトは非アクティブの場合
-			    if(!this.nodes[i].gameObject.activeSelf)
+			    if(!currentCheckedLaserNodeGo.activeSelf)
 			    {
-                    if(i == 0)
-                    {
-                        this.nodes[i].transform.position = new Vector3(0,-20,0);
-                    }
 				    //管理しないようにする
-				    this.nodes.Remove(nodes[i]);
+				    this.nodes.Remove(currentCheckedLaserNodeGo);
 				    //検索位置調整する
-				    i--;
+				    i = i - 1;
 				    //管理オブジェクト個数を調べ、管理個数は0の場合
 			    }
 			    //アクティブ状態の場合
@@ -98,38 +102,43 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				    //位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
 				    if (this.isFixed)
 					    this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
-			    }
 
-			    if (this.nodes.Count == 0)
-			    {
-				    this.ResetGenerator();
-				    this.ResetLineRenderer();
+					if (this.nodes.Count == 0)
+					{
+						this.ResetGenerator();
+						this.ResetLineRenderer();
 
-				    this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
-			    }
+						this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+					}
+				}
 		    }
 
         }
-        if (this.nodes.Count > 2)
-		  {
+        if (this.nodes.Count >= 2)
+		{
 		      this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
               this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
 
-		  }
+		}
           //node 1
-		  else if(this.nodes.Count > 0)
-		  {
+		else if(this.nodes.Count > 0)
+	    {
 
-              this.lineRenderer.SetPosition(0,this.nodes[0].transform.position - Vector3.right);
-              this.lineRenderer.SetPosition(1,this.nodes[0].transform.position);
+            this.lineRenderer.SetPosition(0,this.nodes[0].transform.position);
+            this.lineRenderer.SetPosition(1,this.nodes[0].transform.position + Vector3.right);
 
-		  }
+		}
+		else if (this.nodes.Count == 0)
+		{
+			this.lineRenderer.SetPosition(0, Vector3.zero);
+			this.lineRenderer.SetPosition(1, Vector3.zero);
+		}
 
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
 		//{
 		//	if(this.nodes.Count == 0)
 		//		this.gameObject.SetActive(false);
-			
+
 		//}
 
 
@@ -163,34 +172,8 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		//管理するように
 		this.nodes.Add(node);
 		this.pointCount++;
-
-		if (nodes.Count > 1 && isRotateLaser)
-		{
-			var last = this.nodes[this.nodes.Count - 1];
-			var lastlast = this.nodes[this.nodes.Count - 2];
-			var pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.33f;
-			var rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.33f;
-			node = CreateNode(pos, rotation, trailWidth,isRotateLaser);
-
-			last = this.nodes[this.nodes.Count - 1];
-			lastlast = this.nodes[this.nodes.Count - 2];
-			pos = lastlast.transform.position + (last.transform.position - lastlast.transform.position) * 0.67f;
-			rotation = lastlast.transform.localEulerAngles + (last.transform.localEulerAngles - lastlast.transform.localEulerAngles) * 0.67f;
-			node = CreateNode(pos, rotation, trailWidth, isRotateLaser);
-		}
 	}
 
-	/// <summary>
-	/// レンダリング設定
-	/// </summary>
-	/// <param name="pos"> 一番目はレーザー頭位置、一番後ろはレーザー尾位置 </param>
-	private void SetLineRenderer(params Vector3[] pos)
-	{
-		for(var i = 0; i < pos.Length; ++i)
-		{
-			this.lineRenderer.SetPosition(i, pos[i]);
-		}
-	}
 
 	public void ResetLineRenderer()
     {
@@ -225,27 +208,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			if(transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player2)
 				node.name = "Option_Player2_Laser";
 		}
-
-		//if (transform.parent.parent.parent.name == "Player" || (transform.parent.parent.parent.GetComponent<Bit_Formation_3>() != null && transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1))
-		//{
-		//	node.GetComponent<LaserLine>().IsPlayer1Laser = true;
-		//	node.GetComponent<LaserLine>().IsPlayer2Laser = false;
-		//}
-		//if (transform.parent.parent.parent.name == "Player_2" || (transform.parent.parent.parent.GetComponent<Bit_Formation_3>() != null && transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player2))
-		//{
-		//	node.GetComponent<LaserLine>().IsPlayer2Laser = true;
-		//	node.GetComponent<LaserLine>().IsPlayer1Laser = false;
-		//}
-
-		//node.GetComponent<bullet_status>().shot_speed = this.shotSpeed;
-		//node.transform.localEulerAngles = rotation;
-		//node.GetComponent<bullet_status>().Travelling_Direction = node.transform.right;
-		//node.GetComponent<LaserLine>().TrailRenderer.Clear();
-		//node.GetComponent<LaserLine>().TrailRenderer.endWidth = trailWidth;
-		//node.GetComponent<LaserLine>().TrailRenderer.startWidth = trailWidth;
-
-		//if(node.GetComponent<PauseComponent>() == null)
-		//	node.AddComponent<PauseComponent>();
 
 		return node;
 	}
