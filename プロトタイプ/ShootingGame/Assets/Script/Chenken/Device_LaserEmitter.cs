@@ -226,7 +226,7 @@ class Device_LaserEmitter : MonoBehaviour
         { 
              for (int i = 29; i < Obj_Storage.Storage_Data.Laser_Line.Get_Obj().Count; i++)
              {
-                 if(!Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf && Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject != null)
+                 if(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject != null && !Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i].gameObject.activeSelf )
                  { 
                      Destroy(Obj_Storage.Storage_Data.Laser_Line.Get_Obj()[i]);
                      Obj_Storage.Storage_Data.Laser_Line.Get_Obj().RemoveAt(i);

@@ -454,7 +454,7 @@ public class Enemy_MiddleBoss : character_status
 
 	private void Death_Enter()
 	{
-		var changeTransfrom = transform.GetChild(0).GetChild(6);
+		var changeTransfrom = transform.GetChild(0).GetChild(0);
 		for (var i = 0; i < changeTransfrom.childCount; ++i)
 		{
 			if(i < changeTransfrom.childCount - 4)
