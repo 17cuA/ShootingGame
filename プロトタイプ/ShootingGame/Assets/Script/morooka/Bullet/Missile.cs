@@ -100,11 +100,6 @@ public class Missile : bullet_status
 	/// </summary>
 	private void Moving_Facing_Confirmation(Vector3 mesh_normal)
 	{
-		//if(mesh_normal.y < 0.0f)
-		//{
-		//	mesh_normal.y *= -1.0f;
-		//}
-
 		mesh_normal.y *= (Ray_Direction.y * -1.0f);
 
 		mesh_normal.x *= Ray_Direction.y;

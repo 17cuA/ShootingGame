@@ -31,8 +31,6 @@ public class Helper_TwoBossCorePart : MonoBehaviour
 		{
 			change = true;
 		}
-
-		//Hp > limitHp || isCHanged  return 
 		if (!change || hasChanged)
 			return;
 
