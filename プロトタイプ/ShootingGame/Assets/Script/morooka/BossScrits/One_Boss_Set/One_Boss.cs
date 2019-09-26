@@ -434,6 +434,7 @@ public class One_Boss : character_status
 			Timeline_Player.time = 30.0;
 			Attack_Step++;
 			Is_Attack_Now = true;
+			showMark = true;
 		}
 		else if (Attack_Step == 1)
 		{
