@@ -331,7 +331,7 @@ public class EnemyCreate : MonoBehaviour
 					break;
 
 				case EnemyType.BIGCOREMK2:
-					bigCoreMK2GrouNum = num + 1;
+					bigCoreMK2GrouNum = num;
 					bigCoreMK2GroupFrame = allFrame;
 					bigCoreMK2NextGroupFrame = allFrame + enemyGroups[num].nextGroupFrame;
 					break;
