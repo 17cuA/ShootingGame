@@ -907,30 +907,31 @@ public class Enemy_Wave : character_status
 		}
 	}
 
-	public void SetState(int n)
+	public void SetState(State s)
 	{
-		switch(n)
-		{
-			case 1:
-				eState = State.WaveUp;
-				break;
+		eState = s;
+		//switch(s)
+		//{
+		//	case State.WaveUp:
+		//		eState = State.WaveUp;
+		//		break;
 
-			case 2:
-				eState = State.WaveDown;
-				break;
+		//	case State.WaveDown:
+		//		eState = State.WaveDown;
+		//		break;
 
-			case 3:
-				eState = State.WaveOnlyUp;
-				break;
+		//	case State.WaveOnlyUp:
+		//		eState = State.WaveOnlyUp;
+		//		break;
 
-			case 4:
-				eState = State.WaveOnlyDown;
-				break;
+		//	case State.WaveOnlyDown:
+		//		eState = State.WaveOnlyDown;
+		//		break;
 
-			case 5:
-				eState = State.Straight;
-				break;
-		}
+		//	case State.Straight:
+		//		eState = State.Straight;
+		//		break;
+		//}
 	}
 	//明るさを変える関数
 	//void HSV_Change()
