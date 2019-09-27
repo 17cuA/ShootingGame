@@ -40,7 +40,6 @@ public class Two_Boss_Laser : MonoBehaviour
 	public void Manual_Start(Transform parent)
 	{
 		transform.parent = parent;
-		//transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
 
 		Two_Boss_Parts parts = parent.GetComponent<Two_Boss_Parts>();
 		if(parts != null)
@@ -60,10 +59,10 @@ public class Two_Boss_Laser : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
-		else	if (col.gameObject != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
-			{
-				Delete_processing();
-			}
+		else if (col.gameObject != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
+		{
+			Delete_processing();
+		}
 	}
 
 	public void Delete_processing()

@@ -24,10 +24,14 @@ public class Boss_One_A111 : MonoBehaviour
 		return ok;
 	}
 
+	/// <summary>
+	/// 各パーティクルの再利用時の処理
+	/// </summary>
 	public void SetUp()
 	{
 		foreach(Boss_One_A111_Individual bo in Each_Particle)
 		{
+			// パーティクルの再生
 			bo.GetComponent<ParticleSystem>().Play();
 		}
 	}

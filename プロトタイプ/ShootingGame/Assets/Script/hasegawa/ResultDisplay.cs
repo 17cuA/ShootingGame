@@ -12,7 +12,7 @@ using TextDisplay;
 /// </summary>
 public class ResultDisplay : MonoBehaviour
 {
-	public const uint kClearbonusValue = 30000;
+	public const uint kClearbonusValue = 50000;
 	const float kWholeScaleWeight = 1.4f;
 	// ヘッダー
 	private Character_Display resultTextDisplay;
@@ -67,11 +67,6 @@ public class ResultDisplay : MonoBehaviour
 		}
 	}
 
-	void Update()
-	{
-
-	}
-
 	/// <summary>
 	/// Player1のリザルト設定
 	/// </summary>
@@ -99,8 +94,8 @@ public class ResultDisplay : MonoBehaviour
 		// クリアボーナスのテキスト
 		GameObject result1PClearbonusTextsParent = new GameObject("1PClearbonusText");
 		result1PClearbonusTextsParent.transform.parent = transform;
-		result1PClearbonusTextDisplay = new Character_Display("CLEAR_BONUS".Length, "morooka/SS", result1PClearbonusTextsParent, result1PClearbonusTextPosition);
-		result1PClearbonusTextDisplay.Character_Preference("CLEAR_BONUS");
+		result1PClearbonusTextDisplay = new Character_Display("BONUS".Length, "morooka/SS", result1PClearbonusTextsParent, result1PClearbonusTextPosition);
+		result1PClearbonusTextDisplay.Character_Preference("BONUS");
 		result1PClearbonusTextDisplay.Size_Change(Vector2.one * 0.75f / kWholeScaleWeight);
 		// クリアボーナス
 		uint clearbonus = kClearbonusValue;

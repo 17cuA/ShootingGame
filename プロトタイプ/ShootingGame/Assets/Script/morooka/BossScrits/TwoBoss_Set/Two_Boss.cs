@@ -76,14 +76,8 @@ public class Two_Boss : character_status
 
 	private bool Update_Ok { get; set; }        // アップデート
 
-	private Vector3[] shutter_Init
-	{
-		get;set;
-	}		// なぜか移動するから
-	private Vector3 core_Init
-	{
-		get;set;
-	}		// なぜか移動するから
+	private Vector3[] shutter_Init{get;set;}		// なぜか移動するから
+	private Vector3 core_Init{get;set;}		// なぜか移動するから
 
 	private new void Start()
 	{
@@ -214,7 +208,6 @@ public class Two_Boss : character_status
 			else if (Attack_Type_Instruction == 2)
 			{
 				Laser_Attack();
-
 			}
 			else if (Attack_Type_Instruction == 3)
 			{
@@ -227,12 +220,8 @@ public class Two_Boss : character_status
 			}
 			else
 			{
-				//Attack_Seconds += Time.deltaTime;
-				//if (Attack_Seconds >= 3.15f)
-				//{
 					Attack_Seconds = 0.0f;
 					Attack_Type_Instruction = 0;
-				//}
 			}
 
 			// シャッター破壊後コア破壊できる
@@ -253,6 +242,7 @@ public class Two_Boss : character_status
 		{
 			animation_data.Stop();
 
+			// 死亡時のエフェクトに使うオブジェクトに対応のオブジェクトの位置を代入------------------------------------------------------------
 			big_core_mk3_EF ef_2 = Instantiate(EF_plefab, transform.position, Quaternion.identity).GetComponent<big_core_mk3_EF>();
 			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			ef_2.EF_Base.transform.position = parts_All[0].transform.position;
@@ -275,6 +265,7 @@ public class Two_Boss : character_status
 			ef_2.Multipl_5.transform.rotation = parts_All[7].transform.rotation;
 			ef_2.Multipl_6.transform.rotation = parts_All[8].transform.rotation;
 			ef_2.Set_Init();
+			// 死亡時のエフェクトに使うオブジェクトに対応のオブジェクトの位置を代入------------------------------------------------------------
 
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
@@ -548,31 +539,6 @@ public class Two_Boss : character_status
 					// レーザー情報の格納
 					Laser.Add(tl);
 				}
-
-				//1mul
-				//// 子供のマズル情報格納
-				//Transform objT = multiple[0].transform.GetChild(0);
-				//Two_Boss_Laser tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
-				//// レーザーの初期設定
-				//tl.Manual_Start(multiple[0].transform);
-				//// レーザー情報の格納
-				//Laser.Add(tl);
-				////2mul
-				//objT = multiple[1].transform.GetChild(0);
-				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
-				//tl.Manual_Start(multiple[1].transform);
-				//Laser.Add(tl);
-				////4mul
-				//objT = multiple[1].transform.GetChild(3);
-				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[3].transform.up).GetComponent<Two_Boss_Laser>();
-				//tl.Manual_Start(multiple[3].transform);
-				//Laser.Add(tl);
-				////6mul
-				//objT = multiple[1].transform.GetChild(5);
-				//tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, multiple[5].transform.up).GetComponent<Two_Boss_Laser>();
-				//tl.Manual_Start(multiple[5].transform);
-				//Laser.Add(tl);
-
 				// レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
