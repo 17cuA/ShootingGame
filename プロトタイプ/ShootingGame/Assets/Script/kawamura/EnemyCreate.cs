@@ -704,34 +704,25 @@ public class EnemyCreate : MonoBehaviour
         CreateEnemyGroup_01();
     }
 
+	// 指定の敵グループを出す
 	private void DebugKeyUpdate()
 	{
-		// 指定の敵グループを出す
-		if (Input.anyKeyDown) {
-            foreach (KeyCode code in Enum.GetValues(typeof(KeyCode))) {
-				//// 次の敵グループ
-				//if(code == KeyCode.N) { if(groupCnt < enemyGroups.Length - 1)frameCnt = turning_frame; }
-				//// ビッグコア
-				//if (code == KeyCode.J) { EnemyDebugNumberUpdate(EnemyType.BIGCORE, false); }
-				//// ビッグコア後
-				//if(code == KeyCode.K) { EnemyDebugNumberUpdate(EnemyType.BIGCOREENDGROUP, false); }
-				//// ビッグコアMK2
-				//if(code == KeyCode.M) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, false); }
-				//// ビッグコアMK2後
-				//if(code == KeyCode.B) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, true); }
-				//// モアイ
-				//if(code == KeyCode.B & Input.GetKey(KeyCode.H)) { EnemyDebugNumberUpdate(EnemyType.MOAI, false); }
-				//// モアイ後
-				//if(code == KeyCode.B & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
-				//// ビッグコアMK3
-				//if(code == KeyCode.L) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); }
-				 if (Input.GetKeyDown (code)) {
-                  //処理を書く
-                    Debug.Log (code);
-                    break;
-                }
-			}
-        }
+		// 次の敵グループ
+		if (Input.GetKeyDown(KeyCode.N)) { if (groupCnt < enemyGroups.Length - 1) frameCnt = turning_frame; }
+		// ビッグコア
+		if (Input.GetKeyDown(KeyCode.J)) { EnemyDebugNumberUpdate(EnemyType.BIGCORE, false); }
+		// ビッグコア後
+		if (Input.GetKeyDown(KeyCode.K)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREENDGROUP, false); }
+		// ビッグコアMK2
+		if (Input.GetKeyDown(KeyCode.M)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, false); }
+		// ビッグコアMK2後
+		if (Input.GetKeyDown(KeyCode.B)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, true); }
+		// モアイ
+		if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.H)) { EnemyDebugNumberUpdate(EnemyType.MOAI, false); }
+		// モアイ後
+		if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
+		// ビッグコアMK3
+		if (Input.GetKeyDown(KeyCode.L)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); }
 	}
 
 	//--------------------------------------------------------------------
