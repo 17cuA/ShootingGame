@@ -305,7 +305,7 @@ public class EnemyCreate : MonoBehaviour
 	// 最初のフレーム
     void Start()
     {
-		//EnemyDebugNumberUpload();
+		EnemyDebugNumberUpload();
 
 		CreatePosUpload();
 
@@ -612,7 +612,6 @@ public class EnemyCreate : MonoBehaviour
         {
             return;
         }
-        PreviousCount = frameCnt;
 
         if (!isNowOneBoss && !isNowTwoBoss && !isNowMoai)
         {
@@ -1239,9 +1238,9 @@ public class EnemyCreate : MonoBehaviour
 		new EnemyGroup("ハエ2", EnemyType.BEELZEBUB_GROUP_TWOWIDE, CreatePos.R0, true, 270),
 		new EnemyGroup("ビートル3", EnemyType.BEETLE_GROUP_THREE, CreatePos.L0, false, 300),
 		new EnemyGroup("円盤上射撃", EnemyType.UFO_GROUP, CreatePos.R3, true, 0),
-		new EnemyGroup("円盤下射撃", EnemyType.UFO_GROUP, CreatePos.Rm3, true, 210),
-		new EnemyGroup("戦艦上下(現在停止中)", EnemyType.NONE, CreatePos.L0, false, 360),
-		new EnemyGroup("戦艦", EnemyType.BATTLESHIP, CreatePos.R0, false, 360),
+		new EnemyGroup("円盤下射撃", EnemyType.UFO_GROUP, CreatePos.Rm3, true, 360),
+		new EnemyGroup("戦艦上下(現在停止中)", EnemyType.NONE, CreatePos.L0, false, 0),
+		new EnemyGroup("戦艦", EnemyType.BATTLESHIP, CreatePos.R0, false, 0),
 		new EnemyGroup("闘牛10直進上", EnemyType.CLAMCHOWDER_GROUP_TENSTRAIGHT, CreatePos.R3, true, 0),
 		new EnemyGroup("闘牛10直進下", EnemyType.CLAMCHOWDER_GROUP_TENSTRAIGHT, CreatePos.Rm3, true, 180),
 		new EnemyGroup("闘牛10直進上", EnemyType.CLAMCHOWDER_GROUP_TENSTRAIGHT, CreatePos.R3, true, 0),
@@ -1267,10 +1266,10 @@ public class EnemyCreate : MonoBehaviour
 		new EnemyGroup("円盤上10狭射撃", EnemyType.UFO_GROUP, CreatePos.R1, true, 0),
 		new EnemyGroup("円盤下10射撃", EnemyType.UFO_GROUP, CreatePos.Rm3, true, 75),
 		new EnemyGroup("円盤上10射撃", EnemyType.UFO_GROUP, CreatePos.R3, true, 0),
-		new EnemyGroup("円盤下10狭射撃", EnemyType.UFO_GROUP, CreatePos.Rm1, true, 45),
+		new EnemyGroup("円盤下10狭射撃", EnemyType.UFO_GROUP, CreatePos.Rm1, true, 120),
 		new EnemyGroup("戦艦", EnemyType.BATTLESHIP, CreatePos.R0, false, 210),
 		new EnemyGroup("円盤上10射撃", EnemyType.UFO_GROUP, CreatePos.R4, true, 0),
-		new EnemyGroup("円盤下10射撃", EnemyType.UFO_GROUP, CreatePos.Rm4, true, 90),
+		new EnemyGroup("円盤下10射撃", EnemyType.UFO_GROUP, CreatePos.Rm4, true, 120),
 		new EnemyGroup("戦艦", EnemyType.BATTLESHIP, CreatePos.R0, false, 0),
 		new EnemyGroup("円盤上10射撃", EnemyType.UFO_GROUP, CreatePos.R4, true, 0),
 		new EnemyGroup("円盤下10射撃", EnemyType.UFO_GROUP, CreatePos.Rm4, true, 120),
@@ -1366,12 +1365,13 @@ public class EnemyCreate : MonoBehaviour
 		{
 			do
 			{
+				PreviousCount = frameCnt;
 				CreateEnemy(enemyGroups[groupCnt].enemyType, enemyGroups[groupCnt].createPos, enemyGroups[groupCnt].isItem);
 				Next_Condition(enemyGroups[groupCnt].nextGroupFrame);
 				nextEnemy = enemyGroups[groupCnt].enemyGroupName;
 			}
 			// 次のフレーム経過が0以下の時繰り返し
-			while (enemyGroups[groupCnt].nextGroupFrame <= 0);
+			while (enemyGroups[groupCnt-1].nextGroupFrame <= 0);
 		}
 	}
 	
