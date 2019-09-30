@@ -254,8 +254,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
+  player2Obj: {fileID: 0}
+  player1_DefPosTotal: 0
+  player2_DefPosTotal: 0
   imasuyo: 0
-  isPlayerActive: 1
+  isPlayer1Active: 1
+  isPlayer2Active: 1
+  isAimForPlayer1: 1
+  isAimForPlayer2: 0
   degree: 0
 --- !u!82 &1036992597050695434
 AudioSource:
