@@ -87,7 +87,7 @@ class Device_LaserEmitter : MonoBehaviour
 
 		public void LaunchNode(float trailWidth)
 		{
-			currentLaunchDevice.LaunchNode(trailWidth);
+			currentLaunchDevice.LaunchNode();
 		}
 
 	}
@@ -106,7 +106,7 @@ class Device_LaserEmitter : MonoBehaviour
 		GameObject EmitterInstance      { get; set; }
 
 		void GenerateLine(float laserShotSpeed, float laserWidth, Material laserMaterial,int pointMax);
-		void LaunchNode(float trailWidth);
+		void LaunchNode();
 	}
 
 	/// <summary>
@@ -150,7 +150,7 @@ class Device_LaserEmitter : MonoBehaviour
 			var generatorGo = new GameObject("Generator");
 			var generator = generatorGo.AddComponent<Instance_Laser_Node_Generator>();
 
-			generator.Setting(laserShotSpeed, laserWidth, laserMaterial,pointMax);
+			generator.Setting(laserWidth, laserMaterial,pointMax);
 			generator.IsFixed = true;
 
 			generatorGo.transform.SetParent(EmitterInstance.transform);
@@ -160,9 +160,9 @@ class Device_LaserEmitter : MonoBehaviour
 			this.generators.Add(generator);
 		}
 
-		public void LaunchNode(float trailWidth)
+		public void LaunchNode()
 		{
-			this.CurrentGenerator.LaunchNode(trailWidth,false);
+			this.CurrentGenerator.LaunchNode(false);
 			this.CanLaunchTime = Time.time + LaunchInterval;
 		}
 	}
@@ -174,7 +174,7 @@ class Device_LaserEmitter : MonoBehaviour
 	[SerializeField] private AudioClip laserBegin;
 	[SerializeField] private AudioClip laserContinuing;
 	[SerializeField] private AudioClip laserEnd;
-	private float firePressTime;
+	private float firePressTime;//
 
 	private void OnEnable()
 	{

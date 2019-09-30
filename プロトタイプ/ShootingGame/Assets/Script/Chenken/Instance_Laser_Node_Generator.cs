@@ -152,9 +152,8 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	/// <param name="lineWidth"> レーザー線太さ          </param>
 	/// <param name="nodePrefab">レーザー連結点プレハブ  </param>
 	/// <param name="material">  レーザー線マテリアル    </param>
-	public void Setting(float shotSpeed, float lineWidth,Material material,int pointMax)
+	public void Setting(float lineWidth,Material material,int pointMax)
 	{
-		this.shotSpeed                = shotSpeed;
 		this.lineRenderer.startWidth  = lineWidth;
 		this.lineRenderer.endWidth    = lineWidth;
 		this.lineRenderer.material    = material;
@@ -164,10 +163,10 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	/// <summary>
 	/// レーザー連結点発射（生成）する
 	/// </summary>
-	public void LaunchNode(float trailWidth, bool isRotateLaser)
+	public void LaunchNode(bool isRotateLaser)
 	{
 		GameObject node = null;
-		node = CreateNode(transform.position, this.emitter.transform.localEulerAngles, trailWidth, isRotateLaser);
+		node = CreateNode(transform.position, this.emitter.transform.localEulerAngles, isRotateLaser);
 
 		//管理するように
 		this.nodes.Add(node);
@@ -187,7 +186,7 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		pointCount = 0;
 	}
 
-	private GameObject CreateNode(Vector3 pos, Vector3 rotation, float trailWidth, bool isRotateLaser)
+	private GameObject CreateNode(Vector3 pos, Vector3 rotation, bool isRotateLaser)
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 
