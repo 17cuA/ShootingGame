@@ -28218,7 +28218,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ef112b9d43b6f644bced3727f822576, type: 2}
+  - {fileID: 2100000, guid: ab9aae0cff1922448aacc41190b5ca39, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -56489,7 +56489,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7304be8c8be56fd4db053245df48eb69, type: 2}
+  - {fileID: 2100000, guid: ab9aae0cff1922448aacc41190b5ca39, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -61196,7 +61196,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7304be8c8be56fd4db053245df48eb69, type: 2}
+  - {fileID: 2100000, guid: ab9aae0cff1922448aacc41190b5ca39, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -65945,11 +65945,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9072971886186427783}
     m_Modifications:
-    - target: {fileID: 6700012317266683018, guid: 327cd476378b0d546b64b39b7b8a0ae9,
-        type: 3}
-      propertyPath: m_Name
-      value: Distortion
-      objectReference: {fileID: 0}
     - target: {fileID: 6700012317266683015, guid: 327cd476378b0d546b64b39b7b8a0ae9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66005,10 +66000,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6700012317266683017, guid: 327cd476378b0d546b64b39b7b8a0ae9,
+    - target: {fileID: 6700012317266683018, guid: 327cd476378b0d546b64b39b7b8a0ae9,
         type: 3}
-      propertyPath: m_RenderMode
-      value: 4
+      propertyPath: m_Name
+      value: Distortion
       objectReference: {fileID: 0}
     - target: {fileID: 6700012317266683016, guid: 327cd476378b0d546b64b39b7b8a0ae9,
         type: 3}
@@ -66034,6 +66029,11 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700012317266683017, guid: 327cd476378b0d546b64b39b7b8a0ae9,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327cd476378b0d546b64b39b7b8a0ae9, type: 3}
