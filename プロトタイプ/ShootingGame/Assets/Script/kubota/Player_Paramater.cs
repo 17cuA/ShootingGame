@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Paramater/ParameterTable", fileName = "ParameterTable")]
-public class ParameterTable : ScriptableObject
+public class Player_Paramater : ScriptableObject
 {
 	[SerializeField, Header("初期体力")]
 	private int life;
@@ -18,4 +18,8 @@ public class ParameterTable : ScriptableObject
 	[SerializeField, Header("残機数")]
 	private int Reaming;
 	public int Get_Reaming { get { return Reaming; } }
-} // class ParameterTable
+
+	[SerializeField, Header("弾発射感覚")]
+	private int Bullet_Delay;
+	public int Get_BulletDelay { get { return Bullet_Delay; } }
+}
