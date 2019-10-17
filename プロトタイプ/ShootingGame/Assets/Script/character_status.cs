@@ -8,9 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class character_status : MonoBehaviour
 {
+	[Header("基本ステータスがはいってるものを入れる")]
+	public ParameterTable Parameter;                                    //ScriptableObjectを入れる
 
 	public float speed;                                                 // スピード
-	private float speed_Max;										//最大速度の設定
 	public int hp;                                                      // 体力
 	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
@@ -39,6 +40,10 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
+		if(Parameter != null)
+		{
+			hp = Parameter.Get_Life;
+		}
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
 		{
