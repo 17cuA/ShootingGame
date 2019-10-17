@@ -236,7 +236,7 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = false;
 					speedX = 18;
 					speedZ_Value = 40;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
@@ -259,7 +259,7 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = false;
 					speedX = 18;
 					speedZ_Value = 40;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
@@ -271,7 +271,7 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は上からし始める
 				case State.WaveOnlyUp:
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY < 0)
@@ -295,7 +295,7 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は下からし始める
 				case State.WaveOnlyDown:
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY > 0)
