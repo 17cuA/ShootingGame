@@ -256,7 +256,7 @@ public class ObjectStorage_Control : MonoBehaviour
 			#endregion
 
 			#region ラスボス前に消すもの
-			if (EnemyCreate_Data.isLastBossWireless && !Is_Processed_Normal)
+			if (EnemyCreate_Data.GetLastBossWireless() && !Is_Processed_Normal)
 			{
 				// リストを各フレームで消していく
 				if (Normal_Frame_Cnt < Before_The_Last_Boss.Count)

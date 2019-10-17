@@ -57,7 +57,7 @@ public class BaculasManager : MonoBehaviour
             notDefeatedEnemyCnt = 0;
             defeatedEnemyCnt = 0;
             remainingEnemiesCnt = childNum;
-			eCreate.isBaculaDestroy = true;
+			eCreate.SetBaculaDestroy(true);
             gameObject.SetActive(false);
             //Destroy(this.gameObject);
             //gameObject.SetActive(false);

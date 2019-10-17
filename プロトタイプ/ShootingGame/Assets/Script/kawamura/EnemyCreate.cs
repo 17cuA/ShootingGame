@@ -14,122 +14,122 @@ public class EnemyCreate : MonoBehaviour
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	//生成位置上側（Tなので上側、mTはマイナスなのでmがついてる、17が左右の最大）
 	#region CreatePosTop
-	public GameObject createPosT17;
-    public GameObject createPosT16;
-    public GameObject createPosT15;
-    public GameObject createPosT14;
-    public GameObject createPosT13;
-    public GameObject createPosT12;
-    public GameObject createPosT11;
-    public GameObject createPosT10;
-    public GameObject createPosT9;
-    public GameObject createPosT8;
-    public GameObject createPosT7;
-    public GameObject createPosT6;
-    public GameObject createPosT5;
-    public GameObject createPosT4;
-    public GameObject createPosT3;
-    public GameObject createPosT2;
-    public GameObject createPosT1;
-    public GameObject createPosT0;
-    public GameObject createPosTm1;
-    public GameObject createPosTm2;
-    public GameObject createPosTm3;
-    public GameObject createPosTm4;
-    public GameObject createPosTm5;
-    public GameObject createPosTm6;
-    public GameObject createPosTm7;
-    public GameObject createPosTm8;
-    public GameObject createPosTm9;
-    public GameObject createPosTm10;
-    public GameObject createPosTm11;
-    public GameObject createPosTm12;
-    public GameObject createPosTm13;
-    public GameObject createPosTm14;
-    public GameObject createPosTm15;
-    public GameObject createPosTm16;
-    public GameObject createPosTm17;
+	private Transform createPosT17;
+    private Transform createPosT16;
+    private Transform createPosT15;
+    private Transform createPosT14;
+    private Transform createPosT13;
+    private Transform createPosT12;
+    private Transform createPosT11;
+    private Transform createPosT10;
+    private Transform createPosT9;
+    private Transform createPosT8;
+    private Transform createPosT7;
+    private Transform createPosT6;
+    private Transform createPosT5;
+    private Transform createPosT4;
+    private Transform createPosT3;
+    private Transform createPosT2;
+    private Transform createPosT1;
+    private Transform createPosT0;
+    private Transform createPosTm1;
+    private Transform createPosTm2;
+    private Transform createPosTm3;
+    private Transform createPosTm4;
+    private Transform createPosTm5;
+    private Transform createPosTm6;
+    private Transform createPosTm7;
+    private Transform createPosTm8;
+    private Transform createPosTm9;
+    private Transform createPosTm10;
+    private Transform createPosTm11;
+    private Transform createPosTm12;
+    private Transform createPosTm13;
+    private Transform createPosTm14;
+    private Transform createPosTm15;
+    private Transform createPosTm16;
+    private Transform createPosTm17;
     #endregion
     //生成位置下側（Uなので上側、mUはマイナスなのでmがついてる、17が左右の最大）
     #region CreatePosUnder
-    public GameObject createPosU17;
-    public GameObject createPosU16;
-    public GameObject createPosU15;
-    public GameObject createPosU14;
-    public GameObject createPosU13;
-    public GameObject createPosU12;
-    public GameObject createPosU11;
-    public GameObject createPosU10;
-    public GameObject createPosU9;
-    public GameObject createPosU8;
-    public GameObject createPosU7;
-    public GameObject createPosU6;
-    public GameObject createPosU5;
-    public GameObject createPosU4;
-    public GameObject createPosU3;
-    public GameObject createPosU2;
-    public GameObject createPosU1;
-    public GameObject createPosU0;
-    public GameObject createPosUm1;
-    public GameObject createPosUm2;
-    public GameObject createPosUm3;
-    public GameObject createPosUm4;
-    public GameObject createPosUm5;
-    public GameObject createPosUm6;
-    public GameObject createPosUm7;
-    public GameObject createPosUm8;
-    public GameObject createPosUm9;
-    public GameObject createPosUm10;
-    public GameObject createPosUm11;
-    public GameObject createPosUm12;
-    public GameObject createPosUm13;
-    public GameObject createPosUm14;
-    public GameObject createPosUm15;
-    public GameObject createPosUm16;
-    public GameObject createPosUm17;
+    private Transform createPosU17;
+    private Transform createPosU16;
+    private Transform createPosU15;
+    private Transform createPosU14;
+    private Transform createPosU13;
+    private Transform createPosU12;
+    private Transform createPosU11;
+    private Transform createPosU10;
+    private Transform createPosU9;
+    private Transform createPosU8;
+    private Transform createPosU7;
+    private Transform createPosU6;
+    private Transform createPosU5;
+    private Transform createPosU4;
+    private Transform createPosU3;
+    private Transform createPosU2;
+    private Transform createPosU1;
+    private Transform createPosU0;
+    private Transform createPosUm1;
+    private Transform createPosUm2;
+    private Transform createPosUm3;
+    private Transform createPosUm4;
+    private Transform createPosUm5;
+    private Transform createPosUm6;
+    private Transform createPosUm7;
+    private Transform createPosUm8;
+    private Transform createPosUm9;
+    private Transform createPosUm10;
+    private Transform createPosUm11;
+    private Transform createPosUm12;
+    private Transform createPosUm13;
+    private Transform createPosUm14;
+    private Transform createPosUm15;
+    private Transform createPosUm16;
+    private Transform createPosUm17;
     #endregion
     //生成位置右側（Rなので右側、mRはマイナスなのでmがついてる、5が上下の最大）
     #region CreatePosRight
-    public GameObject createPosR5;
-    public GameObject createPosR4;
-    public GameObject createPosR3;
-    public GameObject createPosR2;
-    public GameObject createPosR1;
-    public GameObject createPosR0;
-    public GameObject createPos_FourGroupR;
-    public GameObject createPosRm1;
-    public GameObject createPosRm2;
-    public GameObject createPosRm3;
-    public GameObject createPosRm4;
-    public GameObject createPosRm5;
+    private Transform createPosR5;
+    private Transform createPosR4;
+    private Transform createPosR3;
+    private Transform createPosR2;
+    private Transform createPosR1;
+    private Transform createPosR0;
+    private Transform createPos_FourGroupR;
+    private Transform createPosRm1;
+    private Transform createPosRm2;
+    private Transform createPosRm3;
+    private Transform createPosRm4;
+    private Transform createPosRm5;
     #endregion
     //生成位置左側
     #region CreatePosLeft
-    public GameObject createPosL5;
-    public GameObject createPosL4;
-    public GameObject createPosL3;
-    public GameObject createPosL2;
-    public GameObject createPosL1;
-    public GameObject createPosL0;
-    public GameObject createPos_FourGroupL;
-    public GameObject createPosLm1;
-    public GameObject createPosLm2;
-    public GameObject createPosLm3;
-    public GameObject createPosLm4;
-    public GameObject createPosLm5;
+    private Transform createPosL5;
+    private Transform createPosL4;
+    private Transform createPosL3;
+    private Transform createPosL2;
+    private Transform createPosL1;
+    private Transform createPosL0;
+    private Transform createPos_FourGroupL;
+    private Transform createPosLm1;
+    private Transform createPosLm2;
+    private Transform createPosLm3;
+    private Transform createPosLm4;
+    private Transform createPosLm5;
 	#endregion
 	//中ボス位置と戦艦位置
 	#region createMiddlePos
-	public GameObject createMiddleBossPos;
-    public GameObject createBattleShipPos;
+	private Transform createMiddleBossPos;
+    private Transform createBattleShipPos;
 	#endregion
 	//バキュラ位置
 	#region CreateBacula
-	public GameObject createBaculaGroupPos;
+	private Transform createBaculaGroupPos;
 	#endregion
 	//隕石生成位置
 	#region CreateMeteor
-	public GameObject createMeteorPosR0;
+	private Transform createMeteorPosR0;
 	#endregion
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -139,93 +139,93 @@ public class EnemyCreate : MonoBehaviour
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	// UFOオブジェクト
 	#region UFO
-	public GameObject enemy_UFO_Group_Five;
+	private GameObject enemy_UFO_Group_Five;
 	#endregion
 	// 闘牛オブジェクト
 	#region ClamChowder
-	public GameObject enemy_ClamChowder_Group_Four;
-	public GameObject enemy_ClamChowder_Group_Four_NoItem;
-    public GameObject enemy_ClamChowder_Group_Five;
-    public GameObject enemy_ClamChowder_Group_Five_NoItem;
-    public GameObject enemy_ClamChowder_Group_FourBehind;
-    public GameObject enemy_ClamChowder_Group_Two;
-    public GameObject enemy_ClamChowder_Group_Two_Top;
-    public GameObject enemy_ClamChowder_Group_Two_Under;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_Item;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_Item;
-    public GameObject enemy_ClamChowder_Group_Three;
-    public GameObject enemy_ClamChowder_Group_Three_Item;
-	public GameObject enemy_ClamChowder_Group_ThreeStraight;
-	public GameObject enemy_ClamChowder_Group_SevenWave;
-    public GameObject enemy_ClamChowder_Group_Straight;
-    public GameObject enemy_ClamChowder_Group_StraightBehind;
-    public GameObject enemy_ClamChowder_Group_FourTriangle;
-    public GameObject enemy_ClamChowder_Group_FourTriangle_B;
-    public GameObject enemy_ClamChowder_Group_FourTriangle_C;
-    public GameObject enemy_ClamChowder_Group_FourTriangle_NoItem;
-    public GameObject enemy_ClamChowder_Group_TwelveStraight;
-    public GameObject enemy_ClamChowder_Group_SevenStraight;
-    public GameObject enemy_ClamChowder_Group_SixStraight;
-    public GameObject enemy_ClamChowder_Group_UpSevenDiagonal;
-    public GameObject enemy_ClamChowder_Group_DownSevenDiagonal;
-    public GameObject enemy_ClamChowder_Group_TenStraight;
-    public GameObject enemy_ClamChowder_Group_FourVerticalAttack;
-    public GameObject enemy_ClamChowder_Group_FourVerticalStraight;
-    public GameObject enemy_ClamChowder_Group_Seven;
-	//public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp;
-	//public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown;
-	//public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
-	//public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+	private GameObject enemy_ClamChowder_Group_Four;
+	private GameObject enemy_ClamChowder_Group_Four_NoItem;
+    private GameObject enemy_ClamChowder_Group_Five;
+    private GameObject enemy_ClamChowder_Group_Five_NoItem;
+    private GameObject enemy_ClamChowder_Group_FourBehind;
+    private GameObject enemy_ClamChowder_Group_Two;
+    private GameObject enemy_ClamChowder_Group_Two_Top;
+    private GameObject enemy_ClamChowder_Group_Two_Under;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_Item;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_Item;
+    private GameObject enemy_ClamChowder_Group_Three;
+    private GameObject enemy_ClamChowder_Group_Three_Item;
+	private GameObject enemy_ClamChowder_Group_ThreeStraight;
+	private GameObject enemy_ClamChowder_Group_SevenWave;
+    private GameObject enemy_ClamChowder_Group_Straight;
+    private GameObject enemy_ClamChowder_Group_StraightBehind;
+    private GameObject enemy_ClamChowder_Group_FourTriangle;
+    private GameObject enemy_ClamChowder_Group_FourTriangle_B;
+    private GameObject enemy_ClamChowder_Group_FourTriangle_C;
+    private GameObject enemy_ClamChowder_Group_FourTriangle_NoItem;
+    private GameObject enemy_ClamChowder_Group_TwelveStraight;
+    private GameObject enemy_ClamChowder_Group_SevenStraight;
+    private GameObject enemy_ClamChowder_Group_SixStraight;
+    private GameObject enemy_ClamChowder_Group_UpSevenDiagonal;
+    private GameObject enemy_ClamChowder_Group_DownSevenDiagonal;
+    private GameObject enemy_ClamChowder_Group_TenStraight;
+    private GameObject enemy_ClamChowder_Group_FourVerticalAttack;
+    private GameObject enemy_ClamChowder_Group_FourVerticalStraight;
+    private GameObject enemy_ClamChowder_Group_Seven;
+	//private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+	//private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown;
+	//private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
+	//private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
 	#endregion
 	// ハエオブジェクト
 	#region Beelzebub
-	public GameObject enemy_Beelzebub_Group_FourNomal;
-	public GameObject enemy_Beelzebub_Group_FourBack;
-	public GameObject enemy_Beelzebub_Group_FourWide;
-	public GameObject enemy_Beelzebub_Group_FourWide_Item;
-	public GameObject enemy_Beelzebub_Group_EightNormal_Item;
-	public GameObject enemy_Beelzebub_Group_TwoWide;
+	private GameObject enemy_Beelzebub_Group_FourNomal;
+	private GameObject enemy_Beelzebub_Group_FourBack;
+	private GameObject enemy_Beelzebub_Group_FourWide;
+	private GameObject enemy_Beelzebub_Group_FourWide_Item;
+	private GameObject enemy_Beelzebub_Group_EightNormal_Item;
+	private GameObject enemy_Beelzebub_Group_TwoWide;
 	#endregion
 	// ビートルオブジェクト
 	#region Beetle
-	public GameObject enemy_Beetle_Group;
-	public GameObject enemy_Beetle_Group_Three;
-	public GameObject enemy_Beetle_Group_Five;
-	public GameObject enemy_Beetle_Group_Seven;
+	private GameObject enemy_Beetle_Group;
+	private GameObject enemy_Beetle_Group_Three;
+	private GameObject enemy_Beetle_Group_Five;
+	private GameObject enemy_Beetle_Group_Seven;
 	#endregion
 	// バキュラオブジェクト
 	#region　Bacula
-	public GameObject enemy_Bacula_Sixteen;
-    public GameObject enemy_Bacula_FourOnly;
-    public GameObject enemy_Bacula_Group_Two;
-    public GameObject enemy_Bacula_Group_Six;
+	private GameObject enemy_Bacula_Sixteen;
+    private GameObject enemy_Bacula_FourOnly;
+    private GameObject enemy_Bacula_Group_Two;
+    private GameObject enemy_Bacula_Group_Six;
 	#endregion
 	// 隕石オブジェクト
 	#region Meteor
-	public GameObject Enemy_BoundMeteors;
-	//public GameObject enemy_Meteor;
-	//public GameObject enemy_Meteor_Top;
-	//public GameObject enemy_Meteor_Under;
-	//public GameObject enemy_Meteors;
-	//public GameObject enemy_Meteor_Mini;
-	//public GameObject enemy_MeteorWaveGroup;
+	private GameObject Enemy_BoundMeteors;
+	//private GameObject enemy_Meteor;
+	//private GameObject enemy_Meteor_Top;
+	//private GameObject enemy_Meteor_Under;
+	//private GameObject enemy_Meteors;
+	//private GameObject enemy_Meteor_Mini;
+	//private GameObject enemy_MeteorWaveGroup;
 	#endregion
 	// ヒトデオブジェクト
 	#region StarFish
-	public GameObject enemy_Star_Fish_Spowner;
+	private GameObject enemy_Star_Fish_Spowner;
 	#endregion
 	// 中ボスオブジェクト
 	#region Middle
-	public GameObject enemy_MoaiBossGroup;
+	private GameObject enemy_MoaiBossGroup;
 	private GameObject middleBossOBj;
 	private Enemy_MiddleBoss middleBoss_Script;
-	//public GameObject enemy_SlowFollow;
+	//private GameObject enemy_SlowFollow;
 	#endregion
 	// 保管オブジェクト情報
 	#region Temp
-	public GameObject saveEnemyObj;
+	private GameObject saveEnemyObj;
 	#endregion
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -233,47 +233,34 @@ public class EnemyCreate : MonoBehaviour
 	// カウント変数
 	//
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	public int PreviousCount = 0;
-    public int frameCnt = 0;    //フレームカウント：これの値で生成のタイミングをはかる
-    public int groupCnt = 1;    //画面に出す群れのカウント
-    public int nowGroupCnt;
-    public int[] groupCntArray;
-
-    public int turning_frame = 180;
-    public string nextEnemy;
-
-    public EnemyGroupManage group_Script;
-
-    
-
-    GameObject oneBossOBj;
-    One_Boss oneBoss_Script;
-    GameObject mistEffectObj;
-    ParticleSystem mistParticle;
-    public BackgroundActivation backActive_Script;
-
-    GameObject twoBossObj;
-    Two_Boss twoBoss_Script;
-	//public GameObject enemy_MiddleBoss_Father;
-	public GameObject enemy_BattleShip;
-	GameObject moaiObj;
-    Enemy_Moai moai_Script;
-
-
-    public bool isCreate;       //表示するときにtrueにする
-    public bool isBaculaDestroy = false;
-    public bool isMiddleBossDead = false;
-    public bool isOneBossAlive = false;
-    public bool isTwoBossAlive = false;
-    public bool isMoaiAlive = false;
-
-    public bool isMiddleBossSkip = true;
-
-    public bool isNowOneBoss = false;
-    public bool isNowTwoBoss = false;
-    public bool isNowMoai = false;
-    public bool isDebug = false;
-    public bool isLastBossWireless = false;
+	[SerializeField, NonEditable] private int PreviousCount = 0;
+	[SerializeField, NonEditable] private int frameCnt = 0;    //フレームカウント：これの値で生成のタイミングをはかる
+	[SerializeField, NonEditable] private int groupCnt = 1;    //画面に出す群れのカウント
+	[SerializeField, NonEditable] private int turning_frame = 180;
+	[SerializeField, NonEditable] private string nextEnemy;
+    private EnemyGroupManage group_Script;
+	private GameObject oneBossOBj;
+	private One_Boss oneBoss_Script;
+	private GameObject mistEffectObj;
+	private ParticleSystem mistParticle;
+	private BackgroundActivation backActive_Script;
+	private GameObject twoBossObj;
+	private Two_Boss twoBoss_Script;
+	private GameObject enemy_BattleShip;
+	private GameObject moaiObj;
+	private Enemy_Moai moai_Script;
+	private bool isCreate;       //表示するときにtrueにする
+	private bool isBaculaDestroy = false;
+	private bool isMiddleBossDead = false;
+	private bool isOneBossAlive = false;
+	private bool isTwoBossAlive = false;
+	private bool isMoaiAlive = false;
+	private bool isMiddleBossSkip = true;
+	private bool isNowOneBoss = false;
+	private bool isNowTwoBoss = false;
+	private bool isNowMoai = false;
+	private bool isDebug = false;
+	private bool isLastBossWireless = false;
 	// ビッグコアの出現グループ番号と経過フレーム
     private int bigCoreGroupNum = 17;
     private int bigCoreGroupFrame = 2580;
@@ -305,10 +292,14 @@ public class EnemyCreate : MonoBehaviour
 	// 最初のフレーム
     void Start()
     {
+		//群れカウント初期化
+		PreviousCount = 0;
+		frameCnt = 0;//フレームカウント：これの値で生成のタイミングをはかる
+		groupCnt = 1;    //画面に出す群れのカウント
+		nextEnemy = "";
+		turning_frame = enemyGroups[0].nextGroupFrame;
 		EnemyDebugNumberUpload();
-
 		CreatePosUpload();
-
 		ResourcesUpload();
 	}
 
@@ -331,7 +322,7 @@ public class EnemyCreate : MonoBehaviour
 					break;
 
 				case EnemyType.BIGCOREMK2:
-					bigCoreMK2GrouNum = num + 1;
+					bigCoreMK2GrouNum = num;
 					bigCoreMK2GroupFrame = allFrame;
 					bigCoreMK2NextGroupFrame = allFrame + enemyGroups[num].nextGroupFrame;
 					break;
@@ -385,134 +376,134 @@ public class EnemyCreate : MonoBehaviour
 		//位置オブジェクト取得
         //上側取得
         #region CreatePosTop
-        createPosT17 = GameObject.Find("CreatePos_Top_17");
-        createPosT16 = GameObject.Find("CreatePos_Top_16");
-        createPosT15 = GameObject.Find("CreatePos_Top_15");
-        createPosT14 = GameObject.Find("CreatePos_Top_14");
-        createPosT13 = GameObject.Find("CreatePos_Top_13");
-        createPosT12 = GameObject.Find("CreatePos_Top_12");
-        createPosT11 = GameObject.Find("CreatePos_Top_11");
-        createPosT10 = GameObject.Find("CreatePos_Top_10");
-        createPosT9 = GameObject.Find("CreatePos_Top_9");
-        createPosT8 = GameObject.Find("CreatePos_Top_8");
-        createPosT7 = GameObject.Find("CreatePos_Top_7");
-        createPosT6 = GameObject.Find("CreatePos_Top_6");
-        createPosT5 = GameObject.Find("CreatePos_Top_5");
-        createPosT4 = GameObject.Find("CreatePos_Top_4");
-        createPosT3 = GameObject.Find("CreatePos_Top_3");
-        createPosT2 = GameObject.Find("CreatePos_Top_2");
-        createPosT1 = GameObject.Find("CreatePos_Top_1");
-        createPosT0 = GameObject.Find("CreatePos_Top_0");
-        createPosTm1 = GameObject.Find("CreatePos_Top_-1");
-        createPosTm2 = GameObject.Find("CreatePos_Top_-2");
-        createPosTm3 = GameObject.Find("CreatePos_Top_-3");
-        createPosTm4 = GameObject.Find("CreatePos_Top_-4");
-        createPosTm5 = GameObject.Find("CreatePos_Top_-5");
-        createPosTm6 = GameObject.Find("CreatePos_Top_-6");
-        createPosTm7 = GameObject.Find("CreatePos_Top_-7");
-        createPosTm8 = GameObject.Find("CreatePos_Top_-8");
-        createPosTm9 = GameObject.Find("CreatePos_Top_-9");
-        createPosTm10 = GameObject.Find("CreatePos_Top_-10");
-        createPosTm11 = GameObject.Find("CreatePos_Top_-11");
-        createPosTm12 = GameObject.Find("CreatePos_Top_-12");
-        createPosTm13 = GameObject.Find("CreatePos_Top_-13");
-        createPosTm14 = GameObject.Find("CreatePos_Top_-14");
-        createPosTm15 = GameObject.Find("CreatePos_Top_-15");
-        createPosTm16 = GameObject.Find("CreatePos_Top_-16");
-        createPosTm17 = GameObject.Find("CreatePos_Top_-17");
+        createPosT17 = GameObject.Find("CreatePos_Top_17").transform;
+        createPosT16 = GameObject.Find("CreatePos_Top_16").transform;
+        createPosT15 = GameObject.Find("CreatePos_Top_15").transform;
+        createPosT14 = GameObject.Find("CreatePos_Top_14").transform;
+        createPosT13 = GameObject.Find("CreatePos_Top_13").transform;
+        createPosT12 = GameObject.Find("CreatePos_Top_12").transform;
+        createPosT11 = GameObject.Find("CreatePos_Top_11").transform;
+        createPosT10 = GameObject.Find("CreatePos_Top_10").transform;
+        createPosT9 = GameObject.Find("CreatePos_Top_9").transform;
+        createPosT8 = GameObject.Find("CreatePos_Top_8").transform;
+        createPosT7 = GameObject.Find("CreatePos_Top_7").transform;
+        createPosT6 = GameObject.Find("CreatePos_Top_6").transform;
+        createPosT5 = GameObject.Find("CreatePos_Top_5").transform;
+        createPosT4 = GameObject.Find("CreatePos_Top_4").transform;
+        createPosT3 = GameObject.Find("CreatePos_Top_3").transform;
+        createPosT2 = GameObject.Find("CreatePos_Top_2").transform;
+        createPosT1 = GameObject.Find("CreatePos_Top_1").transform;
+        createPosT0 = GameObject.Find("CreatePos_Top_0").transform;
+        createPosTm1 = GameObject.Find("CreatePos_Top_-1").transform;
+        createPosTm2 = GameObject.Find("CreatePos_Top_-2").transform;
+        createPosTm3 = GameObject.Find("CreatePos_Top_-3").transform;
+        createPosTm4 = GameObject.Find("CreatePos_Top_-4").transform;
+        createPosTm5 = GameObject.Find("CreatePos_Top_-5").transform;
+        createPosTm6 = GameObject.Find("CreatePos_Top_-6").transform;
+        createPosTm7 = GameObject.Find("CreatePos_Top_-7").transform;
+        createPosTm8 = GameObject.Find("CreatePos_Top_-8").transform;
+        createPosTm9 = GameObject.Find("CreatePos_Top_-9").transform;
+        createPosTm10 = GameObject.Find("CreatePos_Top_-10").transform;
+        createPosTm11 = GameObject.Find("CreatePos_Top_-11").transform;
+        createPosTm12 = GameObject.Find("CreatePos_Top_-12").transform;
+        createPosTm13 = GameObject.Find("CreatePos_Top_-13").transform;
+        createPosTm14 = GameObject.Find("CreatePos_Top_-14").transform;
+        createPosTm15 = GameObject.Find("CreatePos_Top_-15").transform;
+        createPosTm16 = GameObject.Find("CreatePos_Top_-16").transform;
+        createPosTm17 = GameObject.Find("CreatePos_Top_-17").transform;
         #endregion
 
         //下側取得
         #region CreatePosUnder
-        createPosU17 = GameObject.Find("CreatePos_Under_17");
-        createPosU16 = GameObject.Find("CreatePos_Under_16");
-        createPosU15 = GameObject.Find("CreatePos_Under_15");
-        createPosU14 = GameObject.Find("CreatePos_Under_14");
-        createPosU13 = GameObject.Find("CreatePos_Under_13");
-        createPosU12 = GameObject.Find("CreatePos_Under_12");
-        createPosU11 = GameObject.Find("CreatePos_Under_11");
-        createPosU10 = GameObject.Find("CreatePos_Under_10");
-        createPosU9 = GameObject.Find("CreatePos_Under_9");
-        createPosU8 = GameObject.Find("CreatePos_Under_8");
-        createPosU7 = GameObject.Find("CreatePos_Under_7");
-        createPosU6 = GameObject.Find("CreatePos_Under_6");
-        createPosU5 = GameObject.Find("CreatePos_Under_5");
-        createPosU4 = GameObject.Find("CreatePos_Under_4");
-        createPosU3 = GameObject.Find("CreatePos_Under_3");
-        createPosU2 = GameObject.Find("CreatePos_Under_2");
-        createPosU1 = GameObject.Find("CreatePos_Under_1");
-        createPosU0 = GameObject.Find("CreatePos_Under_0");
-        createPosUm1 = GameObject.Find("CreatePos_Under_-1");
-        createPosUm2 = GameObject.Find("CreatePos_Under_-2");
-        createPosUm3 = GameObject.Find("CreatePos_Under_-3");
-        createPosUm4 = GameObject.Find("CreatePos_Under_-4");
-        createPosUm5 = GameObject.Find("CreatePos_Under_-5");
-        createPosUm6 = GameObject.Find("CreatePos_Under_-6");
-        createPosUm7 = GameObject.Find("CreatePos_Under_-7");
-        createPosUm8 = GameObject.Find("CreatePos_Under_-8");
-        createPosUm9 = GameObject.Find("CreatePos_Under_-9");
-        createPosUm10 = GameObject.Find("CreatePos_Under_-10");
-        createPosUm11 = GameObject.Find("CreatePos_Under_-11");
-        createPosUm12 = GameObject.Find("CreatePos_Under_-12");
-        createPosUm13 = GameObject.Find("CreatePos_Under_-13");
-        createPosUm14 = GameObject.Find("CreatePos_Under_-14");
-        createPosUm15 = GameObject.Find("CreatePos_Under_-15");
-        createPosUm16 = GameObject.Find("CreatePos_Under_-16");
-        createPosUm17 = GameObject.Find("CreatePos_Under_-17");
+        //createPosU17 = GameObject.Find("CreatePos_Under_17").transform;
+        //createPosU16 = GameObject.Find("CreatePos_Under_16").transform;
+        //createPosU15 = GameObject.Find("CreatePos_Under_15").transform;
+        //createPosU14 = GameObject.Find("CreatePos_Under_14").transform;
+        //createPosU13 = GameObject.Find("CreatePos_Under_13").transform;
+        //createPosU12 = GameObject.Find("CreatePos_Under_12").transform;
+        //createPosU11 = GameObject.Find("CreatePos_Under_11").transform;
+        //createPosU10 = GameObject.Find("CreatePos_Under_10").transform;
+        //createPosU9 = GameObject.Find("CreatePos_Under_9").transform;
+        //createPosU8 = GameObject.Find("CreatePos_Under_8").transform;
+        //createPosU7 = GameObject.Find("CreatePos_Under_7").transform;
+        //createPosU6 = GameObject.Find("CreatePos_Under_6").transform;
+        //createPosU5 = GameObject.Find("CreatePos_Under_5").transform;
+        //createPosU4 = GameObject.Find("CreatePos_Under_4").transform;
+        //createPosU3 = GameObject.Find("CreatePos_Under_3").transform;
+        //createPosU2 = GameObject.Find("CreatePos_Under_2").transform;
+        //createPosU1 = GameObject.Find("CreatePos_Under_1").transform;
+        //createPosU0 = GameObject.Find("CreatePos_Under_0").transform;
+        //createPosUm1 = GameObject.Find("CreatePos_Under_-1").transform;
+        //createPosUm2 = GameObject.Find("CreatePos_Under_-2").transform;
+        //createPosUm3 = GameObject.Find("CreatePos_Under_-3").transform;
+        //createPosUm4 = GameObject.Find("CreatePos_Under_-4").transform;
+        //createPosUm5 = GameObject.Find("CreatePos_Under_-5").transform;
+        //createPosUm6 = GameObject.Find("CreatePos_Under_-6").transform;
+        //createPosUm7 = GameObject.Find("CreatePos_Under_-7").transform;
+        //createPosUm8 = GameObject.Find("CreatePos_Under_-8").transform;
+        //createPosUm9 = GameObject.Find("CreatePos_Under_-9").transform;
+        //createPosUm10 = GameObject.Find("CreatePos_Under_-10").transform;
+        //createPosUm11 = GameObject.Find("CreatePos_Under_-11").transform;
+        //createPosUm12 = GameObject.Find("CreatePos_Under_-12").transform;
+        //createPosUm13 = GameObject.Find("CreatePos_Under_-13").transform;
+        //createPosUm14 = GameObject.Find("CreatePos_Under_-14").transform;
+        //createPosUm15 = GameObject.Find("CreatePos_Under_-15").transform;
+        //createPosUm16 = GameObject.Find("CreatePos_Under_-16").transform;
+        //createPosUm17 = GameObject.Find("CreatePos_Under_-17").transform;
         #endregion
 
         //右側取得
         #region CreatePosRight
-        createPosR5 = GameObject.Find("CreatePos_Right_5");
-        createPosR4 = GameObject.Find("CreatePos_Right_4");
-        createPosR3 = GameObject.Find("CreatePos_Right_3");
-        createPosR2 = GameObject.Find("CreatePos_Right_2");
-        createPosR1 = GameObject.Find("CreatePos_Right_1");
-        createPosR0 = GameObject.Find("CreatePos_Right_0");
-        createPos_FourGroupR = GameObject.Find("CreatePos_FourGroupR");
-        createPosRm1 = GameObject.Find("CreatePos_Right_-1");
-        createPosRm2 = GameObject.Find("CreatePos_Right_-2");
-        createPosRm3 = GameObject.Find("CreatePos_Right_-3");
-        createPosRm4 = GameObject.Find("CreatePos_Right_-4");
-        createPosRm5 = GameObject.Find("CreatePos_Right_-5");
+        createPosR5 = GameObject.Find("CreatePos_Right_5").transform;
+        createPosR4 = GameObject.Find("CreatePos_Right_4").transform;
+        createPosR3 = GameObject.Find("CreatePos_Right_3").transform;
+        createPosR2 = GameObject.Find("CreatePos_Right_2").transform;
+        createPosR1 = GameObject.Find("CreatePos_Right_1").transform;
+        createPosR0 = GameObject.Find("CreatePos_Right_0").transform;
+        createPos_FourGroupR = GameObject.Find("CreatePos_FourGroupR").transform;
+        createPosRm1 = GameObject.Find("CreatePos_Right_-1").transform;
+        createPosRm2 = GameObject.Find("CreatePos_Right_-2").transform;
+        createPosRm3 = GameObject.Find("CreatePos_Right_-3").transform;
+        createPosRm4 = GameObject.Find("CreatePos_Right_-4").transform;
+        createPosRm5 = GameObject.Find("CreatePos_Right_-5").transform;
         #endregion
 
         //左側取得
         #region CreatePosLeft
-        createPosL5 = GameObject.Find("CreatePos_Left_5");
-        createPosL4 = GameObject.Find("CreatePos_Left_4");
-        createPosL3 = GameObject.Find("CreatePos_Left_3");
-        createPosL2 = GameObject.Find("CreatePos_Left_2");
-        createPosL1 = GameObject.Find("CreatePos_Left_1");
-        createPosL0 = GameObject.Find("CreatePos_Left_0");
-        createPos_FourGroupL = GameObject.Find("CreatePos_FourGroupL");
-        createPosLm1 = GameObject.Find("CreatePos_Left_-1");
-        createPosLm2 = GameObject.Find("CreatePos_Left_-2");
-        createPosLm3 = GameObject.Find("CreatePos_Left_-3");
-        createPosLm4 = GameObject.Find("CreatePos_Left_-4");
-        createPosLm5 = GameObject.Find("CreatePos_Left_-5");
+        createPosL5 = GameObject.Find("CreatePos_Left_5").transform;
+        createPosL4 = GameObject.Find("CreatePos_Left_4").transform;
+        createPosL3 = GameObject.Find("CreatePos_Left_3").transform;
+        createPosL2 = GameObject.Find("CreatePos_Left_2").transform;
+        createPosL1 = GameObject.Find("CreatePos_Left_1").transform;
+        createPosL0 = GameObject.Find("CreatePos_Left_0").transform;
+        createPos_FourGroupL = GameObject.Find("CreatePos_FourGroupL").transform;
+        createPosLm1 = GameObject.Find("CreatePos_Left_-1").transform;
+        createPosLm2 = GameObject.Find("CreatePos_Left_-2").transform;
+        createPosLm3 = GameObject.Find("CreatePos_Left_-3").transform;
+        createPosLm4 = GameObject.Find("CreatePos_Left_-4").transform;
+        createPosLm5 = GameObject.Find("CreatePos_Left_-5").transform;
 		#endregion
 	}
 
 	private void ResourcesUpload()
 	{
 		#region リソース取得
-		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos");
-        createBattleShipPos = GameObject.Find("CreateBattleshipPos");
+		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos").transform;
+		createBattleShipPos = GameObject.Find("CreateBattleshipPos").transform;
 
-        createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos");
+		createBaculaGroupPos = GameObject.Find("CreateBaculaGroupPos").transform;
 
-        //createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
-        //createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
-        //createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
-        createMeteorPosR0 = GameObject.Find("CreateMeteorPos_Right_0");
-        //createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
-        //createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
-        //createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
-        //createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
+		//createMeteorPosR4_814 = GameObject.Find("CreateMeteorPos_Right_4.814");
+		//createMeteorPosR2_988 = GameObject.Find("CreateMeteorPos_Right_2.988");
+		//createMeteorPosR1_494 = GameObject.Find("CreateMeteorPos_Right_1.494");
+		createMeteorPosR0 = GameObject.Find("CreateMeteorPos_Right_0").transform;
+		//createMeteorPosRm1_162 = GameObject.Find("CreateMeteorPos_Right_-1.162");
+		//createMeteorPosRm2_822 = GameObject.Find("CreateMeteorPos_Right_-2.822");
+		//createMeteorPosRm3_57 = GameObject.Find("CreateMeteorPos_Right_-3.57");
+		//createMeteorPosRm4_814 = GameObject.Find("CreateMeteorPos_Right_-4.814");
 
-        //enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
-        enemy_UFO_Group_Five = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
+		//enemy_UFO_Group = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+		enemy_UFO_Group_Five = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
         enemy_ClamChowder_Group_Four = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
         enemy_ClamChowder_Group_Four_NoItem = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
         enemy_ClamChowder_Group_Five = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
@@ -580,13 +571,6 @@ public class EnemyCreate : MonoBehaviour
         mistParticle = mistEffectObj.GetComponent<ParticleSystem>();
         //backActive_Script = mistEffectObj.GetComponent<BackgroundActivation>();
 
-        //群れカウント初期化
-        groupCnt = 1;
-        nowGroupCnt = 1;
-        for (int i = 0; i < groupCntArray.Length; i++)
-        {
-            groupCntArray[i] = i;
-        }
 
         middleBossOBj = Obj_Storage.Storage_Data.GetMiddleBoss();
         middleBoss_Script = middleBossOBj.GetComponent<Enemy_MiddleBoss>();
@@ -690,18 +674,28 @@ public class EnemyCreate : MonoBehaviour
                 }
             }
         }
-
-        if (isBaculaDestroy)
-        {
-            if (frameCnt < turning_frame)
-            {
-                frameCnt = turning_frame;
-            }
-            isBaculaDestroy = false;
-        }
 		
         CreateEnemyGroup_01();
     }
+
+	public bool GetLastBossWireless()
+	{
+		return isLastBossWireless;
+	}
+
+	public void SetBaculaDestroy(bool flag)
+	{
+		isBaculaDestroy = flag;
+
+		if (isBaculaDestroy)
+		{
+			if (frameCnt < turning_frame)
+			{
+				frameCnt = turning_frame;
+			}
+			isBaculaDestroy = false;
+		}
+	}
 
 	// 指定の敵グループを出す
 	private void DebugKeyUpdate()
@@ -783,6 +777,7 @@ public class EnemyCreate : MonoBehaviour
 	}
 
 	// 敵グループの情報
+	[System.Serializable]
 	public struct EnemyGroup
 	{
 		public string enemyGroupName;
@@ -808,18 +803,18 @@ public class EnemyCreate : MonoBehaviour
 
         switch (p)
         {
-            case CreatePos.FOURGROUPL:pos = createPos_FourGroupL.transform.position; break;
-			case CreatePos.R4: pos = createPosR4.transform.position; break;
-			case CreatePos.R3: pos = createPosR3.transform.position; break;
-			case CreatePos.R2: pos = createPosR2.transform.position; break;
-			case CreatePos.R1: pos = createPosR1.transform.position; break;
-			case CreatePos.R0: pos = createPosR0.transform.position; break;
-			case CreatePos.Rm1: pos = createPosRm1.transform.position; break;
-			case CreatePos.Rm2: pos = createPosRm2.transform.position; break;
-			case CreatePos.Rm3: pos = createPosRm3.transform.position; break;
-			case CreatePos.Rm4: pos = createPosRm4.transform.position; break;
-			case CreatePos.R0PX2Y081: pos = createPosR0.transform.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f); break;
-			case CreatePos.R0PX2MY081: pos = createPosR0.transform.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f); break;
+            case CreatePos.FOURGROUPL:pos = createPos_FourGroupL.position; break;
+			case CreatePos.R4: pos = createPosR4.position; break;
+			case CreatePos.R3: pos = createPosR3.position; break;
+			case CreatePos.R2: pos = createPosR2.position; break;
+			case CreatePos.R1: pos = createPosR1.position; break;
+			case CreatePos.R0: pos = createPosR0.position; break;
+			case CreatePos.Rm1: pos = createPosRm1.position; break;
+			case CreatePos.Rm2: pos = createPosRm2.position; break;
+			case CreatePos.Rm3: pos = createPosRm3.position; break;
+			case CreatePos.Rm4: pos = createPosRm4.position; break;
+			case CreatePos.R0PX2Y081: pos = createPosR0.position + new Vector3(2.0f, 0.81f * 1.0f, 0.0f); break;
+			case CreatePos.R0PX2MY081: pos = createPosR0.position + new Vector3(2.0f, 0.81f * -1.0f, 0.0f); break;
 			default: pos = Vector3.zero; break;
         }
 
@@ -834,11 +829,11 @@ public class EnemyCreate : MonoBehaviour
 				break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_UPSEVENDIAGONAL:
-				Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_UpSevenDiagonal, createPosR0.position, transform.rotation);
 				break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_DOWNSEVENDIAGONAL:
-				Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.transform.position, transform.rotation);
+				Instantiate(enemy_ClamChowder_Group_DownSevenDiagonal, createPosR0.position, transform.rotation);
 				break;
 
 			case EnemyType.MOAI:
@@ -1066,8 +1061,8 @@ public class EnemyCreate : MonoBehaviour
                 break;
 
             case EnemyType.BATTLESHIP:
-                GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.transform.position, enemy_BattleShip.transform.rotation);
-                Battle_Ship1.transform.position = createPosR0.transform.position;
+                GameObject Battle_Ship1 = Instantiate(enemy_BattleShip, createPosR0.position, enemy_BattleShip.transform.rotation);
+                Battle_Ship1.transform.position = createPosR0.position;
                 BattleshipType_Enemy b1 = Battle_Ship1.GetComponent<BattleshipType_Enemy>();
                 b1.is_sandwich = false;
                 b1.Is_up = false;
@@ -1389,7 +1384,6 @@ public class EnemyCreate : MonoBehaviour
     private void Next_Condition(int add_frame)
     {
         groupCnt++;
-        //nowGroupCnt++;
         turning_frame += add_frame;
     }
 }
