@@ -94,14 +94,8 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 				    this.nodes.Remove(currentCheckedLaserNodeGo);
 				    //検索位置調整する
 				    i = i - 1;
-				    //管理オブジェクト個数を調べ、管理個数は0の場合
-			    }
-			    //アクティブ状態の場合
-			    else
-			    {
-				    //位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
-				    if (this.isFixed)
-					    this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
+					//管理オブジェクト個数を調べ、管理個数は0の場合
+
 
 					if (this.nodes.Count == 0)
 					{
@@ -109,29 +103,53 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 						this.ResetLineRenderer();
 
 						this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+						break;
 					}
+				}
+			    //アクティブ状態の場合
+			    else
+			    {
+				    //位置合わせTrue場合、強制的に管理オブジェクトの位置を修正する
+				    if (this.isFixed)
+					    this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
 				}
 		    }
 
         }
-        if (this.nodes.Count >= 2)
+
+
+		if (transform.parent.name == "Device_StrightLaserParent")
 		{
-		      this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
-              this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
+			if (this.nodes.Count >= 2)
+			{
+				this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
+				this.lineRenderer.SetPosition(1, this.nodes[nodes.Count - 1].transform.position);
 
+			}
+			//node 1
+			else if (this.nodes.Count > 0)
+			{
+
+				this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
+				this.lineRenderer.SetPosition(1, this.nodes[0].transform.position + Vector3.right);
+
+			}
+			else if (this.nodes.Count == 0)
+			{
+				this.lineRenderer.SetPosition(0, Vector3.zero);
+				this.lineRenderer.SetPosition(1, Vector3.zero);
+			}
 		}
-          //node 1
-		else if(this.nodes.Count > 0)
-	    {
-
-            this.lineRenderer.SetPosition(0,this.nodes[0].transform.position);
-            this.lineRenderer.SetPosition(1,this.nodes[0].transform.position + Vector3.right);
-
-		}
-		else if (this.nodes.Count == 0)
+		if (transform.parent.name == "Device_RotateLaserParent")
 		{
-			this.lineRenderer.SetPosition(0, Vector3.zero);
-			this.lineRenderer.SetPosition(1, Vector3.zero);
+			lineRenderer.positionCount = nodes.Count;
+			if (this.nodes.Count >= 2)
+			{
+				for(var i = 0; i < nodes.Count; ++i)
+				{
+					this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
+				}
+			}
 		}
 
 		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
@@ -190,8 +208,12 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 
+		if (isRotateLaser)
+		{
+			node.GetComponent<bullet_status>().Travelling_Direction = rotation.normalized;
+		}
 
-		if(transform.parent.parent.parent.name == "Player")
+		if (transform.parent.parent.parent.name == "Player")
 		{
 			node.name = "Player_Laser";
 		}
