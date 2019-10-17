@@ -237,7 +237,7 @@ public class Obj_Storage : MonoBehaviour
 		Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");      //プレイヤーパワーアップエフェクト
 		Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");       //中ボス爆発
 		Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");       //バグが起きないようにプレイヤーの爆発を仮置き
-		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Attachment/A110");      //敵の粒子
+		Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Explosion/E011");      //使ってない（仮にはいってるだけ）
 		Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");      //戦艦型の爆発
 		Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");      //プレイヤーの弾の着弾時のエフェクト
 		Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");          //ボス登場時のエフェクト
