@@ -8,6 +8,7 @@
  * 2019/08/27　タイムラインで一部制御
  * 2019/08/28　シャッター制御
  * 2019/09/26　最終的に使わなくなったコードの完全削除
+ * 2019/10/17　レーザーの軽量に伴うスクリプトの変更
  */
 
 using System.Collections;
@@ -85,6 +86,8 @@ public class One_Boss : character_status
 
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
+
+	private Boss_One_Laser[] Laser_Manager { get; set; }
 
 	//---------------------------------------------------------
 	//レーザー音追加
@@ -190,6 +193,10 @@ public class One_Boss : character_status
 		};
 
 		setTimeTrigger = FindObjectOfType<SetTimeTrigger>();
+
+		Laser_Manager = new Boss_One_Laser[2];
+		Laser_Manager[0] = laser_muzzle[0].GetComponent<Boss_One_Laser>();
+		Laser_Manager[1] = laser_muzzle[1].GetComponent<Boss_One_Laser>();
 	}
 
 	private new void Update()
@@ -357,72 +364,6 @@ public class One_Boss : character_status
 	}
 	#endregion
 
-	# region プレイヤーを追従しバウンド弾_3
-	private void Player_Tracking_Bound_Bullets_3()
-	{
-		if (Attack_Step == 0)
-		{
-			Timeline_Player.Play(Bullet_timeline);
-			Timeline_Player.time = 0.0f;
-			Attack_Step++;
-			Is_Attack_Now = true;
-			Shot_Delay = -60;
-		}
-		else if (Attack_Step == 1)
-		{
-			Flame++;
-
-			foreach (GameObject obj in laser_muzzle)
-			{
-				if (obj.activeSelf)
-				{
-					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
-			}
-
-			if (Flame % 20 == 0)
-			{
-				Bullet_num_Set(Check_Bits());
-				for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-				}
-			}
-
-			Shot_Delay++;
-			if(Shot_Delay == (Shot_DelayMax / 3))
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
-			}
-			else if(Shot_Delay == (Shot_DelayMax / 3) * 2)
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
-			}
-			else if(Shot_Delay == Shot_DelayMax)
-			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[1].transform.position, muzzles[1].transform.right);
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, muzzles[2].transform.position, muzzles[2].transform.right);
-
-				Shot_Delay -= Shot_DelayMax * 2;
-			}
-
-			if(Is_end_of_timeline)
-			{
-				Is_Attack_Now = false;
-				Attack_Step = 0;
-				Is_end_of_timeline = false;
-				Number_Of_Lasers++;
-				Flame = 0;
-				Shot_Delay = 0;
-			}
-		}
-	}
-	#endregion
-
 	#region 突進攻撃2
 	/// <summary>
 	/// 突進攻撃
@@ -507,6 +448,10 @@ public class One_Boss : character_status
 			//framework.SetActive(true);
 			// 次の動きへ
 			Attack_Step++;
+
+			// レーザー撃ちだし開始
+			Laser_Manager[0].IsShoot = true;
+			Laser_Manager[1].IsShoot = true;
 		}
 		// 攻撃
 		else if(Attack_Step == 2)
@@ -522,9 +467,6 @@ public class One_Boss : character_status
 			//-----------------------------------
 			Flame++;
 			Shot_Delay++;
-
-			//　レーザー撃ち出し
-			Laser_Shooting();
 
 			// バウンド弾撃ちだし
 			if (Flame % 80 == 0)
@@ -594,50 +536,8 @@ public class One_Boss : character_status
 			Flame++;
 			Shot_Delay++;
 
-			//　レーザー撃ち出し
-			Laser_Shooting();
-
-
-			//-----------------------------------------------------------弾を出さないようにする----------------------------------------------------------------------------
-			// バウンド弾撃ちだし
-			//if (Flame % 80 == 0)
-			//{
-			//	Bullet_num_Set(Check_Bits());
-			//	for (int i = 0; i < BoundBullet_Rotation.Length; i++)
-			//	{
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[0].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_BOUND, muzzles[3].transform.position, Quaternion.Euler(BoundBullet_Rotation[i]));
-			//	}
-			//}
-			//-----------------------------------------------------------弾を出さないようにする-----------------------------------------------------------------------------
-
-			//if (Shot_Delay == (Shot_DelayMax / 3))
-			//{
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
-			//}
-			//else if (Shot_Delay == (Shot_DelayMax / 3) * 2)
-			//{
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
-			//}
-			//else if (Shot_Delay == Shot_DelayMax)
-			//{
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[1].transform.position, muzzles[1].transform.right);
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzles[2].transform.position, muzzles[2].transform.right);
-
-			//	Shot_Delay -= Shot_DelayMax * 2;
-			//}
-
-			//fafaa = true;
-
 			if (Is_end_of_timeline)
 			{
-				//// 枠組み使用終了
-				//framework.SetActive(false);
-
-				//fafaa = false;
-
 				Flame = 0;
 				Timeline_Player.Stop();
 				Attack_Step = 0;
@@ -650,26 +550,13 @@ public class One_Boss : character_status
 				audioSource.loop = false;
 				audioSource.Play();
 				//------------------------------------
+
+				// レーザー撃ちだし終了
+				Laser_Manager[0].IsShoot = false;
+				Laser_Manager[1].IsShoot = false;
 			}
 		}
 	}
-
-	#region レーザー打ち出し
-	/// <summary>
-	/// レーザー撃ち出し
-	/// </summary>
-	private void Laser_Shooting()
-	{
-			foreach (GameObject obj in laser_muzzle)
-			{
-				if (obj.activeSelf)
-				{
-					Boss_One_Laser laser = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, obj.transform.position, transform.right).GetComponent<Boss_One_Laser>();
-					laser.Manual_Start(obj.transform);
-				}
-			}
-	}
-	#endregion
 
 	/// <summary>
 	/// コライダーの使用未使用の切り替え
