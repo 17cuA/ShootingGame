@@ -415,41 +415,41 @@ public class EnemyCreate : MonoBehaviour
 
         //下側取得
         #region CreatePosUnder
-        createPosU17 = GameObject.Find("CreatePos_Under_17").transform;
-        createPosU16 = GameObject.Find("CreatePos_Under_16").transform;
-        createPosU15 = GameObject.Find("CreatePos_Under_15").transform;
-        createPosU14 = GameObject.Find("CreatePos_Under_14").transform;
-        createPosU13 = GameObject.Find("CreatePos_Under_13").transform;
-        createPosU12 = GameObject.Find("CreatePos_Under_12").transform;
-        createPosU11 = GameObject.Find("CreatePos_Under_11").transform;
-        createPosU10 = GameObject.Find("CreatePos_Under_10").transform;
-        createPosU9 = GameObject.Find("CreatePos_Under_9").transform;
-        createPosU8 = GameObject.Find("CreatePos_Under_8").transform;
-        createPosU7 = GameObject.Find("CreatePos_Under_7").transform;
-        createPosU6 = GameObject.Find("CreatePos_Under_6").transform;
-        createPosU5 = GameObject.Find("CreatePos_Under_5").transform;
-        createPosU4 = GameObject.Find("CreatePos_Under_4").transform;
-        createPosU3 = GameObject.Find("CreatePos_Under_3").transform;
-        createPosU2 = GameObject.Find("CreatePos_Under_2").transform;
-        createPosU1 = GameObject.Find("CreatePos_Under_1").transform;
-        createPosU0 = GameObject.Find("CreatePos_Under_0").transform;
-        createPosUm1 = GameObject.Find("CreatePos_Under_-1").transform;
-        createPosUm2 = GameObject.Find("CreatePos_Under_-2").transform;
-        createPosUm3 = GameObject.Find("CreatePos_Under_-3").transform;
-        createPosUm4 = GameObject.Find("CreatePos_Under_-4").transform;
-        createPosUm5 = GameObject.Find("CreatePos_Under_-5").transform;
-        createPosUm6 = GameObject.Find("CreatePos_Under_-6").transform;
-        createPosUm7 = GameObject.Find("CreatePos_Under_-7").transform;
-        createPosUm8 = GameObject.Find("CreatePos_Under_-8").transform;
-        createPosUm9 = GameObject.Find("CreatePos_Under_-9").transform;
-        createPosUm10 = GameObject.Find("CreatePos_Under_-10").transform;
-        createPosUm11 = GameObject.Find("CreatePos_Under_-11").transform;
-        createPosUm12 = GameObject.Find("CreatePos_Under_-12").transform;
-        createPosUm13 = GameObject.Find("CreatePos_Under_-13").transform;
-        createPosUm14 = GameObject.Find("CreatePos_Under_-14").transform;
-        createPosUm15 = GameObject.Find("CreatePos_Under_-15").transform;
-        createPosUm16 = GameObject.Find("CreatePos_Under_-16").transform;
-        createPosUm17 = GameObject.Find("CreatePos_Under_-17").transform;
+        //createPosU17 = GameObject.Find("CreatePos_Under_17").transform;
+        //createPosU16 = GameObject.Find("CreatePos_Under_16").transform;
+        //createPosU15 = GameObject.Find("CreatePos_Under_15").transform;
+        //createPosU14 = GameObject.Find("CreatePos_Under_14").transform;
+        //createPosU13 = GameObject.Find("CreatePos_Under_13").transform;
+        //createPosU12 = GameObject.Find("CreatePos_Under_12").transform;
+        //createPosU11 = GameObject.Find("CreatePos_Under_11").transform;
+        //createPosU10 = GameObject.Find("CreatePos_Under_10").transform;
+        //createPosU9 = GameObject.Find("CreatePos_Under_9").transform;
+        //createPosU8 = GameObject.Find("CreatePos_Under_8").transform;
+        //createPosU7 = GameObject.Find("CreatePos_Under_7").transform;
+        //createPosU6 = GameObject.Find("CreatePos_Under_6").transform;
+        //createPosU5 = GameObject.Find("CreatePos_Under_5").transform;
+        //createPosU4 = GameObject.Find("CreatePos_Under_4").transform;
+        //createPosU3 = GameObject.Find("CreatePos_Under_3").transform;
+        //createPosU2 = GameObject.Find("CreatePos_Under_2").transform;
+        //createPosU1 = GameObject.Find("CreatePos_Under_1").transform;
+        //createPosU0 = GameObject.Find("CreatePos_Under_0").transform;
+        //createPosUm1 = GameObject.Find("CreatePos_Under_-1").transform;
+        //createPosUm2 = GameObject.Find("CreatePos_Under_-2").transform;
+        //createPosUm3 = GameObject.Find("CreatePos_Under_-3").transform;
+        //createPosUm4 = GameObject.Find("CreatePos_Under_-4").transform;
+        //createPosUm5 = GameObject.Find("CreatePos_Under_-5").transform;
+        //createPosUm6 = GameObject.Find("CreatePos_Under_-6").transform;
+        //createPosUm7 = GameObject.Find("CreatePos_Under_-7").transform;
+        //createPosUm8 = GameObject.Find("CreatePos_Under_-8").transform;
+        //createPosUm9 = GameObject.Find("CreatePos_Under_-9").transform;
+        //createPosUm10 = GameObject.Find("CreatePos_Under_-10").transform;
+        //createPosUm11 = GameObject.Find("CreatePos_Under_-11").transform;
+        //createPosUm12 = GameObject.Find("CreatePos_Under_-12").transform;
+        //createPosUm13 = GameObject.Find("CreatePos_Under_-13").transform;
+        //createPosUm14 = GameObject.Find("CreatePos_Under_-14").transform;
+        //createPosUm15 = GameObject.Find("CreatePos_Under_-15").transform;
+        //createPosUm16 = GameObject.Find("CreatePos_Under_-16").transform;
+        //createPosUm17 = GameObject.Find("CreatePos_Under_-17").transform;
         #endregion
 
         //右側取得
