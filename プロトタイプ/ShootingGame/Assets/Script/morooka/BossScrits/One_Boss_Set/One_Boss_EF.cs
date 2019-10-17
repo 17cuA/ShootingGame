@@ -16,10 +16,6 @@ public class One_Boss_EF : MonoBehaviour
 
 	private void Update()
 	{
-		//if(Is_Animation_End)
-		//{
-		//	Destroy(gameObject);
-		//}
 		if(!renderer.isVisible)
 		{
 			Destroy(gameObject);

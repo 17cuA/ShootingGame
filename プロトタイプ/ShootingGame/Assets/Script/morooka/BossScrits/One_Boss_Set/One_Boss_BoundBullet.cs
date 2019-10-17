@@ -73,9 +73,6 @@ public class One_Boss_BoundBullet : bullet_status
 					default:
 						break;
 				}
-
-				//if (P1 != null) P1.Bullet_cnt--;
-				//if (P2 != null) P2.Bullet_cnt--;
 			}
 
 			deathEffectLifeTimer = 0;
@@ -209,8 +206,6 @@ public class One_Boss_BoundBullet : bullet_status
 	{
 		if (col.tag == "Player_Bullet")
 		{
-			//gameObject.SetActive(false);
-
 			deathEffect.SetActive(true);
 			if (canDropItem)
 				StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position,Vector3.left);
@@ -225,9 +220,6 @@ public class One_Boss_BoundBullet : bullet_status
 	{
 		if (col.gameObject.tag == "Player_Bullet")
 		{
-			Debug.Log("Player_Bullet");
-			//gameObject.SetActive(false);
-
 			deathEffect.SetActive(true);
 			if (canDropItem)
 				StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position, Vector3.left);

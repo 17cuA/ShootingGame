@@ -68,16 +68,6 @@ public class bullet_status : MonoBehaviour
 			default:
 				break;
 		}
-		//if (gameObject.name == "Player1_Bullet")
-  //      {
-  //          P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-		//	Player_Number = 1;
-		//}
-  //      else if (gameObject.name == "Player2_Bullet")
-  //      {
-  //          P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-		//	Player_Number = 2;
-		//}
 	}
 
 	protected void Update()
@@ -108,9 +98,6 @@ public class bullet_status : MonoBehaviour
 					default:
 						break;
 				}
-
-				//if (P1 != null) P1.Bullet_cnt--;
-				//if (P2 != null) P2.Bullet_cnt--;
 			}
 			gameObject.SetActive(false);
 		}
@@ -127,8 +114,6 @@ public class bullet_status : MonoBehaviour
         else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
         {
             gameObject.SetActive(false);
-            //add:0513_takada 爆発エフェクトのテスト
-            //AddExplosionProcess();
             GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
             ParticleSystem particle = effect.GetComponent<ParticleSystem>();
             effect.transform.position = gameObject.transform.position;
@@ -150,8 +135,6 @@ public class bullet_status : MonoBehaviour
 		}
         else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
         {
-            //add:0513_takada 爆発エフェクトのテスト
-            //AddExplosionProcess();
             character_status obj = col.GetComponent<character_status>();
             if (obj != null)
             {
@@ -162,11 +145,6 @@ public class bullet_status : MonoBehaviour
             effect.transform.position = gameObject.transform.position;
             particle.Play();
 			Player_Bullet_Des();
-			//if (P1 != null) P1.Bullet_cnt--;
-			//if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-			//{
-			//    if (P2 != null) P2.Bullet_cnt--;
-			//}
 			gameObject.SetActive(false);
         }
         else if (col.gameObject.tag == "Boss_Gard")

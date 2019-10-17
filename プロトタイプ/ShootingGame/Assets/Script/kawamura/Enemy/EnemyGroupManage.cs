@@ -36,7 +36,7 @@ public class EnemyGroupManage : MonoBehaviour
             remainingEnemiesCnt = childNum;
 
         }
-        else if (myName == "Enemy_BossBacula_Four(Clone)" || myName == "Enemy_BossBacula_Four" || myName == "Enemy_Bacula_Group_Six(Clone)" || myName == "Enemy_Bacula_Group_Six(Clone)")      
+        else if (myName == "Enemy_BossBacula_Four(Clone)" || myName == "Enemy_BossBacula_Four" || myName == "Enemy_Bacula_Group_Six(Clone)" || myName == "Enemy_Bacula_Group_Six(Clone)"|| myName == "Enemy_Bacula_Group_Two(Clone)")      
 		{
 			//parentObj = transform.parent.gameObject;
 			//bacuManager = parentObj.GetComponent<BaculasManager>();
