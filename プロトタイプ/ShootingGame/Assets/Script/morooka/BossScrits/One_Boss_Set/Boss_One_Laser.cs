@@ -15,18 +15,19 @@ public class Boss_One_Laser : MonoBehaviour
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
 	public GameObject Laser_Appearance;		// レーザー時の見た目
-	public GameObject Frame_Appearance;     //　フレーム時の見た目
+	public GameObject Frame_Appearance;     // フレーム時の見た目
 
 	 void Update()
 	{
 		// 画面外に出たとき
-		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
-			|| transform.position.y >=8.5f || transform.position.y <= -8.5f)
+		if (transform.position.x >= 23.5f || transform.position.x <= -23.5f
+			|| transform.position.y >= 8.5f || transform.position.y <= -8.5f)
 		{
 			// 非アクティブにする
 			GameObject obj = gameObject;
 			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
 			gameObject.SetActive(false);
+
 		}
 	}
 
