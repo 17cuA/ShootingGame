@@ -326,18 +326,22 @@ class Device_LaserEmitter : MonoBehaviour
 			else if (emitterLaunchCore.CurrentDevice.Type == DeviceType.TYPE_2_ROTATE)
 			{
 				emitterRotateCore.Reset();
+				emitterRotateCore.Reset();
 				emitterLaunchCore.SetDevice(straightLaunchDevive);
 			}
 		}
 
-		if(Input.GetKey(KeyCode.LeftShift))
+
+		if (emitterLaunchCore.CurrentDevice.Type == DeviceType.TYPE_2_ROTATE && Input.GetKey(KeyCode.LeftShift))
 		{
-			emitterRotateCore.Rotate(rotateSpeed * Time.deltaTime);
-			transform.localEulerAngles = emitterRotateCore.pushPosition;
+			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
+			this.transform.gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * rotateSpeed);
 		}
-		if (Input.GetKey(KeyCode.LeftControl))
+
+		if (emitterLaunchCore.CurrentDevice.Type == DeviceType.TYPE_2_ROTATE && Input.GetKey(KeyCode.LeftControl))
 		{
-			emitterRotateCore.Rotate(-rotateSpeed * Time.deltaTime);
+			//this.emitterRotateCore.Rotate(Mathf.PI / 12 * Mathf.Deg2Rad);
+			this.transform.gameObject.transform.Rotate(-Vector3.forward * Time.deltaTime * rotateSpeed);
 		}
 	}
 }

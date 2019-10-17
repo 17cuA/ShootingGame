@@ -189,6 +189,24 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		//管理するように
 		this.nodes.Add(node);
 		this.pointCount++;
+
+
+		if (nodes.Count > 2 && isRotateLaser && transform.parent.name == "Device_RotateLaserParent")
+		{
+			var last = this.nodes[this.nodes.Count - 1];
+			var lastlast = this.nodes[this.nodes.Count - 2];
+			var midePos =  (last.transform.position + lastlast.transform.position) * 0.5f;
+			var mideRotation = (last.transform.localEulerAngles + lastlast.transform.localEulerAngles) * 0.5f;
+			node = CreateNode(midePos, mideRotation, isRotateLaser);
+
+			var p1  =  (last.transform.position + midePos) * 0.5f;
+			var r1  =  (last.transform.localEulerAngles + mideRotation) * 0.5f;
+			node = CreateNode(p1, r1, isRotateLaser);
+
+			var p2 = (lastlast.transform.position + midePos) * 0.5f;
+			var r2 = (lastlast.transform.localEulerAngles + mideRotation) * 0.5f;
+			node = CreateNode(p2, r2, isRotateLaser);
+		}
 	}
 
 
@@ -208,11 +226,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 	{
 		var node = StorageReference.Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_LASER, pos, Quaternion.identity);
 
-		if (isRotateLaser)
-		{
-			node.GetComponent<bullet_status>().Travelling_Direction = rotation.normalized;
-		}
-
 		if (transform.parent.parent.parent.name == "Player")
 		{
 			node.name = "Player_Laser";
@@ -229,6 +242,9 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			if(transform.parent.parent.parent.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player2)
 				node.name = "Option_Player2_Laser";
 		}
+
+		node.transform.localEulerAngles = rotation;
+		node.GetComponent<bullet_status>().Travelling_Direction = transform.right;
 
 		return node;
 	}

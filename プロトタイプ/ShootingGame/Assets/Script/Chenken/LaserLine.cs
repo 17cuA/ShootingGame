@@ -29,7 +29,7 @@ public class LaserLine : Player_Bullet
 	private new void Start()
 	{
 		base.Start();
-		this.Travelling_Direction = Vector3.right;
+		this.Travelling_Direction = transform.right;
 	}
 
 	private new void Update()
