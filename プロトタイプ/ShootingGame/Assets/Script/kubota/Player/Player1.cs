@@ -101,7 +101,9 @@ public class Player1 : character_status
 
 
 	public ParticleSystem[] Maltiple_Catch;     //マルチプルのエフェクト
-												//プレイヤーがアクティブになった瞬間に呼び出される
+
+
+	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
