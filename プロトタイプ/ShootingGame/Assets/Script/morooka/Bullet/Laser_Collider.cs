@@ -44,7 +44,7 @@ public class Laser_Collider : MonoBehaviour
 					effect.transform.position = gameObject.transform.position;
 					particle.Play();
 				}
-				else if (col.gameObject != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
+				else if (col.transform != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
 				{
 					var temp = transform.parent;
 					temp.GetComponent<Two_Boss_Laser>().Scraps.Add(gameObject);

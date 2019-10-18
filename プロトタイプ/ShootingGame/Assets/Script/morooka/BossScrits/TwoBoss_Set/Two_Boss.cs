@@ -460,7 +460,7 @@ public class Two_Boss : character_status
 	}
 	#endregion
 
-	#region レーザー攻撃
+	#region レーザー攻撃(ハサミ)
 	private void Laser_Attack()
 	{
 		// 攻撃準備
@@ -476,17 +476,14 @@ public class Two_Boss : character_status
 			if(Attack_Seconds >= 2.14f)
 			{
 				Laser_Manager[2].IsShoot = true;
-				Laser_Manager[5].IsShoot = true;
 			}
 			if (Attack_Seconds >= 4.0f)
 			{
 				Laser_Manager[1].IsShoot = true;
-				Laser_Manager[4].IsShoot = true;
 			}
 			if (Attack_Seconds >= 5.0f)
 			{
 				Laser_Manager[0].IsShoot = true;
-				Laser_Manager[3].IsShoot = true;
 			}
 
 			if (Attack_Seconds >= 14.06f)
@@ -510,7 +507,7 @@ public class Two_Boss : character_status
 	}
 	#endregion
 
-	#region　交差攻撃
+	#region　レーザー攻撃(交差)
 	private void Crossing_Attack()
 	{
 		// 攻撃準備
@@ -525,17 +522,18 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if (Attack_Seconds >= 3.0f)
 			{
-				foreach (var l in Laser_Manager)
-				{
-					l.IsShoot = true;
-				}
+				Laser_Manager[0].IsShoot = true;
+				Laser_Manager[1].IsShoot = true;
+				Laser_Manager[2].IsShoot = true;
+				Laser_Manager[3].IsShoot = true;
+
 				// レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
-					foreach (var l in Laser_Manager)
-					{
-						l.IsShoot = false;
-					}
+					Laser_Manager[0].IsShoot = true;
+					Laser_Manager[1].IsShoot = true;
+					Laser_Manager[2].IsShoot = true;
+					Laser_Manager[3].IsShoot = true;
 					// 次のステップ
 					Next_Step();
 				}
