@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//画面奥からくる敵　敵の出現方法を変えるために新しく作ったやつ
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
@@ -146,6 +149,7 @@ public class Enemy_ClamChowder_Back : character_status
 	{
 		if (once)
 		{
+			clamSpawner_Script = parentObj.GetComponent<Enemy_ClamChowder_Spawner>();
 			//transform.localPosition = defaultPos;
 			//状態によって値を変える
 			switch (eState)
@@ -286,14 +290,33 @@ public class Enemy_ClamChowder_Back : character_status
 				if (parentObj.name != "TemporaryParent")
 				{
 					//群を管理している親の残っている敵カウントマイナス
-					groupManage.remainingEnemiesCnt--;
+					//groupManage.remainingEnemiesCnt--;
+					clamSpawner_Script.remainingEnemiesCnt--;
 					//倒された敵のカウントプラス
-					groupManage.defeatedEnemyCnt++;
+					//groupManage.defeatedEnemyCnt++;
+					clamSpawner_Script.defeatedEnemyCnt++;
 					//群に残っている敵がいなくなったとき
-					if (groupManage.remainingEnemiesCnt == 0)
+					//if (groupManage.remainingEnemiesCnt == 0)
+					//{
+					//	//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
+					//	if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+					//	{
+					//		//アイテム生成
+					//		//Instantiate(item, this.transform.position, transform.rotation);
+					//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+					//	}
+					//	//一体でも倒されていないのがいたら
+					//	else
+					//	{
+					//		//なにもしない
+					//	}
+					//	groupManage.itemPos = transform.position;
+					//	groupManage.itemTransform = this.transform;
+					//}
+					if (clamSpawner_Script.remainingEnemiesCnt == 0)
 					{
 						//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
-						if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
+						if (clamSpawner_Script.notDefeatedEnemyCnt == 0 && clamSpawner_Script.isItemDrop)
 						{
 							//アイテム生成
 							//Instantiate(item, this.transform.position, transform.rotation);
@@ -304,8 +327,6 @@ public class Enemy_ClamChowder_Back : character_status
 						{
 							//なにもしない
 						}
-						groupManage.itemPos = transform.position;
-						groupManage.itemTransform = this.transform;
 					}
 				}
 			}
