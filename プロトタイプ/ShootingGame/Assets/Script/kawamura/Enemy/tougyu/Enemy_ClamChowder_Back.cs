@@ -20,8 +20,9 @@ public class Enemy_ClamChowder_Back : character_status
 	GameObject parentObj;       //親入れる（群れの時のため）
 	GameObject poolingParentObj;
 
-	Renderer renderer;          //レンダラー
+	//Renderer renderer;          //レンダラー
 	EnemyGroupManage groupManage;           //群れの時の親スクリプト
+	Enemy_ClamChowder_Spawner clamSpawner_Script;
 	Find_Angle fd;
 
 	Vector3 velocity;
@@ -117,7 +118,6 @@ public class Enemy_ClamChowder_Back : character_status
 																//childObj_Shot = transform.GetChild(1).gameObject;
 		childObj_Angle = transform.GetChild(1).gameObject;
 		//childCnt = transform.childCount;
-		renderer = childObj.GetComponent<Renderer>();
 		fd = childObj_Angle.GetComponent<Find_Angle>();
 
 		if (transform.parent)
@@ -165,11 +165,6 @@ public class Enemy_ClamChowder_Back : character_status
 					speedZ_Value = 40;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
-					//hsvCon.val = 0.4f;
-					//v_Value = 0.4f;
-					//hsvColor = UnityEngine.Color.HSVToRGB(24.0f, 100.0f, 40.0f);
-					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					HSV_Change();
 					break;
 
@@ -187,15 +182,8 @@ public class Enemy_ClamChowder_Back : character_status
 					speedZ_Value = 40;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
-					//hsvCon.val = 0.4f;
-					//v_Value = 0.4f;
-					//hsvColor = UnityEngine.Color.HSVToRGB(1, 1, 0.4f);
-					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
 					HSV_Change();
 					break;
-
-					//画面右からきて上下移動は上からし始める
 			}
 			once = false;
 		}

@@ -89,15 +89,21 @@ public class Enemy_ClamChowder_Spawner : MonoBehaviour
 			case EnemyMoveState.WaveAndStraight:
 				if ((createCnt < num && createDelay >= 13) || !isFirstAppearance)
 				{
+					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
 					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[0].transform.position;
 					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyDown);
 
+					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
 					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[1].transform.position;
 					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.Straight);
 
+					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
 					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[2].transform.position;
 					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyUp);
 
