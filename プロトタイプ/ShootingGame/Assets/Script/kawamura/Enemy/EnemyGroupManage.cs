@@ -108,8 +108,4 @@ public class EnemyGroupManage : MonoBehaviour
 	{
 		isItemDrop = isDrop;
 	}
-	private void OnDisable()
-	{
-
-	}
 }
