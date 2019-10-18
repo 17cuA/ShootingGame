@@ -16,7 +16,7 @@ public class character_status : MonoBehaviour
 	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
-	public Collider capsuleCollider;                             // collider
+	public Collider capsuleCollider;									// collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
@@ -31,8 +31,10 @@ public class character_status : MonoBehaviour
 	public bool isrend = false;
 	public bool Is_Dead = false;															
 	public Material[] self_material;									//初期マテリアル保存用
+
 	[Header("ダメージ用material設定")]
-	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
+	public Material white_material;										//ダメージくらったときに一瞬のホワイト
+
 	private int framecnt;
 	private bool check;
 
@@ -40,10 +42,7 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
-		if(Parameter != null)
-		{
-			hp = Parameter.Get_Life;
-		}
+
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
 		{
@@ -138,7 +137,8 @@ public class character_status : MonoBehaviour
             //爆発処理の作成
             ParticleCreation(13);
             Is_Dead = true;
-            Reset_Status();        }
+            Reset_Status();
+		}
         else if (gameObject.tag != "Player")
 		{
 			//スコア
