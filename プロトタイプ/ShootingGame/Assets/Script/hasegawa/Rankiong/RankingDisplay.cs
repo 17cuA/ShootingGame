@@ -21,6 +21,7 @@ using TextDisplay;
 public class RankingDisplay : MonoBehaviour
 {
 	const float kScreenWidth = 3840f;
+	const float kScreenHeight = 1080f;
 	private Ranking_Strage.RankingInformation[] dataArray;
 	const float kWholeScaleWeight = 1.4f;
 
@@ -342,20 +343,20 @@ public class RankingDisplay : MonoBehaviour
 		ranking1PDisplay = new Character_Display[Ranking_Strage.Max_num];
 		rank1PPosition = new Vector3[Ranking_Strage.Max_num];
 
-		float y_pos = (-150f / 2f * 2f + 150f / 2f * 5f) / kWholeScaleWeight;
+		float y_pos = (-150f / 2f * 2f + 150f / 2f * 5f) / kWholeScaleWeight * (Screen.height / kScreenHeight);
 		fontSize = 0.8f;
 
 		GameObject maskObject = new GameObject("RankingMask");
 		maskObject.transform.parent = transform;
 		RectMask2D maskObjectRectMask = maskObject.AddComponent<RectMask2D>();
 		maskObjectRectMask.rectTransform.localPosition = new Vector3(-kScreenWidth / 2f / 2f, 0f);
-		maskObjectRectMask.rectTransform.sizeDelta = new Vector2(80f * 21f, 90f * 7f) / kWholeScaleWeight;
+		maskObjectRectMask.rectTransform.sizeDelta = new Vector2(80f * 21f * (Screen.width / kScreenWidth), 90f * 7f * (Screen.height / kScreenHeight)) / kWholeScaleWeight;
 
 		for (int i = Ranking_Strage.Max_num - 1; i >= 0; --i)
 		{
 			rank1PPosition[i].y = y_pos;
-			rank1PPosition[i].x = (-200f * 10f - 2100f * (Ranking_Strage.Max_num - 1 - i)) / kWholeScaleWeight;
-			y_pos += 180.0f / 2.0f / kWholeScaleWeight;
+			rank1PPosition[i].x = (-200f * 10f - 2100f * (Ranking_Strage.Max_num - 1 - i)) / kWholeScaleWeight * (Screen.width / kScreenWidth);
+			y_pos += 180.0f / 2.0f / kWholeScaleWeight * (Screen.height / kScreenHeight);
 
 			int ranking_num = i + 1;
 			string s_temp = ranking_num.ToString().PadLeft(2) + "___" + dataArray[i].name + "__" + dataArray[i].score.ToString("D10");
@@ -364,7 +365,7 @@ public class RankingDisplay : MonoBehaviour
 			rank1PParent[i].name = "Rank" + ranking_num.ToString();
 			ranking1PDisplay[i] = new Character_Display(s_temp.Length, "morooka/SS", rank1PParent[i], rank1PPosition[i]);
 			ranking1PDisplay[i].Character_Preference(s_temp);
-			ranking1PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight);
+			ranking1PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight * (Screen.width / kScreenWidth));
 			ranking1PDisplay[i].Centering();
 		}
 		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
@@ -420,20 +421,20 @@ public class RankingDisplay : MonoBehaviour
 		ranking2PDisplay = new Character_Display[Ranking_Strage.Max_num];
 		rank2PPosition = new Vector3[Ranking_Strage.Max_num];
 
-		float y_pos = (-150f / 2f * 2f + 150f / 2f * 5f) / kWholeScaleWeight;
+		float y_pos = (-150f / 2f * 2f + 150f / 2f * 5f) / kWholeScaleWeight * (Screen.height / kScreenHeight);
 		fontSize = 0.8f;
 
 		GameObject maskObject = new GameObject("RankingMask");
 		maskObject.transform.parent = transform;
 		RectMask2D maskObjectRectMask = maskObject.AddComponent<RectMask2D>();
 		maskObjectRectMask.rectTransform.localPosition = new Vector3(kScreenWidth / 2f / 2f, 0f);
-		maskObjectRectMask.rectTransform.sizeDelta = new Vector2(80f * 21f, 90f * 7f) / kWholeScaleWeight;
+		maskObjectRectMask.rectTransform.sizeDelta = new Vector2(80f * 21f * (Screen.width / kScreenWidth), 90f * 7f * (Screen.height / kScreenHeight)) / kWholeScaleWeight;
 
 		for (int i = Ranking_Strage.Max_num - 1; i >= 0; --i)
 		{
 			rank2PPosition[i].y = y_pos;
-			rank2PPosition[i].x = (200f * 10f + 2100f * (Ranking_Strage.Max_num - 1 - i)) / kWholeScaleWeight;
-			y_pos += 180.0f / 2.0f / kWholeScaleWeight;
+			rank2PPosition[i].x = (200f * 10f + 2100f * (Ranking_Strage.Max_num - 1 - i)) / kWholeScaleWeight * (Screen.width / kScreenWidth);
+			y_pos += 180.0f / 2.0f / kWholeScaleWeight * (Screen.height / kScreenHeight);
 
 			int ranking_num = i + 1;
 			string s_temp = ranking_num.ToString().PadLeft(2) + "___" + dataArray[i].name + "__" + dataArray[i].score.ToString("D10");
@@ -442,7 +443,7 @@ public class RankingDisplay : MonoBehaviour
 			rank2PParent[i].name = "Rank" + ranking_num.ToString();
 			ranking2PDisplay[i] = new Character_Display(s_temp.Length, "morooka/SS", rank2PParent[i], rank2PPosition[i]);
 			ranking2PDisplay[i].Character_Preference(s_temp);
-			ranking2PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight);
+			ranking2PDisplay[i].Size_Change(Vector2.one * fontSize / kWholeScaleWeight * (Screen.width / kScreenWidth));
 			ranking2PDisplay[i].Centering();
 		}
 		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
