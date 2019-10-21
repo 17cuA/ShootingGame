@@ -82,6 +82,7 @@ MonoBehaviour:
   speedX_Min: 0
   damageDelay: 0
   myName: 
+  parentName: 
   isDead: 0
   isDisappearance: 0
   isCreate: 0
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bdffe9be9548a4683c8af65beb66da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 1996835a7653d42489aecf8fcbafae1f, type: 2}
   speed: 0
   hp: 300
   direction: {x: 0, y: 0, z: 0}
@@ -223,10 +225,13 @@ MonoBehaviour:
   - {fileID: 6108812975052449805}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   saveHp: 0
   ebp: {fileID: 0}
+  Init_Score: 0
 --- !u!114 &6108812974793365428
 MonoBehaviour:
   m_ObjectHideFlags: 0

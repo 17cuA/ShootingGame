@@ -42,6 +42,11 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
+		hp = Parameter.Get_Life;
+		speed = Parameter.Get_Speed;
+		score = Parameter.Get_Score;
+		shield = Parameter.Get_Shield;
+		Remaining = Parameter.Get_Reaming;
 
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
@@ -55,8 +60,8 @@ public class character_status : MonoBehaviour
 			capsuleCollider = GetComponent<Collider>();
 		}
 
-		if (tag == "Player") Remaining = 5;
-		else Remaining = 1;
+		//if (tag == "Player") Remaining = 5;
+		//else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		if(gameObject.name == "Bacula") white_material = Resources.Load<Material>("Material/Bacula") as Material;
