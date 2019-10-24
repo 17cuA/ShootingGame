@@ -9,6 +9,7 @@ public class EnemyGroupAsset : ScriptableObject
 	public List<EnemyCreate.EnemyGroup> enemyGroups = new List<EnemyCreate.EnemyGroup>();
 }
 
+#if UNITY_EDITOR
 namespace ScriptableCreater
 {
 	public class CreaterEnemyGroupAsset
@@ -21,3 +22,4 @@ namespace ScriptableCreater
 		}
 	}
 }
+#endif
