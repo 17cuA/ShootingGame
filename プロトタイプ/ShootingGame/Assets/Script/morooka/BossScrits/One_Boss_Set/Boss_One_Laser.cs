@@ -18,7 +18,8 @@ public class Boss_One_Laser : MonoBehaviour
 	public float attack_damage;//ダメージの変数
 
 	public bool IsShoot { get; set; }										// 撃ってよいか
-	private List<GameObject> RealityObjects { get; set; }		// レーザーの実態部分
+	private List<GameObject> RealityObjects { get; set; }       // レーザーの実態部分
+	private Vector3 dir;
 
 	private void Start()
 	{
@@ -31,8 +32,11 @@ public class Boss_One_Laser : MonoBehaviour
 		// レーザーの打ち出し
 		if (IsShoot)
 		{
+			dir = transform.right;
+			dir.z = 0.0f;
+
 			// オブジェクト生成 ------------------------------------------------
-			var obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, transform.position, transform.right);
+			var obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, transform.position, dir);
 			RealityObjects.Add(obj);
 			obj.transform.parent = transform;
 			obj.transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
