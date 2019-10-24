@@ -5,6 +5,7 @@
  * 2019/08/30　オプションコア格納
  * 2019/09/02　タイムライン格納
  * 2019/09/05　Animationに攻撃タイミングを合わせる
+ * 2019/10/17　レーザーの軽量に伴うスクリプトの変更
  */
 
 using System.Collections;
@@ -77,7 +78,9 @@ public class Two_Boss : character_status
 	private bool Update_Ok { get; set; }        // アップデート
 
 	private Vector3[] shutter_Init{get;set;}		// なぜか移動するから
-	private Vector3 core_Init{get;set;}		// なぜか移動するから
+	private Vector3 core_Init{get;set;}     // なぜか移動するから
+
+	private Two_Boss_Laser[] Laser_Manager { get; set; }
 
 	private new void Start()
 	{
@@ -142,6 +145,11 @@ public class Two_Boss : character_status
 			sp.SetActive(false);
 		}
 
+		Laser_Manager = new Two_Boss_Laser[muzzle.Length];
+		for(int i = 0; i< muzzle.Length;i++)
+		{
+			Laser_Manager[i] = muzzle[i].GetComponent<Two_Boss_Laser>();
+		}
 	}
 
 	// Update is called once per frame
@@ -452,7 +460,7 @@ public class Two_Boss : character_status
 	}
 	#endregion
 
-	#region レーザー攻撃
+	#region レーザー攻撃(ハサミ)
 	private void Laser_Attack()
 	{
 		// 攻撃準備
@@ -467,37 +475,22 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if(Attack_Seconds >= 2.14f)
 			{
-				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[2].transform.position, multiple[2].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[2].transform);
-				Laser.Add(l);
-				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[5].transform.position, multiple[5].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[5].transform);
-				Laser.Add(l);
+				Laser_Manager[2].IsShoot = true;
 			}
 			if (Attack_Seconds >= 4.0f)
 			{
-				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[1].transform.position, multiple[1].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[1].transform);
-				Laser.Add(l);
-				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[4].transform.position, multiple[4].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[4].transform);
-				Laser.Add(l);
+				Laser_Manager[1].IsShoot = true;
 			}
 			if (Attack_Seconds >= 5.0f)
 			{
-				Two_Boss_Laser l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[0].transform.position, multiple[0].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[0].transform);
-				Laser.Add(l);
-				l = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, muzzle[3].transform.position, multiple[3].transform.up).GetComponent<Two_Boss_Laser>();
-				l.Manual_Start(multiple[3].transform);
-				Laser.Add(l);
+				Laser_Manager[0].IsShoot = true;
 			}
 
 			if (Attack_Seconds >= 14.06f)
 			{
-				foreach(var l in Laser)
+				foreach(var l in Laser_Manager)
 				{
-					l.Delete_processing();
+					l.IsShoot = false;
 				}
 				Laser.Clear();
 				Next_Step();
@@ -514,7 +507,7 @@ public class Two_Boss : character_status
 	}
 	#endregion
 
-	#region　交差攻撃
+	#region　レーザー攻撃(交差)
 	private void Crossing_Attack()
 	{
 		// 攻撃準備
@@ -529,24 +522,18 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if (Attack_Seconds >= 3.0f)
 			{
-				foreach (var mul in multiple)
-				{
-					// 子供のマズル情報格納
-					Transform objT = mul.transform.GetChild(0);
-					Two_Boss_Laser tl = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, objT.position, mul.transform.up).GetComponent<Two_Boss_Laser>();
-					// レーザーの初期設定
-					tl.Manual_Start(mul.transform);
-					// レーザー情報の格納
-					Laser.Add(tl);
-				}
+				Laser_Manager[0].IsShoot = true;
+				Laser_Manager[1].IsShoot = true;
+				Laser_Manager[2].IsShoot = true;
+				Laser_Manager[3].IsShoot = true;
+
 				// レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
-					foreach (var l in Laser)
-					{
-						l.Delete_processing();
-					}
-					Laser.Clear();
+					Laser_Manager[0].IsShoot = true;
+					Laser_Manager[1].IsShoot = true;
+					Laser_Manager[2].IsShoot = true;
+					Laser_Manager[3].IsShoot = true;
 					// 次のステップ
 					Next_Step();
 				}
