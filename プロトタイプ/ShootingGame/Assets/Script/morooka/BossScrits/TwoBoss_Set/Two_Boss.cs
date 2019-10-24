@@ -403,6 +403,8 @@ public class Two_Boss : character_status
 		{
 			Instantiate(Boss_Bacula, new Vector3(7.0f, 12.0f, 0.0f), Quaternion.identity);
 			Next_Step();
+			set_collider[9].GetComponent<Smasher>().enabled = true;
+			set_collider[10].GetComponent<Smasher>().enabled = true;
 		}
 		else if (Attack_Step == 1)
 		{
@@ -530,10 +532,10 @@ public class Two_Boss : character_status
 				// レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
-					Laser_Manager[0].IsShoot = true;
-					Laser_Manager[1].IsShoot = true;
-					Laser_Manager[2].IsShoot = true;
-					Laser_Manager[3].IsShoot = true;
+					Laser_Manager[0].IsShoot = false;
+					Laser_Manager[1].IsShoot = false;
+					Laser_Manager[2].IsShoot = false;
+					Laser_Manager[3].IsShoot = false;
 					// 次のステップ
 					Next_Step();
 				}

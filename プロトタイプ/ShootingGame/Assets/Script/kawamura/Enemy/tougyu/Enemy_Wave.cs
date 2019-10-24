@@ -236,7 +236,7 @@ public class Enemy_Wave : character_status
 					isAddSpeedY = false;
 					speedX = 18;
 					speedZ_Value = 40;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
@@ -259,7 +259,7 @@ public class Enemy_Wave : character_status
 					isSubSpeedY = false;
 					speedX = 18;
 					speedZ_Value = 40;
-					transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 40.0f);
 					isWave = false;
 					//hsvCon.val = 0.4f;
 					//v_Value = 0.4f;
@@ -271,7 +271,7 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は上からし始める
 				case State.WaveOnlyUp:
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY < 0)
@@ -295,7 +295,7 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は下からし始める
 				case State.WaveOnlyDown:
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY > 0)
@@ -907,30 +907,31 @@ public class Enemy_Wave : character_status
 		}
 	}
 
-	public void SetState(int n)
+	public void SetState(State s)
 	{
-		switch(n)
-		{
-			case 1:
-				eState = State.WaveUp;
-				break;
+		eState = s;
+		//switch(s)
+		//{
+		//	case State.WaveUp:
+		//		eState = State.WaveUp;
+		//		break;
 
-			case 2:
-				eState = State.WaveDown;
-				break;
+		//	case State.WaveDown:
+		//		eState = State.WaveDown;
+		//		break;
 
-			case 3:
-				eState = State.WaveOnlyUp;
-				break;
+		//	case State.WaveOnlyUp:
+		//		eState = State.WaveOnlyUp;
+		//		break;
 
-			case 4:
-				eState = State.WaveOnlyDown;
-				break;
+		//	case State.WaveOnlyDown:
+		//		eState = State.WaveOnlyDown;
+		//		break;
 
-			case 5:
-				eState = State.Straight;
-				break;
-		}
+		//	case State.Straight:
+		//		eState = State.Straight;
+		//		break;
+		//}
 	}
 	//明るさを変える関数
 	//void HSV_Change()

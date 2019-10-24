@@ -21,18 +21,18 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public enum SCENE_NAME
 	{
-		eCAUTION,
-		eROGO,
-		eTITLE,
-		eMENU,
-        eINSTRUCTION,
-        eSTAGE_01,
-		eSTAGE_02,
-		eGAME_OVER,
-		eGAME_CLEAR,
-		eGAME_STAGE_LOAD_SCENE,
-		eGAME_CLEAR_LOAD_SCENE,
-		eGAME_OVER_LOAD_SCENE,
+		eCAUTION,			// 0
+		eROGO,					// 1
+		eTITLE,					// 2
+        eSTAGE_01,			// 3
+		eSTAGE_02,			// 4
+		eSTAGE_03,			// 5
+		eSTAGE_04,			// 6
+		eSTAGE_05,			// 7
+		eSTAGE_06,			// 8
+		eSTAGE_07,			// 9
+		eGAME_OVER,		// 10
+		eGAME_CLEAR,		// 11
 	}
 
 	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
@@ -182,20 +182,6 @@ public class Scene_Manager : MonoBehaviour
 		}
 		Next_Scene = SCENE_NAME.eTITLE;
 	}
-
-	/// <summary>
-	/// メニューに移動
-	/// </summary>
-	public void Screen_Transition_To_Menu()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eMENU;
-	}
-
 	/// <summary>
 	/// ステージ_01 に移動
 	/// </summary>
@@ -218,6 +204,61 @@ public class Scene_Manager : MonoBehaviour
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eSTAGE_02;
+	}
+	/// <summary>
+	/// ステージ_03 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_03()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_03;
+	}
+	/// <summary>
+	/// ステージ_04 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_04()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_04;
+	}
+	/// <summary>
+	/// ステージ_05 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_05()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_05;
+	}
+	/// <summary>
+	/// ステージ_06 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_06()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_06;
+	}
+	/// <summary>
+	/// ステージ_07 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_07()
+	{
+		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_07;
 	}
 
 	/// <summary>
@@ -244,49 +285,6 @@ public class Scene_Manager : MonoBehaviour
 		}
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
-	}
-
-    /// <summary>
-    /// ゲーム説明に移動
-    /// </summary>
-    public void Screen_Transition_To_Instruction()
-    {
-        if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-        {
-            Is_Fade_Out_Intermediate = true;
-        }
-
-        Next_Scene = SCENE_NAME.eINSTRUCTION;
-    }
-
-	public void Screen_Transition_To_LoadStageScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_STAGE_LOAD_SCENE;
-	}
-
-	public void Screen_Transition_To_LoadClearScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_CLEAR_LOAD_SCENE;
-	}
-
-	public void Screen_Transition_To_LoadOverScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_OVER_LOAD_SCENE;
 	}
 
 	/// <summary>
