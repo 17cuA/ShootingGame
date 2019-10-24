@@ -46,14 +46,6 @@ public class Enemy_ClamChouder_Side : character_status
 	float startPosY;                //最初のY座標値
 	float rotaY;                    //Y角度
 	public float amplitude;         //画面奥から出てこない時の上下の振れ幅
-	public float rushStayCnt;
-	[Header("突進角度が変わり始めるまでの秒")]
-	public float rushStayCntMax;
-	[Header("角度が変え終わって突進するまでの秒")]
-	public float rushStartTime;
-	public float saverushRotaZ;
-	public float rushRotaZ;
-	public float rushRotaZ_Value;
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
 	public float addAndSubValue;        //Yスピードを増減させる値
 
