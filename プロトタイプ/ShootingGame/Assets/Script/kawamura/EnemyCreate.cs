@@ -715,7 +715,7 @@ public class EnemyCreate : MonoBehaviour
 		// モアイ後
 		if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
 		// ビッグコアMK3
-		if (Input.GetKeyDown(KeyCode.L)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); }
+		if (Input.GetKeyDown(KeyCode.L)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); isDebug = true; }
 	}
 
 	//--------------------------------------------------------------------
