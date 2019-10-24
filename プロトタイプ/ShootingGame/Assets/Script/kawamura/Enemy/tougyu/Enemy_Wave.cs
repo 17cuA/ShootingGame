@@ -933,19 +933,6 @@ public class Enemy_Wave : character_status
 		//		break;
 		//}
 	}
-	//明るさを変える関数
-	//void HSV_Change()
-	//{
-	//	v_Value = 1.0f - transform.position.z * 0.015f;
-
-	//	if (v_Value > 1.0f)
-	//	{
-	//		v_Value = 1.0f;
-	//	}
-
-	//	renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-	//}
-
 	void Enemy_Reset()
 	{
         startTime = 0;

@@ -315,6 +315,12 @@ public class Enemy_ClamChouder_Side : character_status
 			speedY -= addAndSubValue;
 		}
 	}
+
+	public void SetState(State s)
+	{
+		eState = s;
+	}
+
 	void Enemy_Reset()
 	{
 		startTime = 0;
@@ -324,6 +330,8 @@ public class Enemy_ClamChouder_Side : character_status
 		isSlerp = false;
 		isWave = false;
 	}
+
+
 
 	private void OnTriggerExit(Collider col)
 	{
