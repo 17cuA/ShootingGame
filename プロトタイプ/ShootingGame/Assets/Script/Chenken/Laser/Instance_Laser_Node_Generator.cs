@@ -39,9 +39,9 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 	private void OnEnable()
 	{
-		this.ResetGenerator();
-		this.ResetLineRenderer();
-		this.nodes.Clear();
+		ResetGenerator();
+		ResetLineRenderer();
+		nodes.Clear();
 	}
 
 
@@ -76,13 +76,16 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
         }
         else
         {
-            for (var i = 0; i < this.nodes.Count; ++i)
+			var num = 0;
+			num = nodes.Count;
+            for (var i = 0; i < num; ++i)
 		    {
                 if(nodes[i] == null)
                 {
                     nodes.Remove(nodes[i]);
                     i--;
-                    continue;
+					num = nodes.Count;
+					continue;
                 }
 
 
@@ -91,18 +94,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 			    if(!currentCheckedLaserNodeGo.activeSelf)
 			    {
 				    //管理しないようにする
-				    this.nodes.Remove(currentCheckedLaserNodeGo);
+				   nodes.Remove(currentCheckedLaserNodeGo);
 				    //検索位置調整する
 				    i = i - 1;
+					num = nodes.Count;
 					//管理オブジェクト個数を調べ、管理個数は0の場合
 
 
-					if (this.nodes.Count == 0)
+					if (nodes.Count == 0)
 					{
-						this.ResetGenerator();
-						this.ResetLineRenderer();
+						ResetGenerator();
+						ResetLineRenderer();
 
-						this.gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
+						gameObject.SetActive(false);                 //当オブジェクトを非アクティブ状態に
 						break;
 					}
 				}
@@ -114,7 +118,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 					    this.nodes[i].transform.position = new Vector3(this.nodes[i].transform.position.x, this.transform.position.y, 0);
 				}
 		    }
-
         }
 
 
@@ -127,39 +130,19 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 
 			}
 			//node 1
-			else if (this.nodes.Count > 0)
+			else if (nodes.Count > 0)
 			{
 
-				this.lineRenderer.SetPosition(0, this.nodes[0].transform.position);
-				this.lineRenderer.SetPosition(1, this.nodes[0].transform.position + Vector3.right);
+				lineRenderer.SetPosition(0, nodes[0].transform.position);
+				lineRenderer.SetPosition(1, nodes[0].transform.position + Vector3.right);
 
 			}
-			else if (this.nodes.Count == 0)
+			else if (nodes.Count == 0)
 			{
-				this.lineRenderer.SetPosition(0, Vector3.zero);
-				this.lineRenderer.SetPosition(1, Vector3.zero);
-			}
-		}
-		if (transform.parent.name == "Device_RotateLaserParent")
-		{
-			lineRenderer.positionCount = nodes.Count;
-			if (this.nodes.Count >= 2)
-			{
-				for(var i = 0; i < nodes.Count; ++i)
-				{
-					this.lineRenderer.SetPosition(i, this.nodes[i].transform.position);
-				}
+				lineRenderer.SetPosition(0, Vector3.zero);
+				lineRenderer.SetPosition(1, Vector3.zero);
 			}
 		}
-
-		//if (this.lineRenderer.positionCount == 2 && this.lineRenderer.GetPosition(0) == Vector3.zero && this.lineRenderer.GetPosition(1) == Vector3.zero)
-		//{
-		//	if(this.nodes.Count == 0)
-		//		this.gameObject.SetActive(false);
-
-		//}
-
-
 		//---------------------------------------------------------------------------------------------------------------------------------------------	
 	}
 
@@ -189,24 +172,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		//管理するように
 		this.nodes.Add(node);
 		this.pointCount++;
-
-
-		if (nodes.Count > 2 && isRotateLaser && transform.parent.name == "Device_RotateLaserParent")
-		{
-			var last = this.nodes[this.nodes.Count - 1];
-			var lastlast = this.nodes[this.nodes.Count - 2];
-			var midePos =  (last.transform.position + lastlast.transform.position) * 0.5f;
-			var mideRotation = (last.transform.localEulerAngles + lastlast.transform.localEulerAngles) * 0.5f;
-			node = CreateNode(midePos, mideRotation, isRotateLaser);
-
-			var p1  =  (last.transform.position + midePos) * 0.5f;
-			var r1  =  (last.transform.localEulerAngles + mideRotation) * 0.5f;
-			node = CreateNode(p1, r1, isRotateLaser);
-
-			var p2 = (lastlast.transform.position + midePos) * 0.5f;
-			var r2 = (lastlast.transform.localEulerAngles + mideRotation) * 0.5f;
-			node = CreateNode(p2, r2, isRotateLaser);
-		}
 	}
 
 
@@ -244,8 +209,6 @@ public class Instance_Laser_Node_Generator : MonoBehaviour
 		}
 
 		node.transform.localEulerAngles = rotation;
-		node.GetComponent<bullet_status>().Travelling_Direction = transform.right;
-
 		return node;
 	}
 
