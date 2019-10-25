@@ -20,7 +20,6 @@ using UnityEngine.Playables;
 public class One_Boss : character_status
 {
 	[Header("ボスの個別で動かしたい形成パーツ")]
-	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
 	[SerializeField, Tooltip("コア")] private One_Boss_Parts[] core;
 	[SerializeField, Tooltip("コアのレンダー")]private Renderer[] core_renderer;
 	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
@@ -62,8 +61,6 @@ public class One_Boss : character_status
 
 	private Vector3[] BoundBullet_Rotation { get; set; }    // バウンドバレットの角度
 
-	public GameObject[] Player_Data { get; private set; }       // プレイヤーのデータ
-	public GameObject Now_player_Traget { get; set; }           // ターゲット情報の保管用
 	private int Attack_Type_Instruction { get; set; }           // 攻撃タイプ支持
 
 	private bool End_Flag { get; set; }         // 終わりのフラグ
@@ -127,18 +124,6 @@ public class One_Boss : character_status
 		Survival_Time = (2 * 60 * 60);
 		Survival_Time_Cnt = 0;
 		Is_Attack_Now = false;
-
-		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		{
-			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
-		}
-		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		{
-			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
-			Player_Data[1] = Obj_Storage.Storage_Data.GetPlayer2();
-		}
-		Now_player_Traget = Player_Data[0];
 
 		Bullet_num_Set(number_of_fires);
 

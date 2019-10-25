@@ -6,18 +6,17 @@ public class Helper_TwoBossCorePart : MonoBehaviour
 {
 	private Two_Boss_Parts partScript;
 	[SerializeField] private GameObject partInstance;
-	[SerializeField] private Texture2D red_baseColorTexture;
-	[SerializeField] private Texture2D red_emissiveTexture;
-	[SerializeField] private ParticleSystem particleSystem;
-	[SerializeField] private int transitionLimitHp = 100;
-	private new Renderer renderer;
-	private bool change = false;
-	public bool hasChanged = false;
+	[SerializeField] private Texture2D red_baseColorTexture;		// 赤のテクスチャー
+	[SerializeField] private Texture2D red_emissiveTexture;			// 赤のエミッシブ
+	[SerializeField] private ParticleSystem particleSystem;			// 色変換時のパーティクル
+	[SerializeField] private int transitionLimitHp = 100;				// 色を変えるHPの量
+	private new Renderer renderer;											// レンダー
+	private bool isChange = false;												// 変更するか
+	public bool hasChanged = false;											// 変更が終わっているか
 
 	private void Awake()
 	{
 		partScript = GetComponent<Two_Boss_Parts>();
-	
 	}
 
 	private void Start()
@@ -29,10 +28,9 @@ public class Helper_TwoBossCorePart : MonoBehaviour
 	{
 		if (partScript.hp <= transitionLimitHp)
 		{
-			change = true;
+			isChange = true;
 		}
-		if (!change || hasChanged)
-			return;
+		if (!isChange || hasChanged) return;
 
 		if (particleSystem != null)
 		{
