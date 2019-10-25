@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//作成者：川村良太
+//砲台の敵の向きを変えるスクリプト。180度の範囲で動く
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,36 +31,11 @@ public class CannonAngle : MonoBehaviour
 
     private void Awake()
     {
-        //standardDegree = transform.localRotation.z;
-        //myRotaZ = transform.localRotation.z;
-        ////最大の角度設定
-        //standardDig_high = standardDegree + 90.0f;
-        //if (standardDig_high > 360)
-        //{
-        //    isPlus = true;
-        //    isMinus = false;
-        //}
-        //////角度を直す
-        ////if (standardDig_high > 360)
-        ////{
-        ////    standardDig_high -= 360.0f;
-        ////}
 
-        ////最小の角度設定
-        //standardDig_low = standardDegree - 90.0f;
-        //if (standardDig_low < 0)
-        //{
-        //    isMinus = true;
-        //    isPlus = false;
-        //}
-        //////角度を直す
-        ////if (standardDig_low < 0)
-        ////{
-        ////    standardDig_low += 360.0f;
-        ////}
     }
     void Start()
     {
+		//最初の角度を見て保存
         standardDegree = transform.eulerAngles.z;
         myRotaZ = transform.eulerAngles.z;
         //最大の角度設定
@@ -90,14 +68,16 @@ public class CannonAngle : MonoBehaviour
 
     void Update()
     {
-        //プレイヤー（向く対象）情報が入っていないなら入れる
+        //プレイヤー（向く対象）情報が入っていなくて、プレイヤーが生きていたら
         if (playerObj == null && isPlayerActive)
         {
             playerObj = GameObject.FindGameObjectWithTag("Player");
         }
 
+		//プレイヤーが入っていたら
         if (playerObj)
         {
+			//プレイヤーが生きていたら
             if (isPlayerActive)
             {
                 if (playerObj.activeInHierarchy)
