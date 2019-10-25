@@ -4,58 +4,89 @@
 /*
  * 2019/07/30　レーザーの挙動
  * 2019/09/07　フレームのレーザー状態の追加
+ * 2019/10/17　レーザーの軽量化：void Update()の呼び出し数の減量
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Boss_One_Laser : MonoBehaviour
 {
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
-	public GameObject Laser_Appearance;		// レーザー時の見た目
-	public GameObject Frame_Appearance;     //　フレーム時の見た目
 
-	 void Update()
+	public bool IsShoot { get; set; }										// 撃ってよいか
+	private List<GameObject> RealityObjects { get; set; }       // レーザーの実態部分
+	private Vector3 dir;
+
+	private void Start()
 	{
-		// 画面外に出たとき
-		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
-			|| transform.position.y >=8.5f || transform.position.y <= -8.5f)
+		RealityObjects = new List<GameObject>();
+		IsShoot = false;
+	}
+
+	void Update()
+	{
+		// レーザーの打ち出し
+		if (IsShoot)
 		{
-			// 非アクティブにする
-			GameObject obj = gameObject;
-			Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref obj);
-			gameObject.SetActive(false);
+			dir = transform.right;
+			dir.z = 0.0f;
+
+			// オブジェクト生成 ------------------------------------------------
+			var obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eONE_BOSS_LASER, transform.position, dir);
+			RealityObjects.Add(obj);
+			obj.transform.parent = transform;
+			obj.transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
+			//--------------------------------------------------------------------
 		}
-	}
 
-	private void LateUpdate()
-	{
-		Vector3 temp = transform.localPosition;
-		temp.x += shot_speed;
-		transform.localPosition = temp;
-	}
+		// レーザーのが存在するとき
+		if (RealityObjects.Count > 0)
+		{ 
+			// 移動 --------------------------------------------------------------
+			foreach (var obj in RealityObjects)
+			{
+				Vector3 temp = obj.transform.localPosition;
+				temp.x += shot_speed;
+				obj.transform.localPosition = temp;
 
-	/// <summary>
-	/// 手動初期設定
-	/// </summary>
-	/// <param name="parent"> レーザーの新しい親 </param>
-	public void Manual_Start(Transform parent)
-	{
-		transform.parent = parent;
-		transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
-	}
+				temp = obj.transform.position;
+				temp.z = 0.0f;
+				obj.transform.position = temp;
+			}
+			//--------------------------------------------------------------------
 
-	protected void OnTriggerEnter(Collider col)
-	{
-		// プレイヤーに衝突したとき
-		if (col.gameObject.tag == "Player")
-		{
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
+			// 画面外判定 -------------------------------------------------------
+			// リストから除外するものリスト
+			List<GameObject> tempList = new List<GameObject>();
+
+			// 削除対象検索
+			foreach (var obj in RealityObjects)
+			{
+				// 画面外の時
+				if (obj.transform.position.x >= 23.5f || obj.transform.position.x <= -23.5f
+						|| obj.transform.position.y >= 8.5f || obj.transform.position.y <= -8.5f)
+				{
+					// リストから除外するものリストに設定
+					tempList.Add(obj);
+				}
+			}
+
+			// 対象の削除
+			foreach(var obj in tempList)
+			{                   // 親を戻す
+				GameObject temp = obj;
+				Obj_Storage.Storage_Data.One_Boss_Laser.Set_Parent_Obj(ref temp);
+				// 非アクティブにする
+				obj.gameObject.SetActive(false);
+
+				RealityObjects.Remove(obj);
+			}
+			tempList.Clear();
+			//--------------------------------------------------------------------
 		}
 	}
 }
