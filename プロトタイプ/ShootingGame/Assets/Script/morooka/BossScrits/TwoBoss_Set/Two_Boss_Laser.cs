@@ -3,72 +3,87 @@
 // 作成者:諸岡勇樹
 /*
  * 2019/09/05　作成
+ * 2019/10/17　レーザーの軽量化：void Update()の呼び出し数の減量
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Two_Boss_Laser : MonoBehaviour
 {
 	public float shot_speed;//弾の速度
 	public float attack_damage;//ダメージの変数
-	private string Parent_ID { get; set; }
-	private string Partner_ID { get; set; }
+
+	public bool IsShoot { get; set; }                                       // 撃ってよいか
+	private List<GameObject> RealityObjects { get; set; }       // レーザーの実態部分
+	public List<GameObject> Scraps { get; set; }
+
+	private void Start()
+	{
+		RealityObjects = new List<GameObject>();
+		Scraps = new List<GameObject>();
+		IsShoot = false;
+	}
 
 	void Update()
 	{
-		// 画面外判定
-		if (transform.position.x >= 25.0f || transform.position.x <= -25.0f
-			|| transform.position.y >= 10.5f || transform.position.y <= -10.5f)
+		// レーザーの打ち出し
+		if (IsShoot)
 		{
-			Delete_processing();
+			// オブジェクト生成 ------------------------------------------------
+			var obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eTWO_BOSS_LASER, transform.position, transform.right);
+			RealityObjects.Add(obj);
+			obj.transform.parent = transform;
+			obj.transform.localScale = new Vector3(12.0f, 12.0f, 12.0f);
+			//--------------------------------------------------------------------
 		}
-	}
 
-	private void LateUpdate()
-	{
-		Vector3 temp = transform.localPosition;
-		temp.z += shot_speed;
-		transform.localPosition = temp;
-	}
-
-	/// <summary>
-	/// 回転等の軸になる親の設定
-	/// </summary>
-	/// <param name="parent"> 親になるトランスフォーム </param>
-	public void Manual_Start(Transform parent)
-	{
-		transform.parent = parent;
-
-		Two_Boss_Parts parts = parent.GetComponent<Two_Boss_Parts>();
-		if(parts != null)
+		// レーザーのが存在するとき
+		if (RealityObjects.Count > 0)
 		{
-			Parent_ID = parts.ID;
-			Partner_ID = parts.Partner_ID;
-		}
-	}
+			// 対象の削除-----------------------------------------------------------
+			foreach (var obj in Scraps)
+			{                   // 親を戻す
+				GameObject temp = obj;
+				Obj_Storage.Storage_Data.Two_Boss_Laser.Set_Parent_Obj(ref temp);
+				// 非アクティブにする
+				obj.gameObject.SetActive(false);
 
-	// 当たり判定
-	protected void OnTriggerEnter(Collider col)
-	{
-		if (col.gameObject.tag == "Player")
-		{
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
-		}
-		else if (col.gameObject != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
-		{
-			Delete_processing();
-		}
-	}
+				RealityObjects.Remove(obj);
+			}
+			Scraps.Clear();
+			//--------------------------------------------------------------------
 
-	public void Delete_processing()
-	{
-		GameObject obj = gameObject;
-		Obj_Storage.Storage_Data.Two_Boss_Laser.Set_Parent_Obj(ref obj);
-		gameObject.SetActive(false);
+			// 移動 --------------------------------------------------------------
+			foreach (var obj in RealityObjects)
+			{
+				Vector3 temp = obj.transform.localPosition;
+				temp.z += shot_speed;
+				obj.transform.localPosition = temp;
+
+				temp = obj.transform.position;
+				temp.z = 0.0f;
+				obj.transform.position = temp;
+			}
+			//--------------------------------------------------------------------
+
+			// 画面外判定 -------------------------------------------------------
+			// リストから除外するものリスト
+
+			// 削除対象検索
+			foreach (var obj in RealityObjects)
+			{
+				// 画面外の時
+				if (obj.transform.position.x >= 23.5f || obj.transform.position.x <= -23.5f
+						|| obj.transform.position.y >= 8.5f || obj.transform.position.y <= -8.5f)
+				{
+					// リストから除外するものリストに設定
+					Scraps.Add(obj);
+				}
+			}
+			//--------------------------------------------------------------------
+		}
 	}
 }

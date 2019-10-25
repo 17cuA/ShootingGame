@@ -12,7 +12,6 @@ public class Enemy_ClamChowder_Back : character_status
 	{
 		WaveUp,
 		WaveDown,
-		//Rush,
 	}
 	public State eState;
 
@@ -23,7 +22,6 @@ public class Enemy_ClamChowder_Back : character_status
 	GameObject parentObj;       //親入れる（群れの時のため）
 	GameObject poolingParentObj;
 
-	//Renderer renderer;          //レンダラー
 	EnemyGroupManage groupManage;           //群れの時の親スクリプト
 	Enemy_ClamChowder_Spawner clamSpawner_Script;
 	Find_Angle fd;
@@ -400,6 +398,14 @@ public class Enemy_ClamChowder_Back : character_status
 		once = true;
 		isSlerp = false;
 		isWave = false;
+	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.name == "BattleshipType_Enemy(Clone)"|| col.gameObject.name == "BattleshipType_Enemy")
+		{
+			hp = 0;
+		}
 	}
 
 }

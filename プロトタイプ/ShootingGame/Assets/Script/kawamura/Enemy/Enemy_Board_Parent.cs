@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_Board_Parent : MonoBehaviour
 {
@@ -157,7 +158,11 @@ public class Enemy_Board_Parent : MonoBehaviour
         //死んだとき自分より小さいバキュラを生成
 		if (isDead)
 		{
-            DeathTreatment();
+			if (myName == "Enemy_BossBacula")
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position, Quaternion.identity);
+			}
+			DeathTreatment();
 
 		}
         else if(isDisappearance)
@@ -186,7 +191,7 @@ public class Enemy_Board_Parent : MonoBehaviour
                 {
                     //右上に生成
                     case 0:
-                        if (myName == "Enemy_Board" || myName == "Enemy_Bacula")
+						if (myName == "Enemy_Board" || myName == "Enemy_Bacula" || myName == "Enemy_BossBacula")
                         {
                             saveQuaterObj = Instantiate(quarterObj, childObj.transform.position, transform.rotation);
                             ebp = saveQuaterObj.GetComponent<Enemy_Board_Parent>();
