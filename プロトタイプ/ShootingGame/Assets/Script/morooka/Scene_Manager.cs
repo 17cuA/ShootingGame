@@ -21,34 +21,34 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public enum SCENE_NAME
 	{
-		eCAUTION,
-		eROGO,
-		eTITLE,
-		eMENU,
-        eINSTRUCTION,
-        eSTAGE_01,
-		eSTAGE_02,
-		eGAME_OVER,
-		eGAME_CLEAR,
-		eGAME_STAGE_LOAD_SCENE,
-		eGAME_CLEAR_LOAD_SCENE,
-		eGAME_OVER_LOAD_SCENE,
+		eCAUTION,           // 0	(警告シーン)
+		eROGO,                  // 1	(ロゴシーン)
+		eTITLE,                 // 2	(タイトルシーン)
+		eSTAGE_01,          // 3	(ステージ1シーン)
+		eSTAGE_02,          // 4	(ステージ2シーン)
+		eSTAGE_03,          // 5	(ステージ3シーン)
+		eSTAGE_04,          // 6	(ステージ4シーン)
+		eSTAGE_05,          // 7	(ステージ5シーン)
+		eSTAGE_06,          // 8	(ステージ6シーン)
+		eSTAGE_07,          // 9	(ステージ7シーン)
+		eGAME_OVER,     // 10	(ゲームオーバーシーン)
+		eGAME_CLEAR,        // 11	(ゲームクリアシーン)
 	}
 
-	static public Scene_Manager Manager { get; private set; }		// シーンマネージャー自体の保存
+	static public Scene_Manager Manager { get; private set; }       // シーンマネージャー自体の保存
 
-	[SerializeField, Header("フェードインスピード")]		private float fade_in_speed;
-	[SerializeField, Header("フェードアウトスピード")]		private float fade_out_speed;
-	[SerializeField, Header("シーン遷移の遅延時間")]		private int transition_deferred;
+	[SerializeField, Header("フェードインスピード")] private float fade_in_speed;
+	[SerializeField, Header("フェードアウトスピード")] private float fade_out_speed;
+	[SerializeField, Header("シーン遷移の遅延時間")] private int transition_deferred;
 
-	private Image Renderer_For_Fade { get; set; }					// フェード用SpriteRenderer
-	private float Fade_In_Quantity { get; set; }					// 1フレームのフェードイン量
-	private float Fade_Out_Quantity { get; set; }					// 1フレームのフェードアウト量
-	private int Transition_Deferred_Cnt{ get; set; }				// シーン遷移の遅延時間カウント
-	public SCENE_NAME Now_Scene{ get; private set; }				// 今のシーン保存用
-	public SCENE_NAME Next_Scene { get; private set; }				// 次のシーン保存用
-	public bool Is_Fade_Finished { get; private set; }				// フェードが終わっているかどうか
-	public bool Is_Fade_In_Intermediate { get; private set; }		// フェードイン中かどうか
+	private Image Renderer_For_Fade { get; set; }                   // フェード用SpriteRenderer
+	private float Fade_In_Quantity { get; set; }                    // 1フレームのフェードイン量
+	private float Fade_Out_Quantity { get; set; }                   // 1フレームのフェードアウト量
+	private int Transition_Deferred_Cnt { get; set; }               // シーン遷移の遅延時間カウント
+	public SCENE_NAME Now_Scene { get; private set; }               // 今のシーン保存用
+	public SCENE_NAME Next_Scene { get; private set; }              // 次のシーン保存用
+	public bool Is_Fade_Finished { get; private set; }              // フェードが終わっているかどうか
+	public bool Is_Fade_In_Intermediate { get; private set; }       // フェードイン中かどうか
 	public bool Is_Fade_Out_Intermediate { get; private set; }      // フェードアウト中かどうか
 
 	private void Awake()
@@ -58,40 +58,35 @@ public class Scene_Manager : MonoBehaviour
 	}
 
 	void Start()
-    {
+	{
 		Manager = GetComponent<Scene_Manager>();
 		Next_Scene = Now_Scene = (SCENE_NAME)SceneManager.GetActiveScene().buildIndex;
 		Fade_In_Quantity = (255.0f / fade_in_speed) / 255.0f;
 		Fade_Out_Quantity = (255.0f / fade_out_speed) / 255.0f;
 
-		if (Now_Scene != SCENE_NAME.eTITLE)
-		{
-			Is_Fade_Finished = false;
-			Is_Fade_In_Intermediate = true;
-			Is_Fade_Out_Intermediate = false;
-		}
-		else if(Now_Scene == SCENE_NAME.eTITLE)
-		{
-			Renderer_For_Fade.color = Color.clear;
-			Is_Fade_Finished = true;
-			Is_Fade_In_Intermediate = false;
-			Is_Fade_Out_Intermediate = false;
-		}
+		Is_Fade_Finished = true;
+		Is_Fade_In_Intermediate = true;
+		Is_Fade_Out_Intermediate = false;
 
 		Transition_Deferred_Cnt = 0;
 	}
 
-    void Update()
-    {
-		if(Is_Fade_In_Intermediate && !Is_Fade_Out_Intermediate)
+	void Update()
+	{
+		// フェードイン中 かつ フェードアウトしてないとき
+		if (Is_Fade_In_Intermediate && !Is_Fade_Out_Intermediate)
 		{
 			Fade_In();
 		}
-		else if(!Is_Fade_In_Intermediate && Is_Fade_Out_Intermediate)
+		// フェードインしてないとき かつ フェードアウト中のとき
+		else if (!Is_Fade_In_Intermediate && Is_Fade_Out_Intermediate)
 		{
+			// フェードアウト終了時
 			if (Fade_Out())
 			{
+				// 時間を計測
 				Transition_Deferred_Cnt++;
+				// 指定時間を過ぎるとシーン遷移
 				if (Transition_Deferred_Cnt > transition_deferred)
 				{
 					SceneManager.LoadScene((int)Next_Scene);
@@ -99,7 +94,8 @@ public class Scene_Manager : MonoBehaviour
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.F2))
+		// 警告シーンに戻るデバッグキー
+		if (Input.GetKeyDown(KeyCode.F2))
 		{
 			Screen_Transition_To_Caution();
 		}
@@ -108,7 +104,7 @@ public class Scene_Manager : MonoBehaviour
 	/// <summary>
 	/// フェードイン
 	/// </summary>
-	/// <returns> フェードインが終わっているかどうか </returns>
+	/// <returns> フェードイン終了時 True </returns>
 	public bool Fade_In()
 	{
 		Is_Fade_Finished = true;
@@ -117,12 +113,12 @@ public class Scene_Manager : MonoBehaviour
 		if (Renderer_For_Fade.color.a > 0.0f)
 		{
 			Color color_for_fade = Renderer_For_Fade.color;
-				color_for_fade.a -= Fade_In_Quantity;
+			color_for_fade.a -= Fade_In_Quantity;
 
-		Renderer_For_Fade.color = color_for_fade;
+			Renderer_For_Fade.color = color_for_fade;
 
-				Is_Fade_Finished = false;
-				Is_Fade_In_Intermediate = true;
+			Is_Fade_Finished = false;
+			Is_Fade_In_Intermediate = true;
 		}
 		return Is_Fade_Finished;
 	}
@@ -130,7 +126,7 @@ public class Scene_Manager : MonoBehaviour
 	/// <summary>
 	/// フェードアウト
 	/// </summary>
-	/// <returns> フェードアウトが終わっているかどうか </returns>
+	/// <returns> フェードアウト終了時 False </returns>
 	public bool Fade_Out()
 	{
 		Is_Fade_Finished = true;
@@ -138,11 +134,11 @@ public class Scene_Manager : MonoBehaviour
 		if (Renderer_For_Fade.color.a < 1.0f)
 		{
 			Color color_for_fade = Renderer_For_Fade.color;
-				color_for_fade.a += Fade_Out_Quantity;
+			color_for_fade.a += Fade_Out_Quantity;
 
-		Renderer_For_Fade.color = color_for_fade;
+			Renderer_For_Fade.color = color_for_fade;
 
-				Is_Fade_Finished = false;
+			Is_Fade_Finished = false;
 		}
 		return Is_Fade_Finished;
 	}
@@ -164,7 +160,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_ROGO()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -176,32 +172,18 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Title()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eTITLE;
 	}
-
-	/// <summary>
-	/// メニューに移動
-	/// </summary>
-	public void Screen_Transition_To_Menu()
-	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eMENU;
-	}
-
 	/// <summary>
 	/// ステージ_01 に移動
 	/// </summary>
 	public void Screen_Transition_To_Stage_01()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -213,11 +195,66 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Stage_02()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
 		Next_Scene = SCENE_NAME.eSTAGE_02;
+	}
+	/// <summary>
+	/// ステージ_03 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_03()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_03;
+	}
+	/// <summary>
+	/// ステージ_04 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_04()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_04;
+	}
+	/// <summary>
+	/// ステージ_05 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_05()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_05;
+	}
+	/// <summary>
+	/// ステージ_06 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_06()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_06;
+	}
+	/// <summary>
+	/// ステージ_07 に移動
+	/// </summary>
+	public void Screen_Transition_To_Stage_07()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eSTAGE_07;
 	}
 
 	/// <summary>
@@ -225,7 +262,7 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Over()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
@@ -238,55 +275,12 @@ public class Scene_Manager : MonoBehaviour
 	/// </summary>
 	public void Screen_Transition_To_Clear()
 	{
-		if(!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
 		{
 			Is_Fade_Out_Intermediate = true;
 		}
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
-	}
-
-    /// <summary>
-    /// ゲーム説明に移動
-    /// </summary>
-    public void Screen_Transition_To_Instruction()
-    {
-        if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-        {
-            Is_Fade_Out_Intermediate = true;
-        }
-
-        Next_Scene = SCENE_NAME.eINSTRUCTION;
-    }
-
-	public void Screen_Transition_To_LoadStageScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_STAGE_LOAD_SCENE;
-	}
-
-	public void Screen_Transition_To_LoadClearScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_CLEAR_LOAD_SCENE;
-	}
-
-	public void Screen_Transition_To_LoadOverScene()
-	{
-		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
-		{
-			Is_Fade_Out_Intermediate = true;
-		}
-
-		Next_Scene = SCENE_NAME.eGAME_OVER_LOAD_SCENE;
 	}
 
 	/// <summary>

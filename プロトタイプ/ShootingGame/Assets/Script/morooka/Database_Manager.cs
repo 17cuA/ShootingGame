@@ -34,7 +34,7 @@ using System.IO;
 
 namespace CSV_Management
 {
-	public class Database_Manager
+	public class Record
 	{
 		public string[,] Database_Array { private set; get; }		// CSV の入る二次元配列
 
@@ -42,7 +42,7 @@ namespace CSV_Management
         /// コンストラクタ
         /// </summary>
         /// <param name="resourcesName"> CSVの名前か空白でOK </param>
-        public Database_Manager(string resourcesName = "")
+        public Record(string resourcesName = "")
         {
             if (resourcesName == "")
             {
@@ -60,9 +60,10 @@ namespace CSV_Management
         public void CSVArrangement(string resourcesName)
         {
 			Reset();
-
-			List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
-            TextAsset Word = Resources.Load(resourcesName) as TextAsset;             //csvファイルを入れる変数
+			//csvファイルの中身を入れる List
+			List<string[]> CsvData = new List<string[]>();
+			//csvファイルを入れる変数
+			TextAsset Word = Resources.Load(resourcesName) as TextAsset;
             StringReader csv = new StringReader(Word.text);
             while (csv.Peek() > -1)
             {
@@ -175,7 +176,12 @@ namespace CSV_Management
 			return returning_string;
 		}
 
-		public string[] goreco(int num)
+		/// <summary>
+		/// 指定の番号レコードを全て取得
+		/// </summary>
+		/// <param name="num"> 番号 </param>
+		/// <returns> 指定の番号レコード </returns>
+		public string[] GetSpecifiedRecord(int num)
 		{
 			string[] rString = new string[Database_Array.GetLength(0)];
 
@@ -186,7 +192,12 @@ namespace CSV_Management
 			return rString;
 		}
 
-		public string[] gokara(int num)
+		/// <summary>
+		/// 指定の番号カラムを全て取得
+		/// </summary>
+		/// <param name="num"> 番号 </param>
+		/// <returns>指定の番号カラム</returns>
+		public string[] GetSpecifiedColumn(int num)
 		{
 			string[] rString = new string[Database_Array.GetLength(1)];
 

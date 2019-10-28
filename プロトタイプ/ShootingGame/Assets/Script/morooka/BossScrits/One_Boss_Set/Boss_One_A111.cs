@@ -13,15 +13,19 @@ public class Boss_One_A111 : MonoBehaviour
 {
 	public Boss_One_A111_Individual[] Each_Particle;
 
+	/// <summary>
+	/// 所持パーティクルの終了確認
+	/// </summary>
+	/// <returns></returns>
 	public bool Completion_Confirmation()
 	{
-		bool ok = true;
+		bool isFinish = true;
 		foreach(Boss_One_A111_Individual system in Each_Particle)
 		{
-			ok = system.Completion;
+			isFinish = system.Completion;
 		}
 
-		return ok;
+		return isFinish;
 	}
 
 	/// <summary>
