@@ -838,8 +838,6 @@ public class Enemy_Wave : character_status
 					    {
 						    //なにもしない
 					    }
-					    groupManage.itemPos = transform.position;
-					    groupManage.itemTransform = this.transform;
 				    }
                 }
             }

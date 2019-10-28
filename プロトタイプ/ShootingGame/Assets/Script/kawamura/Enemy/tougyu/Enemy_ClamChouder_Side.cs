@@ -237,7 +237,6 @@ public class Enemy_ClamChouder_Side : character_status
 						if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 						{
 							//アイテム生成
-							//Instantiate(item, this.transform.position, transform.rotation);
 							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 						}
 						//一体でも倒されていないのがいたら
@@ -245,8 +244,6 @@ public class Enemy_ClamChouder_Side : character_status
 						{
 							//なにもしない
 						}
-						groupManage.itemPos = transform.position;
-						groupManage.itemTransform = this.transform;
 					}
 				}
 			}

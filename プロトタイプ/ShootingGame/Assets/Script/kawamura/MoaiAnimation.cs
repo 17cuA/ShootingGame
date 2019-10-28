@@ -63,7 +63,7 @@ public class MoaiAnimation : MonoBehaviour
 			speedY = 1.5f;
 		}
 
-		if (isOpen)
+		if (isOpen && !moai_Script.isExit)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
@@ -84,6 +84,13 @@ public class MoaiAnimation : MonoBehaviour
 				transform.localPosition = defaultPos;
 				isClose = false;
 				isOpen = true;
+
+				if (moai_Script.attackLoopCnt == 3)
+				{
+					isOpen = false;
+					moai_Script.isExit = true;
+					moai_Script.saveHP = moai_Script.hp;
+				}
 			}
 		}
 		//present_Location = (Time.time * testSpeed) / distance_two;

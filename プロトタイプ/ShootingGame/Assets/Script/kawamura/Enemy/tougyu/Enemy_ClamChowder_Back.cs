@@ -306,7 +306,6 @@ public class Enemy_ClamChowder_Back : character_status
 						if (clamSpawner_Script.notDefeatedEnemyCnt == 0 && clamSpawner_Script.isItemDrop)
 						{
 							//アイテム生成
-							//Instantiate(item, this.transform.position, transform.rotation);
 							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 						}
 						//一体でも倒されていないのがいたら

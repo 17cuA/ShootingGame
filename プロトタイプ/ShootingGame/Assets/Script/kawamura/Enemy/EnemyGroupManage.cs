@@ -17,9 +17,6 @@ public class EnemyGroupManage : MonoBehaviour
 	public int notDefeatedEnemyCnt = 0;     //倒されずに画面外に出た数
     public string myName;
 
-	public Transform itemTransform;
-	public Vector3 itemPos;
-
     BaculasManager bacuManager;
 
 	public bool isDead = false;
@@ -84,8 +81,6 @@ public class EnemyGroupManage : MonoBehaviour
 			//倒されたのと画面外に出たカウントをリセット
 			notDefeatedEnemyCnt = 0;
 			defeatedEnemyCnt = 0;
-			itemPos = new Vector3(0, 0, 0);
-			itemTransform = null;
 			remainingEnemiesCnt = childNum;
             if(bacuManager)
             {

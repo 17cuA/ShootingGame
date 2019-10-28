@@ -47,8 +47,6 @@ public class Enemy_First : character_status
 	public float diedAttack_RotaValue;
 	bool once = true;
 	bool isTurn;
-	//bool isAddition = false;
-	//bool isDead = false;
 	public bool haveItem = false;
 	public bool Died_Attack = false;
 
@@ -69,39 +67,13 @@ public class Enemy_First : character_status
 		childObj = transform.GetChild(0).gameObject;
 		fd = childObj.GetComponent<Find_Angle>();
 
-		//speedX = 5.0f;
-		speedY = 5.0f;
-
 		if (transform.parent)
 		{
 			parentObj = transform.parent.gameObject;
-			//if (parentObj.name == "enemy_UFO_Group")
-			//{
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
-			//transform.position = defaultPos_PlusZ;
 			speedX = 5;
-			//if (transform.position.y > 0)
-			//{
-
-			//	speedX = 5;
-			//	eState = State.TurnDown;
-			//}
-			//else
-			//{
-			//	speedX = 5;
-			//	eState = State.TurnUp;
-				//}
-			//}
-			//else
-			//{
-			//	eState = State.Straight;
-			//}
+			speedY = 5.0f;
 		}
-		//else
-		//{
-		//	parentObj = GameObject.Find("TemporaryParent");
-		//	transform.parent = parentObj.transform;
-		//}
 
 		HP_Setting();
 		base.Start();
@@ -114,28 +86,12 @@ public class Enemy_First : character_status
 		{
 			if (parentObj)
 			{
-                //if (parentObj.name != "enemy_UFO_Group")
-                //{
-                //	eState = State.Straight;
-                //	speedX = speedX_Straight;
-                //}
-                //else
-                //{
-                //transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y,40.0f);
                 transform.localPosition = defaultPos_PlusZ;
 
                 defaultPosY_World = transform.position.y;
 				defaultPosY_Local = transform.localPosition.y;
 
 				endPosY_Local = defaultPosY_World * -0.29f;
-
-				//transform.localPosition = defaultPos_Local;
-				//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-				//transform.localPosition = new Vector3(defaultPos_Local.x, defaultPos_Local.y, 20.0f);
-
-				//transform.localPosition = new Vector3(0, 0, 20.0f);
-				//transform.localPosition = defaultPos_PlusZ;
-				//transform.localPosition = defaultPos_Local;
 
 				speedX = 5;
 				speedY = 5;
@@ -151,19 +107,19 @@ public class Enemy_First : character_status
 		{
 			if (haveItem)
 			{
-				//Instantiate(item, this.transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 			}
 
-			if(Died_Attack)
-			{
-				//diedAttack_Transform = childObj.transform;
-				//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
-				//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
-				diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+			//if(Died_Attack)
+			//{
+			//	//死亡時攻撃の処理
+			//	diedAttack_Transform = childObj.transform;
+			//	diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+			//	diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+			//	diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
-			}
+			//}
 
 			if (parentObj != null)
 			{			
@@ -186,14 +142,8 @@ public class Enemy_First : character_status
 					{
 						//なにもしない
 					}
-					groupManage.itemPos = transform.position;
-					groupManage.itemTransform = this.transform;
 				}
 			}
-			//Reset_Status();
-			//isDead = true;
-			//isTurn = false;
-			//frame = 0;
 			Enemy_Reset();
 			Died_Process();
 		}
@@ -294,7 +244,6 @@ public class Enemy_First : character_status
 		{
 			speedZ = speedZ_Value;
 		}
-		//if (transform.localPosition.x <= -32)
 		if (transform.localPosition.x <= -42)
 		{
 			speedX = 7.5f;
@@ -303,7 +252,6 @@ public class Enemy_First : character_status
 				speedX = 5;
 			}
 			isTurn = true;
-			//isTurn = true;
 		}
 
 		//else if (transform.localPosition.x < -21)
@@ -348,7 +296,6 @@ public class Enemy_First : character_status
 	}
 	void Enemy_Reset()
 	{
-		//frame = 0;
 		speedZ_Value = 75;
 		once = true;
 		isTurn = false;
@@ -366,7 +313,6 @@ public class Enemy_First : character_status
 				groupManage.remainingEnemiesCnt -= 1;
 				//}
 			}
-			//frame = 0;
 			Enemy_Reset();
 			gameObject.SetActive(false);
 
@@ -388,7 +334,6 @@ public class Enemy_First : character_status
 		}
 		else if (eState == State.Straight && (col.gameObject.name == "WallLeft" || col.gameObject.name == "WallRight"))
 		{
-			//frame = 0;
 			Enemy_Reset();
 			gameObject.SetActive(false);
 		}
