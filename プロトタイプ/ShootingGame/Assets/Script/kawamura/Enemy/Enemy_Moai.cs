@@ -40,8 +40,8 @@ public class Enemy_Moai : character_status
 	[Header("入力用 回転変化値")]
 	public float rotaY_Value;
 	public float defaultRotaY_Value;	//初期の回転変化値
-	[Header("入力用 回転最大値")]
-	public float rotationYMax;
+	[Header("入力用 回転最大値")]		
+	public float rotationYMax;			//(残りどれだけ回転するか)
 
 	public float rotaX;					//X角度
 	public float rotaX_Value;			//X回転変化値
@@ -70,13 +70,10 @@ public class Enemy_Moai : character_status
 
 	public bool isAppearance = true;		//最初の登場用
 	public bool isExit = false;				//退場用
-	public bool isMove = false;
-	public bool isWireles = true;
-	public bool isMouthOpen = false;
-	public bool isRingShot = true;
+	public bool isMouthOpen = false;		//口が開いているかどうか
 	public bool isMiniMoai = false;
 	public bool isLaserEmd = false;
-	public bool isDead = false;
+	public bool isDead = false;             //Is_Deadはcharacter_statusのやつ
 	new void Start()
 	{
 		//オブジェクトとスクリプトセット
@@ -105,76 +102,82 @@ public class Enemy_Moai : character_status
 		Physics.gravity = new Vector3(0, -0.32f, 0);
 
 		//
-        if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
-        {
+		if (!isAppearance && !isExit && Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
+		{
 			hp = MoaiHpMax;
-            for (int i = 0; i < object_material.Length; i++)
-            {
-                object_material[i].material = self_material[i];
-            }
+			for (int i = 0; i < object_material.Length; i++)
+			{
+				object_material[i].material = self_material[i];
+			}
 
-            return;
-        }
+			return;
+		}
 
+		//登場
 		if (isAppearance)
 		{
-			hp = 7200;
+			//登場中ダメージを受けないようにする
+			hp = MoaiHpMax;
+			//移動
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
 
+			//Y座標が0より大きくなったら0に直す
 			if (transform.position.y > 0)
 			{
-
 				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 			}
 
+
 			if (transform.position.y > -6.5f)
 			{
+				//モアイの向きを回転
 				rotaY += rotaY_Value;
+				//残りの回転値を回転した分減らす
 				rotationYMax -= rotaY_Value;
+				//Y角度を270超えないように
 				if (rotaY > 270f)
 				{
 					rotaY = 270f;
 				}
 
-				//if (rotationYMax < 0)
-				//{
-				//	rotaY_Value = 0;
-				//}
+
 				if (rotationYMax < 180f)
 				{
+					//回転させる値を減らしていって止まるのを滑らかに
 					rotaY_Value = defaultRotaY_Value * (rotationYMax / 180f) + 0.35f;
 
 				}
 				if (transform.position.y > -6.5f)
 				{
+					//Yスピードを減らしていって止まるのを滑らかに
 					speedY = speedY_Value * (transform.position.y / -6.5f) + 0.5f;
 				}
 			}
 
-			//if (rotaY < -90)
-			//{
-
-			//	rotaY = -90;
-			//}
-
+			//rotation代入
 			transform.rotation = Quaternion.Euler(0, rotaY, 0);
+
 
 			if (transform.position.y >= 0 && rotaY >= 270)
 			{
-				transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+				//登場判定オフ，口開ける判定オン
 				isAppearance = false;
 				moaiAnime_Script.isOpen = true;
 			}
 
+			//ダメージ入った時のマテリアルを戻す
 			for (int i = 0; i < object_material.Length; i++)
 			{
 				object_material[i].material = self_material[i];
 			}
+			//以降の処理を飛ばす
 			return;
 		}
+		//死亡
 		else if (isDead)
 		{
+			//死亡時に傾けるための値を入れる
 			rotaX_Value = 0.1f;
 			rotaX -= rotaX_Value;
 			rotaY_Value = 0.1f;
@@ -182,85 +185,113 @@ public class Enemy_Moai : character_status
 			rotaZ_Value = 0.5f;
 			rotaZ -= rotaZ_Value;
 
+			//角度変更
 			transform.rotation = Quaternion.Euler(rotaX, rotaY, 0);
 
-            if (transform.position.y < -9.5f)
-            {
-                Is_Dead = true;
-            }
+			if (transform.position.y < -9.5f)
+			{
+				Is_Dead = true;
+			}
+			//下まで行ったら消す
 			if (transform.position.y < -10f)
 			{
 				gameObject.SetActive(false);
 			}
 		}
+		//退場
 		else if (isExit)
 		{
+			//上に退場していくときのスピードと回転値を入れる
 			speedY = 3;
 			rotaY_Value = -1f;
 			rotaY += rotaY_Value;
+			//移動
 			velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 			gameObject.transform.position += velocity * Time.deltaTime;
+			//角度変える
 			transform.rotation = Quaternion.Euler(0, rotaY, 0);
 
+			//上まで行ったら消す
 			if (transform.position.y > 12)
 			{
 				gameObject.SetActive(false);
 			}
+			//退場中ダメージ受けないようにする
 			hp = saveHP;
 			material_Reset();
 			HpColorChange();
 			return;
 		}
+		//攻撃とかをしているとき
 		else
 		{
-            aliveCnt += Time.deltaTime;
-        }
+			//生きている時間をカウント
+			aliveCnt += Time.deltaTime;
+		}
 
+		//口が開いているとき
 		if (isMouthOpen)
 		{
+			//攻撃の状態を見る
 			switch (attackState)
 			{
+				//リング弾攻撃
 				case AttackState.RingShot:
+					//指定の回数攻撃したら次の攻撃へ移る
 					if (ringShotCnt > ringShotMax)
 					{
+						//口が開いているかどうかをオフ
 						isMouthOpen = false;
+						//口スクリプトの口を閉じる判定オン
 						moaiAnime_Script.isClose = true;
+						//攻撃状態変更
 						attackState = AttackState.MiniMoai;
+						//リング弾の攻撃回数リセット
 						ringShotCnt = 0;
 					}
-
 					break;
 
+				//ミニモアイ
 				case AttackState.MiniMoai:
+					//ミニモアイを出したら
 					if (isMiniMoai)
 					{
+						//一度口を閉じる
 						isMouthOpen = false;
 						moaiAnime_Script.isClose = true;
 					}
+					//指定の回数ミニモアイをだしたら
 					if (miniMoaisCnt > miniMoaisMax)
 					{
+						//口閉じる
 						isMouthOpen = false;
 						moaiAnime_Script.isClose = true;
+						//攻撃状態をレーザーに
 						attackState = AttackState.Laser;
+						//ミニモアイ出した回数リセット
 						miniMoaisCnt = 0;
 					}
-
 					break;
 
+				//レーザー
 				case AttackState.Laser:
+					//レーザーが終わったら
 					if (isLaserEmd)
 					{
+						//口閉じる
 						isMouthOpen = false;
 						moaiAnime_Script.isClose = true;
+						//攻撃をリング弾に
 						attackState = AttackState.RingShot;
 						isLaserEmd = false;
+						//攻撃のループカウントプラス
 						attackLoopCnt++;
 					}
 					break;
-
 			}
 		}
 
+		//死ぬデバッグキー　OとH同時押し
 		if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.H))
 		{
 			hp = 0;
@@ -277,75 +308,51 @@ public class Enemy_Moai : character_status
 		//	saveHP = hp;
 		//}
 
-		if (hp < 1&& !isDead)
+		//HPがなくなって死亡判定がないとき
+		if (hp < 1 && !isDead)
 		{
+			//死亡判定入れる
 			isDead = true;
+			//重力をオンに
 			moai_rigidbody.useGravity = true;
+			//口関係の処理を止める
 			moaiAnime_Script.isOpen = false;
 			moaiAnime_Script.isClose = false;
-			rotaY = -90f;
-			
-			faceObj.layer= LayerMask.NameToLayer("Explosion"); 
-			mouthObj.layer= LayerMask.NameToLayer("Explosion");
-			MoaiDead();
-			//for (int i = 0; i < object_material.Length; i++)
-			//{
-			//	object_material[i].material = self_material[i];
-			//}
 
-			//Died_Process();
+			//レイヤー変更
+			faceObj.layer = LayerMask.NameToLayer("Explosion");
+			mouthObj.layer = LayerMask.NameToLayer("Explosion");
+			//死亡関数
+			MoaiDead();
 		}
 
-        //if (isDead)
-        //{
-        //	for (int i = 0; i < object_material.Length; i++)
-        //	{
-        //		object_material[i].material = self_material[i];
-        //	}
-
-        //}
-        if (!isDead) 
+		//死んでいなければ
+		if (!isDead)
 		{
-             base.Update();
-        }
+			base.Update();
+		}
+		//色変化関数
 		HpColorChange();
+	}
 
-		//for (int i = 0; i < self_material.Length; i++) self_material[i] = moai_material[i].material;
+	//-------------ここから関数-------------
 
-
-		void HpColorChange()
+	//のこりHPの割合で色を変える関数
+	void HpColorChange()
+	{
+		//色の値計算
+		color_Value = (float)hp / MoaiHpMax;
+		//色変更
+		for (int i = 0; i < moai_material.Length; i++)
 		{
-			v_Value = 1.0f - transform.position.z * 0.015f;
-
-			if (v_Value > 1.0f)
-			{
-				v_Value = 1.0f;
-			}
-
-			//test = 1 - hp / HpMax;
-			color_Value = (float)hp / MoaiHpMax;
-
-			//setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
-			//moaiColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
-
-			for (int i = 0; i < moai_material.Length; i++)
-			{
-				moaiColor = new Vector4(1, color_Value, color_Value, 1);
-				moai_material[i].material.SetVector("_BaseColor", moaiColor);
-
-			}
-
-			//      foreach (Renderer renderer in object_material)
-			//{
-			//          renderer.material.SetVector("_BaseColor", setColor);
-			//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-			//}
-
+			moaiColor = new Vector4(1, color_Value, color_Value, 1);
+			moai_material[i].material.SetVector("_BaseColor", moaiColor);
 		}
 	}
 	void MoaiDead()
 	{
-		//Game_Master.MY.Score_Addition(score, Opponent);
+		//スコア加算、SE、爆発エフェクト
+		Game_Master.MY.Score_Addition(score, Opponent);
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[11]);
 
 		explosionEffect.gameObject.SetActive(true);
