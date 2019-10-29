@@ -237,7 +237,6 @@ public class Enemy_ClamChouder_Side : character_status
 						if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 						{
 							//アイテム生成
-							//Instantiate(item, this.transform.position, transform.rotation);
 							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 						}
 						//一体でも倒されていないのがいたら
@@ -245,8 +244,6 @@ public class Enemy_ClamChouder_Side : character_status
 						{
 							//なにもしない
 						}
-						groupManage.itemPos = transform.position;
-						groupManage.itemTransform = this.transform;
 					}
 				}
 			}
@@ -315,6 +312,12 @@ public class Enemy_ClamChouder_Side : character_status
 			speedY -= addAndSubValue;
 		}
 	}
+
+	public void SetState(State s)
+	{
+		eState = s;
+	}
+
 	void Enemy_Reset()
 	{
 		startTime = 0;
@@ -324,6 +327,8 @@ public class Enemy_ClamChouder_Side : character_status
 		isSlerp = false;
 		isWave = false;
 	}
+
+
 
 	private void OnTriggerExit(Collider col)
 	{

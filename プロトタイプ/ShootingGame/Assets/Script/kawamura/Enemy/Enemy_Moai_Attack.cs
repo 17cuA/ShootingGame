@@ -6,83 +6,58 @@ using StorageReference;
 public class Enemy_Moai_Attack : MonoBehaviour
 {
 	public GameObject parentObj;
-	public GameObject ringBulletObj;    //弾をロードして入れる
-	public GameObject miniMoaiGroupObj;     //ミニモアイ群をロードして入れる
-	public GameObject saveRingBullet;   //生成したオブジェクトを入れる
-	public GameObject saveObj;
-	public GameObject miniMoaiPos;
-	public GameObject moaiLaserPos;
-	public GameObject[] laserPos;
-
-	//バースト
-	private Transform Enemy_transform;  //自身のtransform
-	public GameObject Bullet;  //弾のプレハブ、リソースフォルダに入っている物を名前から取得。
-	//public GameObject parentObj;
-	ShotCheck sc;
+	public GameObject saveRingBullet;	//出したリング弾を入れる
+	public GameObject saveObj;			//オブジェクト一時保存
+	public GameObject miniMoaiPos;		//ミニモアイを出す位置オブジェクト
+	public GameObject[] laserPos;		//レーザーを出す位置オブジェクト配列
 
 	public string myName;
 	[Header("バーストとバーストの間隔を計る")]
-	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
+	public float Shot_Delay;					//バーストとバーストの間隔時間を計る
 	[Header("バーストとバーストの間隔")]
-	public float Shot_Delay_Max;                     //１つのバーストの間隔
-	public float burst_delay;                      //バーストの1発1発の間隔時間を計る
+	public float Shot_Delay_Max;				//１つのバーストの間隔
+	public float burst_delay;					//バーストの1発1発の間隔時間を計る
 	[Header("バースト内の弾の間隔")]
-	public float burst_Delay_Max;           //バーストの1発1発の間隔
+	public float burst_Delay_Max;				//バーストの1発1発の間隔
 	[Header("バーストで撃つ数")]
-	public int burst_ShotNum;                   //撃つバースト数
+	public int burst_ShotNum;					//撃つバースト数
 	[Header("バーストを撃つ回数")]
 	public int burst_Times;
-	public int burst_Num;                   //バーストを撃った回数
-	public int burst_Shot_Cnt;                 //何発撃ったかのカウント
-	public bool isShot = false;
-	public bool isBurst = false;        //バーストを撃つかどうか
-	public bool once;
+	public int burst_Num;						//バーストを撃った回数
+	public int burst_Shot_Cnt;					//何発撃ったかのカウント
+	public bool isBurst = false;				//バーストを撃つかどうか
+	public bool once;							//一回だけ使う処理用
 
-	//
-
-
-	public Enemy_Moai moai_Script;
-	public Quaternion shotRota;
-
-	public Moai_EyeLaserRotation[] eyeLaser_Script;
-
-	public float miniMoai_DelayCnt;
-	public float miniMoai_DelayMax;
+	public Enemy_Moai moai_Script;						//モアイ本体のスクリプト
+	public Moai_EyeLaserRotation[] eyeLaser_Script;		//目のレーザースクリプト
 
 	public float laserTimeCnt;
 	public float laserTimeMax;
 
-	public string parentName;
-
 	[Header("入力用　発射する弾の角度範囲設定")]
-	public float bulletRota_Value;      //発射する弾の角度範囲用
-	public float ringShot_DelayCnt;     //弾発射のディレイカウント
-	public int ringStateNum = 1;        // 1だと拡散2だと自機狙いバースト
+	public float bulletRota_Value;					//発射する弾の角度範囲用
+	public float ringShot_DelayCnt;					//弾発射のディレイカウント
+	public int ringStateNum = 1;					// 1だと拡散2だと自機狙いバースト
 	[Header("入力用　弾発射の間隔(秒)")]
-	public float ringShot_DelayMax;     //弾発射のディレイマックス
+	public float ringShot_DelayMax;					//弾発射のディレイマックス
 	[Header("入力用　弾発射の間隔(秒)")]
-	public float ringShotBurstBullet_DelayMax;    //バースト内弾のディレイマックス
+	public float ringShotBurstBullet_DelayMax;		//バースト内弾のディレイマックス
 	public float burst_DelayCnt;
 	[Header("入力用　バースト同士の間隔(秒)")]
 	public float burst_DelayMax;
-	public float burstBulletCnt;
+	public float burstBulletCnt;					//バーストの弾の打った数（未実装）
 	[Header("入力用　バースト内の発射数")]
 	public float burstBulletMax;
 
 	//レーザー---------------------------------------
-	public GameObject moaiMouthLaserObj;
-	public GameObject moaiEyeLaserObj;
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("レーザーの発射位置")] private GameObject[] laser_muzzle;
 
 	public int Attack_Step;
-	//{
-	//	get; set;
-	//}           // 関数内 攻撃ステップ
 	private bool Is_Attack_Now
 	{
 		get; set;
-	}            // 現在攻撃しているか
+	}			// 現在攻撃しているか
 
 	public bool isLaserEnd = false;
 	public bool LaserEndOnce = true;
@@ -95,22 +70,15 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
 	//-----------------------------------------------
 
+	Find_Angle find_Angle_Script;		//プレイヤーのほうを向くスクリプト
 
-	Find_Angle find_Angle_Script;
-
-	public bool isMouthOpen = false;
 	void Start()
 	{
-
+		//親とかスクリプトセット
 		parentObj = transform.parent.gameObject;
-		parentName = parentObj.name;
 		moai_Script = parentObj.GetComponent<Enemy_Moai>();
 		find_Angle_Script = gameObject.GetComponent<Find_Angle>();
 		//miniMoaiPos = transform.GetChild(0).gameObject;
-		ringBulletObj = Resources.Load("Bullet/Enemy_RingBullet") as GameObject;
-		miniMoaiGroupObj = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;
-		moaiMouthLaserObj = Resources.Load("Bullet/Moai_MouthLaser") as GameObject;
-		moaiEyeLaserObj = Resources.Load("Bullet/Moai_EyeLaser") as GameObject;
 		//-------------追加--------------
 		audioSource = GetComponent<AudioSource>();
 		audioSource.clip = laserEnd;
@@ -127,10 +95,12 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
 	void Update()
 	{
+		//無線の時は処理しない
         if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
         {
             return;
         }
+		//モアイが死んでたら音を止める
 		if (moai_Script.isDead)
 		{
 			audioSource.Stop();
@@ -168,12 +138,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 					break;
 
 				case Enemy_Moai.AttackState.MiniMoai:
-					//miniMoai_DelayCnt++;
-					//if (miniMoai_DelayCnt > miniMoai_DelayMax)
-					//{
-					//	MiniMoaiCreate();
-					//	miniMoai_DelayCnt = 0;
-					//}
 					MiniMoaiCreate();
 					moai_Script.miniMoaisCnt++;
 					moai_Script.isMiniMoai = true;
@@ -188,11 +152,9 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		{
 			for (int i = 0; i < 5; i++)
 			{
-                //shotRota = new Quaternion(0, 0, Random.Range(-50, 50), 0);
                 //Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.)
                 saveRingBullet = Obj_Storage.Storage_Data.Moai_Bullet.Active_Obj();
                 saveRingBullet.transform.position = transform.position;
-                //saveRingBullet = Instantiate(ringBulletObj, transform.position, transform.rotation);
 				saveRingBullet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-(180f - find_Angle_Script.degree - bulletRota_Value), -(180f - find_Angle_Script.degree + bulletRota_Value)));
 			}
 			moai_Script.ringShotCnt++;
@@ -201,7 +163,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
 		void RingShotBurst()
 		{
-			//saveRingBullet = Instantiate(ringBulletObj, transform.position, transform.rotation);
 			//saveRingBullet.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-(180f - find_Angle_Script.degree - bulletRota_Value), -(180f - find_Angle_Script.degree + bulletRota_Value)));
 			//burstBulletCnt++;
 		}
@@ -209,7 +170,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		{
             GameObject save = Obj_Storage.Storage_Data.Moai_Mini_Group.Active_Obj();
 
-            //GameObject save = Instantiate(miniMoaiGroupObj, miniMoaiPos.transform.position, Quaternion.Euler(0, 0, 0));
             save.transform.position = miniMoaiPos.transform.position;
 		}
 
@@ -345,7 +305,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 			//{
 
             //口のレーザー出す
-			//saveObj = Instantiate(moaiMouthLaserObj, transform.position, transform.rotation);
 			//saveObj.transform.position = laserPos[0].transform.position;
 			//saveObj.transform.parent = laserPos[0].transform;
 			//saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -368,7 +327,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				//saveObj = Instantiate(moaiEyeLaserObj, transform.position, transform.rotation);
                 saveObj = Obj_Storage.Storage_Data.Moai_Eye_Laser.Active_Obj();
 				saveObj.transform.position = laserPos[i + 1].transform.position;
 				saveObj.transform.parent = laserPos[i + 1].transform;

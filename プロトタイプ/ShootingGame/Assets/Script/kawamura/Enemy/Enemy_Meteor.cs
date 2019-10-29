@@ -1,5 +1,5 @@
 ﻿//作成者：川村良太
-//隕石のスクリプト
+//隕石のスクリプト（古いやつ）
 
 using System.Collections;
 using System.Collections.Generic;
