@@ -1,5 +1,5 @@
 ﻿//作成者：川村良太
-//バキュラの親にするからオブジェクトのスクリプト
+//バキュラの3Dオブジェクトの一番上の親につけるオブジェクトのスクリプト（どのサイズのバキュラにもつける）
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +22,6 @@ public class Enemy_Board_Parent : MonoBehaviour
 	public Enemy_Board_Parent ebp;
     public EnemyGroupManage egm;
 
-
 	Vector3 velocity;
 	public int divisionCnt = 0;
     public float createSpeedX;
@@ -39,7 +38,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 	public bool isDead = false; //攻撃で死んだとき
     public bool isDisappearance = false;　//画面外で消えるとき
 
-    public bool isCreate = false;
+    public bool isCreate = false;	//分裂後かどうか
     public bool isDamage;
 	private void Awake()
 	{
@@ -53,22 +52,24 @@ public class Enemy_Board_Parent : MonoBehaviour
 		parentName = parentObj.name;
         egm = parentObj.GetComponent<EnemyGroupManage>();
 
+		//ボスの時に出るバキュラなら
         if (parentName == "Enemy_BossBacula_Four(Clone)")
         {
+			//移動しないようにする
             speedX = 0;
             speedX_Max = 0;
             speedX_Min = 0;
         }
+		//それ以外はスピードを入れる
         else
         {
             speedX_Max = speedX;
-            //speedX_Min = -2;
-
         }
     }
 
     void Update()
     {
+		//分裂直後の状態
 		if (isCreate)
 		{
 			velocity = gameObject.transform.rotation * new Vector3(-createSpeedX, 0, 0);
@@ -92,6 +93,7 @@ public class Enemy_Board_Parent : MonoBehaviour
 					if (transform.rotation.z > 0)
 					{
 						transform.rotation = Quaternion.Euler(0, 0, 0);
+						isCreate = false;
 					}
 
 				}

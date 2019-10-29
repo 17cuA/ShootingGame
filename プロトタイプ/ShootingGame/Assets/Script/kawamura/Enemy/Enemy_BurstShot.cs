@@ -1,6 +1,7 @@
 ﻿//作成者：川村良太
 //エネミーのバーストショットのスクリプト
 //バースト出発射する数、バーストの間隔、バースト中の弾の間隔を指定可能。単発もこれでいける
+//プレイヤーに向かって打つことが多いと思うので、その時はFind_Angleスクリプトをつけたオブジェクトにこれもつける。
 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,26 +17,22 @@ public class Enemy_BurstShot : MonoBehaviour
 
 	public string myName;
 	[Header("バーストとバーストの間隔を計る")]
-	public float Shot_Delay;                       //バーストとバーストの間隔時間を計る
+	public float Shot_Delay;						//バーストとバーストの間隔時間を計る
 	[Header("バーストとバーストの間隔")]
-	public float Shot_Delay_Max;                     //１つのバーストの間隔
-	public float burst_delay;                      //バーストの1発1発の間隔時間を計る
+	public float Shot_Delay_Max;					//１つのバーストの間隔
+	public float burst_delay;						//バーストの1発1発の間隔時間を計る
 	[Header("バースト内の弾の間隔")]
-	public float burst_Delay_Max;           //バーストの1発1発の間隔
+	public float burst_Delay_Max;					//バーストの1発1発の間隔
 	[Header("バーストで撃つ数")]
-	public int burst_ShotNum;                   //撃つバースト数
+	public int burst_ShotNum;						//撃つバースト数
 	[Header("バーストを撃つ回数")]
 	public int burst_Times;
-	public int burst_Num;					//バーストを撃った回数
-	public int burst_Shot_Cnt;                 //何発撃ったかのカウント
+	public int burst_Num;							//バーストを撃った回数
+	public int burst_Shot_Cnt;						//何発撃ったかのカウント
 	public bool isShot = false;
-	public bool isBurst = false;        //バーストを撃つかどうか
+	public bool isBurst = false;					//バーストを撃つかどうか
 	public bool once;
 
-	private void OnDisable()
-	{
-		Shot_Reset();
-	}
 	private void Awake()
 	{
 		once = true;
@@ -76,6 +73,7 @@ public class Enemy_BurstShot : MonoBehaviour
 
 	void Update()
 	{
+		//最初に一回だけ行うリセット処理
 		if(once)
 		{
 			Shot_Reset();
@@ -84,32 +82,8 @@ public class Enemy_BurstShot : MonoBehaviour
         //親のtransformを代入
         Enemy_transform = transform.parent.transform;
 
-		if (myName == "taiho")
-		{
-			if (isShot/* && transform.position.x < 15f && transform.position.x > -17.5*/)
-			{
-				if (isBurst)
-				{
-					//バーストショット関数呼び出し
-					if (burst_Times > burst_Num)
-					{
-						BurstShot();
-					}
-				}
-
-				else if (Shot_Delay > Shot_Delay_Max)
-				{
-					isBurst = true;
-					Shot_Delay = 0;
-				}
-				else
-				{
-					Shot_Delay += Time.deltaTime;
-				}
-			}
-
-		}
-		else if (myName == "Enemy_Moai(Clone)")
+		//自分が大砲かモアイなら
+		if (myName == "taiho"|| myName == "Enemy_Moai(Clone)")
 		{
 			if (isShot/* && transform.position.x < 15f && transform.position.x > -17.5*/)
 			{
@@ -161,25 +135,19 @@ public class Enemy_BurstShot : MonoBehaviour
 		//撃つ
 		if (burst_delay >= burst_Delay_Max)
 		{
+			//闘牛はレーザー
 			if (myName == "Enemy_Bullfight")
 			{
 				//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, Enemy_transform.position, Enemy_transform.rotation);
 			}
-			//else if (myName == "ClamChowderType_Enemy_Item")
-			//{
-			//	Instantiate(Bullet, gameObject.transform.position, transform.rotation);
-			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, Enemy_transform.position, transform.rotation);
-			//}
+			//それ以外は普通の弾
 			else
 			{
 				//弾生成
 				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
 			}
-
-
-			//Instantiate(Bullet, gameObject.transform.position, transform.rotation);
 
 			//発射数カウントプラス
 			++burst_Shot_Cnt;

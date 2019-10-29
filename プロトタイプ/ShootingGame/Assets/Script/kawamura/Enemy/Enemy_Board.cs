@@ -30,6 +30,7 @@ public class Enemy_Board : character_status
 
     new void Update()
     {
+
 		if (hp < saveHp)
 		{
             saveHp = hp;

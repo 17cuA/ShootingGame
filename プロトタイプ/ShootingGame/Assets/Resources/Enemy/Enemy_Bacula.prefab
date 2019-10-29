@@ -82,6 +82,7 @@ MonoBehaviour:
   speedX_Min: 0
   damageDelay: 0
   myName: 
+  parentName: 
   isDead: 0
   isDisappearance: 0
   isCreate: 0
@@ -181,19 +182,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.115
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &6108812974793365424
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6108812975054714573}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.23, y: 0.199, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6108812974793365427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,10 +211,13 @@ MonoBehaviour:
   - {fileID: 6108812975052449805}
   isrend: 0
   Is_Dead: 0
+  self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   saveHp: 0
   ebp: {fileID: 0}
+  Init_Score: 0
 --- !u!114 &6108812974793365428
 MonoBehaviour:
   m_ObjectHideFlags: 0
