@@ -152,7 +152,6 @@ public class Two_Boss : character_status
 		}
 	}
 
-	// Update is called once per frame
 	private new void Update()
 	{
 		if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.O)) core[0].hp = 0;
@@ -166,7 +165,7 @@ public class Two_Boss : character_status
 		if(Input.GetKeyDown(KeyCode.Alpha0))
 		{
 			Attack_End();
-			Attack_Type_Instruction = 3;
+			Attack_Type_Instruction = 4;
 		}
 
 		if(!Update_Ok)
@@ -256,22 +255,22 @@ public class Two_Boss : character_status
 			ef_2.EF_Base.transform.position = parts_All[0].transform.position;
 			ef_2.EF_Weapon_R.transform.position = parts_All[1].transform.position;
 			ef_2.EF_Weapon_L.transform.position = parts_All[2].transform.position;
-			ef_2.Multipl_1.transform.position = parts_All[3].transform.position;
-			ef_2.Multipl_2.transform.position = parts_All[4].transform.position;
-			ef_2.Multipl_3.transform.position = parts_All[5].transform.position;
-			ef_2.Multipl_4.transform.position = parts_All[6].transform.position;
-			ef_2.Multipl_5.transform.position = parts_All[7].transform.position;
-			ef_2.Multipl_6.transform.position = parts_All[8].transform.position;
+			ef_2.EF_Multipl_1.transform.position = parts_All[3].transform.position;
+			ef_2.EF_Multipl_2.transform.position = parts_All[4].transform.position;
+			ef_2.EF_Multipl_3.transform.position = parts_All[5].transform.position;
+			ef_2.EF_Multipl_4.transform.position = parts_All[6].transform.position;
+			ef_2.EF_Multipl_5.transform.position = parts_All[7].transform.position;
+			ef_2.EF_Multipl_6.transform.position = parts_All[8].transform.position;
 
 			ef_2.EF_Base.transform.rotation = parts_All[0].transform.rotation;
 			ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
 			ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
-			ef_2.Multipl_1.transform.rotation = parts_All[3].transform.rotation;
-			ef_2.Multipl_2.transform.rotation = parts_All[4].transform.rotation;
-			ef_2.Multipl_3.transform.rotation = parts_All[5].transform.rotation;
-			ef_2.Multipl_4.transform.rotation = parts_All[6].transform.rotation;
-			ef_2.Multipl_5.transform.rotation = parts_All[7].transform.rotation;
-			ef_2.Multipl_6.transform.rotation = parts_All[8].transform.rotation;
+			ef_2.EF_Multipl_1.transform.rotation = parts_All[3].transform.rotation;
+			ef_2.EF_Multipl_2.transform.rotation = parts_All[4].transform.rotation;
+			ef_2.EF_Multipl_3.transform.rotation = parts_All[5].transform.rotation;
+			ef_2.EF_Multipl_4.transform.rotation = parts_All[6].transform.rotation;
+			ef_2.EF_Multipl_5.transform.rotation = parts_All[7].transform.rotation;
+			ef_2.EF_Multipl_6.transform.rotation = parts_All[8].transform.rotation;
 			ef_2.Set_Init();
 			// 死亡時のエフェクトに使うオブジェクトに対応のオブジェクトの位置を代入------------------------------------------------------------
 
