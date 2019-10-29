@@ -16,7 +16,7 @@ public class BattleshipType_Battery : character_status
 {
 	private Vector3 Initial_Position { get; set; }		// 自身の初期位置
 	private GameObject pure { get; set; }               // プレハブ
-	public ParticleSystem p;
+	public ParticleSystem particle;
 
 	private new void Start()
 	{
@@ -37,6 +37,7 @@ public class BattleshipType_Battery : character_status
 			Died_Process();
 		}
 
+		// 原因不明の位置連れ防止用
 		if (transform.localPosition != Initial_Position) transform.localPosition = Initial_Position;
 
 		base.Update();
@@ -59,7 +60,7 @@ public class BattleshipType_Battery : character_status
 	{
 
 		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eBATTLESHIP_ENEMY_PREFAB, transform.position, transform.right);
-		NewBehaviourScript ns = obj.GetComponent<NewBehaviourScript>();
+		CannonBullet ns = obj.GetComponent<CannonBullet>();
 		ns.Person_Who_Shot = gameObject;
 		return obj;
 	}

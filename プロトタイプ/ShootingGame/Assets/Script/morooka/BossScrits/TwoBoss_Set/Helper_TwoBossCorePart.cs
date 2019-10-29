@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿//作成日2019/08/13
+// 2番目のボスのコアの色変更
+// 作成者:諸岡勇樹
+/*
+ * 2019/08/13　2番目のボスのコアの色変更
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Helper_TwoBossCorePart : MonoBehaviour
 {
-	[SerializeField] private GameObject partInstance;
+	[SerializeField] private GameObject partInstance;					// コアのオブジェクト情報
 	[SerializeField] private Texture2D red_baseColorTexture;		// 赤のテクスチャー
 	[SerializeField] private Texture2D red_emissiveTexture;			// 赤のエミッシブ
 	[SerializeField] private ParticleSystem particleSystem;			// 色変換時のパーティクル

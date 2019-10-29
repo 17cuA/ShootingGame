@@ -17,25 +17,27 @@ public class bullet_status : MonoBehaviour
 	public Vector3 Travelling_Direction;    //自分の向き
 	[SerializeField]
 	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
-    public Player1 P1 { get; private set; }
-    public Player2 P2 { get; private set; }
-    public Bit_Shot bShot { get; set; }
-	public int Player_Number { get; set; }
+    public Player1 P1 { get; private set; }		// プレイヤー1の情報
+    public Player2 P2 { get; private set; }		// プレイヤー2の情報
+    public Bit_Shot bShot { get; set; }			// ビットンの情報
+	public int Player_Number { get; set; }		// どのプレイヤーの弾か
 
+	// どのオブジェクトの弾かの識別用
 	public enum Type
 	{
-		None,
-		Player1,
-		Player2, 
-		Player1_Option,
-		Player2_Option,
-		Enemy,
+		None,					// なし
+		Player1,					// プレイヤー1
+		Player2,					// プレイヤー2
+		Player1_Option,		// プレイヤー1ビットン
+		Player2_Option,		// プレイヤー2ビットン
+		Enemy,					// エネミー
 	}
 
-	public Type Bullet_Type;        //各キャラクタの弾かどうかを判定する変数
+	public Type Bullet_Type;        //各キャラクターの弾かどうかを判定する変数
 
 	private void Awake()
 	{
+		// ポーズ用のコンポーネントアタッチ
 		gameObject.AddComponent<PauseComponent>();
 	}
 	protected void Start()
@@ -72,9 +74,12 @@ public class bullet_status : MonoBehaviour
 
 	protected void Update()
 	{
+		// 画面外に出たとき
 		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
 			|| transform.position.y >= 6f || transform.position.y <= -6f)
 		{
+			// プレイヤー、ビットンの弾のとき
+			// 各カウンターの減少
 			if (gameObject.tag == "Player_Bullet")
 			{
 				switch (Bullet_Type)
@@ -99,6 +104,8 @@ public class bullet_status : MonoBehaviour
 						break;
 				}
 			}
+
+			// 非アクティブ化
 			gameObject.SetActive(false);
 		}
 	}
@@ -109,8 +116,8 @@ public class bullet_status : MonoBehaviour
         if (gameObject.tag == "Enemy_Bullet" && (col.gameObject.name == "Enemy_Meteor_One" || col.gameObject.name == "Enemy_Meteor_Two" || col.gameObject.name == "Enemy_Meteor_Three" || col.gameObject.name == "Enemy_Meteor_four" || col.gameObject.name == "Enemy_Meteor_Five"))
         {
             gameObject.SetActive(false);
-
         }
+		// 自身がエネミーの弾で、プレイヤーに衝突したとき
         else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
         {
             gameObject.SetActive(false);
@@ -119,6 +126,7 @@ public class bullet_status : MonoBehaviour
             effect.transform.position = gameObject.transform.position;
             particle.Play();
         }
+		// 自身がプレイヤーの弾で、ヴァキュラに当たったとき
 		else if(gameObject.tag == "Player_Bullet " && col.name == "Bacula")
 		{
 			character_status obj = col.GetComponent<character_status>();
@@ -133,7 +141,8 @@ public class bullet_status : MonoBehaviour
 			gameObject.SetActive(false);
 			Player_Bullet_Des();
 		}
-        else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
+		// 自身がプレイヤーの弾で、エネミー
+		else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
         {
             character_status obj = col.GetComponent<character_status>();
             if (obj != null)
