@@ -24,8 +24,10 @@ public class BattleshipType_Enemy : character_status
 	[SerializeField, Tooltip("本体パーツ")] private BattleshipType_Battery body_scriptes;
 	[SerializeField, Tooltip("本体")] private GameObject body;
 	[SerializeField, Tooltip("パーツのスコア")] private uint parts_score;
+	public GameObject DestructiveEffect;                    // 破壊時エフェクトの保存
 
-    public Vector3 defautpos;													// デフォルトの位置
+
+	public Vector3 defautpos;													// デフォルトの位置
 
 	public Vector3 Original_Position { get; set; }						// 元の位置
 	public int Now_Target { get; set; }										// 現在の移動目標番号
@@ -41,8 +43,7 @@ public class BattleshipType_Enemy : character_status
 	public float Max_Speed { get; set; }									// 最大速度
 	public float Deceleration_Distance { get; set; }						// 加減速開始移動量
     public bool Is_up{ get; set; }												// 上側下側判定
-    public bool Is_InitialSetting { get; set; }								// 初期設定したかどうか
-	public GameObject DestructiveEffect { get; set; }					// 破壊時エフェクトの保存
+    public bool Is_InitialSetting { get; set; }                             // 初期設定したかどうか
 
 	private new void Start()
 	{

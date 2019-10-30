@@ -33,6 +33,10 @@ public class Two_Boss : character_status
 	}
 
 	[Header("ボス形成パーツ")]
+	[Header("--------以下ボス個別---------")]
+	[Header(" ")]
+	[Header(" ")]
+
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
 	[SerializeField, Tooltip("オプションマズル")] private GameObject[] muzzle;
@@ -56,21 +60,21 @@ public class Two_Boss : character_status
 	//------------------------------------------------------------------------------------------------------
 	// Unity側では触れないもの
 	//------------------------------------------------------------------------------------------------------
-	private PlayableDirector Timeline_Player { get; set; }		// タイムラインの情報
+	private PlayableDirector Timeline_Player { get; set; }      // タイムラインの情報
 	private int Attack_Step { get; set; } // 攻撃行動段階指示用
-	private int Frames_In_Function { get; set; }		// 関数内で使うフレーム数
+	private int Frames_In_Function { get; set; }        // 関数内で使うフレーム数
 	public float Attack_Seconds { get; private set; } // 攻撃に使う秒数
-	private Player1 Player1_Script { get; set; }		// 1P情報
-	private Player2 Player2_Script { get; set; }		// 2P情報
+	private Player1 Player1_Script { get; set; }        // 1P情報
+	private Player2 Player2_Script { get; set; }        // 2P情報
 
-	private int Attack_Type_Instruction { get; set; }		// 攻撃種類指示
+	private int Attack_Type_Instruction { get; set; }       // 攻撃種類指示
 
-	private string Playing_Animation { get; set; }		// 再生中のAnimation名
-	private string[] Animation_Name { get; set; }		//　Animation名保存
-	private List<Two_Boss_Laser> Laser { get; set; }		// レーザー
-	private List<Collider> Damage_Collider { get; set; }		// コライダーの段階
+	private string Playing_Animation { get; set; }      // 再生中のAnimation名
+	private string[] Animation_Name { get; set; }       //　Animation名保存
+	private List<Two_Boss_Laser> Laser { get; set; }        // レーザー
+	private List<Collider> Damage_Collider { get; set; }        // コライダーの段階
 	private int Under_Attack { get; set; }
-	private float Survival_Time { get; set; }			// せい☆ぞん　時間
+	private float Survival_Time { get; set; }           // せい☆ぞん　時間
 	private float Survival_Time_Cnt { get; set; }       // 生存時間カウンター
 
 	private bool Update_Ok { get; set; }        // アップデート

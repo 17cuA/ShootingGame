@@ -6627,38 +6627,11 @@ MonoBehaviour:
   white_material: {fileID: 0}
   Opponent: 0
   namenamename: 
-  rotational_speed: 0.3
   core:
   - {fileID: 578456144874499174}
   - {fileID: 5808164588654007464}
   - {fileID: 2979631196825160026}
   - {fileID: 7474189406771008518}
-  core_renderer:
-  - {fileID: 3051152079789960301}
-  - {fileID: 3051152079789960299}
-  - {fileID: 3051152079789960297}
-  - {fileID: 3051152079789960343}
-  arm_parts:
-  - {fileID: 4376950612160792817}
-  - {fileID: 8221253716733013791}
-  Body_Parts: {fileID: 9051573755106712538}
-  arm_mesh:
-  - {fileID: 0}
-  - {fileID: 0}
-  muzzles:
-  - {fileID: 2438126635802557721}
-  - {fileID: 2768037984632471737}
-  - {fileID: 832080053087033644}
-  - {fileID: 3205767984282569052}
-  laser_muzzle:
-  - {fileID: 2020820018}
-  - {fileID: 8955674367907796823}
-  supply:
-  - {fileID: 2147083177166976401}
-  - {fileID: 224600132006860260}
-  number_of_fires: 2
-  pos_set_prefab: {fileID: 5223319603688632064, guid: 7dafa8cd073ab204b8b5f8ed00f3ff26,
-    type: 3}
   core_shutter:
   - {fileID: 6636078617913515925}
   - {fileID: 6586581914295027102}
@@ -6672,13 +6645,29 @@ MonoBehaviour:
   - {fileID: 3884318066320596108}
   - {fileID: 5763678818529600700}
   - {fileID: 8541666033541127117}
+  muzzles:
+  - {fileID: 2438126635802557721}
+  - {fileID: 2768037984632471737}
+  - {fileID: 832080053087033644}
+  - {fileID: 3205767984282569052}
+  laser_muzzle:
+  - {fileID: 2020820018}
+  - {fileID: 8955674367907796823}
+  supply:
+  - {fileID: 2147083177166976401}
+  - {fileID: 224600132006860260}
+  number_of_fires: 2
+  no_damage_Collider:
+  - {fileID: 7908507114748031032}
+  - {fileID: 6086996436197625314}
+  - {fileID: 7410547314015645957}
   warp_ef: {fileID: 4867751417713931724}
   Start_Flag: 1
   Update_Flag: 0
   Timeline_Player: {fileID: 5208960476216627437}
   End_Plefab: {fileID: 6170580384387378050, guid: 14902b5e749ab6647b9dc65648089f7d,
     type: 3}
-  sonota_Timeline: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+  start_timeline: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
   layser_timeline: {fileID: 11400000, guid: 8b6a67dd68efb43428587c09e6a7b1b5, type: 2}
   Bullet_timeline: {fileID: 11400000, guid: f91ee47de48827a48997e7c463ea25d2, type: 2}
   Is_end_of_timeline: 1
@@ -6699,7 +6688,7 @@ PlayableDirector:
   m_GameObject: {fileID: 9051573755106712536}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: f91ee47de48827a48997e7c463ea25d2, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
   m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
