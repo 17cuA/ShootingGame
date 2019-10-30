@@ -13,26 +13,23 @@ public class Enemy_StagBeetle : character_status
 		SINMOVETARGET,
 		ATTACK,
 	}
-
+	
 	public State eState = State.NONE;
-	   
+	public float speedMax = 0.0f;
+	public int speedUpframeMax = 60;
+	public float addSpeed = 0.0f;
+	public bool isSpeedUp = false;
 	public int sinAngleFrame;
-	public int sinAngleFrameMax = 30;
+	public int sinAngleFrameMax = 180;
 	public float yRange = 8.0f;
-	public bool isUp;
-
-	public character_status playerObj; // 注視したいオブジェクトをInspectorから入れておく
-
+	public character_status playerObj; // プレイヤー
 
 	// Start is called before the first frame update
 	private new void Start()
     {
-		eState = State.NONE;
-
-		isUp = true;
-
+		speedMax = speed;
+		eState = State.STRAIGHT;
 		sinAngleFrame = 0;
-
 		base.Start();
 	}
 
@@ -46,14 +43,14 @@ public class Enemy_StagBeetle : character_status
 		{
 			case State.STRAIGHT:
 				transform.position += new Vector3(-speed / 60.0f, 0.0f, 0.0f);
-				if (Vector3.Distance(playerObj.transform.position, transform.position) <= 7.0f)
+				if (Vector3.Distance(playerObj.transform.position, transform.position) <= 16.5f)
 				{
 					eState = State.SINMOVE;
 				}
 				break;
 
 			case State.SINMOVE:
-				transform.position = new Vector3(0.0f, Mathf.Sin(((float)sinAngleFrame / (float)sinAngleFrameMax) * Mathf.PI * 2.0f) * yRange / 2.0f, 0.0f);
+				transform.position = new Vector3(transform.position.x + -speed / 120.0f, Mathf.Sin(((float)sinAngleFrame / (float)sinAngleFrameMax) * Mathf.PI * 2.0f) * yRange / 2.0f, 0.0f);
 				sinAngleFrame++;
 				if (sinAngleFrame / sinAngleFrameMax >= 1.0f)
 				{
@@ -62,37 +59,33 @@ public class Enemy_StagBeetle : character_status
 				break;
 
 			case State.SINMOVETARGET:
-				transform.position = new Vector3(0.0f, Mathf.Sin(((float)sinAngleFrame / (float)sinAngleFrameMax) * Mathf.PI * 2.0f) * yRange / 2.0f, 0.0f);
+				transform.position = new Vector3(transform.position.x + -speed / 120.0f, Mathf.Sin(((float)sinAngleFrame / (float)sinAngleFrameMax) * Mathf.PI * 2.0f) * yRange / 2.0f, 0.0f);
 				sinAngleFrame++;
 				if (Mathf.Abs(playerObj.transform.position.y - transform.position.y) <= 1.0f)
 				{
 					eState = State.ATTACK;
+					speed = -speed / 2.0f;
+					addSpeed = (speedMax - speed) / speedUpframeMax;
+					isSpeedUp = true;
 				}
 				break;
 
 			case State.ATTACK:
-				transform.position += new Vector3(-speed / 15.0f, 0.0f, 0.0f);
+				transform.position += new Vector3(-speed / 12.0f, 0.0f, 0.0f);
+				if (isSpeedUp)
+				{
+					speed += addSpeed;
+					if (speed >= speedMax)
+					{
+						speed = speedMax;
+						isSpeedUp = false;
+					}
+				}
 				break;
 
 			default:
 				break;
 		}
-
-		//transform.position = new Vector3(0.0f, Mathf.Sin(((float)sinAngleFrame / (float)sinAngleFrameMax) * Mathf.PI * 2.0f) * yRange / 2.0f, 0.0f);
-		//sinAngleFrame++;
-
-		//if (sinAngleFrame / sinAngleFrameMax > 0.25f && isUp && sinAngleFrame / sinAngleFrameMax < 0.5f)
-		//{
-		//	isUp = false;
-		//}
-		//else if (sinAngleFrame / sinAngleFrameMax > 0.75f && !isUp)
-		//{
-		//	isUp = true;
-		//}
-		//else if (sinAngleFrame / sinAngleFrameMax >= 1.0f)
-		//{
-		//	sinAngleFrame -= sinAngleFrameMax;
-		//}
 
 		HSV_Change();
 		if (hp < 1)
