@@ -97,6 +97,11 @@ MonoBehaviour:
   white_material: {fileID: 0}
   Opponent: 0
   namenamename: 
+  eState: 0
+  sinAngleFrame: 0
+  sinAngleFrameMax: 30
+  yRange: 8
+  isUp: 0
 --- !u!54 &7515912139655828137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -108,7 +113,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -180,18 +185,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: c0200e7b2a468a84a8320cb5b948bdd3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: c0200e7b2a468a84a8320cb5b948bdd3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: c0200e7b2a468a84a8320cb5b948bdd3, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: c0200e7b2a468a84a8320cb5b948bdd3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0200e7b2a468a84a8320cb5b948bdd3, type: 3}
