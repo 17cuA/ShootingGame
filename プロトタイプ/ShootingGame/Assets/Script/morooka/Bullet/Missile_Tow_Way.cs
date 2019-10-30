@@ -14,8 +14,8 @@ public class Missile_Tow_Way : bullet_status
 	[Header("等速直線運動のスピード")]
 	private float constant_velocity_line_speed;     // 等速直線速度
 	[SerializeField]
-	[Header("等速直線運動のスピード")]
-	private float ray_length;                        // 等速直線運動のスピード
+	[Header("レイの長さ")]
+	private float ray_length;                        // レイの長さ
 
 	private int Running_Flame { get; set; }				// 起動している間のフレーム
 	public float Y_Axis_Facing { get; private set; }		// Y軸の方向

@@ -26,15 +26,12 @@ public class Remaining_Display : MonoBehaviour
 	[SerializeField,Header("表示位置3")]
 	private Vector3 xRPosition;
 
-	//private List<GameObject> Remaining_Object { get; set; }         // 残機アイコン表示用オブジェクト
-	//private List<Image> Remaining_Object_Image { get; set; }        // 残機アイコン表示用 Image 
 	private GameObject[] oya_1P;
 	private Player1 Player_Data_1P { get; set; }                                // プレイヤーの残機確認用
 	private Character_Display Object_To_Display_1P { set; get; }       // 文字表示用
 	private Character_Display[] Life_1P;                            // ライフ表示
 	private int Remaining_Num_1P { get; set; }                         // 現在表示してる残機
 	private Sprite[] Display_Sprite_1P { get; set; }                   // 表示したいスプライト用
-
 
 	//2P----------------------------------
 	[SerializeField]
@@ -55,7 +52,7 @@ public class Remaining_Display : MonoBehaviour
 	private int Remaining_Num_2P { get; set; }                         // 現在表示してる残機
 	private Sprite[] Display_Sprite_2P { get; set; }                   // 表示したいスプライト用
 
-	private string Temp_String{get;set;}
+	private string Temp_String{get;set;}										// 仮置き用のストリング
 
 	void Update()
     {

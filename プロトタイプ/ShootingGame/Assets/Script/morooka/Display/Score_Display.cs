@@ -40,10 +40,10 @@ public class Score_Display : MonoBehaviour
 	[Header("表示位置")]
 	private Vector3 position_2;
 	//---------------------------------------------------------------------------
-	private GameObject Score_1P{get;set;}
-	private GameObject Score_2P{get;set;}
+	private GameObject Score_1P{get;set;}		// １Pのスコア表示用
+	private GameObject Score_2P{get;set; }      // 2Pのスコア表示用
 
-    public Character_Display Object_To_Display_1P{private set; get;}		// 1P用
+	public Character_Display Object_To_Display_1P{private set; get;}		// 1P用
     public Character_Display Object_To_Display_2P{private set; get;}        // 2P用
 
 	void Start()

@@ -1,10 +1,16 @@
-﻿using System.Collections;
+﻿//作成日2019/07/18
+// 戦艦用の弾の管理
+// 作成者:諸岡勇樹
+/*
+ * 2019/07/19 戦艦用の弾の管理
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : bullet_status
+public class CannonBullet : bullet_status
 {
-	public GameObject Person_Who_Shot { get; set; }
+	public GameObject Person_Who_Shot { get; set; }		// 撃った大砲の情報
 	new void Start()
     {
 		base.Start();
