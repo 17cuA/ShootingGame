@@ -11,12 +11,10 @@ using UnityEngine;
 public class One_Boss_Parts : character_status
 {
 	[SerializeField,Tooltip("サポートするオブジェクト")] private GameObject[] supported_objects;
-	private Vector3 Initial_Position { get; set; }		// 初期位置
 
 	private new void Start()
     {
 		base.Start();
-		Initial_Position = transform.position;
     }
     private new void Update()
     {

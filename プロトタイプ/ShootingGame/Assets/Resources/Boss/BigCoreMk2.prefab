@@ -6661,6 +6661,7 @@ MonoBehaviour:
   - {fileID: 7908507114748031032}
   - {fileID: 6086996436197625314}
   - {fileID: 7410547314015645957}
+  - {fileID: 7240073990316645228}
   warp_ef: {fileID: 4867751417713931724}
   Start_Flag: 1
   Update_Flag: 0
@@ -6688,7 +6689,7 @@ PlayableDirector:
   m_GameObject: {fileID: 9051573755106712536}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 21e889184370f06458ecd12c9d08beca, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: f91ee47de48827a48997e7c463ea25d2, type: 2}
   m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
@@ -7399,6 +7400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: A111
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954071066242813422, guid: aa4ccdbf131bbf243a88d836ca011ae9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5800208517844756366, guid: aa4ccdbf131bbf243a88d836ca011ae9,
         type: 3}
@@ -8353,6 +8359,11 @@ PrefabInstance:
       propertyPath: lengthInSec
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: 2576126209695150809, guid: dca5bc090d9cf8244826065099941696,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca5bc090d9cf8244826065099941696, type: 3}
 --- !u!4 &692136191590352346 stripped
@@ -8583,6 +8594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: A111
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954071066242813422, guid: aa4ccdbf131bbf243a88d836ca011ae9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5800208517844756366, guid: aa4ccdbf131bbf243a88d836ca011ae9,
         type: 3}
@@ -9051,6 +9067,11 @@ PrefabInstance:
         type: 3}
       propertyPath: startDelay.scalar
       value: 31.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576126209695150809, guid: dca5bc090d9cf8244826065099941696,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca5bc090d9cf8244826065099941696, type: 3}
