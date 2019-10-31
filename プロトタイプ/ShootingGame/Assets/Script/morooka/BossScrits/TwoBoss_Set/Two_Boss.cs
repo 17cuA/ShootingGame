@@ -515,19 +515,22 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if(Attack_Seconds >= 2.14f)
 			{
+				Laser_Manager[2].patternWave = true;
 				Laser_Manager[2].IsShoot = true;
 			}
 			if (Attack_Seconds >= 4.0f)
 			{
+				Laser_Manager[1].patternWave = true;
 				Laser_Manager[1].IsShoot = true;
 			}
 			if (Attack_Seconds >= 5.0f)
 			{
+				Laser_Manager[0].patternWave = true;
 				Laser_Manager[0].IsShoot = true;
 			}
 
 			// 一定時間後レーザーストップ
-			if (Attack_Seconds >= 14.06f)
+			if (Attack_Seconds >= 6.0f)
 			{
 				foreach(var l in Laser_Manager)
 				{
@@ -565,9 +568,13 @@ public class Two_Boss : character_status
 			Attack_Seconds += Time.deltaTime;
 			if (Attack_Seconds >= 3.0f)
 			{
+				Laser_Manager[0].patternWave = false;
 				Laser_Manager[0].IsShoot = true;
+				Laser_Manager[1].patternWave = false;
 				Laser_Manager[1].IsShoot = true;
+				Laser_Manager[2].patternWave = false;
 				Laser_Manager[2].IsShoot = true;
+				Laser_Manager[3].patternWave = false;
 				Laser_Manager[3].IsShoot = true;
 
 				// 一定時間後レーザーの削除

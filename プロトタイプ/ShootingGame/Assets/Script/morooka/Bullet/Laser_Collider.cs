@@ -50,8 +50,8 @@ public class Laser_Collider : MonoBehaviour
 				// 発射元以外のオプションに当たったとき
 				else if (col.transform != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
 				{
-					var temp = transform.parent;
-					temp.GetComponent<Two_Boss_Laser>().Scraps.Add(gameObject);
+					//var temp = transform.parent;
+					//temp.GetComponent<Two_Boss_Laser>().Scraps.Add(gameObject);
 				}
 				break;
 			default:
