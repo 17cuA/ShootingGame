@@ -90,7 +90,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8193930654051310129}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6, z: 0.6}
@@ -4884,11 +4884,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8643950331775482185}
     m_Modifications:
-    - target: {fileID: 2123673385651567973, guid: a3f8f82c7b171df47924f48b01a484ae,
-        type: 3}
-      propertyPath: m_Name
-      value: TwoBoss_Laser_Particle
-      objectReference: {fileID: 0}
     - target: {fileID: 2123673385651567974, guid: a3f8f82c7b171df47924f48b01a484ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4943,6 +4938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123673385651567973, guid: a3f8f82c7b171df47924f48b01a484ae,
+        type: 3}
+      propertyPath: m_Name
+      value: TwoBoss_Laser_Particle
       objectReference: {fileID: 0}
     - target: {fileID: 2123673386463143666, guid: a3f8f82c7b171df47924f48b01a484ae,
         type: 3}
