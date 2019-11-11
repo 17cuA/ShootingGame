@@ -214,6 +214,7 @@ public class Enemy_Moai : character_status
 			//上まで行ったら消す
 			if (transform.position.y > 12)
 			{
+				Is_Dead = true;
 				gameObject.SetActive(false);
 			}
 			//退場中ダメージ受けないようにする
