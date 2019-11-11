@@ -24,23 +24,4 @@ public class Title_Manager : MonoBehaviour
     {
 		Mode = TITLE_MODE.eCAUTION;
     }
-
-    void Update()
-    {
-		switch (Mode)
-		{
-			case TITLE_MODE.eCAUTION:
-				break;
-			case TITLE_MODE.eROGO:
-				break;
-			case TITLE_MODE.eLEGEND:
-				break;
-			case TITLE_MODE.eTITLE:
-				break;
-			case TITLE_MODE.eSELECT:
-				break;
-			default:
-				break;
-		}
-	}
 }

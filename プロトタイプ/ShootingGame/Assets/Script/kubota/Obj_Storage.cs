@@ -203,7 +203,7 @@ public class Obj_Storage : MonoBehaviour
 		BulletPrefab_Option_P2 = Resources.Load("Bullet/Option_Bullet_2P") as GameObject;
 		Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
-		Bullet_Prefab_BattleShip = Resources.Load("Bullet/GameObject") as GameObject;
+		Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
         SmallBeam_Bullet_E_Prefab= Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
         UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;

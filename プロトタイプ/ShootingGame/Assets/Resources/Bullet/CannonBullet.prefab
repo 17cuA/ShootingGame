@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8252349797901440748}
   - component: {fileID: 3298473614577615783}
   m_Layer: 14
-  m_Name: GameObject
+  m_Name: CannonBullet
   m_TagString: Enemy_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   attack_damage: 1
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
-  Bullet_Type: 0
+  Bullet_Type: 5
 --- !u!54 &3298473614577615783
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -87,6 +87,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4116199899526291756}
     m_Modifications:
+    - target: {fileID: 1447102889159027513, guid: 7bfdb1ca2d9940a4490c37426bff36b6,
+        type: 3}
+      propertyPath: m_Name
+      value: B101
+      objectReference: {fileID: 0}
     - target: {fileID: 212196959525280511, guid: 7bfdb1ca2d9940a4490c37426bff36b6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,11 +146,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447102889159027513, guid: 7bfdb1ca2d9940a4490c37426bff36b6,
-        type: 3}
-      propertyPath: m_Name
-      value: B101
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfdb1ca2d9940a4490c37426bff36b6, type: 3}

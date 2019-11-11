@@ -20,12 +20,13 @@ public class Laser_Collider : MonoBehaviour
 		eBOSS_TWO,			// 二ボス
 	}
 
-	public BOSS_TYPE bType;
+	public BOSS_TYPE bType;		// ボスの種類
 
 	protected void OnTriggerEnter(Collider col)
 	{
 		switch (bType)
 		{
+			// 1ボスのとき
 			case BOSS_TYPE.eBOSS_ONE:
 				// プレイヤーに衝突したとき
 				if (col.gameObject.tag == "Player")
@@ -36,7 +37,9 @@ public class Laser_Collider : MonoBehaviour
 					particle.Play();
 				}
 				break;
+			// 2ボスのとき
 			case BOSS_TYPE.eBOSS_TWO:
+				// プレイヤーに衝突したとき
 				if (col.gameObject.tag == "Player")
 				{
 					GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
@@ -44,10 +47,11 @@ public class Laser_Collider : MonoBehaviour
 					effect.transform.position = gameObject.transform.position;
 					particle.Play();
 				}
+				// 発射元以外のオプションに当たったとき
 				else if (col.transform != transform.parent && col.gameObject.layer != 14 && col.gameObject.tag != "Option")
 				{
-					var temp = transform.parent;
-					temp.GetComponent<Two_Boss_Laser>().Scraps.Add(gameObject);
+					//var temp = transform.parent;
+					//temp.GetComponent<Two_Boss_Laser>().Scraps.Add(gameObject);
 				}
 				break;
 			default:

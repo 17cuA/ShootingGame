@@ -5,7 +5,7 @@
  * 2019/06/19 落下と地面衝突時の移動向き変更
  * 2019/06/21 上り坂に衝突時自身の破壊
  * 2019/06/24 EAGLEWINDに対応
- * 2019/09/06　爆発追加
+ * 2019/09/06 爆発追加
  */
 using System;
 using System.Collections;
@@ -100,14 +100,14 @@ public class Missile : bullet_status
 	/// </summary>
 	private void Moving_Facing_Confirmation(Vector3 mesh_normal)
 	{
+		// 内閣の計算---------------------------------------------------------------------------------------------
 		mesh_normal.y *= (Ray_Direction.y * -1.0f);
-
 		mesh_normal.x *= Ray_Direction.y;
-
 		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
 		float inner_product = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
-
-		// 内閣が0以下のとき
+		// 内閣の計算---------------------------------------------------------------------------------------------
+　
+		// 内角が0以下のとき
 		if (inner_product < 0)
 		{
 			// 自信を消す

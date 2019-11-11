@@ -20,18 +20,16 @@ using UnityEngine.Playables;
 public class One_Boss : character_status
 {
 	[Header("ボスの個別で動かしたい形成パーツ")]
-	[SerializeField, Tooltip("回転速度")] private float rotational_speed;
+	[Header("--------以下ボス個別---------")]
+	[Header(" ")]
+	[Header(" ")]
 	[SerializeField, Tooltip("コア")] private One_Boss_Parts[] core;
-	[SerializeField, Tooltip("コアのレンダー")]private Renderer[] core_renderer;
-	[SerializeField, Tooltip("アームのパーツ")] private GameObject[] arm_parts;
-	[SerializeField, Tooltip("ボディのパーツ")] private GameObject Body_Parts;
-	[SerializeField, Tooltip("アームの見た目")] private GameObject[] arm_mesh;
+	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
 	[SerializeField, Tooltip("ビームまずる")] private GameObject[] muzzles;
 	[SerializeField, Tooltip("レーザーのまずる")] private GameObject[] laser_muzzle;
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("バウンドする弾の発射数(最低二個は発射)")] private int number_of_fires;
-	[SerializeField, Tooltip("ポジションセットプレハブ")] private GameObject pos_set_prefab;
-	[SerializeField, Tooltip("ボスのコアシャッター")] private One_Boss_Parts[] core_shutter;
+	[SerializeField, Tooltip("ノーダメージコライダー")] private Collider[] no_damage_Collider;
 
 	[Header("ボスのアニメーション用")]
 	[SerializeField, Tooltip("ワープエフェクト")] private GameObject warp_ef;
@@ -41,7 +39,7 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("死ぬとき用")] private GameObject End_Plefab;
 
 	[Header("アニメーションタイムライン")]
-	[SerializeField, Tooltip("今までの")] private PlayableAsset sonota_Timeline;
+	[SerializeField, Tooltip("スタートのタイムライン")] private PlayableAsset start_timeline;
 	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset layser_timeline;
 	[SerializeField, Tooltip("タイムラインの保管")] private PlayableAsset Bullet_timeline;
 	[SerializeField, Tooltip("タイムラインの終了判定")] private bool Is_end_of_timeline;
@@ -53,19 +51,13 @@ public class One_Boss : character_status
 	[SerializeField, Tooltip("突進中フラグ")] public bool now_rush;
 
 	// アニメーション用
-	private List<ParticleSystem> Warp_EF { get; set; }
 	//-------------------------------------------------
-
 	private uint Flame { get; set; }								// ボス内でのフレーム数
 	private int Attack_Step { get; set; }							// 関数内 攻撃ステップ
 	//-------------------------------------------------
 
 	private Vector3[] BoundBullet_Rotation { get; set; }    // バウンドバレットの角度
-
-	public GameObject[] Player_Data { get; private set; }       // プレイヤーのデータ
-	public GameObject Now_player_Traget { get; set; }           // ターゲット情報の保管用
 	private int Attack_Type_Instruction { get; set; }           // 攻撃タイプ支持
-
 	private bool End_Flag { get; set; }         // 終わりのフラグ
 
 	private int Survival_Time { get; set; }				// ボスの生存する時間
@@ -73,16 +65,14 @@ public class One_Boss : character_status
 	private bool Is_Attack_Now { get; set; }			// 現在攻撃しているか
 
 	private  List<List<Collider>> Damage_Stage_Col { get; set; }		// ダメージの段階
-
-	private int Number_Of_Lasers { get; set; }		// レーザー撃った回数
-	private int[] Core_Mae_HP { get; set; }
+	private bool Is_Shoot_The_Laser { get; set; }		// レーザー撃ったか
 	private int Core_Init_HP { get; set; }// コアの初期HP
 
-	private Color[] Base_Color { get; set; }
-	private Color[] Emissive_Color { get; set; }
+	private Color[] Base_Color { get; set; }			// コアのベースの色
+	private Color[] Emissive_Color { get; set; }		// コアのエミッシブの色
 
-	private Player1 Player1_Script { get; set; }
-	private Player2 Player2_Script { get; set; }
+	private Player1 Player1_Script { get; set; }		// プレイヤー1のデータ
+	private Player2 Player2_Script { get; set; }		// プレイヤー2のデータ
 
 	// 背景遷移トリガー
 	SetTimeTrigger setTimeTrigger = null;
@@ -122,23 +112,9 @@ public class One_Boss : character_status
 		Attack_Step = 0;
 		Start_Flag = true;
 
-		Warp_EF = new List<ParticleSystem>();
-
 		Survival_Time = (2 * 60 * 60);
 		Survival_Time_Cnt = 0;
 		Is_Attack_Now = false;
-
-		Player_Data = new GameObject[(int)Game_Master.Number_Of_People];
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		{
-			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
-		}
-		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		{
-			Player_Data[0] = Obj_Storage.Storage_Data.GetPlayer();
-			Player_Data[1] = Obj_Storage.Storage_Data.GetPlayer2();
-		}
-		Now_player_Traget = Player_Data[0];
 
 		Bullet_num_Set(number_of_fires);
 
@@ -146,11 +122,6 @@ public class One_Boss : character_status
 
 		Collider_Set(false);
 
-		Core_Mae_HP = new int[core.Length];
-		for(int i = 0;i<Core_Mae_HP.Length;i++)
-		{
-			Core_Mae_HP[i] = core[i].hp;
-		}
 		Core_Init_HP = 255;
 		Damage_Stage_Col = new List<List<Collider>>();
 		Damage_Stage_Col.Add(new List<Collider> { core_shutter[0].GetComponent<Collider>(), core_shutter[1].GetComponent<Collider>(), core_shutter[2].GetComponent<Collider>(), core[0].GetComponent<Collider>() });
@@ -268,7 +239,7 @@ public class One_Boss : character_status
 					}
 				}
 
-				if (Number_Of_Lasers == 0)
+				if (!Is_Shoot_The_Laser)
 				{
 					Laser_And_Bouncing_Bullets();
 				}
@@ -300,10 +271,6 @@ public class One_Boss : character_status
 						}
 					}
 					unactiveOperateBullets.Clear();
-
-
-
-
                     BossRemainingBouns(2);
 					//----------------弾を消す----------------
 					//-----------------追加-------------------
@@ -334,7 +301,7 @@ public class One_Boss : character_status
 	{
 		Update_Flag = false;
 		Timeline_Player.time = 0.0;
-		Timeline_Player.Play(sonota_Timeline);
+		Timeline_Player.Play(start_timeline);
 	}
 
 	#region 終わりアニメーション
@@ -380,7 +347,7 @@ public class One_Boss : character_status
 		else if (Attack_Step == 1)
 		{
 			now_rush = true;
-			Timeline_Player.Play(sonota_Timeline);
+			Timeline_Player.Play(start_timeline);
 			Timeline_Player.time = 30.0;
 			Attack_Step++;
 		}
@@ -391,7 +358,7 @@ public class One_Boss : character_status
 				Timeline_Player.Pause();
 				Attack_Step = 0;
 				Attack_Type_Instruction = 0;
-				Number_Of_Lasers = 0;
+				Is_Shoot_The_Laser=false;
 				Is_Attack_Now = false;
 			}
 		}
@@ -542,7 +509,7 @@ public class One_Boss : character_status
 				Timeline_Player.Stop();
 				Attack_Step = 0;
 				Is_Attack_Now = false;
-				Number_Of_Lasers++;
+				Is_Shoot_The_Laser = true;
 
 				//---------------追加-----------------
 				audioSource.clip = laserEnd;
@@ -564,9 +531,10 @@ public class One_Boss : character_status
 	/// <param name="State"></param>
 	private void Collider_Set(bool State)
 	{
-		arm_parts[0].SetActive(State);
-		arm_parts[1].SetActive(State);
-		Body_Parts.SetActive(State);
+		foreach(var col in no_damage_Collider)
+		{
+			col.enabled = State;
+		}
 	}
 
 	/// <summary>

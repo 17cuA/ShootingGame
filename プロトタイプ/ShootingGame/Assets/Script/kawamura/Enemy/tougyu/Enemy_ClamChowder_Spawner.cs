@@ -16,9 +16,13 @@ public class Enemy_ClamChowder_Spawner : MonoBehaviour
 
 	public EnemyMoveState moveState;
 
+	public GameObject sideObj;
 	GameObject saveObj;
+	public GameObject[] saveChildObj;
 	Enemy_Wave WaveScript;
 	public GameObject[] waveStraightPos;
+	Enemy_ClamChouder_Side side_Script_Base;
+	Enemy_ClamChouder_Side side_Script_copy;
 
 	public int createNum;                   //作り出す処理の回数（敵の数ではない）
 	public int createCnt = 0;				//敵を作り出す処理の回数カウント（敵の数ではない）
@@ -31,7 +35,7 @@ public class Enemy_ClamChowder_Spawner : MonoBehaviour
 
 	bool isCreate = true;
 	bool isFirstAppearance = false;     //一番はじめに出す敵が出たかどうか
-	bool isAppearanceEnd = false;       //敵を出し終わったかどうか
+	public bool isAppearanceEnd = false;       //敵を出し終わったかどうか
 	public bool isItemDrop = true;
 
 
@@ -90,22 +94,74 @@ public class Enemy_ClamChowder_Spawner : MonoBehaviour
 				if ((createCnt < num && createDelay >= 13) || !isFirstAppearance)
 				{
 					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
-					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					//saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj = Instantiate(sideObj,transform.position, transform.rotation);
 					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[0].transform.position;
-					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyDown);
+					//saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyDown);
+					saveObj.GetComponent<Enemy_ClamChouder_Side>().SetState(Enemy_ClamChouder_Side.State.WaveOnlyDown);
+					//最初に出現した敵を保存する
+					if (!isFirstAppearance)
+					{
+						side_Script_Base = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						saveChildObj[0] = saveObj.transform.GetChild(0).gameObject;
+					}
+					else if (isFirstAppearance)
+					{
+						side_Script_copy = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						side_Script_copy.speedY = side_Script_Base.speedY;
+						side_Script_copy.isAddSpeedY = side_Script_Base.isAddSpeedY;
+						side_Script_copy.isSubSpeedY = side_Script_Base.isSubSpeedY;
+						saveObj.transform.position = new Vector3(transform.position.x, saveChildObj[0].transform.position.y, 0);
+						saveObj.transform.GetChild(0).gameObject.transform.eulerAngles = saveChildObj[0].transform.eulerAngles;
+					}
 
 					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
-					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					//saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj = Instantiate(sideObj, transform.position, transform.rotation);
 					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[1].transform.position;
-					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.Straight);
+					//saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.Straight);
+					saveObj.GetComponent<Enemy_ClamChouder_Side>().SetState(Enemy_ClamChouder_Side.State.Straight);
+					//最初に出現した敵を保存する
+					if (!isFirstAppearance)
+					{
+						side_Script_Base = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						saveChildObj[1] = saveObj.transform.GetChild(0).gameObject;
+					}
+					else if (isFirstAppearance)
+					{
+						side_Script_copy = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						side_Script_copy.speedY = side_Script_Base.speedY;
+						side_Script_copy.isAddSpeedY = side_Script_Base.isAddSpeedY;
+						side_Script_copy.isSubSpeedY = side_Script_Base.isSubSpeedY;
+						saveObj.transform.position = new Vector3(transform.position.x, saveChildObj[1].transform.position.y, 0);
+						saveObj.transform.GetChild(0).gameObject.transform.eulerAngles = saveChildObj[1].transform.eulerAngles;
+					}
 
 					//敵を出現させて、子供にして、指定の位置に移動させて、挙動の状態を入れる
-					saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					//saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+					saveObj = Instantiate(sideObj, transform.position, transform.rotation);
 					saveObj.transform.parent = gameObject.transform;
 					saveObj.transform.position = waveStraightPos[2].transform.position;
-					saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyUp);
+					//saveObj.GetComponent<Enemy_Wave>().SetState(Enemy_Wave.State.WaveOnlyUp);
+					saveObj.GetComponent<Enemy_ClamChouder_Side>().SetState(Enemy_ClamChouder_Side.State.WaveOnlyUp);
+					//最初に出現した敵を保存する
+					if (!isFirstAppearance)
+					{
+						side_Script_Base = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						saveChildObj[2] = saveObj.transform.GetChild(0).gameObject;
+					}
+					else if (isFirstAppearance)
+					{
+						side_Script_copy = saveObj.GetComponent<Enemy_ClamChouder_Side>();
+						side_Script_copy.speedY = side_Script_Base.speedY;
+						side_Script_copy.isAddSpeedY = side_Script_Base.isAddSpeedY;
+						side_Script_copy.isSubSpeedY = side_Script_Base.isSubSpeedY;
+
+						saveObj.transform.position = new Vector3(transform.position.x, saveChildObj[2].transform.position.y, 0);
+						saveObj.transform.GetChild(0).gameObject.transform.eulerAngles = saveChildObj[2].transform.eulerAngles;
+					}
 
 					saveObj = null;
 					isFirstAppearance = true;

@@ -33,6 +33,10 @@ public class Two_Boss : character_status
 	}
 
 	[Header("ボス形成パーツ")]
+	[Header("--------以下ボス個別---------")]
+	[Header(" ")]
+	[Header(" ")]
+
 	[SerializeField, Tooltip("コア")] private Two_Boss_Parts[] core;
 	[SerializeField, Tooltip("オプション")] private Two_Boss_Parts[] multiple;
 	[SerializeField, Tooltip("オプションマズル")] private GameObject[] muzzle;
@@ -56,23 +60,21 @@ public class Two_Boss : character_status
 	//------------------------------------------------------------------------------------------------------
 	// Unity側では触れないもの
 	//------------------------------------------------------------------------------------------------------
-	private PlayableDirector Timeline_Player { get; set; }		// タイムラインの情報
+	private PlayableDirector Timeline_Player { get; set; }      // タイムラインの情報
 	private int Attack_Step { get; set; } // 攻撃行動段階指示用
-	private int Frames_In_Function { get; set; }		// 関数内で使うフレーム数
+	private int Frames_In_Function { get; set; }        // 関数内で使うフレーム数
 	public float Attack_Seconds { get; private set; } // 攻撃に使う秒数
-	private Player1 Player1_Script { get; set; }		// 1P情報
-	private Player2 Player2_Script { get; set; }		// 2P情報
+	private Player1 Player1_Script { get; set; }        // 1P情報
+	private Player2 Player2_Script { get; set; }        // 2P情報
 
-	private Quaternion[] Alignment_Angle { get; set; }		// 整列時の角度
+	private int Attack_Type_Instruction { get; set; }       // 攻撃種類指示
 
-	private int Attack_Type_Instruction { get; set; }		// 攻撃種類指示
-
-	private string Playing_Animation { get; set; }		// 再生中のAnimation名
-	private string[] Animation_Name { get; set; }		//　Animation名保存
-	private List<Two_Boss_Laser> Laser { get; set; }		// レーザー
-	private List<Collider> Damage_Collider { get; set; }		// コライダーの段階
+	private string Playing_Animation { get; set; }      // 再生中のAnimation名
+	private string[] Animation_Name { get; set; }       //　Animation名保存
+	private List<Two_Boss_Laser> Laser { get; set; }        // レーザー
+	private List<Collider> Damage_Collider { get; set; }        // コライダーの段階
 	private int Under_Attack { get; set; }
-	private float Survival_Time { get; set; }			// せい☆ぞん　時間
+	private float Survival_Time { get; set; }           // せい☆ぞん　時間
 	private float Survival_Time_Cnt { get; set; }       // 生存時間カウンター
 
 	private bool Update_Ok { get; set; }        // アップデート
@@ -91,9 +93,6 @@ public class Two_Boss : character_status
 		Attack_Type_Instruction = 0;
 		Player1_Script = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
 		if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) Player2_Script = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-
-		// 角度保存
-		Alignment_Angle = new Quaternion[2] { Quaternion.Euler(0.0f, 90.0f, 0.0f),Quaternion.Euler(0.0f, -90.0f, 0.0f) };
 
 		Animation_Name = new string[9]
 		{
@@ -152,30 +151,38 @@ public class Two_Boss : character_status
 		}
 	}
 
-	// Update is called once per frame
 	private new void Update()
 	{
+		// デバッグ　破壊
 		if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.O)) core[0].hp = 0;
+		// デバッグ　攻撃指定
+		if (Input.GetKeyDown(KeyCode.Alpha0))
+		{
+			Attack_End();
+			Attack_Type_Instruction = 4;
+		}
 
+		// 生存時間加算
 		Survival_Time_Cnt += Time.deltaTime;
-		if(Survival_Time_Cnt >= Survival_Time)
+		// 時間経過で自滅
+		if (Survival_Time_Cnt >= Survival_Time)
 		{
 			core[0].hp = 0;
 		}
 
-		if(Input.GetKeyDown(KeyCode.Alpha0))
-		{
-			Attack_End();
-			Attack_Type_Instruction = 3;
-		}
-
+		// タイムラインから独立したアップデート
+		// アップデート系の動きをしてはいけないとき
 		if(!Update_Ok)
 		{
+			// 出現用タイムラインが終わったとき
 			if (Is_end_of_timeline)
 			{
+				// アップデートの許可
 				Update_Ok = true;
+				// 出現時のオブジェクトのみ削除
 				Destroy(transform.GetChild(1).gameObject);
 				Destroy(transform.GetChild(2).gameObject);
+				// 第一シャッターの起動
 				Damage_Collider[0].enabled = true;
 
 				// コライダーの使用
@@ -192,14 +199,17 @@ public class Two_Boss : character_status
 					Snipes[i+3].SetActive(true);
 					Snipes[i+3].GetComponent<Sniper_Muzzle>().Shot_Delay -= i * 60;
 				}
+				// 本体の表示
 				foreach (var r in Mesh_Renderer)
 				{
 					r.enabled = true;
 				}
 			}
 		}
-		else if(Update_Ok)
+		// アップデート系の動きをしてよいとき
+		else if (Update_Ok)
 		{
+			//　Z軸が移動してしまうバグの修正
 			var v3 = transform.position;
 			v3.z = 0.0f;
 			transform.position = v3;
@@ -256,25 +266,26 @@ public class Two_Boss : character_status
 			ef_2.EF_Base.transform.position = parts_All[0].transform.position;
 			ef_2.EF_Weapon_R.transform.position = parts_All[1].transform.position;
 			ef_2.EF_Weapon_L.transform.position = parts_All[2].transform.position;
-			ef_2.Multipl_1.transform.position = parts_All[3].transform.position;
-			ef_2.Multipl_2.transform.position = parts_All[4].transform.position;
-			ef_2.Multipl_3.transform.position = parts_All[5].transform.position;
-			ef_2.Multipl_4.transform.position = parts_All[6].transform.position;
-			ef_2.Multipl_5.transform.position = parts_All[7].transform.position;
-			ef_2.Multipl_6.transform.position = parts_All[8].transform.position;
+			ef_2.EF_Multipl_1.transform.position = parts_All[3].transform.position;
+			ef_2.EF_Multipl_2.transform.position = parts_All[4].transform.position;
+			ef_2.EF_Multipl_3.transform.position = parts_All[5].transform.position;
+			ef_2.EF_Multipl_4.transform.position = parts_All[6].transform.position;
+			ef_2.EF_Multipl_5.transform.position = parts_All[7].transform.position;
+			ef_2.EF_Multipl_6.transform.position = parts_All[8].transform.position;
 
 			ef_2.EF_Base.transform.rotation = parts_All[0].transform.rotation;
 			ef_2.EF_Weapon_R.transform.rotation = parts_All[1].transform.rotation;
 			ef_2.EF_Weapon_L.transform.rotation = parts_All[2].transform.rotation;
-			ef_2.Multipl_1.transform.rotation = parts_All[3].transform.rotation;
-			ef_2.Multipl_2.transform.rotation = parts_All[4].transform.rotation;
-			ef_2.Multipl_3.transform.rotation = parts_All[5].transform.rotation;
-			ef_2.Multipl_4.transform.rotation = parts_All[6].transform.rotation;
-			ef_2.Multipl_5.transform.rotation = parts_All[7].transform.rotation;
-			ef_2.Multipl_6.transform.rotation = parts_All[8].transform.rotation;
+			ef_2.EF_Multipl_1.transform.rotation = parts_All[3].transform.rotation;
+			ef_2.EF_Multipl_2.transform.rotation = parts_All[4].transform.rotation;
+			ef_2.EF_Multipl_3.transform.rotation = parts_All[5].transform.rotation;
+			ef_2.EF_Multipl_4.transform.rotation = parts_All[6].transform.rotation;
+			ef_2.EF_Multipl_5.transform.rotation = parts_All[7].transform.rotation;
+			ef_2.EF_Multipl_6.transform.rotation = parts_All[8].transform.rotation;
 			ef_2.Set_Init();
 			// 死亡時のエフェクトに使うオブジェクトに対応のオブジェクトの位置を代入------------------------------------------------------------
 
+			// プレイヤーのスコア加算
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
 				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
@@ -288,6 +299,7 @@ public class Two_Boss : character_status
 			base.Died_Process();
 		}
 
+		// シャッターとコアの位置がずれるバグ修正
 		for (int i = 0; i < shutter_Init.Length; i++)
 		{
 			if (shutter[i].gameObject.activeSelf)
@@ -304,17 +316,17 @@ public class Two_Boss : character_status
 	/// </summary>
 	private void Beam_Attack()
 	{ 
-		// 攻撃準備
+		// アニメーション再生
 		if(Attack_Step == 0)
 		{
 			Animation_Playback(Animation_Name[(int)Attack_Index.eStraight_Line]);
 			Next_Step();
 		}
+		// ビーム攻撃
 		else if (Attack_Step == 1)
 		{
-			Frames_In_Function++;
 			Attack_Seconds += Time.deltaTime;
-
+			// 準備が整ったら攻撃
 			if (Attack_Seconds >= 3.5f)
 			{
 				Shot_Delay++;
@@ -335,6 +347,7 @@ public class Two_Boss : character_status
 					Shot_Delay = 0;
 				}
 
+				// 制限時間で終了
 				if(Attack_Seconds >= 11.1f)
 				{
 					Next_Step();
@@ -358,14 +371,17 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if (Attack_Step == 0)
 		{
+			// アニメーション再生
 			Animation_Playback(Animation_Name[(int)Attack_Index.eMerry_Go_Round]);
 			Timeline_Player.Play(Merry_1_Play);
 			Timeline_Player.time = 0.0;
 			Next_Step();
 		}
+		// 攻撃
 		else if (Attack_Step == 1)
 		{
 			Attack_Seconds += Time.deltaTime;
+			// 準備後攻撃開始
 			if(Attack_Seconds >= 3.5f)
 			{
 				Shot_Delay++;
@@ -373,6 +389,7 @@ public class Two_Boss : character_status
 				{
 					for (var i = 0; i < muzzle.Length; i++)
 					{
+						// バレットの発射
 						multiple[i].Bullet_Shot(muzzle[i].transform);
 					}
 					Shot_Delay = 0;
@@ -401,22 +418,30 @@ public class Two_Boss : character_status
 		// 攻撃準備
 		if (Attack_Step == 0)
 		{
+			// ボス用のバキュラ生成
 			Instantiate(Boss_Bacula, new Vector3(7.0f, 12.0f, 0.0f), Quaternion.identity);
+
 			Next_Step();
 			set_collider[9].GetComponent<Smasher>().enabled = true;
 			set_collider[10].GetComponent<Smasher>().enabled = true;
 		}
+		// 攻撃(下スマッシャー攻撃)
 		else if (Attack_Step == 1)
 		{
+			// 所定の位置に移動
 			var target = new Vector3(13.0f, -1.0f, 0.0f);
 			if (Vector3.Distance(transform.position, target) > 0.1f)
 			{
-				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 1.5f);
+				transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 1.0f);
 			}
+
+			// 移動後、攻撃アニメーション再生
 			else if (Vector3.Distance(transform.position, target) < 0.1f)
 			{
 				Attack_Seconds += Time.deltaTime;
 				Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_1]);
+
+				// アニメーションの動きに合わせてエフェクト
 				if (Attack_Seconds >= 0.2f)
 				{
 					smasher_jet[1].Play();
@@ -425,24 +450,33 @@ public class Two_Boss : character_status
 				Next_Step();
 			}
 		}
+		// 攻撃(上スマッシャー攻撃)
 		else if (Attack_Step == 2)
 		{
+			// 前の Animation が終わったとき
 			if (!animation_data.isPlaying)
 			{
+				// 所定の位置に移動
 				var target = new Vector3(13.0f, 1.0f, 0.0f);
 				if (Vector3.Distance(transform.position, target) > 0.01f)
 				{
 					transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 1.5f);
 				}
+
+				// 移動後、攻撃アニメーション再生
 				else if (Vector3.Distance(transform.position, target) < 0.01f)
 				{
 					Animation_Playback(Animation_Name[(int)Attack_Index.eSmasher_2]);
+
+					// アニメーションの動きに合わせてエフェクト
 					smasher_jet[0].Play();
 					smasher_nozzle[0].Play();
 					Next_Step();
 				}
 			}
 		}
+
+		// 中心地に戻る
 		else if (Attack_Step == 3)
 		{
 			if (!animation_data.isPlaying)
@@ -452,6 +486,7 @@ public class Two_Boss : character_status
 				if (Vector3.Distance(transform.position, target) < 0.01f) Next_Step();
 			}
 		}
+		// 攻撃終了
 		else if (Attack_Step == 4)
 		{
 			if (!animation_data.isPlaying)
@@ -472,23 +507,30 @@ public class Two_Boss : character_status
 			Animation_Playback(Animation_Name[(int)Attack_Index.eBio_Laser]);
 			Next_Step();
 		}
+		// 攻撃
 		else if (Attack_Step == 1)
 		{
+			// optionの移動終了後
+			// 順次レーザー発射
 			Attack_Seconds += Time.deltaTime;
 			if(Attack_Seconds >= 2.14f)
 			{
+				Laser_Manager[2].patternWave = true;
 				Laser_Manager[2].IsShoot = true;
 			}
 			if (Attack_Seconds >= 4.0f)
 			{
+				Laser_Manager[1].patternWave = true;
 				Laser_Manager[1].IsShoot = true;
 			}
 			if (Attack_Seconds >= 5.0f)
 			{
+				Laser_Manager[0].patternWave = true;
 				Laser_Manager[0].IsShoot = true;
 			}
 
-			if (Attack_Seconds >= 14.06f)
+			// 一定時間後レーザーストップ
+			if (Attack_Seconds >= 6.0f)
 			{
 				foreach(var l in Laser_Manager)
 				{
@@ -519,17 +561,23 @@ public class Two_Boss : character_status
 			Animation_Playback(Animation_Name[(int)Attack_Index.eCrossing]);
 			Next_Step();
 		}
+		// 攻撃
 		else if (Attack_Step == 1)
 		{
+			// option準備完了でレーザー発射
 			Attack_Seconds += Time.deltaTime;
 			if (Attack_Seconds >= 3.0f)
 			{
+				Laser_Manager[0].patternWave = false;
 				Laser_Manager[0].IsShoot = true;
+				Laser_Manager[1].patternWave = false;
 				Laser_Manager[1].IsShoot = true;
+				Laser_Manager[2].patternWave = false;
 				Laser_Manager[2].IsShoot = true;
+				Laser_Manager[3].patternWave = false;
 				Laser_Manager[3].IsShoot = true;
 
-				// レーザーの削除
+				// 一定時間後レーザーの削除
 				if (Attack_Seconds >= 13.2f)
 				{
 					Laser_Manager[0].IsShoot = false;

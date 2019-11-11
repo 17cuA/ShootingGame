@@ -48,21 +48,12 @@ public class Enemy_ClamChowder_Back : character_status
 	float startPosY;                //最初のY座標値
 	float rotaY;                    //Y角度
 	public float amplitude;         //画面奥から出てこない時の上下の振れ幅
-	public float rushStayCnt;
-	[Header("突進角度が変わり始めるまでの秒")]
-	public float rushStayCntMax;
-	[Header("角度が変え終わって突進するまでの秒")]
-	public float rushStartTime;
-	public float saverushRotaZ;
-	public float rushRotaZ;
-	public float rushRotaZ_Value;
 	public float defaultSpeedY;         //Yスピードの初期値（最大値でもある）を入れておく
 	public float addAndSubValue;        //Yスピードを増減させる値
 
 	public float sin;
 	[Header("死亡時の弾発射の角度範囲()")]
 	public float diedAttack_RotaValue;
-
 
 	public bool isAddSpeedY = false;    //Yスピードを増加させるかどうか
 	public bool isSubSpeedY = false;    //Yスピードを減少させるかどうか
@@ -75,7 +66,6 @@ public class Enemy_ClamChowder_Back : character_status
 	public bool isSlerp = false;
 	public bool isNoSlerp = false;
 	public bool utsuttemasuyo = false;
-	bool isWaveStart = false;
 	public bool Died_Attack = false;
 	public bool isFromBack = false;             //奥からくるやつ用
 	public bool isBehind = false;
@@ -116,7 +106,6 @@ public class Enemy_ClamChowder_Back : character_status
 		item = Resources.Load("Item/Item_Test") as GameObject;
 
 		childObj = transform.GetChild(0).gameObject;            //モデルオブジェクトの取得（3Dモデルを子供にしているので）
-																//childObj_Shot = transform.GetChild(1).gameObject;
 		childObj_Angle = transform.GetChild(1).gameObject;
 		//childCnt = transform.childCount;
 		fd = childObj_Angle.GetComponent<Find_Angle>();
@@ -317,7 +306,6 @@ public class Enemy_ClamChowder_Back : character_status
 						if (clamSpawner_Script.notDefeatedEnemyCnt == 0 && clamSpawner_Script.isItemDrop)
 						{
 							//アイテム生成
-							//Instantiate(item, this.transform.position, transform.rotation);
 							Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 						}
 						//一体でも倒されていないのがいたら

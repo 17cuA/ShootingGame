@@ -700,22 +700,36 @@ public class EnemyCreate : MonoBehaviour
 	// 指定の敵グループを出す
 	private void DebugKeyUpdate()
 	{
-		// 次の敵グループ
-		if (Input.GetKeyDown(KeyCode.N)) { if (groupCnt < enemyGroups.Length - 1) frameCnt = turning_frame; }
-		// ビッグコア
-		if (Input.GetKeyDown(KeyCode.J)) { EnemyDebugNumberUpdate(EnemyType.BIGCORE, false); }
-		// ビッグコア後
-		if (Input.GetKeyDown(KeyCode.K)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREENDGROUP, false); }
-		// ビッグコアMK2
-		if (Input.GetKeyDown(KeyCode.M)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, false); }
-		// ビッグコアMK2後
-		if (Input.GetKeyDown(KeyCode.B)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, true); }
-		// モアイ
-		if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.H)) { EnemyDebugNumberUpdate(EnemyType.MOAI, false); }
-		// モアイ後
-		if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
-		// ビッグコアMK3
-		if (Input.GetKeyDown(KeyCode.L)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); isDebug = true; }
+		// ステージ移動キー
+		if(Input.GetKey(KeyCode.R))
+		{
+			if (Input.GetKeyDown(KeyCode.H)) { Scene_Manager.Manager.Screen_Transition_To_Stage_01(); }
+			if (Input.GetKeyDown(KeyCode.J)) { Scene_Manager.Manager.Screen_Transition_To_Stage_02(); }
+			if (Input.GetKeyDown(KeyCode.K)) { Scene_Manager.Manager.Screen_Transition_To_Stage_03(); }
+			if (Input.GetKeyDown(KeyCode.L)) { Scene_Manager.Manager.Screen_Transition_To_Stage_04(); }
+			if (Input.GetKeyDown(KeyCode.B)) { Scene_Manager.Manager.Screen_Transition_To_Stage_05(); }
+			if (Input.GetKeyDown(KeyCode.N)) { Scene_Manager.Manager.Screen_Transition_To_Stage_06(); }
+			if (Input.GetKeyDown(KeyCode.M)) { Scene_Manager.Manager.Screen_Transition_To_Stage_07(); }
+		}
+		else
+		{
+			// 次の敵グループ
+			if (Input.GetKeyDown(KeyCode.N)) { if (groupCnt < enemyGroups.Length - 1) frameCnt = turning_frame; }
+			// ビッグコア
+			if (Input.GetKeyDown(KeyCode.J)) { EnemyDebugNumberUpdate(EnemyType.BIGCORE, false); }
+			// ビッグコア後
+			if (Input.GetKeyDown(KeyCode.K)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREENDGROUP, false); }
+			// ビッグコアMK2
+			if (Input.GetKeyDown(KeyCode.M)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, false); }
+			// ビッグコアMK2後
+			if (Input.GetKeyDown(KeyCode.B)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK2, true); }
+			// モアイ
+			if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.H)) { EnemyDebugNumberUpdate(EnemyType.MOAI, false); }
+			// モアイ後
+			if (Input.GetKeyDown(KeyCode.B) & Input.GetKey(KeyCode.U)) { EnemyDebugNumberUpdate(EnemyType.MOAI, true); }
+			// ビッグコアMK3
+			if (Input.GetKeyDown(KeyCode.L)) { EnemyDebugNumberUpdate(EnemyType.BIGCOREMK3, false); isDebug = true; }
+		}
 	}
 
 	//--------------------------------------------------------------------
@@ -764,6 +778,13 @@ public class EnemyCreate : MonoBehaviour
 		BOUNDMETEORS,
 		MOAI,
 		GAMECLEAR,
+		STAGE_01,
+		STAGE_02,
+		STAGE_03,
+		STAGE_04,
+		STAGE_05,
+		STAGE_06,
+		STAGE_07,
 	}
 
 	// 敵グループを出現させる位置情報
@@ -826,6 +847,34 @@ public class EnemyCreate : MonoBehaviour
 
 			case EnemyType.GAMECLEAR:
 				Scene_Manager.Manager.Screen_Transition_To_Clear();
+				break;
+
+			case EnemyType.STAGE_01:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_01();
+				break;
+
+			case EnemyType.STAGE_02:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_02();
+				break;
+
+			case EnemyType.STAGE_03:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_03();
+				break;
+
+			case EnemyType.STAGE_04:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_04();
+				break;
+
+			case EnemyType.STAGE_05:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_05();
+				break;
+
+			case EnemyType.STAGE_06:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_06();
+				break;
+
+			case EnemyType.STAGE_07:
+				Scene_Manager.Manager.Screen_Transition_To_Stage_07();
 				break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_UPSEVENDIAGONAL:

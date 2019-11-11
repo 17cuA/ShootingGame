@@ -13,17 +13,6 @@ public class DropItem : MonoBehaviour
     public bool isQuitting = false;
 	public bool isDrop = false;
 
-    private void Awake()
-    {
-        //item = Resources.Load("Item/Item_Test") as GameObject;
-        //isQuitting = true;
-    }
-
-    private void OnEnable()
-    {
-        //isQuitting = false;
-    }
-
     void Start()
     {
         //isQuitting = true;
@@ -33,20 +22,6 @@ public class DropItem : MonoBehaviour
     void Update()
     {
 		//アイテムの生成位置更新
-		itemPos = transform.position;
+		//itemPos = transform.position;
     }
-
-	void OnApplicationQuit()
-	{
-		//isQuitting = true;
-	}
-	private void OnDisable()
-	{
-		//if(!isQuitting)
-  //      {
-            //Instantiate(item, itemPos, transform.rotation);
-            //Object_Instantiation.Object_Reboot("PowerUP_Item", itemPos, transform.rotation);
-        //}
-    }
-
 }

@@ -46,12 +46,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a2fe1e4ff34b842a501964774b1d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createCnt: 0
-  createDelay: 0
+  moveState: 3
+  sideObj: {fileID: 5034070353915852985, guid: d3b1b900ef2ec914fad5239c5b7a55e4, type: 3}
+  saveChildObj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   waveStraightPos:
   - {fileID: 5051646242867260601}
   - {fileID: 8782630838427822166}
   - {fileID: 3060439903939818465}
+  createNum: 7
+  createCnt: 0
+  createDelay: 13
+  childNum: 0
+  remainingEnemiesCnt: 0
+  defeatedEnemyCnt: 0
+  notDefeatedEnemyCnt: 0
+  myName: 
+  isAppearanceEnd: 0
+  isItemDrop: 1
 --- !u!1 &3060439903939818465
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,21 +10,23 @@ using UnityEngine;
 
 public class One_Boss_Parts : character_status
 {
-	[SerializeField] private GameObject[] supported_objects;
-	private Vector3 Initial_Position { get; set; }
+	[SerializeField,Tooltip("サポートするオブジェクト")] private GameObject[] supported_objects;
 
 	private new void Start()
     {
 		base.Start();
-		Initial_Position = transform.position;
     }
     private new void Update()
     {
 		base.Update();
+
+		// hp が0以下のとき
         if(hp < 1)
 		{
+			//　サポートするオブジェクトがあるとき
 			if (supported_objects != null)
 			{
+				// サポートしているオブジェクトの見た目を消す
 				foreach (GameObject obj in supported_objects)
 				{
 					MeshRenderer ms = obj.GetComponent<MeshRenderer>();

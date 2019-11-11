@@ -13,39 +13,18 @@ using StorageReference;
 
 public class Two_Boss_Parts : character_status
 {
-	[SerializeField] private GameObject[] supported_objects;
-	[SerializeField, Tooltip("ID")] private string id;
+	[SerializeField,Tooltip("サポートするオブジェクト")] private GameObject[] supported_objects;
 	[SerializeField, Tooltip("マルチプル")] private bool is_mul;
-	public string ID
-	{
-		get { return id; }
-	}
-	[SerializeField, Tooltip("相手のID")] private string partner_id;
-	public string Partner_ID
-	{
-		get { return partner_id; }
-	}
 
-	private Vector3 Initial_Position { get; set; }
-	private MeshRenderer renderer { get; set; }
-	private Color Damege_Color { get; set; }
-	private bool Is_Bomb { get; set; }
+	private Vector3 Initial_Position { get; set; }		// 初期位置
+	private MeshRenderer renderer { get; set; }		// レンダー
+	private Color Damege_Color { get; set; }            // ダメージ受けた時のエフェクト
 
-	private int rism_Cnt
-	{
-		get; set;
-	}
-	private int rism_Index
-	{
+	private int ShootingTiming_Cnt{ get; set; }			// バレットを撃つタイミングカウンター
+	private int Timing_Index { get; set; }					// タイミングのインデックス
+	private int[] Timing_Max { get; set; }					// タイミングの最大
 
-		get;set;
-	}
-	private int[] rism_Max
-	{
-		get; set;
-	}       // リズム
-
-	private ParticleSystem smoke { get; set; }
+	private ParticleSystem smoke { get; set; }			// 煙パーティクル
 
 	private new void Start()
 	{
@@ -54,16 +33,15 @@ public class Two_Boss_Parts : character_status
 		{
 			smoke = transform.GetChild(1).GetComponent<ParticleSystem>();
 			smoke.Stop();
-			rism_Cnt = 0;
-			rism_Index = 0;
-			rism_Max = new int[6] { 3, 4, 4, 9, 5, 6 };
+			ShootingTiming_Cnt = 0;
+			Timing_Index = 0;
+			Timing_Max = new int[6] { 3, 4, 4, 9, 5, 6 };
 		}
 		else
 		{
 			base.Start();
 			renderer = GetComponent<MeshRenderer>();
 			Damege_Color = new Color(104.0f / 255.0f, 76.0f / 255.0f, 46.0f / 255.0f);
-			Is_Bomb = false;
 		}
 	}
 	private new void Update()
@@ -86,26 +64,31 @@ public class Two_Boss_Parts : character_status
 		}
 	}
 
+	/// <summary>
+	/// 弾の打ち出し
+	/// </summary>
+	/// <param name="tra"> トランスフォーム </param>
+	/// <param name="i"> タイミングの種類数 </param>
 	public void Bullet_Shot(Transform tra, int i = 7)
 	{
 		if (i < 7)
 		{
-			rism_Index = i;
+			Timing_Index = i;
 		}
 
 		Shot_Delay++;
 		if (Shot_Delay >= Shot_DelayMax)
 		{
-			rism_Cnt++;
+			ShootingTiming_Cnt++;
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, tra.position, tra.forward);
-			if (rism_Cnt >= rism_Max[rism_Index])
+			if (ShootingTiming_Cnt >= Timing_Max[Timing_Index])
 			{
-				rism_Index++;
-				if (rism_Index == rism_Max.Length)
+				Timing_Index++;
+				if (Timing_Index == Timing_Max.Length)
 				{
-					rism_Index = 0;
+					Timing_Index = 0;
 				}
-				rism_Cnt = 0;
+				ShootingTiming_Cnt = 0;
 				Shot_Delay = 0;
 			}
 		}
