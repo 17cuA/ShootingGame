@@ -42,11 +42,14 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
-		hp = Parameter.Get_Life;
-		speed = Parameter.Get_Speed;
-		score = Parameter.Get_Score;
-		shield = Parameter.Get_Shield;
-		Remaining = Parameter.Get_Reaming;
+		if(Parameter != null)
+		{
+			hp = Parameter.Get_Life;
+			speed = Parameter.Get_Speed;
+			score = Parameter.Get_Score;
+			shield = Parameter.Get_Shield;
+			Remaining = Parameter.Get_Reaming;
+		}
 
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
@@ -267,6 +270,16 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
+	public void OnTriggerStay(Collider col)
+	{
+		if(tag == "Player")
+		{
+			if(col.tag == "Enemy")
+			{
+				Damege_Process(3);
+			}
+		}
+	}
 	//キャラクターが死んだか(残機とHP両方)どうかの判定用関数
 	public bool Died_Judgment()
 	{
@@ -331,9 +344,9 @@ public class character_status : MonoBehaviour
 		return shield;
 	}
 	//シールドの値設定
-	public void Set_Shield(int setnum)
+	public void Set_Shield(int setvalue)
 	{
-		shield = setnum;
+		shield = setvalue;
 	}
 	//キャラクタの設定してある体力を取得するための関数
 	public uint Get_Score()
