@@ -114,7 +114,7 @@ public class Game_Master : MonoBehaviour
     public Score_Display _Display{private set; get;}			// スコア表示をするため用
 	public bool Is_Completed_For_Warning_Animation { set; get; }							// WARNING アニメーションの終了用
 	public string[] Name_List {  get; private set; }
-	public static PLAYER_NUM Number_Of_People { get; private set; }             // 設定保存
+	public static PLAYER_NUM Number_Of_People { get;private set; }             // 設定保存
 
 	public static int[] Is_Player_Alive { get; set; }              //プレイヤーが死んでいるかどうかの判定用
 	private One_Boss One_Bossinfo;      //前半ボスの情報
@@ -253,7 +253,6 @@ public class Game_Master : MonoBehaviour
 					P1.Remaining = 2;
 				}
 			}
-
 		}
 	}
 }
