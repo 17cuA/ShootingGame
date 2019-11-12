@@ -155,6 +155,21 @@ public class Game_Master : MonoBehaviour
                 break;
             case "Stage_02":
                 Stage_Start();
+				break;
+			case "Stage_03":
+                Stage_Start();
+				break;
+			case "Stage_04":
+                Stage_Start();
+				break;
+			case "Stage_05":
+                Stage_Start();
+				break;
+			case "Stage_06":
+                Stage_Start();
+				break;
+			case "Stage_07":
+                Stage_Start();
                 break;
             case "GameOver":
                 break;
