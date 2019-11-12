@@ -27,7 +27,7 @@ public class Bit_Move : MonoBehaviour
 	void Start()
 	{
 		parent = transform.parent.gameObject;
-		transform.parent = parent.transform;
+		//transform.parent = parent.transform;
 		once = true;
 	}
 
@@ -35,12 +35,12 @@ public class Bit_Move : MonoBehaviour
 	{
 		if(once)
 		{
-			if (playerObject == null)
-			{
-				playerObject = Obj_Storage.Storage_Data.GetPlayer();
-				transform.parent = playerObject.transform;
-				transform.position = playerObject.transform.position;
-			}
+			//if (playerObject == null)
+			//{
+			//	playerObject = Obj_Storage.Storage_Data.GetPlayer();
+			//	transform.parent = playerObject.transform;
+			//	transform.position = playerObject.transform.position;
+			//}
 			once = false;
 		}
 		_y = radius * Mathf.Cos(timeCnt * speed);

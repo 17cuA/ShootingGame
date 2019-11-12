@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &17049261
 Transform:
   m_ObjectHideFlags: 0
@@ -315,6 +315,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd329a69d068ffe47b4a80615b678a6a, type: 3}
+--- !u!1001 &185319234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3189712678771947638, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_Name
+      value: TentacleWall_Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947625, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947624, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: delayMax
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189712678771947624, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68,
+        type: 3}
+      propertyPath: downSpeed_Max
+      value: -3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9328fa60ecf7c5b4bab7891ac3ba7f68, type: 3}
 --- !u!1001 &228251712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1388,7 +1467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1057324777
 Transform:
   m_ObjectHideFlags: 0
@@ -1761,7 +1840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1157591004
 Transform:
   m_ObjectHideFlags: 0
@@ -1884,7 +1963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1189540644
 Transform:
   m_ObjectHideFlags: 0
@@ -2506,6 +2585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920cf7e5b7469ba49a3b045d329fea65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 0}
   speed: 0
   hp: 0
   direction: {x: 0, y: 0, z: 0}

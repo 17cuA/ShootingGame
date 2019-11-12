@@ -120,8 +120,6 @@ public class Bit_Formation_3 : MonoBehaviour
 		myName = gameObject.name;                           //自分の名前取得
 
 		b_Shot = gameObject.GetComponent<Bit_Shot>();       //攻撃の情報取得
-
-
 	}
 
 	void Update()
@@ -146,69 +144,73 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
-			for (int i = 0; i < 4; i++)
-			{
-				switch(i)
-				{
-					case 0:
-						circlePosObjects[i] = GameObject.Find("CirclePos_1");
-						break;
-					case 1:
-						circlePosObjects[i] = GameObject.Find("CirclePos_2");
-						break;
-					case 2:
-						circlePosObjects[i] = GameObject.Find("CirclePos_3");
-						break;
-					case 3:
-						circlePosObjects[i] = GameObject.Find("CirclePos_4");
-						break;
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	switch(i)
+			//	{
+			//		case 0:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_1");
+			//			break;
+			//		case 1:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_2");
+			//			break;
+			//		case 2:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_3");
+			//			break;
+			//		case 3:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_4");
+			//			break;
 
-				}
-			}
+			//	}
+			//}
 			SetFollowPos();             //追従位置設定
 			option_Particle.Play();     //オプションの見た目パーティクルを起動
 			isborn = false;             //生成時処理をしないようにする
 			b_Shot.isShot = true;
 		}
 
-		//追従位置を取得していらその位置にする
+		//追従位置を取得していtたらその位置にする
 		if (followPosObj && !isCircle && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
 
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			
-			if (isCircle)
-			{
-				isCircle = false;
-				isMove = true;
-				
-			}
-			else
-			{
-				isCircle = true;
-				isMove = true;
-			}
-		}
-
-		if(isMove)
-		{
-			float step = moveSpeed * Time.deltaTime;
-
-			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-		}
-
-		//回収されたとき
-		//if (isCollection)
+		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		//if (Input.GetKeyDown(KeyCode.C))
 		//{
-		//	//オプションの見た目パーティクル起動
-		//	option_Particle.Play();
-		//	//回収判定false
-		//	isCollection = false;
+		//	//オンならオフに
+		//	if (isCircle)
+		//	{
+		//		isCircle = false;
+		//		isMove = true;
+		//		target = followPosObj;
+		//	}
+		//	else
+		//	{
+		//		isCircle = true;
+		//		isMove = true;
 
+		//		target = circlePosObjects[optionNum - 1];
+
+		//	}
 		//}
+
+		//if (isMove && !isDead)
+		//{
+		//	float step = moveSpeed * Time.deltaTime;
+
+		//	transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+		//	if (transform.position == target.transform.position)
+		//	{
+		//		isMove = false;
+		//	}
+		//}
+
+		//if (isCircle && !isMove && !isDead)
+		//{
+		//	transform.position = target.transform.position;
+		//}
+		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
 		//プレイヤー死亡時の処理
 		if (bState == BitState.Player1)
@@ -222,6 +224,8 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				//追従位置の参照を外す
 				followPosObj = null;
+				target = null;
+				optionNum = 0;
 
 				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
 				switch (option_OrdinalNum)
@@ -362,7 +366,17 @@ public class Bit_Formation_3 : MonoBehaviour
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
-			transform.position = followPosObj.transform.position;
+
+			if(isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosFirstObj.transform;
 			//transform.position = followPosFirstObj.transform.position;
@@ -379,7 +393,16 @@ public class Bit_Formation_3 : MonoBehaviour
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosSecondObj.transform;
 			//transform.position = followPosSecondObj.transform.position;
@@ -396,7 +419,16 @@ public class Bit_Formation_3 : MonoBehaviour
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosThirdObj.transform;
 			//transform.position = followPosThirdObj.transform.position;
@@ -413,7 +445,16 @@ public class Bit_Formation_3 : MonoBehaviour
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosFourthObj.transform;
 			//transform.position = followPosFourthObj.transform.position;
@@ -461,7 +502,16 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -481,7 +531,16 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Second.hasOption = true;
 						followPosObj = followPosSecondObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -501,7 +560,16 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Third.hasOption = true;
 						followPosObj = followPosThirdObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -521,7 +589,16 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Fourth.hasOption = true;
 						followPosObj = followPosFourthObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
