@@ -35,6 +35,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject followPosThirdObj;        //三番目
 	public GameObject followPosFourthObj;       //四番目
 	public GameObject[] circlePosObjects;
+	GameObject target;
 												//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;                        //レーザー時の座標用オブジェクト
 	public GameObject particleObj;
@@ -56,6 +57,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public float scale_value = 0.5f;            //オプションのスケールの値
 
 	float speed;                                //オプションの移動スピード（プレイヤー死亡時の処理に使う）
+	public float moveSpeed;						//オプションの移動速度上とは違う 
 	public float defaultSpeed;                  //プレイヤーが死んだときのオプションの初速を入れておく
 	float step;                                 //スピードを計算して入れる
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
@@ -80,6 +82,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isCollection = false;                   //回収されたときに使う
 
 	bool isCircle = false;
+	bool isMove = false;
 	int optionNum;
 
 
@@ -143,6 +146,25 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
+			for (int i = 0; i < 4; i++)
+			{
+				switch(i)
+				{
+					case 0:
+						circlePosObjects[i] = GameObject.Find("CirclePos_1");
+						break;
+					case 1:
+						circlePosObjects[i] = GameObject.Find("CirclePos_2");
+						break;
+					case 2:
+						circlePosObjects[i] = GameObject.Find("CirclePos_3");
+						break;
+					case 3:
+						circlePosObjects[i] = GameObject.Find("CirclePos_4");
+						break;
+
+				}
+			}
 			SetFollowPos();             //追従位置設定
 			option_Particle.Play();     //オプションの見た目パーティクルを起動
 			isborn = false;             //生成時処理をしないようにする
@@ -150,7 +172,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//追従位置を取得していらその位置にする
-		if (followPosObj)
+		if (followPosObj && !isCircle && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
@@ -160,11 +182,21 @@ public class Bit_Formation_3 : MonoBehaviour
 			if (isCircle)
 			{
 				isCircle = false;
+				isMove = true;
+				
 			}
 			else
 			{
 				isCircle = true;
+				isMove = true;
 			}
+		}
+
+		if(isMove)
+		{
+			float step = moveSpeed * Time.deltaTime;
+
+			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
 		}
 
 		//回収されたとき

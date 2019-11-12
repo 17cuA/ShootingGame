@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Bit_Move : MonoBehaviour
 {
-	//GameObject playerObject;                //プレイヤーのオブジェクトを入れる
+	GameObject playerObject;                //プレイヤーのオブジェクトを入れる
 	public GameObject parent;                       //ビット達を管理している親を入れる
 													//public GameObject previousBit;		//一つ前のビットを入れる
 
@@ -22,33 +22,31 @@ public class Bit_Move : MonoBehaviour
 	float _z;
 
 	//bool isStart = true;                            //生成直後の処理用
+	bool once;
 
 	void Start()
 	{
 		parent = transform.parent.gameObject;
 		transform.parent = parent.transform;
-
+		once = true;
 	}
 
 	void Update()
 	{
-		//if (!isStart)
-		//{
+		if(once)
+		{
+			if (playerObject == null)
+			{
+				playerObject = Obj_Storage.Storage_Data.GetPlayer();
+				transform.parent = playerObject.transform;
+				transform.position = playerObject.transform.position;
+			}
+			once = false;
+		}
 		_y = radius * Mathf.Cos(timeCnt * speed);
 		_z = radius * Mathf.Sin(timeCnt * speed);
 
-		//}
-		//else
-		//{
-		//	_y = radius * Mathf.Cos(timeCnt * speed);
-		//	_z = radius * Mathf.Sin(timeCnt * speed);
-		//	isStart = false;
-		//}
-		//_y = radius * Mathf.Cos(timeCnt * speed) + transform.position.y;
-		//_z = radius * Mathf.Sin(timeCnt * speed) + transform.position.z;
-
 		transform.position = new Vector3(parent.transform.position.x + _z, parent.transform.position.y + _y, parent.transform.position.z );
-
 
 		timeCnt += 0.01f;
 		if (timeCnt > 0.59f)
