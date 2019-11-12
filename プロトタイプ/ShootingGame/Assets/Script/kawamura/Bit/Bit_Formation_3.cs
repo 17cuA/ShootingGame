@@ -179,6 +179,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
+			
 			if (isCircle)
 			{
 				isCircle = false;
