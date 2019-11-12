@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bdffe9be9548a4683c8af65beb66da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 30d686a8e9e4bf64e938fe5c1e34d5cd, type: 2}
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
@@ -231,6 +232,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1279058352152045144}
     m_Modifications:
+    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
+      propertyPath: m_Name
+      value: Bacula
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -286,14 +295,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
       propertyPath: m_LocalScale.z
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
-      propertyPath: m_Name
-      value: Bacula
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: e59f2800e9db5d645a367f705e4630bc, type: 3}
       propertyPath: m_Materials.Array.data[0]

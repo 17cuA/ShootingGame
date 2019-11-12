@@ -15,7 +15,13 @@ public class MapCreate : MonoBehaviour
 
 	void Start()
     {
-		if(SceneManager.GetActiveScene().name == "Stage_01")
+		if(SceneManager.GetActiveScene().name == "Stage_01" 
+			|| SceneManager.GetActiveScene().name == "Stage_02" 
+			|| SceneManager.GetActiveScene().name == "Stage_03" 
+			|| SceneManager.GetActiveScene().name == "Stage_04"
+			 || SceneManager.GetActiveScene().name == "Stage_05"
+			  || SceneManager.GetActiveScene().name == "Stage_06"
+			   || SceneManager.GetActiveScene().name == "Stage_07")
 		{
 			SC = GetComponent<SceneChanger>();
 			//OC = GetComponent<Object_Creation>();

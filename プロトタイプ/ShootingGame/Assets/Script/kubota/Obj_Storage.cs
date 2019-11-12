@@ -216,7 +216,7 @@ public class Obj_Storage : MonoBehaviour
 		P2_Option_Prefab = Resources.Load("Option/Option_2P") as GameObject;       //2Pオプションのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
-		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;		//中ボス
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
@@ -431,7 +431,6 @@ public class Obj_Storage : MonoBehaviour
         enemy_ClamChowder_FourTriangle = new Object_Pooling(enemy_ClamChowder_FourTriangle_prefab, 2, "enemy_ClamChowder_FourTriangle");
         enemy_ClamChowder_FourTriangle_NoItem = new Object_Pooling(enemy_ClamChowder_FourTriangle_NoItem_prefab, 2, "enemy_ClamChowder_FourTriangle_NoItem");
         enemy_Beelzebub_Group_EightNormal_Item = new Object_Pooling(enemy_Beelzebub_Group_EightNormal_Item_prefab, 1, "enemy_Beelzebub_Group_EightNormal_Item");
-        //enemy_ClamChowder_Group_TwelveStraight = new Object_Pooling(enemy_ClamChowder_Group_TwelveStraight_prefab, 2, "enemy_ClamChowder_Group_TwelveStraight");
         enemy_UFO_Group_Five = new Object_Pooling(enemy_UFO_Group_Five_prefab, 2, "enemy_UFO_Group_Five");
         enemy_Beetle_Group_Seven = new Object_Pooling(enemy_Beetle_Group_Seven_prefab, 1, "enemy_Beetle_Group_Seven");
         enemy_ClamChowder_Group_SevenStraight = new Object_Pooling(enemy_ClamChowder_Group_SevenStraight_prefab, 2, "enemy_ClamChowder_Group_SevenStraight");
@@ -463,6 +462,12 @@ public class Obj_Storage : MonoBehaviour
 		}
 	}
 
+
+	//private void Update()
+	//{
+	//	//後ほどロードするもの
+
+	//}
 	public GameObject GetPlayer()
 	{
 		return Player.Get_Obj()[0];

@@ -155,6 +155,21 @@ public class Game_Master : MonoBehaviour
                 break;
             case "Stage_02":
                 Stage_Start();
+				break;
+			case "Stage_03":
+                Stage_Start();
+				break;
+			case "Stage_04":
+                Stage_Start();
+				break;
+			case "Stage_05":
+                Stage_Start();
+				break;
+			case "Stage_06":
+                Stage_Start();
+				break;
+			case "Stage_07":
+                Stage_Start();
                 break;
             case "GameOver":
                 break;
@@ -211,34 +226,29 @@ public class Game_Master : MonoBehaviour
 		Number_Of_People = set_num;
 		return Number_Of_People;
 	}
-	//死亡した味方の復活処理
-	private void RespornPlayer()
+	/// <summary>
+	/// ゲームオーバーに行く前にボタンを押せば
+	/// 復活ができるように
+	/// </summary>
+	public void Game_Continue()
 	{
-
-		if (Middle_Bossinfo.Is_Dead || One_Bossinfo.Is_Dead || Moai_Bossinfo.Is_Dead || Two_Bossinfo.Is_Dead)
+		var player1 = Obj_Storage.Storage_Data.GetPlayer();
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
-			if(Is_Player_Alive[0] == 0 && Is_Player_Alive[1] == 1)
-			{
-				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				P1.Remaining = 2;
-				if(P2.Remaining < 2)
-				{
-					P2.Remaining = 2;
-				}
-
-			}
-			else if(Is_Player_Alive[0] == 1 && Is_Player_Alive[1] == 0)
-			{
-				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				P2.Remaining = 2;
-				if (P1.Remaining < 2)
-				{
-					P1.Remaining = 2;
-				}
-			}
-
+			player1.SetActive(true);
+			player1.GetComponent<Player1>().ResponPreparation(5);
 		}
+		else
+		{
+			var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+			player2.SetActive(true);
+			player2.GetComponent<Player2>().ResponPreparation(5);
+			player1.SetActive(true);
+			player1.GetComponent<Player1>().ResponPreparation(5);
+		}
+	}
+	public void CountDown_Number(int frame)
+	{
+		
 	}
 }
