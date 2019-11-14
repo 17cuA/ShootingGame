@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisonSmoke : character_status
+public class PoisonSmoke : MonoBehaviour
 {
 	public float time;
+	private float elapsedTime;
 
 	void Start()
     {
-		time = 0.0f;
-
+		elapsedTime = 0.0f;
 	}
-
-
-
     void Update()
     {
-		if(time < 0.5f)
+		if(elapsedTime < time)
 		{
-			time += Time.deltaTime;
+			elapsedTime += Time.deltaTime;
 
-			if (time > 0.5f)
+			if (elapsedTime > time)
 			{
 				GetComponent<SphereCollider>().enabled = true;
 			}
