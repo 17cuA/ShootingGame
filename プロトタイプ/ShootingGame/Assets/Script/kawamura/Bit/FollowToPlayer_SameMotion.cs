@@ -170,8 +170,9 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 
 					//transform.position = playerObj.transform.position;
 					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-					isResetPos = true;
 					followParent_Script.resetPosCnt++;
+					isResetPos = true;
+					isFreeze = false;
 				}
 				if (!pl2.Is_Resporn)
 				{

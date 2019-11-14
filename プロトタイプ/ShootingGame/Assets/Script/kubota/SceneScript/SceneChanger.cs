@@ -51,7 +51,6 @@ public class SceneChanger : MonoBehaviour
 			if (P1.Is_Dead)
 			{
 				frame++;
-				//if(frame > 180) SceneManager.LoadScene("GameOver");
 				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
 			}
 		}
@@ -60,27 +59,7 @@ public class SceneChanger : MonoBehaviour
 			if (P1.Is_Dead && P2.Is_Dead)
 			{
 				frame++;
-				//if(frame > 180) SceneManager.LoadScene("GameOver");
 				if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Over();
-			}
-		}
-
-		if (One_Boss_Script != null)
-		{
-			if (One_Boss_Script.Is_Dead)
-			{
-				frame++;
-				//if(frame > 180) SceneManager.LoadScene("GameClear");
-				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
-			}
-		}
-		if(Two_Boss_Script != null)
-		{
-			if(Two_Boss_Script.Is_Dead)
-			{
-				frame++;
-				//if(frame > 180) SceneManager.LoadScene("GameClear");
-				//if (frame > 120) Scene_Manager.Manager.Screen_Transition_To_Clear();
 			}
 		}
 	}

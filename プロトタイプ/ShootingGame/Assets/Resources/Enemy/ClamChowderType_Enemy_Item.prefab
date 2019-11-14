@@ -126,8 +126,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
+  player2Obj: {fileID: 0}
+  player1_DefPosTotal: 0
+  player2_DefPosTotal: 0
   imasuyo: 0
-  isPlayerActive: 1
+  isPlayer1Active: 1
+  isPlayer2Active: 1
+  isAimForPlayer1: 1
+  isAimForPlayer2: 0
   degree: 0
 --- !u!1 &8375445229945807134
 GameObject:
@@ -174,8 +180,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
+  player2Obj: {fileID: 0}
+  player1_DefPosTotal: 0
+  player2_DefPosTotal: 0
   imasuyo: 0
-  isPlayerActive: 1
+  isPlayer1Active: 1
+  isPlayer2Active: 1
+  isAimForPlayer1: 1
+  isAimForPlayer2: 0
   degree: 0
 --- !u!114 &3642324875048929534
 MonoBehaviour:
@@ -252,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbe2b1fb2fcd6e448743022c894a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 80aa4a15139753241b9afdf011d02e6a, type: 2}
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}

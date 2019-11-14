@@ -10,17 +10,18 @@ public class Bit_Formation_3 : MonoBehaviour
 	public enum BitState
 	{
 		Circular,        //初期位置（円運動）
-		Follow,			//追従状態
+		Follow,         //追従状態
 		Oblique,        //斜め撃ち状態
-		Laser,			//レーザー状態
-		Stay,				//停止状態
+		Laser,          //レーザー状態
+		Stay,               //停止状態
 		Return,         //戻ってきている状態
-		Player1,			//プレイヤー１に追従状態
-		Player2,			//プレイヤー２に追従状態
+		Player1,            //プレイヤー１に追従状態
+		Player2,            //プレイヤー２に追従状態
 	}
 
 	[SerializeField]
-	public BitState bState;							//オプションの状態
+	public BitState bState;                         //オプションの状態
+
 
 	//[SerializeField]
 	//BitState previous_state;					//オプションの前の状態（レーザーを解除したときに使う）
@@ -28,42 +29,45 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject playerObj;                //プレイヤーのオブジェクト
 	public GameObject player2Obj;
 	//public GameObject parentObj;				//親のオブジェクト
-	public GameObject followPosObj;				//プレイヤーを追従するときの位置オブジェクト
-	public GameObject followPosFirstObj;		//プレイヤーに一番近い追従位置オブジェクト
-	public GameObject followPosSecondObj;		//二番目
-	public GameObject followPosThirdObj;		//三番目
-	public GameObject followPosFourthObj;		//四番目
-	//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
-	GameObject laserPos;						//レーザー時の座標用オブジェクト
+	public GameObject followPosObj;             //プレイヤーを追従するときの位置オブジェクト
+	public GameObject followPosFirstObj;        //プレイヤーに一番近い追従位置オブジェクト
+	public GameObject followPosSecondObj;       //二番目
+	public GameObject followPosThirdObj;        //三番目
+	public GameObject followPosFourthObj;       //四番目
+	public GameObject[] circlePosObjects;
+	GameObject target;
+												//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
+	GameObject laserPos;                        //レーザー時の座標用オブジェクト
 	public GameObject particleObj;
 
-	public ParticleSystem option_Particle;		//レーザーのパーティクルを取得するための変数
+	public ParticleSystem option_Particle;      //レーザーのパーティクルを取得するための変数
 
-	Bit_Shot b_Shot;							//オプションの攻撃スクリプト情報
-	Player1 pl1;								//プレイヤースクリプト情報
+	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
+	Player1 pl1;                                //プレイヤースクリプト情報
 	Player2 pl2;
-	FollowToPlayer_SameMotion FtoPlayer;		//プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
-	FollowToPreviousBit FtoPBit_Second;			//二番目の位置のスクリプト情報
-	FollowToPreviousBit FtoPBit_Third;			//三番目の位置のスクリプト情報
-	FollowToPreviousBit FtoPBit_Fourth;			//四番目の位置のスクリプト情報
-	Option_Scale os;							//パーティクルのスケール変更クリプト
+	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
+	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
+	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
+	FollowToPreviousBit FtoPBit_Fourth;         //四番目の位置のスクリプト情報
+	Option_Scale os;                            //パーティクルのスケール変更クリプト
 
-	new Renderer renderer;						//レンダラー　3Dオブジェクトの時使う
-	Color bit_Color;							//オプションの色　3Dオブジェクトの時使う
-	Color particle_Color;							//パーティクルのカラー
-	public float scale_value = 0.5f;			//オプションのスケールの値
+	new Renderer renderer;                      //レンダラー　3Dオブジェクトの時使う
+	Color bit_Color;                            //オプションの色　3Dオブジェクトの時使う
+	Color particle_Color;                           //パーティクルのカラー
+	public float scale_value = 0.5f;            //オプションのスケールの値
 
-	float speed;								//オプションの移動スピード（プレイヤー死亡時の処理に使う）
-	public float defaultSpeed;					//プレイヤーが死んだときのオプションの初速を入れておく
-	float step;									//スピードを計算して入れる
-	int collectDelay;							//死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
+	float speed;                                //オプションの移動スピード（プレイヤー死亡時の処理に使う）
+	public float moveSpeed;						//オプションの移動速度上とは違う 
+	public float defaultSpeed;                  //プレイヤーが死んだときのオプションの初速を入れておく
+	float step;                                 //スピードを計算して入れる
+	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	int option_OrdinalNum;						//オプション自身がどの何番目の追従位置にいるのかの番号
+	int option_OrdinalNum;                      //オプション自身がどの何番目の追従位置にいるのかの番号
 
 	[SerializeField]
-	string myName;								//自分の名前を入れる
-	private Quaternion Direction;				//オブジェクトの向きを変更する時に使う
+	string myName;                              //自分の名前を入れる
+	private Quaternion Direction;               //オブジェクトの向きを変更する時に使う
 
 	Vector3 velocity;                           //ベロシティ
 
@@ -73,22 +77,29 @@ public class Bit_Formation_3 : MonoBehaviour
 	//bool isScaleInc = false;
 	//bool isScaleDec = false;
 	//bool isPlayerDieCheck;					
-	public bool isborn = true;					//オプションが出現したときupdateで一回だけ行う処理用
-	public bool isDead = false;					//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
-	public bool isCollection = false;					//回収されたときに使う
+	public bool isborn = true;                  //オプションが出現したときupdateで一回だけ行う処理用
+	public bool isDead = false;                 //プレイヤーが死んで回収されるまでtrue、回収されたらfalse
+	public bool isCollection = false;                   //回収されたときに使う
+
+	bool isCircle = false;
+	bool isMove = false;
+	int optionNum;
+
+
+
 	void Start()
 	{
-		isborn = true;					//出現時の処理をするように
-		//isScaleDec = true;
-		defaultSpeed = 20;				//死んだときの初速設定
+		isborn = true;                  //出現時の処理をするように
+										//isScaleDec = true;
+		defaultSpeed = 20;              //死んだときの初速設定
 		speed = defaultSpeed;           //初速を代入
-		//値を設定
-		//state_Num = 0;				//状態の判別番号
+										//値を設定
+										//state_Num = 0;				//状態の判別番号
 
 		//bState = BitState.Follow;		//状態の初期設定
 
 		os = particleObj.GetComponent<Option_Scale>();
-		renderer = gameObject.GetComponent<Renderer>();			//レンダラー取得
+		renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
 
 		////4つの追従位置とそれぞれのスクリプト取得
 		//followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
@@ -106,11 +117,9 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		//parentObj = transform.parent.gameObject;			//親のオブジェクト取得
 
-		myName = gameObject.name;							//自分の名前取得
+		myName = gameObject.name;                           //自分の名前取得
 
-		b_Shot = gameObject.GetComponent<Bit_Shot>();		//攻撃の情報取得
-
-
+		b_Shot = gameObject.GetComponent<Bit_Shot>();       //攻撃の情報取得
 	}
 
 	void Update()
@@ -135,27 +144,73 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
-			SetFollowPos();				//追従位置設定
-			option_Particle.Play();		//オプションの見た目パーティクルを起動
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	switch(i)
+			//	{
+			//		case 0:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_1");
+			//			break;
+			//		case 1:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_2");
+			//			break;
+			//		case 2:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_3");
+			//			break;
+			//		case 3:
+			//			circlePosObjects[i] = GameObject.Find("CirclePos_4");
+			//			break;
+
+			//	}
+			//}
+			SetFollowPos();             //追従位置設定
+			option_Particle.Play();     //オプションの見た目パーティクルを起動
 			isborn = false;             //生成時処理をしないようにする
 			b_Shot.isShot = true;
 		}
 
-		//追従位置を取得していらその位置にする
-		if (followPosObj)
+		//追従位置を取得していtたらその位置にする
+		if (followPosObj && !isCircle && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
 
-		//回収されたとき
-		//if (isCollection)
+		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		//if (Input.GetKeyDown(KeyCode.C))
 		//{
-		//	//オプションの見た目パーティクル起動
-		//	option_Particle.Play();
-		//	//回収判定false
-		//	isCollection = false;
+		//	//オンならオフに
+		//	if (isCircle)
+		//	{
+		//		isCircle = false;
+		//		isMove = true;
+		//		target = followPosObj;
+		//	}
+		//	else
+		//	{
+		//		isCircle = true;
+		//		isMove = true;
 
+		//		target = circlePosObjects[optionNum - 1];
+
+		//	}
 		//}
+
+		//if (isMove && !isDead)
+		//{
+		//	float step = moveSpeed * Time.deltaTime;
+
+		//	transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+		//	if (transform.position == target.transform.position)
+		//	{
+		//		isMove = false;
+		//	}
+		//}
+
+		//if (isCircle && !isMove && !isDead)
+		//{
+		//	transform.position = target.transform.position;
+		//}
+		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
 		//プレイヤー死亡時の処理
 		if (bState == BitState.Player1)
@@ -169,6 +224,8 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				//追従位置の参照を外す
 				followPosObj = null;
+				target = null;
+				optionNum = 0;
 
 				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
 				switch (option_OrdinalNum)
@@ -305,10 +362,21 @@ public class Bit_Formation_3 : MonoBehaviour
 		//プレイヤーに一番近い追従オブジェクトのオプション所持判定がなかった時
 		if (!FtoPlayer.hasOption)
 		{
+			optionNum = 1;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
-			transform.position = followPosObj.transform.position;
+
+			if(isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosFirstObj.transform;
 			//transform.position = followPosFirstObj.transform.position;
@@ -321,10 +389,20 @@ public class Bit_Formation_3 : MonoBehaviour
 		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
+			optionNum = 2;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosSecondObj.transform;
 			//transform.position = followPosSecondObj.transform.position;
@@ -337,10 +415,20 @@ public class Bit_Formation_3 : MonoBehaviour
 		//三番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Third.hasOption)
 		{
+			optionNum = 3;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosThirdObj.transform;
 			//transform.position = followPosThirdObj.transform.position;
@@ -353,10 +441,20 @@ public class Bit_Formation_3 : MonoBehaviour
 		//四番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Fourth.hasOption)
 		{
+			optionNum = 4;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
-			transform.position = followPosObj.transform.position;
+			if (isCircle)
+			{
+				target = circlePosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+			}
+			else
+			{
+				target = followPosObj;
+				transform.position = followPosObj.transform.position;
+			}
 
 			//transform.parent = followPosFourthObj.transform;
 			//transform.position = followPosFourthObj.transform.position;
@@ -399,11 +497,21 @@ public class Bit_Formation_3 : MonoBehaviour
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{
+						optionNum = 1;
 						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -418,11 +526,21 @@ public class Bit_Formation_3 : MonoBehaviour
 					//二番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Second.hasOption)
 					{
+						optionNum = 2;
 						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Second.hasOption = true;
 						followPosObj = followPosSecondObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -437,11 +555,21 @@ public class Bit_Formation_3 : MonoBehaviour
 					//三番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Third.hasOption)
 					{
+						optionNum = 3;
 						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Third.hasOption = true;
 						followPosObj = followPosThirdObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -456,11 +584,21 @@ public class Bit_Formation_3 : MonoBehaviour
 					//四番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Fourth.hasOption)
 					{
+						optionNum = 4;
 						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Fourth.hasOption = true;
 						followPosObj = followPosFourthObj;
-						transform.position = followPosObj.transform.position;
+						if (isCircle)
+						{
+							target = circlePosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+						}
+						else
+						{
+							target = followPosObj;
+							transform.position = followPosObj.transform.position;
+						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
@@ -476,7 +614,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				//プレイヤー2に追従していたら
 				else if (bState == BitState.Player2)
 				{
-					SetPlayer(1);
+					SetPlayer(2);
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{

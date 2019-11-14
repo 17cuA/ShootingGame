@@ -8,14 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class character_status : MonoBehaviour
 {
+	[Header("基本ステータスがはいってるものを入れる")]
+	public ParameterTable Parameter;                                    //ScriptableObjectを入れる
 
 	public float speed;                                                 // スピード
-	private float speed_Max;										//最大速度の設定
 	public int hp;                                                      // 体力
 	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
-	public Collider capsuleCollider;                             // collider
+	public Collider capsuleCollider;									// collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
@@ -30,8 +31,10 @@ public class character_status : MonoBehaviour
 	public bool isrend = false;
 	public bool Is_Dead = false;															
 	public Material[] self_material;									//初期マテリアル保存用
+
 	[Header("ダメージ用material設定")]
-	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
+	public Material white_material;										//ダメージくらったときに一瞬のホワイト
+
 	private int framecnt;
 	private bool check;
 
@@ -39,6 +42,15 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
+		if(Parameter != null)
+		{
+			hp = Parameter.Get_Life;
+			speed = Parameter.Get_Speed;
+			score = Parameter.Get_Score;
+			shield = Parameter.Get_Shield;
+			Remaining = Parameter.Get_Reaming;
+		}
+
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
 		{
@@ -51,8 +63,8 @@ public class character_status : MonoBehaviour
 			capsuleCollider = GetComponent<Collider>();
 		}
 
-		if (tag == "Player") Remaining = 5;
-		else Remaining = 1;
+		//if (tag == "Player") Remaining = 5;
+		//else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		if(gameObject.name == "Bacula") white_material = Resources.Load<Material>("Material/Bacula") as Material;
@@ -133,7 +145,8 @@ public class character_status : MonoBehaviour
             //爆発処理の作成
             ParticleCreation(13);
             Is_Dead = true;
-            Reset_Status();        }
+            Reset_Status();
+		}
         else if (gameObject.tag != "Player")
 		{
 			//スコア
@@ -257,6 +270,16 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
+	public void OnTriggerStay(Collider col)
+	{
+		if(tag == "Player")
+		{
+			if(col.tag == "Enemy")
+			{
+				Damege_Process(3);
+			}
+		}
+	}
 	//キャラクターが死んだか(残機とHP両方)どうかの判定用関数
 	public bool Died_Judgment()
 	{
@@ -321,9 +344,9 @@ public class character_status : MonoBehaviour
 		return shield;
 	}
 	//シールドの値設定
-	public void Set_Shield(int setnum)
+	public void Set_Shield(int setvalue)
 	{
-		shield = setnum;
+		shield = setvalue;
 	}
 	//キャラクタの設定してある体力を取得するための関数
 	public uint Get_Score()

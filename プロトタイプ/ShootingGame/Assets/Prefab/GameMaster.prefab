@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 541882102}
   - component: {fileID: 1726588924}
   - component: {fileID: 276323781233332384}
+  - component: {fileID: 38289025283440363}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -160,9 +161,21 @@ MonoBehaviour:
   enemy_Beelzebub_Group_FourWide_prefab: {fileID: 0}
   enemy_Beelzebub_Group_FourWide_Item_prefab: {fileID: 0}
   enemy_BeetleGroup_prefab: {fileID: 0}
+  enemy_BeetleGroup_Three_prefab: {fileID: 0}
   boundMeteors_prefab: {fileID: 0}
   enemy_Bacula_Sixteen_prefab: {fileID: 0}
   enemy_Bacula_FourOnly_prefab: {fileID: 0}
+  enemy_ClamChowder_FourTriangle_prefab: {fileID: 0}
+  enemy_ClamChowder_FourTriangle_NoItem_prefab: {fileID: 0}
+  enemy_Beelzebub_Group_EightNormal_Item_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_TwelveStraight_prefab: {fileID: 0}
+  enemy_UFO_Group_Five_prefab: {fileID: 0}
+  enemy_Beetle_Group_Seven_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_SevenStraight_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_SixStraight_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_UpSevenDiagonal_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_DownSevenDiagonal_prefab: {fileID: 0}
+  enemy_ClamChowder_Group_TenStraight_prefab: {fileID: 0}
 --- !u!114 &276323781233332384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,5 +186,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec63302415fb3074489c96b223b57309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyCreate_Data: {fileID: 0}
+--- !u!114 &38289025283440363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417715682554785829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d323b4215097e4ebf2001ea3ee4775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
