@@ -270,6 +270,7 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
+	//戦艦などの大きな敵にめり込んだ時にしっかり死ぬようにするため
 	public void OnTriggerStay(Collider col)
 	{
 		if(tag == "Player")
@@ -303,7 +304,6 @@ public class character_status : MonoBehaviour
 		{
 			v_Value = 1.0f;
 		}
-        //setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
         setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 
         for (int i = 0; i < object_material.Length; i++)
@@ -311,12 +311,6 @@ public class character_status : MonoBehaviour
             setColor = new Vector4(defaultColor[i].x * v_Value, defaultColor[i].y * v_Value, defaultColor[i].z * v_Value, 1);
             object_material[i].material.SetVector("_BaseColor", setColor);
         }
-
-  //      foreach (Renderer renderer in object_material)
-		//{
-  //          renderer.material.SetVector("_BaseColor", setColor);
-		//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-		//}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
 	public void Damege_Effect()
@@ -344,22 +338,22 @@ public class character_status : MonoBehaviour
 		return shield;
 	}
 	//シールドの値設定
-	public void Set_Shield(int setvalue)
+	public void Set_Shield()
 	{
-		shield = setvalue;
+		shield = Parameter.Get_Shield;
 	}
 	//キャラクタの設定してある体力を取得するための関数
 	public uint Get_Score()
 	{
 		return score;
 	}
+	//オブジェクトが持っているMaterialを取得
+	//基本的に複数のマテリアルを持っているが前提のため、繰り返しで使われる前提
 	public Material Get_self_material(int num)
 	{
 		return self_material[num];
 	}
-
     
-    //追加
     //残機増やす
     public void BossRemainingBouns(int bonusRemaining)
     {

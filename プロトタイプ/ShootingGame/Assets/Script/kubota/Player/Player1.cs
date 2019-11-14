@@ -118,7 +118,6 @@ public class Player1 : character_status
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
-
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
@@ -138,7 +137,7 @@ public class Player1 : character_status
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
+		Set_Shield();                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
@@ -165,7 +164,6 @@ public class Player1 : character_status
 		rotation_cnt = 0;
 		transform.position = new Vector3(-12, 0, -20);
 		Entry_anim = GetComponent<PlayableDirector>();
-		//Entry_anim.Stop();
 		Start_animation_frame = 0;
 		Is_Resporn = true;
 		Is_Animation = true;
@@ -207,11 +205,13 @@ public class Player1 : character_status
 					if (timeLineAnimClip == null)
 					{
 						if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) timeLineAnimClip = Resources.Load("PlayerEntry_1P_1Play") as PlayableAsset;
-						else timeLineAnimClip = Resources.Load("PlayerEntry_1P_2Play") as PlayableAsset;
+						else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) timeLineAnimClip = Resources.Load("PlayerEntry_1P_2Play") as PlayableAsset;
+						else timeLineAnimClip = Resources.Load("PlayerEntry_1P_1Play") as PlayableAsset;
 					}
 
 
 					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(timeLineAnimClip);
+					else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) Entry_anim.Play(timeLineAnimClip);
 					else Entry_anim.Play(timeLineAnimClip);
 					rotation_cnt = 1;
 					if (Is_Animation)
@@ -519,7 +519,7 @@ public class Player1 : character_status
 						default:
 							break;
 					}
-					if (effect_num > 4)
+					if (effect_num > effect_mazle_fire.Length)
 					{
 						effect_num = 0;
 					}
@@ -704,7 +704,7 @@ public class Player1 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		Set_Shield(base.Get_Shield());			//シールドの値を取得
+		Set_Shield();			//シールドの値を取得
 		shield_Effect.Play();               //パーティクルの稼働
 		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
@@ -724,7 +724,7 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();		//オプションをアクティブに
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
 				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
 				bf.SetPlayer(1);				//1Pに追尾させるように
 				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
@@ -733,7 +733,7 @@ public class Player1 : character_status
 				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 1:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();		//オプションをアクティブに
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
 				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
 				bf.SetPlayer(1);                //1Pに追尾させるように
 				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
@@ -742,7 +742,7 @@ public class Player1 : character_status
 				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 2:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();		//オプションをアクティブに
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
 				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
 				bf.SetPlayer(1);                //1Pに追尾させるように
 				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
@@ -751,7 +751,7 @@ public class Player1 : character_status
 				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 3:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();		//オプションをアクティブに
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
 				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
 				bf.SetPlayer(1);                //1Pに追尾させるように
 				optionObj = null;               //無駄に変更しないようにするため、nullを入れる

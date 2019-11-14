@@ -31,19 +31,19 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum BOSS_DATA_ELEMENTS
     {
-        eID,                    // BossのID
-        eNAME,                  // Boss の名前
-        eSCRIPT,                // 各 Boss 個別のスクリプト
-        eATTACK_INTERVAL,       // 攻撃と攻撃のインターバル
-        eACT_CHANGE,            // 攻撃種類の切り替えインターバル
-        ePARTS_HP,              // Boos のパーツのHP
-        eSCORE,                 // Boss の持つHP
+        eID,								// BossのID
+        eNAME,							// Boss の名前
+        eSCRIPT,						// 各 Boss 個別のスクリプト
+        eATTACK_INTERVAL,		// 攻撃と攻撃のインターバル
+        eACT_CHANGE,				// 攻撃種類の切り替えインターバル
+        ePARTS_HP,					// Boos のパーツのHP
+        eSCORE,						// Boss の持つHP
         eBULLET_NAME_1,         // 攻撃パターン1
         eBULLET_NAME_2,         // 攻撃パターン2
         eBULLET_NAME_3,         // 攻撃パターン3
         eBULLET_NAME_4,         // 攻撃パターン4
         eBULLET_NAME_5,         // 攻撃パターン5
-        eEFFECT                 // エフェクト
+        eEFFECT						// エフェクト
     }
 
     /// <summary>
@@ -51,12 +51,12 @@ public class Game_Master : MonoBehaviour
     /// </summary>
     public enum ENEMY_DATA_ELEMENTS
     {
-        eID,                    // Enemy のID
-        eNAME,                  // Enemy の名前
-        eHP,                    // HP
+        eID,								// Enemy のID
+        eNAME,							// Enemy の名前
+        eHP,								// HP
         eATTACK_INTERVAL,		// 攻撃と攻撃のインターバル
-        eBULLET,                // 弾
-        eEFFECT					// エフェクト
+        eBULLET,						// 弾
+        eEFFECT						// エフェクト
     }
 
 	///// <summary>
@@ -81,13 +81,13 @@ public class Game_Master : MonoBehaviour
         eP1_OPTION_BULLET,
 		eP2_OPTION_BULLET,
 		//------------------------------------
-		ePLAYER_MISSILE,	// プレイヤーのミサイル
-		ePLAYER_LASER,		// プレイヤーのレーザー
-		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
-		ePOWERUP_ITEM,		//パワーアップアイテム
-		eENEMY_BULLET,		// エネミーのバレット
-		eENEMY_BEAM,			// エネミーのビーム
-		eENEMY_LASER,			// エネミーのレーザー
+		ePLAYER_MISSILE,			// プレイヤーのミサイル
+		ePLAYER_LASER,			// プレイヤーのレーザー
+		ePLAYER_TowWay,			// プレイヤーの2ウェイミサイル
+		ePOWERUP_ITEM,			//パワーアップアイテム
+		eENEMY_BULLET,			// エネミーのバレット
+		eENEMY_BEAM,				// エネミーのビーム
+		eENEMY_LASER,				// エネミーのレーザー
 		eONE_BOSS_LASER,		// 1ボスレーザー
 		eONE_BOSS_BOUND,		// 1ボス玉
 		eTWO_BOSS_LASER,		// 2ボスレーザー

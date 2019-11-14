@@ -14,45 +14,48 @@ using System.IO;
 public class Obj_Storage : MonoBehaviour
 {
 	public static Obj_Storage Storage_Data;
-
+	#region プレイヤー関係の変数
 	//マップ作製に使うプレハブ
 	//リソースフォルダから取得するため、インスペクターは使わない
 	private GameObject Player_Prefab;                           //プレイヤーのプレハブ
 	private GameObject player_2_Prefab;                         //プレイヤー2のプレハブ
 	private GameObject Player_Missile_Prefab;                   //プレイヤーのミサイルプレハブ
-	private GameObject Boss1_Prefab;                                //ステージ１のボスのプレハブ
-	private GameObject Boss2_Prefab;                                //ステージ2のボスのプレハブ
 	private GameObject Bullet_Prefab_P;                         //弾のPrefab情報
 	private GameObject BulletPrefab_P2;            //２P用の弾プレハブ情報
 	private GameObject BulletPrefab_Option_P1;         //オプション用の球プレハブ情報１P用
 	private GameObject BulletPrefab_Option_P2;          //オプション用の弾プレハブ２P用
-	private GameObject Bullet_Prefab_E;                         //エネミーの弾のPrefab情報
-	private GameObject Bullet_Prefab_BattleShip;        // バトルシップタイプの弾のPrefab情報
-	private GameObject Beam_Bullet_E_Prefab;                    //エネミーのビーム型バレットのプレハブ
-    private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
-    private GameObject UfoType_Enemy_Prefab;                // UFO型エネミーのプレハブ
-	private GameObject ClamChowderType_Enemy_Prefab;    // 貝型エネミーのプレハブ
-	private GameObject OctopusType_Enemy_Prefab;            // タコ型エネミーのプレハブ
-	private GameObject BeelzebubType_Enemy_Prefab;      // ハエ型エネミーのプレハブ
-	private GameObject BattleShip_Enemy_Prefab;     // 戦艦型エネミーのプレハブ
-	private GameObject Star_Fish_Enemy_Prefab;          //ヒトデ型のエネミーのプレハブ
-	private GameObject P1_Option_Prefab;                            //オプションのプレハブ
-	private GameObject P2_Option_Prefab;                        //2P用のオプションのプレハブ
+	private GameObject Option_Prefab;                            //オプションのプレハブ
 	private GameObject Item_Prefab;                             //パワーアップのアイテムを入れえるための処理
+	#endregion
+	#region
+	private GameObject Boss1_Prefab;									//ステージ１のボスのプレハブ
+	private GameObject Boss2_Prefab;									//ステージ2のボスのプレハブ
+	private GameObject Bullet_Prefab_E;								//エネミーの弾のPrefab情報
+	private GameObject Bullet_Prefab_BattleShip;					// バトルシップタイプの弾のPrefab情報
+	private GameObject Beam_Bullet_E_Prefab;						//エネミーのビーム型バレットのプレハブ
+    private GameObject SmallBeam_Bullet_E_Prefab;				//エネミーの小さいビーム型バレットのプレハブ
+    private GameObject UfoType_Enemy_Prefab;					// UFO型エネミーのプレハブ
+	private GameObject ClamChowderType_Enemy_Prefab;	// 貝型エネミーのプレハブ
+	private GameObject OctopusType_Enemy_Prefab;				// タコ型エネミーのプレハブ
+	private GameObject BeelzebubType_Enemy_Prefab;			// ハエ型エネミーのプレハブ
+	private GameObject BattleShip_Enemy_Prefab;				// 戦艦型エネミーのプレハブ
+	private GameObject Star_Fish_Enemy_Prefab;                  //ヒトデ型のエネミーのプレハブ
+	private GameObject Boss_Middle_Prefab;							//中ボスのプレハブ
+	private GameObject Laser_Line_Prefab;							// レーザーのプレハブ
+	private GameObject One_Boss_Laser_Prefab;                   // ボス1のレーザープレハブ
+	private GameObject One_Boss_BousndBullet_Prefab;        // ボス1のバウンド弾プレハブ
+	private GameObject Two_Boss_Laser_Prefab;                   //ボス２のレーザープレハブ
+	private GameObject Moai_Prefab;									//モアイのプレハブ
+	private GameObject Moai_Mini_Group_Prefab;					//小さいモアイグループのプレハブ
+	private GameObject Moai_Bullet_Prefab;							//モアイのバレットのプレハブ
+	private GameObject Moai_Eye_Laser_Prefab;					//モアイの目のレーザーのプレハブ
+	private GameObject Moai_Mouth_Laser_Prefab;				//モアイの口のレーザーのプレハブ
+
+	#endregion
 
 	//-----------------------------------------------------------------------------------
 	private GameObject[] Effects_Prefab = new GameObject[17];  //particleのプレハブ
 	//---------------------------------------------------------------------------------
-	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
-	private GameObject Laser_Line_Prefab;               // レーザーのプレハブ
-	private GameObject One_Boss_Laser_Prefab;                   // ボス1のレーザープレハブ
-	private GameObject One_Boss_BousndBullet_Prefab;        // ボス1のバウンド弾プレハブ
-	private GameObject Two_Boss_Laser_Prefab;                   //ボス２のレーザープレハブ
-	private GameObject Moai_Prefab;             //モアイのプレハブ
-	private GameObject Moai_Mini_Group_Prefab;              //小さいモアイグループのプレハブ
-	private GameObject Moai_Bullet_Prefab;                  //モアイのバレットのプレハブ
-	private GameObject Moai_Eye_Laser_Prefab;       //モアイの目のレーザーのプレハブ
-	private GameObject Moai_Mouth_Laser_Prefab;     //モアイの口のレーザーのプレハブ
 
 	//実際に作られたオブジェクト
 	public Object_Pooling Enemy1;
@@ -77,8 +80,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling StarFish_Enemy;
-	public Object_Pooling P1_Option;
-	public Object_Pooling P2_Option;
+	public Object_Pooling Option;
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
 	public Object_Pooling Laser_Line;
@@ -90,15 +92,8 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
 	public Object_Pooling Moai_Eye_Laser;                       //モアイの目のレーザー
 	public Object_Pooling Moai_Mouth_Laser;                       //モアイの口のレーザー
-																  //effect関係-----------------------------------------------------
+	//effect関係-----------------------------------------------------
 	public Object_Pooling[] Effects = new Object_Pooling[17];
-	//マップの作製時に使う処理
-	public Vector3 pos;                                        //マップを作成するときの位置情報取得用
-	private string File_name = "E_Pattern";                     //csvファイルの名前
-	private string File_name2 = "E_Pattern2";
-	public List<string[]> CsvData = new List<string[]>();      //csvファイルの中身を入れる変数
-	private int column;                                         //配列の列を入れる変数
-
 	public AudioClip[] audio_se = new AudioClip[29];    //ＳＥを読み込むための配列
 	public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
 
@@ -212,8 +207,7 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 		BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 		Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
-		P1_Option_Prefab = Resources.Load("Option/Option") as GameObject;       //1Pオプションのロード
-		P2_Option_Prefab = Resources.Load("Option/Option_2P") as GameObject;       //2Pオプションのロード
+		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;		//中ボス
@@ -366,8 +360,7 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 		StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
-		P1_Option = new Object_Pooling(P1_Option_Prefab, 4, "Option");
-		P2_Option = new Object_Pooling(P2_Option_Prefab, 4, "P2_Option");
+		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
@@ -440,45 +433,22 @@ public class Obj_Storage : MonoBehaviour
         enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
 
         //-----------------------------------------------------------------------------------------------------
-        if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
-		{
-			TextAsset Word = Resources.Load("CSV_Folder/" + File_name) as TextAsset;            //csvファイルを入れる変数
-			StringReader csv = new StringReader(Word.text);                                         //読み込んだデータをcsvの変数の中に格納
-			while (csv.Peek() > -1)
-			{
-				string line = csv.ReadLine();
-				CsvData.Add(line.Split(','));               //カンマごとに割り振る
-			}
-		}
-		else
-		{
-			TextAsset Word = Resources.Load("CSV_Folder/" + File_name2) as TextAsset;           //csvファイルを入れる変数
-			StringReader csv = new StringReader(Word.text);                                             //読み込んだデータをcsvの変数の中に格納
-			while (csv.Peek() > -1)
-			{
-				string line = csv.ReadLine();
-				CsvData.Add(line.Split(','));                       //カンマごとに割り振る
-			}
-		}
 	}
 
-
-	//private void Update()
-	//{
-	//	//後ほどロードするもの
-
-	//}
+	//Player１の取得
 	public GameObject GetPlayer()
 	{
 		return Player.Get_Obj()[0];
 	}
+	//Player２の取得
 	public GameObject GetPlayer2()
 	{
 		return Player_2.Get_Obj()[0];
 	}
+	//オプションの取得
 	public GameObject GetOption()
 	{
-		return P1_Option.Get_Obj()[0];
+		return Option.Get_Obj()[0];
 	}
 
 	public GameObject GetMiddleBoss()
