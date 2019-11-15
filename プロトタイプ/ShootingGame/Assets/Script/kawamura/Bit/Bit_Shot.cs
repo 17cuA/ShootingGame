@@ -596,9 +596,9 @@ public class Bit_Shot : MonoBehaviour
 			obj2.GetComponent<Missile>().Setting_On_Reboot(1);
 
 		}
-		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
-		obj.GetComponent<Missile>().Setting_On_Reboot(1);
-		missileDelayCnt = 0;
+		//GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		//obj.GetComponent<Missile>().Setting_On_Reboot(1);
+		//missileDelayCnt = 0;
 	}
 
 	private void ActiveLaser()
