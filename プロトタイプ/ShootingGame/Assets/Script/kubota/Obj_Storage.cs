@@ -14,20 +14,21 @@ using System.IO;
 public class Obj_Storage : MonoBehaviour
 {
 	public static Obj_Storage Storage_Data;
-	#region プレイヤー関係の変数
+	#region プレイヤー関係のプレハブ
 	//マップ作製に使うプレハブ
 	//リソースフォルダから取得するため、インスペクターは使わない
 	private GameObject Player_Prefab;                           //プレイヤーのプレハブ
 	private GameObject player_2_Prefab;                         //プレイヤー2のプレハブ
-	private GameObject Player_Missile_Prefab;                   //プレイヤーのミサイルプレハブ
+	private GameObject Player_Missile1;                         //プレイヤー1のミサイルプレハブ
+	private GameObject Player_Missile2;							//プレイヤー２のミサイルプレハブ
 	private GameObject Bullet_Prefab_P;                         //弾のPrefab情報
-	private GameObject BulletPrefab_P2;            //２P用の弾プレハブ情報
-	private GameObject BulletPrefab_Option_P1;         //オプション用の球プレハブ情報１P用
-	private GameObject BulletPrefab_Option_P2;          //オプション用の弾プレハブ２P用
-	private GameObject Option_Prefab;                            //オプションのプレハブ
-	private GameObject Item_Prefab;                             //パワーアップのアイテムを入れえるための処理
+	private GameObject BulletPrefab_P2;							//２P用の弾プレハブ情報
+	private GameObject BulletPrefab_Option_P1;					//オプション用の球プレハブ情報１P用
+	private GameObject BulletPrefab_Option_P2;					//オプション用の弾プレハブ２P用
+	private GameObject Option_Prefab;							//オプションのプレハブ
+	private GameObject Item_Prefab;								//パワーアップのアイテムを入れえるための処理
 	#endregion
-	#region
+	#region 敵関係のプレハブ
 	private GameObject Boss1_Prefab;									//ステージ１のボスのプレハブ
 	private GameObject Boss2_Prefab;									//ステージ2のボスのプレハブ
 	private GameObject Bullet_Prefab_E;								//エネミーの弾のPrefab情報
@@ -69,6 +70,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling P1_OptionBullet;
 	public Object_Pooling P2_OptionBullet;
 	public Object_Pooling PlayerMissile;
+	public Object_Pooling PlayerMissile2;
 	public Object_Pooling PlayerMissile_TowWay;
 	public Object_Pooling EnemyBullet;
 	public Object_Pooling BattleShipBullet;
@@ -196,7 +198,9 @@ public class Obj_Storage : MonoBehaviour
 		BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet_2P") as GameObject;
 		BulletPrefab_Option_P1 = Resources.Load("Bullet/Option_Bullet_1P") as GameObject;
 		BulletPrefab_Option_P2 = Resources.Load("Bullet/Option_Bullet_2P") as GameObject;
-		Player_Missile_Prefab = Resources.Load("Bullet/Player_Missile") as GameObject;
+		Player_Missile1 = Resources.Load("Bullet/Player_Missile") as GameObject;
+		Player_Missile2 = Resources.Load("Bullet/Player_Missile2") as GameObject;
+
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
@@ -349,7 +353,8 @@ public class Obj_Storage : MonoBehaviour
 		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
-		PlayerMissile = new Object_Pooling(Player_Missile_Prefab, 8, "Player_Missile");        //プレイヤーのミサイルの生成
+		PlayerMissile = new Object_Pooling(Player_Missile1, 8, "Player_Missile");        //プレイヤーのミサイルの生成
+		PlayerMissile2 = new Object_Pooling(Player_Missile2, 8, "Player_Missile");		//プレイヤー２のミサイルの生成
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
         SmallBeam_Bullet_E= new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成

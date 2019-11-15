@@ -82,6 +82,7 @@ public class Game_Master : MonoBehaviour
 		eP2_OPTION_BULLET,
 		//------------------------------------
 		ePLAYER_MISSILE,			// プレイヤーのミサイル
+		ePLAYER_MISSILE2,			//プレイヤー２のミサイル
 		ePLAYER_LASER,			// プレイヤーのレーザー
 		ePLAYER_TowWay,			// プレイヤーの2ウェイミサイル
 		ePOWERUP_ITEM,			//パワーアップアイテム

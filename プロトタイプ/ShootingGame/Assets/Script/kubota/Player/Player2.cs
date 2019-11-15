@@ -671,7 +671,7 @@ public class Player2 : character_status
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
-		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE2, shot_Mazle.transform.position, Direction);
 		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 	}
 	//プレイヤーの速度上昇

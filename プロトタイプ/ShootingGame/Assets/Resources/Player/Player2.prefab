@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498621c67316fb34f8cf08d7b847f447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 0bb9d3faf2ccf6b45aea09ef225b9894, type: 2}
   speed: 7
   hp: 1
   direction: {x: 0, y: 0, z: 0}
@@ -609,11 +610,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 5808131889777660102, guid: b4b8a1a5be146654b859901c7505e97f,
-        type: 3}
-      propertyPath: m_Name
-      value: A001_2P
-      objectReference: {fileID: 0}
     - target: {fileID: 1596071992344226088, guid: b4b8a1a5be146654b859901c7505e97f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -668,6 +664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808131889777660102, guid: b4b8a1a5be146654b859901c7505e97f,
+        type: 3}
+      propertyPath: m_Name
+      value: A001_2P
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b8a1a5be146654b859901c7505e97f, type: 3}
@@ -771,11 +772,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserEmitter
-      objectReference: {fileID: 0}
     - target: {fileID: 3118439069478725052, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -830,6 +826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2802902456980546872, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
+        type: 3}
+      propertyPath: m_Name
+      value: LaserEmitter
       objectReference: {fileID: 0}
     - target: {fileID: 3494266671149189961, guid: 3517bbfe0d70d9e4c8ed482fd60c2173,
         type: 3}
@@ -1221,11 +1222,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 1917110437345346889, guid: f13797b5b8a802d439e957c0565993ce,
-        type: 3}
-      propertyPath: m_Name
-      value: A000_2P
-      objectReference: {fileID: 0}
     - target: {fileID: 7226534983371277066, guid: f13797b5b8a802d439e957c0565993ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1280,6 +1276,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917110437345346889, guid: f13797b5b8a802d439e957c0565993ce,
+        type: 3}
+      propertyPath: m_Name
+      value: A000_2P
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f13797b5b8a802d439e957c0565993ce, type: 3}
@@ -1545,38 +1546,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5584372000684067162}
     m_Modifications:
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Name
-      value: VicViper
-      objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100010, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.325
@@ -1632,6 +1601,38 @@ PrefabInstance:
     - target: {fileID: 400012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Name
+      value: VicViper
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 6a09753ed1ea65a4d8a9cd608e4f4aea, type: 3}
       propertyPath: m_Materials.Array.data[0]
