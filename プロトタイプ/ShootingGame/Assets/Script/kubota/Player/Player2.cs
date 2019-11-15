@@ -148,7 +148,6 @@ public class Player2 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
-		HP_Setting();
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
@@ -333,7 +332,7 @@ public class Player2 : character_status
 		}
 		else
 		{
-			capsuleCollider.enabled = false;
+			Collider.enabled = false;
 		}
 
 		for (int i = 0; i < bullet_data.Count; i++)

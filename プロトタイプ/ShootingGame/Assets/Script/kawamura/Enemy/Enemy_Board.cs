@@ -24,7 +24,6 @@ public class Enemy_Board : character_status
 	new void Start()
     {
 		saveHp = hp;
-		HP_Setting();
 		base.Start();
     }
 

@@ -9,7 +9,6 @@ public class Enemy_Battery : character_status
 {
     new void Start()
     {
-		HP_Setting();
 		base.Start();
     }
 

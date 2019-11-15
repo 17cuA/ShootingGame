@@ -39,7 +39,6 @@ public class Enemy_MeteorBound : character_status
 		myBoundMove = parentObj.GetComponent<Enemy_MeteorBound_Move>();
 		defaultLocalPos = transform.localPosition;
 		speedX = Random.Range(2.0f, 3.5f);
-		HP_Setting();
 		base.Start();
 	}
 

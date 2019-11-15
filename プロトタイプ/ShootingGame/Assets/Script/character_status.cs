@@ -16,7 +16,7 @@ public class character_status : MonoBehaviour
 	private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
-	public Collider capsuleCollider;									// collider
+	public Collider Collider;									// collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
@@ -60,11 +60,9 @@ public class character_status : MonoBehaviour
 		//CapsuleColliderがついていたら取得する
 		if (gameObject.GetComponent<Collider>())
 		{
-			capsuleCollider = GetComponent<Collider>();
+			Collider = GetComponent<Collider>();
 		}
 
-		//if (tag == "Player") Remaining = 5;
-		//else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		if(gameObject.name == "Bacula") white_material = Resources.Load<Material>("Material/Bacula") as Material;
@@ -73,7 +71,6 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
         for (int i = 0; i < defaultColor.Length; i++) defaultColor[i] = object_material[i].material.color;
 
-        HP_Setting();
 		framecnt = 0;
 		check = false;
 	}
@@ -96,15 +93,10 @@ public class character_status : MonoBehaviour
 
 		}
 	}
-	//初期の体力を保存
-	public void HP_Setting()
-	{
-		hp_Max = hp;
-	}
 	//再利用可能にするための処理
 	public void Reset_Status()
 	{
-		hp = hp_Max;
+		hp = Parameter.Get_Life;
 	}
 	//ダメージを与える関数
 	public void Damege_Process(int damege)

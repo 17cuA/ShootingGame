@@ -111,7 +111,6 @@ public class Enemy_ClamChouder_Side : character_status
 		//defPosX = (13.0f - transform.position.x) / 120.0f;         //13.0fはとりあえず敵が右へ向かう限界の座標
 		startTime = 0.0f;
 
-		HP_Setting();
 		base.Start();
     }
 

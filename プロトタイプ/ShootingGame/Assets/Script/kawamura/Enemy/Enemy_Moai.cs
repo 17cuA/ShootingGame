@@ -91,7 +91,6 @@ public class Enemy_Moai : character_status
 		MoaiHpMax = hp;
 		isDead = false;
 
-		HP_Setting();
 		base.Start();
 	}
 
