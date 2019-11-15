@@ -546,7 +546,7 @@ public class Bit_Shot : MonoBehaviour
             }
 
         }
-        if (bf.bState == Bit_Formation_3.BitState.Player2)
+        else if (bf.bState == Bit_Formation_3.BitState.Player2)
 		{
             if (bullet_data.Count < 16)
             {
@@ -585,6 +585,17 @@ public class Bit_Shot : MonoBehaviour
 
 	private void Missile_Fire()
 	{
+		if (bf.bState == Bit_Formation_3.BitState.Player1)
+		{
+			GameObject obj2 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+			obj2.GetComponent<Missile>().Setting_On_Reboot(1);
+		}
+		else if (bf.bState == Bit_Formation_3.BitState.Player2)
+		{
+			GameObject obj2 = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE2, shot_Mazle.transform.position, Direction);
+			obj2.GetComponent<Missile>().Setting_On_Reboot(1);
+
+		}
 		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
 		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 		missileDelayCnt = 0;
