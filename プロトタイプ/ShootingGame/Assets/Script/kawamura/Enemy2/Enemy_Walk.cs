@@ -23,8 +23,11 @@ public class Enemy_Walk : MonoBehaviour
 	GameObject childObj;
 	Vector3 velocity;
 
+	CharacterController characterController;
+
 	[Header("入力用　歩くスピード")]
 	public float walkSpeed;
+	public float speedY;
 	public float rotaY;			//角度
 	[Header("入力用　回転スピード")]
 	public float rotaSpeed;
@@ -45,6 +48,7 @@ public class Enemy_Walk : MonoBehaviour
 
 	void Start()
     {
+		characterController = GetComponent<CharacterController>();
 		childObj = transform.GetChild(0).gameObject;
 		walkTimeCnt = 0;
 		stopTimeCnt = 0;
@@ -55,6 +59,8 @@ public class Enemy_Walk : MonoBehaviour
 
     void Update()
     {
+		//this.controller.Move(Vector3.MoveTowards(this.transform.position, cameraPosition, delta) - this.transform.position + Physics.gravity);
+		//characterController.Move(velocity * Time.deltaTime);
 		//とりあえずすり抜けをなくす処理
 		if (transform.position.y < -4.15f)
 		{
@@ -93,9 +99,18 @@ public class Enemy_Walk : MonoBehaviour
 		{
 			//左向きの時移動する
 			case DirectionState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				characterController.Move(velocity * Time.deltaTime);
 
+				if (characterController.collisionFlags != CollisionFlags.None)
+				{
+					speedY = 0;
+				}
+				else
+				{
+					speedY = 1f;
+				}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
 				{
@@ -107,8 +122,17 @@ public class Enemy_Walk : MonoBehaviour
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				characterController.Move(velocity * Time.deltaTime);
+				if (characterController.collisionFlags != CollisionFlags.None)
+				{
+					speedY = 0;
+				}
+				else
+				{
+					speedY = 1f;
+				}
 
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)

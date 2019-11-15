@@ -61,7 +61,6 @@ public class Find_Angle : MonoBehaviour
 					playerObj = null;
 					isPlayer1Active = false;
 				}
-
 			}
 		}
 		if(player2Obj)
