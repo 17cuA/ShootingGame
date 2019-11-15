@@ -68,34 +68,7 @@ public class BackgroundActivation : MonoBehaviour
 				//値リセット
 				changeTrigger = false;
 				elapsedTime = 0.0f;
-
-				/*
-				//hi koroppari4 / friend siva3
-				//main kokuyari
-				//kototue okkezakkusu sivaken
-				//yonzozyu anubisutue ikusaba
-				//omegayari syuumatuono mikaeruken
-
-				//mizu europa3/varuna4
-				//main kokutue
-				//sugitama sugitama sugitama
-				//ropatue huxinburu huxinburu
-				//syumatutue omegatue gabutue 
-
-				//tuti yugu4/yugu4
-				//main omagaken
-				//buroono buroono buroono
-				//burokatana burokatana burokatana
-				//kokuyari syumatukoto urikobushi
-
-				//kaze texia4/texia4
-				//main etalove
-				//gurimukoto gurimukoto gurimukoto
-				//texiazyu texiazyu texiazyu
-				// syumatuyari rahuxakoto
-				*/
 			}
-
 		}
 	}
 
@@ -114,9 +87,9 @@ public class BackgroundActivation : MonoBehaviour
 		{
 			for (int i = 0; i < 9; i++)
 			{
-				materialList[i].SetColor("_TintColor", new Color(1,1,1, _alphaValue ));
+				materialList[i].SetColor("_TintColor", new Color(1,1,1, _alphaValue));
 			}
-			materialList[9].SetColor("_TintColor", new Color(0,0,0, _alphaValue ));
+			materialList[9].SetColor("_TintColor", new Color(0,0,0, _alphaValue));
 		}
 	}
 }
