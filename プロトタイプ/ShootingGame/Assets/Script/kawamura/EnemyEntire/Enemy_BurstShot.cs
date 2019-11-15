@@ -145,8 +145,8 @@ public class Enemy_BurstShot : MonoBehaviour
 			else
 			{
 				//弾生成
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
-				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
+				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_LASER, transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, transform.rotation);
 			}
 
 			//発射数カウントプラス
