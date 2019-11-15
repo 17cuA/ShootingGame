@@ -10,10 +10,10 @@ public class Enemy_Walk : MonoBehaviour
 	//自分の状態
 	public enum DirectionState
 	{
-		Left,		//左向き
+		Left,			//左向き
 		Right,		//右向き
-		Roll,		//回転中
-		Stop,		//停止
+		Roll,			//回転中
+		Stop,			//停止
 	}
 
 	public　DirectionState direcState;		//状態変数
@@ -26,7 +26,9 @@ public class Enemy_Walk : MonoBehaviour
 	public float rotaY;			//角度
 	[Header("入力用　回転スピード")]
 	public float rotaSpeed;
-	public float stopTime;
+	public float walkTimeMax;
+	public float walkTimeCnt;
+	public float stopTimeMax;
 	float stopTimeCnt;			//止まっている時間カウント
 	float rollDelayCnt;			//回転した後のカウント（回転直後に当たり判定をしないようにするため）
 
@@ -35,6 +37,7 @@ public class Enemy_Walk : MonoBehaviour
 
 	void Start()
     {
+		walkTimeCnt = 0;
 		stopTimeCnt = 0;
 		rollDelayCnt = 0;
 		isRoll = false;
@@ -57,6 +60,16 @@ public class Enemy_Walk : MonoBehaviour
 				rollDelayCnt = 0;
 			}
 		}
+
+		if (direcState == DirectionState.Left || direcState == DirectionState.Right)
+		{
+			walkTimeCnt += Time.deltaTime;
+			if (walkTimeCnt > walkTimeMax)
+			{
+				walkTimeCnt = 0;
+				direcState = DirectionState.Stop;
+			}
+		}
 		//動く関数
 		Move();
 	}
@@ -73,12 +86,26 @@ public class Enemy_Walk : MonoBehaviour
 				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
+				walkTimeCnt += Time.deltaTime;
+				if (walkTimeCnt > walkTimeMax)
+				{
+					walkTimeCnt = 0;
+					direcState = DirectionState.Stop;
+				}
+
 				break;
 
 			//右向きの時移動する
 			case DirectionState.Right:
 				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
+
+				walkTimeCnt += Time.deltaTime;
+				if (walkTimeCnt > walkTimeMax)
+				{
+					walkTimeCnt = 0;
+					direcState = DirectionState.Stop;
+				}
 
 				break;
 
