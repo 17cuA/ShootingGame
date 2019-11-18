@@ -469,7 +469,7 @@ public class Enemy_MiddleBoss : character_status
 		blackSmokeEffect.gameObject.SetActive(true);
 
 		//
-		Game_Master.MY.Score_Addition(score, Opponent);
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 
 		Debug.Log(transform.localEulerAngles);

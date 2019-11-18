@@ -13,14 +13,14 @@ public class character_status : MonoBehaviour
 
 	public float speed;                                                 // スピード
 	public int hp;                                                      // 体力
-	private int hp_Max;											//リスポーン時に体力を設定するよう変数
+	//private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
 	public Collider Collider;									// collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
-	public uint score;                                                  // 保持しているスコア
+	//public uint score;                                                  // 保持しているスコア
 	private int shield;                                                 //シールド（主にプレイヤーのみ使うと思う）
 	public bool activeShield;                                           //現在シールドが発動しているかどうかの判定用（初期値false）
 	public int Remaining;                                               //残機（あらかじめ設定）
@@ -46,7 +46,6 @@ public class character_status : MonoBehaviour
 		{
 			hp = Parameter.Get_Life;
 			speed = Parameter.Get_Speed;
-			score = Parameter.Get_Score;
 			shield = Parameter.Get_Shield;
 			Remaining = Parameter.Get_Reaming;
 		}
@@ -111,7 +110,7 @@ public class character_status : MonoBehaviour
 		if (transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score, Opponent);
+			Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			//爆発処理の作成
 			ParticleCreation(7);
@@ -121,7 +120,7 @@ public class character_status : MonoBehaviour
         else if (transform.name == "BattleshipType_Enemy(Clone)" || transform.name == "BattleshipType_Enemy")
         {
             //スコア
-            Game_Master.MY.Score_Addition(score, Opponent);
+            Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
             SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[19]);
 			//SE_Manager.SE_Obj.Enemy_Scleem(Obj_Storage.Storage_Data.audio_se[3]);
             //爆発処理の作成
@@ -132,7 +131,7 @@ public class character_status : MonoBehaviour
         else if(transform.name == "Enemy_MeteorBound_Model(Clone)"|| transform.name ==  "Enemy_MeteorBound_Model")
         {
             //スコア
-            Game_Master.MY.Score_Addition(score, Opponent);
+            Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
             SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[1]);
             //爆発処理の作成
             ParticleCreation(13);
@@ -142,7 +141,7 @@ public class character_status : MonoBehaviour
         else if (gameObject.tag != "Player")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score, Opponent);
+			Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion_small(Obj_Storage.Storage_Data.audio_se[18]);
 			//爆発処理の作成
 			ParticleCreation(4);
@@ -327,7 +326,7 @@ public class character_status : MonoBehaviour
 	//シールドの値を取得する
 	public int Get_Shield()
 	{
-		return shield;
+		return Parameter.Get_Shield;
 	}
 	//シールドの値設定
 	public void Set_Shield()
@@ -337,7 +336,7 @@ public class character_status : MonoBehaviour
 	//キャラクタの設定してある体力を取得するための関数
 	public uint Get_Score()
 	{
-		return score;
+		return Parameter.Get_Score;
 	}
 	//オブジェクトが持っているMaterialを取得
 	//基本的に複数のマテリアルを持っているが前提のため、繰り返しで使われる前提
