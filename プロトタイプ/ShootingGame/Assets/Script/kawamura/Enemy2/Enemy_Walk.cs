@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_Walk : MonoBehaviour
 {
@@ -17,34 +18,49 @@ public class Enemy_Walk : MonoBehaviour
 	}
 
 	public　DirectionState direcState;		//状態変数
-	DirectionState saveDirection;			//状態を一時保存する変数
+	DirectionState saveDirection;           //状態を一時保存する変数
 
+	GameObject childObj;
 	Vector3 velocity;
+
+	CharacterController characterController;
 
 	[Header("入力用　歩くスピード")]
 	public float walkSpeed;
+	public float speedY;
 	public float rotaY;			//角度
 	[Header("入力用　回転スピード")]
 	public float rotaSpeed;
+	[Header("入力用　歩く最大時間（秒）")]
 	public float walkTimeMax;
 	public float walkTimeCnt;
+	[Header("入力用　止まっている最大時間（秒）")]
 	public float stopTimeMax;
-	float stopTimeCnt;			//止まっている時間カウント
+	public float stopTimeCnt;          //止まっている時間カウント
+	[Header("入力用　攻撃間隔")]
+	public float attackTimeMax;
+	public float attackTimeCnt;
 	float rollDelayCnt;			//回転した後のカウント（回転直後に当たり判定をしないようにするため）
 
 	public bool isRoll;			//回転中かどうか
-	bool isRollEnd = false;		//回転が終わったかどうか
+	bool isRollEnd = false;     //回転が終わったかどうか
+	bool isAttack = true;
 
 	void Start()
     {
+		characterController = GetComponent<CharacterController>();
+		childObj = transform.GetChild(0).gameObject;
 		walkTimeCnt = 0;
 		stopTimeCnt = 0;
 		rollDelayCnt = 0;
 		isRoll = false;
+		isAttack = true;
 	}
 
     void Update()
     {
+		//this.controller.Move(Vector3.MoveTowards(this.transform.position, cameraPosition, delta) - this.transform.position + Physics.gravity);
+		//characterController.Move(velocity * Time.deltaTime);
 		//とりあえずすり抜けをなくす処理
 		if (transform.position.y < -4.15f)
 		{
@@ -61,15 +77,15 @@ public class Enemy_Walk : MonoBehaviour
 			}
 		}
 
-		if (direcState == DirectionState.Left || direcState == DirectionState.Right)
-		{
-			walkTimeCnt += Time.deltaTime;
-			if (walkTimeCnt > walkTimeMax)
-			{
-				walkTimeCnt = 0;
-				direcState = DirectionState.Stop;
-			}
-		}
+		//if (direcState == DirectionState.Left || direcState == DirectionState.Right)
+		//{
+		//	walkTimeCnt += Time.deltaTime;
+		//	if (walkTimeCnt > walkTimeMax)
+		//	{
+		//		walkTimeCnt = 0;
+		//		direcState = DirectionState.Stop;
+		//	}
+		//}
 		//動く関数
 		Move();
 	}
@@ -83,30 +99,48 @@ public class Enemy_Walk : MonoBehaviour
 		{
 			//左向きの時移動する
 			case DirectionState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				characterController.Move(velocity * Time.deltaTime);
 
+				if (characterController.collisionFlags != CollisionFlags.None)
+				{
+					speedY = 0;
+				}
+				else
+				{
+					speedY = 1f;
+				}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
 				{
 					walkTimeCnt = 0;
+					saveDirection = direcState;
 					direcState = DirectionState.Stop;
 				}
-
 				break;
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				characterController.Move(velocity * Time.deltaTime);
+				if (characterController.collisionFlags != CollisionFlags.None)
+				{
+					speedY = 0;
+				}
+				else
+				{
+					speedY = 1f;
+				}
 
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
 				{
 					walkTimeCnt = 0;
+					saveDirection = direcState;
 					direcState = DirectionState.Stop;
 				}
-
 				break;
 
 			//回転する
@@ -137,14 +171,26 @@ public class Enemy_Walk : MonoBehaviour
 						isRoll = false;
 						isRollEnd = true;
 					}
-
 					transform.rotation = Quaternion.Euler(0, rotaY, 0);
 				}
 				break;
 
 			case DirectionState.Stop:
 				stopTimeCnt += Time.deltaTime;
+				attackTimeCnt += Time.deltaTime;
 
+				if (stopTimeCnt > stopTimeMax)
+				{
+					direcState = saveDirection;
+					stopTimeCnt = 0;
+					attackTimeCnt = 0;
+					isAttack = true;
+				}
+				if (isAttack && attackTimeCnt > attackTimeMax)
+				{
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET,childObj.transform.position,childObj.transform.rotation);
+					isAttack = false;
+				}
 				break;
 		}
 	}
