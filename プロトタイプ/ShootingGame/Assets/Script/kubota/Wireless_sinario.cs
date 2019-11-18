@@ -10,12 +10,12 @@ public class Wireless_sinario : MonoBehaviour
 {
 	//文字の表示に使っている変数たち--------------------------------------------------------
 	[SerializeField] private string[] scenarios;          // 無線セリフ、上から順に基本流れていく次のセリフにいく(unity側の設定)
-	public string[] Curtain_up;
-	public string[] First_half_boss_before;
-	public string[] First_falf_boss_after;
-	public string[] Moai_before;			//モアイのシナリオ
-	public string[] Second_half_boss_before;
-	public string[] Second_half_boss_after;
+	[SerializeField] private string[] Curtain_up;
+	[SerializeField] private string[] First_half_boss_before;
+	[SerializeField] private string[] First_falf_boss_after;
+	[SerializeField] private string[] Moai_before;           //モアイのシナリオ
+	[SerializeField] private string[] Second_half_boss_before;
+	[SerializeField] private string[] Second_half_boss_after;
 
 	[SerializeField] Text uiText;                   //uitextへの参照
 	[SerializeField]
@@ -225,7 +225,7 @@ public class Wireless_sinario : MonoBehaviour
 
 					}
 				}
-				if (Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)
+				if (Input.GetKeyDown(KeyCode.Alpha0) )
 				{
 					// 完了してないなら文字をすべて表示する
 					timeUntilDisplay = 0;
@@ -311,8 +311,6 @@ public class Wireless_sinario : MonoBehaviour
 			//無線開始時
 			case 0:
 				audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[23]);
-
-
 				//次のサウンドの準備
 				audiosource.clip = Obj_Storage.Storage_Data.audio_se[24];
 				audiosource.loop = true;

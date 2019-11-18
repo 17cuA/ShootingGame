@@ -152,7 +152,7 @@ public class Player2 : character_status
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
+		Set_Shield();                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
@@ -671,7 +671,7 @@ public class Player2 : character_status
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
-		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE2, shot_Mazle.transform.position, Direction);
 		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 	}
 	//プレイヤーの速度上昇
@@ -726,7 +726,7 @@ public class Player2 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		Set_Shield(3);
+		Set_Shield();
 		shield_Effect.Play();               //パーティクルの稼働
 		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
@@ -746,7 +746,7 @@ public class Player2 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -755,7 +755,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 1:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -764,7 +764,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 2:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -773,7 +773,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 3:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;

@@ -614,7 +614,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				//プレイヤー2に追従していたら
 				else if (bState == BitState.Player2)
 				{
-					SetPlayer(2);
+					//追従するプレイヤーをプレイヤー1に変更
+					SetPlayer(1);
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{
@@ -714,7 +715,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				//プレイヤー1を追従していたら
 				if (bState == BitState.Player1)
 				{
-					//追従状態をプレイヤー2に変更
+					//追従するプレイヤーをプレイヤー1に変更
 					SetPlayer(2);
 
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
