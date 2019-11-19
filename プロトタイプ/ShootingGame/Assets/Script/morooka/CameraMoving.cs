@@ -57,7 +57,7 @@ public class CameraMoving : MonoBehaviour
 
 	private void Update()
 	{
-		if(rarara != transform.position)
+		if(Vector3.Distance( rarara ,transform.position) < 0.01f)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, rarara, Time.deltaTime);
 		}
