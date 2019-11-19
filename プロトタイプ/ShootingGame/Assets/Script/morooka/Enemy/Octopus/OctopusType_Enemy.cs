@@ -13,6 +13,13 @@ using UnityEngine;
 
 public class OctopusType_Enemy : MonoBehaviour
 {
+	// 移動の方向
+	public enum DIRECTION
+	{
+		eUP　= 1,				// 上はね
+		eDOWN = -1,			// 下はね
+	}
+
 	[Header("コライダー関係")]
 	[SerializeField,Tooltip ("前の判定")] private Parts_Collider flomtCollieder;
 	[SerializeField,Tooltip ("下のコライダー")] private Parts_Collider downCollieder;
@@ -21,15 +28,34 @@ public class OctopusType_Enemy : MonoBehaviour
 	[SerializeField, Tooltip("ジャンプ力")] private float jumpPower;
 	[SerializeField, Tooltip("横移動量")] private float amountMovement;
 	[SerializeField, Tooltip("落下速度")] private float fallSpeed;
-	[SerializeField, Tooltip("落下向き")] private Vector3 fallingDirection;
+	[SerializeField, Tooltip("落下向き")] private DIRECTION bottomDirection;
 
 	private Rigidbody rigidbody;
 	private float horizontalMovementDirection;
-
+	private Vector3 FallingDirection;
 	void Start()
     {
 		rigidbody = GetComponent<Rigidbody>();
-		horizontalMovementDirection = Mathf.Sign(flomtCollieder.transform.eulerAngles.z) * -1.0f;
+
+		switch (bottomDirection)
+		{
+			case DIRECTION.eUP:
+				transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+				break;
+			case DIRECTION.eDOWN:
+				transform.rotation = Quaternion.identity;
+				break;
+			default:
+				break;
+		}
+
+		horizontalMovementDirection = Mathf.Sign(transform.right.x);
+
+		FallingDirection.y = (float)bottomDirection;
+
+		Vector3 temp = rigidbody.velocity;
+		temp.x += horizontalMovementDirection * amountMovement;
+		rigidbody.velocity = temp;
 	}
 
     void Update()
@@ -40,10 +66,14 @@ public class OctopusType_Enemy : MonoBehaviour
 			// 移動向き変更
 			horizontalMovementDirection *= -1.0f;
 
+			Vector3 temp = rigidbody.velocity;
+			temp.x += (horizontalMovementDirection * amountMovement) * 2.0f;
+			rigidbody.velocity = temp;
+
 			// 当たり判定の向き変更
-			Vector3 temp_1 = flomtCollieder.gameObject.transform.eulerAngles;
-			temp_1.z += 180.0f;
-			flomtCollieder.gameObject.transform.eulerAngles = temp_1;
+			Vector3 temp_2 = flomtCollieder.gameObject.transform.eulerAngles;
+			temp_2.z += 180.0f;
+			flomtCollieder.gameObject.transform.eulerAngles = temp_2;
 		}
 
 		// 底面当たり
@@ -53,16 +83,15 @@ public class OctopusType_Enemy : MonoBehaviour
 			transform.up = downCollieder.HitObject.normal;
 			rigidbody.velocity = downCollieder.HitObject.normal * jumpPower;
 
+			Vector3 temp = rigidbody.velocity;
+			temp.x += horizontalMovementDirection * amountMovement;
+			rigidbody.velocity = temp;
+
 			// オブジェクトの向きを合わせる
-			fallingDirection = downCollieder.HitObject.normal * -1.0f;
+			FallingDirection = downCollieder.HitObject.normal * -1.0f;
 		}
 
 		// 底面方向に落下
-		rigidbody.velocity += fallingDirection * 0.1f;
-
-		// 横に移動
-		Vector3 temp = transform.position;
-		temp.x += horizontalMovementDirection * amountMovement;
-		transform.position = temp;
+		rigidbody.velocity += FallingDirection * fallSpeed;
 	}
 }
