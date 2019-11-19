@@ -15,7 +15,9 @@ public class Laser_Collider_Manager : MonoBehaviour
 	}
 
 	public float playTime;              //全体の再生時間
-	public float elapsedTime;       //経過時間
+	public float elapsedTime;           //経過時間
+
+	public bool isLoop;					//loopの可否
 
 	[SerializeField]
 	public CoordinateChangeStatus xDirectionCoordinateChangeStatus; //X方向
@@ -53,12 +55,12 @@ public class Laser_Collider_Manager : MonoBehaviour
 		if (xDirectionCoordinateChangeStatus.maxColliderSize < (float)xDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime))
 			xDirectionCoordinateChangeStatus.maxColliderSize = (float)xDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
 		if (yDirectionCoordinateChangeStatus.maxColliderSize < (float)yDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime))
-			yDirectionCoordinateChangeStatus.maxColliderSize = (float)yDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime) ;
+			yDirectionCoordinateChangeStatus.maxColliderSize = (float)yDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
 		if (zDirectionCoordinateChangeStatus.maxColliderSize < (float)zDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime))
 			zDirectionCoordinateChangeStatus.maxColliderSize = (float)zDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
 
 		//中心点変更処理
-		Vector3 myColliderCenter = myColliderSize/2.0f;
+		Vector3 myColliderCenter = myColliderSize / 2.0f;
 
 		//中心点固定
 		if (xDirectionCoordinateChangeStatus.coliderCenterFixed) myColliderCenter.x = xDirectionCoordinateChangeStatus.coordinateFixed;
@@ -74,14 +76,15 @@ public class Laser_Collider_Manager : MonoBehaviour
 		else if (playTime > elapsedTime)
 		{
 			if (!xDirectionCoordinateChangeStatus.coliderCenterFixed)
-				myColliderCenter.x = xDirectionCoordinateChangeStatus.maxColliderSize- myColliderCenter.x;
+				myColliderCenter.x = xDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.x;
 			if (!yDirectionCoordinateChangeStatus.coliderCenterFixed)
 				myColliderCenter.y = yDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.y;
 			if (!zDirectionCoordinateChangeStatus.coliderCenterFixed)
 				myColliderCenter.z = zDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.z;
 
-			myCollider.center = myColliderCenter ;
+			myCollider.center = myColliderCenter;
 		}
+
 		//再生時間時間経過後
 		else if (elapsedTime >= playTime)
 		{
@@ -90,8 +93,12 @@ public class Laser_Collider_Manager : MonoBehaviour
 			xDirectionCoordinateChangeStatus.maxColliderSize = 0.0f;
 			yDirectionCoordinateChangeStatus.maxColliderSize = 0.0f;
 			zDirectionCoordinateChangeStatus.maxColliderSize = 0.0f;
-			//非表示にして待機
-			gameObject.SetActive(false);
+
+			if (!isLoop)
+			{
+				//非表示にして待機
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }
