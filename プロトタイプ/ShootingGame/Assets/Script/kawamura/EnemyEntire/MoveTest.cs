@@ -7,6 +7,9 @@ public class MoveTest : MonoBehaviour
 	Vector3 velocity;
 	public float speed;
 
+	public float aliveMax;
+	public float deadCnt;
+	public bool shinimasuka = false;
 	void Start()
     {
         
@@ -17,5 +20,15 @@ public class MoveTest : MonoBehaviour
     {
 		velocity = gameObject.transform.rotation * new Vector3(0, speed, 0);
 		gameObject.transform.position += velocity * Time.deltaTime;
-    }
+
+		if (shinimasuka)
+		{
+			deadCnt += Time.deltaTime;
+			if (deadCnt > aliveMax)
+			{
+				deadCnt = 0;
+				Destroy(gameObject);
+			}
+		}
+	}
 }
