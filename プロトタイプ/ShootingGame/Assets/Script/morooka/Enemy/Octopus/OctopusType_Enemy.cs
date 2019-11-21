@@ -5,13 +5,15 @@
 // タコ型エネミーの挙動
 //----------------------------------------------------------------------------------------------
 // 2019/11/15　移動の挙動
+// 2019/11/19　ジャンプ一回に一回攻撃
 //----------------------------------------------------------------------------------------------
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
-public class OctopusType_Enemy : MonoBehaviour
+public class OctopusType_Enemy : character_status
 {
 	// 移動の方向
 	public enum DIRECTION
@@ -26,13 +28,25 @@ public class OctopusType_Enemy : MonoBehaviour
 
 	[Header("移動関係")]
 	[SerializeField, Tooltip("ジャンプ力")] private float jumpPower;
-	[SerializeField, Tooltip("横移動量")] private float amountMovement;
+	[SerializeField, Tooltip("横移動速度")] private float horizontalMovementSpeed;
 	[SerializeField, Tooltip("落下速度")] private float fallSpeed;
 	[SerializeField, Tooltip("落下向き")] private DIRECTION bottomDirection;
+	[SerializeField, Tooltip("回転速度")] private float rotationalSpeed;
 
-	private Rigidbody rigidbody;
-	private float horizontalMovementDirection;
-	private Vector3 FallingDirection;
+	[Header("攻撃関係")]
+	[SerializeField, Tooltip("弾数")] private int numberBullets;
+	[SerializeField, Tooltip("攻撃頻度")] private int attackFrequency;
+
+	private Rigidbody rigidbody;							// リジッドボディ
+	private float horizontalMovementDirection;		// 横移動の向き(1で右、-1で左)
+	private Vector3 FallingDirection;						// 落下向き
+	private bool Is_Turn;										// 回転するか
+	private bool Is_EndAttackMotion;						// 攻撃モーションが終わったか
+	private float TotalRotation;								// 回転した総量
+	private Vector3 StockVelocity;							// ベロシティの一時保存
+	private Vector3[] BulletDirection;						// 弾出る方向
+	private int NumberJumps;								// ジャンプ回数
+
 	void Start()
     {
 		rigidbody = GetComponent<Rigidbody>();
@@ -54,44 +68,103 @@ public class OctopusType_Enemy : MonoBehaviour
 		FallingDirection.y = (float)bottomDirection;
 
 		Vector3 temp = rigidbody.velocity;
-		temp.x += horizontalMovementDirection * amountMovement;
+		temp.x += horizontalMovementDirection * horizontalMovementSpeed;
 		rigidbody.velocity = temp;
+
+		float temp_2 = 360.0f / (float)numberBullets;
+		BulletDirection = new Vector3[numberBullets];
+		for (int i = 0; i < numberBullets; i++)
+		{
+			BulletDirection[i].z = i * temp_2;
+		}
 	}
 
-    void Update()
+	void Update()
     {
 		// 左右当たり
-		if(flomtCollieder.Is_HitRayCast)
+		if (flomtCollieder.Is_HitRayCast)
 		{
-			// 移動向き変更
-			horizontalMovementDirection *= -1.0f;
+			if (flomtCollieder.HitObject.transform.tag == "Wall")
+			{
+				// 移動向き変更
+				horizontalMovementDirection *= -1.0f;
 
-			Vector3 temp = rigidbody.velocity;
-			temp.x += (horizontalMovementDirection * amountMovement) * 2.0f;
-			rigidbody.velocity = temp;
+				Vector3 temp = rigidbody.velocity;
+				temp.x += (horizontalMovementDirection * horizontalMovementSpeed) * 2.0f;
+				rigidbody.velocity = temp;
 
-			// 当たり判定の向き変更
-			Vector3 temp_2 = flomtCollieder.gameObject.transform.eulerAngles;
-			temp_2.z += 180.0f;
-			flomtCollieder.gameObject.transform.eulerAngles = temp_2;
+				// 当たり判定の向き変更
+				Vector3 temp_2 = flomtCollieder.gameObject.transform.eulerAngles;
+				temp_2.z += 180.0f;
+				flomtCollieder.gameObject.transform.eulerAngles = temp_2;
+			}
 		}
-
 		// 底面当たり
 		if (downCollieder.Is_HitRayCast)
 		{
-			// 底面の向きに合わせて飛び跳ね
-			transform.up = downCollieder.HitObject.normal;
-			rigidbody.velocity = downCollieder.HitObject.normal * jumpPower;
+			if (downCollieder.HitObject.transform.tag == "Wall")
+			{
+				// 底面の向きに合わせて飛び跳ね
+				transform.up = downCollieder.HitObject.normal;
+				rigidbody.velocity = downCollieder.HitObject.normal * jumpPower;
 
-			Vector3 temp = rigidbody.velocity;
-			temp.x += horizontalMovementDirection * amountMovement;
-			rigidbody.velocity = temp;
+				Vector3 temp = rigidbody.velocity;
+				temp.x += horizontalMovementDirection * horizontalMovementSpeed;
+				rigidbody.velocity = temp;
 
-			// オブジェクトの向きを合わせる
-			FallingDirection = downCollieder.HitObject.normal * -1.0f;
+				// オブジェクトの向きを合わせる
+				FallingDirection = downCollieder.HitObject.normal * -1.0f;
+
+				// 攻撃リセット
+				Is_EndAttackMotion = false;
+
+				NumberJumps++;
+			}
 		}
 
-		// 底面方向に落下
-		rigidbody.velocity += FallingDirection * fallSpeed;
+		// ターンしないとき
+		if (!Is_Turn)
+		{
+			// 底面方向に落下
+			rigidbody.velocity += FallingDirection * fallSpeed;
+
+			// 縦の移動速度が0に近づいたとき、まだ攻撃していないとき
+			if (Mathf.Abs(rigidbody.velocity.y) < 0.1f && !Is_EndAttackMotion && NumberJumps >= attackFrequency)
+			{
+				// ベロシティ一時保存、ベロシティ0に
+				StockVelocity = rigidbody.velocity;
+				rigidbody.velocity = Vector3.zero;
+				// ターン開始
+				Is_Turn = true;
+			}
+		}
+		// ターンするとき
+		else if (Is_Turn)
+		{
+				// 別途総回転量の保存
+				TotalRotation += rotationalSpeed;
+				// 回転
+				transform.Rotate(new Vector3(0.0f, rotationalSpeed, 0.0f));
+
+				// 総回転量180以上のとき、攻撃していないとき
+				if (TotalRotation >= 180.0f && !Is_EndAttackMotion)
+				{
+					// 撃ちだし
+					foreach (var dir in BulletDirection)
+					{
+						GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, Quaternion.Euler(dir));
+					}
+					Is_EndAttackMotion = true;
+				}
+				// 総回転量360以上のとき
+				else if (TotalRotation >= 360.0f)
+				{
+					// ベロシティを戻して回転終了
+					rigidbody.velocity = StockVelocity;
+					TotalRotation = 0.0f;
+					NumberJumps = 0;
+					Is_Turn = false;
+				}
+			}
 	}
 }
