@@ -57,6 +57,11 @@ public class Enemy_BurstShot : MonoBehaviour
 			myName = gameObject.name;
 		}
 	}
+
+	private void OnDisable()
+	{
+		once = true;	
+	}
 	void Start()
 	{
 		if (isParent)
