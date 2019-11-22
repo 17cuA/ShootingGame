@@ -47,7 +47,7 @@ public class OctopusType_Enemy : character_status
 	private Vector3[] BulletDirection;						// 弾出る方向
 	private int NumberJumps;								// ジャンプ回数
 
-	void Start()
+	new private void Start()
     {
 		rigidbody = GetComponent<Rigidbody>();
 
@@ -79,7 +79,7 @@ public class OctopusType_Enemy : character_status
 		}
 	}
 
-	void Update()
+	new private void Update()
     {
 		// 左右当たり
 		if (flomtCollieder.Is_HitRayCast)
