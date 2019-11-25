@@ -123,6 +123,10 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
 		///////////////////////
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
+
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	}
 
 	new void Start()
@@ -849,4 +853,16 @@ public class Player1 : character_status
         Is_Resporn_End = true;              //アニメーションが終わったことを知らせる
 
     }
+
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		invincible = true;         //無敵状態にするかどうかの処理
+		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+		target = direction;
+		transform.position = new Vector3(-12, 0, -20);
+		Is_Animation = true;
+		Is_Resporn = true;                      //復活用の処理を行う
+	}
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 }
