@@ -857,12 +857,15 @@ public class Player1 : character_status
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
-		invincible = true;         //無敵状態にするかどうかの処理
-		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-		target = direction;
-		transform.position = new Vector3(-12, 0, -20);
-		Is_Animation = true;
-		Is_Resporn = true;                      //復活用の処理を行う
+		if (to.name != "Stage_01")
+		{
+			invincible = true;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			target = direction;
+			transform.position = new Vector3(-12, 0, -20);
+			Is_Animation = true;
+			Is_Resporn = true;                      //復活用の処理を行う
+		}
 	}
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 }

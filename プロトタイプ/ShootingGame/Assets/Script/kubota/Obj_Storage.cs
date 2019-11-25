@@ -189,7 +189,7 @@ public class Obj_Storage : MonoBehaviour
 		{
 			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Stage_01")
 			{
-				Storage_Data = GetComponent<Obj_Storage>();
+				Obj_Storage.Storage_Data = GetComponent<Obj_Storage>();
 
 				//--------------------------------------------11.25 陳　追加　-----------------------------------------
 				UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
