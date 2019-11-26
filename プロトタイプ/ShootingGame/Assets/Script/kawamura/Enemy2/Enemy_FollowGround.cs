@@ -35,6 +35,8 @@ public class Enemy_FollowGround : MonoBehaviour
 	public float changeDelayCnt;
 	public float chamgeDelayMax;
 
+	public int hitTotal;
+
 	public bool isTop;
 	public bool isUnder;
 	public bool isLeft;
@@ -53,7 +55,8 @@ public class Enemy_FollowGround : MonoBehaviour
 			moveState = MoveState.Left;
 			saveState = moveState;
 		}
-
+		changeDelayCnt = 0;
+		hitTotal = 0;
 	}
 
 
@@ -63,6 +66,8 @@ public class Enemy_FollowGround : MonoBehaviour
 		isUnder = UnderCheck.isCheck;
 		isLeft = LeftCheck.isCheck;
 		isRight = RightCheck.isCheck;
+
+		hitTotal = TopCheck.hitCnt + UnderCheck.hitCnt + LeftCheck.hitCnt + RightCheck.hitCnt;
 
 		if (changeDelayCnt > chamgeDelayMax)
 		{
@@ -74,7 +79,12 @@ public class Enemy_FollowGround : MonoBehaviour
 		}
 
 		Move();
-    }
+		if (changeDelayCnt > chamgeDelayMax)
+		{
+			ChangeDirection();
+		}
+		Move();
+	}
 
 	//動く関数
 	void Move()
@@ -84,25 +94,25 @@ public class Enemy_FollowGround : MonoBehaviour
 			case MoveState.Up:
 				//velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0, 0.066f, 0);
+				transform.position += new Vector3(0, 0.025f, 0);
 				break;
 
 			case MoveState.Dowx:
 				//velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0, -0.066f, 0);
+				transform.position += new Vector3(0, -0.025f, 0);
 				break;
 
 			case MoveState.Left:
 				//velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(-0.066f, 0, 0);
+				transform.position += new Vector3(-0.025f, 0, 0);
 				break;
 
 			case MoveState.Right:
 				//velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0.066f, 0, 0);
+				transform.position += new Vector3(0.025f, 0, 0);
 				break;
 		}
 	}
@@ -135,7 +145,6 @@ public class Enemy_FollowGround : MonoBehaviour
 				moveState = MoveState.Right;
 				saveState = moveState;
 				changeDelayCnt = 0;
-
 			}
 		}
 		else if (defaultState == MoveState.DefaultLeft)
@@ -167,7 +176,7 @@ public class Enemy_FollowGround : MonoBehaviour
 		}
 
 		//地面の角に来た時
-		if (!isTop && !isUnder && !isLeft && !isRight)
+		if (!isTop && !isUnder && !isLeft && !isRight && hitTotal == 0)
 		{
 			if (defaultState == MoveState.DefaultRight)
 			{

@@ -6,15 +6,23 @@ public class ColCheck : MonoBehaviour
 {
 
 	public bool isCheck = false;
+	public int hitCnt;
     void Start()
     {
-        
+		hitCnt = 0;
     }
 
 
     void Update()
     {
-        
+		if (hitCnt > 0)
+		{
+			isCheck = true;
+		}
+		else
+		{
+			isCheck = false;
+		}
     }
 
 
@@ -22,8 +30,10 @@ public class ColCheck : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Player")
 		{
-			isCheck = true;
+			//isCheck = true;
+			hitCnt++;
 		}
+
 	}
 	private void OnTriggerStay(Collider col)
 	{
@@ -36,7 +46,8 @@ public class ColCheck : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Player")
 		{
-			isCheck = false;
+			//isCheck = false;
+			hitCnt--;
 		}
 	}
 
