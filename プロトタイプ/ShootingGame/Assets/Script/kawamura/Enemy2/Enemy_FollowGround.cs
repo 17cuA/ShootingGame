@@ -82,23 +82,27 @@ public class Enemy_FollowGround : MonoBehaviour
 		switch(moveState)
 		{
 			case MoveState.Up:
-				velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				//velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += new Vector3(0, 0.066f, 0);
 				break;
 
 			case MoveState.Dowx:
-				velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				//velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += new Vector3(0, -0.066f, 0);
 				break;
 
 			case MoveState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				//velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += new Vector3(-0.066f, 0, 0);
 				break;
 
 			case MoveState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				//velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += new Vector3(0.066f, 0, 0);
 				break;
 		}
 	}
