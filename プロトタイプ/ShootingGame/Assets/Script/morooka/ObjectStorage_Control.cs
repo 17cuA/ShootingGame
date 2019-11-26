@@ -23,8 +23,12 @@ public class ObjectStorage_Control : MonoBehaviour
 
 	private int Boss_Frame_Cnt { get; set; }     // フレーム別けようのカウント(ボス)
 	private int Normal_Frame_Cnt { get; set; }		// エネミー軍の削除用
-	private int wireless_Frame_Cnt { get; set; }		// 無線時のカウンター
-	private bool Is_Set_Start { get; set; }     // 初期化用
+
+	private int wireless_Frame_Cnt { get; set; }        // 無線時のカウンター
+	//------------------------------------11.26 陳　追加---------------------------------
+	//private -> public にする
+	public bool Is_Set_Start { get; set; }     // 初期化用
+
 	private bool Is_Direct_End { get; set; }		// 直置きオブジェクトの削除
 	private bool Pooling_End { get; set; }		// プーリングしたものの終了
 

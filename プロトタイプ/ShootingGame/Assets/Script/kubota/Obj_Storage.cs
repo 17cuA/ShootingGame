@@ -184,7 +184,7 @@ public class Obj_Storage : MonoBehaviour
 
 	private void Awake()
 	{
-		//----------------------------------------------------------------------------------------
+		
 		if (Obj_Storage.Storage_Data == null)
 		{
 			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Stage_01")
@@ -194,6 +194,8 @@ public class Obj_Storage : MonoBehaviour
 				//--------------------------------------------11.25 陳　追加　-----------------------------------------
 				UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
 				//-----------------------------------------------------------------------------------------------------
+
+
 				DontDestroyOnLoad(gameObject);
 			}
 		}
@@ -204,22 +206,26 @@ public class Obj_Storage : MonoBehaviour
 	}
 		
 
-	void Start()
-	{
-		
-
-	}
-
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
 		if (to.name == "Title")
 		{
 			DeleteAllScenesUsingGos();
+			GetComponent<Game_Master>().ResetScore();
 		}
 		if( to.name == "Stage_01")
 		{
 			CreateAllScenesUsingGos();
+
+			//------------------------------------11.26 陳　追加---------------------------------
+			GetComponent<MapCreate>().CreateMap();
+			GetComponent<ObjectStorage_Control>().EnemyCreate_Data = GameObject.Find("CreateEnemy").GetComponent<EnemyCreate>();
+		}
+
+		if (to.name.Contains("Stage"))
+		{
+			GetComponent<Game_Master>().Stage_Start();
 		}
 	}
 
@@ -565,6 +571,9 @@ public class Obj_Storage : MonoBehaviour
 
 	private void DeleteAllScenesUsingGos()
 	{
+		if (Player == null)
+			return;
+
 		Destroy(Player.Get_Parent_Obj());
 		Destroy(Player_2.Get_Parent_Obj());
 		Destroy(Boss_1.Get_Parent_Obj());

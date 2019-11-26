@@ -210,7 +210,7 @@ public class Game_Master : MonoBehaviour
     /// <summary>
     /// ステージシーンのスタート
     /// </summary>
-    private void Stage_Start()
+    public void Stage_Start()
     {
         //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
@@ -251,5 +251,12 @@ public class Game_Master : MonoBehaviour
 	public void CountDown_Number(int frame)
 	{
 		
+	}
+
+	public void ResetScore()
+	{
+		display_score_1P = 0;
+		display_score_2P = 0;
+		Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 	}
 }
