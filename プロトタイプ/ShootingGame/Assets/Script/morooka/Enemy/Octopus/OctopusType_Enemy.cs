@@ -6,6 +6,7 @@
 //----------------------------------------------------------------------------------------------
 // 2019/11/15　移動の挙動
 // 2019/11/19　ジャンプ一回に一回攻撃
+// 2019/11/25　攻撃アニメーション設定
 //----------------------------------------------------------------------------------------------
 
 using System.Collections;
@@ -22,6 +23,14 @@ public class OctopusType_Enemy : character_status
 		eDOWN = -1,			// 下はね
 	}
 
+	// アニメーションの種類管理
+	public enum OCTOPUS_ANIMATION
+	{
+		eDEFA,			// デフォルト
+		eOPEN,			// オープン
+		eCLOSE,		// クローズ
+	}
+
 	[Header("コライダー関係")]
 	[SerializeField,Tooltip ("前の判定")] private Parts_Collider flomtCollieder;
 	[SerializeField,Tooltip ("下のコライダー")] private Parts_Collider downCollieder;
@@ -36,16 +45,25 @@ public class OctopusType_Enemy : character_status
 	[Header("攻撃関係")]
 	[SerializeField, Tooltip("弾数")] private int numberBullets;
 	[SerializeField, Tooltip("攻撃頻度")] private int attackFrequency;
+	[SerializeField, Tooltip("アニメーション")] private Animation animationAssets;
 
-	private Rigidbody rigidbody;							// リジッドボディ
-	private float horizontalMovementDirection;		// 横移動の向き(1で右、-1で左)
-	private Vector3 FallingDirection;						// 落下向き
-	private bool Is_Turn;										// 回転するか
-	private bool Is_EndAttackMotion;						// 攻撃モーションが終わったか
-	private float TotalRotation;								// 回転した総量
-	private Vector3 StockVelocity;							// ベロシティの一時保存
-	private Vector3[] BulletDirection;						// 弾出る方向
-	private int NumberJumps;								// ジャンプ回数
+	private Rigidbody rigidbody;								// リジッドボディ
+	private float horizontalMovementDirection;			// 横移動の向き(1で右、-1で左)
+	private Vector3 FallingDirection;							// 落下向き
+	private bool Is_Turn;											// 回転するか
+	private bool Is_EndAttackMotion;							// 攻撃モーションが終わったか
+	private float TotalRotation;									// 回転した総量
+	private Vector3 StockVelocity;								// ベロシティの一時保存
+	private Vector3[] BulletDirection;							// 弾出る方向
+	private int NumberJumps;									// ジャンプ回数
+	private OCTOPUS_ANIMATION AnimationType;        // 再生中のアニメーション保存
+
+	private string[] AnimationName = new string[3]
+	{
+		"defo",
+		"Open",
+		"Close"
+	};
 
 	new private void Start()
     {
@@ -77,10 +95,17 @@ public class OctopusType_Enemy : character_status
 		{
 			BulletDirection[i].z = i * temp_2;
 		}
+
+		AnimationType = OCTOPUS_ANIMATION.eDEFA;
 	}
 
 	new private void Update()
     {
+		//if(!animationAssets.IsPlaying(AnimationName[(int)OCTOPUS_ANIMATION.eCLOSE]))
+		//{
+		//	animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eDEFA]);
+		//}
+
 		// 左右当たり
 		if (flomtCollieder.Is_HitRayCast)
 		{
@@ -136,6 +161,9 @@ public class OctopusType_Enemy : character_status
 				rigidbody.velocity = Vector3.zero;
 				// ターン開始
 				Is_Turn = true;
+
+				// オープンアニメーション再生
+				animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eOPEN]);
 			}
 		}
 		// ターンするとき
@@ -163,7 +191,11 @@ public class OctopusType_Enemy : character_status
 					rigidbody.velocity = StockVelocity;
 					TotalRotation = 0.0f;
 					NumberJumps = 0;
-					Is_Turn = false;
+
+				// クローズアニメーション再生
+				animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eCLOSE]);
+
+				Is_Turn = false;
 				}
 			}
 	}
