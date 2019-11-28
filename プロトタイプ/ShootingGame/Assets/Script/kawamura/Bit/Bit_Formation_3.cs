@@ -35,6 +35,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject followPosThirdObj;        //三番目
 	public GameObject followPosFourthObj;       //四番目
 	public GameObject[] circlePosObjects;
+	public GameObject[] fixedPosObjects;
+
 	GameObject target;
 												//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;                        //レーザー時の座標用オブジェクト
@@ -82,6 +84,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isCollection = false;                   //回収されたときに使う
 
 	bool isCircle = false;
+	bool isFixed = false;
 	bool isMove = false;
 	int optionNum;
 
@@ -100,6 +103,9 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
+
+		circlePosObjects = new GameObject[4];
+		fixedPosObjects = new GameObject[4];
 
 		////4つの追従位置とそれぞれのスクリプト取得
 		//followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
@@ -144,6 +150,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
+			//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 			//for (int i = 0; i < 4; i++)
 			//{
 			//	switch(i)
@@ -163,6 +170,30 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//	}
 			//}
+			//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
+			//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+			for (int i = 0; i < 4; i++)
+			{
+				switch (i)
+				{
+					case 0:
+						fixedPosObjects[i] = GameObject.Find("FixedPos_1");
+						break;
+					case 1:
+						fixedPosObjects[i] = GameObject.Find("FixedPos_2");
+						break;
+					case 2:
+						fixedPosObjects[i] = GameObject.Find("FixedPos_3");
+						break;
+					case 3:
+						fixedPosObjects[i] = GameObject.Find("FixedPos_4");
+						break;
+
+				}
+			}
+			//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
 			SetFollowPos();             //追従位置設定
 			option_Particle.Play();     //オプションの見た目パーティクルを起動
 			isborn = false;             //生成時処理をしないようにする
@@ -170,7 +201,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//追従位置を取得していtたらその位置にする
-		if (followPosObj && !isCircle && !isMove)
+		if (followPosObj && !isCircle && !isFixed && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
@@ -211,6 +242,48 @@ public class Bit_Formation_3 : MonoBehaviour
 		//	transform.position = target.transform.position;
 		//}
 		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
+		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			//オンならオフに
+			if (isFixed)
+			{
+				isFixed = false;
+				isCircle = false;
+				isMove = true;
+				target = followPosObj;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else
+			{
+				isFixed = true;
+				isMove = true;
+
+				target = fixedPosObjects[optionNum - 1];
+
+			}
+		}
+
+		if (isMove && !isDead)
+		{
+			float step = moveSpeed * Time.deltaTime;
+
+			transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+			if (transform.position == target.transform.position)
+			{
+				isMove = false;
+				transform.rotation = Quaternion.Euler(target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z);
+				step = 0;
+			}
+		}
+
+		if (isFixed && !isMove && !isDead)
+		{
+			transform.position = target.transform.position;
+		}
+		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
 
 		//プレイヤー死亡時の処理
 		if (bState == BitState.Player1)
@@ -367,15 +440,23 @@ public class Bit_Formation_3 : MonoBehaviour
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
 
-			if(isCircle)
+			if (isCircle)
 			{
 				target = circlePosObjects[optionNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosFirstObj.transform;
@@ -397,11 +478,19 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				target = circlePosObjects[optionNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosSecondObj.transform;
@@ -423,11 +512,19 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				target = circlePosObjects[optionNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosThirdObj.transform;
@@ -449,11 +546,19 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				target = circlePosObjects[optionNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[optionNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosFourthObj.transform;
@@ -506,11 +611,19 @@ public class Bit_Formation_3 : MonoBehaviour
 						{
 							target = circlePosObjects[optionNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
@@ -535,11 +648,19 @@ public class Bit_Formation_3 : MonoBehaviour
 						{
 							target = circlePosObjects[optionNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
@@ -564,11 +685,19 @@ public class Bit_Formation_3 : MonoBehaviour
 						{
 							target = circlePosObjects[optionNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
@@ -593,11 +722,19 @@ public class Bit_Formation_3 : MonoBehaviour
 						{
 							target = circlePosObjects[optionNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[optionNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
