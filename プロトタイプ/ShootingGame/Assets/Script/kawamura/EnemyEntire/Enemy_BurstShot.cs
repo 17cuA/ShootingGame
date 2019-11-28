@@ -17,43 +17,57 @@ public class Enemy_BurstShot : MonoBehaviour
 
 	public string myName;
 	[Header("バーストとバーストの間隔を計る")]
-	public float Shot_Delay;						//バーストとバーストの間隔時間を計る
-	[Header("バーストとバーストの間隔")]
+	public float Shot_DelayCnt;						//バーストとバーストの間隔時間を計る
+	[Header("入力用　バーストとバーストの間隔　秒")]
 	public float Shot_Delay_Max;					//１つのバーストの間隔
-	public float burst_delay;						//バーストの1発1発の間隔時間を計る
-	[Header("バースト内の弾の間隔")]
+	public float burst_DelayCnt;						//バーストの1発1発の間隔時間を計る
+	[Header("入力用　バースト内の弾の間隔")]
 	public float burst_Delay_Max;					//バーストの1発1発の間隔
-	[Header("バーストで撃つ数")]
+	[Header("入力用　バーストで撃つ数")]
 	public int burst_ShotNum;						//撃つバースト数
-	[Header("バーストを撃つ回数")]
+	[Header("入力用　バーストを撃つ回数")]
 	public int burst_Times;
 	public int burst_Num;							//バーストを撃った回数
 	public int burst_Shot_Cnt;						//何発撃ったかのカウント
 	public bool isShot = false;
-	public bool isBurst = false;					//バーストを撃つかどうか
+	public bool isBurst = false;                    //バーストを撃つかどうか
+	bool isParent = false;
 	public bool once;
 
 	private void Awake()
 	{
 		once = true;
-		parentObj = transform.parent.gameObject;
-		myName = parentObj.name;
-		if(parentObj.name== "Enemy_UFO(Clone)")
+		if (transform.parent)
 		{
+			parentObj = transform.parent.gameObject;
 			myName = parentObj.name;
+			isParent = true;
+
+			if (parentObj.name == "Enemy_UFO(Clone)")
+			{
+				myName = parentObj.name;
+			}
+			else if (parentObj.transform.parent)
+			{
+				myName = parentObj.transform.parent.gameObject.name;
+			}
 		}
-		//else
-		//{
-		//	myName = "aaa";
-		//}
-		else if (parentObj.transform.parent)
+		else
 		{
-			myName = parentObj.transform.parent.gameObject.name;
+			myName = gameObject.name;
 		}
+	}
+
+	private void OnDisable()
+	{
+		once = true;	
 	}
 	void Start()
 	{
-		Enemy_transform = transform.parent;
+		if (isParent)
+		{
+			Enemy_transform = transform.parent;
+		}
 		if (myName == "Enemy_Bullfight")
 		{
 			Bullet = Resources.Load("Bullet/Beam_Bullet") as GameObject;
@@ -66,8 +80,8 @@ public class Enemy_BurstShot : MonoBehaviour
 		{
 			Bullet = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		}
-		burst_delay = 0;
-		Shot_Delay = 0;
+		burst_DelayCnt = 0;
+		Shot_DelayCnt = 0;
 		burst_Shot_Cnt = 0;
 	}
 
@@ -79,8 +93,11 @@ public class Enemy_BurstShot : MonoBehaviour
 			Shot_Reset();
 			once = false;
 		}
-        //親のtransformを代入
-        Enemy_transform = transform.parent.transform;
+		//親のtransformを代入
+		if (isParent)
+		{
+			Enemy_transform = transform.parent.transform;
+		}
 
 		//自分が大砲かモアイなら
 		if (myName == "taiho"|| myName == "Enemy_Moai(Clone)")
@@ -96,14 +113,14 @@ public class Enemy_BurstShot : MonoBehaviour
 					}
 				}
 
-				else if (Shot_Delay > Shot_Delay_Max)
+				else if (Shot_DelayCnt > Shot_Delay_Max)
 				{
 					isBurst = true;
-					Shot_Delay = 0;
+					Shot_DelayCnt = 0;
 				}
 				else
 				{
-					Shot_Delay += Time.deltaTime;
+					Shot_DelayCnt += Time.deltaTime;
 				}
 			}
 
@@ -119,21 +136,21 @@ public class Enemy_BurstShot : MonoBehaviour
 				}
 			}
 
-			else if (Shot_Delay > Shot_Delay_Max)
+			else if (Shot_DelayCnt > Shot_Delay_Max)
 			{
 				isBurst = true;
-				Shot_Delay = 0;
+				Shot_DelayCnt = 0;
 			}
 			else
 			{
-				Shot_Delay += Time.deltaTime;
+				Shot_DelayCnt += Time.deltaTime;
 			}
 		}
 	}
 	void BurstShot()
 	{
 		//撃つ
-		if (burst_delay >= burst_Delay_Max)
+		if (burst_DelayCnt >= burst_Delay_Max)
 		{
 			//闘牛はレーザー
 			if (myName == "Enemy_Bullfight")
@@ -152,10 +169,10 @@ public class Enemy_BurstShot : MonoBehaviour
 			//発射数カウントプラス
 			++burst_Shot_Cnt;
 			//バースト計測リセット
-			burst_delay = 0;
+			burst_DelayCnt = 0;
 		}
 		//バースト計測プラス
-		burst_delay += Time.deltaTime;
+		burst_DelayCnt += Time.deltaTime;
 		//バーストを指定の数撃ち切ったら
 		if (burst_Shot_Cnt == burst_ShotNum)
 		{
@@ -167,8 +184,8 @@ public class Enemy_BurstShot : MonoBehaviour
 	}
 	void Shot_Reset()
 	{
-		Shot_Delay = 0;
-		burst_delay = 0;
+		Shot_DelayCnt = 0;
+		burst_DelayCnt = 0;
 		burst_Num = 0;
 		isBurst = false;
 	}

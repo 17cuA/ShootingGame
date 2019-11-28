@@ -101,6 +101,7 @@ public class Enemy_Walk : MonoBehaviour
 			case DirectionState.Left:
 				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
+				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
 
 				if (characterController.collisionFlags != CollisionFlags.None)
