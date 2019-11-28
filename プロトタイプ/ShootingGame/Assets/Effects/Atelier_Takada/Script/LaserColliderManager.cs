@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser_Collider_Manager : MonoBehaviour
+public class LaserColliderManager : MonoBehaviour
 {
 	//コライダーの任意方向への変化のステータス
 	[System.Serializable]
