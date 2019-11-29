@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bit_Formation_3 : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject[] circlePosObjects;
 	public GameObject[] fixedPosObjects;
 
-	GameObject target;
+	public GameObject target;
 												//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;                        //レーザー時の座標用オブジェクト
 	public GameObject particleObj;
@@ -65,7 +66,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	int option_OrdinalNum;                      //オプション自身がどの何番目の追従位置にいるのかの番号
+	public int option_OrdinalNum;                      //オプション自身が何番目の追従位置にいるのかの番号
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -86,12 +87,13 @@ public class Bit_Formation_3 : MonoBehaviour
 	bool isCircle = false;
 	bool isFixed = false;
 	bool isMove = false;
-	int optionNum;
 
 
 
 	void Start()
 	{
+		SceneManager.activeSceneChanged += ActiveSceneChanged;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 		isborn = true;                  //出現時の処理をするように
 										//isScaleDec = true;
 		defaultSpeed = 20;              //死んだときの初速設定
@@ -221,7 +223,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		//		isCircle = true;
 		//		isMove = true;
 
-		//		target = circlePosObjects[optionNum - 1];
+		//		target = circlePosObjects[option_OrdinalNum - 1];
 
 		//	}
 		//}
@@ -260,7 +262,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				isFixed = true;
 				isMove = true;
 
-				target = fixedPosObjects[optionNum - 1];
+				target = fixedPosObjects[option_OrdinalNum - 1];
 
 			}
 		}
@@ -273,7 +275,8 @@ public class Bit_Formation_3 : MonoBehaviour
 			if (transform.position == target.transform.position)
 			{
 				isMove = false;
-				transform.rotation = Quaternion.Euler(target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z);
+				//transform.rotation = Quaternion.Euler(target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z);
+				//transform.eulerAngles += target.transform.eulerAngles;
 				step = 0;
 			}
 		}
@@ -298,7 +301,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				//追従位置の参照を外す
 				followPosObj = null;
 				target = null;
-				optionNum = 0;
+				option_OrdinalNum = 0;
 
 				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
 				switch (option_OrdinalNum)
@@ -391,6 +394,18 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	//------------------ここから関数------------------
 
+	void ActiveSceneChanged(Scene thisScene, Scene nextScene)
+	{
+		//Debug.Log(thisScene.name);
+		//Debug.Log(nextScene.name);
+		SetFollowPos();
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		//Debug.Log(scene.name + " scene loaded");
+		SetFollowPos();
+	}
 	//追従するプレイヤーをセットして、追従位置も取得する関数
 	public void SetPlayer(int playerNum)
 	{
@@ -435,20 +450,20 @@ public class Bit_Formation_3 : MonoBehaviour
 		//プレイヤーに一番近い追従オブジェクトのオプション所持判定がなかった時
 		if (!FtoPlayer.hasOption)
 		{
-			optionNum = 1;
+			option_OrdinalNum = 1;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
 
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 			else if (isFixed)
 			{
-				target = fixedPosObjects[optionNum - 1];
+				target = fixedPosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = target.transform.rotation;
 			}
@@ -464,25 +479,24 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 1;
 			collectDelay = 0;
 		}
 		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
-			optionNum = 2;
+			option_OrdinalNum = 2;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 			else if (isFixed)
 			{
-				target = fixedPosObjects[optionNum - 1];
+				target = fixedPosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = target.transform.rotation;
 			}
@@ -498,25 +512,24 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 2;
 			collectDelay = 0;
 		}
 		//三番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Third.hasOption)
 		{
-			optionNum = 3;
+			option_OrdinalNum = 3;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 			else if (isFixed)
 			{
-				target = fixedPosObjects[optionNum - 1];
+				target = fixedPosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = target.transform.rotation;
 			}
@@ -532,25 +545,24 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 3;
 			collectDelay = 0;
 		}
 		//四番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Fourth.hasOption)
 		{
-			optionNum = 4;
+			option_OrdinalNum = 4;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 			else if (isFixed)
 			{
-				target = fixedPosObjects[optionNum - 1];
+				target = fixedPosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
 				transform.rotation = target.transform.rotation;
 			}
@@ -566,9 +578,14 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 4;
 			collectDelay = 0;
 		}
+	}
+
+	//シーン変化時の再配置
+	void Relocation()
+	{
+
 	}
 
 	//オプション回収の処理
@@ -602,20 +619,20 @@ public class Bit_Formation_3 : MonoBehaviour
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{
-						optionNum = 1;
+						option_OrdinalNum = 1;
 						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[optionNum - 1];
+							target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -629,7 +646,6 @@ public class Bit_Formation_3 : MonoBehaviour
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 1;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -639,20 +655,20 @@ public class Bit_Formation_3 : MonoBehaviour
 					//二番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Second.hasOption)
 					{
-						optionNum = 2;
+						option_OrdinalNum = 2;
 						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Second.hasOption = true;
 						followPosObj = followPosSecondObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[optionNum - 1];
+							target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -666,7 +682,6 @@ public class Bit_Formation_3 : MonoBehaviour
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 2;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -676,20 +691,20 @@ public class Bit_Formation_3 : MonoBehaviour
 					//三番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Third.hasOption)
 					{
-						optionNum = 3;
+						option_OrdinalNum = 3;
 						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Third.hasOption = true;
 						followPosObj = followPosThirdObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[optionNum - 1];
+							target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -703,7 +718,6 @@ public class Bit_Formation_3 : MonoBehaviour
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 3;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -713,20 +727,20 @@ public class Bit_Formation_3 : MonoBehaviour
 					//四番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Fourth.hasOption)
 					{
-						optionNum = 4;
+						option_OrdinalNum = 4;
 						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Fourth.hasOption = true;
 						followPosObj = followPosFourthObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[optionNum - 1];
+							target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -740,7 +754,6 @@ public class Bit_Formation_3 : MonoBehaviour
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 4;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
