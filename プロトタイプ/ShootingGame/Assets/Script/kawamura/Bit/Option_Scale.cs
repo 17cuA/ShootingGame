@@ -8,7 +8,7 @@ public class Option_Scale : MonoBehaviour
 {
 	Bit_Formation_3 bf;
 
-	int scaleDelay;
+	public int scaleDelay;
 	float scale_value;
 	public float scale_Collect;
 
@@ -34,8 +34,9 @@ public class Option_Scale : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		//オプションの縮小試し
+		//オプションの縮小
 		scaleDelay++;
+		//回収された後の大きくなる処理
 		if (isCollectInc)
 		{
 			scale_Collect += 0.1f;
@@ -75,7 +76,13 @@ public class Option_Scale : MonoBehaviour
 			transform.localScale = new Vector3(scale_value, scale_value, 0);
 			scaleDelay = 0;
 		}
-		if(bf.isCollection)
+
+		if (!bf.isDead && bf.pl1.Is_Resporn)
+		{
+			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
+		}
+
+		if (bf.isCollection)
 		{
 			bf.isCollection = false;
 
