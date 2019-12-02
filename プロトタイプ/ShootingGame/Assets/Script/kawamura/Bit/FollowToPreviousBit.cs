@@ -41,7 +41,6 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーを取得したらtrue
 	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
-	public bool endDDDDDDDDDDDDDDDDDDDDDDDDDDD = false;
 	void Start()
 	{
 		isPlayerLive = false;
@@ -175,7 +174,6 @@ public class FollowToPreviousBit : MonoBehaviour
 
 				if (!followParent_Script.isResetPosEnd && !isResetPos)
 				{
-					endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
 					//pl1.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;
 					pos = playerObj.transform.position;
