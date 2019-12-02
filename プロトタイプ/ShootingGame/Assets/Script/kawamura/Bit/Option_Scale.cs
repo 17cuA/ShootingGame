@@ -15,6 +15,7 @@ public class Option_Scale : MonoBehaviour
 	bool isScaleInc = false;
 	bool isScaleDec=false;
 	public bool isCollectInc = true;
+	bool isStageBeginning = false;
 	// Start is called before the first frame update
 
 	private void Awake()
@@ -43,6 +44,7 @@ public class Option_Scale : MonoBehaviour
 			if(scale_Collect>1.5f)
 			{
 				scale_Collect = 1.5f;
+				scale_value = 1.5f;
 				isScaleDec = true;
 				isScaleInc = false;
 				isCollectInc = false;
@@ -51,25 +53,29 @@ public class Option_Scale : MonoBehaviour
 		}
 		else if(scaleDelay > 5)
 		{
-			if (isScaleInc)
+			if (!isStageBeginning)
 			{
-				scale_value += 0.2f;
-				if (scale_value > 1.5f)
+				if (isScaleInc)
 				{
-					scale_value = 1.5f;
-					isScaleInc = false;
-					isScaleDec = true;
+					scale_value += 0.2f;
+					if (scale_value > 1.5f)
+					{
+						scale_value = 1.5f;
+						isScaleInc = false;
+						isScaleDec = true;
+					}
 				}
-			}
-			else if (isScaleDec)
-			{
-				scale_value -= 0.2f;
-				if (scale_value < 1.1f)
+				else if (isScaleDec)
 				{
-					scale_value = 1.1f;
-					isScaleDec = false;
-					isScaleInc = true;
+					scale_value -= 0.2f;
+					if (scale_value < 1.1f)
+					{
+						scale_value = 1.1f;
+						isScaleDec = false;
+						isScaleInc = true;
+					}
 				}
+
 			}
 
 			//scale_value = Mathf.Sin(Time.frameCount) / 12.5f + 0.42f;
@@ -79,7 +85,17 @@ public class Option_Scale : MonoBehaviour
 
 		if (!bf.isDead && bf.pl1.Is_Resporn)
 		{
-			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
+			transform.localScale = new Vector3(0, 0, 0);
+			//scale_value = 0;
+			scale_Collect = 0;
+			isStageBeginning = true;
+		}
+		else
+		{
+			isStageBeginning = false;
+			//isScaleInc = true;
+			//isScaleDec = false;
+			isCollectInc = true;
 		}
 
 		if (bf.isCollection)
