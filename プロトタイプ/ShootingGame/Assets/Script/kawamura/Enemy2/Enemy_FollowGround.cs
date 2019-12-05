@@ -21,16 +21,19 @@ public class Enemy_FollowGround : MonoBehaviour
 	public MoveState saveState;			//ひとつ前のを見るために入れておく用
 
 	Vector3 velocity;
+	Vector3 velocity_norm;
 
 	Collider coll;
 
 	public ColCheck TopCheck;			//上側のコライダーチェック用
 	public ColCheck UnderCheck;		//下側のコライダーチェック用
 	public ColCheck LeftCheck;			//左側のコライダーチェック用
-	public ColCheck RightCheck;		//右側のコライダーチェック用
+	public ColCheck RightCheck;     //右側のコライダーチェック用
 
-	public float speedX;		//Xスピード
-	public float speedY;		//Yスピード
+	public float speedX_Max;        //Xスピードマックス
+	public float speedX;			//Xスピード
+	public float speedY_Max;        //Yスピードマックス
+	public float speedY;			//Yスピード
 
 	float changeDelayCnt;					//移動向きが変わったときに連続で切り替わらないようにするためのディレイカウント
 	public float chamgeDelayMax;		//ディレイの最大
@@ -96,27 +99,31 @@ public class Enemy_FollowGround : MonoBehaviour
 		switch(moveState)
 		{
 			case MoveState.Up:
-				//velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
-				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0, 0.025f, 0);
+				velocity = gameObject.transform.rotation * new Vector3(0, speedY, 0);
+				velocity_norm = velocity.normalized;
+				gameObject.transform.position += velocity_norm * Time.deltaTime;
+				//transform.position += new Vector3(0, 0.025f, 0);
 				break;
 
 			case MoveState.Dowx:
-				//velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
-				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0, -0.025f, 0);
+				velocity = gameObject.transform.rotation * new Vector3(0, -speedY, 0);
+				velocity_norm = velocity.normalized;
+				gameObject.transform.position += velocity_norm * Time.deltaTime;
+				//transform.position += new Vector3(0, -0.025f, 0);
 				break;
 
 			case MoveState.Left:
-				//velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
-				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(-0.025f, 0, 0);
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, 0, 0);
+				velocity_norm = velocity.normalized;
+				gameObject.transform.position += velocity_norm * Time.deltaTime;
+				//transform.position += new Vector3(-0.025f, 0, 0);
 				break;
 
 			case MoveState.Right:
-				//velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
-				//gameObject.transform.position += velocity * Time.deltaTime;
-				transform.position += new Vector3(0.025f, 0, 0);
+				velocity = gameObject.transform.rotation * new Vector3(speedX, 0, 0);
+				velocity_norm = velocity.normalized;
+				gameObject.transform.position += velocity_norm * Time.deltaTime;
+				//transform.position += new Vector3(0.025f, 0, 0);
 				break;
 		}
 	}
