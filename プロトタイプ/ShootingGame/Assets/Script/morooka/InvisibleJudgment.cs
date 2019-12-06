@@ -14,13 +14,31 @@ public class InvisibleJudgment : MonoBehaviour
 	[SerializeField, Tooltip("使いたいスクリプト(character_status)")] private character_status character;
 	[SerializeField, Tooltip("使いたいスクリプト(MonoBehaviour)")]	private MonoBehaviour monoBehaviour;
 
+	private void Awake()
+	{
+		Renderer temp;
+		//レンダーなしオブジェクトにレンダー付け
+		if (gameObject.GetComponent<Renderer>() == null)
+		{
+			temp = gameObject.AddComponent<SpriteRenderer>();
+		}
+		else
+		{
+			temp = GetComponent<Renderer>();
+		}
+
+		if (character != null) character.enabled = temp.isVisible;
+		if (monoBehaviour != null) monoBehaviour.enabled = temp.isVisible;
+
+	}
+
 	/// <summary>
 	/// 表示されるようになった時の処理
 	/// </summary>
 	void OnBecameVisible()
 	{
-		if (character == null) character.enabled = true;
-		if (monoBehaviour == null) monoBehaviour.enabled = true;
+		if (character != null) character.enabled = true;
+		if (monoBehaviour != null) monoBehaviour.enabled = true;
 	}
 
 	/// <summary>
@@ -28,7 +46,8 @@ public class InvisibleJudgment : MonoBehaviour
 	/// </summary>
 	void OnBecameInvisible()
 	{
-		if (character == null) character.enabled = false;
-		if (monoBehaviour == null) monoBehaviour.enabled = false;
+		if (character != null) character.enabled = false;
+		if (monoBehaviour != null) monoBehaviour.enabled = false;
+		Debug.Log(this.name + "停止");
 	}
 }

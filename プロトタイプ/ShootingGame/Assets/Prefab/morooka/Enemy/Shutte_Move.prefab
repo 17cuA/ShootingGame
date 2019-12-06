@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972604752709351918}
   - component: {fileID: 4972604752709351917}
+  - component: {fileID: 1080421895359244103}
   m_Layer: 0
   m_Name: Shutte_Move
   m_TagString: Wall
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4972604752709351919}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -24, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -41,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4972604752709351919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee10ce24855e9a64bbed403f01667ef1, type: 3}
+  m_Script: {fileID: 11500000, guid: febc20fc4389ef444abf430133b2e53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Parameter: {fileID: 0}
@@ -65,10 +66,25 @@ MonoBehaviour:
   white_material: {fileID: 0}
   Opponent: 0
   namenamename: 
-  boxSize: {x: 1, y: 7, z: 1}
+  boxSize: {x: 1, y: 7, z: 0}
   rayLength: 6
-  target: {x: 0, y: 7.5, z: 0}
+  target: {x: 0, y: 7, z: 0}
   moveObject: {fileID: 4972604752991751163}
+  mode: 1
+--- !u!114 &1080421895359244103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972604752709351919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4968c2580fb5ef54d8fbbf3b8676ad60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 4972604752709351917}
+  monoBehaviour: {fileID: 0}
 --- !u!1 &4972604752991751163
 GameObject:
   m_ObjectHideFlags: 0
