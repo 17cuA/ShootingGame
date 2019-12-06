@@ -10,12 +10,15 @@ public class RayLaser : MonoBehaviour
 	RaycastHit hitObject;	//ヒットしたオブジェクト情報
 	float rayLength = 40;   //レイの長さ
 
+	public ParticleSystem buringParticle;		//着弾火炎
+
 	public List<ParticleSystem> particleSystemList = new List<ParticleSystem>();    //レーザーのパーティクル
 	float startLifetime = 0.25f;        //レーザーの最大の生存時間(基準)
 
 	void Start()
 	{
 		boxCollider = GetComponent<BoxCollider>();
+		buringParticle.Stop();
 	}
 
 	void Update()
@@ -39,7 +42,7 @@ public class RayLaser : MonoBehaviour
 		if (Physics.Raycast(ray, out hitObject, rayLength))
 		{
 			//当たったオブジェクトとの距離
-			float interval = Vector3.Distance(transform.position, hitObject.transform.position);
+			float interval = Vector3.Distance(transform.position, hitObject.point);
 
 			laserLifetime = startLifetime * (interval / rayLength);
 			for (int i = 0; i < particleSystemList.Count; i++)
@@ -49,6 +52,24 @@ public class RayLaser : MonoBehaviour
 
 			boxColliderSize = new Vector3(-interval, 1, 1);
 			boxColliderCenter = new Vector3(-interval / 2, 0, 0);
+
+			//着弾処理
+			//エフェクト移動
+			buringParticle.gameObject.transform.position = hitObject.point;
+			//注視
+			buringParticle.gameObject.transform.LookAt(this.gameObject.transform);
+			//再生
+			if (!buringParticle.isPlaying)
+			{
+				buringParticle.Play();
+			}
+		}
+		else
+		{
+			if (buringParticle.isPlaying)
+			{
+				buringParticle.Stop();
+			}
 		}
 
 		//数値更新
