@@ -40,7 +40,17 @@ public class Enemy_Walk : MonoBehaviour
 	[Header("入力用　攻撃間隔")]
 	public float attackTimeMax;
 	public float attackTimeCnt;
-	float rollDelayCnt;			//回転した後のカウント（回転直後に当たり判定をしないようにするため）
+	float rollDelayCnt;         //回転した後のカウント（回転直後に当たり判定をしないようにするため）
+
+
+	//
+	public Vector3 groundNormal = Vector3.zero;
+
+	private Vector3 lastGroundNormal = Vector3.zero;
+	public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
+
+	public float groundAngle = 0;
+	//
 
 	public bool isRoll;			//回転中かどうか
 	bool isRollEnd = false;     //回転が終わったかどうか
@@ -91,6 +101,25 @@ public class Enemy_Walk : MonoBehaviour
 	}
 
 	//----------------ここから関数----------------
+	void MotorOnControllerColliderHit(ControllerColliderHit hit)
+	{
+		if (hit.normal.y > 0 && hit.moveDirection.y < 0)
+		{
+			if ((hit.point - lastHitPoint).sqrMagnitude > 0.001f || lastGroundNormal == Vector3.zero)
+			{
+				groundNormal = hit.normal;
+			}
+			else
+			{
+				groundNormal = lastGroundNormal;
+			}
+
+			lastHitPoint = hit.point;
+		}
+
+		// 現在の接地面の角度を取得
+		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+	}
 
 	//動く関数
 	void Move()
@@ -110,7 +139,7 @@ public class Enemy_Walk : MonoBehaviour
 				}
 				else
 				{
-					speedY = 1f;
+					speedY = 3f;
 				}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
@@ -132,7 +161,7 @@ public class Enemy_Walk : MonoBehaviour
 				}
 				else
 				{
-					speedY = 1f;
+					speedY = 3f;
 				}
 
 				walkTimeCnt += Time.deltaTime;

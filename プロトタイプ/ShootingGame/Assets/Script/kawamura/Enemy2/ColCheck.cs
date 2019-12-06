@@ -44,13 +44,13 @@ public class ColCheck : MonoBehaviour
     {
 		if (isVertical)
 		{
-			aaa = new Vector3(transform.localPosition.x - 0.5f, transform.localPosition.y, transform.localPosition.z);
-			bbb = new Vector3(transform.localPosition.x + 0.5f, transform.localPosition.y, transform.localPosition.z);
+			aaa = new Vector3(transform.position.x - 0.45f, transform.position.y, transform.position.z);
+			bbb = new Vector3(transform.position.x + 0.45f, transform.position.y, transform.position.z);
 		}
 		else if (isHorizontal)
 		{
-			aaa = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z);
-			bbb = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.5f, transform.localPosition.z);
+			aaa = new Vector3(transform.position.x, transform.position.y - 0.45f, transform.position.z);
+			bbb = new Vector3(transform.position.x, transform.position.y + 0.45f, transform.position.z);
 		}
 		RayTest();
 	
@@ -86,7 +86,6 @@ public class ColCheck : MonoBehaviour
 				else if (isHorizontal)
 				{
 					angleCheck = groundAngle.z - 90;
-
 				}
 
 				if (hit.collider.tag == "Player")
