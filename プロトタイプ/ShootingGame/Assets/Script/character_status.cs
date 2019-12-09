@@ -326,7 +326,7 @@ public class character_status : MonoBehaviour
 	//シールドの値を取得する
 	public int Get_Shield()
 	{
-		return Parameter.Get_Shield;
+		return shield;
 	}
 	//シールドの値設定
 	public void Set_Shield()
