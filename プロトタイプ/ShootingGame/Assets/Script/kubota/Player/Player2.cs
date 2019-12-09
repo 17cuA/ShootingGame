@@ -124,6 +124,10 @@ public class Player2 : character_status
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
 		///////////////////////
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
+
+		//-----------------------------------------11.29 陳追加　----------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------11.29 陳追加　----------------------------------------
 	}
 	//プレイヤーのアクティブが切られたら呼び出される
 	private void OnDisable()
@@ -148,7 +152,6 @@ public class Player2 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
-		HP_Setting();
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
@@ -333,7 +336,7 @@ public class Player2 : character_status
 		}
 		else
 		{
-			capsuleCollider.enabled = false;
+			Collider.enabled = false;
 		}
 
 		for (int i = 0; i < bullet_data.Count; i++)
@@ -870,4 +873,24 @@ public class Player2 : character_status
         Start_animation_frame = 0;
         Is_Resporn_End = true;   
     }
+
+	//-----------------------------------------11.29 陳追加　----------------------------------------
+	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		if (to.name != "Stage_01" && to.name.Contains("Stage"))
+		{
+			invincible = true;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			target = direction;
+			Obj_Storage.Storage_Data.GetPlayer2().transform.position = new Vector3(-12, 0, -20);
+			Is_Animation = true;
+			Is_Resporn = true;                      //復活用の処理を行う
+		}
+	}
+
+	private void OnDestroy()
+	{
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChange;		
+	}
+	//-----------------------------------------11.29 陳追加　----------------------------------------
 }

@@ -180,16 +180,57 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 
 
+	//----------------------------------------------------------
 
-    //----------------------------------------------------------
-    private void Awake()
+	private void Awake()
 	{
-		Storage_Data = GetComponent<Obj_Storage>();
+		
+		if (Obj_Storage.Storage_Data == null)
+		{
+			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Stage_01")
+			{
+				Obj_Storage.Storage_Data = GetComponent<Obj_Storage>();
+
+				//--------------------------------------------11.25 陳　追加　-----------------------------------------
+				UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+				//-----------------------------------------------------------------------------------------------------
+
+
+				DontDestroyOnLoad(gameObject);
+			}
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
+		
+
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		if (to.name == "Title")
+		{
+			DeleteAllScenesUsingGos();
+			GetComponent<Game_Master>().ResetScore();
+		}
+		if( to.name == "Stage_01")
+		{
+			CreateAllScenesUsingGos();
+
+			//------------------------------------11.26 陳　追加---------------------------------
+			GetComponent<MapCreate>().CreateMap();
+			GetComponent<ObjectStorage_Control>().EnemyCreate_Data = GameObject.Find("CreateEnemy").GetComponent<EnemyCreate>();
+		}
+
+		if (to.name.Contains("Stage"))
+		{
+			GetComponent<Game_Master>().Stage_Start();
+		}
 	}
 
-	void Start()
+	private void CreateAllScenesUsingGos()
 	{
-
 		Player_Prefab = Resources.Load("Player/Player") as GameObject;
 		player_2_Prefab = Resources.Load("Player/Player2") as GameObject;
 		Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
@@ -204,8 +245,8 @@ public class Obj_Storage : MonoBehaviour
 		Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
 		Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
 		Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-        SmallBeam_Bullet_E_Prefab= Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
-        UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
+		SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
+		UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
 		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
@@ -214,7 +255,7 @@ public class Obj_Storage : MonoBehaviour
 		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
-		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;		//中ボス
+		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;     //中ボス
 		Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
 		One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 		One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
@@ -254,7 +295,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");         //コアシールドヒット音
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
-		//装備セレクトで使用するもの------------------------------------------------------
+																							//装備セレクトで使用するもの------------------------------------------------------
 		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch");           //ドロップしたオプションの回収
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_5(Moyai)");           //モアイの爆発
 		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
@@ -303,49 +344,68 @@ public class Obj_Storage : MonoBehaviour
 		audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
 		audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
 		audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
-                                                                                                    //--------------------------------------------------------------------------------------------------------
-        enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
-        enemy_UFO_Group_NoneShot_prefab = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
-        enemy_ClamChowder_Group_Two_Top_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
-        enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
-        enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUP") as GameObject;
-        enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
-        enemy_ClamChowder_Group_Three_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
-        enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
-        enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
-        enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
-        enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
-        enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
-        enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
-        enemy_ClamChowder_Group_Four_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
-        enemy_ClamChowder_Group_Five_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
-        enemy_ClamChowder_Group_Five_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
-        enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
-        enemy_ClamChowder_Group_Straight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
-        //enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
-        enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
-        enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
-        enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_Beetle_Group") as GameObject;
-        enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_Beetle_Group_Three") as GameObject;
-        boundMeteors_prefab = Resources.Load("Enemy/BoundMeteors") as GameObject;
-        enemy_Bacula_Sixteen_prefab = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
-        enemy_Bacula_FourOnly_prefab = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
-        //9月13日追加
-        enemy_ClamChowder_FourTriangle_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle") as GameObject;
-        enemy_ClamChowder_FourTriangle_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle_NoItem") as GameObject;
-        enemy_Beelzebub_Group_EightNormal_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_EightNormal_Item") as GameObject;
-        //enemy_ClamChowder_Group_TwelveStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwelveStraight") as GameObject;
-        enemy_UFO_Group_Five_prefab = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
-        enemy_Beetle_Group_Seven_prefab = Resources.Load("Enemy/Enemy_Beetle_Group_Seven") as GameObject;
-        enemy_ClamChowder_Group_SevenStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_SevenStraight") as GameObject;
-        enemy_ClamChowder_Group_SixStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_SixStraight") as GameObject;
-        enemy_ClamChowder_Group_UpSevenDiagonal_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_UpSevenDiagonal") as GameObject;
-        enemy_ClamChowder_Group_DownSevenDiagonal_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_DownSevenDiagonal") as GameObject;
-        enemy_ClamChowder_Group_TenStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TenStraight") as GameObject;
+																									//--------------------------------------------------------------------------------------------------------
+		enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
+		enemy_UFO_Group_NoneShot_prefab = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
+		enemy_ClamChowder_Group_Two_Top_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Top") as GameObject;
+		enemy_ClamChowder_Group_Two_Under_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Two_Under") as GameObject;
+		enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyUP") as GameObject;
+		enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwoWaveOnlyDown") as GameObject;
+		enemy_ClamChowder_Group_Three_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three") as GameObject;
+		enemy_ClamChowder_Group_Three_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Three_Item") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item") as GameObject;
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item") as GameObject;
+		enemy_ClamChowder_Group_Four_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four") as GameObject;
+		enemy_ClamChowder_Group_Four_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Four_NoItem") as GameObject;
+		enemy_ClamChowder_Group_Five_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five") as GameObject;
+		enemy_ClamChowder_Group_Five_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
+		enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
+		enemy_ClamChowder_Group_Straight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
+		//enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
+		enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
+		enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
+		enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_Beetle_Group") as GameObject;
+		enemy_BeetleGroup_Three_prefab = Resources.Load("Enemy/Enemy_Beetle_Group_Three") as GameObject;
+		boundMeteors_prefab = Resources.Load("Enemy/BoundMeteors") as GameObject;
+		enemy_Bacula_Sixteen_prefab = Resources.Load("Enemy/Enemy_Bacula_Sixteen") as GameObject;
+		enemy_Bacula_FourOnly_prefab = Resources.Load("Enemy/Enemy_Bacula_FourOnly") as GameObject;
+		//9月13日追加
+		enemy_ClamChowder_FourTriangle_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle") as GameObject;
+		enemy_ClamChowder_FourTriangle_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle_NoItem") as GameObject;
+		enemy_Beelzebub_Group_EightNormal_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_EightNormal_Item") as GameObject;
+		//enemy_ClamChowder_Group_TwelveStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwelveStraight") as GameObject;
+		enemy_UFO_Group_Five_prefab = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
+		enemy_Beetle_Group_Seven_prefab = Resources.Load("Enemy/Enemy_Beetle_Group_Seven") as GameObject;
+		enemy_ClamChowder_Group_SevenStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_SevenStraight") as GameObject;
+		enemy_ClamChowder_Group_SixStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_SixStraight") as GameObject;
+		enemy_ClamChowder_Group_UpSevenDiagonal_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_UpSevenDiagonal") as GameObject;
+		enemy_ClamChowder_Group_DownSevenDiagonal_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_DownSevenDiagonal") as GameObject;
+		enemy_ClamChowder_Group_TenStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TenStraight") as GameObject;
 
-        //--------------------------------------------------------------------------------------------------------
 
-        Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+		//effect---------------------------------------------------------------------------------------------
+		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");                  //プレイヤーの爆発
+		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
+		Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
+		Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
+		Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Enemy_explosion");                   //エネミーの死亡時の爆発
+		Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
+		Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
+		Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
+		Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
+		Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");                       //敵の粒子
+		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
+		Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
+		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
+		Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
+		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
+		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
+		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
+
+
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
 		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
 		Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 		Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
@@ -354,11 +414,11 @@ public class Obj_Storage : MonoBehaviour
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
 		PlayerMissile = new Object_Pooling(Player_Missile1, 8, "Player_Missile");        //プレイヤーのミサイルの生成
-		PlayerMissile2 = new Object_Pooling(Player_Missile2, 8, "Player_Missile");		//プレイヤー２のミサイルの生成
+		PlayerMissile2 = new Object_Pooling(Player_Missile2, 8, "Player_Missile");      //プレイヤー２のミサイルの生成
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
-        SmallBeam_Bullet_E= new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
-        BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+		SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
+		BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
 		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
@@ -379,66 +439,229 @@ public class Obj_Storage : MonoBehaviour
 		Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 10, "Moai_Eye_Laser");
 		Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 10, "Moai_Mouth_Laser");
 
-		//effect---------------------------------------------------------------------------------------------
-		Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");                  //プレイヤーの爆発
-		Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
-		Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
-		Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-		Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Enemy_explosion");                   //エネミーの死亡時の爆発
-		Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
-		Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
-		Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
-		Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
-		Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");                       //敵の粒子
-		Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
-		Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
-		Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
-		Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
-		Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
-		Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
-        //---------------------------------------------------------------------------------------------------
-        //敵キャラのプーリング化-------------------------------------------------------------------------------
-        enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
-        enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
-        enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
-        enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
-        enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
-        enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
-        //enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
-        enemy_ClamChowder_Group_Three = new Object_Pooling(enemy_ClamChowder_Group_Three_prefab, 1, "enemy_ClamChowder_Group_Three");
-        enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
-        enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
-        enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
-        enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
-        enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
-        enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
-        enemy_ClamChowder_Group_Four_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Four_NoItem_prefab, 1, "enemy_ClamChowder_Group_Four_NoItem");
-        enemy_ClamChowder_Group_Five = new Object_Pooling(enemy_ClamChowder_Group_Five_prefab, 1, "enemy_ClamChowder_Group_Five");
-        enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
-        enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
-        enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
-        enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_Beelzebub_Group_FourWide");
-        enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_Beelzebub_Group_FourWide_Item");
-        enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_BeetleGroup");
-        enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_BeetleGroup_Three");
-        boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "boundMeteors");
-        enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_Bacula_Sixteen");
-        enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_Bacula_FourOnly");
-        //9月13日追加
-        enemy_ClamChowder_FourTriangle = new Object_Pooling(enemy_ClamChowder_FourTriangle_prefab, 2, "enemy_ClamChowder_FourTriangle");
-        enemy_ClamChowder_FourTriangle_NoItem = new Object_Pooling(enemy_ClamChowder_FourTriangle_NoItem_prefab, 2, "enemy_ClamChowder_FourTriangle_NoItem");
-        enemy_Beelzebub_Group_EightNormal_Item = new Object_Pooling(enemy_Beelzebub_Group_EightNormal_Item_prefab, 1, "enemy_Beelzebub_Group_EightNormal_Item");
-        enemy_UFO_Group_Five = new Object_Pooling(enemy_UFO_Group_Five_prefab, 2, "enemy_UFO_Group_Five");
-        enemy_Beetle_Group_Seven = new Object_Pooling(enemy_Beetle_Group_Seven_prefab, 1, "enemy_Beetle_Group_Seven");
-        enemy_ClamChowder_Group_SevenStraight = new Object_Pooling(enemy_ClamChowder_Group_SevenStraight_prefab, 2, "enemy_ClamChowder_Group_SevenStraight");
-        enemy_ClamChowder_Group_SixStraight= new Object_Pooling(enemy_ClamChowder_Group_SixStraight_prefab, 2, "enemy_ClamChowder_Group_SixStraight");
-        enemy_ClamChowder_Group_UpSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_UpSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_UpSevenDiagonal");
-        enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
-        enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
+																							//---------------------------------------------------------------------------------------------------
+																							//敵キャラのプーリング化-------------------------------------------------------------------------------
+		enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
+		enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
+		enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
+		enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
+		enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
+		enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
+		//enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
+		enemy_ClamChowder_Group_Three = new Object_Pooling(enemy_ClamChowder_Group_Three_prefab, 1, "enemy_ClamChowder_Group_Three");
+		enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
+		enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
+		enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item");
+		enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
+		enemy_ClamChowder_Group_Four_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Four_NoItem_prefab, 1, "enemy_ClamChowder_Group_Four_NoItem");
+		enemy_ClamChowder_Group_Five = new Object_Pooling(enemy_ClamChowder_Group_Five_prefab, 1, "enemy_ClamChowder_Group_Five");
+		enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
+		enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
+		enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
+		enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_Beelzebub_Group_FourWide");
+		enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_Beelzebub_Group_FourWide_Item");
+		enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_BeetleGroup");
+		enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_BeetleGroup_Three");
+		boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "boundMeteors");
+		enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_Bacula_Sixteen");
+		enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_Bacula_FourOnly");
+		//9月13日追加
+		enemy_ClamChowder_FourTriangle = new Object_Pooling(enemy_ClamChowder_FourTriangle_prefab, 2, "enemy_ClamChowder_FourTriangle");
+		enemy_ClamChowder_FourTriangle_NoItem = new Object_Pooling(enemy_ClamChowder_FourTriangle_NoItem_prefab, 2, "enemy_ClamChowder_FourTriangle_NoItem");
+		enemy_Beelzebub_Group_EightNormal_Item = new Object_Pooling(enemy_Beelzebub_Group_EightNormal_Item_prefab, 1, "enemy_Beelzebub_Group_EightNormal_Item");
+		enemy_UFO_Group_Five = new Object_Pooling(enemy_UFO_Group_Five_prefab, 2, "enemy_UFO_Group_Five");
+		enemy_Beetle_Group_Seven = new Object_Pooling(enemy_Beetle_Group_Seven_prefab, 1, "enemy_Beetle_Group_Seven");
+		enemy_ClamChowder_Group_SevenStraight = new Object_Pooling(enemy_ClamChowder_Group_SevenStraight_prefab, 2, "enemy_ClamChowder_Group_SevenStraight");
+		enemy_ClamChowder_Group_SixStraight = new Object_Pooling(enemy_ClamChowder_Group_SixStraight_prefab, 2, "enemy_ClamChowder_Group_SixStraight");
+		enemy_ClamChowder_Group_UpSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_UpSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_UpSevenDiagonal");
+		enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
+		enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
 
-        //-----------------------------------------------------------------------------------------------------
+
+		DontDestroyOnLoad(Player.Get_Parent_Obj());
+		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
+		DontDestroyOnLoad(Boss_1.Get_Parent_Obj());
+		DontDestroyOnLoad(Boss_2.Get_Parent_Obj());
+		DontDestroyOnLoad(PlayerBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(Player2Bullet.Get_Parent_Obj());
+		DontDestroyOnLoad(P1_OptionBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(P2_OptionBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(PlayerMissile.Get_Parent_Obj());
+		DontDestroyOnLoad(PlayerMissile2.Get_Parent_Obj());
+		DontDestroyOnLoad(EnemyBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(Beam_Bullet_E.Get_Parent_Obj());
+		DontDestroyOnLoad(SmallBeam_Bullet_E.Get_Parent_Obj());
+		DontDestroyOnLoad(BattleShipBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(UfoType_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(ClamChowderType_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(OctopusType_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(BeelzebubType_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(BattleShipType_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(StarFish_Enemy.Get_Parent_Obj());
+		DontDestroyOnLoad(Option.Get_Parent_Obj());
+		DontDestroyOnLoad(PowerUP_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(Boss_Middle.Get_Parent_Obj());
+		DontDestroyOnLoad(Laser_Line.Get_Parent_Obj());
+		DontDestroyOnLoad(One_Boss_Laser.Get_Parent_Obj());
+		DontDestroyOnLoad(One_Boss_BousndBullet.Get_Parent_Obj());
+		DontDestroyOnLoad(Two_Boss_Laser.Get_Parent_Obj());
+		DontDestroyOnLoad(Moai.Get_Parent_Obj());
+		DontDestroyOnLoad(Moai_Mini_Group.Get_Parent_Obj());
+		DontDestroyOnLoad(Moai_Bullet.Get_Parent_Obj());
+		DontDestroyOnLoad(Moai_Eye_Laser.Get_Parent_Obj());
+		DontDestroyOnLoad(Moai_Mouth_Laser.Get_Parent_Obj());
+
+		DontDestroyOnLoad(Effects[0].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[1].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[2].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[3].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[4].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[5].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[6].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[7].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[8].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[9].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[10].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[11].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[12].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[13].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[14].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[15].Get_Parent_Obj());
+		DontDestroyOnLoad(Effects[16].Get_Parent_Obj());
+
+		DontDestroyOnLoad(enemy_UFO_Group.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_BeetleGroup.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_BeetleGroup_Three.Get_Parent_Obj());
+		DontDestroyOnLoad(boundMeteors.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Bacula_Sixteen.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Bacula_FourOnly.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_UFO_Group_Five.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_Beetle_Group_Seven.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
+		DontDestroyOnLoad(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
 	}
+	
+
+	private void DeleteAllScenesUsingGos()
+	{
+		if (Player == null)
+			return;
+
+		Destroy(Player.Get_Parent_Obj());
+		Destroy(Player_2.Get_Parent_Obj());
+		Destroy(Boss_1.Get_Parent_Obj());
+		Destroy(Boss_2.Get_Parent_Obj());
+		Destroy(PlayerBullet.Get_Parent_Obj());
+		Destroy(Player2Bullet.Get_Parent_Obj());
+		Destroy(P1_OptionBullet.Get_Parent_Obj());
+		Destroy(P2_OptionBullet.Get_Parent_Obj());
+		Destroy(PlayerMissile.Get_Parent_Obj());
+		Destroy(PlayerMissile2.Get_Parent_Obj());
+		Destroy(EnemyBullet.Get_Parent_Obj());
+		Destroy(Beam_Bullet_E.Get_Parent_Obj());
+		Destroy(SmallBeam_Bullet_E.Get_Parent_Obj());
+		Destroy(BattleShipBullet.Get_Parent_Obj());
+		Destroy(UfoType_Enemy.Get_Parent_Obj());
+		Destroy(ClamChowderType_Enemy.Get_Parent_Obj());
+		Destroy(OctopusType_Enemy.Get_Parent_Obj());
+		Destroy(BeelzebubType_Enemy.Get_Parent_Obj());
+		Destroy(BattleShipType_Enemy.Get_Parent_Obj());
+		Destroy(StarFish_Enemy.Get_Parent_Obj());
+		Destroy(Option.Get_Parent_Obj());
+		Destroy(PowerUP_Item.Get_Parent_Obj());
+		Destroy(Boss_Middle.Get_Parent_Obj());
+		Destroy(Laser_Line.Get_Parent_Obj());
+		Destroy(One_Boss_Laser.Get_Parent_Obj());
+		Destroy(One_Boss_BousndBullet.Get_Parent_Obj());
+		Destroy(Two_Boss_Laser.Get_Parent_Obj());
+		Destroy(Moai.Get_Parent_Obj());
+		Destroy(Moai_Mini_Group.Get_Parent_Obj());
+		Destroy(Moai_Bullet.Get_Parent_Obj());
+		Destroy(Moai_Eye_Laser.Get_Parent_Obj());
+		Destroy(Moai_Mouth_Laser.Get_Parent_Obj());
+
+		Destroy(Effects[0].Get_Parent_Obj());
+		Destroy(Effects[1].Get_Parent_Obj());
+		Destroy(Effects[2].Get_Parent_Obj());
+		Destroy(Effects[3].Get_Parent_Obj());
+		Destroy(Effects[4].Get_Parent_Obj());
+		Destroy(Effects[5].Get_Parent_Obj());
+		Destroy(Effects[6].Get_Parent_Obj());
+		Destroy(Effects[7].Get_Parent_Obj());
+		Destroy(Effects[8].Get_Parent_Obj());
+		Destroy(Effects[9].Get_Parent_Obj());
+		Destroy(Effects[10].Get_Parent_Obj());
+		Destroy(Effects[11].Get_Parent_Obj());
+		Destroy(Effects[12].Get_Parent_Obj());
+		Destroy(Effects[13].Get_Parent_Obj());
+		Destroy(Effects[14].Get_Parent_Obj());
+		Destroy(Effects[15].Get_Parent_Obj());
+		Destroy(Effects[16].Get_Parent_Obj());
+
+		Destroy(enemy_UFO_Group.Get_Parent_Obj());
+		Destroy(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
+		Destroy(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
+		Destroy(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
+		Destroy(enemy_BeetleGroup.Get_Parent_Obj());
+		Destroy(enemy_BeetleGroup_Three.Get_Parent_Obj());
+		Destroy(boundMeteors.Get_Parent_Obj());
+		Destroy(enemy_Bacula_Sixteen.Get_Parent_Obj());
+		Destroy(enemy_Bacula_FourOnly.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
+		Destroy(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
+		Destroy(enemy_UFO_Group_Five.Get_Parent_Obj());
+		Destroy(enemy_Beetle_Group_Seven.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
+		Destroy(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
+	}
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 
 	//Player１の取得
 	public GameObject GetPlayer()

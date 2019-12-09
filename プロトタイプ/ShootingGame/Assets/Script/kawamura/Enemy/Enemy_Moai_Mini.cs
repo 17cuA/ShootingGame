@@ -46,7 +46,6 @@ public class Enemy_Moai_Mini : character_status
         startPos = transform.localPosition;
 
         //rotaZ = transform.eulerAngles.z;
-        HP_Setting();
 		base.Start();
 	}
 

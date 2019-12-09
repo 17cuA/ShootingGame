@@ -8,18 +8,21 @@ public class MapCreate : MonoBehaviour
 
 	void Start()
     {
-		if(SceneManager.GetActiveScene().name == "Stage_01" 
-			|| SceneManager.GetActiveScene().name == "Stage_02" 
-			|| SceneManager.GetActiveScene().name == "Stage_03" 
-			|| SceneManager.GetActiveScene().name == "Stage_04"
-			 || SceneManager.GetActiveScene().name == "Stage_05"
-			  || SceneManager.GetActiveScene().name == "Stage_06"
-			   || SceneManager.GetActiveScene().name == "Stage_07")
-		{
-			CreateMap();			//マップの作成（各オブジェクトの移動）
-		}
+		//------------------------------------11.26 陳　追加---------------------------------
+
+
+		//if(SceneManager.GetActiveScene().name == "Stage_01" 
+		//	|| SceneManager.GetActiveScene().name == "Stage_02" 
+		//	|| SceneManager.GetActiveScene().name == "Stage_03" 
+		//	|| SceneManager.GetActiveScene().name == "Stage_04"
+		//	 || SceneManager.GetActiveScene().name == "Stage_05"
+		//	  || SceneManager.GetActiveScene().name == "Stage_06"
+		//	   || SceneManager.GetActiveScene().name == "Stage_07")
+		//{
+		//	CreateMap();			//マップの作成（各オブジェクトの移動）
+		//}
 	}
-	void CreateMap()
+	public void CreateMap()
 	{
 		GameObject Player_obj = Obj_Storage.Storage_Data.Player.Active_Obj();	//プレイヤー１をアクティブ状態に
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)

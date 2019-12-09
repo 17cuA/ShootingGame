@@ -21,7 +21,7 @@ public class BattleshipType_Battery : character_status
 	private new void Start()
 	{
 		hp = 5;
-		score = 100;
+		//score = 100;
 		pure = Resources.Load("Bullet/GameObject") as GameObject;
 
 		gameObject.tag = transform.parent.tag;

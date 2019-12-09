@@ -6,7 +6,7 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Power;
 using StorageReference;
@@ -123,6 +123,10 @@ public class Player1 : character_status
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
 		///////////////////////
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
+
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	}
 
 	new void Start()
@@ -133,7 +137,6 @@ public class Player1 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
-		HP_Setting();
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
@@ -153,8 +156,8 @@ public class Player1 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
+		P1_PowerManager.Instance.ResetSelect();                     //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
@@ -308,7 +311,7 @@ public class Player1 : character_status
 		}
 		else
 		{
-			capsuleCollider.enabled = false;
+			Collider.enabled = false;
 		}
 
 		for (int i = 0; i < bullet_data.Count; i++)
@@ -849,4 +852,27 @@ public class Player1 : character_status
         Is_Resporn_End = true;              //アニメーションが終わったことを知らせる
 
     }
+
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		if (to.name != "Stage_01")
+		{
+			if (to.name.Contains("Stage"))
+			{
+				invincible = true;         //無敵状態にするかどうかの処理
+				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+				target = direction;
+				Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
+				Is_Animation = true;
+				Is_Resporn = true;                      //復活用の処理を行う
+			}
+		}
+	}
+
+	private void OnDestroy()
+	{	
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChange;
+	}
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 }

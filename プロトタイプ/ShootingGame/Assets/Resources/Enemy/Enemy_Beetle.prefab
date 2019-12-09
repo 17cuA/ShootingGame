@@ -96,14 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a58230f61d1b94fbe1047e023dcd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 369a595fc32ac1942aedc7ae97b24dc1, type: 2}
   speed: 8.86
   hp: 18
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   eState: 0
   speedX: 0
   default_SpeedX: 0
@@ -135,7 +136,6 @@ MonoBehaviour:
   shot_DelayCnt: 0
   shot_DelayMax: 0
   shotRotaZ: 0
-  default_Shot_DelayCnt: 0
   once: 1
   isUP: 1
   isMove: 0

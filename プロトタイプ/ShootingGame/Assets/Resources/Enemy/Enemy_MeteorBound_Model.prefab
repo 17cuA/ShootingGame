@@ -101,6 +101,7 @@ MonoBehaviour:
   rotaZ_Value: 0
   myName: 
   isWaveEnemy: 0
+  isBacula: 0
 --- !u!64 &3973593323429922912
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -127,14 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798fe0f0c5cc6bc459e77a7add1939e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 22334f8ee87362841883984ba698973a, type: 2}
   speed: 0
   hp: 21
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 2500
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -147,6 +148,7 @@ MonoBehaviour:
   self_material: []
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   speedX: 0
   speedY: 0
   defPosX: 0

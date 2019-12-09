@@ -114,7 +114,6 @@ public class Enemy_MiddleBoss : character_status
 	// Start is called before the first frame update
 	private new void Start()
     {
-		base.HP_Setting();
 
 		player = GameObject.Find("Player").transform.GetChild(0).transform;
 		if(player.gameObject.activeSelf)
@@ -156,8 +155,8 @@ public class Enemy_MiddleBoss : character_status
 			{
 				if (currentDestroyPartIndex >= 0)
 				{
-					if (capsuleCollider.enabled)
-						capsuleCollider.enabled = false;
+					if (Collider.enabled)
+						Collider.enabled = false;
 
 					for (var i = 0; i < childsBoxColliders.Count; ++i)
 					{
@@ -178,8 +177,8 @@ public class Enemy_MiddleBoss : character_status
 				}
 				else
 				{
-					if (!capsuleCollider.enabled)
-						capsuleCollider.enabled = true;
+					if (!Collider.enabled)
+						Collider.enabled = true;
 				}
 			}
 		}
@@ -465,12 +464,12 @@ public class Enemy_MiddleBoss : character_status
 		DebugManager.OperationDebug("中ボス破壊", "中ボス");
 		animator.enabled = true;
 		animator.Play("Death");
-		capsuleCollider.enabled = false;
+		Collider.enabled = false;
 		explosionEffect.gameObject.SetActive(true);
 		blackSmokeEffect.gameObject.SetActive(true);
 
 		//
-		Game_Master.MY.Score_Addition(score, Opponent);
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 
 		Debug.Log(transform.localEulerAngles);
