@@ -36,7 +36,6 @@ public class Enemy_ZerosForce : character_status
 		scaleMin = 3.0f;
 		noDamageTime = 0;
 
-		HP_Setting();
 		hpMax = 100;
 		saveHP = hp;
         saveHP2 = hp;

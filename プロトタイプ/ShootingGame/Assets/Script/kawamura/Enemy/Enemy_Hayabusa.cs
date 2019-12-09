@@ -46,7 +46,6 @@ public class Enemy_Hayabusa : character_status
         //rotaX = transform.eulerAngles.x;
         //saveRotaX = rotaX;
 
-        HP_Setting();
         base.Start();
     }
 

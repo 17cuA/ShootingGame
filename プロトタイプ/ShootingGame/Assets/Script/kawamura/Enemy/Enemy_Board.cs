@@ -15,7 +15,7 @@ public class Enemy_Board : character_status
 	{
 		parentObj = transform.parent.parent.gameObject;
 		ebp = parentObj.GetComponent<Enemy_Board_Parent>();
-		Init_Score = score;
+		//Init_Score = score;
 	}
 	//private void OnEnable()
 	//{
@@ -24,7 +24,6 @@ public class Enemy_Board : character_status
 	new void Start()
     {
 		saveHp = hp;
-		HP_Setting();
 		base.Start();
     }
 
@@ -60,7 +59,7 @@ public class Enemy_Board : character_status
 		else if (col.gameObject.name == "smasher_left" || col.gameObject.name == "smasher_right")
 		{
 			hp = 0;
-			score = 0;
+			//score = 0;
 		}
 		base.OnTriggerEnter(col);
     }
@@ -72,6 +71,6 @@ public class Enemy_Board : character_status
 
 	private void OnEnable()
 	{
-		score = Init_Score;
+		//score = Init_Score;
 	}
 }

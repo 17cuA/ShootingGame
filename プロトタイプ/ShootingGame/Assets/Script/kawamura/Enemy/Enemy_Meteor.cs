@@ -10,7 +10,6 @@ public class Enemy_Meteor : character_status
     Vector3 velocity;
     new void Start()
     {
-        HP_Setting();
         base.Start();
     }
 
