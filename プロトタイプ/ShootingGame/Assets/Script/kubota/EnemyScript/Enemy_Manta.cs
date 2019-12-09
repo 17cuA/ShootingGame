@@ -33,6 +33,7 @@ public class Enemy_Manta : character_status
 
 	private void OnDisable()
 	{
+		type = Move_Type.None;
 		mazlecnt = 0;
 	}
 

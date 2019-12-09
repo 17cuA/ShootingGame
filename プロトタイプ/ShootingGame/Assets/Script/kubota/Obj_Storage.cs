@@ -204,7 +204,6 @@ public class Obj_Storage : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-		
 
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
