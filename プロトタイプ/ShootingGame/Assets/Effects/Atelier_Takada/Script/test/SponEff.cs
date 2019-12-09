@@ -1,36 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SponEff : MonoBehaviour
 {
-	public GameObject obj;
-	public float time;
-	public float interval;
+	public GameObject obj;		//生成するオブジェクト
+	[SerializeField]
+	private float elapsedTime;	//経過時間
+	private float interval;     //周期
+	public float intervalMax;   //周期の最大値
+	public float intervalMin;   //周期の最低値
 
-	// Start is called before the first frame update
+	public float generationRange;   //生成範囲
+
 	void Start()
 	{
-		time = 0.0f;
-		interval = Random.Range(0.1f, 1.0f);
+		interval = Random.Range(intervalMin, intervalMax);
+		elapsedTime = 0.0f;
+
+		Mathf.LerpUnclamped(-generationRange, generationRange, 0.8f);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		time += Time.deltaTime;
+		elapsedTime += Time.deltaTime;
 
 
-		if (time > interval)
+		if (elapsedTime > interval)
 		{
 			Vector3 vec3 = new Vector3(
-					Random.Range(-0.5f, 0.5f),
-					Random.Range(-0.5f, 0.5f)-1.0f,
+					Random.Range(-generationRange, generationRange),
+					0.0f,
 					0.0f);
 
 			Instantiate(obj, transform.position + vec3, transform.rotation);
-			interval = Random.Range(0.1f, 1.0f);
-			time = 0.0f;
+			interval = Random.Range(intervalMin, intervalMax);
+			elapsedTime = 0.0f;
 		}
 
 	}
