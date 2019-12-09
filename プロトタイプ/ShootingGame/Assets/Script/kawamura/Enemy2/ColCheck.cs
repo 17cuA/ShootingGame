@@ -62,7 +62,11 @@ public class ColCheck : MonoBehaviour
 		{
 			isCheck = false;
 		}
-    }
+
+		Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1.0f);
+	
+
+	}
 
 	void RayTest()
 	{

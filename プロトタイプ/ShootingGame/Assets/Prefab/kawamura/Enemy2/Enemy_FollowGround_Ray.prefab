@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350454406842357835}
   - component: {fileID: 7350454406842357837}
+  - component: {fileID: 6847811930843737036}
   - component: {fileID: 7350454406842357834}
   m_Layer: 0
   m_Name: Col_Left
@@ -52,6 +53,18 @@ MonoBehaviour:
   isHorizontal: 0
   isCheck: 0
   hitCnt: 0
+--- !u!114 &6847811930843737036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350454406842357838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc935d0a234216b4c9240d81d5939c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7350454406842357834
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,6 +92,7 @@ GameObject:
   - component: {fileID: 7350454407510208844}
   - component: {fileID: 7350454407510208845}
   - component: {fileID: 7350454407510208846}
+  - component: {fileID: 1932077146631567938}
   - component: {fileID: 7350454407510208843}
   m_Layer: 0
   m_Name: Enemy_FollowGround_Ray
@@ -145,6 +159,18 @@ MonoBehaviour:
   speedY: 2.5
   chamgeDelayMax: 0.1
   hitTotal: 0
+--- !u!114 &1932077146631567938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350454407510208847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e2338a5a6307644b3e560ef46c5a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7350454407510208843
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,6 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350454407748157431}
   - component: {fileID: 7350454407748157433}
+  - component: {fileID: 7177597729511082947}
   - component: {fileID: 7350454407748157430}
   m_Layer: 0
   m_Name: Col_Under
@@ -213,6 +240,18 @@ MonoBehaviour:
   isHorizontal: 0
   isCheck: 1
   hitCnt: 0
+--- !u!114 &7177597729511082947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350454407748157434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc935d0a234216b4c9240d81d5939c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7350454407748157430
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -239,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350454407893404893}
   - component: {fileID: 7350454407893404895}
+  - component: {fileID: 5053123099672883515}
   - component: {fileID: 7350454407893404892}
   m_Layer: 0
   m_Name: Col_Right
@@ -281,6 +321,18 @@ MonoBehaviour:
   isHorizontal: 0
   isCheck: 0
   hitCnt: 0
+--- !u!114 &5053123099672883515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350454407893404896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc935d0a234216b4c9240d81d5939c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7350454407893404892
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -307,6 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350454408109002148}
   - component: {fileID: 7350454408109002150}
+  - component: {fileID: 4619537086316454404}
   - component: {fileID: 7350454408109002147}
   m_Layer: 0
   m_Name: Col_Top
@@ -349,6 +402,18 @@ MonoBehaviour:
   isHorizontal: 0
   isCheck: 0
   hitCnt: 0
+--- !u!114 &4619537086316454404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350454408109002151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc935d0a234216b4c9240d81d5939c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &7350454408109002147
 Rigidbody:
   m_ObjectHideFlags: 0

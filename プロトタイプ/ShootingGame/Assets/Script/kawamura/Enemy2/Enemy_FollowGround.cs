@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy_FollowGround : MonoBehaviour
 {
-
-
 	public enum MoveState
 	{
 		Up,					//上移動
@@ -44,6 +42,7 @@ public class Enemy_FollowGround : MonoBehaviour
 	bool isUnder;		//下の判定
 	bool isLeft;		//左の判定
 	bool isRight;		//右の判定
+
 
 
 	void Start()
