@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class RayLaser : MonoBehaviour
 {
+	Ray ray;                     //レイ
+	RaycastHit hitObject;   //ヒットしたオブジェクト情報
+	float rayLength = 40;   //レイの長さ
+	bool isHitting;	//障害物に当たっている状態
+
 	public BoxCollider boxCollider; //BoxCollider
 
-	Ray ray;					//レイ
-	RaycastHit hitObject;	//ヒットしたオブジェクト情報
-	float rayLength = 40;   //レイの長さ
-
-	public ParticleSystem buringParticle;		//着弾火炎
+	public ParticleSystem buringParticle;		//着弾火炎のオブジェクト
 
 	public List<ParticleSystem> particleSystemList = new List<ParticleSystem>();    //レーザーのパーティクル
 	float startLifetime = 0.25f;        //レーザーの最大の生存時間(基準)
+
 
 	void Start()
 	{
 		boxCollider = GetComponent<BoxCollider>();
 		buringParticle.Stop();
+		isHitting = false;
 	}
 
 	void Update()
 	{
+		isHitting = true;
+
 		//レイの設定
 		ray = new Ray(transform.position, transform.TransformDirection(Vector3.left));
 		//rayの可視化
@@ -66,14 +71,26 @@ public class RayLaser : MonoBehaviour
 		}
 		else
 		{
+			isHitting = false;
+
 			if (buringParticle.isPlaying)
 			{
 				buringParticle.Stop();
 			}
 		}
-
 		//数値更新
 		boxCollider.size = boxColliderSize;
 		boxCollider.center = boxColliderCenter;
+	}
+
+	//当たっているかの判定
+	public bool PassIsHitting()
+	{
+		return isHitting;
+	}
+	//当たった座標の取得
+	public RaycastHit PassVector()
+	{
+		return hitObject;
 	}
 }
