@@ -78,14 +78,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55048a837ff86c43b38bbde2bdc2b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 7b65b63b4082d624a9c13203a6968d12, type: 2}
   speed: -0.185
   hp: 3
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 400
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -103,8 +103,6 @@ MonoBehaviour:
   namenamename: 
   playerPos: {x: 0, y: 0, z: 0}
   firstPos: {x: 0, y: 0, z: 0}
-  P1: {fileID: 0}
-  P2: {fileID: 0}
   num: 0
   haveItem: 0
 --- !u!114 &5399802975822105388
