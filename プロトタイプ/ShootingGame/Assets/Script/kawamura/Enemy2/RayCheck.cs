@@ -83,6 +83,7 @@ public class RayCheck : MonoBehaviour
 					if (angleChange_Script.angleZ != angleZ)
 					{
 						//angleChange_Script.angleZ = angleZ;
+						angleChange_Script.angleZ = angleZ;
 						raytopParent_Script.angleZ = groundAngle.z - 180;
 						rayDelayCnt = 0;
 						angleChange_Script.delayCnt = 0;
@@ -98,7 +99,7 @@ public class RayCheck : MonoBehaviour
 						topParent_Script.angle = angleZ;
 					}
 				}
-				Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+				Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
 			}
 		}
 		else

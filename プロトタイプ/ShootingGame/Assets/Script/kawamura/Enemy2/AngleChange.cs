@@ -30,7 +30,7 @@ public class AngleChange : MonoBehaviour
 		//	angleZ = saveAngleZ;
 		//}
 		//angleZ = rayParent_Script.angleZ - 90;
-		angleZ = rayParent_Script.angleZ;
+		//angleZ = rayParent_Script.angleZ;
 
 		delayCnt++;
 		transform.rotation = Quaternion.Euler(0, 0, angleZ);
