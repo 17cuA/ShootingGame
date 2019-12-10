@@ -112,8 +112,4 @@ public class Star_Fish_Spown : MonoBehaviour
 		}
 	}
 
-	void Player_Pos_Get()
-	{
-		
-	}
 }
