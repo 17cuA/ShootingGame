@@ -204,7 +204,6 @@ public class Obj_Storage : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-		
 
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
@@ -439,8 +438,8 @@ public class Obj_Storage : MonoBehaviour
 		Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 10, "Moai_Eye_Laser");
 		Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 10, "Moai_Mouth_Laser");
 
-																							//---------------------------------------------------------------------------------------------------
-																							//敵キャラのプーリング化-------------------------------------------------------------------------------
+		//---------------------------------------------------------------------------------------------------
+		//敵キャラのプーリング化-------------------------------------------------------------------------------
 		enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
 		enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
 		enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
@@ -699,7 +698,7 @@ public class Obj_Storage : MonoBehaviour
 				boss = Moai.Get_Obj()[0];
 				break;
 			default:
-				Debug.Log("引数違いますよ");
+				Debug.Log("引数間違えてますねぇ.......");
 				break;
 		}
 		return boss;
