@@ -95,7 +95,6 @@ public class Enemy_Bullfight_Process : character_status
   //          transform.parent = parent_ParentObj.transform;
   //      }
 
-		HP_Setting();
 		base.Start();
 	}
 

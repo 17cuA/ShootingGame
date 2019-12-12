@@ -37,7 +37,6 @@ public class RevivingWall : character_status
 		defaultHp = hpp;
 		scale_Value = 1;
 		deadTimeCnt = 0;
-		HP_Setting();
 		base.Start();
     }
 

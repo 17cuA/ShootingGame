@@ -95,7 +95,6 @@ public class TurnToPlayer_Slow : character_status
         //}
         //transform.rotation = Quaternion.Euler(rotaX, rotaY, rotaZ);
 
-		HP_Setting();
 		base.Start();
 
 	}
