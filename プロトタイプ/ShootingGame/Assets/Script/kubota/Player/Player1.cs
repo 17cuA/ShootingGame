@@ -866,6 +866,20 @@ public class Player1 : character_status
 				Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
 				Is_Animation = true;
 				Is_Resporn = true;                      //復活用の処理を行う
+
+				for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
+				{
+					var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
+					if (currentOption.activeSelf)
+					{
+						if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1)
+						{
+							currentOption.GetComponent<Bit_Formation_3>().SetPlayer(1);
+							currentOption.GetComponent<Bit_Formation_3>().isborn = true;
+
+						}
+					}
+				}
 			}
 		}
 	}
