@@ -13,9 +13,10 @@ using StorageReference;
 using UnityEngine.Playables;
 public class Player1 : character_status
 {
+	[Header("ここからプレイヤーのスクリプトの中身")]
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
 	private Vector3 vector3;    //進む方向を決める時に使う
-	private float x;    //x座標の移動する時に使う変数
+	public float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
 	//グリッド用の変数---------------------------------------
 	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
@@ -38,7 +39,7 @@ public class Player1 : character_status
 	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
+	private ParticleSystem.MainModule Injectino_particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
 	//ジェット噴射用の数値-------------------------------
@@ -141,7 +142,7 @@ public class Player1 : character_status
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
 		Set_Shield();                                     //シールドに防御可能回数文の値を入れる
-		particleSystemMain = injection.main;
+		Injectino_particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
@@ -335,6 +336,25 @@ public class Player1 : character_status
 		if (transform.position.x >= 17.0f && x > 0) x = 0;
 		if (transform.position.x <= -17.0f && x < 0) x = 0;
 
+		//右入力
+		if (0 < x)
+		{
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+		}
+		//左入力
+		else if (x < 0)
+		{
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+		}
+		else if (x == 0)
+		{
+			//噴射量を規定の値に戻す
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount;
+		}
+
+
 		prevPos = target;
 
 		// プレイヤー機体の旋回
@@ -357,29 +377,21 @@ public class Player1 : character_status
 		if (x > 0 && y > 0)
 		{
 			target = transform.position + MOVEX + MOVEY;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//右下
 		else if (x > 0 && y < 0)
 		{
 			target = transform.position + MOVEX - MOVEY;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//左下
 		else if (x < 0 && y < 0)
 		{
 			target = transform.position - MOVEX - MOVEY;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		//左上
 		else if (x < 0 && y > 0)
 		{
 			target = transform.position - MOVEX + MOVEY;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		//上
 		else if (y > 0)
@@ -390,8 +402,6 @@ public class Player1 : character_status
 		else if (x > 0)
 		{
 			target = transform.position + MOVEX;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//下
 		else if (y < 0)
@@ -402,8 +412,6 @@ public class Player1 : character_status
 		else if (x < 0)
 		{
 			target = transform.position - MOVEX;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 
 	}
@@ -446,18 +454,18 @@ public class Player1 : character_status
 		if (0 < x)
 		{
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//左入力
 		else if (x < 0)
 		{
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		else if (x == 0)
 		{
 			//噴射量を規定の値に戻す
-			particleSystemMain.startLifetime = baseInjectionAmount;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount;
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
@@ -866,6 +874,20 @@ public class Player1 : character_status
 				Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
 				Is_Animation = true;
 				Is_Resporn = true;                      //復活用の処理を行う
+
+				for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
+				{
+					var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
+					if (currentOption.activeSelf)
+					{
+						if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1)
+						{
+							currentOption.GetComponent<Bit_Formation_3>().SetPlayer(1);
+							currentOption.GetComponent<Bit_Formation_3>().isborn = true;
+
+						}
+					}
+				}
 			}
 		}
 	}
