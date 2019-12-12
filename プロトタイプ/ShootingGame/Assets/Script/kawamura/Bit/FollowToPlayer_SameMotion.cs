@@ -80,6 +80,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					transform.position = playerObj.transform.position;
 					defCheck = true;
 					pos = playerObj.transform.position;
+					cnt = 0;
 				}
 			}
 			else if (isFollow2P)
@@ -99,8 +100,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					transform.position = playerObj.transform.position;
 					defCheck = true;
 					pos = playerObj.transform.position;
+					cnt = 0;
 				}
-
 			}
 		}
 		else

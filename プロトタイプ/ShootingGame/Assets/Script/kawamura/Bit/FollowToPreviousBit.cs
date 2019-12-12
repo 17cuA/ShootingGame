@@ -120,10 +120,10 @@ public class FollowToPreviousBit : MonoBehaviour
 				//プレイヤーがいたら入れる
 				playerObj = Obj_Storage.Storage_Data.GetPlayer();
                 pl1 = playerObj.GetComponent<Player1>();
-				//isMove = true;
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
 				defCheck = true;
+				check = true;
 				//pos = playerObj.transform.position;
 
 			}
@@ -132,7 +132,6 @@ public class FollowToPreviousBit : MonoBehaviour
 				//プレイヤーがいたら入れる
 				playerObj = Obj_Storage.Storage_Data.GetPlayer2();
                 pl2 = playerObj.GetComponent<Player2>();
-				//isMove = true;
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
 				defCheck = true;
@@ -257,24 +256,24 @@ public class FollowToPreviousBit : MonoBehaviour
 
 		
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
-		if (pos != previousBitObj.transform.position && !check)
-		//if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
-		{
-			//位置配列にビットの位置を入れる
-			//playerPos[cnt] = playerObj.transform;
-			previousBitPos[cnt] = previousBitObj.transform.position;
-			//if(one)
-			//{
-			//	transform.position=previousBitPos[0];
-			//	one=false;
-			//}
-			cnt++;
-			if (cnt > array_Num - 1)
-			{
-				cnt = 0;
-				check = true;
-			}
-		}
+		//if (pos != previousBitObj.transform.position && !check)
+		////if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+		//{
+		//	//位置配列にビットの位置を入れる
+		//	//playerPos[cnt] = playerObj.transform;
+		//	previousBitPos[cnt] = previousBitObj.transform.position;
+		//	//if(one)
+		//	//{
+		//	//	transform.position=previousBitPos[0];
+		//	//	one=false;
+		//	//}
+		//	cnt++;
+		//	if (cnt > array_Num - 1)
+		//	{
+		//		cnt = 0;
+		//		check = true;
+		//	}
+		//}
 		//配列の最後まで値が入っていたら
 		//if (previousBitPos[array_Num - 1] != null)
 		//{
@@ -287,23 +286,31 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				if (isFollow1P)
 				{
-					//前のビットの座標が動いていないとき
-					if (pos == previousBitObj.transform.position)
-					//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
-					{
-						isMove = false;
-						if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
-						{
-							isMove = true;
-						}
-					}
-					//前のビットの座標が動いていたとき
-					else
+					if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
 					{
 						isMove = true;
-						//前のビットのtransform保存
-						pos = previousBitObj.transform.position;
 					}
+					else
+					{
+						isMove = false;
+					}
+					//前のビットの座標が動いていないとき
+					//if (pos == previousBitObj.transform.position)
+					////if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+					//{
+					//	isMove = false;
+					//	if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+					//	{
+					//		isMove = true;
+					//	}
+					//}
+					////前のビットの座標が動いていたとき
+					//else
+					//{
+					//	//isMove = true;
+					//	//前のビットのtransform保存
+					//	pos = previousBitObj.transform.position;
+					//}
 				}
 				else if (isFollow2P)
 				{
@@ -324,7 +331,6 @@ public class FollowToPreviousBit : MonoBehaviour
 						//前のビットのtransform保存
 						pos = previousBitObj.transform.position;
 					}
-
 				}
 			}
 

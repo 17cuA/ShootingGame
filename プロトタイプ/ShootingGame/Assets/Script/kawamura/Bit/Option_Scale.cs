@@ -9,13 +9,13 @@ public class Option_Scale : MonoBehaviour
 	Bit_Formation_3 bf;
 
 	public int scaleDelay;
-	float scale_value;
+	public float scale_value;
 	public float scale_Collect;
 
-	bool isScaleInc = false;
-	bool isScaleDec=false;
+	public bool isScaleInc = false;
+	public bool isScaleDec=false;
 	public bool isCollectInc = true;
-	bool isStageBeginning = false;
+	public bool isStageBeginning = false;
 	// Start is called before the first frame update
 
 	private void Awake()
@@ -75,7 +75,6 @@ public class Option_Scale : MonoBehaviour
 						isScaleInc = true;
 					}
 				}
-
 			}
 
 			//scale_value = Mathf.Sin(Time.frameCount) / 12.5f + 0.42f;
@@ -90,13 +89,13 @@ public class Option_Scale : MonoBehaviour
 			scale_Collect = 0;
 			isStageBeginning = true;
 		}
-		else
-		{
-			isStageBeginning = false;
-			//isScaleInc = true;
-			//isScaleDec = false;
-			isCollectInc = true;
-		}
+		//else
+		//{
+		//	isStageBeginning = false;
+		//	//isScaleInc = true;
+		//	//isScaleDec = false;
+		//	isCollectInc = true;
+		//}
 
 		if (bf.isCollection)
 		{
