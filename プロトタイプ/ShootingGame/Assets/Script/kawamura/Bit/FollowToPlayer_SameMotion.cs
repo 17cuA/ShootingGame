@@ -113,7 +113,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				///親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
+				//親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
 				if (!followParent_Script.isResetPosEnd && !isResetPos)
 				{
 					//pl1.Is_Resporn_End = false;
@@ -256,6 +256,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
                 savePos = transform.position;
 			}
 		}
+
 		if (followParent_Script.isResetPosEnd)
 		{
 			isResetPos = false;

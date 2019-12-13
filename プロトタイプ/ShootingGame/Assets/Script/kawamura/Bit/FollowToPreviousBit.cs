@@ -354,14 +354,15 @@ public class FollowToPreviousBit : MonoBehaviour
                 savePos = transform.position;
             }
 		}
-		//else if(isFreeze)
-		//{
-		//	freesePos = playerObj.transform.position - savePos;
 
-		//	this.transform.position += freesePos;
-		//	savePos = transform.position;
+		if (pl1.Is_Resporn_End)
+		{
+			for (int i = 0; i < previousBitPos.Length; i++)
+			{
+				previousBitPos[i] = playerObj.transform.position;
 
-		//}
+			}
+		}
 
 		if(followParent_Script.isResetPosEnd)
 		{
