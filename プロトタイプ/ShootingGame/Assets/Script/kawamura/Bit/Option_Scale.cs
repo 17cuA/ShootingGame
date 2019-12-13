@@ -16,6 +16,8 @@ public class Option_Scale : MonoBehaviour
 	public bool isScaleDec=false;
 	public bool isCollectInc = true;
 	public bool isStageBeginning = false;
+
+	public bool isReset = false;
 	// Start is called before the first frame update
 
 	private void Awake()
@@ -48,6 +50,7 @@ public class Option_Scale : MonoBehaviour
 				isScaleDec = true;
 				isScaleInc = false;
 				isCollectInc = false;
+				isReset = false;
 			}
 			transform.localScale = new Vector3(scale_Collect, scale_Collect, 0);
 		}
@@ -88,14 +91,19 @@ public class Option_Scale : MonoBehaviour
 			//scale_value = 0;
 			scale_Collect = 0;
 			isStageBeginning = true;
+			isReset = true;
 		}
-		//else
-		//{
-		//	isStageBeginning = false;
-		//	//isScaleInc = true;
-		//	//isScaleDec = false;
-		//	isCollectInc = true;
-		//}
+		else
+		{
+			if (isReset)
+			{
+				isStageBeginning = false;
+				//isScaleInc = true;
+				//isScaleDec = false;
+				isCollectInc = true;
+				isReset = false;
+			}
+		}
 
 		if (bf.isCollection)
 		{
