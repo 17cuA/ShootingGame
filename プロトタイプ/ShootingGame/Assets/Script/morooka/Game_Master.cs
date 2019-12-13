@@ -31,19 +31,19 @@ public class Game_Master : MonoBehaviour
 	/// </summary>
 	public enum BOSS_DATA_ELEMENTS
     {
-        eID,                    // BossのID
-        eNAME,                  // Boss の名前
-        eSCRIPT,                // 各 Boss 個別のスクリプト
-        eATTACK_INTERVAL,       // 攻撃と攻撃のインターバル
-        eACT_CHANGE,            // 攻撃種類の切り替えインターバル
-        ePARTS_HP,              // Boos のパーツのHP
-        eSCORE,                 // Boss の持つHP
+        eID,								// BossのID
+        eNAME,							// Boss の名前
+        eSCRIPT,						// 各 Boss 個別のスクリプト
+        eATTACK_INTERVAL,		// 攻撃と攻撃のインターバル
+        eACT_CHANGE,				// 攻撃種類の切り替えインターバル
+        ePARTS_HP,					// Boos のパーツのHP
+        eSCORE,						// Boss の持つHP
         eBULLET_NAME_1,         // 攻撃パターン1
         eBULLET_NAME_2,         // 攻撃パターン2
         eBULLET_NAME_3,         // 攻撃パターン3
         eBULLET_NAME_4,         // 攻撃パターン4
         eBULLET_NAME_5,         // 攻撃パターン5
-        eEFFECT                 // エフェクト
+        eEFFECT						// エフェクト
     }
 
     /// <summary>
@@ -51,12 +51,12 @@ public class Game_Master : MonoBehaviour
     /// </summary>
     public enum ENEMY_DATA_ELEMENTS
     {
-        eID,                    // Enemy のID
-        eNAME,                  // Enemy の名前
-        eHP,                    // HP
+        eID,								// Enemy のID
+        eNAME,							// Enemy の名前
+        eHP,								// HP
         eATTACK_INTERVAL,		// 攻撃と攻撃のインターバル
-        eBULLET,                // 弾
-        eEFFECT					// エフェクト
+        eBULLET,						// 弾
+        eEFFECT						// エフェクト
     }
 
 	///// <summary>
@@ -81,13 +81,14 @@ public class Game_Master : MonoBehaviour
         eP1_OPTION_BULLET,
 		eP2_OPTION_BULLET,
 		//------------------------------------
-		ePLAYER_MISSILE,	// プレイヤーのミサイル
-		ePLAYER_LASER,		// プレイヤーのレーザー
-		ePLAYER_TowWay,		// プレイヤーの2ウェイミサイル
-		ePOWERUP_ITEM,		//パワーアップアイテム
-		eENEMY_BULLET,		// エネミーのバレット
-		eENEMY_BEAM,			// エネミーのビーム
-		eENEMY_LASER,			// エネミーのレーザー
+		ePLAYER_MISSILE,			// プレイヤーのミサイル
+		ePLAYER_MISSILE2,			//プレイヤー２のミサイル
+		ePLAYER_LASER,			// プレイヤーのレーザー
+		ePLAYER_TowWay,			// プレイヤーの2ウェイミサイル
+		ePOWERUP_ITEM,			//パワーアップアイテム
+		eENEMY_BULLET,			// エネミーのバレット
+		eENEMY_BEAM,				// エネミーのビーム
+		eENEMY_LASER,				// エネミーのレーザー
 		eONE_BOSS_LASER,		// 1ボスレーザー
 		eONE_BOSS_BOUND,		// 1ボス玉
 		eTWO_BOSS_LASER,		// 2ボスレーザー
@@ -155,6 +156,21 @@ public class Game_Master : MonoBehaviour
                 break;
             case "Stage_02":
                 Stage_Start();
+				break;
+			case "Stage_03":
+                Stage_Start();
+				break;
+			case "Stage_04":
+                Stage_Start();
+				break;
+			case "Stage_05":
+                Stage_Start();
+				break;
+			case "Stage_06":
+                Stage_Start();
+				break;
+			case "Stage_07":
+                Stage_Start();
                 break;
             case "GameOver":
                 break;
@@ -194,7 +210,7 @@ public class Game_Master : MonoBehaviour
     /// <summary>
     /// ステージシーンのスタート
     /// </summary>
-    private void Stage_Start()
+    public void Stage_Start()
     {
         //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
@@ -211,34 +227,36 @@ public class Game_Master : MonoBehaviour
 		Number_Of_People = set_num;
 		return Number_Of_People;
 	}
-	//死亡した味方の復活処理
-	private void RespornPlayer()
+	/// <summary>
+	/// ゲームオーバーに行く前にボタンを押せば
+	/// 復活ができるように
+	/// </summary>
+	public void Game_Continue()
 	{
-
-		if (Middle_Bossinfo.Is_Dead || One_Bossinfo.Is_Dead || Moai_Bossinfo.Is_Dead || Two_Bossinfo.Is_Dead)
+		var player1 = Obj_Storage.Storage_Data.GetPlayer();
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
-			if(Is_Player_Alive[0] == 0 && Is_Player_Alive[1] == 1)
-			{
-				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				P1.Remaining = 2;
-				if(P2.Remaining < 2)
-				{
-					P2.Remaining = 2;
-				}
-
-			}
-			else if(Is_Player_Alive[0] == 1 && Is_Player_Alive[1] == 0)
-			{
-				Player1 P1 = Obj_Storage.Storage_Data.GetPlayer().GetComponent<Player1>();
-				Player2 P2 = Obj_Storage.Storage_Data.GetPlayer2().GetComponent<Player2>();
-				P2.Remaining = 2;
-				if (P1.Remaining < 2)
-				{
-					P1.Remaining = 2;
-				}
-			}
-
+			player1.SetActive(true);
+			player1.GetComponent<Player1>().ResponPreparation(5);
 		}
+		else
+		{
+			var player2 = Obj_Storage.Storage_Data.GetPlayer2();
+			player2.SetActive(true);
+			player2.GetComponent<Player2>().ResponPreparation(5);
+			player1.SetActive(true);
+			player1.GetComponent<Player1>().ResponPreparation(5);
+		}
+	}
+	public void CountDown_Number(int frame)
+	{
+		
+	}
+
+	public void ResetScore()
+	{
+		display_score_1P = 0;
+		display_score_2P = 0;
+		Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 	}
 }

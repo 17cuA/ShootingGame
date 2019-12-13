@@ -75,7 +75,6 @@ public class Enemy_First : character_status
 			speedY = 5.0f;
 		}
 
-		HP_Setting();
 		base.Start();
 
 	}

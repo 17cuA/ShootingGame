@@ -91,7 +91,6 @@ public class Enemy_Moai : character_status
 		MoaiHpMax = hp;
 		isDead = false;
 
-		HP_Setting();
 		base.Start();
 	}
 
@@ -214,6 +213,7 @@ public class Enemy_Moai : character_status
 			//上まで行ったら消す
 			if (transform.position.y > 12)
 			{
+				Is_Dead = true;
 				gameObject.SetActive(false);
 			}
 			//退場中ダメージ受けないようにする
@@ -352,7 +352,7 @@ public class Enemy_Moai : character_status
 	void MoaiDead()
 	{
 		//スコア加算、SE、爆発エフェクト
-		Game_Master.MY.Score_Addition(score, Opponent);
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[11]);
 
 		explosionEffect.gameObject.SetActive(true);

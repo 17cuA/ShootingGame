@@ -14,26 +14,26 @@ using UnityEngine.Playables;
 public class Player2 : character_status
 {
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
-	private Vector3 vector3;    //進む方向を決める時に使う
-	private float x;    //x座標の移動する時に使う変数
-	private float y;    //y座標の移動する時に使う変数
-						//グリッド用の変数---------------------------------------
+	private Vector3 vector3;				//進む方向を決める時に使う
+	private float x;						//x座標の移動する時に使う変数
+	private float y;						//y座標の移動する時に使う変数
+	//グリッド用の変数---------------------------------------
 	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
-	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
-	public float step = 10f;     // 移動速度
-	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-						 //----------------------------------------------------
-	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
-	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
-	private Obj_Storage OS;             //ストレージからバレットの情報取得
+	public Vector3 target;					// 入力受付時、移動後の位置を算出して保存 
+	public float step = 10f;				// 移動速度
+	Vector3 prevPos;						// 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
+	//----------------------------------------------------
+	public Quaternion Direction;			//オブジェクトの向きを変更する時に使う  
+	public GameObject shot_Mazle;			//プレイヤーが弾を放つための地点を指定するためのオブジェクト
+	private Obj_Storage OS;					//ストレージからバレットの情報取得
 
-	public int invincible_time;              //無敵時間計測用
-	public int invincible_Max;          //無敵時間最大時間
-	public bool invincible;             //無敵時間帯かどうか
-	private Color first_color;          //初期の色を保存しておくようの画像
-	public bool activeMissile;        //ミサイルは導入されたかどうか
-	public int bitIndex = 0;        //オプションの数
+	public int invincible_time;				//無敵時間計測用
+	public int invincible_Max;				//無敵時間最大時間
+	public bool invincible;					//無敵時間帯かどうか
+	private Color first_color;				//初期の色を保存しておくようの画像
+	public bool activeMissile;				//ミサイルは導入されたかどうか
+	public int bitIndex = 0;				//オプションの数
 	GameObject optionObj;
 	Bit_Formation_3 bf;
 
@@ -41,20 +41,20 @@ public class Player2 : character_status
 	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+	//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+	//------------------------------------------------------
 
-	public float swing_facing;              // 旋回向き
-	public float facing_cnt;                    // 旋回カウント
-	public int shoot_number;                //弾を連続して撃った時の数をカウントするための変数
+	public float swing_facing;				// 旋回向き
+	public float facing_cnt;				// 旋回カウント
+	public int shoot_number;				//弾を連続して撃った時の数をカウントするための変数
 
-	public GameObject Laser;                //レーザーのobjectをOnにするために行う処理
+	public GameObject Laser;				//レーザーのobjectをOnにするために行う処理
 
-	private int missile_dilay_cnt;              // ミサイルの発射間隔カウンター
-	public int missile_dilay_max;               // ミサイルの発射間隔
+	private int missile_dilay_cnt;			// ミサイルの発射間隔カウンター
+	public int missile_dilay_max;			// ミサイルの発射間隔
 
 	//public Line_Beam line_beam;
 
@@ -67,7 +67,7 @@ public class Player2 : character_status
 		Laser,
 	}
 	public Bullet_Type bullet_Type; //弾の種類を変更
-									//リスポーン時に使用する変数--------------------------------------------------
+	//リスポーン時に使用する変数--------------------------------------------------
 	private Vector3 pos;                //複雑な動きをするときに計算結果をxyzごとに入れまとめて動かす
 	private int rotation_cnt;
 	public PlayableDirector Entry_anim; //タイムラインを入れる
@@ -79,14 +79,14 @@ public class Player2 : character_status
 	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
-							   //-----------------------------------------------------------------------
+	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0; //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-									//復活時のエフェクト用変数-------------------------------------
+	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
-										//--------------------------------------------------------
+	//--------------------------------------------------------
 
 	public bool Is_Change_Auto;     //ラピッドかオートかを変えるようの判定変数
 	public bool IS_Active;              //完全な無敵状態にするかどうかのもの
@@ -95,8 +95,6 @@ public class Player2 : character_status
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
 
 	public bool Is_Burst;      //バースト発射するかどうかの判定
-
-	private bool one;
 
 	InputManagerObject inputManager;    // ボタン入力を保存してあるやつ
 	public InputManagerObject InputManager { get { return inputManager; } }
@@ -118,27 +116,14 @@ public class Player2 : character_status
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
-
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
-		///////////////////////
 		P2_PowerManager.Instance.AddCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
-	}
-	//プレイヤーのアクティブが切られたら呼び出される
-	private void OnDisable()
-	{
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.LASER, ActiveLaser);
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.OPTION, CreateBit);
-		//P2_PowerManager.Instance.RemoveFunction(P2_PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		//P2_PowerManager.Instance.RemoveCheckFunction(P2_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
+
+		//-----------------------------------------11.29 陳追加　----------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------11.29 陳追加　----------------------------------------
 	}
 	new void Start()
 	{
@@ -148,11 +133,10 @@ public class Player2 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
-		HP_Setting();
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
+		Set_Shield();                                     //シールドに防御可能回数文の値を入れる
 		particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
@@ -185,7 +169,6 @@ public class Player2 : character_status
 		Is_Resporn_End = false;
 
 		//------------------------------------------------
-		one = false;
 		inputManager = GameObject.Find("InputManager_2P").GetComponent<InputManagerObject>();
 
 	}
@@ -239,22 +222,6 @@ public class Player2 : character_status
                
 				}
 
-
-				//if(transform.position.z == 0)
-				//{
-				//	resporn_Injection.Stop();
-				//	injection.Play();
-				//	startTime = 0;
-				//	movetime = 0;
-				//	rotation_cnt = 0;
-				//	Is_Resporn = false;
-				//}
-				//if (transform.position == direction)
-				//{
-				//	resporn_Injection.Stop();
-				//	startTime = 0;
-				//	Is_Resporn = false;
-				//}
 			}
 			else
 			{
@@ -333,7 +300,7 @@ public class Player2 : character_status
 		}
 		else
 		{
-			capsuleCollider.enabled = false;
+			Collider.enabled = false;
 		}
 
 		for (int i = 0; i < bullet_data.Count; i++)
@@ -356,6 +323,24 @@ public class Player2 : character_status
 		if (transform.position.y <= -4.5f && y < 0) y = 0;
 		if (transform.position.x >= 17.0f && x > 0) x = 0;
 		if (transform.position.x <= -17.0f && x < 0) x = 0;
+
+		//右入力
+		if (0 < x)
+		{
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+		}
+		//左入力
+		else if (x < 0)
+		{
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+		}
+		else if (x == 0)
+		{
+			//噴射量を規定の値に戻す
+			particleSystemMain.startLifetime = baseInjectionAmount;
+		}
 
 		prevPos = target;
 
@@ -431,55 +416,6 @@ public class Player2 : character_status
 		transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
 
-	//コントローラーの操作　使ってない
-	private void Player_Move()
-	{
-		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
-		y = Input.GetAxis("P2_Vertical");              //y軸の入力
-
-		//プレイヤーの移動に上下左右制限を設ける
-		if (transform.position.y >= 4.5f && y > 0) y = 0;
-		if (transform.position.y <= -4.5f && y < 0) y = 0;
-		if (transform.position.x >= 17.0f && x > 0) x = 0;
-		if (transform.position.x <= -17.0f && x < 0) x = 0;
-
-		vector3 = new Vector3(x, y, 0);     //移動のベクトルをvector3に入れる
-
-		// プレイヤー機体の旋回
-		// プレイヤーの向き(Y軸の正負)で角度算出
-		if (transform.eulerAngles.x != (swing_facing * y))
-		{
-			// 参考にしたURL↓
-			// https://tama-lab.net/2017/06/unity%E3%81%A7%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%9B%9E%E8%BB%A2%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
-			// Unity にある Mathf.LerpAngle 関数を使用
-			float angle = Mathf.LerpAngle(0.0f, (swing_facing * y), facing_cnt / 10.0f);
-			transform.eulerAngles = new Vector3(angle, 0, 0);
-			facing_cnt++;
-		}
-		else
-		{
-			facing_cnt = 0;
-		}
-		//右入力
-		if (0 < x)
-		{
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
-		}
-		//左入力
-		else if (x < 0)
-		{
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
-		}
-		else if (x == 0)
-		{
-			//噴射量を規定の値に戻す
-			particleSystemMain.startLifetime = baseInjectionAmount;
-		}
-		//位置情報の更新
-		transform.position = transform.position + vector3 * Time.deltaTime * speed;
-	}
 	//無敵時間（色の点滅も含め）
 	private void Invincible()
 	{
@@ -671,7 +607,7 @@ public class Player2 : character_status
 	//	ミサイルの発射
 	private void Missile_Fire()
 	{
-		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE2, shot_Mazle.transform.position, Direction);
 		obj.GetComponent<Missile>().Setting_On_Reboot(1);
 	}
 	//プレイヤーの速度上昇
@@ -726,7 +662,7 @@ public class Player2 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		Set_Shield(3);
+		Set_Shield();
 		shield_Effect.Play();               //パーティクルの稼働
 		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[15].Active_Obj();
@@ -746,7 +682,7 @@ public class Player2 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -755,7 +691,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 1:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -764,7 +700,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 2:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -773,7 +709,7 @@ public class Player2 : character_status
 				bitIndex++;
 				break;
 			case 3:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブ状態
 				bf = optionObj.GetComponent<Bit_Formation_3>();
 				bf.SetPlayer(2);
 				optionObj = null;
@@ -870,4 +806,39 @@ public class Player2 : character_status
         Start_animation_frame = 0;
         Is_Resporn_End = true;   
     }
+
+	//-----------------------------------------11.29 陳追加　----------------------------------------
+	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		if (to.name != "Stage_01" && to.name.Contains("Stage"))
+		{
+			invincible = true;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			target = direction;
+			Obj_Storage.Storage_Data.GetPlayer2().transform.position = new Vector3(-12, 0, -20);
+			Is_Animation = true;
+			Is_Resporn = true;                      //復活用の処理を行う
+
+
+			for (var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
+			{
+				var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
+				if (currentOption.activeSelf)
+				{
+					if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player2)
+					{
+						currentOption.GetComponent<Bit_Formation_3>().SetPlayer(2);
+						currentOption.GetComponent<Bit_Formation_3>().isborn = true;
+
+					}
+				}
+			}
+		}
+	}
+
+	private void OnDestroy()
+	{
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChange;		
+	}
+	//-----------------------------------------11.29 陳追加　----------------------------------------
 }

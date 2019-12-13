@@ -288,12 +288,12 @@ public class Two_Boss : character_status
 			// プレイヤーのスコア加算
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
-				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
 			}
 			else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			{
-				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
-				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 			}
 			base.Died_Judgment();
 			base.Died_Process();

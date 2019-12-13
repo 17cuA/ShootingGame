@@ -19,12 +19,13 @@ public class Enemy_Manta : character_status
 	int mazlecnt;		//マズル選択用
 
 	float Beam_Delay;					//弾発射管理変数
-	public float Beam_DelayMax;     //弾発射感覚決定用変数（unity側にて決定）
+	public float Beam_DelayMax;			//弾発射感覚決定用変数（unity側にて決定）
 
 
 	[SerializeField, Header("ビーム攻撃発射位置")]
 	private GameObject[] Beam_Mazle;		//ビーム用位置情報
-	bool Is_Laser_Attack;			//レーザー攻撃が出来るかどうか
+	bool Is_Laser_Attack;           //レーザー攻撃が出来るかどうか
+
 
 	private void OnEnable()
 	{
@@ -33,12 +34,13 @@ public class Enemy_Manta : character_status
 
 	private void OnDisable()
 	{
+		type = Move_Type.None;
 		mazlecnt = 0;
 	}
 
 	new void Start()
     {
-		type = Move_Type.Entry;
+		type = Move_Type.Fight;
 		mazlecnt = 0;
 
 		base.Start();
@@ -47,10 +49,22 @@ public class Enemy_Manta : character_status
     // Update is called once per frame
     new void Update()
     {
+		switch (type)
+		{
+			case Move_Type.Entry:
+				break;
+			case Move_Type.Fight:
+				Fire_Bullet();
+				base.Update();
 
-		Fire_Bullet();
-
-		base.Update();
+				break;
+			case Move_Type.Exit:
+				break;
+			case Move_Type.None:
+				break;
+			default:
+				break;
+		}
     }
 
 	/// <summary>
@@ -80,7 +94,7 @@ public class Enemy_Manta : character_status
 
 	void Fire_Laser()
 	{
-				Shot_Delay++;
+		Shot_Delay++;
 
 		if (Shot_Delay > Shot_DelayMax)
 		{

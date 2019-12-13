@@ -8,18 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class character_status : MonoBehaviour
 {
+	[Header("基本ステータスがはいってるものを入れる")]
+	public ParameterTable Parameter;                                    //ScriptableObjectを入れる
 
 	public float speed;                                                 // スピード
-	private float speed_Max;										//最大速度の設定
 	public int hp;                                                      // 体力
-	private int hp_Max;											//リスポーン時に体力を設定するよう変数
+	//private int hp_Max;											//リスポーン時に体力を設定するよう変数
 	public Vector3 direction;                                           // 向き
     public Vector4 setColor;
-	public Collider capsuleCollider;                             // collider
+	public Collider Collider;									// collider
 	private Rigidbody rigidbody;                                        //rigitbody
 	public int Shot_DelayMax;                                           // 弾を打つ時の間隔（最大値::unity側にて設定）
 	public int Shot_Delay;                                              // 弾を撃つ時の間隔
-	public uint score;                                                  // 保持しているスコア
+	//public uint score;                                                  // 保持しているスコア
 	private int shield;                                                 //シールド（主にプレイヤーのみ使うと思う）
 	public bool activeShield;                                           //現在シールドが発動しているかどうかの判定用（初期値false）
 	public int Remaining;                                               //残機（あらかじめ設定）
@@ -30,8 +31,10 @@ public class character_status : MonoBehaviour
 	public bool isrend = false;
 	public bool Is_Dead = false;															
 	public Material[] self_material;									//初期マテリアル保存用
+
 	[Header("ダメージ用material設定")]
-	public Material white_material;                                    //ダメージくらったときに一瞬のホワイト
+	public Material white_material;										//ダメージくらったときに一瞬のホワイト
+
 	private int framecnt;
 	private bool check;
 
@@ -39,6 +42,14 @@ public class character_status : MonoBehaviour
 	public string namenamename;
 	public void Start()
 	{
+		if(Parameter != null)
+		{
+			hp = Parameter.Get_Life;
+			speed = Parameter.Get_Speed;
+			shield = Parameter.Get_Shield;
+			Remaining = Parameter.Get_Reaming;
+		}
+
 		//rigidbodyがアタッチされているかどうかを見てされていなかったらアタッチする（Gravityも切る）
 		if (!gameObject.GetComponent<Rigidbody>())
 		{
@@ -48,11 +59,9 @@ public class character_status : MonoBehaviour
 		//CapsuleColliderがついていたら取得する
 		if (gameObject.GetComponent<Collider>())
 		{
-			capsuleCollider = GetComponent<Collider>();
+			Collider = GetComponent<Collider>();
 		}
 
-		if (tag == "Player") Remaining = 5;
-		else Remaining = 1;
 		if(tag == "Enemy") white_material = Resources.Load<Material>("Material/Enemy_Damege_Effect") as Material;
 		else if(tag == "Player") white_material = Resources.Load<Material>("Material/Player_Damege_Effect") as Material;
 		if(gameObject.name == "Bacula") white_material = Resources.Load<Material>("Material/Bacula") as Material;
@@ -61,7 +70,6 @@ public class character_status : MonoBehaviour
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
         for (int i = 0; i < defaultColor.Length; i++) defaultColor[i] = object_material[i].material.color;
 
-        HP_Setting();
 		framecnt = 0;
 		check = false;
 	}
@@ -84,15 +92,10 @@ public class character_status : MonoBehaviour
 
 		}
 	}
-	//初期の体力を保存
-	public void HP_Setting()
-	{
-		hp_Max = hp;
-	}
 	//再利用可能にするための処理
 	public void Reset_Status()
 	{
-		hp = hp_Max;
+		hp = Parameter.Get_Life;
 	}
 	//ダメージを与える関数
 	public void Damege_Process(int damege)
@@ -107,7 +110,7 @@ public class character_status : MonoBehaviour
 		if (transform.name == "Middle_Boss" || transform.name == "Enemy_MiddleBoss_Father")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score, Opponent);
+			Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 			//爆発処理の作成
 			ParticleCreation(7);
@@ -117,7 +120,7 @@ public class character_status : MonoBehaviour
         else if (transform.name == "BattleshipType_Enemy(Clone)" || transform.name == "BattleshipType_Enemy")
         {
             //スコア
-            Game_Master.MY.Score_Addition(score, Opponent);
+            Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
             SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[19]);
 			//SE_Manager.SE_Obj.Enemy_Scleem(Obj_Storage.Storage_Data.audio_se[3]);
             //爆発処理の作成
@@ -128,16 +131,17 @@ public class character_status : MonoBehaviour
         else if(transform.name == "Enemy_MeteorBound_Model(Clone)"|| transform.name ==  "Enemy_MeteorBound_Model")
         {
             //スコア
-            Game_Master.MY.Score_Addition(score, Opponent);
+            Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
             SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[1]);
             //爆発処理の作成
             ParticleCreation(13);
             Is_Dead = true;
-            Reset_Status();        }
+            Reset_Status();
+		}
         else if (gameObject.tag != "Player")
 		{
 			//スコア
-			Game_Master.MY.Score_Addition(score, Opponent);
+			Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 			SE_Manager.SE_Obj.SE_Explosion_small(Obj_Storage.Storage_Data.audio_se[18]);
 			//爆発処理の作成
 			ParticleCreation(4);
@@ -257,6 +261,17 @@ public class character_status : MonoBehaviour
 			}
 		}
 	}
+	//戦艦などの大きな敵にめり込んだ時にしっかり死ぬようにするため
+	public void OnTriggerStay(Collider col)
+	{
+		if(tag == "Player")
+		{
+			if(col.tag == "Enemy")
+			{
+				Damege_Process(3);
+			}
+		}
+	}
 	//キャラクターが死んだか(残機とHP両方)どうかの判定用関数
 	public bool Died_Judgment()
 	{
@@ -280,7 +295,6 @@ public class character_status : MonoBehaviour
 		{
 			v_Value = 1.0f;
 		}
-        //setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
         setColor = new Vector4(1 * v_Value, 1 * v_Value, 1 * v_Value, 1 * v_Value);
 
         for (int i = 0; i < object_material.Length; i++)
@@ -288,12 +302,6 @@ public class character_status : MonoBehaviour
             setColor = new Vector4(defaultColor[i].x * v_Value, defaultColor[i].y * v_Value, defaultColor[i].z * v_Value, 1);
             object_material[i].material.SetVector("_BaseColor", setColor);
         }
-
-  //      foreach (Renderer renderer in object_material)
-		//{
-  //          renderer.material.SetVector("_BaseColor", setColor);
-		//	//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, v_Value);
-		//}
 	}
 	//ダメージを食らうとダメージエフェクトが走るように
 	public void Damege_Effect()
@@ -321,22 +329,22 @@ public class character_status : MonoBehaviour
 		return shield;
 	}
 	//シールドの値設定
-	public void Set_Shield(int setnum)
+	public void Set_Shield()
 	{
-		shield = setnum;
+		shield = Parameter.Get_Shield;
 	}
 	//キャラクタの設定してある体力を取得するための関数
 	public uint Get_Score()
 	{
-		return score;
+		return Parameter.Get_Score;
 	}
+	//オブジェクトが持っているMaterialを取得
+	//基本的に複数のマテリアルを持っているが前提のため、繰り返しで使われる前提
 	public Material Get_self_material(int num)
 	{
 		return self_material[num];
 	}
-
     
-    //追加
     //残機増やす
     public void BossRemainingBouns(int bonusRemaining)
     {

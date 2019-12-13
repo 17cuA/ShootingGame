@@ -173,27 +173,24 @@ public class FollowToPreviousBit : MonoBehaviour
 				//	}
 				//}
 
-				if (!followParent_Script.isResetPosEnd)
+				if (!followParent_Script.isResetPosEnd && !isResetPos)
 				{
-					if (!isResetPos)
+					endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
+					//pl1.Is_Resporn_End = false;
+					transform.position = playerObj.transform.position;
+					pos = playerObj.transform.position;
+					savePos = playerObj.transform.position;
+					for (int i = 0; i < array_Num; i++)
 					{
-						endDDDDDDDDDDDDDDDDDDDDDDDDDDD = true;
-						//pl1.Is_Resporn_End = false;
-						transform.position = playerObj.transform.position;
-						pos = playerObj.transform.position;
-						savePos = playerObj.transform.position;
-						for (int i = 0; i < array_Num; i++)
-						{
-							previousBitPos[i] = playerObj.transform.position;
-							previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
-						}
-
-						//transform.position = playerObj.transform.position;
-						//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-						followParent_Script.resetPosCnt++;
-						isResetPos = true;
-						isFreeze = false;
+						previousBitPos[i] = playerObj.transform.position;
+						previousBitPos[i] = new Vector3(previousBitPos[i].x, previousBitPos[i].y, 0);
 					}
+
+					//transform.position = playerObj.transform.position;
+					//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+					followParent_Script.resetPosCnt++;
+					isResetPos = true;
+					isFreeze = false;
 				}
 				if (!pl1.Is_Resporn)
 				{
@@ -220,7 +217,7 @@ public class FollowToPreviousBit : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				if (!followParent_Script.isResetPosEnd)
+				if (!followParent_Script.isResetPosEnd && !isResetPos)
 				{
 					//pl2.Is_Resporn_End = false;
 					transform.position = playerObj.transform.position;

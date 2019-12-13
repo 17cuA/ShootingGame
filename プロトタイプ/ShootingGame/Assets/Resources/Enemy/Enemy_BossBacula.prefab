@@ -70,19 +70,6 @@ MonoBehaviour:
   sin: 0
   isAddSpeedY: 0
   isSubSpeedY: 0
---- !u!135 &7621166922180983623
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949828229767131131}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.115
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &949828229489593990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,6 +83,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.23, y: 0.199, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &7621166922180983623
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949828229767131131}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.115
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &949828229489593986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949828229767131131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040a0132c8ade644388ac0a948dce495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotaX: 0
+  rotaY: 0
+  rotaZ: 0
+  rotaX_Value: 6
+  rotaY_Value: 2
+  rotaZ_Value: 0
+  myName: 
+  isWaveEnemy: 0
+  isBacula: 0
 --- !u!114 &949828229489593989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bdffe9be9548a4683c8af65beb66da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: fab55ec749d5a454e8ebf401f28d577b, type: 2}
   speed: 0
   hp: 300
   direction: {x: 0, y: 0, z: 0}
@@ -132,27 +154,6 @@ MonoBehaviour:
   saveHp: 0
   ebp: {fileID: 0}
   Init_Score: 0
---- !u!114 &949828229489593986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949828229767131131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040a0132c8ade644388ac0a948dce495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotaX: 0
-  rotaY: 0
-  rotaZ: 0
-  rotaX_Value: 6
-  rotaY_Value: 2
-  rotaZ_Value: 0
-  myName: 
-  isWaveEnemy: 0
-  isBacula: 0
 --- !u!1 &949828231207060170
 GameObject:
   m_ObjectHideFlags: 0

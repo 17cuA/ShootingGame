@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9135540294587538138}
   - component: {fileID: 1554323710006405756}
   - component: {fileID: 946810528526216286}
+  - component: {fileID: 7252141124936252324}
   m_Layer: 14
   m_Name: Enemy_Bullet
   m_TagString: Enemy_Bullet
@@ -129,6 +130,19 @@ MonoBehaviour:
   attack_damage: 6
   Travelling_Direction: {x: 0, y: 0, z: 0}
   Bullet_Renderer: {fileID: 0}
+  Bullet_Type: 0
+--- !u!114 &7252141124936252324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554323710006405754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3556758676273612339
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +219,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6452931559868989263
@@ -306,4 +320,6 @@ MonoBehaviour:
   rotaX_Value: 0
   rotaY_Value: 0
   rotaZ_Value: 40
+  myName: 
   isWaveEnemy: 0
+  isBacula: 0

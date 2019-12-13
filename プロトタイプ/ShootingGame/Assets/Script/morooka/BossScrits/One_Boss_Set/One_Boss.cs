@@ -320,12 +320,12 @@ public class One_Boss : character_status
 			gameObject.SetActive(false);
 			if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 			{
-				Game_Master.MY.Score_Addition(score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
 			}
 			else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			{
-				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
-				Game_Master.MY.Score_Addition(score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 			}
 		}
 	}
@@ -531,7 +531,13 @@ public class One_Boss : character_status
 	/// <param name="State"></param>
 	private void Collider_Set(bool State)
 	{
+		List<Collider> objCol = new List<Collider>();
 		foreach(var col in no_damage_Collider)
+		{
+			objCol.AddRange(col.GetComponents<Collider>());
+		}
+		
+		foreach(var col in objCol)
 		{
 			col.enabled = State;
 		}

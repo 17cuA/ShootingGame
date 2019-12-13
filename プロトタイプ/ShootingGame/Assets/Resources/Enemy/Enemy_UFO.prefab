@@ -45,8 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
+  player2Obj: {fileID: 0}
+  player1_DefPosTotal: 0
+  player2_DefPosTotal: 0
   imasuyo: 1
-  isPlayerActive: 1
+  isPlayer1Active: 1
+  isPlayer2Active: 1
+  isAimForPlayer1: 1
+  isAimForPlayer2: 0
   degree: 0
 --- !u!114 &6761423790994251535
 MonoBehaviour:
@@ -73,6 +79,7 @@ MonoBehaviour:
   burst_Shot_Cnt: 0
   isShot: 0
   isBurst: 0
+  once: 0
 --- !u!114 &4845257256005712397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +100,7 @@ MonoBehaviour:
   rotaZ_Value: 0
   myName: 
   isWaveEnemy: 0
+  isBacula: 0
 --- !u!1 &6541507908318001144
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71bf4913965b2741841524e45c84e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 3375d10fcd0b8d24eac464d33a5825de, type: 2}
   speed: 1
   hp: 1
   direction: {x: 0, y: 0, z: 0}
@@ -163,12 +172,14 @@ MonoBehaviour:
   - {fileID: 0}
   white_material: {fileID: 0}
   Opponent: 0
+  namenamename: 
   eState: 2
   parentObj: {fileID: 0}
   defaultPos_Local: {x: 0, y: 0, z: 0}
   defaultPos_PlusZ: {x: 0, y: 0, z: 0}
   diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
   diedAttack_Transform: {fileID: 0}
+  groupManage: {fileID: 0}
   timeCnt: 0
   circleSpeed: 10
   radius: 1

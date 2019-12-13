@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7679829960884524989
+--- !u!114 &3702890291363538518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2345678824017349114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 376a529141f5aed469c962b7a374526c, type: 3}
+  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentObj: {fileID: 0}
-  zzzzz: 0
-  rotaY: 0
+  hue: 1
+  sat: 1
+  val: 1
 --- !u!114 &5274134746296175940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   myName: 
   isWaveEnemy: 0
   isBacula: 0
---- !u!114 &3702890291363538518
+--- !u!114 &7679829960884524989
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,12 +45,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2345678824017349114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bf4aab6c904454db07bea317143083, type: 3}
+  m_Script: {fileID: 11500000, guid: 376a529141f5aed469c962b7a374526c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hue: 1
-  sat: 1
-  val: 1
+  parentObj: {fileID: 0}
+  zzzzz: 0
+  rotaY: 0
 --- !u!1 &4737021761769508466
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,14 +141,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c0ddc1cc78b4740a775370a2efb491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 80aa4a15139753241b9afdf011d02e6a, type: 2}
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 7887658769485472530}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -174,12 +174,6 @@ MonoBehaviour:
   speedZ: 0
   speedZ_Value: 32
   amplitude: 0
-  rushStayCnt: 0
-  rushStayCntMax: 0
-  rushStartTime: 0
-  saverushRotaZ: 0
-  rushRotaZ: 0
-  rushRotaZ_Value: 0
   defaultSpeedY: 7
   addAndSubValue: 0.5
   sin: 0
@@ -394,6 +388,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4737021761769508464}
     m_Modifications:
+    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Bullfight
+      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -454,10 +452,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Name
-      value: Enemy_Bullfight
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
 --- !u!1 &2345678824017349114 stripped
@@ -479,6 +473,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2345678824017122778}
     m_Modifications:
+    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
+        type: 3}
+      propertyPath: m_Name
+      value: A100
+      objectReference: {fileID: 0}
     - target: {fileID: 1220375677657393113, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -533,11 +532,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
-        type: 3}
-      propertyPath: m_Name
-      value: A100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0d21f7a21f6774bb4c099e6b3475cf, type: 3}

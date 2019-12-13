@@ -6,24 +6,25 @@
  * 2019/06/07	陳さんの作ったパワーアップ処理統合
  */
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Power;
 using StorageReference;
 using UnityEngine.Playables;
 public class Player1 : character_status
 {
+	[Header("ここからプレイヤーのスクリプトの中身")]
 	private const float number_Of_Directions = 1.0f;    //方向などを決める時使う定数
 	private Vector3 vector3;    //進む方向を決める時に使う
-	private float x;    //x座標の移動する時に使う変数
+	public float x;    //x座標の移動する時に使う変数
 	private float y;    //y座標の移動する時に使う変数
-						//グリッド用の変数---------------------------------------
+	//グリッド用の変数---------------------------------------
 	Vector3 MOVEX = new Vector3(0.166f, 0, 0); // x軸方向に１マス移動するときの距離
 	Vector3 MOVEY = new Vector3(0, 0.166f, 0); // y軸方向に１マス移動するときの距離
 	public Vector3 target;      // 入力受付時、移動後の位置を算出して保存 
 	public float step = 10f;     // 移動速度
 	Vector3 prevPos;     // 何らかの理由で移動できなかった場合、元の位置に戻すため移動前の位置を保存
-						 //----------------------------------------------------
+	//----------------------------------------------------
 	public Quaternion Direction;   //オブジェクトの向きを変更する時に使う  
 	public GameObject shot_Mazle;       //プレイヤーが弾を放つための地点を指定するためのオブジェクト
 	private Obj_Storage OS;             //ストレージからバレットの情報取得
@@ -34,18 +35,18 @@ public class Player1 : character_status
 	private Color first_color;          //初期の色を保存しておくようの画像
 	public bool activeMissile;        //ミサイルは導入されたかどうか
 	public int bitIndex = 0;        //オプションの数
-	GameObject optionObj;
+	GameObject optionObj;			//オプションの情報を取得する際に使用
 	Bit_Formation_3 bf;
 
 	[SerializeField] private ParticleSystem injection;           //ジェット噴射のエフェクトを入れる
-	private ParticleSystem.MainModule particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
+	private ParticleSystem.MainModule Injectino_particleSystemMain;   //☝の中のメイン部分（としか言いようがない）
 	[SerializeField] private ParticleSystem shield_Effect;       //シールドのエフェクトを入れる
 	[SerializeField] private ParticleSystem resporn_Injection;  //復活時のジェット噴射エフェクトを入れる
-																//ジェット噴射用の数値-------------------------------
+	//ジェット噴射用の数値-------------------------------
 	public const float baseInjectionAmount = 0.2f;          //基本噴射量
 	public const float additionalInjectionAmount = 0.1f;    //加算噴射量
 	public const float subtractInjectionAmount = 0.1f;      //減算噴射量
-															//------------------------------------------------------
+	//------------------------------------------------------
 
 	public float swing_facing;              // 旋回向き
 	public float facing_cnt;                    // 旋回カウント
@@ -79,14 +80,14 @@ public class Player1 : character_status
 	public bool Is_Animation;       //復活用のアニメーションを稼働状態にするかどうか
 	public bool Is_Resporn;    //生き返った瞬間かどうか（アニメーションを行うかどうかの判定）
 	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
-							   //-----------------------------------------------------------------------
+	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
 	private int effect_num = 0;     //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
-									//復活時のエフェクト用変数-------------------------------------
+	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する
 	public bool Is_Change;              //マテリアルを切り替える際どちらの色にするかの判定用			
-										//--------------------------------------------------------
+	//--------------------------------------------------------
 
 	public bool Is_Change_Auto;     //ラピッドかオートかを変えるようの判定変数
 	public bool IS_Active;              //完全な無敵状態にするかどうかのもの
@@ -101,7 +102,9 @@ public class Player1 : character_status
 
 
 	public ParticleSystem[] Maltiple_Catch;     //マルチプルのエフェクト
-												//プレイヤーがアクティブになった瞬間に呼び出される
+
+
+	//プレイヤーがアクティブになった瞬間に呼び出される
 	private void OnEnable()
 	{
 		//プール化したため、ここでイベント発生時の処理を入れとく
@@ -116,28 +119,17 @@ public class Player1 : character_status
 		//死んだり、バレットの種類が変わったりする際に呼ばれる関数
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { Init_speed_died(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.INITSPEED, () => { return hp < 1; }, () => { Init_speed_died(); });
-
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); });
 		///////////////////////
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
+
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	}
-	//プレイヤーのアクティブが切られたら呼び出される
-	private void OnDisable()
-	{
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SPEEDUP, SpeedUp);
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.MISSILE, ActiveMissile);
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.DOUBLE, ActiveDouble);
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.LASER, ActiveLaser);
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.OPTION, CreateBit);
-		//P1_PowerManager.Instance.RemoveFunction(P1_PowerManager.Power.PowerType.SHIELD, ActiveShield);
-		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SPEEDUP, () => { return hp < 1; }, () => { speed = min_speed; });
-		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.MISSILE, () => { return hp < 1; }, () => { activeMissile = false; });
-		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.DOUBLE, () => { return hp < 1 || bullet_Type == Bullet_Type.Laser; }, () => { Reset_BulletType(); });
-		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.LASER, () => { return hp < 1 || bullet_Type == Bullet_Type.Double; }, () => { Reset_BulletType(); /*Laser.SetActive(false);*/ });
-		//P1_PowerManager.Instance.RemoveCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() < 1; }, () => { Set_Shield(3); activeShield = false; });
-	}
+
 	new void Start()
 	{
 		base.Start();
@@ -146,12 +138,11 @@ public class Player1 : character_status
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
 		hp = 1;
-		HP_Setting();
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
-		Set_Shield(3);                                     //シールドに防御可能回数文の値を入れる
-		particleSystemMain = injection.main;
+		Set_Shield();                                     //シールドに防御可能回数文の値を入れる
+		Injectino_particleSystemMain = injection.main;
 		//プレイヤーの各弾や強化のものの判定用変数に初期値の設定
 		activeShield = false;
 		activeMissile = false;
@@ -166,8 +157,8 @@ public class Player1 : character_status
 		effect_num = 0;
 		min_speed = speed;      //初期の速度を保存しておく
 		Laser.SetActive(false); //レーザーの子供が動かないようにするための変数
-		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();      //二週目以降からパワーアップしたものをリセットするメソッド
-		P1_PowerManager.Instance.ResetSelect();            //プレイヤーのアイテム取得回数をリセットするメソッド
+		P1_PowerManager.Instance.ResetAllPowerUpgradeCount();		//二週目以降からパワーアップしたものをリセットするメソッド
+		P1_PowerManager.Instance.ResetSelect();                     //プレイヤーのアイテム取得回数をリセットするメソッド
 		Is_Change = false;
 		Is_Change_Auto = true;
 		IS_Active = true;
@@ -177,7 +168,6 @@ public class Player1 : character_status
 		rotation_cnt = 0;
 		transform.position = new Vector3(-12, 0, -20);
 		Entry_anim = GetComponent<PlayableDirector>();
-		//Entry_anim.Stop();
 		Start_animation_frame = 0;
 		Is_Resporn = true;
 		Is_Animation = true;
@@ -219,11 +209,13 @@ public class Player1 : character_status
 					if (timeLineAnimClip == null)
 					{
 						if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) timeLineAnimClip = Resources.Load("PlayerEntry_1P_1Play") as PlayableAsset;
-						else timeLineAnimClip = Resources.Load("PlayerEntry_1P_2Play") as PlayableAsset;
+						else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) timeLineAnimClip = Resources.Load("PlayerEntry_1P_2Play") as PlayableAsset;
+						else timeLineAnimClip = Resources.Load("PlayerEntry_1P_1Play") as PlayableAsset;
 					}
 
 
 					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER) Entry_anim.Play(timeLineAnimClip);
+					else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER) Entry_anim.Play(timeLineAnimClip);
 					else Entry_anim.Play(timeLineAnimClip);
 					rotation_cnt = 1;
 					if (Is_Animation)
@@ -296,7 +288,6 @@ public class Player1 : character_status
 				//プレイヤーの移動処理
 				if (transform.position == target)
 				{
-					//MoveX();
 					SetTargetPosition();
 				}
 
@@ -321,7 +312,7 @@ public class Player1 : character_status
 		}
 		else
 		{
-			capsuleCollider.enabled = false;
+			Collider.enabled = false;
 		}
 
 		for (int i = 0; i < bullet_data.Count; i++)
@@ -345,6 +336,25 @@ public class Player1 : character_status
 		if (transform.position.x >= 17.0f && x > 0) x = 0;
 		if (transform.position.x <= -17.0f && x < 0) x = 0;
 
+		//右入力
+		if (0 < x)
+		{
+			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+		}
+		//左入力
+		else if (x < 0)
+		{
+			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+		}
+		else if (x == 0)
+		{
+			//噴射量を規定の値に戻す
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount;
+		}
+
+
 		prevPos = target;
 
 		// プレイヤー機体の旋回
@@ -367,29 +377,21 @@ public class Player1 : character_status
 		if (x > 0 && y > 0)
 		{
 			target = transform.position + MOVEX + MOVEY;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//右下
 		else if (x > 0 && y < 0)
 		{
 			target = transform.position + MOVEX - MOVEY;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//左下
 		else if (x < 0 && y < 0)
 		{
 			target = transform.position - MOVEX - MOVEY;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		//左上
 		else if (x < 0 && y > 0)
 		{
 			target = transform.position - MOVEX + MOVEY;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		//上
 		else if (y > 0)
@@ -400,8 +402,6 @@ public class Player1 : character_status
 		else if (x > 0)
 		{
 			target = transform.position + MOVEX;
-			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//下
 		else if (y < 0)
@@ -412,8 +412,6 @@ public class Player1 : character_status
 		else if (x < 0)
 		{
 			target = transform.position - MOVEX;
-			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 
 	}
@@ -456,18 +454,18 @@ public class Player1 : character_status
 		if (0 < x)
 		{
 			//噴射量の変更(基本噴射量 + 加算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + additionalInjectionAmount * x;
 		}
 		//左入力
 		else if (x < 0)
 		{
 			//噴射量の変更(基本噴射量 + 減算用噴射量 * 入力割合)
-			particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount + subtractInjectionAmount * x;
 		}
 		else if (x == 0)
 		{
 			//噴射量を規定の値に戻す
-			particleSystemMain.startLifetime = baseInjectionAmount;
+			Injectino_particleSystemMain.startLifetime = baseInjectionAmount;
 		}
 		//位置情報の更新
 		transform.position = transform.position + vector3 * Time.deltaTime * speed;
@@ -513,6 +511,7 @@ public class Player1 : character_status
 			Shot_DelayMax = 2;
 			if (Shot_Delay > Shot_DelayMax)
 			{
+				//単発の弾の発射
 				if (Input.GetButtonDown(inputManager.Manager.Button["Shot"]) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
@@ -531,7 +530,7 @@ public class Player1 : character_status
 						default:
 							break;
 					}
-					if (effect_num > 4)
+					if (effect_num > effect_mazle_fire.Length)
 					{
 						effect_num = 0;
 					}
@@ -546,12 +545,14 @@ public class Player1 : character_status
 		}
 		else
 		{
+			//ボタンを押すのをやめたら弾が出るのが止まるように
 			if (Input.GetButtonUp(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = false;
 				shoot_number = 0;
 				return;
 			}
+			//発射ボタンを押したら弾が出続けるようにする
 			else if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = true;
@@ -583,6 +584,7 @@ public class Player1 : character_status
 							default:
 								break;
 						}
+						//ミサイルの発射（既定の時間を越したら）
 						if (activeMissile && missile_dilay_cnt > missile_dilay_max)
 						{
 							Missile_Fire();
@@ -612,8 +614,10 @@ public class Player1 : character_status
 	//単発
 	private void Single_Fire()
 	{
+		//ラピッドがバーストかによって種類を変更する
 		if (!Is_Change_Auto)
 		{
+			//既定の値までしか打てないように
 			if (Bullet_cnt < 8)
 			{
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
@@ -623,6 +627,7 @@ public class Player1 : character_status
 		}
 		else
 		{
+			//弾発射までディレイ分少し遅らせる
 			if (Bullet_cnt < 8 && bullet_data.Count < 10)
 			{
 				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
@@ -638,8 +643,10 @@ public class Player1 : character_status
 	//二連発射
 	private void Double_Fire()
 	{
+		//シングルの倍の値まで連続で撃てるように
 		if (bullet_data.Count < 16)
 		{
+			//弾の起動とSEを鳴らす
 			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
 			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
@@ -708,9 +715,9 @@ public class Player1 : character_status
 	private void ActiveShield()
 	{
 		activeShield = true;            //シールドが発動するかどうかの判定
-		Set_Shield(3);
+		Set_Shield();			//シールドの値を取得
 		shield_Effect.Play();               //パーティクルの稼働
-											//------------------------------------------------------------------------
+		//------------------------------------------------------------------------
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
 		ParticleSystem powerup = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
@@ -728,40 +735,40 @@ public class Player1 : character_status
 		switch (bitIndex)
 		{
 			case 0:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
-				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
-				optionObj = null;
-				bf = null;
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
+				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
+				bf.SetPlayer(1);				//1Pに追尾させるように
+				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
+				bf = null;						//無駄に変更しないようにするため、nullを入れる
 
-				bitIndex++;
+				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 1:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
-				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
-				optionObj = null;
-				bf = null;
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
+				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
+				bf.SetPlayer(1);                //1Pに追尾させるように
+				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
+				bf = null;						//無駄に変更しないようにするため、nullを入れる
 
-				bitIndex++;
+				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 2:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
-				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
-				optionObj = null;
-				bf = null;
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
+				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
+				bf.SetPlayer(1);                //1Pに追尾させるように
+				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
+				bf = null;                      //無駄に変更しないようにするため、nullを入れる
 
-				bitIndex++;
+				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			case 3:
-				optionObj = Obj_Storage.Storage_Data.P1_Option.Active_Obj();
-				bf = optionObj.GetComponent<Bit_Formation_3>();
-				bf.SetPlayer(1);
-				optionObj = null;
-				bf = null;
+				optionObj = Obj_Storage.Storage_Data.Option.Active_Obj();		//オプションをアクティブに
+				bf = optionObj.GetComponent<Bit_Formation_3>();						//オプションにアタッチされてるものの取得
+				bf.SetPlayer(1);                //1Pに追尾させるように
+				optionObj = null;               //無駄に変更しないようにするため、nullを入れる
+				bf = null;                      //無駄に変更しないようにするため、nullを入れる
 
-				bitIndex++;
+				bitIndex++;						//所持しているオプションの数を増やす
 				break;
 			default:
 				break;
@@ -780,17 +787,17 @@ public class Player1 : character_status
 	//速度を初期のに戻す
 	private void Init_speed()
 	{
-		speed = min_speed;
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
-
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
-	}
+		speed = min_speed;				//速度を初期値に戻す
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);		//パワーアップの音声を流す
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);				//パワーアップの効果音を流す
+	}	
+	//死亡した時の速度をもとに戻すとき
 	private void Init_speed_died()
 	{
-		speed = min_speed;
-		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[20]);
+		speed = min_speed;              //速度を初期値に戻す
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[20]);               //死亡時の効果音を流す
 	}
-	//レーザーの攻撃を初期バレットまたはダブルに変更
+	//レーザーの攻撃やダブルの攻撃を初期バレットに変更
 	private void Reset_BulletType()
 	{
 		if (hp < 1) bullet_Type = Bullet_Type.Single;
@@ -828,27 +835,66 @@ public class Player1 : character_status
 		cnt++;
 	}
 
-
-    //-------------------
+	/// <summary>
+	/// デバックキーの復活処理の際に使用する
+	/// </summary>
+	/// <param name="remain">残機</param>
     public void ResponPreparation(int remain)
     {
-        base.Is_Dead = false;
-        this.Remaining = remain;
-        Reset_Status();             //体力の修正
-	    invincible = true;         //無敵状態にするかどうかの処理
-		invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-		bullet_Type = Bullet_Type.Single;       //撃つ弾の種類を変更する
-		target = direction;
-		transform.position = new Vector3(-12, 0, -20);
-		Is_Animation = true;
-		Is_Resporn = true;                      //復活用の処理を行う
+        base.Is_Dead = false;							//生きている状態の判定にする
+        this.Remaining = remain;						//残機を設定した値に戻す
+        Reset_Status();									//体力の修正
+	    invincible = true;								//無敵状態にするかどうかの処理
+		invincible_time = 0;							//無敵時間のカウントする用の変数の初期化
+		bullet_Type = Bullet_Type.Single;				//撃つ弾の種類を変更する
+		target = direction;								//復活した際に移動先を初期位置から移動しないようにする
+		transform.position = new Vector3(-12, 0, -20);	//位置を、復活のアニメーションが始まる位置に変更する
+		Is_Animation = true;							//アニメーション開始の判定をOnにする
+		Is_Resporn = true;								//復活用の処理を行う
 
         for (int i = 0; i < effect_mazle_fire.Length; i++) effect_mazle_fire[i].Stop(); //複数設定してある、マズルファイアのエフェクトをそれぞれ停止状態にする
-		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();
-        shield_Effect.Stop();//シールドのエフェクトを動かさないようにする
-        Entry_anim.time = 0;
-        Start_animation_frame = 0;
-        Is_Resporn_End = true;                   
+		for (int i = 0; i < Maltiple_Catch.Length; i++) Maltiple_Catch[i].Stop();		//オプション再取得の際のエフェクトのをそれぞれ停止状態にする
+        shield_Effect.Stop();															//シールドのエフェクトを動かさないようにする
+        Entry_anim.time = 0;				//登場アニメーション時間の初期化
+        Start_animation_frame = 0;			//登場アニメーション
+        Is_Resporn_End = true;              //アニメーションが終わったことを知らせる
 
     }
+
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+	{
+		if (to.name != "Stage_01")
+		{
+			if (to.name.Contains("Stage"))
+			{
+				invincible = true;         //無敵状態にするかどうかの処理
+				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+				target = direction;
+				Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
+				Is_Animation = true;
+				Is_Resporn = true;                      //復活用の処理を行う
+
+				for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
+				{
+					var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
+					if (currentOption.activeSelf)
+					{
+						if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1)
+						{
+							currentOption.GetComponent<Bit_Formation_3>().SetPlayer(1);
+							currentOption.GetComponent<Bit_Formation_3>().isborn = true;
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void OnDestroy()
+	{	
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChange;
+	}
+	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 }
