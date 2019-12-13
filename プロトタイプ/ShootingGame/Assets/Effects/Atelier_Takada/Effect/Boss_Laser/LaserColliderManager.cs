@@ -10,14 +10,14 @@ public class LaserColliderManager : MonoBehaviour
 	{
 		public AnimationCurve colliderSize;     //任意方向へサイズ変化のカーブ
 		public bool coliderCenterFixed;         //コライダーの中心の固定の可否
-		public float coordinateFixed;               //固定する場合のコライダーの中心の座標
-		public float maxColliderSize;               //コライダーの最大サイズ
+		public float coordinateFixed;           //固定する場合のコライダーの中心の座標
+		public float maxColliderSize;           //コライダーの最大サイズ
 	}
 
 	public float playTime;              //全体の再生時間
 	public float elapsedTime;           //経過時間
 
-	public bool isLoop;					//loopの可否
+	public bool isLoop;                 //loopの可否
 
 	[SerializeField]
 	public CoordinateChangeStatus xDirectionCoordinateChangeStatus; //X方向
@@ -26,12 +26,12 @@ public class LaserColliderManager : MonoBehaviour
 	[SerializeField]
 	public CoordinateChangeStatus zDirectionCoordinateChangeStatus; //Z方向
 
-	private BoxCollider myCollider;     //コライダーコンポーネント
+	private BoxCollider boxCollider;     //コライダーコンポーネント
 
 	void Start()
 	{
 		elapsedTime = 0.0f;
-		myCollider = GetComponent<BoxCollider>();
+		boxCollider = GetComponent<BoxCollider>();
 
 		xDirectionCoordinateChangeStatus.maxColliderSize = 0.0f;
 		yDirectionCoordinateChangeStatus.maxColliderSize = 0.0f;
@@ -45,11 +45,11 @@ public class LaserColliderManager : MonoBehaviour
 
 		//長さ変更処理
 		//経過時間に対応したグラフの数値を取得
-		Vector3 myColliderSize;
-		myColliderSize.x = (float)xDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
-		myColliderSize.y = (float)yDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
-		myColliderSize.z = (float)zDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
-		myCollider.size = myColliderSize;
+		Vector3 boxColliderSize;
+		boxColliderSize.x = (float)xDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
+		boxColliderSize.y = (float)yDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
+		boxColliderSize.z = (float)zDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
+		boxCollider.size = boxColliderSize;
 
 		//最大値の保存
 		if (xDirectionCoordinateChangeStatus.maxColliderSize < (float)xDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime))
@@ -60,29 +60,29 @@ public class LaserColliderManager : MonoBehaviour
 			zDirectionCoordinateChangeStatus.maxColliderSize = (float)zDirectionCoordinateChangeStatus.colliderSize.Evaluate(elapsedTime);
 
 		//中心点変更処理
-		Vector3 myColliderCenter = myColliderSize / 2.0f;
+		Vector3 boxColliderCenter = boxColliderSize / 2.0f;
 
 		//中心点固定
-		if (xDirectionCoordinateChangeStatus.coliderCenterFixed) myColliderCenter.x = xDirectionCoordinateChangeStatus.coordinateFixed;
-		if (yDirectionCoordinateChangeStatus.coliderCenterFixed) myColliderCenter.y = yDirectionCoordinateChangeStatus.coordinateFixed;
-		if (zDirectionCoordinateChangeStatus.coliderCenterFixed) myColliderCenter.z = zDirectionCoordinateChangeStatus.coordinateFixed;
+		if (xDirectionCoordinateChangeStatus.coliderCenterFixed) boxColliderCenter.x = xDirectionCoordinateChangeStatus.coordinateFixed;
+		if (yDirectionCoordinateChangeStatus.coliderCenterFixed) boxColliderCenter.y = yDirectionCoordinateChangeStatus.coordinateFixed;
+		if (zDirectionCoordinateChangeStatus.coliderCenterFixed) boxColliderCenter.z = zDirectionCoordinateChangeStatus.coordinateFixed;
 
 		//再生前半
 		if (playTime / 2.0f >= elapsedTime)
 		{
-			myCollider.center = myColliderCenter;
+			boxCollider.center = boxColliderCenter;
 		}
 		//後半
 		else if (playTime > elapsedTime)
 		{
 			if (!xDirectionCoordinateChangeStatus.coliderCenterFixed)
-				myColliderCenter.x = xDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.x;
+				boxColliderCenter.x = xDirectionCoordinateChangeStatus.maxColliderSize - boxColliderCenter.x;
 			if (!yDirectionCoordinateChangeStatus.coliderCenterFixed)
-				myColliderCenter.y = yDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.y;
+				boxColliderCenter.y = yDirectionCoordinateChangeStatus.maxColliderSize - boxColliderCenter.y;
 			if (!zDirectionCoordinateChangeStatus.coliderCenterFixed)
-				myColliderCenter.z = zDirectionCoordinateChangeStatus.maxColliderSize - myColliderCenter.z;
+				boxColliderCenter.z = zDirectionCoordinateChangeStatus.maxColliderSize - boxColliderCenter.z;
 
-			myCollider.center = myColliderCenter;
+			boxCollider.center = boxColliderCenter;
 		}
 
 		//再生時間時間経過後

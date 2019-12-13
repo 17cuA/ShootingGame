@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Anime_FireExplosion
   m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _BLENDMODE_ADD _EMISSION _EMISSIVE_COLOR_MAP _FADING_ON
-    _REQUIRE_UV2 _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _ALPHABLEND_ON _BLENDMODE_ALPHA _EMISSION _EMISSIVE_COLOR_MAP
+    _FADING_ON _REQUIRE_UV2 _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -78,7 +78,7 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
-    - _BlendMode: 1
+    - _BlendMode: 0
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
@@ -109,7 +109,7 @@ Material:
     - _DistortionVectorBias: -1
     - _DistortionVectorScale: 2
     - _DoubleSidedEnable: 0
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _EmissionEnabled: 1
     - _EnableFogOnTransparent: 0
     - _FlipbookMode: 1
