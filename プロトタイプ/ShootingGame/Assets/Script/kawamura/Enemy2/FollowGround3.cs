@@ -136,7 +136,8 @@ public class FollowGround3 : MonoBehaviour
 
 		// 現在の接地面の角度を取得
 		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
-		//groundAngle = Mathf.Round(groundAngle);
+		groundAngle = Mathf.Round(groundAngle * 10);
+		groundAngle /= 10;
 	}
 
 	//動く関数
