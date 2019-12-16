@@ -9,46 +9,50 @@ public class TerrainManagement : MonoBehaviour
 	private void Awake()
 	{
 		TerrainRenderer = new List<MeshRenderer>();
-		gaga(transform);
+		GetMeshRenderer(transform);
 	}
-
-	void Start()
-    {
-        
-    }
 
     void Update()
     {
         foreach(MeshRenderer renderer in TerrainRenderer)
 		{
-			if(renderer.isVisible)
+			// 範囲外のとき
+			if(renderer.transform.position.x < 22.0f && renderer.transform.position.x > -22.0f
+				&& renderer.transform.position.y < 15.0f && renderer.transform.position.y > -15.0f)
 			{
 				renderer.enabled = true;
-				Debug.Log(renderer.name + " : true");
+				Debug.Log(renderer.transform.position + " : true");
 			}
-			else if (!renderer.isVisible)
+			// それ以外のとき
 			{
 				renderer.enabled = false;
-				Debug.Log(renderer.name + " : false");
+				Debug.Log(renderer.transform.position + " : false");
 			}
 		}
 	}
 
-	void gaga(Transform transform)
+	/// <summary>
+	/// メッシュレンダー情報の取得
+	/// </summary>
+	/// <param name="transform"> オブジェクトのトランスフォーム </param>
+	void GetMeshRenderer(Transform transform)
 	{
-		foreach (Transform temp in transform)
+		// 子供情報のループ
+		foreach (Transform temp1 in transform)
 		{
-			if (temp.childCount > 0)
+			// 子供のメッシュレンダーの取得
+			MeshRenderer temp2 = temp1.GetComponent<MeshRenderer>();
+			// 子供がメッシュレンダーを持っていれば、保存
+			if (temp2 != null)
 			{
-				gaga(temp);
+				TerrainRenderer.Add(temp2);
 			}
-			else
+
+			// 孫(tempの子供)がいるとき
+			if (temp1.childCount > 0)
 			{
-				MeshRenderer temp2 = temp.GetComponent<MeshRenderer>();
-				if(temp2 != null)
-				{
-					TerrainRenderer.Add(temp2);
-				}
+				// 孫(tempの子供)のレンダー取得開始
+				GetMeshRenderer(temp1);
 			}
 		}
 	}
