@@ -4,56 +4,40 @@ using UnityEngine;
 
 public class TerrainManagement : MonoBehaviour
 {
-	private List<MeshRenderer> TerrainRenderer { get; set; }
+	private List<Transform> transformsList { get; set; }		// 子どもトランスフォームの保存
 
 	private void Awake()
 	{
-		TerrainRenderer = new List<MeshRenderer>();
-		GetMeshRenderer(transform);
+		transformsList = new List<Transform>();
+		GetTransforms();
 	}
 
     void Update()
     {
-        foreach(MeshRenderer renderer in TerrainRenderer)
+		foreach(var temp in transformsList)
 		{
-			// 範囲外のとき
-			if(renderer.transform.position.x < 22.0f && renderer.transform.position.x > -22.0f
-				&& renderer.transform.position.y < 15.0f && renderer.transform.position.y > -15.0f)
+			// 範囲内のとき
+			if (temp.position.x < 22.0f && temp.position.x > -22.0f
+				&& temp.position.y < 15.0f && temp.position.y > -15.0f)
 			{
-				renderer.enabled = true;
-				Debug.Log(renderer.transform.position + " : true");
+				temp.gameObject.SetActive(true);
 			}
 			// それ以外のとき
+			else
 			{
-				renderer.enabled = false;
-				Debug.Log(renderer.transform.position + " : false");
+				temp.gameObject.SetActive(false);
 			}
 		}
 	}
 
 	/// <summary>
-	/// メッシュレンダー情報の取得
+	/// 子どもトランスフォームの取得
 	/// </summary>
-	/// <param name="transform"> オブジェクトのトランスフォーム </param>
-	void GetMeshRenderer(Transform transform)
+	void GetTransforms()
 	{
-		// 子供情報のループ
-		foreach (Transform temp1 in transform)
+		foreach(Transform temp in transform)
 		{
-			// 子供のメッシュレンダーの取得
-			MeshRenderer temp2 = temp1.GetComponent<MeshRenderer>();
-			// 子供がメッシュレンダーを持っていれば、保存
-			if (temp2 != null)
-			{
-				TerrainRenderer.Add(temp2);
-			}
-
-			// 孫(tempの子供)がいるとき
-			if (temp1.childCount > 0)
-			{
-				// 孫(tempの子供)のレンダー取得開始
-				GetMeshRenderer(temp1);
-			}
+			transformsList.Add(temp);
 		}
 	}
 }
