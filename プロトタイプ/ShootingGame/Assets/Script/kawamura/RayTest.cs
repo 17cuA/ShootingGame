@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RayTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+	public Vector3 rayDirection;
+	void Start()
     {
         
     }

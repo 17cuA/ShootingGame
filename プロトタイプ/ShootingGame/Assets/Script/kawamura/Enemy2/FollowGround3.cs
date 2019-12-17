@@ -22,6 +22,7 @@ public class FollowGround3 : MonoBehaviour
 	Vector3 velocity;
 
 	CharacterController characterController;
+	public AngleChange2 angleChange2_Script;
 
 	[Header("入力用　歩くスピード")]
 	public float speedXMax;
@@ -49,6 +50,7 @@ public class FollowGround3 : MonoBehaviour
 	public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
 
 	public float groundAngle = 0;
+	public float saveAngle;
 	//
 
 	//
@@ -136,6 +138,7 @@ public class FollowGround3 : MonoBehaviour
 
 		// 現在の接地面の角度を取得
 		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+		saveAngle = Vector3.Angle(hit.normal, Vector3.up);
 		groundAngle = Mathf.Round(groundAngle * 10);
 		groundAngle /= 10;
 	}
@@ -151,6 +154,8 @@ public class FollowGround3 : MonoBehaviour
 				gameObject.transform.position += velocity * Time.deltaTime;
 				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
+
+				//angleChange2_Script.angleZ = -groundAngle;
 
 				if (characterController.collisionFlags != CollisionFlags.None)
 				{
@@ -176,6 +181,9 @@ public class FollowGround3 : MonoBehaviour
 				velocity = angleObj.transform.rotation * new Vector3(speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				characterController.Move(velocity * Time.deltaTime);
+
+				//angleChange2_Script.angleZ = groundAngle;
+
 				if (characterController.collisionFlags != CollisionFlags.None)
 				{
 					//speedY = 0;
@@ -248,7 +256,7 @@ public class FollowGround3 : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider col)
+	private void OnTriggerStay(Collider col)
 	{
 
 		//当たったら
@@ -262,7 +270,15 @@ public class FollowGround3 : MonoBehaviour
 			//	isRoll = true;
 			//}
 		}
-		else
+		//else
+		//{
+		//	isHitP = false;
+		//}
+	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.tag == "Wall")
 		{
 			isHitP = false;
 		}
