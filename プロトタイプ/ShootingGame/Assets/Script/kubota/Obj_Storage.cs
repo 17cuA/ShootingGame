@@ -211,9 +211,9 @@ public class Obj_Storage : MonoBehaviour
 	{
 		if (to.name == "Title")
 		{
-			if(GetPlayer() != null)
+			if(Player != null)
 			{
-				DeleteAllScenesUsingGos();
+				DeleteOnceGos();
 			}
 			GetComponent<Game_Master>().ResetScore();
 		}
@@ -224,7 +224,10 @@ public class Obj_Storage : MonoBehaviour
 				CreateOnceGos();
 			}
 			//------------------------------------11.26 陳　追加---------------------------------
-			GetComponent<MapCreate>().CreateMap();
+			if (!Player.Get_Obj()[0].activeSelf)
+			{
+				GetComponent<MapCreate>().CreateMap();
+			}
 			GetComponent<ObjectStorage_Control>().EnemyCreate_Data = GameObject.Find("CreateEnemy").GetComponent<EnemyCreate>();
 		}
 
@@ -236,7 +239,7 @@ public class Obj_Storage : MonoBehaviour
 
 		if(to.name == "GameOver")
 		{
-			DeleteAllScenesUsingGos();
+			DeleteOnceGos();
 		}
 	}
 
@@ -500,185 +503,21 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
 		enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
 
-
-
-		DontDestroyOnLoad(Boss_1.Get_Parent_Obj());
-		DontDestroyOnLoad(Boss_2.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Player2Bullet.Get_Parent_Obj());
-		DontDestroyOnLoad(P1_OptionBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(P2_OptionBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerMissile.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerMissile2.Get_Parent_Obj());
-		DontDestroyOnLoad(EnemyBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Beam_Bullet_E.Get_Parent_Obj());
-		DontDestroyOnLoad(SmallBeam_Bullet_E.Get_Parent_Obj());
-		DontDestroyOnLoad(BattleShipBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(UfoType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(ClamChowderType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(OctopusType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(BeelzebubType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(BattleShipType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(StarFish_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(Option.Get_Parent_Obj());
-		DontDestroyOnLoad(PowerUP_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(Boss_Middle.Get_Parent_Obj());
-		DontDestroyOnLoad(Laser_Line.Get_Parent_Obj());
-		DontDestroyOnLoad(One_Boss_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(One_Boss_BousndBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Two_Boss_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Mini_Group.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Bullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Eye_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Mouth_Laser.Get_Parent_Obj());
-
-		DontDestroyOnLoad(Effects[0].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[1].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[2].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[3].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[4].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[5].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[6].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[7].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[8].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[9].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[10].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[11].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[12].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[13].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[14].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[15].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[16].Get_Parent_Obj());
-
-		DontDestroyOnLoad(enemy_UFO_Group.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_BeetleGroup.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_BeetleGroup_Three.Get_Parent_Obj());
-		DontDestroyOnLoad(boundMeteors.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Bacula_Sixteen.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Bacula_FourOnly.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_UFO_Group_Five.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beetle_Group_Seven.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
 	}
 	
 
-	private void DeleteAllScenesUsingGos()
+	private void DeleteOnceGos()
 	{
 		if (Player == null)
 			return;
 
 		Destroy(Player.Get_Parent_Obj());
 		Destroy(Player_2.Get_Parent_Obj());
-		Destroy(Boss_1.Get_Parent_Obj());
-		Destroy(Boss_2.Get_Parent_Obj());
-		Destroy(PlayerBullet.Get_Parent_Obj());
-		Destroy(Player2Bullet.Get_Parent_Obj());
-		Destroy(P1_OptionBullet.Get_Parent_Obj());
-		Destroy(P2_OptionBullet.Get_Parent_Obj());
-		Destroy(PlayerMissile.Get_Parent_Obj());
-		Destroy(PlayerMissile2.Get_Parent_Obj());
-		Destroy(EnemyBullet.Get_Parent_Obj());
-		Destroy(Beam_Bullet_E.Get_Parent_Obj());
-		Destroy(SmallBeam_Bullet_E.Get_Parent_Obj());
-		Destroy(BattleShipBullet.Get_Parent_Obj());
-		Destroy(UfoType_Enemy.Get_Parent_Obj());
-		Destroy(ClamChowderType_Enemy.Get_Parent_Obj());
-		Destroy(OctopusType_Enemy.Get_Parent_Obj());
-		Destroy(BeelzebubType_Enemy.Get_Parent_Obj());
-		Destroy(BattleShipType_Enemy.Get_Parent_Obj());
-		Destroy(StarFish_Enemy.Get_Parent_Obj());
-		Destroy(PowerUP_Item.Get_Parent_Obj());
-		Destroy(Boss_Middle.Get_Parent_Obj());
-		Destroy(Laser_Line.Get_Parent_Obj());
-		Destroy(One_Boss_Laser.Get_Parent_Obj());
-		Destroy(One_Boss_BousndBullet.Get_Parent_Obj());
-		Destroy(Two_Boss_Laser.Get_Parent_Obj());
-		Destroy(Moai.Get_Parent_Obj());
-		Destroy(Moai_Mini_Group.Get_Parent_Obj());
-		Destroy(Moai_Bullet.Get_Parent_Obj());
-		Destroy(Moai_Eye_Laser.Get_Parent_Obj());
-		Destroy(Moai_Mouth_Laser.Get_Parent_Obj());
+		Destroy(Option.Get_Parent_Obj());
 
-		Destroy(Effects[0].Get_Parent_Obj());
-		Destroy(Effects[1].Get_Parent_Obj());
-		Destroy(Effects[2].Get_Parent_Obj());
-		Destroy(Effects[3].Get_Parent_Obj());
-		Destroy(Effects[4].Get_Parent_Obj());
-		Destroy(Effects[5].Get_Parent_Obj());
-		Destroy(Effects[6].Get_Parent_Obj());
-		Destroy(Effects[7].Get_Parent_Obj());
-		Destroy(Effects[8].Get_Parent_Obj());
-		Destroy(Effects[9].Get_Parent_Obj());
-		Destroy(Effects[10].Get_Parent_Obj());
-		Destroy(Effects[11].Get_Parent_Obj());
-		Destroy(Effects[12].Get_Parent_Obj());
-		Destroy(Effects[13].Get_Parent_Obj());
-		Destroy(Effects[14].Get_Parent_Obj());
-		Destroy(Effects[15].Get_Parent_Obj());
-		Destroy(Effects[16].Get_Parent_Obj());
-
-		Destroy(enemy_UFO_Group.Get_Parent_Obj());
-		Destroy(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
-		Destroy(enemy_BeetleGroup.Get_Parent_Obj());
-		Destroy(enemy_BeetleGroup_Three.Get_Parent_Obj());
-		Destroy(boundMeteors.Get_Parent_Obj());
-		Destroy(enemy_Bacula_Sixteen.Get_Parent_Obj());
-		Destroy(enemy_Bacula_FourOnly.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
-		Destroy(enemy_UFO_Group_Five.Get_Parent_Obj());
-		Destroy(enemy_Beetle_Group_Seven.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
+		Player = null;
+		Player_2 = null;
+		Option = null;
 	}
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 
