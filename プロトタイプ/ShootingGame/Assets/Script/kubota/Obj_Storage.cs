@@ -206,17 +206,23 @@ public class Obj_Storage : MonoBehaviour
 	}
 
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	//core part of  The Stage change
 	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
 		if (to.name == "Title")
 		{
-			DeleteAllScenesUsingGos();
+			if(GetPlayer() != null)
+			{
+				DeleteAllScenesUsingGos();
+			}
 			GetComponent<Game_Master>().ResetScore();
 		}
 		if( to.name == "Stage_01")
 		{
-			CreateAllScenesUsingGos();
-
+			if (Player == null)
+			{
+				CreateOnceGos();
+			}
 			//------------------------------------11.26 陳　追加---------------------------------
 			GetComponent<MapCreate>().CreateMap();
 			GetComponent<ObjectStorage_Control>().EnemyCreate_Data = GameObject.Find("CreateEnemy").GetComponent<EnemyCreate>();
@@ -225,13 +231,33 @@ public class Obj_Storage : MonoBehaviour
 		if (to.name.Contains("Stage"))
 		{
 			GetComponent<Game_Master>().Stage_Start();
+			CreateSceneChangeGos();
+		}
+
+		if(to.name == "GameOver")
+		{
+			DeleteAllScenesUsingGos();
 		}
 	}
 
-	private void CreateAllScenesUsingGos()
+	private void CreateOnceGos()
 	{
 		Player_Prefab = Resources.Load("Player/Player") as GameObject;
 		player_2_Prefab = Resources.Load("Player/Player2") as GameObject;
+
+		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
+
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
+		Option = new Object_Pooling(Option_Prefab, 4, "Option");
+
+		DontDestroyOnLoad(Player.Get_Parent_Obj());
+		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
+		DontDestroyOnLoad(Option.Get_Parent_Obj());
+	}
+
+	private void CreateSceneChangeGos()
+	{
 		Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
 		Boss2_Prefab = Resources.Load("Boss/bick_core_mk3") as GameObject;
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
@@ -251,7 +277,6 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 		BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 		Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
-		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;     //中ボス
@@ -404,8 +429,6 @@ public class Obj_Storage : MonoBehaviour
 		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
 
 
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
-		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
 		Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 		Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player1_Bullet");         //プレイヤーのバレットを生成
@@ -424,7 +447,6 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 		StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
-		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
@@ -479,8 +501,7 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
 
 
-		DontDestroyOnLoad(Player.Get_Parent_Obj());
-		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
+
 		DontDestroyOnLoad(Boss_1.Get_Parent_Obj());
 		DontDestroyOnLoad(Boss_2.Get_Parent_Obj());
 		DontDestroyOnLoad(PlayerBullet.Get_Parent_Obj());
@@ -593,7 +614,6 @@ public class Obj_Storage : MonoBehaviour
 		Destroy(BeelzebubType_Enemy.Get_Parent_Obj());
 		Destroy(BattleShipType_Enemy.Get_Parent_Obj());
 		Destroy(StarFish_Enemy.Get_Parent_Obj());
-		Destroy(Option.Get_Parent_Obj());
 		Destroy(PowerUP_Item.Get_Parent_Obj());
 		Destroy(Boss_Middle.Get_Parent_Obj());
 		Destroy(Laser_Line.Get_Parent_Obj());
