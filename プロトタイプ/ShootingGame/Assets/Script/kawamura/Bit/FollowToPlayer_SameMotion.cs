@@ -34,7 +34,6 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
 	public bool isResetPos;			//リスポーン終了時に位置をリセットしたかどうか
-	public bool endDDDDDDDDDDDDDDDDDDDD = false;
 	void Start()
 	{
 		isPlayerLive = false;
@@ -77,9 +76,11 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					}
 					//isMove = true;
 					//playerPos[cnt] = playerObj.transform;
+					//自分の位置をプレイヤーの位置に
 					transform.position = playerObj.transform.position;
 					defCheck = true;
 					pos = playerObj.transform.position;
+					cnt = 0;
 				}
 			}
 			else if (isFollow2P)
@@ -99,8 +100,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 					transform.position = playerObj.transform.position;
 					defCheck = true;
 					pos = playerObj.transform.position;
+					cnt = 0;
 				}
-
 			}
 		}
 		else
@@ -112,7 +113,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (isPlayerLive)
 			{
-				///親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
+				//親の4つのオプション位置がリセットされていませんよ~のboolがfalseなら動く
 				if (!followParent_Script.isResetPosEnd && !isResetPos)
 				{
 					//pl1.Is_Resporn_End = false;
@@ -201,42 +202,36 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 		{
 			if (defCheck)
 			{
-				if (isFollow1P)
+				if (isFollow1P && !pl1.Is_Resporn)
 				{
-					if (!pl1.Is_Resporn)
+					//プレイヤーの座標が動いていないとき
+					//if (pos == playerObj.transform.position)
+					if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
 					{
-						//プレイヤーの座標が動いていないとき
-						//if (pos == playerObj.transform.position)
-						if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
-						{
-							isMove = false;
-						}
-						//プレイヤーの座標が動いていたとき
-						else
-						{
-							isMove = true;
-							//プレイヤーのtransform保存
-							pos = playerObj.transform.position;
-						}
+						isMove = false;
+					}
+					//プレイヤーの座標が動いていたとき
+					else
+					{
+						isMove = true;
+						//プレイヤーのtransform保存
+						pos = playerObj.transform.position;
 					}
 				}
-				else if (isFollow2P)
+				else if (isFollow2P && !pl2.Is_Resporn)
 				{
-					if (!pl2.Is_Resporn)
+					//プレイヤーの座標が動いていないとき
+					//if (pos == playerObj.transform.position)
+					if ((Input.GetAxis("P2_Horizontal") == 0) && (Input.GetAxis("P2_Vertical") == 0))
 					{
-						//プレイヤーの座標が動いていないとき
-						//if (pos == playerObj.transform.position)
-						if ((Input.GetAxis("P2_Horizontal") == 0) && (Input.GetAxis("P2_Vertical") == 0))
-						{
-							isMove = false;
-						}
-						//プレイヤーの座標が動いていたとき
-						else
-						{
-							isMove = true;
-							//プレイヤーのtransform保存
-							pos = playerObj.transform.position;
-						}
+						isMove = false;
+					}
+					//プレイヤーの座標が動いていたとき
+					else
+					{
+						isMove = true;
+						//プレイヤーのtransform保存
+						pos = playerObj.transform.position;
 					}
 				}
 			}
@@ -261,29 +256,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
                 savePos = transform.position;
 			}
 		}
-		//else if(isFreeze)
-		//{
-		//	if(pos==playerObj.transform.position)
-		//	{
-		//		isMove = false;
-		//	}
-		//	//プレイヤーの座標が動いていたとき
-		//	else
-		//	{
-		//		isMove = true;
-		//		//プレイヤーのtransform保存
-		//		pos = playerObj.transform.position;
 
-		//	}
-
-		//	if(isMove)
-		//	{
-		//		freesePos = playerObj.transform.position - savePos;
-
-		//		this.transform.position += freesePos;
-		//		savePos = transform.position;
-		//	}
-		//}
 		if (followParent_Script.isResetPosEnd)
 		{
 			isResetPos = false;

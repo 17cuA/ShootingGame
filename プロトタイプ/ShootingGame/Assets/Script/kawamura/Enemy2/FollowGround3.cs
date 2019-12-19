@@ -1,36 +1,35 @@
-﻿//作成者：川村良太
-//歩く敵のスクリプト
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
 
-public class Enemy_Walk : MonoBehaviour
+public class FollowGround3 : MonoBehaviour
 {
 	//自分の状態
 	public enum DirectionState
 	{
-		Left,			//左向き
-		Right,		//右向き
-		Roll,			//回転中
-		Stop,			//停止
+		Left,           //左向き
+		Right,      //右向き
+		Roll,           //回転中
+		Stop,           //停止
 	}
 
-	public　DirectionState direcState;		//状態変数
+	public DirectionState direcState;       //状態変数
 	DirectionState saveDirection;           //状態を一時保存する変数
 
+	public GameObject angleObj;
 	GameObject childObj;
 	Vector3 velocity;
 
 	CharacterController characterController;
+	public AngleChange2 angleChange2_Script;
 
 	[Header("入力用　歩くスピード")]
 	public float speedXMax;
 	public float speedX;
 	public float speedYMax;
 	public float speedY;
-	public float rotaY;					//角度
+	public float rotaY;                 //角度
 	[Header("入力用　回転スピード")]
 	public float rotaSpeed;
 	[Header("入力用　歩く最大時間（秒）")]
@@ -38,11 +37,11 @@ public class Enemy_Walk : MonoBehaviour
 	public float walkTimeCnt;
 	[Header("入力用　止まっている最大時間（秒）")]
 	public float stopTimeMax;
-	public float stopTimeCnt;			//止まっている時間カウント
+	public float stopTimeCnt;           //止まっている時間カウント
 	[Header("入力用　攻撃間隔")]
 	public float attackTimeMax;
 	public float attackTimeCnt;
-	float rollDelayCnt;					//回転した後のカウント（回転直後に当たり判定をしないようにするため）
+	float rollDelayCnt;                 //回転した後のカウント（回転直後に当たり判定をしないようにするため）
 
 	//
 	public Vector3 groundNormal = Vector3.zero;
@@ -51,6 +50,7 @@ public class Enemy_Walk : MonoBehaviour
 	public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
 
 	public float groundAngle = 0;
+	public float saveAngle;
 	//
 
 	//
@@ -58,13 +58,14 @@ public class Enemy_Walk : MonoBehaviour
 	public Vector3 onPlane;
 	//
 
-	public bool isRoll;			//回転中かどうか
+	public bool isRoll;         //回転中かどうか
 	bool isRollEnd = false;     //回転が終わったかどうか
 	bool isAttack = true;
 	public bool cccc = false;
-
+	public bool isHit = false;
+	public bool isHitP = false;
 	void Start()
-    {
+	{
 		characterController = GetComponent<CharacterController>();
 		childObj = transform.GetChild(0).gameObject;
 		walkTimeCnt = 0;
@@ -74,8 +75,8 @@ public class Enemy_Walk : MonoBehaviour
 		isAttack = true;
 	}
 
-    void Update()
-    {
+	void Update()
+	{
 		//this.controller.Move(Vector3.MoveTowards(this.transform.position, cameraPosition, delta) - this.transform.position + Physics.gravity);
 		//characterController.Move(velocity * Time.deltaTime);
 		//とりあえずすり抜けをなくす処理
@@ -137,27 +138,35 @@ public class Enemy_Walk : MonoBehaviour
 
 		// 現在の接地面の角度を取得
 		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+		saveAngle = Vector3.Angle(hit.normal, Vector3.up);
+		groundAngle = Mathf.Round(groundAngle * 10);
+		groundAngle /= 10;
 	}
 
 	//動く関数
 	void Move()
 	{
-		switch(direcState)
+		switch (direcState)
 		{
 			//左向きの時移動する
 			case DirectionState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+				velocity = angleObj.transform.rotation * new Vector3(-speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += angleObj.transform.right.normalized * speedX;
 				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
 
+				//angleChange2_Script.angleZ = -groundAngle;
+
 				if (characterController.collisionFlags != CollisionFlags.None)
 				{
-					speedY = 0;
+					//speedY = 0;
+					isHit = true;
 				}
 				else
 				{
-					speedY = 3f;
+					//speedY = 3f;
+					isHit = false;
 				}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
@@ -170,16 +179,21 @@ public class Enemy_Walk : MonoBehaviour
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+				velocity = angleObj.transform.rotation * new Vector3(speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				characterController.Move(velocity * Time.deltaTime);
+
+				//angleChange2_Script.angleZ = groundAngle;
+
 				if (characterController.collisionFlags != CollisionFlags.None)
 				{
-					speedY = 0;
+					//speedY = 0;
+					isHit = true;
 				}
 				else
 				{
-					speedY = 3f;
+					//speedY = 3f;
+					isHit = false;
 				}
 
 				walkTimeCnt += Time.deltaTime;
@@ -236,29 +250,49 @@ public class Enemy_Walk : MonoBehaviour
 				}
 				if (isAttack && attackTimeCnt > attackTimeMax)
 				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET,childObj.transform.position,childObj.transform.rotation);
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, childObj.transform.position, childObj.transform.rotation);
 					isAttack = false;
 				}
 				break;
 		}
 	}
 
-	private void OnTriggerEnter(Collider col)
+	private void OnTriggerStay(Collider col)
 	{
 
 		//当たったら
-		if (col.gameObject.tag == "Player")
+		if (col.gameObject.tag == "Wall")
 		{
-			if (!isRollEnd && !isRoll)
-			{
-				saveDirection = direcState;
-				direcState = DirectionState.Roll;
-				isRoll = true;
-			}
+			isHitP = true;
+			//if (!isRollEnd && !isRoll)
+			//{
+			//	saveDirection = direcState;
+			//	direcState = DirectionState.Roll;
+			//	isRoll = true;
+			//}
 		}
-
+		//else
+		//{
+		//	isHitP = false;
+		//}
 	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.tag == "Wall")
+		{
+			isHitP = false;
+		}
+	}
+
 	private void OnCollisionStay(Collision collision)
+	{
+		if(collision.gameObject.tag=="Wall")
+		{
+
+		}
+	}
+	private void OnCollision(Collision collision)
 	{
 		// 衝突した面の、接触した点における法線を取得
 		normalVector = collision.contacts[0].normal;
