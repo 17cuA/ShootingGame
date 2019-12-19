@@ -151,7 +151,8 @@ public class FollowGround3 : MonoBehaviour
 			//左向きの時移動する
 			case DirectionState.Left:
 				velocity = angleObj.transform.rotation * new Vector3(-speedX, -speedY, 0);
-				gameObject.transform.position += velocity * Time.deltaTime;
+				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += angleObj.transform.right.normalized * speedX;
 				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
 
