@@ -5,7 +5,10 @@ using UnityEngine;
 public class MoveTest : MonoBehaviour
 {
 	Vector3 velocity;
-	public float speed;
+	public float speedX;
+	public float speedY;
+	public float speedZ;
+
 
 	public float aliveMax;
 	public float deadCnt;
@@ -18,7 +21,7 @@ public class MoveTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		velocity = gameObject.transform.rotation * new Vector3(0, speed, 0);
+		velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, speedZ);
 		gameObject.transform.position += velocity * Time.deltaTime;
 
 		if (shinimasuka)

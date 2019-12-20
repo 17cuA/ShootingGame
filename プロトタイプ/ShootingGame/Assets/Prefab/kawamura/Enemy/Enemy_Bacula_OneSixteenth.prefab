@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1279058350498443784}
   - component: {fileID: 1279058350498443790}
   - component: {fileID: 1279058350498443785}
+  - component: {fileID: 4616068128126150962}
   m_Layer: 0
   m_Name: Enemy_Bacula_OneSixteenth
   m_TagString: Enemy
@@ -85,6 +86,18 @@ MonoBehaviour:
   isDisappearance: 0
   isCreate: 0
   isDamage: 0
+--- !u!114 &4616068128126150962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279058350498443787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3746bbda21994242b8723367a598784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1279058352152045147
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,10 +219,9 @@ MonoBehaviour:
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0

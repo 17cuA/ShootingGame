@@ -166,7 +166,6 @@ public class FollowPositions : MonoBehaviour
 			//pl2.Is_Resporn_End = false;
 		}
 
-
 		if (resetPosCnt == 4)
 		{
 			resetPosCnt = 0;

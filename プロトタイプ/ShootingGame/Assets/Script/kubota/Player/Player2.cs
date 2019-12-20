@@ -810,7 +810,7 @@ public class Player2 : character_status
 	//-----------------------------------------11.29 陳追加　----------------------------------------
 	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
-		if (to.name != "Stage_01" && to.name.Contains("Stage"))
+		if (to.name.Contains("Stage"))
 		{
 			invincible = true;         //無敵状態にするかどうかの処理
 			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
