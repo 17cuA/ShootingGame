@@ -54,7 +54,7 @@ public class FollowGround3 : MonoBehaviour
 	//
 
 	//
-	Vector3 normalVector = Vector3.zero;
+	public Vector3 normalVector = Vector3.zero;
 	public Vector3 onPlane;
 	//
 
@@ -157,7 +157,7 @@ public class FollowGround3 : MonoBehaviour
 				characterController.Move(velocity * Time.deltaTime);
 
 				//angleChange2_Script.angleZ = -groundAngle;
-
+				
 				if (characterController.collisionFlags != CollisionFlags.None)
 				{
 					//speedY = 0;
@@ -287,7 +287,8 @@ public class FollowGround3 : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
-		if(collision.gameObject.tag=="Wall")
+		normalVector = collision.contacts[0].normal;
+		if (collision.gameObject.tag=="Wall")
 		{
 
 		}

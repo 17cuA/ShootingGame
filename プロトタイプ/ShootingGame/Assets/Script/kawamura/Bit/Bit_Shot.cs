@@ -223,7 +223,7 @@ public class Bit_Shot : MonoBehaviour
 						if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
 						{
 							Missile_Fire();
-							missileDelayCnt = 0;
+							//missileDelayCnt = 0;
 						}
 						shot_Delay = 0;
 					}
@@ -264,7 +264,7 @@ public class Bit_Shot : MonoBehaviour
 							if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
 							{
 								Missile_Fire();
-								missileDelayCnt = 0;
+								//missileDelayCnt = 0;
 							}
 							shot_Delay = 0;
 
@@ -332,7 +332,7 @@ public class Bit_Shot : MonoBehaviour
 							if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 							{
 								Missile_Fire();
-								missileDelayCnt = 0;
+								//missileDelayCnt = 0;
 							}
 							shot_Delay = 0;
 
@@ -375,7 +375,7 @@ public class Bit_Shot : MonoBehaviour
 							if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 							{
 								Missile_Fire();
-								missileDelayCnt = 0;
+								//missileDelayCnt = 0;
 							}
 							shot_Delay = 0;
 
@@ -598,7 +598,7 @@ public class Bit_Shot : MonoBehaviour
 		}
 		//GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_MISSILE, shot_Mazle.transform.position, Direction);
 		//obj.GetComponent<Missile>().Setting_On_Reboot(1);
-		//missileDelayCnt = 0;
+		missileDelayCnt = 0;
 	}
 
 	private void ActiveLaser()
