@@ -196,7 +196,7 @@ MonoBehaviour:
   isRoll: 0
   cccc: 0
   isHit: 0
-  isHitP: 0
+  isHitP: 1
 --- !u!143 &6067803074772156133
 CharacterController:
   m_ObjectHideFlags: 0
@@ -210,10 +210,10 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.74
   m_Radius: 0.37
-  m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 0.028
-  m_MinMoveDistance: 0.001
+  m_SlopeLimit: 180
+  m_StepOffset: 0.015
+  m_SkinWidth: 0.01
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &3699598399382060747
 SphereCollider:
