@@ -18,6 +18,7 @@ public class AngleChange2 : MonoBehaviour
 	public Vector3 checkNomal;
 	//
 
+	Vector3 raypos;	//レイの位置がずれるから調整用
 
 	public bool aaa = false;
 	public bool bbb = false;
@@ -35,6 +36,7 @@ public class AngleChange2 : MonoBehaviour
 
 	void Update()
 	{
+		raypos = new Vector3(transform.position.x - 0.0333f, transform.position.y, transform.position.z);
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
 			if (followGround_Script.isHitP)
@@ -50,7 +52,7 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
 				{
 					bbb = true;
-
+					angleZ = -followGround_Script.groundAngle;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
 				{
@@ -60,7 +62,7 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
 				{
 					ddd = true;
-
+					angleZ = -followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x > 0)
 				{
@@ -113,7 +115,7 @@ public class AngleChange2 : MonoBehaviour
 
 		layerMask = ~layerMask;
 
-		if (Physics.Raycast(transform.position, -transform.up, out hit, 1f, layerMask))
+		if (Physics.Raycast(raypos, -transform.up, out hit, 0.5f, layerMask))
 		{
 			//rayDelayCnt++;
 			if (hit.collider.tag == "Wall")
@@ -129,12 +131,13 @@ public class AngleChange2 : MonoBehaviour
 				//	raytopParent_Script.angleZ = angleZ + 90;
 				//}
 
-				Debug.DrawRay(transform.position, -transform.up * hit.distance, Color.red);
+				Debug.DrawRay(raypos, -transform.up * hit.distance, Color.red);
 			}
 		}
 		else
 		{
-			Debug.DrawRay(transform.position, -transform.up * 1F, Color.white);
+			Debug.DrawRay(raypos, -transform.up * 0.5F, Color.white);
+			followGround_Script.isHitP = false;
 		}
 	}
 }
