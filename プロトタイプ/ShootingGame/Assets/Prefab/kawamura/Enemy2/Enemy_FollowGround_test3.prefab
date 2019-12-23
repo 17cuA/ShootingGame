@@ -49,6 +49,15 @@ MonoBehaviour:
   angleZ_ChangeValue: 6.3
   angleTest: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
+  checkNomal: {x: 0, y: 0, z: 0}
+  aaa: 0
+  bbb: 0
+  ccc: 0
+  ddd: 0
+  eee: 0
+  fff: 0
+  ggg: 0
+  hhh: 0
 --- !u!1 &4929874629747092733
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +173,8 @@ MonoBehaviour:
   direcState: 0
   angleObj: {fileID: 358464862461800891}
   angleChange2_Script: {fileID: 0}
-  speedXMax: 1
-  speedX: 0
+  speedXMax: 2
+  speedX: 2
   speedYMax: 0
   speedY: 0
   rotaY: 0
@@ -180,6 +189,9 @@ MonoBehaviour:
   lastHitPoint: {x: Infinity, y: 0, z: 0}
   groundAngle: 0
   saveAngle: 0
+  angle_sin: 0
+  angle_cos: 0
+  normalVector: {x: 0, y: 0, z: 0}
   onPlane: {x: 0, y: 0, z: 0}
   isRoll: 0
   cccc: 0
@@ -233,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4929874630542939148
 Transform:
   m_ObjectHideFlags: 0

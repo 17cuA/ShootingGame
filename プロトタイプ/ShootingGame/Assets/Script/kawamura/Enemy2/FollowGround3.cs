@@ -51,6 +51,8 @@ public class FollowGround3 : MonoBehaviour
 
 	public float groundAngle = 0;
 	public float saveAngle;
+	public float angle_sin = 0;
+	public float angle_cos = 0;
 	//
 
 	//
@@ -94,6 +96,8 @@ public class FollowGround3 : MonoBehaviour
 				rollDelayCnt = 0;
 			}
 		}
+		angle_sin = (Mathf.Asin(normalVector.y) * Mathf.Rad2Deg);
+		angle_cos= (Mathf.Asin(normalVector.x) * Mathf.Rad2Deg);
 
 		//////
 		// 平面に投影したいベクトルを作成
@@ -136,16 +140,40 @@ public class FollowGround3 : MonoBehaviour
 			lastHitPoint = hit.point;
 		}
 
+		normalVector = hit.normal;
+		if (normalVector.x > -0.0001f && normalVector.x < 0.0001f)
+		{
+			normalVector.x = 0;
+		}
+		if (normalVector.y > -0.0001f && normalVector.y < 0.0001f)
+		{
+			normalVector.y = 0;
+		}
+
+		//normalVector = hit.normal;
+		//angleeeeeeeeeeeeeeee = Mathf.Asin(normalVector.x * Mathf.Rad2Deg);
+
 		// 現在の接地面の角度を取得
 		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
 		saveAngle = Vector3.Angle(hit.normal, Vector3.up);
 		groundAngle = Mathf.Round(groundAngle * 10);
 		groundAngle /= 10;
+
+
 	}
 
 	//動く関数
 	void Move()
 	{
+		if (characterController.collisionFlags != CollisionFlags.None)
+		{
+			isHitP = true;
+		}
+		else
+		{
+			isHitP = false;
+		}
+
 		switch (direcState)
 		{
 			//左向きの時移動する
@@ -263,7 +291,7 @@ public class FollowGround3 : MonoBehaviour
 		//当たったら
 		if (col.gameObject.tag == "Wall")
 		{
-			isHitP = true;
+			//isHitP = true;
 			//if (!isRollEnd && !isRoll)
 			//{
 			//	saveDirection = direcState;
@@ -281,21 +309,27 @@ public class FollowGround3 : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Wall")
 		{
-			isHitP = false;
+			//isHitP = false;
 		}
 	}
 
 	private void OnCollisionStay(Collision collision)
 	{
-		normalVector = collision.contacts[0].normal;
+		//normalVector = collision.contacts[0].normal;
 		if (collision.gameObject.tag=="Wall")
 		{
 
 		}
 	}
-	private void OnCollision(Collision collision)
+
+	private void OnCollisionEnter(Collision collision)
 	{
-		// 衝突した面の、接触した点における法線を取得
-		normalVector = collision.contacts[0].normal;
+		//normalVector = collision.contacts[0].normal;
+
 	}
+	//private void OnCollision(Collision collision)
+	//{
+	//	// 衝突した面の、接触した点における法線を取得
+	//	normalVector = collision.contacts[0].normal;
+	//}
 }

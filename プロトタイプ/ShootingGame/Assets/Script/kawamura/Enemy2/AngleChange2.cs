@@ -18,6 +18,16 @@ public class AngleChange2 : MonoBehaviour
 	public Vector3 checkNomal;
 	//
 
+
+	public bool aaa = false;
+	public bool bbb = false;
+	public bool ccc = false;
+	public bool ddd = false;
+	public bool eee = false;
+	public bool fff = false;
+	public bool ggg = false;
+	public bool hhh = false;
+
 	void Start()
 	{
 
@@ -29,7 +39,50 @@ public class AngleChange2 : MonoBehaviour
 		{
 			if (followGround_Script.isHitP)
 			{
-				angleZ = -followGround_Script.groundAngle;
+				//angleZ = -followGround_Script.groundAngle;
+				//angleZ = -followGround_Script.angle_sin;
+
+				if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x > 0)
+				{
+					angleZ = -followGround_Script.angle_sin;
+					aaa = true;
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
+				{
+					bbb = true;
+
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
+				{
+					ccc = true;
+
+				}
+				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
+				{
+					ddd = true;
+
+				}
+				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x > 0)
+				{
+					eee = true;
+
+				}
+				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
+				{
+					fff = true;
+
+				}
+				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
+				{
+					ggg = true;
+					angleZ = 0;
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x == 0)
+				{
+					hhh = true;
+					angleZ = 180f;
+				}
+
 			}
 			else
 			{
