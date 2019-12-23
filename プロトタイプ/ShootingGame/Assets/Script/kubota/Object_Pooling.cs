@@ -88,12 +88,13 @@ public class Object_Pooling
 	{
 		childe.transform.parent = z.transform;
 	}
+
 	/// <summary>
 	/// 子供を一人取得する
 	/// 主にプレイヤーに使用するかも
 	/// </summary>
 	/// <returns></returns>
-	public GameObject GetObj()
+	public GameObject Get_Child_Obj()
 	{
 		return obj[0];
 	}

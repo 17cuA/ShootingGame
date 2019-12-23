@@ -36,7 +36,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 		{
 			if(!DMC.IsPlayingMovie && !isSettingConfig)
 			{
-				if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+				if (Input.GetButtonDown("A") || Input.GetButtonDown("P2_A"))
 				{
 					audioSource?.PlayOneShot(audioClip);
 					DMC.IsStopDemoMovie = true;
@@ -47,13 +47,13 @@ public class Helper_SceneTranslation : MonoBehaviour
 		}
 		else if(Set_Step==1 && !isSettingConfig)
 		{
-			if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P2_Fire1"))
+			if (Input.GetButtonDown("A") || Input.GetButtonDown("P2_A"))
 			{
 				Set_Step++;
 				if (Decision.isPlaying) Decision.Stop();
 				Decision.PlayOneShot(Decision_SE);
 			}
-			else if(Input.GetButtonDown("Fire2") || Input.GetButtonDown("P2_Fire2"))
+			else if(Input.GetButtonDown("B") || Input.GetButtonDown("P2_B"))
 			{
 				Set_Step--;
 				DMC.IsStopDemoMovie = false;
