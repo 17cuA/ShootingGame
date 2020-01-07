@@ -206,32 +206,61 @@ public class Obj_Storage : MonoBehaviour
 	}
 
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+	//core part of  The Stage change
 	private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
 		if (to.name == "Title")
 		{
-			DeleteAllScenesUsingGos();
+			if(Player != null)
+			{
+				DeleteOnceGos();
+			}
 			GetComponent<Game_Master>().ResetScore();
 		}
 		if( to.name == "Stage_01")
 		{
-			CreateAllScenesUsingGos();
-
+			if (Player == null)
+			{
+				CreateOnceGos();
+			}
 			//------------------------------------11.26 陳　追加---------------------------------
-			GetComponent<MapCreate>().CreateMap();
+			if (!Player.Get_Obj()[0].activeSelf)
+			{
+				GetComponent<MapCreate>().CreateMap();
+			}
 			GetComponent<ObjectStorage_Control>().EnemyCreate_Data = GameObject.Find("CreateEnemy").GetComponent<EnemyCreate>();
 		}
 
 		if (to.name.Contains("Stage"))
 		{
 			GetComponent<Game_Master>().Stage_Start();
+			CreateSceneChangeGos();
+		}
+
+		if(to.name == "GameOver")
+		{
+			DeleteOnceGos();
 		}
 	}
 
-	private void CreateAllScenesUsingGos()
+	private void CreateOnceGos()
 	{
 		Player_Prefab = Resources.Load("Player/Player") as GameObject;
 		player_2_Prefab = Resources.Load("Player/Player2") as GameObject;
+
+		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
+
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
+		Option = new Object_Pooling(Option_Prefab, 4, "Option");
+
+		DontDestroyOnLoad(Player.Get_Parent_Obj());
+		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
+		DontDestroyOnLoad(Option.Get_Parent_Obj());
+	}
+
+	private void CreateSceneChangeGos()
+	{
 		Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
 		Boss2_Prefab = Resources.Load("Boss/bick_core_mk3") as GameObject;
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
@@ -251,7 +280,6 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 		BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 		Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
-		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
 
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;        //アイテムのロード
 		Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;     //中ボス
@@ -294,7 +322,6 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");         //コアシールドヒット音
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
-																							//装備セレクトで使用するもの------------------------------------------------------
 		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch");           //ドロップしたオプションの回収
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_5(Moyai)");           //モアイの爆発
 		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
@@ -404,8 +431,6 @@ public class Obj_Storage : MonoBehaviour
 		Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
 
 
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
-		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
 		Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 		Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player1_Bullet");         //プレイヤーのバレットを生成
@@ -424,7 +449,6 @@ public class Obj_Storage : MonoBehaviour
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 		StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
-		Option = new Object_Pooling(Option_Prefab, 4, "Option");
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 		Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 		Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
@@ -478,187 +502,21 @@ public class Obj_Storage : MonoBehaviour
 		enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
 		enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
 
-
-		DontDestroyOnLoad(Player.Get_Parent_Obj());
-		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
-		DontDestroyOnLoad(Boss_1.Get_Parent_Obj());
-		DontDestroyOnLoad(Boss_2.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Player2Bullet.Get_Parent_Obj());
-		DontDestroyOnLoad(P1_OptionBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(P2_OptionBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerMissile.Get_Parent_Obj());
-		DontDestroyOnLoad(PlayerMissile2.Get_Parent_Obj());
-		DontDestroyOnLoad(EnemyBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Beam_Bullet_E.Get_Parent_Obj());
-		DontDestroyOnLoad(SmallBeam_Bullet_E.Get_Parent_Obj());
-		DontDestroyOnLoad(BattleShipBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(UfoType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(ClamChowderType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(OctopusType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(BeelzebubType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(BattleShipType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(StarFish_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(Option.Get_Parent_Obj());
-		DontDestroyOnLoad(PowerUP_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(Boss_Middle.Get_Parent_Obj());
-		DontDestroyOnLoad(Laser_Line.Get_Parent_Obj());
-		DontDestroyOnLoad(One_Boss_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(One_Boss_BousndBullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Two_Boss_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Mini_Group.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Bullet.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Eye_Laser.Get_Parent_Obj());
-		DontDestroyOnLoad(Moai_Mouth_Laser.Get_Parent_Obj());
-
-		DontDestroyOnLoad(Effects[0].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[1].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[2].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[3].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[4].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[5].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[6].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[7].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[8].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[9].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[10].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[11].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[12].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[13].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[14].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[15].Get_Parent_Obj());
-		DontDestroyOnLoad(Effects[16].Get_Parent_Obj());
-
-		DontDestroyOnLoad(enemy_UFO_Group.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_BeetleGroup.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_BeetleGroup_Three.Get_Parent_Obj());
-		DontDestroyOnLoad(boundMeteors.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Bacula_Sixteen.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Bacula_FourOnly.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_UFO_Group_Five.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_Beetle_Group_Seven.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
-		DontDestroyOnLoad(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
 	}
 	
 
-	private void DeleteAllScenesUsingGos()
+	private void DeleteOnceGos()
 	{
 		if (Player == null)
 			return;
 
 		Destroy(Player.Get_Parent_Obj());
 		Destroy(Player_2.Get_Parent_Obj());
-		Destroy(Boss_1.Get_Parent_Obj());
-		Destroy(Boss_2.Get_Parent_Obj());
-		Destroy(PlayerBullet.Get_Parent_Obj());
-		Destroy(Player2Bullet.Get_Parent_Obj());
-		Destroy(P1_OptionBullet.Get_Parent_Obj());
-		Destroy(P2_OptionBullet.Get_Parent_Obj());
-		Destroy(PlayerMissile.Get_Parent_Obj());
-		Destroy(PlayerMissile2.Get_Parent_Obj());
-		Destroy(EnemyBullet.Get_Parent_Obj());
-		Destroy(Beam_Bullet_E.Get_Parent_Obj());
-		Destroy(SmallBeam_Bullet_E.Get_Parent_Obj());
-		Destroy(BattleShipBullet.Get_Parent_Obj());
-		Destroy(UfoType_Enemy.Get_Parent_Obj());
-		Destroy(ClamChowderType_Enemy.Get_Parent_Obj());
-		Destroy(OctopusType_Enemy.Get_Parent_Obj());
-		Destroy(BeelzebubType_Enemy.Get_Parent_Obj());
-		Destroy(BattleShipType_Enemy.Get_Parent_Obj());
-		Destroy(StarFish_Enemy.Get_Parent_Obj());
 		Destroy(Option.Get_Parent_Obj());
-		Destroy(PowerUP_Item.Get_Parent_Obj());
-		Destroy(Boss_Middle.Get_Parent_Obj());
-		Destroy(Laser_Line.Get_Parent_Obj());
-		Destroy(One_Boss_Laser.Get_Parent_Obj());
-		Destroy(One_Boss_BousndBullet.Get_Parent_Obj());
-		Destroy(Two_Boss_Laser.Get_Parent_Obj());
-		Destroy(Moai.Get_Parent_Obj());
-		Destroy(Moai_Mini_Group.Get_Parent_Obj());
-		Destroy(Moai_Bullet.Get_Parent_Obj());
-		Destroy(Moai_Eye_Laser.Get_Parent_Obj());
-		Destroy(Moai_Mouth_Laser.Get_Parent_Obj());
 
-		Destroy(Effects[0].Get_Parent_Obj());
-		Destroy(Effects[1].Get_Parent_Obj());
-		Destroy(Effects[2].Get_Parent_Obj());
-		Destroy(Effects[3].Get_Parent_Obj());
-		Destroy(Effects[4].Get_Parent_Obj());
-		Destroy(Effects[5].Get_Parent_Obj());
-		Destroy(Effects[6].Get_Parent_Obj());
-		Destroy(Effects[7].Get_Parent_Obj());
-		Destroy(Effects[8].Get_Parent_Obj());
-		Destroy(Effects[9].Get_Parent_Obj());
-		Destroy(Effects[10].Get_Parent_Obj());
-		Destroy(Effects[11].Get_Parent_Obj());
-		Destroy(Effects[12].Get_Parent_Obj());
-		Destroy(Effects[13].Get_Parent_Obj());
-		Destroy(Effects[14].Get_Parent_Obj());
-		Destroy(Effects[15].Get_Parent_Obj());
-		Destroy(Effects[16].Get_Parent_Obj());
-
-		Destroy(enemy_UFO_Group.Get_Parent_Obj());
-		Destroy(enemy_UFO_Group_NoneShot.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Two_Top.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Two_Under.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyUp.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TwoWaveOnlyDown.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Three.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Three_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Four.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Four_NoItem.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Five.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Five_NoItem.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Seven.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_Straight.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_FourWide.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_FourWide_Item.Get_Parent_Obj());
-		Destroy(enemy_BeetleGroup.Get_Parent_Obj());
-		Destroy(enemy_BeetleGroup_Three.Get_Parent_Obj());
-		Destroy(boundMeteors.Get_Parent_Obj());
-		Destroy(enemy_Bacula_Sixteen.Get_Parent_Obj());
-		Destroy(enemy_Bacula_FourOnly.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_FourTriangle.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_FourTriangle_NoItem.Get_Parent_Obj());
-		Destroy(enemy_Beelzebub_Group_EightNormal_Item.Get_Parent_Obj());
-		Destroy(enemy_UFO_Group_Five.Get_Parent_Obj());
-		Destroy(enemy_Beetle_Group_Seven.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_SevenStraight.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_SixStraight.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_UpSevenDiagonal.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_DownSevenDiagonal.Get_Parent_Obj());
-		Destroy(enemy_ClamChowder_Group_TenStraight.Get_Parent_Obj());
+		Player = null;
+		Player_2 = null;
+		Option = null;
 	}
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 

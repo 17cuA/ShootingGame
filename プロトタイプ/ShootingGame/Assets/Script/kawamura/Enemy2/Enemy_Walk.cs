@@ -26,9 +26,11 @@ public class Enemy_Walk : MonoBehaviour
 	CharacterController characterController;
 
 	[Header("入力用　歩くスピード")]
-	public float walkSpeed;
+	public float speedXMax;
+	public float speedX;
+	public float speedYMax;
 	public float speedY;
-	public float rotaY;			//角度
+	public float rotaY;					//角度
 	[Header("入力用　回転スピード")]
 	public float rotaSpeed;
 	[Header("入力用　歩く最大時間（秒）")]
@@ -36,15 +38,30 @@ public class Enemy_Walk : MonoBehaviour
 	public float walkTimeCnt;
 	[Header("入力用　止まっている最大時間（秒）")]
 	public float stopTimeMax;
-	public float stopTimeCnt;          //止まっている時間カウント
+	public float stopTimeCnt;			//止まっている時間カウント
 	[Header("入力用　攻撃間隔")]
 	public float attackTimeMax;
 	public float attackTimeCnt;
-	float rollDelayCnt;			//回転した後のカウント（回転直後に当たり判定をしないようにするため）
+	float rollDelayCnt;					//回転した後のカウント（回転直後に当たり判定をしないようにするため）
+
+	//
+	public Vector3 groundNormal = Vector3.zero;
+
+	private Vector3 lastGroundNormal = Vector3.zero;
+	public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
+
+	public float groundAngle = 0;
+	//
+
+	//
+	Vector3 normalVector = Vector3.zero;
+	public Vector3 onPlane;
+	//
 
 	public bool isRoll;			//回転中かどうか
 	bool isRollEnd = false;     //回転が終わったかどうか
 	bool isAttack = true;
+	public bool cccc = false;
 
 	void Start()
     {
@@ -77,6 +94,16 @@ public class Enemy_Walk : MonoBehaviour
 			}
 		}
 
+		//////
+		// 平面に投影したいベクトルを作成
+		Vector3 inputVector = Vector3.zero;
+		inputVector.x = Input.GetAxis("Horizontal");
+		inputVector.z = Input.GetAxis("Vertical");
+
+		// 平面に沿ったベクトルを計算
+		onPlane = Vector3.ProjectOnPlane(inputVector, normalVector);
+		//////
+
 		//if (direcState == DirectionState.Left || direcState == DirectionState.Right)
 		//{
 		//	walkTimeCnt += Time.deltaTime;
@@ -91,6 +118,26 @@ public class Enemy_Walk : MonoBehaviour
 	}
 
 	//----------------ここから関数----------------
+	void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+		cccc = true;
+		if (hit.normal.y > 0 && hit.moveDirection.y < 0)
+		{
+			if ((hit.point - lastHitPoint).sqrMagnitude > 0.001f || lastGroundNormal == Vector3.zero)
+			{
+				groundNormal = hit.normal;
+			}
+			else
+			{
+				groundNormal = lastGroundNormal;
+			}
+
+			lastHitPoint = hit.point;
+		}
+
+		// 現在の接地面の角度を取得
+		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+	}
 
 	//動く関数
 	void Move()
@@ -99,7 +146,7 @@ public class Enemy_Walk : MonoBehaviour
 		{
 			//左向きの時移動する
 			case DirectionState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
@@ -110,7 +157,7 @@ public class Enemy_Walk : MonoBehaviour
 				}
 				else
 				{
-					speedY = 1f;
+					speedY = 3f;
 				}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
@@ -123,7 +170,7 @@ public class Enemy_Walk : MonoBehaviour
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(-walkSpeed, -speedY, 0);
+				velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				characterController.Move(velocity * Time.deltaTime);
 				if (characterController.collisionFlags != CollisionFlags.None)
@@ -132,7 +179,7 @@ public class Enemy_Walk : MonoBehaviour
 				}
 				else
 				{
-					speedY = 1f;
+					speedY = 3f;
 				}
 
 				walkTimeCnt += Time.deltaTime;
@@ -198,6 +245,7 @@ public class Enemy_Walk : MonoBehaviour
 
 	private void OnTriggerEnter(Collider col)
 	{
+
 		//当たったら
 		if (col.gameObject.tag == "Player")
 		{
@@ -209,5 +257,10 @@ public class Enemy_Walk : MonoBehaviour
 			}
 		}
 
+	}
+	private void OnCollisionStay(Collision collision)
+	{
+		// 衝突した面の、接触した点における法線を取得
+		normalVector = collision.contacts[0].normal;
 	}
 }

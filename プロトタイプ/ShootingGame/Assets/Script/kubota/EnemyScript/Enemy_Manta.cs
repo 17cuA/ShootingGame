@@ -19,8 +19,12 @@ public class Enemy_Manta : character_status
 	int mazlecnt;		//マズル選択用
 
 	float Beam_Delay;					//弾発射管理変数
-	public float Beam_DelayMax;			//弾発射感覚決定用変数（unity側にて決定）
+	public float Beam_DelayMax;         //弾発射感覚決定用変数（unity側にて決定）
 
+	public GameObject Beam_Bullet;
+	public GameObject Laser_Bullet;
+	private int Bullet_cnt;             //弾を撃った数をカウントするよう
+	private int Frame_cnt;
 
 	[SerializeField, Header("ビーム攻撃発射位置")]
 	private GameObject[] Beam_Mazle;		//ビーム用位置情報
@@ -36,6 +40,7 @@ public class Enemy_Manta : character_status
 	{
 		type = Move_Type.None;
 		mazlecnt = 0;
+		Bullet_cnt = 0;
 	}
 
 	new void Start()
@@ -82,7 +87,11 @@ public class Enemy_Manta : character_status
 
 		if(Shot_Delay > Shot_DelayMax)
 		{
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Shot_Mazle[mazlecnt].transform.position, Vector3.left);
+			//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, Shot_Mazle[mazlecnt].transform.position, Vector3.left);
+
+			GameObject bullet = Instantiate(Beam_Bullet, Shot_Mazle[mazlecnt].transform.position, Quaternion.identity);
+			Beam_Bullet status = bullet.GetComponent<Beam_Bullet>();
+			status.shot_speed *= -1;
 
 			mazlecnt++;
 			if (mazlecnt == 2) mazlecnt = 0;
@@ -110,4 +119,9 @@ public class Enemy_Manta : character_status
 		}
 	}
 
+
+	void Reset_Value()
+	{
+
+	}
 }

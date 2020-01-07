@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bit_Formation_3 : MonoBehaviour
 {
@@ -35,7 +36,9 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject followPosThirdObj;        //三番目
 	public GameObject followPosFourthObj;       //四番目
 	public GameObject[] circlePosObjects;
-	GameObject target;
+	public GameObject[] fixedPosObjects;
+
+	public GameObject target;
 												//GameObject obliquePosObj;					//斜めうち状態の座標用オブジェクト
 	GameObject laserPos;                        //レーザー時の座標用オブジェクト
 	public GameObject particleObj;
@@ -43,8 +46,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	public ParticleSystem option_Particle;      //レーザーのパーティクルを取得するための変数
 
 	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
-	Player1 pl1;                                //プレイヤースクリプト情報
-	Player2 pl2;
+	public Player1 pl1;                                //プレイヤースクリプト情報
+	public Player2 pl2;
 	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
@@ -63,7 +66,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	int option_OrdinalNum;                      //オプション自身がどの何番目の追従位置にいるのかの番号
+	public int option_OrdinalNum;                      //オプション自身が何番目の追従位置にいるのかの番号
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -82,8 +85,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isCollection = false;                   //回収されたときに使う
 
 	bool isCircle = false;
-	bool isMove = false;
-	int optionNum;
+	public bool isFixed = false;
+	public bool isMove = false;
 
 
 
@@ -100,6 +103,9 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
+
+		circlePosObjects = new GameObject[4];
+		fixedPosObjects = new GameObject[4];
 
 		////4つの追従位置とそれぞれのスクリプト取得
 		//followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
@@ -127,7 +133,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		//プレイヤーオブジェクトを取得していなかったら取得してプレイヤーのスクリプトも取得
 		if (playerObj == null)
 		{
-			playerObj = GameObject.Find("Player");
+			playerObj = Obj_Storage.Storage_Data.GetPlayer();
 
 			pl1 = playerObj.GetComponent<Player1>();
 
@@ -135,7 +141,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 		if (player2Obj == null)
 		{
-			player2Obj = GameObject.Find("Player_2");
+			player2Obj = Obj_Storage.Storage_Data.GetPlayer2();
 
 			pl2 = player2Obj.GetComponent<Player2>();
 
@@ -144,6 +150,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		//生成された時の処理
 		if (isborn)
 		{
+			//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 			//for (int i = 0; i < 4; i++)
 			//{
 			//	switch(i)
@@ -163,6 +170,30 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//	}
 			//}
+			//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
+			//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	switch (i)
+			//	{
+			//		case 0:
+			//			fixedPosObjects[i] = GameObject.Find("FixedPos_1");
+			//			break;
+			//		case 1:
+			//			fixedPosObjects[i] = GameObject.Find("FixedPos_2");
+			//			break;
+			//		case 2:
+			//			fixedPosObjects[i] = GameObject.Find("FixedPos_3");
+			//			break;
+			//		case 3:
+			//			fixedPosObjects[i] = GameObject.Find("FixedPos_4");
+			//			break;
+
+			//	}
+			//}
+			//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
 			SetFollowPos();             //追従位置設定
 			option_Particle.Play();     //オプションの見た目パーティクルを起動
 			isborn = false;             //生成時処理をしないようにする
@@ -170,7 +201,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//追従位置を取得していtたらその位置にする
-		if (followPosObj && !isCircle && !isMove)
+		if (followPosObj && !isCircle && !isFixed && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
@@ -190,7 +221,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		//		isCircle = true;
 		//		isMove = true;
 
-		//		target = circlePosObjects[optionNum - 1];
+		//		target = circlePosObjects[option_OrdinalNum - 1];
 
 		//	}
 		//}
@@ -212,6 +243,49 @@ public class Bit_Formation_3 : MonoBehaviour
 		//}
 		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
+		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		//if (Input.GetKeyDown(KeyCode.F))
+		//{
+		//	//オンならオフに
+		//	if (isFixed)
+		//	{
+		//		isFixed = false;
+		//		isCircle = false;
+		//		isMove = true;
+		//		target = followPosObj;
+		//		transform.rotation = Quaternion.Euler(0, 0, 0);
+		//	}
+		//	else
+		//	{
+		//		isFixed = true;
+		//		isMove = true;
+
+		//		target = fixedPosObjects[option_OrdinalNum - 1];
+
+		//	}
+		//}
+
+		//if (isMove && !isDead)
+		//{
+		//	float step = moveSpeed * Time.deltaTime;
+
+		//	transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+		//	if (transform.position == target.transform.position)
+		//	{
+		//		isMove = false;
+		//		//transform.rotation = Quaternion.Euler(target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z);
+		//		//transform.eulerAngles += target.transform.eulerAngles;
+		//		step = 0;
+		//	}
+		//}
+
+		//if (isFixed && !isMove && !isDead)
+		//{
+		//	transform.position = target.transform.position;
+		//}
+		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+
+
 		//プレイヤー死亡時の処理
 		if (bState == BitState.Player1)
 		{
@@ -225,7 +299,6 @@ public class Bit_Formation_3 : MonoBehaviour
 				//追従位置の参照を外す
 				followPosObj = null;
 				target = null;
-				optionNum = 0;
 
 				//追従位置番号に合った追従位置オブジェクトのオプションを持っている判定をfalseにする
 				switch (option_OrdinalNum)
@@ -246,6 +319,8 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Fourth.hasOption = false;
 						break;
 				}
+				//option_OrdinalNum = 0;
+
 			}
 		}
 		else if (bState == BitState.Player2)
@@ -362,20 +437,28 @@ public class Bit_Formation_3 : MonoBehaviour
 		//プレイヤーに一番近い追従オブジェクトのオプション所持判定がなかった時
 		if (!FtoPlayer.hasOption)
 		{
-			optionNum = 1;
+			option_OrdinalNum = 1;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
 
-			if(isCircle)
+			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[option_OrdinalNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosFirstObj.transform;
@@ -383,25 +466,32 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 1;
 			collectDelay = 0;
 		}
 		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
-			optionNum = 2;
+			option_OrdinalNum = 2;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[option_OrdinalNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosSecondObj.transform;
@@ -409,25 +499,32 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 2;
 			collectDelay = 0;
 		}
 		//三番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Third.hasOption)
 		{
-			optionNum = 3;
+			option_OrdinalNum = 3;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[option_OrdinalNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosThirdObj.transform;
@@ -435,25 +532,32 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 3;
 			collectDelay = 0;
 		}
 		//四番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Fourth.hasOption)
 		{
-			optionNum = 4;
+			option_OrdinalNum = 4;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
 			if (isCircle)
 			{
-				target = circlePosObjects[optionNum - 1];
+				target = circlePosObjects[option_OrdinalNum - 1];
 				transform.position = target.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (isFixed)
+			{
+				target = fixedPosObjects[option_OrdinalNum - 1];
+				transform.position = target.transform.position;
+				transform.rotation = target.transform.rotation;
 			}
 			else
 			{
 				target = followPosObj;
 				transform.position = followPosObj.transform.position;
+				transform.rotation = Quaternion.Euler(0, 0, 0);
 			}
 
 			//transform.parent = followPosFourthObj.transform;
@@ -461,10 +565,10 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			//スピードリセット,オプションの追従位置番号設定,回収の当たり判定ディレイリセット
 			speed = defaultSpeed;
-			option_OrdinalNum = 4;
 			collectDelay = 0;
 		}
 	}
+
 
 	//オプション回収の処理
 	private void OnTriggerEnter(Collider col)
@@ -476,6 +580,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			if (col.gameObject.name == "Player")
 			{
 				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+				Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 
 				int i = 0;
 				while (i < pl1.Maltiple_Catch.Length)
@@ -497,26 +602,30 @@ public class Bit_Formation_3 : MonoBehaviour
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{
-						optionNum = 1;
+						option_OrdinalNum = 1;
 						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
-						if (isCircle)
-						{
-							target = circlePosObjects[optionNum - 1];
-							transform.position = target.transform.position;
-						}
-						else
-						{
-							target = followPosObj;
-							transform.position = followPosObj.transform.position;
-						}
-
+						//if (isCircle)
+						//{
+						//	target = circlePosObjects[option_OrdinalNum - 1];
+						//	transform.position = target.transform.position;
+						//	transform.rotation = Quaternion.Euler(0, 0, 0);
+						//}
+						//else if (isFixed)
+						//{
+						//	target = fixedPosObjects[option_OrdinalNum - 1];
+						//	transform.position = target.transform.position;
+						//	transform.rotation = target.transform.rotation;
+						//}
+					
+						target = followPosObj;
+						transform.position = followPosObj.transform.position;
+						transform.rotation = Quaternion.Euler(0, 0, 0);
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 1;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -526,26 +635,33 @@ public class Bit_Formation_3 : MonoBehaviour
 					//二番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Second.hasOption)
 					{
-						optionNum = 2;
+						option_OrdinalNum = 2;
 						//取得判定true,二番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Second.hasOption = true;
 						followPosObj = followPosSecondObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[option_OrdinalNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 2;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -555,26 +671,33 @@ public class Bit_Formation_3 : MonoBehaviour
 					//三番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Third.hasOption)
 					{
-						optionNum = 3;
+						option_OrdinalNum = 3;
 						//取得判定true,三番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Third.hasOption = true;
 						followPosObj = followPosThirdObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[option_OrdinalNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 3;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -584,26 +707,33 @@ public class Bit_Formation_3 : MonoBehaviour
 					//四番目の追従位置オブジェクトがオプションを持っていなかったら
 					else if (!FtoPBit_Fourth.hasOption)
 					{
-						optionNum = 4;
+						option_OrdinalNum = 4;
 						//取得判定true,四番目に近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPBit_Fourth.hasOption = true;
 						followPosObj = followPosFourthObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[optionNum - 1];
+							target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							target = fixedPosObjects[option_OrdinalNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
 						}
 						else
 						{
 							target = followPosObj;
 							transform.position = followPosObj.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 
 						//死んでる状態false,スピードを初速にリセット,オプションの追従位置判別番号設定,当たり判定のディレイリセット
 						isDead = false;
 						speed = defaultSpeed;
-						option_OrdinalNum = 4;
 						collectDelay = 0;
 
 						//スケール変更スクリプトの回収判定true,回収時のスケール値を０
@@ -702,6 +832,8 @@ public class Bit_Formation_3 : MonoBehaviour
 				//option_Particle.Stop();
 				b_Shot.isShot = true;
 				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
+				Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
+
 				int i = 0;
 				while (i < pl2.Maltiple_Catch.Length)
 				{
