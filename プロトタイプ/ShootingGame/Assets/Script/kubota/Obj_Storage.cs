@@ -322,7 +322,7 @@ public class Obj_Storage : MonoBehaviour
 		audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");         //コアシールドヒット音
 		audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //敵の爆発音
 		audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
-		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch");           //ドロップしたオプションの回収
+		audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch2");           //ドロップしたオプションの回収
 		audio_se[11] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_5(Moyai)");           //モアイの爆発
 		audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
 		audio_se[13] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //リップルレーザーの声使ってない
@@ -437,8 +437,8 @@ public class Obj_Storage : MonoBehaviour
 		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
-		PlayerMissile = new Object_Pooling(Player_Missile1, 8, "Player_Missile");        //プレイヤーのミサイルの生成
-		PlayerMissile2 = new Object_Pooling(Player_Missile2, 8, "Player_Missile");      //プレイヤー２のミサイルの生成
+		PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
+		PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
 		EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 		Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
 		SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成

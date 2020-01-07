@@ -139,13 +139,9 @@ public class Wireless_sinario : MonoBehaviour
 				{
 					No++;
 					SetNext_sinario();
-					currentLine = 0;
-					frame = 0;
-					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 					uiText.text = "";
 					Sound_Active();
-					soundcnt = 0;
-					Start_cnt = 0;
+					Reset_Value();
 				}
 				isShowOver = false;
 			}
@@ -154,14 +150,9 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				No++;
 				SetNext_sinario();
-				currentLine = 0;
-				frame = 0;
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
-				Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				uiText.text = "";
 				Sound_Active();
-				soundcnt = 0;
-				Start_cnt = 0;
 			}
 		}
 		else
@@ -304,6 +295,9 @@ public class Wireless_sinario : MonoBehaviour
 				break;
 		}
 	}
+	/// <summary>
+	/// 
+	/// </summary>
 	void Sound_Active()
 	{
 		switch (soundcnt)
@@ -329,5 +323,19 @@ public class Wireless_sinario : MonoBehaviour
 				audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[25]);
 				break;
 		}
+	}
+
+	/// <summary>
+	/// 各値等の初期化
+	/// </summary>
+	void Reset_Value()
+	{
+		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;		//無線モードから通常(敵が出てくるモード)へ変更
+		soundcnt = 0;	//
+		Start_cnt = 0;
+		currentLine = 0;
+		frame = 0;
+		uiText.text = "";
+
 	}
 }

@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Missile2
       objectReference: {fileID: 0}
+    - target: {fileID: 5354736178567886499, guid: b4f8849167fea4041a178d9ea8502454,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250887071465163542, guid: b4f8849167fea4041a178d9ea8502454,
+        type: 3}
+      propertyPath: Bullet_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6447552643832479747, guid: b4f8849167fea4041a178d9ea8502454,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,11 +76,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250887071465163542, guid: b4f8849167fea4041a178d9ea8502454,
-        type: 3}
-      propertyPath: Bullet_Type
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4f8849167fea4041a178d9ea8502454, type: 3}
