@@ -67,12 +67,12 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x > 0)
 				{
 					eee = true;
-
+					angleZ = -followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
 				{
 					fff = true;
-
+					angleZ = followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
 				{
