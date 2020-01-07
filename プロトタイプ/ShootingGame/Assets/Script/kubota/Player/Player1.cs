@@ -864,28 +864,25 @@ public class Player1 : character_status
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	private void OnSceneChange(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
 	{
-		if (to.name != "Stage_01")
+		if (to.name.Contains("Stage"))
 		{
-			if (to.name.Contains("Stage"))
+			invincible = true;         //無敵状態にするかどうかの処理
+			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			target = direction;
+			Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
+			Is_Animation = true;
+			Is_Resporn = true;                      //復活用の処理を行う
+
+			for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
 			{
-				invincible = true;         //無敵状態にするかどうかの処理
-				invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
-				target = direction;
-				Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
-				Is_Animation = true;
-				Is_Resporn = true;                      //復活用の処理を行う
-
-				for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
+				var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
+				if (currentOption.activeSelf)
 				{
-					var currentOption = Obj_Storage.Storage_Data.Option.Get_Obj()[i];
-					if (currentOption.activeSelf)
+					if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1)
 					{
-						if (currentOption.GetComponent<Bit_Formation_3>().bState == Bit_Formation_3.BitState.Player1)
-						{
-							currentOption.GetComponent<Bit_Formation_3>().SetPlayer(1);
-							currentOption.GetComponent<Bit_Formation_3>().isborn = true;
+						currentOption.GetComponent<Bit_Formation_3>().SetPlayer(1);
+						currentOption.GetComponent<Bit_Formation_3>().isborn = true;
 
-						}
 					}
 				}
 			}

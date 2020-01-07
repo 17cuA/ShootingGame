@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ReflectionRayLaser : MonoBehaviour
 {
-	public GameObject reflectionRayLaserManager;		//ReflectionRayLaserの生成先
+	public GameObject reflectionRayLaserManager;        //ReflectionRayLaserの生成先
 	public int reflectingCount = 5;   //レーザーの反射回数
 
 	//レーザーのオブジェクト
 	public RayLaser rayLaser;
 	public List<RayLaser> rayLaserList = new List<RayLaser>();
 	float rayLength = 40;   //レイの長さ
-
-
 
 	void Start()
 	{
@@ -30,15 +28,19 @@ public class ReflectionRayLaser : MonoBehaviour
 		//反射生成
 		if (rayLaserList.Count < reflectingCount && rayLaserList[rayLaserList.Count - 1].PassIsHitting())
 		{
-			creatRayLaser(rayLaserList[rayLaserList.Count - 1]);
+			CreatRayLaser(rayLaserList[rayLaserList.Count - 1]);
 		}
 
 		//レーザーの座標と回転を更新
-		updateCoordinate();
+		UpdateCoordinate();
+
+		//レーザーの削除
+		//DeleteRayLaser();
+
 	}
 
 	//レーザーの座標と回転を更新
-	void updateCoordinate()
+	void UpdateCoordinate()
 	{
 		rayLaserList[0].transform.position = transform.position;
 		rayLaserList[0].transform.rotation = transform.rotation;
@@ -48,7 +50,7 @@ public class ReflectionRayLaser : MonoBehaviour
 			rayLaserList[i].transform.position = rayLaserList[i - 1].PassVector().point;
 
 			Vector3 newLaserRotation = rayLaserList[i - 1].transform.localEulerAngles;
-			newLaserRotation.z  *= -1;
+			newLaserRotation.z *= -1;
 			rayLaserList[i].transform.rotation = Quaternion.Euler
 				(
 				newLaserRotation.x,
@@ -59,7 +61,7 @@ public class ReflectionRayLaser : MonoBehaviour
 	}
 
 	//レーザーの生成
-	void creatRayLaser(RayLaser criteriaRayLaser)
+	void CreatRayLaser(RayLaser criteriaRayLaser)
 	{
 		//レーザーの生成
 		RayLaser newLaser;
@@ -72,6 +74,26 @@ public class ReflectionRayLaser : MonoBehaviour
 			);
 		newLaser.transform.parent = reflectionRayLaserManager.transform;
 		rayLaserList.Add(newLaser);
+	}
+
+	//レーザーの削除
+	void DeleteRayLaser()
+	{
+		int unused = 0;
+		for(int i = 0;i<= rayLaserList.Count; i++)
+		{
+			if (!rayLaserList[i].PassIsHitting())
+			{
+				unused = i;
+				break;
+			}
+		}
+
+		for (int i = rayLaserList.Count; unused < i; i--)
+		{
+				Destroy(rayLaserList[i].gameObject);
+				rayLaserList.RemoveAt(i);
+		}
 	}
 
 	//自身の向きを表示
