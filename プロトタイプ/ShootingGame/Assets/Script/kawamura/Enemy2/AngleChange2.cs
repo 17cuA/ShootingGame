@@ -29,6 +29,7 @@ public class AngleChange2 : MonoBehaviour
 	public bool ggg = false;
 	public bool hhh = false;
 
+	public bool hithit = false;
 	void Start()
 	{
 
@@ -40,13 +41,16 @@ public class AngleChange2 : MonoBehaviour
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
 			if (followGround_Script.isHitP)
+			//if (hithit)
 			{
 				//angleZ = -followGround_Script.groundAngle;
 				//angleZ = -followGround_Script.angle_sin;
 
 				if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x > 0)
 				{
-					angleZ = -followGround_Script.angle_sin;
+					//angleZ = -followGround_Script.angle_sin;
+					angleZ = -followGround_Script.angle_cos;
+
 					aaa = true;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
@@ -57,7 +61,7 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
 				{
 					ccc = true;
-
+					angleZ = -followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
 				{
@@ -72,7 +76,7 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
 				{
 					fff = true;
-					angleZ = followGround_Script.angle_cos;
+					angleZ = -followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
 				{
@@ -89,7 +93,7 @@ public class AngleChange2 : MonoBehaviour
 			else
 			{
 				angleZ += angleZ_ChangeValue;
-				followGround_Script.groundAngle = angleZ;
+				//followGround_Script.groundAngle = angleZ;
 			}
 		}
 		else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)

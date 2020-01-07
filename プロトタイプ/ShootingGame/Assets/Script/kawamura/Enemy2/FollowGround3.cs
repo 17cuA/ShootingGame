@@ -66,6 +66,7 @@ public class FollowGround3 : MonoBehaviour
 	public bool cccc = false;
 	public bool isHit = false;
 	public bool isHitP = false;
+	public bool tttttssss = false;
 	void Start()
 	{
 		characterController = GetComponent<CharacterController>();
@@ -137,6 +138,7 @@ public class FollowGround3 : MonoBehaviour
 	{
 		cccc = true;
 		isHitP = true;
+		angleChange2_Script.hithit = true;
 		if (hit.normal.y > 0 && hit.moveDirection.y < 0)
 		{
 			if ((hit.point - lastHitPoint).sqrMagnitude > 0.001f || lastGroundNormal == Vector3.zero)
@@ -299,15 +301,35 @@ public class FollowGround3 : MonoBehaviour
 	//	}
 	//}
 
-	//private void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter(Collision collision)
+	{
+		//normalVector = collision.contacts[0].normal;
+		if (collision.gameObject.tag == "Wall")
+		{
+			//isHitP = true;
+			tttttssss = true;
+		}
+
+	}
+
+	//private void OnTriggerEnter(Collider other)
 	//{
-	//	//normalVector = collision.contacts[0].normal;
-	//	if (collision.gameObject.tag == "Wall")
+	//	if (other.gameObject.tag == "Wall")
 	//	{
-	//		isHitP = true;
-
+	//		//isHitP = true;
+	//		tttttssss = true;
+	//		angleChange2_Script.hithit = true;
 	//	}
+	//}
 
+	//private void OnTriggerExit(Collider other)
+	//{
+	//	if (other.gameObject.tag == "Wall")
+	//	{
+	//		//isHitP = true;
+	//		tttttssss = false ;
+	//		angleChange2_Script.hithit = false;
+	//	}
 	//}
 
 	//private void OnCollisionExit(Collision collision)
