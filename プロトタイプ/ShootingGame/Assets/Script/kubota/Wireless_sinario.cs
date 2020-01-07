@@ -16,34 +16,32 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private string[] Moai_before;           //モアイのシナリオ
 	[SerializeField] private string[] Second_half_boss_before;
 	[SerializeField] private string[] Second_half_boss_after;
-
 	[SerializeField] Text uiText;                   //uitextへの参照
+
 	[SerializeField]
 	[Range(0.001f, 0.3f)]
 	float intervalForCharacterDisplay = 0.05f;             //１文字の表示にかかる時間
 	private string currentText = string.Empty;           //現在の文字列
 	private float timeUntilDisplay = 0;                   //表示にかかる時間
 	private float timeElapsed = 1;                         //文字列の表示を開始した時間
-	public int currentLine = 0;                      //現在の行番号
+	private int currentLine = 0;                      //現在の行番号
 	private int lastUpdateCharacter = -1;       //表示中の文字数
 	private int VoiceNo;                    //無線の声の情報を取得数するための要素数として使用
-											//-------------------------------------------------------------------------------
-	public int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
-	public bool Is_Display;               //Onになったら文章表示
-
+	//-------------------------------------------------------------------------------
+	private int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
 	public static bool Is_using_wireless;       //外部scriptから変更するためにつかう
-												//-------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
 	public enum Sinario_No
 	{
 		Curtain_up,                         //開戦時
 		First_half_boss_before,             //前半ボス前
 		First_falf_boss_after,              //前半ボス後
-		Moai,								//モアイ
+		Middle_Boss,						//一面でいうところの🗿
 		Second_half_boss_before,            //後半ボス前
 		Second_half_boss_after              //後半ボス後
 	}
 	public int No;          //どの無線の状態なのか
-							// 文字の表示が完了しているかどうか
+	// 文字の表示が完了しているかどうか
 	public bool IsCompleteDisplayText
 	{
 		get { return Time.time > timeElapsed + timeUntilDisplay; }
@@ -69,7 +67,6 @@ public class Wireless_sinario : MonoBehaviour
 	{
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 		outline2 = GetComponent<Outline>();
-		Is_Display = false;
 		frame = 0;
 		first_start = 0;
 		No = 0;
@@ -139,13 +136,9 @@ public class Wireless_sinario : MonoBehaviour
 				{
 					No++;
 					SetNext_sinario();
-					currentLine = 0;
-					frame = 0;
-					Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 					uiText.text = "";
 					Sound_Active();
-					soundcnt = 0;
-					Start_cnt = 0;
+					Reset_Value();
 				}
 				isShowOver = false;
 			}
@@ -154,14 +147,9 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				No++;
 				SetNext_sinario();
-				currentLine = 0;
-				frame = 0;
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
-				Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;
 				uiText.text = "";
 				Sound_Active();
-				soundcnt = 0;
-				Start_cnt = 0;
 			}
 		}
 		else
@@ -304,6 +292,9 @@ public class Wireless_sinario : MonoBehaviour
 				break;
 		}
 	}
+	/// <summary>
+	/// 無線が鳴った時に裏で鳴らすやつ
+	/// </summary>
 	void Sound_Active()
 	{
 		switch (soundcnt)
@@ -317,17 +308,31 @@ public class Wireless_sinario : MonoBehaviour
 				break;
 			//無線中 & 文字表示中
 			case 1:
-				audiosource.Play();
-				soundcnt = 2;
-				//一回だけ
+				audiosource.Play();		//無線中はなり続けるためPlay関数を使用している。
+				soundcnt = 2;			//次呼ばれたら、無線終了の音を鳴らすようにする
+				//一回だけ	
 				audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[24]);
 				break;
 			//無線終了時
 			case 2:
-				audiosource.Stop();
+				audiosource.Stop();		//ずっとなっていた音を止めてから別の音を出す
 				//一回だけ
 				audiosource.PlayOneShot(Obj_Storage.Storage_Data.audio_se[25]);
 				break;
 		}
+	}
+
+	/// <summary>
+	/// 各値等の初期化
+	/// </summary>
+	void Reset_Value()
+	{
+		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.eNORMAL;		//無線モードから通常(敵が出てくるモード)へ変更
+		soundcnt = 0;
+		Start_cnt = 0;
+		currentLine = 0;
+		frame = 0;
+		uiText.text = "";	//無線の表示で何も移さないようにするため
+
 	}
 }
