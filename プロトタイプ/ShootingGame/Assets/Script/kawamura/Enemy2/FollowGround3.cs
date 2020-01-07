@@ -51,10 +51,12 @@ public class FollowGround3 : MonoBehaviour
 
 	public float groundAngle = 0;
 	public float saveAngle;
+	public float angle_sin = 0;
+	public float angle_cos = 0;
 	//
 
 	//
-	Vector3 normalVector = Vector3.zero;
+	public Vector3 normalVector = Vector3.zero;
 	public Vector3 onPlane;
 	//
 
@@ -94,6 +96,8 @@ public class FollowGround3 : MonoBehaviour
 				rollDelayCnt = 0;
 			}
 		}
+		angle_sin = (Mathf.Asin(normalVector.y) * Mathf.Rad2Deg);
+		angle_cos= (Mathf.Asin(normalVector.x) * Mathf.Rad2Deg);
 
 		//////
 		// 平面に投影したいベクトルを作成
@@ -116,12 +120,23 @@ public class FollowGround3 : MonoBehaviour
 		//}
 		//動く関数
 		Move();
+
+		//if (characterController.collisionFlags != CollisionFlags.None)
+		//{
+		//	isHitP = true;
+		//}
+		//else
+		//{
+		//	isHitP = false;
+		//}
+
 	}
 
 	//----------------ここから関数----------------
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		cccc = true;
+		isHitP = true;
 		if (hit.normal.y > 0 && hit.moveDirection.y < 0)
 		{
 			if ((hit.point - lastHitPoint).sqrMagnitude > 0.001f || lastGroundNormal == Vector3.zero)
@@ -136,11 +151,26 @@ public class FollowGround3 : MonoBehaviour
 			lastHitPoint = hit.point;
 		}
 
+		normalVector = hit.normal;
+		if (normalVector.x > -0.0001f && normalVector.x < 0.0001f)
+		{
+			normalVector.x = 0;
+		}
+		if (normalVector.y > -0.0001f && normalVector.y < 0.0001f)
+		{
+			normalVector.y = 0;
+		}
+
+		//normalVector = hit.normal;
+		//angleeeeeeeeeeeeeeee = Mathf.Asin(normalVector.x * Mathf.Rad2Deg);
+
 		// 現在の接地面の角度を取得
 		groundAngle = Vector3.Angle(hit.normal, Vector3.up);
 		saveAngle = Vector3.Angle(hit.normal, Vector3.up);
 		groundAngle = Mathf.Round(groundAngle * 10);
 		groundAngle /= 10;
+
+
 	}
 
 	//動く関数
@@ -157,17 +187,19 @@ public class FollowGround3 : MonoBehaviour
 				characterController.Move(velocity * Time.deltaTime);
 
 				//angleChange2_Script.angleZ = -groundAngle;
-
-				if (characterController.collisionFlags != CollisionFlags.None)
-				{
-					//speedY = 0;
-					isHit = true;
-				}
-				else
-				{
-					//speedY = 3f;
-					isHit = false;
-				}
+				
+				//if (characterController.collisionFlags != CollisionFlags.None)
+				//{
+				//	//speedY = 0;
+				//	isHit = true;
+				//	isHitP = true;
+				//}
+				//else
+				//{
+				//	//speedY = 3f;
+				//	isHit = false;
+				//	isHitP = false;
+				//}
 				walkTimeCnt += Time.deltaTime;
 				if (walkTimeCnt > walkTimeMax)
 				{
@@ -257,44 +289,38 @@ public class FollowGround3 : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerStay(Collider col)
-	{
+	//private void OnCollisionStay(Collision collision)
+	//{
+	//	//normalVector = collision.contacts[0].normal;
+	//	if (collision.gameObject.tag=="Wall")
+	//	{
+	//		isHitP = true;
 
-		//当たったら
-		if (col.gameObject.tag == "Wall")
-		{
-			isHitP = true;
-			//if (!isRollEnd && !isRoll)
-			//{
-			//	saveDirection = direcState;
-			//	direcState = DirectionState.Roll;
-			//	isRoll = true;
-			//}
-		}
-		//else
-		//{
-		//	isHitP = false;
-		//}
-	}
+	//	}
+	//}
 
-	private void OnTriggerExit(Collider col)
-	{
-		if (col.gameObject.tag == "Wall")
-		{
-			isHitP = false;
-		}
-	}
+	//private void OnCollisionEnter(Collision collision)
+	//{
+	//	//normalVector = collision.contacts[0].normal;
+	//	if (collision.gameObject.tag == "Wall")
+	//	{
+	//		isHitP = true;
 
-	private void OnCollisionStay(Collision collision)
-	{
-		if(collision.gameObject.tag=="Wall")
-		{
+	//	}
 
-		}
-	}
-	private void OnCollision(Collision collision)
-	{
-		// 衝突した面の、接触した点における法線を取得
-		normalVector = collision.contacts[0].normal;
-	}
+	//}
+
+	//private void OnCollisionExit(Collision collision)
+	//{
+	//	if (collision.gameObject.tag == "Wall")
+	//	{
+	//		isHitP = true;
+
+	//	}
+	//}
+	//private void OnCollision(Collision collision)
+	//{
+	//	// 衝突した面の、接触した点における法線を取得
+	//	normalVector = collision.contacts[0].normal;
+	//}
 }
