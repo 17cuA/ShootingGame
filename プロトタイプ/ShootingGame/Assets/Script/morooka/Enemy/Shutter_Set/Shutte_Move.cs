@@ -10,40 +10,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shutte_Move : character_status
+public class Shutte_Move : MonoBehaviour
 {
 	enum MODE
 	{
-		eOPEN	= 1,			// 開く
-		eCLOSE	= -1,			// 閉じる
+		eOPEN	= 1,			// 開いている
+		eCLOSE	= -1,			// 閉じている
 	}
 
 	[Header("")]
 	[SerializeField, Tooltip("箱の大きさ")] private Vector3 boxSize;
 	[SerializeField, Tooltip("レイ長さ")] private float rayLength;
-	[SerializeField, Tooltip("移動位置")] private Vector3 target;
-	[SerializeField, Tooltip("移動するオブジェクト")] private GameObject moveObject;
-	[SerializeField, Tooltip("シャッターの初期状態モード")] private MODE mode;
+	[SerializeField, Tooltip("シャッターの現在の状態")] private MODE mode;
 
-	private bool Is_Move;
+	[SerializeField]private bool Is_Move;
 	private RaycastHit hit;
+
+	private Vector3 target;
+	private float speed;
+
+	private Vector3 Open_TargetPos { get; set; }		// 開いているときのポジション
+	private Vector3 Close_TargetPos { get; set; }		// 閉じているときのポジション
 
 	new private void Start()
 	{
-		switch(mode)
-		{
-			case MODE.eOPEN:
-				moveObject.transform.localPosition = target;
-				target = Vector3.zero;
-				break;
-			case MODE.eCLOSE:
-				break;
-		}
+		//----------------------------------------------------------------
+		speed = 0.01f;
+		target = new Vector3(0.0f, 9.0f, 0.0f);
+		//----------------------------------------------------------------
+
+		Open_TargetPos = target + transform.position;
+		Close_TargetPos = transform.position;
 	}
 
 	new private void Update()
 	{
-		if (Physics.BoxCast(transform.position, boxSize, (float)mode * transform.right, out hit, Quaternion.identity, rayLength))
+		if (Physics.BoxCast(transform.position, boxSize, -(float)mode * transform.right, out hit, Quaternion.identity, rayLength))
 		{
 			if (hit.transform.tag != "Wall")
 			{
@@ -54,18 +56,28 @@ public class Shutte_Move : character_status
 		// 移動可能のとき
 		if (Is_Move)
 		{
-			moveObject.transform.localPosition = Vector3.Lerp(moveObject.transform.localPosition, target, speed);
-
-			// 移動終了判定
-			if (Vector3.Distance(moveObject.transform.localPosition, target) <= 0.001f)
+			if(mode == MODE.eOPEN)
 			{
-				if (mode == MODE.eOPEN)
+				Vector3 temp = transform.position;
+				temp.y = Mathf.Lerp(transform.position.y, Close_TargetPos.y, speed);
+				transform.position = temp;
+
+				// 移動終了判定
+				if (Mathf.Abs(transform.position.y - Close_TargetPos.y) <= 0.001f)
 				{
 					enabled = false;
 				}
-				else if (mode == MODE.eCLOSE)
+			}
+			else if (mode == MODE.eCLOSE)
+			{
+				Vector3 temp = transform.position;
+				temp.y = Mathf.Lerp(transform.position.y, Open_TargetPos.y, speed);
+				transform.position = temp;
+
+				// 移動終了判定
+				if (Mathf.Abs(transform.position.y - Open_TargetPos.y) <= 0.001f)
 				{
-					hp = 0;
+					enabled = false;
 				}
 			}
 		}
