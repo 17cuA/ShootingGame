@@ -37,6 +37,7 @@ public class Shutte_Move : character_status
 				target = Vector3.zero;
 				break;
 			case MODE.eCLOSE:
+				target += moveObject.transform.localPosition;
 				break;
 		}
 	}
