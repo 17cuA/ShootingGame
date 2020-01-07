@@ -13,7 +13,7 @@ public class Wireless_sinario : MonoBehaviour
 	[SerializeField] private string[] Curtain_up;
 	[SerializeField] private string[] First_half_boss_before;
 	[SerializeField] private string[] First_falf_boss_after;
-	[SerializeField] private string[] Moai_before;           //モアイのシナリオ
+	[SerializeField] private string[] Moai_before;				//モアイのシナリオ
 	[SerializeField] private string[] Second_half_boss_before;
 	[SerializeField] private string[] Second_half_boss_after;
 	[SerializeField] Text uiText;                   //uitextへの参照
@@ -48,7 +48,7 @@ public class Wireless_sinario : MonoBehaviour
 	}
 
 	public bool isShowOver = false;     //表示が終了したかどうか（明示的に示すため）
-	private float unShowTimer;              //
+	private float unShowTimer;
 	[SerializeField] private float unShowTime;
 
 	private int first_start;            //ゲーム開始時からカウントするためのもの
@@ -58,8 +58,6 @@ public class Wireless_sinario : MonoBehaviour
 
 	private int frameMax;
 	private Sinario_No S_No;
-	private bool Is_Start_Wireless;     //無線が始まるまでの判定用
-	private bool Is_Finish_Wireless;        //無線が終わったかどうか(）
 	public AudioSource audiosource;         //無線受信時の音などを鳴らすよう
 	private int soundcnt;
 	int Start_cnt;
@@ -164,7 +162,7 @@ public class Wireless_sinario : MonoBehaviour
 			}
 			frame++;
 			Start_cnt++;
-			// 文字の表示が完了してるならクリック時に次の行を表示する
+			//文字の表示が完了してるならクリック時に次の行を表示する
 			if (IsCompleteDisplayText)
 			{
 				if (currentLine == 2)
