@@ -17,8 +17,8 @@ public class TerrainManagement : MonoBehaviour
 		foreach(var temp in transformsList)
 		{
 			// 範囲内のとき
-			if (temp.position.x < 22.0f && temp.position.x > -22.0f
-				&& temp.position.y < 15.0f && temp.position.y > -15.0f)
+			if (temp.position.x < 30.0f && temp.position.x > -30.0f
+				&& temp.position.y < 10.0f && temp.position.y > -10.0f)
 			{
 				temp.gameObject.SetActive(true);
 			}
