@@ -35,9 +35,6 @@ public class FollowGround3 : MonoBehaviour
 	[Header("入力用　歩く最大時間（秒）")]
 	public float walkTimeMax;
 	public float walkTimeCnt;
-	[Header("入力用　止まっている最大時間（秒）")]
-	public float stopTimeMax;
-	public float stopTimeCnt;           //止まっている時間カウント
 	[Header("入力用　攻撃間隔")]
 	public float attackTimeMax;
 	public float attackTimeCnt;
@@ -76,7 +73,6 @@ public class FollowGround3 : MonoBehaviour
 		characterController = GetComponent<CharacterController>();
 		childObj = transform.GetChild(0).gameObject;
 		walkTimeCnt = 0;
-		stopTimeCnt = 0;
 		rollDelayCnt = 0;
 		isRoll = false;
 		isAttack = true;
@@ -263,24 +259,6 @@ public class FollowGround3 : MonoBehaviour
 						isRollEnd = true;
 					}
 					transform.rotation = Quaternion.Euler(0, rotaY, 0);
-				}
-				break;
-
-			case DirectionState.Stop:
-				stopTimeCnt += Time.deltaTime;
-				attackTimeCnt += Time.deltaTime;
-
-				if (stopTimeCnt > stopTimeMax)
-				{
-					direcState = saveDirection;
-					stopTimeCnt = 0;
-					attackTimeCnt = 0;
-					isAttack = true;
-				}
-				if (isAttack && attackTimeCnt > attackTimeMax)
-				{
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, childObj.transform.position, childObj.transform.rotation);
-					isAttack = false;
 				}
 				break;
 		}

@@ -32,6 +32,14 @@ public class AngleChange2 : MonoBehaviour
 	public bool hithit = false;
 	void Start()
 	{
+		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
+		{
+			angleZ = 0;
+		}
+		if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
+		{
+			angleZ = 180;
+		}
 
 	}
 
@@ -78,7 +86,8 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
 				{
 					fff = true;
-					angleZ = -followGround_Script.angle_cos;
+					//angleZ = -followGround_Script.angle_cos;
+					angleZ = followGround_Script.groundAngle;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
 				{
@@ -105,13 +114,65 @@ public class AngleChange2 : MonoBehaviour
 		else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 		{
 			if (followGround_Script.isHitP)
+			//if (hithit)
 			{
-				angleZ = followGround_Script.groundAngle;
+				//angleZ = -followGround_Script.groundAngle;
+				//angleZ = -followGround_Script.angle_sin;
+
+				if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x > 0)
+				{
+					//angleZ = -followGround_Script.angle_sin;
+					angleZ = -followGround_Script.angle_cos;
+
+					aaa = true;
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
+				{
+					bbb = true;
+					angleZ = -followGround_Script.groundAngle;
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
+				{
+					ccc = true;
+					//angleZ = followGround_Script.angle_cos;
+					angleZ = followGround_Script.groundAngle;
+				}
+				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
+				{
+					ddd = true;
+					angleZ = -followGround_Script.angle_cos;
+				}
+				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x > 0)
+				{
+					eee = true;
+					angleZ = -90.0f;
+				}
+				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
+				{
+					fff = true;
+					//angleZ = -followGround_Script.angle_cos;
+					angleZ = followGround_Script.groundAngle;
+				}
+				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
+				{
+					ggg = true;
+					angleZ = 0;
+				}
+				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x == 0)
+				{
+					hhh = true;
+					angleZ = 180f;
+				}
+
 			}
 			else
 			{
-				angleZ -= angleZ_ChangeValue;
-				followGround_Script.groundAngle = angleZ;
+				if (followGround_Script.notHitCnt > followGround_Script.NotHitMax)
+				{
+					angleZ -= angleZ_ChangeValue;
+					//followGround_Script.notHitCnt = 0;
+				}
+				//followGround_Script.groundAngle = angleZ;
 			}
 		}
 		transform.rotation = Quaternion.Euler(0, 0, angleZ);
