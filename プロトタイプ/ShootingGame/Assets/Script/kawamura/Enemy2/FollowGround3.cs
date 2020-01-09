@@ -42,6 +42,10 @@ public class FollowGround3 : MonoBehaviour
 	public float attackTimeMax;
 	public float attackTimeCnt;
 	float rollDelayCnt;                 //回転した後のカウント（回転直後に当たり判定をしないようにするため）
+	public int hitDelayMax;
+	public int hitDelayCnt;
+	public int NotHitMax;
+	public int notHitCnt;
 
 	//
 	public Vector3 groundNormal = Vector3.zero;
@@ -110,27 +114,18 @@ public class FollowGround3 : MonoBehaviour
 		onPlane = Vector3.ProjectOnPlane(inputVector, normalVector);
 		//////
 
-		//if (direcState == DirectionState.Left || direcState == DirectionState.Right)
-		//{
-		//	walkTimeCnt += Time.deltaTime;
-		//	if (walkTimeCnt > walkTimeMax)
-		//	{
-		//		walkTimeCnt = 0;
-		//		direcState = DirectionState.Stop;
-		//	}
-		//}
 		//動く関数
 		Move();
 
-		//if (characterController.collisionFlags != CollisionFlags.None)
-		//{
-		//	isHitP = true;
-		//}
-		//else
-		//{
-		//	isHitP = false;
-		//}
-
+		if(isHitP)
+		{
+			hitDelayCnt++;
+			notHitCnt = 0;
+		}
+		else
+		{
+			notHitCnt++;
+		}
 	}
 
 	//----------------ここから関数----------------

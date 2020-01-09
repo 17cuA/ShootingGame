@@ -46,7 +46,7 @@ MonoBehaviour:
   parentObj: {fileID: 4929874629747092733}
   followGround_Script: {fileID: 835226200459923907}
   angleZ: 0
-  angleZ_ChangeValue: 6.3
+  angleZ_ChangeValue: 5
   angleTest: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
   checkNomal: {x: 0, y: 0, z: 0}
@@ -58,6 +58,7 @@ MonoBehaviour:
   fff: 0
   ggg: 0
   hhh: 0
+  hithit: 0
 --- !u!1 &4929874629747092733
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direcState: 0
   angleObj: {fileID: 358464862461800891}
-  angleChange2_Script: {fileID: 0}
+  angleChange2_Script: {fileID: 4065018097812829333}
   speedXMax: 2
   speedX: 2
   speedYMax: 0
@@ -185,6 +186,10 @@ MonoBehaviour:
   stopTimeCnt: 0
   attackTimeMax: 0
   attackTimeCnt: 0
+  hitDelayMax: 3
+  hitDelayCnt: 0
+  NotHitMax: 0
+  notHitCnt: 0
   groundNormal: {x: 0, y: 0, z: 0}
   lastHitPoint: {x: Infinity, y: 0, z: 0}
   groundAngle: 0
@@ -197,6 +202,7 @@ MonoBehaviour:
   cccc: 0
   isHit: 0
   isHitP: 1
+  tttttssss: 0
 --- !u!143 &6067803074772156133
 CharacterController:
   m_ObjectHideFlags: 0

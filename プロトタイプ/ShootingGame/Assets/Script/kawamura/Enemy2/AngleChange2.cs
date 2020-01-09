@@ -38,6 +38,7 @@ public class AngleChange2 : MonoBehaviour
 	void Update()
 	{
 		raypos = new Vector3(transform.position.x - 0.0333f, transform.position.y, transform.position.z);
+
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
 			if (followGround_Script.isHitP)
@@ -61,7 +62,8 @@ public class AngleChange2 : MonoBehaviour
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
 				{
 					ccc = true;
-					angleZ = -followGround_Script.angle_cos;
+					//angleZ = followGround_Script.angle_cos;
+					angleZ = followGround_Script.groundAngle;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
 				{
@@ -92,7 +94,11 @@ public class AngleChange2 : MonoBehaviour
 			}
 			else
 			{
-				angleZ += angleZ_ChangeValue;
+				if (followGround_Script.notHitCnt > followGround_Script.NotHitMax)
+				{
+					angleZ += angleZ_ChangeValue;
+					//followGround_Script.notHitCnt = 0;
+				}
 				//followGround_Script.groundAngle = angleZ;
 			}
 		}
@@ -141,7 +147,11 @@ public class AngleChange2 : MonoBehaviour
 		else
 		{
 			Debug.DrawRay(raypos, -transform.up * 0.5F, Color.white);
-			followGround_Script.isHitP = false;
+			if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
+			{
+				followGround_Script.isHitP = false;
+				followGround_Script.hitDelayCnt = 0;
+			}
 		}
 	}
 }
