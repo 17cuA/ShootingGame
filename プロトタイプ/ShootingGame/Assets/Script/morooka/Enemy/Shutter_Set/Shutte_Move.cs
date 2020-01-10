@@ -59,7 +59,7 @@ public class Shutte_Move : MonoBehaviour
 			if(mode == MODE.eOPEN)
 			{
 				Vector3 temp = transform.localPosition;
-				temp.z = Mathf.Lerp(transform.localPosition.z, Close_TargetPos.y, speed);
+				temp.z = Mathf.Lerp(transform.localPosition.z, Close_TargetPos.z, speed);
 				transform.localPosition = temp;
 
 				// 移動終了判定
@@ -71,7 +71,7 @@ public class Shutte_Move : MonoBehaviour
 			else if (mode == MODE.eCLOSE)
 			{
 				Vector3 temp = transform.localPosition;
-				temp.z = Mathf.Lerp(transform.localPosition.z, Open_TargetPos.y, speed);
+				temp.z = Mathf.Lerp(transform.localPosition.z, Open_TargetPos.z, speed);
 				transform.localPosition = temp;
 
 				// 移動終了判定
