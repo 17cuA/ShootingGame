@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5226ec5300c0f47aa397c9686c8b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parameter: {fileID: 0}
+  Parameter: {fileID: 11400000, guid: 406407d0e5b976b4b80f5ff80ff05b1a, type: 2}
   speed: 0
   hp: 10
   direction: {x: 0, y: 0, z: 0}
@@ -103,10 +103,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4542329453495913597}
     m_Modifications:
-    - target: {fileID: 100000, guid: 783b6dfb477fd214d9bf4ebe4671e980, type: 3}
-      propertyPath: m_Name
-      value: ItemBox
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 783b6dfb477fd214d9bf4ebe4671e980, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -162,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 783b6dfb477fd214d9bf4ebe4671e980, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 783b6dfb477fd214d9bf4ebe4671e980, type: 3}
+      propertyPath: m_Name
+      value: ItemBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 783b6dfb477fd214d9bf4ebe4671e980, type: 3}
