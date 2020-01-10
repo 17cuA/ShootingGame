@@ -13,12 +13,16 @@ public class AngleChange2 : MonoBehaviour
 
 	//
 	RaycastHit hit; //ヒットしたオブジェクト情報
+	RaycastHit hit2;
 	public Vector3 angleTest;
 	public Vector3 rayDirection;
 	public Vector3 checkNomal;
 	//
 
-	Vector3 raypos;	//レイの位置がずれるから調整用
+	Vector3 raypos; //レイの位置がずれるから調整用
+	public Vector3 kakuninVector;
+	public float angle_Sin;
+	public float angle_Cos;
 
 	public bool aaa = false;
 	public bool bbb = false;
@@ -30,6 +34,8 @@ public class AngleChange2 : MonoBehaviour
 	public bool hhh = false;
 
 	public bool hithit = false;
+
+	public bool kakuninnnnnnnnnnnnnnnnnnnnn = false;
 	void Start()
 	{
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
@@ -45,7 +51,8 @@ public class AngleChange2 : MonoBehaviour
 
 	void Update()
 	{
-		raypos = new Vector3(transform.position.x - 0.0333f, transform.position.y, transform.position.z);
+		//raypos = new Vector3(transform.position.x - 0.0333f, transform.position.y, transform.position.z);
+		kakuninVector = -transform.up;
 
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
@@ -176,43 +183,88 @@ public class AngleChange2 : MonoBehaviour
 			}
 		}
 		transform.rotation = Quaternion.Euler(0, 0, angleZ);
+		RaySide();
 
-		RayTest();
+		RayUnder();
 	}
 
-	void RayTest()
+	//下方向にRayを出す
+	void RayUnder()
 	{
 		int layerMask = 1 << 8;
 
 		layerMask = ~layerMask;
 
-		if (Physics.Raycast(raypos, -transform.up, out hit, 0.5f, layerMask))
+		if (Physics.Raycast(transform.position, -transform.up, out hit, 0.5f))
 		{
 			//rayDelayCnt++;
 			if (hit.collider.tag == "Wall")
 			{
 				//if (rayDelayCnt > rayDelayMax)
 				angleTest = Quaternion.FromToRotation(-transform.up, hit.normal).eulerAngles;
-				//checkNomal = hit.normal;
-				//angleChange_Script.angleZ = angleZ;
 
 
-				//if (raytopParent_Script.angleZ != angleZ + 90)
-				//{
-				//	raytopParent_Script.angleZ = angleZ + 90;
-				//}
-
-				Debug.DrawRay(raypos, -transform.up * hit.distance, Color.red);
+				Debug.DrawRay(transform.position, -transform.up * hit.distance, Color.red);
 			}
 		}
 		else
 		{
-			Debug.DrawRay(raypos, -transform.up * 0.5F, Color.white);
+			Debug.DrawRay(transform.position, -transform.up * 0.5F, Color.white);
 			if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
 			{
 				followGround_Script.isHitP = false;
 				followGround_Script.hitDelayCnt = 0;
 			}
+		}
+	}
+
+	//横方向のRay(進行方向で左右どちらに出すか変わる)
+	void RaySide()
+	{
+		Ray ray = new Ray(transform.position, -transform.right);
+
+		if (Physics.Raycast(ray, out hit2, 15f))
+		{
+
+			// If the object is "Player"
+			if (hit.collider.tag == "Wall")
+			{
+
+				// Draw Red Line
+				Debug.DrawLine(ray.origin, hit2.point, Color.red);
+
+			}
+			else
+			{
+				Debug.DrawLine(ray.origin, hit2.point, Color.white);
+			}
+		}
+
+		//if (Physics.Raycast(transform.position, transform.right, out hit2, 0.75f))
+		//{
+		//	//rayDelayCnt++;
+		//	if (hit2.collider.tag == "Wall")
+		//	{
+		//		//if (rayDelayCnt > rayDelayMax)
+		//		//angleTest = Quaternion.FromToRotation(-transform.right, hit2.normal).eulerAngles;
+		//		angle_Sin = (Mathf.Asin(hit2.normal.y) * Mathf.Rad2Deg);
+		//		angle_Cos = (Mathf.Asin(hit2.normal.x) * Mathf.Rad2Deg);
+		//		kakuninVector = hit2.normal;
+		//		Debug.DrawRay(transform.position, transform.right * -hit2.distance, Color.red);
+		//	}
+		//}
+		//else
+		//{
+		//	Debug.DrawRay(transform.position, transform.right * -0.75F, Color.white);
+		//}
+
+	}
+
+	private void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.tag == "Wall" && followGround_Script.isHitP)
+		{
+
 		}
 	}
 }
