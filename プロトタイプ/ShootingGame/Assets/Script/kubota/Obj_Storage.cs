@@ -519,6 +519,14 @@ public class Obj_Storage : MonoBehaviour
 
 			case "Stage_02":
 				#region ステージ２
+				#region レギュラーのバレット系
+				Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
+				Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+
+				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
+				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+				#endregion
+
 				#region エフェクトのロード
 				Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");    //プレイヤー爆発
 				Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");      //プレイヤー登場時に使用するジェット噴射

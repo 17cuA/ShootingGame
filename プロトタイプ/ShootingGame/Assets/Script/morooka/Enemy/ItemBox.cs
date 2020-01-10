@@ -14,12 +14,28 @@ using StorageReference;
 
 public class ItemBox : character_status
 {
-    new void Update()
+	Vector3[] angles = new Vector3[6]
+	{
+		new Vector3(0.0f,5.0f,0.0f),
+		new Vector3(5.0f,5.0f,0.0f),
+		new Vector3(5.0f,0.0f,0.0f),
+		new Vector3(5.0f,-5.0f,0.0f),
+		new Vector3(0.0f,-5.0f,0.0f),
+		new Vector3(-5.0f,-5.0f,0.0f),
+	};
+
+	new void Update()
     {
         if(hp < 1)
 		{
-			Died_Process();
+			// アイテム生成
 			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, transform.position, Quaternion.identity);
+			// 弾発射
+			foreach (var angle in angles)
+			{
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, angle);
+			}
+			Died_Process();
 		}
 
 		base.Update();
