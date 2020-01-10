@@ -21,6 +21,8 @@ public class AngleChange2 : MonoBehaviour
 
 	Vector3 raypos; //レイの位置がずれるから調整用
 	public Vector3 kakuninVector;
+	public Vector3 sideRayVector;
+	public float groundAngle;
 	public float angle_Sin;
 	public float angle_Cos;
 
@@ -52,7 +54,8 @@ public class AngleChange2 : MonoBehaviour
 	void Update()
 	{
 		//raypos = new Vector3(transform.position.x - 0.0333f, transform.position.y, transform.position.z);
-		kakuninVector = -transform.up;
+		kakuninVector = -transform.right;
+		sideRayVector = new Vector3(-transform.right.x, -transform.right.y, 0);
 
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
@@ -203,7 +206,6 @@ public class AngleChange2 : MonoBehaviour
 				//if (rayDelayCnt > rayDelayMax)
 				angleTest = Quaternion.FromToRotation(-transform.up, hit.normal).eulerAngles;
 
-
 				Debug.DrawRay(transform.position, -transform.up * hit.distance, Color.red);
 			}
 		}
@@ -221,49 +223,81 @@ public class AngleChange2 : MonoBehaviour
 	//横方向のRay(進行方向で左右どちらに出すか変わる)
 	void RaySide()
 	{
-		Ray ray = new Ray(transform.position, -transform.right);
-
-		if (Physics.Raycast(ray, out hit2, 15f))
+		if (Physics.Raycast(transform.position, -transform.right, out hit2, 0.75f))
 		{
-
-			// If the object is "Player"
-			if (hit.collider.tag == "Wall")
+			//rayDelayCnt++;
+			if (hit2.collider.tag == "Wall")
 			{
+				//if (rayDelayCnt > rayDelayMax)
+				//angleTest = Quaternion.FromToRotation(-transform.right, hit2.normal).eulerAngles;
+				angle_Sin = (Mathf.Asin(hit2.normal.y) * Mathf.Rad2Deg);
+				angle_Cos = (Mathf.Asin(hit2.normal.x) * Mathf.Rad2Deg);
+				groundAngle= Vector3.Angle(hit2.normal, Vector3.up);
+				groundAngle = Mathf.Round(groundAngle * 10);
+				groundAngle /= 10;
 
-				// Draw Red Line
-				Debug.DrawLine(ray.origin, hit2.point, Color.red);
-
-			}
-			else
-			{
-				Debug.DrawLine(ray.origin, hit2.point, Color.white);
+				//kakuninVector = hit2.normal;
+				sideRayVector = hit2.normal;
+				Debug.DrawRay(transform.position, -transform.right * hit2.distance, Color.red);
 			}
 		}
-
-		//if (Physics.Raycast(transform.position, transform.right, out hit2, 0.75f))
-		//{
-		//	//rayDelayCnt++;
-		//	if (hit2.collider.tag == "Wall")
-		//	{
-		//		//if (rayDelayCnt > rayDelayMax)
-		//		//angleTest = Quaternion.FromToRotation(-transform.right, hit2.normal).eulerAngles;
-		//		angle_Sin = (Mathf.Asin(hit2.normal.y) * Mathf.Rad2Deg);
-		//		angle_Cos = (Mathf.Asin(hit2.normal.x) * Mathf.Rad2Deg);
-		//		kakuninVector = hit2.normal;
-		//		Debug.DrawRay(transform.position, transform.right * -hit2.distance, Color.red);
-		//	}
-		//}
-		//else
-		//{
-		//	Debug.DrawRay(transform.position, transform.right * -0.75F, Color.white);
-		//}
-
+		else
+		{
+			Debug.DrawRay(transform.position, -transform.right * 0.75F, Color.white);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Wall" && followGround_Script.isHitP)
 		{
+			if (sideRayVector.y > 0 && sideRayVector.x > 0)
+			{
+				//angleZ = -followGround_Script.angle_sin;
+				angleZ = -angle_Cos;
+
+				aaa = true;
+			}
+			else if (sideRayVector.y < 0 && sideRayVector.x > 0)
+			{
+				bbb = true;
+				angleZ = -groundAngle;
+				kakuninnnnnnnnnnnnnnnnnnnnn = true;
+				followGround_Script.isHitP = false;
+			}
+			else if (sideRayVector.y < 0 && sideRayVector.x < 0)
+			{
+				ccc = true;
+				//angleZ = followGround_Script.angle_cos;
+				//angleZ = followGround_Script.groundAngle;
+			}
+			else if (sideRayVector.y > 0 && sideRayVector.x < 0)
+			{
+				ddd = true;
+				angleZ = groundAngle;
+				followGround_Script.isHitP = false;
+			}
+			else if (sideRayVector.y == 0 && sideRayVector.x > 0)
+			{
+				eee = true;
+				angleZ = -90.0f;
+			}
+			else if (sideRayVector.y == 0 && sideRayVector.x < 0)
+			{
+				fff = true;
+				//angleZ = -followGround_Script.angle_cos;
+				//angleZ = followGround_Script.groundAngle;
+			}
+			else if (sideRayVector.y > 0 && sideRayVector.x == 0)
+			{
+				ggg = true;
+				angleZ = 0;
+			}
+			else if (sideRayVector.y < 0 && sideRayVector.x == 0)
+			{
+				hhh = true;
+				angleZ = 180f;
+			}
 
 		}
 	}

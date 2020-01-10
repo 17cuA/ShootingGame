@@ -3185,25 +3185,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8a09e006f073a94596b2aba59c8ffa7, type: 3}
---- !u!1 &1138382221 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 358464862461800891, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
-    type: 3}
-  m_PrefabInstance: {fileID: 8666286417586913910}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1138382223
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138382221}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.12705886, y: 0.4, z: 1}
-  m_Center: {x: -0.36323792, y: 0, z: 0}
 --- !u!1 &1157591003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6905,15 +6886,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_FollowGround_test3
       objectReference: {fileID: 0}
-    - target: {fileID: 4065018097812829333, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
-        type: 3}
-      propertyPath: angleZ_ChangeValue
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4929874629747092731, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -5.56
       objectReference: {fileID: 0}
     - target: {fileID: 4929874629747092731, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
         type: 3}
@@ -6970,15 +6946,5 @@ PrefabInstance:
       propertyPath: playerObj
       value: 
       objectReference: {fileID: 1540139476}
-    - target: {fileID: 835226200459923907, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
-        type: 3}
-      propertyPath: direcState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5538451758533075178, guid: 4548198d4f3b60b4cb5edeeec4a7bb47,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4548198d4f3b60b4cb5edeeec4a7bb47, type: 3}

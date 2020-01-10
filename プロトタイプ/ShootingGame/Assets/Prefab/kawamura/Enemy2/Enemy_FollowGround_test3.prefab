@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019756401678218016}
   - component: {fileID: 4065018097812829333}
+  - component: {fileID: 1138382223}
   m_Layer: 0
   m_Name: AngleObj
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358464862461800891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.033, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4929874629747092731}
@@ -50,6 +51,11 @@ MonoBehaviour:
   angleTest: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
   checkNomal: {x: 0, y: 0, z: 0}
+  kakuninVector: {x: 0, y: 0, z: 0}
+  sideRayVector: {x: 0, y: 0, z: 0}
+  groundAngle: 0
+  angle_Sin: 0
+  angle_Cos: 0
   aaa: 0
   bbb: 0
   ccc: 0
@@ -59,6 +65,20 @@ MonoBehaviour:
   ggg: 0
   hhh: 0
   hithit: 0
+  kakuninnnnnnnnnnnnnnnnnnnnn: 0
+--- !u!65 &1138382223
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358464862461800891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.24, z: 1}
+  m_Center: {x: -0.36, y: 0.134, z: 0}
 --- !u!1 &4929874629747092733
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,8 +202,6 @@ MonoBehaviour:
   rotaSpeed: 0
   walkTimeMax: 100
   walkTimeCnt: 0
-  stopTimeMax: 0
-  stopTimeCnt: 0
   attackTimeMax: 0
   attackTimeCnt: 0
   hitDelayMax: 3
