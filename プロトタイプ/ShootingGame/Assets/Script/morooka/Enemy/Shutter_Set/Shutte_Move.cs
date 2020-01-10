@@ -36,11 +36,11 @@ public class Shutte_Move : MonoBehaviour
 	{
 		//----------------------------------------------------------------
 		speed = 0.01f;
-		target = new Vector3(0.0f, 9.0f, 0.0f);
+		target = new Vector3(0.0f, 0.0f, 7.1f);
 		//----------------------------------------------------------------
 
-		Open_TargetPos = target + transform.position;
-		Close_TargetPos = transform.position;
+		Open_TargetPos = target;
+		Close_TargetPos = transform.localPosition;
 	}
 
 	new private void Update()
@@ -58,24 +58,24 @@ public class Shutte_Move : MonoBehaviour
 		{
 			if(mode == MODE.eOPEN)
 			{
-				Vector3 temp = transform.position;
-				temp.y = Mathf.Lerp(transform.position.y, Close_TargetPos.y, speed);
-				transform.position = temp;
+				Vector3 temp = transform.localPosition;
+				temp.z = Mathf.Lerp(transform.localPosition.z, Close_TargetPos.z, speed);
+				transform.localPosition = temp;
 
 				// 移動終了判定
-				if (Mathf.Abs(transform.position.y - Close_TargetPos.y) <= 0.001f)
+				if (Mathf.Abs(transform.localPosition.z - Close_TargetPos.z) <= 0.001f)
 				{
 					enabled = false;
 				}
 			}
 			else if (mode == MODE.eCLOSE)
 			{
-				Vector3 temp = transform.position;
-				temp.y = Mathf.Lerp(transform.position.y, Open_TargetPos.y, speed);
-				transform.position = temp;
+				Vector3 temp = transform.localPosition;
+				temp.z = Mathf.Lerp(transform.localPosition.z, Open_TargetPos.z, speed);
+				transform.localPosition = temp;
 
 				// 移動終了判定
-				if (Mathf.Abs(transform.position.y - Open_TargetPos.y) <= 0.001f)
+				if (Mathf.Abs(transform.localPosition.z - Open_TargetPos.z) <= 0.001f)
 				{
 					enabled = false;
 				}
