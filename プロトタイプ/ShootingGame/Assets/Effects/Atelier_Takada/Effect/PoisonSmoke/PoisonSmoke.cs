@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class PoisonSmoke : MonoBehaviour
 {
-	public float time;
-	private float elapsedTime;
+	private GameObject parentObject;	//親(発射台)のオブジェクト
+	private float maxDistance = 100f;	//親との最大距離
 
-	void Start()
-    {
-		elapsedTime = 0.0f;
-	}
     void Update()
     {
-		if(elapsedTime < time)
+		//一定以上離れたら非表示
+		float distance = Vector3.Distance(transform.position,parentObject.transform.position);
+		if(maxDistance < distance)
 		{
-			elapsedTime += Time.deltaTime;
-
-			if (elapsedTime > time)
-			{
-				GetComponent<SphereCollider>().enabled = true;
-			}
+			gameObject.SetActive(false);
 		}
+	}
 
+	//親オブジェクトの保存
+	public void SetParentData(GameObject parent,float distance)
+	{
+		parentObject = parent;
+		maxDistance = distance;
 	}
 }
