@@ -5,6 +5,7 @@ using UnityEngine;
 public class AngleChange2 : MonoBehaviour
 {
 	public GameObject parentObj;
+	public BoxCollider hitCol;
 
 	public FollowGround3 followGround_Script;
 	public float angleZ;
@@ -21,10 +22,16 @@ public class AngleChange2 : MonoBehaviour
 
 	Vector3 raypos; //レイの位置がずれるから調整用
 	public Vector3 kakuninVector;
+	Vector3 underRayPos;
+	Vector3 sideRayPos;
 	public Vector3 sideRayVector;
 	public float groundAngle;
 	public float angle_Sin;
 	public float angle_Cos;
+
+	public int raydasitayo = 0;
+
+	public string tagname;
 
 	public bool aaa = false;
 	public bool bbb = false;
@@ -43,11 +50,14 @@ public class AngleChange2 : MonoBehaviour
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
 			angleZ = 0;
+			hitCol.center = new Vector3(-0.36f, 0.134f, 0);
 		}
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 		{
 			angleZ = 180;
+			hitCol.center = new Vector3(-0.36f, -0.134f, 0);
 		}
+
 
 	}
 
@@ -132,46 +142,46 @@ public class AngleChange2 : MonoBehaviour
 				if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x > 0)
 				{
 					//angleZ = -followGround_Script.angle_sin;
-					angleZ = -followGround_Script.angle_cos;
+					angleZ = 180 - followGround_Script.angle_cos;
 
 					aaa = true;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
 				{
 					bbb = true;
-					angleZ = -followGround_Script.groundAngle;
+					angleZ = followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x < 0)
 				{
 					ccc = true;
 					//angleZ = followGround_Script.angle_cos;
-					angleZ = followGround_Script.groundAngle;
+					angleZ = followGround_Script.angle_cos;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x < 0)
 				{
 					ddd = true;
-					angleZ = -followGround_Script.angle_cos;
-				}
+					angleZ = 180.0f - followGround_Script.angle_cos;
+				} 
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x > 0)
 				{
 					eee = true;
-					angleZ = -90.0f;
+					angleZ = 90.0f;
 				}
 				else if (followGround_Script.normalVector.y == 0 && followGround_Script.normalVector.x < 0)
 				{
 					fff = true;
 					//angleZ = -followGround_Script.angle_cos;
-					angleZ = followGround_Script.groundAngle;
+					angleZ = -90.0f;
 				}
 				else if (followGround_Script.normalVector.y > 0 && followGround_Script.normalVector.x == 0)
 				{
 					ggg = true;
-					angleZ = 0;
+					angleZ = 180;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x == 0)
 				{
 					hhh = true;
-					angleZ = 180f;
+					angleZ = 0;
 				}
 
 			}
@@ -186,44 +196,65 @@ public class AngleChange2 : MonoBehaviour
 			}
 		}
 		transform.rotation = Quaternion.Euler(0, 0, angleZ);
-		RaySide();
 
+		RaySide();
 		RayUnder();
 	}
 
 	//下方向にRayを出す
 	void RayUnder()
 	{
+		underRayPos = transform.position - new Vector3(0, 0.01f, 0);
+
 		int layerMask = 1 << 8;
 
 		layerMask = ~layerMask;
 
-		if (Physics.Raycast(transform.position, -transform.up, out hit, 0.5f))
+		if (Physics.Raycast(underRayPos, -transform.up, out hit, 0.5f))
 		{
 			//rayDelayCnt++;
 			if (hit.collider.tag == "Wall")
 			{
+
 				//if (rayDelayCnt > rayDelayMax)
 				angleTest = Quaternion.FromToRotation(-transform.up, hit.normal).eulerAngles;
 
-				Debug.DrawRay(transform.position, -transform.up * hit.distance, Color.red);
+				Debug.DrawRay(underRayPos, -transform.up * hit.distance, Color.red);
+			}
+			//Wall以外のものに当たっていた時の確認用
+			else
+			{
+				Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.yellow);
+				tagname = hit.collider.tag;
 			}
 		}
 		else
 		{
-			Debug.DrawRay(transform.position, -transform.up * 0.5F, Color.white);
+			raydasitayo++;
+			Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.white);
 			if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
 			{
 				followGround_Script.isHitP = false;
 				followGround_Script.hitDelayCnt = 0;
 			}
 		}
+
+
 	}
 
 	//横方向のRay(進行方向で左右どちらに出すか変わる)
 	void RaySide()
 	{
-		if (Physics.Raycast(transform.position, -transform.right, out hit2, 0.75f))
+		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
+		{
+			sideRayPos = transform.position - new Vector3(0.01f, 0, 0);
+		}
+		if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
+		{
+			sideRayPos = transform.position - new Vector3(-0.01f, 0, 0);
+		}
+
+		if (Physics.Raycast(sideRayPos, -transform.right, out hit2, 0.75f))
 		{
 			//rayDelayCnt++;
 			if (hit2.collider.tag == "Wall")
@@ -238,12 +269,12 @@ public class AngleChange2 : MonoBehaviour
 
 				//kakuninVector = hit2.normal;
 				sideRayVector = hit2.normal;
-				Debug.DrawRay(transform.position, -transform.right * hit2.distance, Color.red);
+				Debug.DrawRay(sideRayPos, -transform.right * hit2.distance, Color.red);
 			}
 		}
 		else
 		{
-			Debug.DrawRay(transform.position, -transform.right * 0.75F, Color.white);
+			Debug.DrawRay(sideRayPos, -transform.right * 0.75F, Color.white);
 		}
 	}
 
@@ -251,52 +282,105 @@ public class AngleChange2 : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Wall" && followGround_Script.isHitP)
 		{
-			if (sideRayVector.y > 0 && sideRayVector.x > 0)
+			if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 			{
-				//angleZ = -followGround_Script.angle_sin;
-				angleZ = -angle_Cos;
+				if (sideRayVector.y > 0 && sideRayVector.x > 0)
+				{
+					//angleZ = -followGround_Script.angle_sin;
+					angleZ = -angle_Cos;
 
-				aaa = true;
+					aaa = true;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x > 0)
+				{
+					bbb = true;
+					angleZ = -groundAngle;
+					kakuninnnnnnnnnnnnnnnnnnnnn = true;
+					followGround_Script.isHitP = false;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x < 0)
+				{
+					ccc = true;
+					//angleZ = followGround_Script.angle_cos;
+					//angleZ = followGround_Script.groundAngle;
+				}
+				else if (sideRayVector.y > 0 && sideRayVector.x < 0)
+				{
+					ddd = true;
+					angleZ = groundAngle;
+					followGround_Script.isHitP = false;
+				}
+				else if (sideRayVector.y == 0 && sideRayVector.x > 0)
+				{
+					eee = true;
+					angleZ = -90.0f;
+				}
+				else if (sideRayVector.y == 0 && sideRayVector.x < 0)
+				{
+					fff = true;
+					//angleZ = -followGround_Script.angle_cos;
+					//angleZ = followGround_Script.groundAngle;
+				}
+				else if (sideRayVector.y > 0 && sideRayVector.x == 0)
+				{
+					ggg = true;
+					angleZ = 0;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x == 0)
+				{
+					hhh = true;
+					angleZ = 180f;
+				}
 			}
-			else if (sideRayVector.y < 0 && sideRayVector.x > 0)
+			else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 			{
-				bbb = true;
-				angleZ = -groundAngle;
-				kakuninnnnnnnnnnnnnnnnnnnnn = true;
-				followGround_Script.isHitP = false;
-			}
-			else if (sideRayVector.y < 0 && sideRayVector.x < 0)
-			{
-				ccc = true;
-				//angleZ = followGround_Script.angle_cos;
-				//angleZ = followGround_Script.groundAngle;
-			}
-			else if (sideRayVector.y > 0 && sideRayVector.x < 0)
-			{
-				ddd = true;
-				angleZ = groundAngle;
-				followGround_Script.isHitP = false;
-			}
-			else if (sideRayVector.y == 0 && sideRayVector.x > 0)
-			{
-				eee = true;
-				angleZ = -90.0f;
-			}
-			else if (sideRayVector.y == 0 && sideRayVector.x < 0)
-			{
-				fff = true;
-				//angleZ = -followGround_Script.angle_cos;
-				//angleZ = followGround_Script.groundAngle;
-			}
-			else if (sideRayVector.y > 0 && sideRayVector.x == 0)
-			{
-				ggg = true;
-				angleZ = 0;
-			}
-			else if (sideRayVector.y < 0 && sideRayVector.x == 0)
-			{
-				hhh = true;
-				angleZ = 180f;
+				if (sideRayVector.y > 0 && sideRayVector.x > 0)
+				{
+					//angleZ = -followGround_Script.angle_sin;
+					angleZ = -angle_Cos;
+
+					aaa = true;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x > 0)
+				{
+					bbb = true;
+					angleZ = -groundAngle;
+					followGround_Script.isHitP = false;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x < 0)
+				{
+					ccc = true;
+					kakuninnnnnnnnnnnnnnnnnnnnn = true;
+
+					angleZ = angle_Cos;
+				}
+				else if (sideRayVector.y > 0 && sideRayVector.x < 0)
+				{
+					ddd = true;
+					angleZ = groundAngle;
+					followGround_Script.isHitP = false;
+				}
+				else if (sideRayVector.y == 0 && sideRayVector.x > 0)
+				{
+					eee = true;
+					angleZ = -90.0f;
+				}
+				else if (sideRayVector.y == 0 && sideRayVector.x < 0)
+				{
+					fff = true;
+					angleZ = -90;
+				}
+				else if (sideRayVector.y > 0 && sideRayVector.x == 0)
+				{
+					ggg = true;
+					angleZ = 0;
+				}
+				else if (sideRayVector.y < 0 && sideRayVector.x == 0)
+				{
+					hhh = true;
+					angleZ = 180f;
+				}
+
 			}
 
 		}

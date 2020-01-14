@@ -181,86 +181,33 @@ public class FollowGround3 : MonoBehaviour
 
 				//angleChange2_Script.angleZ = -groundAngle;
 				
-				//if (characterController.collisionFlags != CollisionFlags.None)
-				//{
-				//	//speedY = 0;
-				//	isHit = true;
-				//	isHitP = true;
-				//}
-				//else
-				//{
-				//	//speedY = 3f;
-				//	isHit = false;
-				//	isHitP = false;
-				//}
 				walkTimeCnt += Time.deltaTime;
-				if (walkTimeCnt > walkTimeMax)
-				{
-					walkTimeCnt = 0;
-					saveDirection = direcState;
-					direcState = DirectionState.Stop;
-				}
+				//if (walkTimeCnt > walkTimeMax)
+				//{
+				//	walkTimeCnt = 0;
+				//	saveDirection = direcState;
+				//	direcState = DirectionState.Stop;
+				//}
 				break;
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = angleObj.transform.rotation * new Vector3(speedX, -speedY, 0);
+				velocity = angleObj.transform.rotation * new Vector3(-speedX, -speedY, 0);
 				//gameObject.transform.position += velocity * Time.deltaTime;
+				transform.position += angleObj.transform.right.normalized * speedX;
 				characterController.Move(velocity * Time.deltaTime);
 
 				//angleChange2_Script.angleZ = groundAngle;
 
-				if (characterController.collisionFlags != CollisionFlags.None)
-				{
-					//speedY = 0;
-					isHit = true;
-				}
-				else
-				{
-					//speedY = 3f;
-					isHit = false;
-				}
-
 				walkTimeCnt += Time.deltaTime;
-				if (walkTimeCnt > walkTimeMax)
-				{
-					walkTimeCnt = 0;
-					saveDirection = direcState;
-					direcState = DirectionState.Stop;
-				}
+				//if (walkTimeCnt > walkTimeMax)
+				//{
+				//	walkTimeCnt = 0;
+				//	saveDirection = direcState;
+				//	direcState = DirectionState.Stop;
+				//}
 				break;
 
-			//回転する
-			case DirectionState.Roll:
-				//直前の状態が左向きだったら
-				if (saveDirection == DirectionState.Left)
-				{
-					//向きをマイナス
-					rotaY -= rotaSpeed;
-					if (rotaY < -180f)
-					{
-						rotaY = -180f;
-						direcState = DirectionState.Right;
-						isRoll = false;
-						isRollEnd = true;
-					}
-					transform.rotation = Quaternion.Euler(0, rotaY, 0);
-				}
-				//直前の状態が右向きだったら
-				else if (saveDirection == DirectionState.Right)
-				{
-					//向きをプラス
-					rotaY += rotaSpeed;
-					if (rotaY > 0)
-					{
-						rotaY = 0;
-						direcState = DirectionState.Left;
-						isRoll = false;
-						isRollEnd = true;
-					}
-					transform.rotation = Quaternion.Euler(0, rotaY, 0);
-				}
-				break;
 		}
 	}
 
