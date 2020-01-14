@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisonSmoke : MonoBehaviour
+public class PoisonSmoke : character_status
 {
 	private GameObject parentObject;	//親(発射台)のオブジェクト
 	private float maxDistance = 100f;	//親との最大距離
