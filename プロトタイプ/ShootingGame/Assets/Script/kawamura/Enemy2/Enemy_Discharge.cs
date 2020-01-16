@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class Enemy_Discharge : MonoBehaviour
 {
+	public enum SetMoveType
+	{
+		LeftCurveUp_90,
+		LeftCueveUp_180,
+		LeftCurveDown_90,
+		LeftCueveDown_180,
+		RightCurveUp_90,
+		RightCueveUp_180,
+		RightCurveDown_90,
+		RightCueveDown_180,
+	}
+	public SetMoveType setMoveType;
+
 	public GameObject createObj;
+	Enemy_Discharged discharged_Script;
+
+	Quaternion createRotation;
 
 	[Header("入力用　グループ排出数")]
 	public int createGroupNum = 0;
@@ -21,7 +37,7 @@ public class Enemy_Discharge : MonoBehaviour
 
 	void Start()
     {
-
+		createRotation = Quaternion.Euler(0, 0, 0);
 	}
 
     void Update()
@@ -37,7 +53,10 @@ public class Enemy_Discharge : MonoBehaviour
 				{
 					if (createDelayCnt > createDelayMax)
 					{
-						Instantiate(createObj, transform.position, transform.rotation);
+						GameObject saveObj =	Instantiate(createObj, transform.position, createRotation);
+						discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
+						SetState(setMoveType);
+
 						createDelayCnt = 0;
 						createCnt++;
 					}
@@ -61,4 +80,41 @@ public class Enemy_Discharge : MonoBehaviour
 		//	createDelayCnt = 0;
 		//}
     }
+	void SetState(SetMoveType setType)
+	{
+		switch(setType)
+		{
+			case SetMoveType.LeftCurveUp_90:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.LeftCurveUp_90);
+				break;
+
+			case SetMoveType.LeftCueveUp_180:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.LeftCueveUp_180);
+				break;
+
+			case SetMoveType.LeftCurveDown_90:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.LeftCurveDown_90);
+				break;
+
+			case SetMoveType.LeftCueveDown_180:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.LeftCueveDown_180);
+				break;
+
+			case SetMoveType.RightCurveUp_90:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.RightCurveUp_90);
+				break;
+
+			case SetMoveType.RightCueveUp_180:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.RightCueveUp_180);
+				break;
+
+			case SetMoveType.RightCurveDown_90:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.RightCurveDown_90);
+				break;
+
+			case SetMoveType.RightCueveDown_180:
+				discharged_Script.SetState(Enemy_Discharged.MoveType.RightCueveDown_180);
+				break;
+		}
+}
 }
