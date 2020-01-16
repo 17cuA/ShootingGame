@@ -31,6 +31,13 @@ public class AngleChange2 : MonoBehaviour
 
 	public int raydasitayo = 0;
 
+	//
+	public int colDelayMax = 0;
+	public int colDelayCnt = 0;
+	public bool colHit = false;
+
+	//
+
 	public string tagname;
 
 	public bool aaa = false;
@@ -43,19 +50,18 @@ public class AngleChange2 : MonoBehaviour
 	public bool hhh = false;
 
 	public bool hithit = false;
-
 	public bool kakuninnnnnnnnnnnnnnnnnnnnn = false;
 	void Start()
 	{
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
 			angleZ = 0;
-			hitCol.center = new Vector3(-0.36f, 0.134f, 0);
+			hitCol.center = new Vector3(-0.28f, 0.119f, 0);
 		}
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 		{
 			angleZ = 180;
-			hitCol.center = new Vector3(-0.36f, -0.134f, 0);
+			hitCol.center = new Vector3(-0.28f, -0.119f, 0);
 		}
 
 
@@ -69,7 +75,7 @@ public class AngleChange2 : MonoBehaviour
 
 		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
-			if (followGround_Script.isHitP)
+			if (followGround_Script.isHitP && !colHit)
 			//if (hithit)
 			{
 				//angleZ = -followGround_Script.groundAngle;
@@ -119,7 +125,6 @@ public class AngleChange2 : MonoBehaviour
 					hhh = true;
 					angleZ = 180f;
 				}
-
 			}
 			else
 			{
@@ -133,7 +138,7 @@ public class AngleChange2 : MonoBehaviour
 		}
 		else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 		{
-			if (followGround_Script.isHitP)
+			if (followGround_Script.isHitP && !colHit)
 			//if (hithit)
 			{
 				//angleZ = -followGround_Script.groundAngle;
@@ -144,7 +149,7 @@ public class AngleChange2 : MonoBehaviour
 					//angleZ = -followGround_Script.angle_sin;
 					angleZ = 180 - followGround_Script.angle_cos;
 
-					aaa = true;
+					//aaa = true;
 				}
 				else if (followGround_Script.normalVector.y < 0 && followGround_Script.normalVector.x > 0)
 				{
@@ -187,6 +192,15 @@ public class AngleChange2 : MonoBehaviour
 			}
 			else
 			{
+				//if (colHit)
+				//{
+				//	colDelayCnt++;
+				//	if (colDelayCnt > colDelayMax)
+				//	{
+				//		colHit = false;
+				//		colDelayCnt = 0;
+				//	}
+				//}
 				if (followGround_Script.notHitCnt > followGround_Script.NotHitMax)
 				{
 					angleZ -= angleZ_ChangeValue;
@@ -204,41 +218,75 @@ public class AngleChange2 : MonoBehaviour
 	//下方向にRayを出す
 	void RayUnder()
 	{
-		underRayPos = transform.position - new Vector3(0, 0.01f, 0);
-
 		int layerMask = 1 << 8;
 
 		layerMask = ~layerMask;
 
-		if (Physics.Raycast(underRayPos, -transform.up, out hit, 0.5f))
+		if (followGround_Script.direcState == FollowGround3.DirectionState.Left)
 		{
-			//rayDelayCnt++;
-			if (hit.collider.tag == "Wall")
+			underRayPos = transform.position - new Vector3(0, 0.01f, 0);
+			if (Physics.Raycast(underRayPos, -transform.up, out hit, 0.5f))
 			{
+				//rayDelayCnt++;
+				if (hit.collider.tag == "Wall")
+				{
 
-				//if (rayDelayCnt > rayDelayMax)
-				angleTest = Quaternion.FromToRotation(-transform.up, hit.normal).eulerAngles;
+					//if (rayDelayCnt > rayDelayMax)
+					angleTest = Quaternion.FromToRotation(-transform.up, hit.normal).eulerAngles;
 
-				Debug.DrawRay(underRayPos, -transform.up * hit.distance, Color.red);
+					Debug.DrawRay(underRayPos, -transform.up * hit.distance, Color.red);
+				}
+				//Wall以外のものに当たっていた時の確認用
+				else
+				{
+					Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.yellow);
+					tagname = hit.collider.tag;
+				}
 			}
-			//Wall以外のものに当たっていた時の確認用
 			else
 			{
-				Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.yellow);
-				tagname = hit.collider.tag;
+				raydasitayo++;
+				Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.white);
+				if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
+				{
+					followGround_Script.isHitP = false;
+					followGround_Script.hitDelayCnt = 0;
+				}
 			}
 		}
-		else
+		else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 		{
-			raydasitayo++;
-			Debug.DrawRay(underRayPos, -transform.up * 0.5F, Color.white);
-			if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
+			underRayPos = transform.position - new Vector3(0, 0.01f, 0);
+			if (Physics.Raycast(underRayPos, transform.up, out hit, 0.5f))
 			{
-				followGround_Script.isHitP = false;
-				followGround_Script.hitDelayCnt = 0;
-			}
-		}
+				//rayDelayCnt++;
+				if (hit.collider.tag == "Wall")
+				{
 
+					//if (rayDelayCnt > rayDelayMax)
+					angleTest = Quaternion.FromToRotation(transform.up, hit.normal).eulerAngles;
+
+					Debug.DrawRay(underRayPos, transform.up * hit.distance, Color.red);
+				}
+				//Wall以外のものに当たっていた時の確認用
+				else
+				{
+					Debug.DrawRay(underRayPos, transform.up * 0.5F, Color.yellow);
+					tagname = hit.collider.tag;
+				}
+			}
+			else
+			{
+				raydasitayo++;
+				Debug.DrawRay(underRayPos, transform.up * 0.5F, Color.white);
+				if (followGround_Script.hitDelayCnt > followGround_Script.hitDelayMax)
+				{
+					followGround_Script.isHitP = false;
+					followGround_Script.hitDelayCnt = 0;
+				}
+			}
+
+		}
 
 	}
 
@@ -259,6 +307,7 @@ public class AngleChange2 : MonoBehaviour
 			//rayDelayCnt++;
 			if (hit2.collider.tag == "Wall")
 			{
+
 				//if (rayDelayCnt > rayDelayMax)
 				//angleTest = Quaternion.FromToRotation(-transform.right, hit2.normal).eulerAngles;
 				angle_Sin = (Mathf.Asin(hit2.normal.y) * Mathf.Rad2Deg);
@@ -269,6 +318,15 @@ public class AngleChange2 : MonoBehaviour
 
 				//kakuninVector = hit2.normal;
 				sideRayVector = hit2.normal;
+				if (sideRayVector.x > -0.0001f && sideRayVector.x < 0.0001f)
+				{
+					sideRayVector.x = 0;
+				}
+				if (sideRayVector.y > -0.0001f && sideRayVector.y < 0.0001f)
+				{
+					sideRayVector.y = 0;
+				}
+
 				Debug.DrawRay(sideRayPos, -transform.right * hit2.distance, Color.red);
 			}
 		}
@@ -278,6 +336,7 @@ public class AngleChange2 : MonoBehaviour
 		}
 	}
 
+	//
 	private void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Wall" && followGround_Script.isHitP)
@@ -288,7 +347,7 @@ public class AngleChange2 : MonoBehaviour
 				{
 					//angleZ = -followGround_Script.angle_sin;
 					angleZ = -angle_Cos;
-
+					followGround_Script.normalVector = sideRayVector;
 					aaa = true;
 				}
 				else if (sideRayVector.y < 0 && sideRayVector.x > 0)
@@ -334,10 +393,14 @@ public class AngleChange2 : MonoBehaviour
 			}
 			else if (followGround_Script.direcState == FollowGround3.DirectionState.Right)
 			{
+				colHit = true;
 				if (sideRayVector.y > 0 && sideRayVector.x > 0)
 				{
 					//angleZ = -followGround_Script.angle_sin;
-					angleZ = -angle_Cos;
+					//angleZ = -angle_Cos;
+					angleZ = 180f - angle_Cos;
+					followGround_Script.normalVector = sideRayVector;
+					transform.rotation = Quaternion.Euler(0, 0, angleZ);
 
 					aaa = true;
 				}
@@ -363,7 +426,7 @@ public class AngleChange2 : MonoBehaviour
 				else if (sideRayVector.y == 0 && sideRayVector.x > 0)
 				{
 					eee = true;
-					angleZ = -90.0f;
+					angleZ = 90.0f;
 				}
 				else if (sideRayVector.y == 0 && sideRayVector.x < 0)
 				{
@@ -373,16 +436,31 @@ public class AngleChange2 : MonoBehaviour
 				else if (sideRayVector.y > 0 && sideRayVector.x == 0)
 				{
 					ggg = true;
-					angleZ = 0;
+					angleZ = 180;
 				}
 				else if (sideRayVector.y < 0 && sideRayVector.x == 0)
 				{
 					hhh = true;
-					angleZ = 180f;
+					angleZ = 0;
 				}
 
 			}
 
+		}
+	}
+	private void OnTriggerStay(Collider col)
+	{
+		if (col.gameObject.tag == "Wall")
+		{
+			colHit = true;
+		}
+	}
+
+	private void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.tag == "Wall")
+		{
+			colHit = false;
 		}
 	}
 }
