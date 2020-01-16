@@ -10,6 +10,8 @@ public class SmokeShooting : MonoBehaviour
 	private float interval;         //周期
 	public Vector2 intervalRange;   //周期の範囲
 
+	public float coordinateRange;   //横座標の範囲
+
 	public GameObject collectSmoke; //煙をまとめる親
 	public float shootingSpeed = 1000;// 発射速度
 	public float maxDistance = 100f;    //親との最大距離
@@ -36,15 +38,18 @@ public class SmokeShooting : MonoBehaviour
 	//射出
 	void ShootSmoke()
 	{
+		//生成座標の差異
+		float displacement= Random.Range(coordinateRange,-coordinateRange);
+		Vector3 generatingCoordinate = transform.position;
+		generatingCoordinate.x += displacement;
+
 		// 弾丸の複製
-		GameObject smoke = Instantiate(smokePrefab, transform.position, transform.rotation);
+		GameObject smoke = Instantiate(smokePrefab, generatingCoordinate, transform.rotation);
 		//回転をリセット
 		smoke.transform.rotation = new Quaternion(0, 0, 0, 0);
 		//子にする
 		smoke.transform.parent = collectSmoke.transform;
 		//データの保存
-		smoke.GetComponent<PoisonSmoke>().SetParentData(gameObject, maxDistance);
-		// Rigidbodyに力を加えて発射
-		smoke.GetComponent<Rigidbody>().velocity = transform.forward * shootingSpeed;
+		smoke.GetComponent<PoisonSmoke>().SetParentData(gameObject, maxDistance,transform.forward * shootingSpeed);
 	}
 }
