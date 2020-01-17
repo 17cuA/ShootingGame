@@ -149,7 +149,7 @@ public class Enemy_Discharged : MonoBehaviour
 			YMoveTimeCnt = 0;
 
 			speedX180 = defaultSpeedX180;
-			speedY180 = defaultSpeedY180;
+			speedY180 = 0;
 			XMoveTimeCnt180 = 0;
 			speedStateCnt = 0;
 
@@ -231,7 +231,8 @@ public class Enemy_Discharged : MonoBehaviour
 					case 1:
 						speedX180 -= changeSpeedX_value180;
 						//speedY180 += changeSpeedY_value180;
-						speedY180 *= 1.1f;
+						//speedY180 *= 1.1f;
+						speedY180 = defaultSpeedY180;
 						//if (speedY180 > speedYMax180)
 						//{
 						//	speedY180 = speedYMax180;
@@ -245,9 +246,9 @@ public class Enemy_Discharged : MonoBehaviour
 						//横移動が0になったあと最初と逆方向にスピードが上がる状態
 					case 2:
 						speedX180 -= changeSpeedX_value180;
-						speedY180 = speedY180 / 11 * 10;
+						//speedY180 = speedY180 / 11 * 10;
 						//speedY180 -= changeSpeedY_value180;
-						//speedY180 = 2;
+						speedY180 = defaultSpeedY180;
 						if (speedX180 < -defaultSpeedX180)
 						{
 							//speedX180 = speedXMax180;
@@ -324,6 +325,70 @@ public class Enemy_Discharged : MonoBehaviour
 				break;
 
 			case MoveType.LeftCueveDown_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = -defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = -defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 
@@ -407,6 +472,70 @@ public class Enemy_Discharged : MonoBehaviour
 				break;
 
 			case MoveType.RightCueveUp_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 
@@ -490,6 +619,70 @@ public class Enemy_Discharged : MonoBehaviour
 				break;
 
 			case MoveType.RightCueveDown_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = -defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = -defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
 
