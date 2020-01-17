@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6251d4fad16764fb163c7b34a0eee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveType: 0
   moveState: 2
   saveMoveState: 0
+  modelObj: {fileID: 0}
   speedX: 0
   speedXMax: 4
   defaultSpeedX: 0
@@ -57,6 +59,18 @@ MonoBehaviour:
   XMoveTimeCnt: 0
   YMoveTimeMax: 2
   YMoveTimeCnt: 0
+  speedX180: 0
+  speedXMax180: -3
+  defaultSpeedX180: 2
+  changeSpeedX_value180: 0.06
+  speedY180: 0
+  defaultSpeedY180: 0.12
+  speedYMax180: 2
+  changeSpeedY_value180: 0.1
+  XMoveTimeMax180: 1.4
+  XMoveTimeCnt180: 0
+  speedStateCnt: 0
+  once: 1
 --- !u!114 &286457611182061565
 MonoBehaviour:
   m_ObjectHideFlags: 0
