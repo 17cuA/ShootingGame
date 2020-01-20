@@ -514,7 +514,7 @@ Transform:
   m_GameObject: {fileID: 7310917931500218802}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children:
   - {fileID: 7310917931500385684}
   - {fileID: 7310917931500385672}
@@ -549,12 +549,12 @@ Animation:
   m_GameObject: {fileID: 7310917931500218802}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 88c42fa29b216f649a12d55298e58890, type: 2}
+  m_Animation: {fileID: 7400000, guid: 6b4876b1287f9674abd089816de8e867, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 8f14ed430374f5745be8ce352702e2c2, type: 2}
-  - {fileID: 7400000, guid: 88c42fa29b216f649a12d55298e58890, type: 2}
-  - {fileID: 7400000, guid: 55f7713866f66db4ea02f90ae8268b99, type: 2}
-  - {fileID: 7400000, guid: a2eb0851ac1ecfc40929ec0ea1f1065a, type: 2}
+  - {fileID: 7400000, guid: 6fc2f635fd7624f4b8256b6ea21ad759, type: 2}
+  - {fileID: 7400000, guid: 6b4876b1287f9674abd089816de8e867, type: 2}
+  - {fileID: 7400000, guid: 3c79b4f84a23c984988c054306d8aeff, type: 2}
+  - {fileID: 7400000, guid: 8946377ea2ce0984cbb9a924b293e5c3, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -591,6 +591,8 @@ MonoBehaviour:
   white_material: {fileID: 0}
   Opponent: 0
   namenamename: 
+  nowAnimation: 2
+  Timer: 0
 --- !u!1 &7310917931500218804
 GameObject:
   m_ObjectHideFlags: 0
