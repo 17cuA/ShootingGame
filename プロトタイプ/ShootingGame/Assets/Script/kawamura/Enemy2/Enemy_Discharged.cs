@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Enemy_Discharged : MonoBehaviour
 {
+	//動きタイプ
 	public enum MoveType
 	{
-		LeftCurveUp_90,
-		LeftCueveUp_180,
-		LeftCurveDown_90,
-		LeftCueveDown_180,
-		RightCurveUp_90,
-		RightCueveUp_180,
-		RightCurveDown_90,
-		RightCueveDown_180,
+		LeftCurveUp_90,				//上に上がって90度左に曲がる
+		LeftCueveUp_180,				//右に出て左回りに180度曲がる
+		LeftCurveDown_90,			//下に下がって90度左に曲がる
+		LeftCueveDown_180,			//右に出て右回りに180度曲がる
+		RightCurveUp_90,				//上に上がって90度右に曲がる
+		RightCueveUp_180,			//左に出て右曲がりに180度曲がる
+		RightCurveDown_90,			//下に下がって90度左に曲がる
+		RightCueveDown_180,		//左に出て左回りに180度に曲がる
 	}
-	public MoveType moveType;
+	public MoveType moveType;		//動きタイプ変数
+
 
 	public enum MoveState
 	{
@@ -29,36 +31,36 @@ public class Enemy_Discharged : MonoBehaviour
 	public MoveState moveState;
 	public MoveState saveMoveState;
 
-	public GameObject modelObj;
+	public GameObject modelObj;			//モデルオブジェクト（主に左右の動きで向きを変えるのに使う）
 
 	Vector3 velocity;
 
-	//90度カーブ用
+	//ここから90度カーブ用
 	[Header("入力用　Xスピード")]
 	public float speedX;
 	[Header("入力用　	最大Xスピード")]
 	public float speedXMax;
-	public float defaultSpeedX;
+	public float defaultSpeedX;					//X初期スピード
 	[Header("入力用　Xスピードの増減値")]
 	public float changeSpeedX_value;
 	[Header("入力用　Yスピード")]
 	public float speedY;
-	public float defaultSpeedY;
+	public float defaultSpeedY;					//Y初期スピード
 	[Header("入力用　Yスピードの増減値")]
 	public float changeSpeedY_value;
 
 	[Header("入力用　横移動の最大時間　秒")]
 	public float XMoveTimeMax;
-	public float XMoveTimeCnt;
+	public float XMoveTimeCnt;					//横に動いている時間カウント
 	[Header("入力用　上下移動の最大時間　秒")]
 	public float YMoveTimeMax;
-	public float YMoveTimeCnt;
+	public float YMoveTimeCnt;                  //上下に動いている時間カウント
 
-	bool isSpeedYCangeEnd = false;
-	bool isSpeedXCangeEnd = false;
-	//90度カーブ用
+	bool isSpeedXCangeEnd = false;          //横移動のスピードが変化し終わったか用
+	bool isSpeedYCangeEnd = false;			//上下移動のスピードが変化し終わったかどうか用
+	//ここまで90度カーブ用
 
-	//180度カーブ用
+	//ここから180度カーブ用
 	[Header("入力用　180Xスピード")]
 	public float speedX180;
 	[Header("入力用　	180最大Xスピード")]
@@ -80,25 +82,16 @@ public class Enemy_Discharged : MonoBehaviour
 
 	public int speedStateCnt = 0;
 
-	//180度カーブ用
+	//ここまで180度カーブ用
 
-	public bool once = true;
+	public bool once = true;		//一回だけ行う処理用
 
 
 
 	void Start()
 	{
-		modelObj = transform.GetChild(0).gameObject;
-
-
-		if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCurveUp_90)
-		{
-			moveState = Enemy_Discharged.MoveState.UpYMove;
-		}
-		else if(moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.RightCurveDown_90)
-		{
-			moveState = Enemy_Discharged.MoveState.DownYMove;
-		}
+		//モデル取得
+		modelObj = transform.GetChild(0).gameObject;		
 
 		defaultSpeedX = speedX;
 		defaultSpeedY = speedY;
@@ -112,8 +105,10 @@ public class Enemy_Discharged : MonoBehaviour
 
 	void Update()
 	{
+		//一回だけ行う
 		if (once)
 		{
+			//動きのタイプで最初上に動くか下に動くか決める
 			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.RightCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCueveUp_180)
 			{
 				moveState = Enemy_Discharged.MoveState.UpYMove;
@@ -123,6 +118,7 @@ public class Enemy_Discharged : MonoBehaviour
 				moveState = Enemy_Discharged.MoveState.DownYMove;
 			}
 
+			//動きの種類でモデルの向きを変える
 			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.LeftCueveDown_180)
 			{
 				modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
@@ -134,6 +130,7 @@ public class Enemy_Discharged : MonoBehaviour
 				transform.rotation = Quaternion.Euler(0, 180, 0);
 			}
 
+			//上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
 			if (moveState == MoveState.UpYMove && speedY < 0)
 			{
 				speedY *= -1;
@@ -161,6 +158,7 @@ public class Enemy_Discharged : MonoBehaviour
 
 		SpeedCange();
 
+		//画面外左で消す
 		if (transform.position.x < -20)
 		{
 			Destroy(gameObject);
@@ -168,8 +166,10 @@ public class Enemy_Discharged : MonoBehaviour
 			
 	}
 
+	//スピード変化関数
 	void SpeedCange()
 	{
+		//動きのタイプを見る
 		switch(moveType)
 		{
 			case MoveType.LeftCurveUp_90:

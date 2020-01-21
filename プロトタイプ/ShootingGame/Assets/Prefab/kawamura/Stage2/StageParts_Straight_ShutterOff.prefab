@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7534806467596114174}
   - component: {fileID: 4787648407787886970}
+  - component: {fileID: 2040492480}
+  - component: {fileID: 2040492483}
   m_Layer: 0
   m_Name: StageParts_Straight_ShutterOff
   m_TagString: Untagged
@@ -46,6 +48,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 8, z: 5}
   m_Center: {x: -3.5, y: 0, z: -2}
+--- !u!114 &2040492480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465249423680806092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52db62c83c86b4a4c9a11c490d1fe016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  createObjects:
+  - {fileID: 7286276924492191717, guid: c94da40ca746ab04babb83544c968b97, type: 3}
+  - {fileID: 7286276924492191717, guid: c94da40ca746ab04babb83544c968b97, type: 3}
+  - {fileID: 7286276924492191717, guid: c94da40ca746ab04babb83544c968b97, type: 3}
+  - {fileID: 7286276924492191717, guid: c94da40ca746ab04babb83544c968b97, type: 3}
+  createPositions:
+  - {x: -4.4, y: -3.9, z: -0.5}
+  - {x: -4.4, y: 3.9, z: -0.5}
+  - {x: 2, y: -3.9, z: -0.5}
+  - {x: 2, y: 3.9, z: -0.5}
+  createRotation:
+  - {x: 0, y: 0, z: 0, w: 0}
+  - {x: 0, y: 0, z: 180, w: 0}
+  - {x: 0, y: 0, z: 0, w: 0}
+  - {x: 0, y: 0, z: 180, w: 0}
+  movetype: 00000000020000000000000002000000
+--- !u!114 &2040492483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465249423680806092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6695dbd744ec042aa6b484da5c6357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: -1
+  speedY: 0
+  speedZ: 0
+  aliveMax: 0
+  deadCnt: 0
+  shinimasuka: 0
 --- !u!1 &656228009531972470
 GameObject:
   m_ObjectHideFlags: 0
