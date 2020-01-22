@@ -1,1 +1,1 @@
-ShootingGame.exe -popupwindow -screen-width 1920 -screen-height 540
+ShootingGame.exe -popupwindow -screen-width 1920 -screen-height 540 -screen-fullscreen 1

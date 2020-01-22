@@ -1,0 +1,347 @@
+fileFormatVersion: 2
+guid: adfc112997322c549bb197e06551536c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arm
+    100002: //RootNode
+    100004: Bone001
+    100006: Bone002
+    100008: Bone003
+    100010: Bone004
+    100012: Bone005
+    100014: Bone006
+    100016: Bone007
+    100018: Bone008
+    100020: Bone009
+    100022: Bone010
+    100024: Box001
+    100026: Cable
+    100028: End
+    100030: Muzzle
+    100032: Bone011
+    100034: END
+    400000: Arm
+    400002: //RootNode
+    400004: Bone001
+    400006: Bone002
+    400008: Bone003
+    400010: Bone004
+    400012: Bone005
+    400014: Bone006
+    400016: Bone007
+    400018: Bone008
+    400020: Bone009
+    400022: Bone010
+    400024: Box001
+    400026: Cable
+    400028: End
+    400030: Muzzle
+    400032: Bone011
+    400034: END
+    2100000: No Name
+    2300000: Box001
+    2300002: Arm
+    2300004: Cable
+    2300006: Muzzle
+    2300008: //RootNode
+    3300000: Box001
+    3300002: Arm
+    3300004: Cable
+    3300006: Muzzle
+    3300008: //RootNode
+    4300000: Box001
+    4300002: Cable
+    4300004: Arm
+    4300006: Muzzle
+    7400000: A_Transition
+    7400002: A_Wait
+    7400004: B_Transition
+    7400006: B_Wait
+    9500000: //RootNode
+    13700000: Arm
+    13700002: Cable
+    13700004: Muzzle
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftUpperLeg' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_Transition
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 180
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_Wait
+      takeName: Take 001
+      firstFrame: 201
+      lastFrame: 740
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: B_Transition
+      takeName: Take 001
+      firstFrame: 801
+      lastFrame: 980
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: B_Wait
+      takeName: Take 001
+      firstFrame: 1001
+      lastFrame: 1540
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton:
+    - name: Balkan_Tentacles(Clone)
+      parentName: 
+      position: {x: -0.7958491, y: 0, z: -0.54405}
+      rotation: {x: -0.000000030908623, y: 0.7071068, z: 0.7071068, w: 0.000000030908623}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cable
+      parentName: Balkan_Tentacles(Clone)
+      position: {x: -0, y: -0.00000023841858, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.4, y: 0.4, z: 1}
+    - name: Arm
+      parentName: Balkan_Tentacles(Clone)
+      position: {x: -0, y: 0.0000014305115, z: 304.40112}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 3.0124, y: 3.0124, z: 3.0124}
+    - name: Muzzle
+      parentName: Arm
+      position: {x: -2.1364863, y: -0.0000004917383, z: 13.159607}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.178569, y: 0.178569, z: 1.244524}
+    - name: Bone001
+      parentName: Balkan_Tentacles(Clone)
+      position: {x: -0, y: 0, z: 9.687058e-15}
+      rotation: {x: 0.000000028696027, y: 0.7071067, z: -0.00000010375497, w: 0.70710695}
+      scale: {x: 1.0000006, y: 1.0000006, z: 1.0000008}
+    - name: Bone002
+      parentName: Bone001
+      position: {x: -30.459381, y: 0.0000019073486, z: -0.0000042915344}
+      rotation: {x: -0.00000017881393, y: -0.00000011920929, z: 0.000000059604645,
+        w: 1}
+      scale: {x: 0.99999964, y: 0.9999997, z: 0.9999997}
+    - name: Bone003
+      parentName: Bone002
+      position: {x: -30.459396, y: 0.00005197525, z: -0.0000023841858}
+      rotation: {x: 0.000000074505806, y: -0.00000055134296, z: 0.000000029802322,
+        w: 1}
+      scale: {x: 1.0000005, y: 1.0000008, z: 1.0000007}
+    - name: Bone004
+      parentName: Bone003
+      position: {x: -30.459381, y: 0.0000014305115, z: 0}
+      rotation: {x: 0.000000074505806, y: -0.00000078976154, z: -0.000000029802322,
+        w: -1}
+      scale: {x: 1, y: 0.9999998, z: 0.9999997}
+    - name: Bone005
+      parentName: Bone004
+      position: {x: -30.459396, y: 0, z: 0.00000047683716}
+      rotation: {x: -0.00000007240824, y: 0.6052939, z: 0.000000033579767, w: 0.79600203}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Bone006
+      parentName: Bone005
+      position: {x: -30.459366, y: 0, z: 0.00000047683716}
+      rotation: {x: -7.023216e-10, y: 0.0982715, z: 0.000000059406247, w: 0.9951596}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000001}
+    - name: Bone007
+      parentName: Bone006
+      position: {x: -30.459412, y: 0, z: 0.00000047683716}
+      rotation: {x: -0, y: -0, z: 0.000000029802322, w: 1}
+      scale: {x: 0.99999994, y: 0.99999946, z: 1.0000001}
+    - name: Bone008
+      parentName: Bone007
+      position: {x: -30.45935, y: 0, z: 0.00000047683716}
+      rotation: {x: -0, y: -0, z: 0.000000029802322, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+    - name: Bone009
+      parentName: Bone008
+      position: {x: -30.459412, y: 0, z: 0.00000047683716}
+      rotation: {x: -0, y: -0, z: 0.000000029802322, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 0.9999996}
+    - name: Bone010
+      parentName: Bone009
+      position: {x: -30.459366, y: 0, z: 0.00000047683716}
+      rotation: {x: -0.0001269535, y: 0.041166127, z: -0.0022830025, w: -0.99914974}
+      scale: {x: 1.0000001, y: 1.0000012, z: 1.0000006}
+    - name: Bone011
+      parentName: Bone010
+      position: {x: -30.40622, y: 0, z: -0.0000038146973}
+      rotation: {x: 0.7066868, y: 0.020027846, z: -0.022378568, w: 0.70688885}
+      scale: {x: 1.0000046, y: 1.0000048, z: 1.000003}
+    - name: END
+      parentName: Bone011
+      position: {x: -81.44766, y: -0.00004863739, z: 0.000030636787}
+      rotation: {x: 0.00000017874117, y: -0.0000002236338, z: 0.000000013038554, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -14,6 +14,8 @@ public class Brain_Wait : character_status
 {
 	[SerializeField, Tooltip("ダメージ受けるパーツ")] private List<Brain_Parts> damagedParts;
 	[SerializeField, Tooltip("ダメージ受けないパーツ")] private List<Brain_Parts> notTakeDamageParts;
+	[SerializeField, Tooltip("触手のパーツ_バルカン")] private List<Brain_Parts> balkanTentacles;
+	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
 	WaitLoopTrigger waitLoopTrigger = null;
 
 	void Start()

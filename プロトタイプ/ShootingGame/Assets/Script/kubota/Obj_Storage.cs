@@ -144,6 +144,10 @@ public class Obj_Storage : MonoBehaviour
     public GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
     public GameObject enemy_ClamChowder_Group_TenStraight_prefab;
 
+	// 2020.01.22 諸岡追加----------------------------------------------------------------
+	public GameObject container_prefab;
+	// 2020.01.22 諸岡追加----------------------------------------------------------------
+
     public Object_Pooling enemy_UFO_Group;
     public Object_Pooling enemy_UFO_Group_NoneShot;
     public Object_Pooling enemy_ClamChowder_Group_Two_Top;
@@ -183,6 +187,9 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
     public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 
+	// 2020.01.22 諸岡追加----------------------------------------------------------------
+	public Object_Pooling container;
+	// 2020.01.22 諸岡追加----------------------------------------------------------------
 
 	//----------------------------------------------------------
 
@@ -628,6 +635,15 @@ public class Obj_Storage : MonoBehaviour
 				Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
 				#endregion
 
+				#region ステージ2個別ロード
+				container_prefab = Resources.Load("Enemy/Container") as GameObject;
+				#endregion
+
+				#region ステージ2個別プーリング化
+				// 2020.01.22 諸岡追加----------------------------------------------------------------
+				container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+				// 2020.01.22 諸岡追加----------------------------------------------------------------
+				#endregion
 				#endregion
 				break;
 			default:
