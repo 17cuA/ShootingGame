@@ -4,6 +4,7 @@
 //2019/08/03改修
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyCreate : MonoBehaviour
 {
@@ -300,7 +301,14 @@ public class EnemyCreate : MonoBehaviour
 		turning_frame = enemyGroups[0].nextGroupFrame;
 		EnemyDebugNumberUpload();
 		CreatePosUpload();
-		ResourcesUpload();
+		if (SceneManager.GetActiveScene().name == "Stage_01")
+		{
+			ResourcesUpload_01();
+		}
+		else if (SceneManager.GetActiveScene().name == "Stage_02")
+		{
+			ResourcesUpload_02();
+		}
 	}
 
 	private void EnemyDebugNumberUpload()
@@ -485,7 +493,7 @@ public class EnemyCreate : MonoBehaviour
 		#endregion
 	}
 
-	private void ResourcesUpload()
+	private void ResourcesUpload_01()
 	{
 		#region リソース取得
 		createMiddleBossPos = GameObject.Find("CreateMiddleBossPos").transform;
@@ -589,6 +597,12 @@ public class EnemyCreate : MonoBehaviour
 		#endregion
 	}
 
+	private void ResourcesUpload_02()
+	{
+
+	}
+
+
 	// 毎フレーム更新
 	void Update()
     {
@@ -674,9 +688,17 @@ public class EnemyCreate : MonoBehaviour
                 }
             }
         }
-		
-        CreateEnemyGroup_01();
-    }
+
+		if (SceneManager.GetActiveScene().name == "State_01")
+		{
+			CreateEnemyGroup_01();
+		}
+		if (SceneManager.GetActiveScene().name == "State_02")
+		{
+			CreateEnemyGroup_02();
+		}
+
+	}
 
 	public bool GetLastBossWireless()
 	{
@@ -1418,13 +1440,31 @@ public class EnemyCreate : MonoBehaviour
 			while (enemyGroups[groupCnt-1].nextGroupFrame <= 0);
 		}
 	}
-	
-    /// <summary>
-    /// 出現フレームと経過フレームが一致またはそれ以上の時有効
-    /// </summary>
-    /// <param name="specified_frame"> 指定フレーム </param>
-    /// <returns > あっているか </returns>
-    private bool Is_A_Specified_Frame(int specified_frame)
+
+	//敵を出す関数
+	private void CreateEnemyGroup_02()
+	{
+		if (Is_A_Specified_Frame(turning_frame))
+		{
+			do
+			{
+				PreviousCount = frameCnt;
+				CreateEnemy(enemyGroups[groupCnt].enemyType, enemyGroups[groupCnt].createPos, enemyGroups[groupCnt].isItem);
+				Next_Condition(enemyGroups[groupCnt].nextGroupFrame);
+				nextEnemy = enemyGroups[groupCnt].enemyGroupName;
+			}
+			// 次のフレーム経過が0以下の時繰り返し
+			while (enemyGroups[groupCnt - 1].nextGroupFrame <= 0);
+		}
+	}
+
+
+	/// <summary>
+	/// 出現フレームと経過フレームが一致またはそれ以上の時有効
+	/// </summary>
+	/// <param name="specified_frame"> 指定フレーム </param>
+	/// <returns > あっているか </returns>
+	private bool Is_A_Specified_Frame(int specified_frame)
     {
         return frameCnt >= specified_frame && specified_frame >= PreviousCount;
     }

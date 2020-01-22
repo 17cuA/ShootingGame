@@ -172,43 +172,59 @@ public class Enemy_Discharged : MonoBehaviour
 		//動きのタイプを見る
 		switch(moveType)
 		{
+			//90度左に曲がる
 			case MoveType.LeftCurveUp_90:
+				//上に上がる状態なら
 				if (moveState == MoveState.UpYMove)
 				{
-					saveMoveState = moveState;
+					//上に上がっている時間を数える
 					YMoveTimeCnt += Time.deltaTime;
+					//上がる最大時間を超えたら
 					if (YMoveTimeCnt > YMoveTimeMax)
 					{
+						//状態を変える（曲がる動きの状態へ）
 						moveState = MoveState.MiddleMove;
 					}
 				}
+				//曲がる動きの状態なら
 				else if (moveState == MoveState.MiddleMove)
 				{
+					//Xスピードの変化が終わっていないなら
 					if (!isSpeedXCangeEnd)
 					{
+						//マイナス方向へのスピードを増やす
 						speedX -= changeSpeedX_value;
+						//マイナス方向補スピード最大値を超えたら
 						if (speedX < -speedXMax)
 						{
+							//Xスピード変化終わり判定
 							isSpeedXCangeEnd = true;
+							//スピードを最大値にする
 							speedX = -speedXMax;
 						}
 					}
-
+					//Yスピードの変化が終わっていないなら
 					if (!isSpeedYCangeEnd)
 					{
+						//yスピードを減らす
 						speedY -= changeSpeedX_value;
+						//Yスピードが0より小さくなったら
 						if (speedY < 0)
 						{
+							//Yスピード変化終わり判定
 							isSpeedYCangeEnd = true;
+							//Yスピードを0に直す
 							speedY = 0;
 						}	
 					}
-
+					//XスピードとYスピードどちらの変化も終わっていたら
 					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
 					{
+						//動きの状態を左移動状態にする
 						moveState = MoveState.LeftXMove;
 					}
 				}
+				//移動
 				velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 				gameObject.transform.position += velocity * Time.deltaTime;
 
@@ -285,7 +301,6 @@ public class Enemy_Discharged : MonoBehaviour
 			case MoveType.LeftCurveDown_90:
 				if (moveState == MoveState.DownYMove)
 				{
-					saveMoveState = moveState;
 					YMoveTimeCnt += Time.deltaTime;
 					if (YMoveTimeCnt > YMoveTimeMax)
 					{
@@ -395,7 +410,6 @@ public class Enemy_Discharged : MonoBehaviour
 			case MoveType.RightCurveUp_90:
 				if (moveState == MoveState.UpYMove)
 				{
-					saveMoveState = moveState;
 					YMoveTimeCnt += Time.deltaTime;
 					if (YMoveTimeCnt > YMoveTimeMax)
 					{
@@ -434,7 +448,6 @@ public class Enemy_Discharged : MonoBehaviour
 
 				//if (moveState == MoveState.UpYMove)
 				//{
-				//	saveMoveState = moveState;
 				//	YMoveTimeCnt += Time.deltaTime;
 				//	if (YMoveTimeCnt > YMoveTimeMax)
 				//	{
@@ -542,7 +555,6 @@ public class Enemy_Discharged : MonoBehaviour
 			case MoveType.RightCurveDown_90:
 				if (moveState == MoveState.DownYMove)
 				{
-					saveMoveState = moveState;
 					YMoveTimeCnt += Time.deltaTime;
 					if (YMoveTimeCnt > YMoveTimeMax)
 					{
@@ -581,7 +593,6 @@ public class Enemy_Discharged : MonoBehaviour
 
 				//if (moveState == MoveState.DownYMove)
 				//{
-				//	saveMoveState = moveState;
 				//	YMoveTimeCnt += Time.deltaTime;
 				//	if (YMoveTimeCnt > YMoveTimeMax)
 				//	{
@@ -685,10 +696,7 @@ public class Enemy_Discharged : MonoBehaviour
 				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
-
 		}
-
-
 	}
 
 	public void SetState(MoveType mType)

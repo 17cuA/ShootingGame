@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5500799870925451101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6002541278819631647}
   m_Father: {fileID: 0}
@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500799870925451101}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1
@@ -76,14 +76,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c0180650188b5478949c8bf0ae6323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 0}
   speed: 0
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -406,9 +406,9 @@ MonoBehaviour:
   Bullet: {fileID: 0}
   parentObj: {fileID: 0}
   myName: 
-  Shot_Delay: 0
+  Shot_DelayCnt: 0
   Shot_Delay_Max: 4
-  burst_delay: 0
+  burst_DelayCnt: 0
   burst_Delay_Max: 0
   burst_ShotNum: 1
   burst_Times: 100
