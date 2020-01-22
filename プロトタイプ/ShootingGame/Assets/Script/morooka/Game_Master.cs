@@ -103,6 +103,7 @@ public class Game_Master : MonoBehaviour
 		eCLAMCHOWDERTYPE_ENEMY,				// 貝型エネミー
 		eOCTOPUSTYPE_ENEMY,					// タコ型エネミー
 		eMANTA_LASER,						//マンタ型のエネミー用レーザー
+		eCONTAINER,							// コンテナ
 	}
 
 	public uint Frame_Count{private set; get;}                  // ゲームが開始してからの時間をカウント

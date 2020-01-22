@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿//----------------------------------------------------------------------------------------------
+// 制作者：諸岡勇樹
+// 制作日：2020/01/22
+//----------------------------------------------------------------------------------------------
+// 触手の基底クラス
+//----------------------------------------------------------------------------------------------
+// 2020/01/22　アニメーションの再生、再生時間、再生順序の設定
+//----------------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,23 +36,23 @@ public class Tentacles : MonoBehaviour
 	public List<GameObject> Bones { get; private set; }		// ボーンの格納
 	public GameObject BaseBone { get; private set; }			// 先端を動かすボーン
 
-	private void Start()
+	protected void Start()
 	{
 		AnimName = new List<string>() { "A_Transition", "A_Wait", "B_Transition", "B_Wait" };
 		A_Animation = GetComponent<Animation>();
 
 		Bones = new List<GameObject>();
-		foreach(GameObject temp in bone.transform)
+		foreach(Transform temp in bone.transform)
 		{
-			Bones.Add(temp);
+			Bones.Add(temp.gameObject);
 			if(temp.name == "Bone011")
 			{
-				BaseBone = temp;
+				BaseBone = temp.gameObject;
 			}
 		}
 	}
 
-	private void Update()
+	protected void Update()
 	{
 		if (nowAnimation == Action.eA_WAIT || nowAnimation == Action.eB_WAIT)
 		{
@@ -51,10 +60,12 @@ public class Tentacles : MonoBehaviour
 			if (Timer >= aWaitTime && nowAnimation == Action.eA_WAIT)
 			{
 				ChangeAnimation(Action.eB_TRANSITION);
+				Timer = 0.0f;
 			}
 			else if (Timer >= bWaitTime && nowAnimation == Action.eB_WAIT)
 			{
 				ChangeAnimation(Action.eA_TRANSITION);
+				Timer = 0.0f;
 			}
 		}
 		else if(nowAnimation == Action.eA_TRANSITION || nowAnimation == Action.eB_TRANSITION)

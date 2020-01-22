@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1845949378504008932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6953921571724528740}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6953921571724528740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845949378504008932}
+  m_LocalRotation: {x: 0, y: 0.047795095, z: 0, w: 0.9988572}
+  m_LocalPosition: {x: -70.2, y: 0, z: 6.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6476072919691702381}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 5.479, z: 0}
 --- !u!1 &6476072919692192781
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,11 +53,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6476072919692192781}
-  m_LocalRotation: {x: -0.70568126, y: 0.048953827, z: 0.04380994, w: 0.70547736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -30.40622, y: 0, z: -0.0000038146973}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6476072919691702383}
+  - {fileID: 6953921571724528740}
   m_Father: {fileID: 6476072919691702363}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -339,13 +370,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6476072919691702351}
-  - component: {fileID: 6476072919695126629}
-  - component: {fileID: 6476072919694127781}
   - component: {fileID: 6476072919684800429}
   - component: {fileID: 6476072919552565748}
-  - component: {fileID: 6476072919552565749}
+  - component: {fileID: 8849095762278387288}
   m_Layer: 0
-  m_Name: Balkan_Tentacles (2)
+  m_Name: Balkan_Tentacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,51 +397,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 180}
---- !u!33 &6476072919695126629
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6476072919692192879}
-  m_Mesh: {fileID: 4300000, guid: adfc112997322c549bb197e06551536c, type: 3}
---- !u!23 &6476072919694127781
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6476072919692192879}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: adfc112997322c549bb197e06551536c, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!95 &6476072919684800429
 Animator:
   serializedVersion: 3
@@ -451,7 +435,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &6476072919552565749
+--- !u!114 &8849095762278387288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -460,31 +444,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6476072919692192879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cf29a08ca43c746abbf942fa5dd903, type: 3}
+  m_Script: {fileID: 11500000, guid: 86770f0204e24f54290165483f70b69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parameter: {fileID: 0}
-  speed: 0
-  hp: 1000
-  direction: {x: 0, y: 0, z: 0}
-  setColor: {x: 0, y: 0, z: 0, w: 0}
-  Collider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  activeShield: 0
-  Remaining: 0
-  v_Value: 0
-  defaultColor: []
-  childCnt: 0
-  object_material: []
-  isrend: 0
-  Is_Dead: 0
-  self_material: []
-  white_material: {fileID: 0}
-  Opponent: 0
-  namenamename: 
-  nowAnimation: 2
-  Timer: 0
+  nowAnimation: 0
+  aWaitTime: 10
+  bWaitTime: 10
+  bone: {fileID: 6476072919692192873}
+  attackDelay: 5
+  muzzle: {fileID: 1845949378504008932}
+  numberOfBullets: 
 --- !u!1 &6476072919692192883
 GameObject:
   m_ObjectHideFlags: 0

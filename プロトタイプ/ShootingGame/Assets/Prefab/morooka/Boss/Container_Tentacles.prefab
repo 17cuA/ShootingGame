@@ -30,6 +30,7 @@ Transform:
   m_Children:
   - {fileID: 2022982076680480914}
   - {fileID: 2022982076680480916}
+  - {fileID: 819975621729768178}
   m_Father: {fileID: 2022982076680480912}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -450,7 +451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022982076680254682}
   m_LocalRotation: {x: -0.00000001152417, y: 0.00000068535655, z: 0.016812475, w: 0.9998587}
-  m_LocalPosition: {x: -0.7535919, y: -0.00000023751797, z: 0.00000001525879}
+  m_LocalPosition: {x: -0.7535919, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2022982076680481020}
@@ -787,7 +788,7 @@ GameObject:
   - component: {fileID: 2022982076680480912}
   - component: {fileID: 2022982076672984920}
   - component: {fileID: 1976278110583444767}
-  - component: {fileID: 3408669174023908346}
+  - component: {fileID: 3900442788827604127}
   m_Layer: 0
   m_Name: Container_Tentacles
   m_TagString: Untagged
@@ -842,17 +843,17 @@ Animation:
   m_GameObject: {fileID: 2022982076680254704}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 0d01064125bf41041b084308e1912b78, type: 2}
+  m_Animation: {fileID: 7400000, guid: 37e0c25444bf63e40b97cabcd47a4545, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 0d01064125bf41041b084308e1912b78, type: 2}
-  - {fileID: 7400000, guid: 9e4ddd5129769a84188085514474e2dc, type: 2}
-  - {fileID: 7400000, guid: 1ecca578d9421804da62fb323a91a7cc, type: 2}
-  - {fileID: 7400000, guid: ed6162c833adedb44a851f2d7a36be4b, type: 2}
+  - {fileID: 7400000, guid: ca1c99e3dfdb6e04ab03e6bf08134765, type: 2}
+  - {fileID: 7400000, guid: 37e0c25444bf63e40b97cabcd47a4545, type: 2}
+  - {fileID: 7400000, guid: 071701b38083a3d4dbf8dad4dd1b1d97, type: 2}
+  - {fileID: 7400000, guid: a7673ceaac13b31419e9c5160d432db6, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &3408669174023908346
+--- !u!114 &3900442788827604127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -861,31 +862,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2022982076680254704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cf29a08ca43c746abbf942fa5dd903, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f61d82c897df8b4f8e8de442113c8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parameter: {fileID: 0}
-  speed: 0
-  hp: 1000
-  direction: {x: 0, y: 0, z: 0}
-  setColor: {x: 0, y: 0, z: 0, w: 0}
-  Collider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  activeShield: 0
-  Remaining: 0
-  v_Value: 0
-  defaultColor: []
-  childCnt: 0
-  object_material: []
-  isrend: 0
-  Is_Dead: 0
-  self_material: []
-  white_material: {fileID: 0}
-  Opponent: 0
-  namenamename: 
   nowAnimation: 0
-  Timer: 0
+  aWaitTime: 10
+  bWaitTime: 10
+  bone: {fileID: 2022982076680254694}
+  attackDelay: 15
+  muzzle: {fileID: 3965285407075848787}
 --- !u!1 &2022982076680254706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,3 +1124,33 @@ SkinnedMeshRenderer:
     m_Center: {x: -3.743631, y: -0.0397543, z: -0.000000074505806}
     m_Extent: {x: 3.743631, y: 0.38138524, z: 0.20780097}
   m_DirtyAABB: 0
+--- !u!1 &3965285407075848787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819975621729768178}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &819975621729768178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965285407075848787}
+  m_LocalRotation: {x: 0.064994745, y: -0.7041535, z: 0.7037212, w: -0.06870379}
+  m_LocalPosition: {x: 0.6254597, y: 0.19843596, z: 0.003340491}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 2022982076680480952}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
