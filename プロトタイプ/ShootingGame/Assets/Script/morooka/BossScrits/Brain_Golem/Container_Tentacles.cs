@@ -22,6 +22,8 @@ public class Container_Tentacles : Tentacles
 	private float Timer { get; set; }                           // タイマー
 	private bool Is_Attack { get; set; }                        // 攻撃しているかどうか
 
+	private RaycastHit hitObject;
+
 	new private void Start()
 	{
 		base.Start();
@@ -40,11 +42,11 @@ public class Container_Tentacles : Tentacles
 		if (Is_Attack)
 		{
 			// ターゲットの向きに向ける
-			var targetPos = NowTarget.transform.position - BaseBone.transform.position;
+			var targetPos = BaseBone.transform.position - NowTarget.transform.position;
 			BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
 
 			// ターゲットに向きを合わせたら
-			if (targetPos == BaseBone.transform.right)
+			if (Vector3.Distance( targetPos,BaseBone.transform.right) < 1.0f)
 			{
 				// 攻撃
 				Attack(targetPos);

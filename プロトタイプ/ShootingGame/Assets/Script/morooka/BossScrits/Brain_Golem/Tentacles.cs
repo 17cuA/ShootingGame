@@ -33,7 +33,6 @@ public class Tentacles : MonoBehaviour
 	private List<string> AnimName { get; set; }			// アニメーションの名前
 	private float Timer { get; set; }								// タイマー
 
-	public List<GameObject> Bones { get; private set; }		// ボーンの格納
 	public GameObject BaseBone { get; private set; }			// 先端を動かすボーン
 
 	protected void Start()
@@ -41,14 +40,14 @@ public class Tentacles : MonoBehaviour
 		AnimName = new List<string>() { "A_Transition", "A_Wait", "B_Transition", "B_Wait" };
 		A_Animation = GetComponent<Animation>();
 
-		Bones = new List<GameObject>();
-		foreach(Transform temp in bone.transform)
-		{
-			Bones.Add(temp.gameObject);
-			if(temp.name == "Bone011")
+		for(GameObject tempObj = bone; tempObj.transform.childCount != 0; )
+		{ 
+			if(tempObj.name == "Bone011")
 			{
-				BaseBone = temp.gameObject;
+				BaseBone = tempObj;
+				break;
 			}
+			tempObj = tempObj.transform.GetChild(0).gameObject;
 		}
 	}
 
