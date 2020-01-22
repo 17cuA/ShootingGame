@@ -46,7 +46,7 @@ public class Container_Tentacles : Tentacles
 			BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
 
 			// ターゲットに向きを合わせたら
-			if (Vector3.Distance( targetPos,BaseBone.transform.right) < 1.0f)
+			if (Physics.Raycast(muzzle.transform.position, -muzzle.transform.right, out hitObject))
 			{
 				// 攻撃
 				Attack(targetPos);
