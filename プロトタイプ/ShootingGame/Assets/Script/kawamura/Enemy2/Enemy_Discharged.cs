@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Enemy_Discharged : MonoBehaviour
 {
+	//動きタイプ
+	public enum MoveType
+	{
+		LeftCurveUp_90,				//上に上がって90度左に曲がる
+		LeftCueveUp_180,				//右に出て左回りに180度曲がる
+		LeftCurveDown_90,			//下に下がって90度左に曲がる
+		LeftCueveDown_180,			//右に出て右回りに180度曲がる
+		RightCurveUp_90,				//上に上がって90度右に曲がる
+		RightCueveUp_180,			//左に出て右曲がりに180度曲がる
+		RightCurveDown_90,			//下に下がって90度左に曲がる
+		RightCueveDown_180,		//左に出て左回りに180度に曲がる
+	}
+	public MoveType moveType;		//動きタイプ変数
+
+
 	public enum MoveState
 	{
 		LeftXMove,			//左移動
@@ -16,36 +31,68 @@ public class Enemy_Discharged : MonoBehaviour
 	public MoveState moveState;
 	public MoveState saveMoveState;
 
+	public GameObject modelObj;			//モデルオブジェクト（主に左右の動きで向きを変えるのに使う）
+
 	Vector3 velocity;
 
+	//ここから90度カーブ用
 	[Header("入力用　Xスピード")]
 	public float speedX;
 	[Header("入力用　	最大Xスピード")]
 	public float speedXMax;
-	public float defaultSpeedX;
+	public float defaultSpeedX;					//X初期スピード
 	[Header("入力用　Xスピードの増減値")]
 	public float changeSpeedX_value;
 	[Header("入力用　Yスピード")]
 	public float speedY;
-	public float defaultSpeedY;
+	public float defaultSpeedY;					//Y初期スピード
 	[Header("入力用　Yスピードの増減値")]
 	public float changeSpeedY_value;
 
-	[Header("入力用　横移動の最大時間")]
+	[Header("入力用　横移動の最大時間　秒")]
 	public float XMoveTimeMax;
-	public float XMoveTimeCnt;
-	[Header("入力用　上下移動の最大時間")]
+	public float XMoveTimeCnt;					//横に動いている時間カウント
+	[Header("入力用　上下移動の最大時間　秒")]
 	public float YMoveTimeMax;
-	public float YMoveTimeCnt;
+	public float YMoveTimeCnt;                  //上下に動いている時間カウント
 
-	bool once = true;
+	bool isSpeedXCangeEnd = false;          //横移動のスピードが変化し終わったか用
+	bool isSpeedYCangeEnd = false;			//上下移動のスピードが変化し終わったかどうか用
+	//ここまで90度カーブ用
 
-	bool isSpeedYCangeEnd = false;
-	bool isSpeedXCangeEnd = false;
+	//ここから180度カーブ用
+	[Header("入力用　180Xスピード")]
+	public float speedX180;
+	[Header("入力用　	180最大Xスピード")]
+	public float speedXMax180;
+	public float defaultSpeedX180;
+	[Header("入力用　180Xスピードの増減値")]
+	public float changeSpeedX_value180;
+
+	public float speedY180;
+	[Header("入力用　180初期Yスピード")]
+	public float defaultSpeedY180;
+	public float speedYMax180;
+	[Header("入力用　180Yスピードの増減値")]
+	public float changeSpeedY_value180;
+
+	[Header("入力用　180横移動の最大時間　秒")]
+	public float XMoveTimeMax180 = 0;
+	public float XMoveTimeCnt180 = 0;
+
+	public int speedStateCnt = 0;
+
+	//ここまで180度カーブ用
+
+	public bool once = true;		//一回だけ行う処理用
+
 
 
 	void Start()
 	{
+		//モデル取得
+		modelObj = transform.GetChild(0).gameObject;		
+
 		defaultSpeedX = speedX;
 		defaultSpeedY = speedY;
 		XMoveTimeCnt = 0;
@@ -58,8 +105,32 @@ public class Enemy_Discharged : MonoBehaviour
 
 	void Update()
 	{
+		//一回だけ行う
 		if (once)
 		{
+			//動きのタイプで最初上に動くか下に動くか決める
+			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.RightCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCueveUp_180)
+			{
+				moveState = Enemy_Discharged.MoveState.UpYMove;
+			}
+			else if (moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.LeftCueveDown_180|| moveType == Enemy_Discharged.MoveType.RightCurveDown_90 || moveType == Enemy_Discharged.MoveType.RightCueveDown_180)
+			{
+				moveState = Enemy_Discharged.MoveState.DownYMove;
+			}
+
+			//動きの種類でモデルの向きを変える
+			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.LeftCueveDown_180)
+			{
+				modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			}
+			else if (moveType == Enemy_Discharged.MoveType.RightCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCueveUp_180 || moveType == Enemy_Discharged.MoveType.RightCurveDown_90 || moveType == Enemy_Discharged.MoveType.RightCueveDown_180)
+			{
+				modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
+				transform.rotation = Quaternion.Euler(0, 180, 0);
+			}
+
+			//上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
 			if (moveState == MoveState.UpYMove && speedY < 0)
 			{
 				speedY *= -1;
@@ -68,13 +139,26 @@ public class Enemy_Discharged : MonoBehaviour
 			{
 				speedY *= -1;
 			}
+
+			defaultSpeedX = speedX;
+			defaultSpeedY = speedY;
+			XMoveTimeCnt = 0;
+			YMoveTimeCnt = 0;
+
+			speedX180 = defaultSpeedX180;
+			speedY180 = 0;
+			XMoveTimeCnt180 = 0;
+			speedStateCnt = 0;
+
+			once = false;
 		}
 
-		velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
-		gameObject.transform.position += velocity * Time.deltaTime;
+		//velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+		//gameObject.transform.position += velocity * Time.deltaTime;
 
 		SpeedCange();
 
+		//画面外左で消す
 		if (transform.position.x < -20)
 		{
 			Destroy(gameObject);
@@ -82,70 +166,542 @@ public class Enemy_Discharged : MonoBehaviour
 			
 	}
 
+	//スピード変化関数
 	void SpeedCange()
 	{
-		if (moveState == MoveState.UpYMove || moveState == MoveState.DownYMove)
+		//動きのタイプを見る
+		switch(moveType)
 		{
-			saveMoveState = moveState;
-			YMoveTimeCnt += Time.deltaTime;
-			if (YMoveTimeCnt > YMoveTimeMax)
-			{
-				moveState = MoveState.MiddleMove;
-			}
-		}
-		else if(moveState==MoveState.MiddleMove)
-		{
-			if (!isSpeedXCangeEnd)
-			{
-				speedX += changeSpeedX_value;
-				if (speedX > speedXMax)
+			//90度左に曲がる
+			case MoveType.LeftCurveUp_90:
+				//上に上がる状態なら
+				if (moveState == MoveState.UpYMove)
 				{
-					isSpeedXCangeEnd = true;
-					speedX = speedXMax;
-				}
-			}
-
-			if (!isSpeedYCangeEnd)
-			{
-				if (saveMoveState == MoveState.UpYMove)
-				{
-					speedY -= changeSpeedX_value;
-					if (speedY < 0)
+					//上に上がっている時間を数える
+					YMoveTimeCnt += Time.deltaTime;
+					//上がる最大時間を超えたら
+					if (YMoveTimeCnt > YMoveTimeMax)
 					{
-						isSpeedYCangeEnd = true;
-						speedY = 0;
+						//状態を変える（曲がる動きの状態へ）
+						moveState = MoveState.MiddleMove;
 					}
 				}
-				else if (saveMoveState == MoveState.DownYMove)
+				//曲がる動きの状態なら
+				else if (moveState == MoveState.MiddleMove)
 				{
-					speedY += changeSpeedX_value;
-					if (speedY > 0)
+					//Xスピードの変化が終わっていないなら
+					if (!isSpeedXCangeEnd)
 					{
-						isSpeedYCangeEnd = true;
-						speedY = 0;
+						//マイナス方向へのスピードを増やす
+						speedX -= changeSpeedX_value;
+						//マイナス方向補スピード最大値を超えたら
+						if (speedX < -speedXMax)
+						{
+							//Xスピード変化終わり判定
+							isSpeedXCangeEnd = true;
+							//スピードを最大値にする
+							speedX = -speedXMax;
+						}
+					}
+					//Yスピードの変化が終わっていないなら
+					if (!isSpeedYCangeEnd)
+					{
+						//yスピードを減らす
+						speedY -= changeSpeedX_value;
+						//Yスピードが0より小さくなったら
+						if (speedY < 0)
+						{
+							//Yスピード変化終わり判定
+							isSpeedYCangeEnd = true;
+							//Yスピードを0に直す
+							speedY = 0;
+						}	
+					}
+					//XスピードとYスピードどちらの変化も終わっていたら
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						//動きの状態を左移動状態にする
+						moveState = MoveState.LeftXMove;
 					}
 				}
-			}
+				//移動
+				velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
 
-			if (isSpeedXCangeEnd && isSpeedYCangeEnd)
-			{
-				moveState = MoveState.LeftXMove;
-			}
+				break;
+
+			case MoveType.LeftCueveUp_180:
+				switch(speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+						//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+						//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if(speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
+
+			case MoveType.LeftCurveDown_90:
+				if (moveState == MoveState.DownYMove)
+				{
+					YMoveTimeCnt += Time.deltaTime;
+					if (YMoveTimeCnt > YMoveTimeMax)
+					{
+						moveState = MoveState.MiddleMove;
+					}
+				}
+				else if (moveState == MoveState.MiddleMove)
+				{
+					if (!isSpeedXCangeEnd)
+					{
+						speedX -= changeSpeedX_value;
+						if (speedX < -speedXMax)
+						{
+							isSpeedXCangeEnd = true;
+							speedX = -speedXMax;
+						}
+					}
+
+					if (!isSpeedYCangeEnd)
+					{
+						speedY += changeSpeedX_value;
+						if (speedY > 0)
+						{
+							isSpeedYCangeEnd = true;
+							speedY = 0;
+						}		
+					}
+
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						moveState = MoveState.LeftXMove;
+					}
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
+
+			case MoveType.LeftCueveDown_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = -defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = -defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
+
+			case MoveType.RightCurveUp_90:
+				if (moveState == MoveState.UpYMove)
+				{
+					YMoveTimeCnt += Time.deltaTime;
+					if (YMoveTimeCnt > YMoveTimeMax)
+					{
+						moveState = MoveState.MiddleMove;
+					}
+				}
+				else if (moveState == MoveState.MiddleMove)
+				{
+					if (!isSpeedXCangeEnd)
+					{
+						speedX -= changeSpeedX_value;
+						if (speedX < -speedXMax)
+						{
+							isSpeedXCangeEnd = true;
+							speedX = -speedXMax;
+						}
+					}
+
+					if (!isSpeedYCangeEnd)
+					{
+						speedY -= changeSpeedX_value;
+						if (speedY < 0)
+						{
+							isSpeedYCangeEnd = true;
+							speedY = 0;
+						}
+					}
+
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						moveState = MoveState.LeftXMove;
+					}
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				//if (moveState == MoveState.UpYMove)
+				//{
+				//	YMoveTimeCnt += Time.deltaTime;
+				//	if (YMoveTimeCnt > YMoveTimeMax)
+				//	{
+				//		moveState = MoveState.MiddleMove;
+				//	}
+				//}
+				//else if (moveState == MoveState.MiddleMove)
+				//{
+				//	if (!isSpeedXCangeEnd)
+				//	{
+				//		speedX += changeSpeedX_value;
+				//		if (speedX > speedXMax)
+				//		{
+				//			isSpeedXCangeEnd = true;
+				//			speedX = speedXMax;
+				//		}
+				//	}
+
+				//	if (!isSpeedYCangeEnd)
+				//	{
+				//		speedY -= changeSpeedX_value;
+				//		if (speedY < 0)
+				//		{
+				//			isSpeedYCangeEnd = true;
+				//			speedY = 0;
+				//		}
+				//	}
+
+				//	if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+				//	{
+				//		moveState = MoveState.LeftXMove;
+				//	}
+				//}
+
+				break;
+
+			case MoveType.RightCueveUp_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
+
+			case MoveType.RightCurveDown_90:
+				if (moveState == MoveState.DownYMove)
+				{
+					YMoveTimeCnt += Time.deltaTime;
+					if (YMoveTimeCnt > YMoveTimeMax)
+					{
+						moveState = MoveState.MiddleMove;
+					}
+				}
+				else if (moveState == MoveState.MiddleMove)
+				{
+					if (!isSpeedXCangeEnd)
+					{
+						speedX -= changeSpeedX_value;
+						if (speedX < -speedXMax)
+						{
+							isSpeedXCangeEnd = true;
+							speedX = -speedXMax;
+						}
+					}
+
+					if (!isSpeedYCangeEnd)
+					{
+						speedY += changeSpeedX_value;
+						if (speedY > 0)
+						{
+							isSpeedYCangeEnd = true;
+							speedY = 0;
+						}
+					}
+
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						moveState = MoveState.LeftXMove;
+					}
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				//if (moveState == MoveState.DownYMove)
+				//{
+				//	YMoveTimeCnt += Time.deltaTime;
+				//	if (YMoveTimeCnt > YMoveTimeMax)
+				//	{
+				//		moveState = MoveState.MiddleMove;
+				//	}
+				//}
+				//else if (moveState == MoveState.MiddleMove)
+				//{
+				//	if (!isSpeedXCangeEnd)
+				//	{
+				//		speedX += changeSpeedX_value;
+				//		if (speedX > speedXMax)
+				//		{
+				//			isSpeedXCangeEnd = true;
+				//			speedX = speedXMax;
+				//		}
+				//	}
+
+				//	if (!isSpeedYCangeEnd)
+				//	{
+				//		speedY += changeSpeedX_value;
+				//		if (speedY > 0)
+				//		{
+				//			isSpeedYCangeEnd = true;
+				//			speedY = 0;
+				//		}
+				//	}
+
+				//	if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+				//	{
+				//		moveState = MoveState.LeftXMove;
+				//	}
+				//}
+
+				break;
+
+			case MoveType.RightCueveDown_180:
+				switch (speedStateCnt)
+				{
+					//最初に横移動している状態
+					case 0:
+						if (XMoveTimeCnt180 > XMoveTimeMax180)
+						{
+							speedStateCnt++;
+						}
+						XMoveTimeCnt180 += Time.deltaTime;
+
+						break;
+
+					//横移動速度が減少して上移動速度が上昇している状態
+					case 1:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 += changeSpeedY_value180;
+						//speedY180 *= 1.1f;
+						speedY180 = -defaultSpeedY180;
+						//if (speedY180 > speedYMax180)
+						//{
+						//	speedY180 = speedYMax180;
+						//}
+						if (speedX180 <= 0)
+						{
+							speedStateCnt++;
+						}
+						break;
+
+					//横移動が0になったあと最初と逆方向にスピードが上がる状態
+					case 2:
+						speedX180 -= changeSpeedX_value180;
+						//speedY180 = speedY180 / 11 * 10;
+						//speedY180 -= changeSpeedY_value180;
+						speedY180 = -defaultSpeedY180;
+						if (speedX180 < -defaultSpeedX180)
+						{
+							//speedX180 = speedXMax180;
+							speedY180 = 0;
+
+							speedStateCnt++;
+						}
+
+						//if (speedY180 <= 0)
+						//{
+						//	speedY180 = 0;
+						//	speedStateCnt++;
+						//}
+						break;
+
+					case 3:
+						speedX180 -= changeSpeedX_value180;
+						if (speedX180 < speedXMax180)
+						{
+							speedX180 = speedXMax180;
+							speedStateCnt++;
+						}
+						break;
+
+					case 4:
+						break;
+
+				}
+				velocity = gameObject.transform.rotation * new Vector3(speedX180, speedY180, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
 		}
+	}
 
-		//switch(moveState)
-		//{
-		//	case MoveState.LeftXMove:
-		//		XMoveTimeCnt += Time.deltaTime;
-		//		break;
-
-		//	case MoveState.UpYMove:
-		//		YMoveTimeCnt += Time.deltaTime;
-		//		break;
-
-		//	case MoveState.MiddleMove:
-
-		//		break;
-		//}
+	public void SetState(MoveType mType)
+	{
+		moveType = mType;
+		once = true;
 	}
 }

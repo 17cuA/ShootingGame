@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019756401678218016}
   - component: {fileID: 4065018097812829333}
+  - component: {fileID: 1138382223}
   m_Layer: 0
   m_Name: AngleObj
   m_TagString: Untagged
@@ -24,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358464862461800891}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4929874629747092731}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &4065018097812829333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,12 +45,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObj: {fileID: 4929874629747092733}
+  hitCol: {fileID: 1138382223}
   followGround_Script: {fileID: 835226200459923907}
   angleZ: 0
-  angleZ_ChangeValue: 6.3
+  angleZ_ChangeValue: 5
   angleTest: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
   checkNomal: {x: 0, y: 0, z: 0}
+  kakuninVector: {x: 0, y: 0, z: 0}
+  sideRayVector: {x: 0, y: 0, z: 0}
+  groundAngle: 0
+  angle_Sin: 0
+  angle_Cos: 0
+  raydasitayo: 0
+  colDelayMax: 0
+  colDelayCnt: 0
+  colHit: 0
+  tagname: 
   aaa: 0
   bbb: 0
   ccc: 0
@@ -58,6 +70,21 @@ MonoBehaviour:
   fff: 0
   ggg: 0
   hhh: 0
+  hithit: 0
+  kakuninnnnnnnnnnnnnnnnnnnnn: 0
+--- !u!65 &1138382223
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358464862461800891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.112, y: 0.21, z: 1}
+  m_Center: {x: -0.3, y: -0.119, z: 0}
 --- !u!1 &4929874629747092733
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +102,7 @@ GameObject:
   - component: {fileID: 3699598399382060747}
   m_Layer: 0
   m_Name: Enemy_FollowGround_test3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direcState: 0
   angleObj: {fileID: 358464862461800891}
-  angleChange2_Script: {fileID: 0}
+  angleChange2_Script: {fileID: 4065018097812829333}
   speedXMax: 2
   speedX: 2
   speedYMax: 0
@@ -181,10 +208,12 @@ MonoBehaviour:
   rotaSpeed: 0
   walkTimeMax: 100
   walkTimeCnt: 0
-  stopTimeMax: 0
-  stopTimeCnt: 0
   attackTimeMax: 0
   attackTimeCnt: 0
+  hitDelayMax: 3
+  hitDelayCnt: 0
+  NotHitMax: 0
+  notHitCnt: 0
   groundNormal: {x: 0, y: 0, z: 0}
   lastHitPoint: {x: Infinity, y: 0, z: 0}
   groundAngle: 0
@@ -197,6 +226,7 @@ MonoBehaviour:
   cccc: 0
   isHit: 0
   isHitP: 1
+  tttttssss: 0
 --- !u!143 &6067803074772156133
 CharacterController:
   m_ObjectHideFlags: 0
