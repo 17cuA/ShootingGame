@@ -87,13 +87,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3422255613581935180}
   - component: {fileID: 345249312360221643}
+  - component: {fileID: 426812492}
+  - component: {fileID: 426812495}
   m_Layer: 0
   m_Name: StageParts_Straight_ShutterOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3422255613581935180
 Transform:
   m_ObjectHideFlags: 0
@@ -123,6 +125,48 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 8, z: 5}
   m_Center: {x: -3.5, y: 0, z: -2}
+--- !u!114 &426812492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715933682059799117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6695dbd744ec042aa6b484da5c6357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: -1
+  speedY: 0
+  speedZ: 0
+  aliveMax: 0
+  deadCnt: 0
+  shinimasuka: 0
+--- !u!114 &426812495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715933682059799117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52db62c83c86b4a4c9a11c490d1fe016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: 
+  createPositions:
+  - {x: -4.4, y: -3.9, z: -0.5}
+  - {x: -4.4, y: 3.7, z: -0.5}
+  - {x: 0.9, y: -3.9, z: -0.5}
+  - {x: 0.9, y: 3.7, z: -0.5}
+  createRotation:
+  - {x: 0, y: 0, z: 0, w: 0}
+  - {x: 0, y: 0, z: 180, w: 0}
+  - {x: 0, y: 0, z: 0, w: 0}
+  - {x: 0, y: 0, z: 180, w: 0}
+  movetype: 00000000020000000000000002000000
 --- !u!1 &1404794766335459110
 GameObject:
   m_ObjectHideFlags: 0
