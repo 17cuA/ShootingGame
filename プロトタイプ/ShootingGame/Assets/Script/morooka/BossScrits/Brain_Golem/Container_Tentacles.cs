@@ -16,21 +16,15 @@ public class Container_Tentacles : Tentacles
 	[SerializeField, Tooltip("攻撃ディレイ")] private float attackDelay;
 	[SerializeField, Tooltip("攻撃マズル")] private GameObject muzzle;
 
-	private GameObject Player1 { get; set; }            // プレイヤー1の情報格納
-	private GameObject Player2 { get; set; }            // プレイヤー2の情報格納
-	private GameObject NowTarget { get; set; }  // 今のターゲット
-	private float Timer { get; set; }                           // タイマー
-	private bool Is_Attack { get; set; }                        // 攻撃しているかどうか
+	private Vector2 TargetPos { get; set; }					// ターゲットの位置
+
+	private RaycastHit hitObject;
 
 	new private void Start()
 	{
 		base.Start();
-		Player1 = Obj_Storage.Storage_Data.GetPlayer();
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		{
-			Player2 = Obj_Storage.Storage_Data.GetPlayer2();
-		}
-		NowTarget = Player1;
+		AnimName.Add("Open");
+		AnimName.Add("Close");
 	}
 
 	new private void Update()
@@ -39,21 +33,52 @@ public class Container_Tentacles : Tentacles
 
 		if (Is_Attack)
 		{
-			// ターゲットの向きに向ける
-			var targetPos = NowTarget.transform.position - BaseBone.transform.position;
-			BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
-
-			// ターゲットに向きを合わせたら
-			if (targetPos == BaseBone.transform.right)
+			if(ActionStep == 0)
 			{
-				// 攻撃
-				Attack(targetPos);
-				// プレイヤー2がいるとき
-				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+				// ターゲットの向きに向ける
+				TargetPos = VectorChange_3To2(BaseBone.transform.position - NowTarget.transform.position);
+				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
+
+				// ターゲットに向きを合わせたら
+				Debug.DrawRay(muzzle.transform.position, -muzzle.transform.right * 20.0f, Color.red, 5);
+				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2( -muzzle.transform.right), out hitObject, 20.0f))
 				{
-					// 違うプレイヤーが生きていればターゲット変更
-					if (NowTarget == Player1 && Player2.activeSelf) NowTarget = Player2;
-					if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
+					if (hitObject.transform.tag == "Player")
+					{
+						ActionStep++;
+						A_Animation.Blend("Open");
+					}
+				}
+			}
+			else if(ActionStep == 1)
+			{
+				if (!A_Animation.IsPlaying("Open"))
+				{
+					// 攻撃
+					var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, muzzle.transform.forward);
+					Rigidbody rigidbody = Container.GetComponent<Rigidbody>();
+					rigidbody.velocity = VectorChange_3To2(-TargetPos / 5.0f);
+					ItemBox box = Container.GetComponent<ItemBox>();
+					box.Is_LateralRotation = true;
+
+					// プレイヤー2がいるとき
+					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+					{
+						// 違うプレイヤーが生きていればターゲット変更
+						if (NowTarget == Player1 && Player2.activeSelf) NowTarget = Player2;
+						if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
+					}
+					ActionStep++;
+					A_Animation.Blend("Close");
+				}
+			}
+			else if(ActionStep == 2)
+			{
+				if(!A_Animation.IsPlaying("Close"))
+				{
+					ActionStep = 0;
+					Timer = 0.0f;
+					Is_Attack = false;
 				}
 			}
 		}
@@ -62,15 +87,5 @@ public class Container_Tentacles : Tentacles
 			Timer += Time.deltaTime;
 			if (attackDelay < Timer) Is_Attack = true;
 		}
-	}
-
-	/// <summary>
-	/// 攻撃
-	/// </summary>
-	private void Attack(Vector3 targetPos)
-	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, targetPos);
-		Timer = 0.0f;
-		Is_Attack = false;
 	}
 }

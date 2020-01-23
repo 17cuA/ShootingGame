@@ -115,13 +115,10 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eTWO_BOSS_LASER:
 					obj = Obj_Storage.Storage_Data.Two_Boss_Laser.Active_Obj();
 					break;
-				//case Game_Master.OBJECT_NAME.eMANTA_LASER:
-				//	obj = Obj_Storage
-				//	break;
-				default:
-					break;
 				case Game_Master.OBJECT_NAME.eCONTAINER:
-					obj = Obj_Storage.Storage_Data.Two_Boss_Laser.Active_Obj();
+					obj = Obj_Storage.Storage_Data.Container.Active_Obj();
+					break;
+				default:
 					break;
 			}
 			#endregion
@@ -230,13 +227,10 @@ namespace StorageReference
 				case Game_Master.OBJECT_NAME.eTWO_BOSS_LASER:
 					obj = Obj_Storage.Storage_Data.Two_Boss_Laser.Active_Obj();
 					break;
-				//case Game_Master.OBJECT_NAME.eMANTA_LASER:
-				//	obj = Obj_Storage
-				//	break;
-				default:
-					break;
 				case Game_Master.OBJECT_NAME.eCONTAINER:
-					obj = Obj_Storage.Storage_Data.Two_Boss_Laser.Active_Obj();
+					obj = Obj_Storage.Storage_Data.Container.Active_Obj();
+					break;
+				default:
 					break;
 			}
 			#endregion
