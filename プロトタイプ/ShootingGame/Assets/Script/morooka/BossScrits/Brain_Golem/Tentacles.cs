@@ -29,11 +29,18 @@ public class Tentacles : MonoBehaviour
 	[SerializeField, Tooltip("Bの待機状態の維持時間")] private float bWaitTime;
 	[SerializeField, Tooltip("ボーンの先頭")] private GameObject bone;
 
-	private Animation A_Animation { get; set; }			// アニメーションアセット
-	private List<string> AnimName { get; set; }			// アニメーションの名前
-	private float Timer { get; set; }								// タイマー
+	protected Animation A_Animation { get; set; }				// アニメーションアセット
+	protected List<string> AnimName { get; set; }				// アニメーションの名前
+	protected int ActionStep { get; set; }								// 攻撃手順指示番号
+	protected float Timer { get; set; }									// タイマー
+	protected GameObject Player1 { get; set; }					// プレイヤー1の情報格納
+	protected GameObject Player2 { get; set; }					// プレイヤー2の情報格納
+	protected GameObject NowTarget { get; set; }				// 今のターゲット
+	protected GameObject BaseBone { get; private set; }		// 先端を動かすボーン
 
-	public GameObject BaseBone { get; private set; }			// 先端を動かすボーン
+	public bool Is_Attack { get; protected set; }                        // 攻撃しているかどうか
+
+	private float MyTimer { get; set; }                           // 自分のタイマー
 
 	protected void Start()
 	{
@@ -49,22 +56,30 @@ public class Tentacles : MonoBehaviour
 			}
 			tempObj = tempObj.transform.GetChild(0).gameObject;
 		}
+
+		Player1 = Obj_Storage.Storage_Data.GetPlayer();
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			Player2 = Obj_Storage.Storage_Data.GetPlayer2();
+		}
+		NowTarget = Player1;
+		Is_Attack = false;
 	}
 
 	protected void Update()
 	{
 		if (nowAnimation == Action.eA_WAIT || nowAnimation == Action.eB_WAIT)
 		{
-			Timer += Time.deltaTime;
-			if (Timer >= aWaitTime && nowAnimation == Action.eA_WAIT)
+			MyTimer += Time.deltaTime;
+			if (MyTimer >= aWaitTime && nowAnimation == Action.eA_WAIT)
 			{
 				ChangeAnimation(Action.eB_TRANSITION);
-				Timer = 0.0f;
+				MyTimer = 0.0f;
 			}
-			else if (Timer >= bWaitTime && nowAnimation == Action.eB_WAIT)
+			else if (MyTimer >= bWaitTime && nowAnimation == Action.eB_WAIT)
 			{
 				ChangeAnimation(Action.eA_TRANSITION);
-				Timer = 0.0f;
+				MyTimer = 0.0f;
 			}
 		}
 		else if(nowAnimation == Action.eA_TRANSITION || nowAnimation == Action.eB_TRANSITION)
@@ -84,9 +99,19 @@ public class Tentacles : MonoBehaviour
 	/// 次のアニメーション
 	/// </summary>
 	/// <param name="nextAction"> 次に再生するアニメーション </param>
-	void ChangeAnimation(Action nextAction)
+	private void ChangeAnimation(Action nextAction)
 	{
 		A_Animation.CrossFade(AnimName[(int)nextAction]);
 		nowAnimation = nextAction;
+	}
+
+	/// <summary>
+	/// 3次元ベクトル→2次元ベクトル
+	/// </summary>
+	/// <param name="temp"></param>
+	/// <returns></returns>
+	protected Vector2 VectorChange_3To2(Vector3 temp)
+	{
+		return new Vector2(temp.x, temp.y);
 	}
 }

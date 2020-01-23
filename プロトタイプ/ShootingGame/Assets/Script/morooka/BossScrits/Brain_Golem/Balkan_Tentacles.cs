@@ -17,24 +17,10 @@ public class Balkan_Tentacles : Tentacles
 	[SerializeField, Tooltip("攻撃マズル")] private GameObject muzzle;
 	[SerializeField, Tooltip("攻撃時の弾の数")] private int[] numberOfBullets;
 
-	private GameObject Player1 { get; set; }			// プレイヤー1の情報格納
-	private GameObject Player2 { get; set; }			// プレイヤー2の情報格納
-	private GameObject NowTarget { get; set; }		// 今のターゲット
-	private float Timer { get; set; }							// タイマー
-	private bool Is_Attack { get; set; }						// 攻撃しているかどうか
-	private int AttackStep { get; set; }						// 攻撃の順番仕切り
-
 	new private void Start()
 	{
 		base.Start();
-		Player1 = Obj_Storage.Storage_Data.GetPlayer();
-		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-		{
-			Player2 = Obj_Storage.Storage_Data.GetPlayer2();
-		}
-		NowTarget = Player1;
 	}
-
 	new private void Update()
 	{
 		base.Update();
@@ -42,24 +28,24 @@ public class Balkan_Tentacles : Tentacles
 		if (Is_Attack)
 		{
 			Vector3 targetPos = new Vector3();
-			if (AttackStep == 0)
+			if (ActionStep == 0)
 			{
 				targetPos = NowTarget.transform.position - BaseBone.transform.position;
 				Vector3 temp = new Vector3(targetPos.y, -targetPos.x, 0.0f);
 				targetPos = temp;
-				AttackStep++;
+				ActionStep++;
 			}
-			else if (AttackStep == 2)
+			else if (ActionStep == 2)
 			{
 				// ターゲットの向きに向ける
 				BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
 				if (targetPos == BaseBone.transform.right)
 				{
 					targetPos = new Vector3(-targetPos.x, -targetPos.y, 0.0f);
-					AttackStep++;
+					ActionStep++;
 				}
 			}
-			else if (AttackStep == 3)
+			else if (ActionStep == 3)
 			{
 				BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
 				if (targetPos == BaseBone.transform.right)
@@ -74,16 +60,16 @@ public class Balkan_Tentacles : Tentacles
 						if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
 					}
 
-					AttackStep++;
+					ActionStep++;
 				}
-				else if(AttackStep == 4)
+				else if(ActionStep == 4)
 				{
 					BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
 					if(targetPos == BaseBone.transform.right)
 					{
 						Timer = 0.0f;
 						Is_Attack = false;
-						AttackStep = 0;
+						ActionStep = 0;
 					}
 				}
 			}
