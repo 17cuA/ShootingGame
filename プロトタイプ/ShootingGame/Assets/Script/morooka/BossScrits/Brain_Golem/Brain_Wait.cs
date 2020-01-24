@@ -13,19 +13,42 @@ using UnityEngine;
 public class Brain_Wait : character_status
 {
 	[SerializeField, Tooltip("ダメージ受けるパーツ")] private List<Brain_Parts> damagedParts;
-	[SerializeField, Tooltip("ダメージ受けないパーツ")] private List<Brain_Parts> notTakeDamageParts;
 	[SerializeField, Tooltip("触手のパーツ_バルカン")] private List<Brain_Parts> balkanTentacles;
 	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
+
+	private bool Is_Active { get; set; }
 	WaitLoopTrigger waitLoopTrigger = null;
 
 	void Start()
     {
+		foreach(Transform obj in transform)
+		{
+			obj.gameObject.SetActive(false);
+		}
+		Is_Active = false;
 		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
     }
 
     void Update()
     {
-        if(Is_PartsNotAlive())
+		#region 起動状態(仮)確認
+		if (!Is_Active)
+		{
+			if (transform.position.x < 10.0f)
+			{
+				foreach (Transform obj in transform)
+				{
+					obj.gameObject.SetActive(true);
+				}
+				Is_Active = true;
+			}
+			else
+			{
+				return;
+			}
+		}
+		#endregion
+		if (Is_PartsNotAlive())
 		{
 			waitLoopTrigger.Trigger = true;
 		}

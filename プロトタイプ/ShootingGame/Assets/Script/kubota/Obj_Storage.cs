@@ -188,7 +188,7 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 
 	// 2020.01.22 諸岡追加----------------------------------------------------------------
-	public Object_Pooling container;
+	public Object_Pooling Container;
 	// 2020.01.22 諸岡追加----------------------------------------------------------------
 
 	//----------------------------------------------------------
@@ -641,7 +641,7 @@ public class Obj_Storage : MonoBehaviour
 
 				#region ステージ2個別プーリング化
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
-				container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
 				#endregion
