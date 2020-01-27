@@ -1224,6 +1224,50 @@ MonoBehaviour:
   blockerSampleCount: 24
   filterSampleCount: 16
   minFilterSize: 0.00001
+--- !u!1 &205326002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205326004}
+  - component: {fileID: 205326003}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &205326003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205326002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5058f5d90e436974c96445e4d944228c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 286457610906399923, guid: c8e2960f274da9a40a0c974940e341c2, type: 3}
+--- !u!4 &205326004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205326002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &216946872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6541,21 +6585,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharactorCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 6223543701453863857, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 8857270266060281594, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223543701217059861, guid: c5511831683274044a5c606ce4ac0f63,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
     - target: {fileID: 344868039040152457, guid: c5511831683274044a5c606ce4ac0f63,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6718,6 +6747,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223543701217059861, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223543701453863857, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857270266060281594, guid: c5511831683274044a5c606ce4ac0f63,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.7058824
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3922684389596448691, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
@@ -8031,6 +8075,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6240662702615914667, guid: d5d33be7373962c4fbf4af93e60ef620,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240662702615914667, guid: d5d33be7373962c4fbf4af93e60ef620,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[4].key
+      value: 
+      objectReference: {fileID: 114776153443584190, guid: 4360e4ea214426548a10ae34d02af51b,
+        type: 2}
+    - target: {fileID: 6240662702615914667, guid: d5d33be7373962c4fbf4af93e60ef620,
+        type: 3}
+      propertyPath: m_SceneBindings.Array.data[4].value
+      value: 
+      objectReference: {fileID: 205326002}
     m_RemovedComponents:
     - {fileID: 4437976769379939315, guid: d5d33be7373962c4fbf4af93e60ef620, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d5d33be7373962c4fbf4af93e60ef620, type: 3}
