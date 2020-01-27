@@ -275,8 +275,8 @@ public class Obj_Storage : MonoBehaviour
 		Player_Missile2 = Resources.Load("Bullet/Player_Missile2") as GameObject;
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;
 
-		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player1_Bullet");         //プレイヤーのバレットを生成
-		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
+		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 10, "Player1_Bullet");         //プレイヤーのバレットを生成
+		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 10, "Player2_Bullet");
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
 		PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
@@ -437,19 +437,19 @@ public class Obj_Storage : MonoBehaviour
 				Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
 				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
 				Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-				Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Enemy_explosion");                   //エネミーの死亡時の爆発
+				Effects[4] = new Object_Pooling(Effects_Prefab[4], 10, "Enemy_explosion");                   //エネミーの死亡時の爆発
 				Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
 				Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
 				Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
 				Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
-				Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");                       //敵の粒子
+				Effects[9] = new Object_Pooling(Effects_Prefab[9], 10, "Enemy_Grain");                       //敵の粒子
 				Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
-				Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
+				Effects[11] = new Object_Pooling(Effects_Prefab[11], 10, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
 				Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
-				Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
-				Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
+				Effects[13] = new Object_Pooling(Effects_Prefab[13], 10, "Meteor_explosion");                    //隕石爆発Effect
+				Effects[14] = new Object_Pooling(Effects_Prefab[14], 10, "Boss_Bullet2");                    //ボスの弾その２
 				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
+				Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
 				#endregion
 
 				Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
