@@ -105,7 +105,6 @@ public class ObjectStorage_Control : MonoBehaviour
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.SmallBeam_Bullet_E);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.UfoType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.ClamChowderType_Enemy);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.OctopusType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BeelzebubType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BattleShipType_Enemy);
 				//----------------------------- エネミーセット ---------------------------------------

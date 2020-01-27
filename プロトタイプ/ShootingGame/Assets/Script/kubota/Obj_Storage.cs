@@ -37,7 +37,6 @@ public class Obj_Storage : MonoBehaviour
     private GameObject SmallBeam_Bullet_E_Prefab;				//エネミーの小さいビーム型バレットのプレハブ
     private GameObject UfoType_Enemy_Prefab;					// UFO型エネミーのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;	// 貝型エネミーのプレハブ
-	private GameObject OctopusType_Enemy_Prefab;				// タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;			// ハエ型エネミーのプレハブ
 	private GameObject BattleShip_Enemy_Prefab;				// 戦艦型エネミーのプレハブ
 	private GameObject Star_Fish_Enemy_Prefab;                  //ヒトデ型のエネミーのプレハブ
@@ -78,7 +77,6 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling SmallBeam_Bullet_E;
     public Object_Pooling UfoType_Enemy;
 	public Object_Pooling ClamChowderType_Enemy;
-	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling StarFish_Enemy;
@@ -118,7 +116,6 @@ public class Obj_Storage : MonoBehaviour
     public GameObject enemy_ClamChowder_Group_Five_prefab;
     public GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
     public GameObject enemy_ClamChowder_Group_Seven_prefab;
-    //public GameObject enemy_MiddleBoss_Father_prefab;
     public GameObject enemy_ClamChowder_Group_Straight_prefab;
     public GameObject enemy_Beelzebub_Group_FourWide_prefab;
     public GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
@@ -157,7 +154,6 @@ public class Obj_Storage : MonoBehaviour
     public Object_Pooling enemy_ClamChowder_Group_Five;
     public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
     public Object_Pooling enemy_ClamChowder_Group_Seven;
-    //public Object_Pooling enemy_MiddleBoss_Father;
     public Object_Pooling enemy_ClamChowder_Group_Straight;
     public Object_Pooling enemy_Beelzebub_Group_FourWide;
     public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
@@ -247,7 +243,6 @@ public class Obj_Storage : MonoBehaviour
 		SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
 		UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 		ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
-		OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
 		BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 		BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 		Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
@@ -419,7 +414,6 @@ public class Obj_Storage : MonoBehaviour
 		BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 		UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 		ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
-		OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 		BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 		BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 		StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
@@ -494,7 +488,6 @@ public class Obj_Storage : MonoBehaviour
 		DontDestroyOnLoad(BattleShipBullet.Get_Parent_Obj());
 		DontDestroyOnLoad(UfoType_Enemy.Get_Parent_Obj());
 		DontDestroyOnLoad(ClamChowderType_Enemy.Get_Parent_Obj());
-		DontDestroyOnLoad(OctopusType_Enemy.Get_Parent_Obj());
 		DontDestroyOnLoad(BeelzebubType_Enemy.Get_Parent_Obj());
 		DontDestroyOnLoad(BattleShipType_Enemy.Get_Parent_Obj());
 		DontDestroyOnLoad(StarFish_Enemy.Get_Parent_Obj());
@@ -588,7 +581,6 @@ public class Obj_Storage : MonoBehaviour
 		Destroy(BattleShipBullet.Get_Parent_Obj());
 		Destroy(UfoType_Enemy.Get_Parent_Obj());
 		Destroy(ClamChowderType_Enemy.Get_Parent_Obj());
-		Destroy(OctopusType_Enemy.Get_Parent_Obj());
 		Destroy(BeelzebubType_Enemy.Get_Parent_Obj());
 		Destroy(BattleShipType_Enemy.Get_Parent_Obj());
 		Destroy(StarFish_Enemy.Get_Parent_Obj());

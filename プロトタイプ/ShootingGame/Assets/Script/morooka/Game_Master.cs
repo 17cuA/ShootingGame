@@ -101,7 +101,6 @@ public class Game_Master : MonoBehaviour
 		eUFOMOTHERTYPE_ENEMY,				// UFO母艦タイプエネミー
 		eBEELZEBUBTYPE_ENEMY,				// ハエ型エネミー
 		eCLAMCHOWDERTYPE_ENEMY,				// 貝型エネミー
-		eOCTOPUSTYPE_ENEMY,					// タコ型エネミー
 		eMANTA_LASER,						//マンタ型のエネミー用レーザー
 	}
 
