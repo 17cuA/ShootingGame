@@ -84,14 +84,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05cc0a32ef4409646b23aa167bdafe91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 78fedee2a7c696d4ba46b23708aa04b2, type: 2}
   speed: 0
   hp: 30
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
