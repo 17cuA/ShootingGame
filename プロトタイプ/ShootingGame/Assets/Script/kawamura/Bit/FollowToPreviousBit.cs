@@ -135,6 +135,7 @@ public class FollowToPreviousBit : MonoBehaviour
 				//playerPos[cnt] = playerObj.transform;
 				transform.position = playerObj.transform.position;
 				defCheck = true;
+				check = true;
 				//isPlayerLive = true;
 				//pos = playerObj.transform.position;
 
@@ -355,16 +356,31 @@ public class FollowToPreviousBit : MonoBehaviour
             }
 		}
 
-		if (pl1.Is_Resporn_End)
+		if (isFollow1P)
 		{
-			for (int i = 0; i < previousBitPos.Length; i++)
+			if (pl1.Is_Resporn_End)
 			{
-				previousBitPos[i] = playerObj.transform.position;
+				for (int i = 0; i < previousBitPos.Length; i++)
+				{
+					previousBitPos[i] = playerObj.transform.position;
 
+				}
 			}
 		}
+		else if (isFollow2P)
+		{
+			if (pl2.Is_Resporn_End)
+			{
+				for (int i = 0; i < previousBitPos.Length; i++)
+				{
+					previousBitPos[i] = playerObj.transform.position;
 
-		if(followParent_Script.isResetPosEnd)
+				}
+			}
+
+		}
+
+		if (followParent_Script.isResetPosEnd)
 		{
 			isResetPos = false;
 		}

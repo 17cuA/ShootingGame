@@ -411,7 +411,6 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_Group_Five_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Five_NoItem") as GameObject;
 				enemy_ClamChowder_Group_Seven_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Seven") as GameObject;
 				enemy_ClamChowder_Group_Straight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_Straight") as GameObject;
-				//enemy_MiddleBoss_Father_prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;
 				enemy_Beelzebub_Group_FourWide_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide") as GameObject;
 				enemy_Beelzebub_Group_FourWide_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_FourWide_Item") as GameObject;
 				enemy_BeetleGroup_prefab = Resources.Load("Enemy/Enemy_Beetle_Group") as GameObject;
@@ -423,7 +422,6 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_FourTriangle_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle") as GameObject;
 				enemy_ClamChowder_FourTriangle_NoItem_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_FourTriangle_NoItem") as GameObject;
 				enemy_Beelzebub_Group_EightNormal_Item_prefab = Resources.Load("Enemy/Enemy_Beelzebub_Group_EightNormal_Item") as GameObject;
-				//enemy_ClamChowder_Group_TwelveStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_TwelveStraight") as GameObject;
 				enemy_UFO_Group_Five_prefab = Resources.Load("Enemy/Enemy_UFO_Group_Five") as GameObject;
 				enemy_Beetle_Group_Seven_prefab = Resources.Load("Enemy/Enemy_Beetle_Group_Seven") as GameObject;
 				enemy_ClamChowder_Group_SevenStraight_prefab = Resources.Load("Enemy/Enemy_ClamChowder_Group_SevenStraight") as GameObject;
@@ -437,14 +435,14 @@ public class Obj_Storage : MonoBehaviour
 				Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
 				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
 				Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-				Effects[4] = new Object_Pooling(Effects_Prefab[4], 10, "Enemy_explosion");                   //エネミーの死亡時の爆発
+				Effects[4] = new Object_Pooling(Effects_Prefab[4], 20, "Enemy_explosion");                   //エネミーの死亡時の爆発
 				Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
 				Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
 				Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
 				Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
 				Effects[9] = new Object_Pooling(Effects_Prefab[9], 10, "Enemy_Grain");                       //敵の粒子
-				Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
-				Effects[11] = new Object_Pooling(Effects_Prefab[11], 10, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
+				Effects[10] = new Object_Pooling(Effects_Prefab[10], 2, "Battleship_explosion");            //戦艦の爆発
+				Effects[11] = new Object_Pooling(Effects_Prefab[11], 20, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
 				Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
 				Effects[13] = new Object_Pooling(Effects_Prefab[13], 10, "Meteor_explosion");                    //隕石爆発Effect
 				Effects[14] = new Object_Pooling(Effects_Prefab[14], 10, "Boss_Bullet2");                    //ボスの弾その２

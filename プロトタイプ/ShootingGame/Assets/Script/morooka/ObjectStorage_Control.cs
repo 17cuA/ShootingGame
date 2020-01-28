@@ -140,12 +140,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_BousndBullet);
 					}
-					// レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_Laser);
-					}
-					else if (Boss_Frame_Cnt == 2)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_1);
 						Boss_Frame_Cnt = 0;
@@ -157,24 +152,19 @@ public class ObjectStorage_Control : MonoBehaviour
 			{
 				if (Tow_Boss_Data.Is_Dead)
 				{
-					// レーザーの削除
-					if (Boss_Frame_Cnt == 0)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Two_Boss_Laser);
-					}
-					else if(Boss_Frame_Cnt == 1)
+					if(Boss_Frame_Cnt == 0)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
 					}
-					else if(Boss_Frame_Cnt == 2)
+					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
 					}
-					else if(Boss_Frame_Cnt == 3)
+					else if(Boss_Frame_Cnt == 2)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.BattleShipBullet);
 					}
-					else if(Boss_Frame_Cnt == 4)
+					else if(Boss_Frame_Cnt == 3)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.EnemyBullet);
 					}
@@ -226,7 +216,6 @@ public class ObjectStorage_Control : MonoBehaviour
 						GameObject obj = GameObject.Find(s);
 						if (obj != null)
 						{
-							//Debug.Log(" obj.name");
 							Destroy(obj);
 						}
 					}
@@ -236,7 +225,7 @@ public class ObjectStorage_Control : MonoBehaviour
 
 				//----------------------- エフェクト関係------------------------------
 				var temp = Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count;
-				for (int i = 1; i < Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count; i++)
+				for (int i = 10; i < Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().Count; i++)
 				{
 					Destroy(Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj()[i]);
 					Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().RemoveAt(i);
