@@ -253,7 +253,7 @@ public class EnemyCreate : MonoBehaviour
 	private bool isBaculaDestroy = false;
 	private bool isMiddleBossDead = false;
 	private bool isOneBossAlive = false;
-	private bool isTwoBossAlive = false;
+	public bool isTwoBossAlive = false;
 	private bool isMoaiAlive = false;
 	private bool isMiddleBossSkip = true;
 	private bool isNowOneBoss = false;
