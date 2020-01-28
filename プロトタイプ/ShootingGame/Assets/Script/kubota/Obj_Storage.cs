@@ -206,8 +206,9 @@ public class Obj_Storage : MonoBehaviour
 		}
 		else
 		{
-			//Destroy(gameObject);
-			UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+			
+			UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChanged;
+            Destroy(gameObject);
 
 		}
 	}
@@ -246,7 +247,10 @@ public class Obj_Storage : MonoBehaviour
 
 		if (to.name == "GameOver")
 		{
-			DeleteOnceGos();
+			if (Player != null)
+			{
+				DeleteOnceGos();
+			}
 		}
 	}
 
@@ -255,32 +259,54 @@ public class Obj_Storage : MonoBehaviour
 		Player_Prefab = Resources.Load("Player/Player") as GameObject;
 		player_2_Prefab = Resources.Load("Player/Player2") as GameObject;
 		Option_Prefab = Resources.Load("Option/Option") as GameObject;       //マルチプルのロード
-		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
-		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
-		Option = new Object_Pooling(Option_Prefab, 4, "Option");
-
-		DontDestroyOnLoad(Player.Get_Parent_Obj());
-		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
-		DontDestroyOnLoad(Option.Get_Parent_Obj());
-	}
-
-	private void CreateSceneChangeGos()
-	{
-		#region Playerの弾等
-		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
+        Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
 		BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet_2P") as GameObject;
 		BulletPrefab_Option_P1 = Resources.Load("Bullet/Option_Bullet_1P") as GameObject;
 		BulletPrefab_Option_P2 = Resources.Load("Bullet/Option_Bullet_2P") as GameObject;
 		Player_Missile1 = Resources.Load("Bullet/Player_Missile") as GameObject;
 		Player_Missile2 = Resources.Load("Bullet/Player_Missile2") as GameObject;
-		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;
+        Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
 
+		Player = new Object_Pooling(Player_Prefab, 1, "Player");                        //プレイヤー生成
+		Player_2 = new Object_Pooling(player_2_Prefab, 1, "Player_2");                  //プレイヤー2生成
+		Option = new Object_Pooling(Option_Prefab, 4, "Option");  
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 10, "Player1_Bullet");         //プレイヤーのバレットを生成
 		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 10, "Player2_Bullet");
 		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
 		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
+        Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
 		PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
+
+		DontDestroyOnLoad(Player.Get_Parent_Obj());
+		DontDestroyOnLoad(Player_2.Get_Parent_Obj());
+		DontDestroyOnLoad(Option.Get_Parent_Obj());
+        DontDestroyOnLoad(PlayerBullet.Get_Parent_Obj());
+        DontDestroyOnLoad(Player2Bullet.Get_Parent_Obj());
+        DontDestroyOnLoad(P1_OptionBullet.Get_Parent_Obj());
+        DontDestroyOnLoad(P2_OptionBullet.Get_Parent_Obj());
+        DontDestroyOnLoad(PlayerMissile.Get_Parent_Obj());
+        DontDestroyOnLoad(PlayerMissile2.Get_Parent_Obj());
+        DontDestroyOnLoad( Effects[16].Get_Parent_Obj());
+	}
+
+	private void CreateSceneChangeGos()
+	{
+        #region Playerの弾等
+        //Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
+        //BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet_2P") as GameObject;
+        //BulletPrefab_Option_P1 = Resources.Load("Bullet/Option_Bullet_1P") as GameObject;
+        //BulletPrefab_Option_P2 = Resources.Load("Bullet/Option_Bullet_2P") as GameObject;
+        //Player_Missile1 = Resources.Load("Bullet/Player_Missile") as GameObject;
+        //Player_Missile2 = Resources.Load("Bullet/Player_Missile2") as GameObject;
+        Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;
+
+		//PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 10, "Player1_Bullet");         //プレイヤーのバレットを生成
+		//Player2Bullet = new Object_Pooling(BulletPrefab_P2, 10, "Player2_Bullet");
+		//P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
+		//P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
+		//PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
+		//PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
 		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
 
 		#endregion
@@ -329,7 +355,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");      //隕石の爆発Effect
 				Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");      //ヒトデ型の出現用
 				Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Attachment/A003_2P");      //2Pパワーアップエフェクト
-				Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
+				//Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
 				#endregion
 
 				#region SEのロード
@@ -447,7 +473,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects[13] = new Object_Pooling(Effects_Prefab[13], 10, "Meteor_explosion");                    //隕石爆発Effect
 				Effects[14] = new Object_Pooling(Effects_Prefab[14], 10, "Boss_Bullet2");                    //ボスの弾その２
 				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
+				//Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
 				#endregion
 
 				Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
@@ -543,7 +569,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");      //隕石の爆発Effect
 				Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");      //ヒトデ型の出現用
 				Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Attachment/A003_2P");      //2Pパワーアップエフェクト
-				Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
+				//Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
 				#endregion
 
 				#region SEのロード
@@ -624,7 +650,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
 				Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
 				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
+				//Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
 				#endregion
 
 				#region ステージ2個別ロード
@@ -649,13 +675,27 @@ public class Obj_Storage : MonoBehaviour
 		if (Player == null)
 			return;
 
-		Destroy(Player.Get_Parent_Obj());
+	    Destroy(Player.Get_Parent_Obj());
 		Destroy(Player_2.Get_Parent_Obj());
 		Destroy(Option.Get_Parent_Obj());
+        Destroy(PlayerBullet.Get_Parent_Obj());
+        Destroy(Player2Bullet.Get_Parent_Obj());
+        Destroy(P1_OptionBullet.Get_Parent_Obj());
+        Destroy(P2_OptionBullet.Get_Parent_Obj());
+        Destroy(PlayerMissile.Get_Parent_Obj());
+        Destroy(PlayerMissile2.Get_Parent_Obj());
+        Destroy(Effects[16].Get_Parent_Obj());
+
 
 		Player = null;
 		Player_2 = null;
-		Option = null;
+        Option = null;
+        PlayerBullet = null;
+        Player2Bullet = null;
+        P1_OptionBullet = null;
+        P2_OptionBullet = null;
+        PlayerMissile = null;
+        PlayerMissile2 = null;
 	}
 	//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 
