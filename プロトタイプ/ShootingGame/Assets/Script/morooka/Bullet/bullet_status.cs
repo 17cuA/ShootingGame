@@ -75,7 +75,7 @@ public class bullet_status : MonoBehaviour
 	protected void Update()
 	{
 		// 画面外に出たとき
-		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
+		if (transform.position.x >= 10.5f || transform.position.x <= -10.5f
 			|| transform.position.y >= 6f || transform.position.y <= -6f)
 		{
 			// プレイヤー、ビットンの弾のとき

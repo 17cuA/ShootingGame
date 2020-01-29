@@ -36,18 +36,12 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Star_Fish_Enemy_Prefab;                  //ヒトデ型のエネミーのプレハブ
 	private GameObject Boss_Middle_Prefab;                      //中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;                       //レーザーのプレハブ
-	private GameObject One_Boss_Laser_Prefab;                   //ボス1のレーザープレハブ
 	private GameObject One_Boss_BousndBullet_Prefab;            //ボス1のバウンド弾プレハブ
-	private GameObject Two_Boss_Laser_Prefab;                   //ボス２のレーザープレハブ
 	private GameObject Moai_Prefab;                             //モアイのプレハブ
 	private GameObject Moai_Mini_Group_Prefab;                  //小さいモアイグループのプレハブ
 	private GameObject Moai_Bullet_Prefab;                      //モアイのバレットのプレハブ
 	private GameObject Moai_Eye_Laser_Prefab;                   //モアイの目のレーザーのプレハブ
 	private GameObject Moai_Mouth_Laser_Prefab;                 //モアイの口のレーザーのプレハブ
-	#endregion
-
-	#region ステージ2
-
 	#endregion
 
 	#endregion
@@ -90,9 +84,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
 	public Object_Pooling Laser_Line;
-	public Object_Pooling One_Boss_Laser;
 	public Object_Pooling One_Boss_BousndBullet;
-	public Object_Pooling Two_Boss_Laser;                       //２ボスのレーザー、プーリング
 	public Object_Pooling Moai;                       //モアイ
 	public Object_Pooling Moai_Mini_Group;                       //小さいモアイの群れ
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
@@ -272,8 +264,8 @@ public class Obj_Storage : MonoBehaviour
 		Option = new Object_Pooling(Option_Prefab, 4, "Option");  
 		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 10, "Player1_Bullet");         //プレイヤーのバレットを生成
 		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 10, "Player2_Bullet");
-		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
-		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
+		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 20, "Option_Bullet_1P");
+		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 20, "Option_Bullet_2P");
         Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
 		PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
 		PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
@@ -307,7 +299,7 @@ public class Obj_Storage : MonoBehaviour
 		//P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
 		//PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
 		//PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
-		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
+		PowerUP_Item = new Object_Pooling(Item_Prefab, 12, "PowerUP_Item");
 
 		#endregion
 		switch (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
@@ -328,9 +320,7 @@ public class Obj_Storage : MonoBehaviour
 
 				Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;     //中ボス
 				Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
-				One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 				One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
-				Two_Boss_Laser_Prefab = Resources.Load("Bullet/Two_Boss_Laser") as GameObject;       //２ボスレーザー用のプレハブ修正
 
 				Moai_Prefab = Resources.Load("Boss/Enemy_Moai") as GameObject;          //モアイのロード
 				Moai_Mini_Group_Prefab = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;          //モアイの群れのロード
@@ -348,7 +338,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");      //プレイヤーパワーアップエフェクト
 				Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");       //中ボス爆発
 				Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");       //バグが起きないようにプレイヤーの爆発を仮置き
-				Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Explosion/E011");      //使ってない（仮にはいってるだけ）
+				//Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Explosion/E011");      //使ってない（仮にはいってるだけ）
 				Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");      //戦艦型の爆発
 				Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");      //プレイヤーの弾の着弾時のエフェクト
 				Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");          //ボス登場時のエフェクト
@@ -461,24 +451,22 @@ public class Obj_Storage : MonoBehaviour
 				Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
 				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
 				Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-				Effects[4] = new Object_Pooling(Effects_Prefab[4], 20, "Enemy_explosion");                   //エネミーの死亡時の爆発
+				Effects[4] = new Object_Pooling(Effects_Prefab[4], 41, "Enemy_explosion");                   //エネミーの死亡時の爆発
 				Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
-				Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
+				Effects[6] = new Object_Pooling(Effects_Prefab[6], 8, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
 				Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
 				Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
-				Effects[9] = new Object_Pooling(Effects_Prefab[9], 10, "Enemy_Grain");                       //敵の粒子
 				Effects[10] = new Object_Pooling(Effects_Prefab[10], 2, "Battleship_explosion");            //戦艦の爆発
-				Effects[11] = new Object_Pooling(Effects_Prefab[11], 20, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
+				Effects[11] = new Object_Pooling(Effects_Prefab[11], 86, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
 				Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
-				Effects[13] = new Object_Pooling(Effects_Prefab[13], 10, "Meteor_explosion");                    //隕石爆発Effect
+				Effects[13] = new Object_Pooling(Effects_Prefab[13], 13, "Meteor_explosion");                    //隕石爆発Effect
 				Effects[14] = new Object_Pooling(Effects_Prefab[14], 10, "Boss_Bullet2");                    //ボスの弾その２
-				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				//Effects[16] = new Object_Pooling(Effects_Prefab[16], 8, "Missile_explosion");       // ミサイルの爆発
+				Effects[15] = new Object_Pooling(Effects_Prefab[15], 8, "P2_Powerup");                    //2Pパワーアップエフェクト
 				#endregion
 
 				Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 				Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
-				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
+				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 76, "Enemy_Bullet");          //エネミーのバレットを生成
 				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
 				SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
@@ -490,26 +478,25 @@ public class Obj_Storage : MonoBehaviour
 
 				Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 				Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
-				One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 20, "One_Boss_Laser");
-				One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 20, "One_Boss_BousndBullet");
-				Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab, 20, "Two_Boss_Laser");
+				One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 60, "One_Boss_BousndBullet");
 
 				Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");
-				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 2, "Moai_Mini_Group");
+				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 5, "Moai_Mini_Group");
 				Moai_Bullet = new Object_Pooling(Moai_Bullet_Prefab, 10, "Moai_Prefab");
 				Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 10, "Moai_Eye_Laser");
 				Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 10, "Moai_Mouth_Laser");
 
+				GameObject Balun_0 = new GameObject("---------------------以下雑魚敵---------------------");
+
 				//敵キャラのプーリング化-------------------------------------------------------------------------------
-				enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
-				enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
-				enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
-				enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
-				enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
-				enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
-				//enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
+				enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 2, "enemy_UFO_Group");
+				enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 4, "enemy_UFO_Group_NoneShot");
+				enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 2, "enemy_ClamChowder_Group_Two_Top");
+				enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 2, "enemy_ClamChowder_Group_Two_Under");
+				enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 3, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
+				enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 3, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
 				enemy_ClamChowder_Group_Three = new Object_Pooling(enemy_ClamChowder_Group_Three_prefab, 1, "enemy_ClamChowder_Group_Three");
-				enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
+				enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 2, "enemy_ClamChowder_Group_Three_Item");
 				enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
 				enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
 				enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
@@ -517,8 +504,8 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
 				enemy_ClamChowder_Group_Four_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Four_NoItem_prefab, 1, "enemy_ClamChowder_Group_Four_NoItem");
 				enemy_ClamChowder_Group_Five = new Object_Pooling(enemy_ClamChowder_Group_Five_prefab, 1, "enemy_ClamChowder_Group_Five");
-				enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
-				enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
+				enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 3, "enemy_ClamChowder_Group_Five_NoItem");
+				enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 2, "enemy_ClamChowder_Group_Seven");
 				enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
 				enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_Beelzebub_Group_FourWide");
 				enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_Beelzebub_Group_FourWide_Item");
@@ -537,131 +524,10 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_Group_SixStraight = new Object_Pooling(enemy_ClamChowder_Group_SixStraight_prefab, 2, "enemy_ClamChowder_Group_SixStraight");
 				enemy_ClamChowder_Group_UpSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_UpSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_UpSevenDiagonal");
 				enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
-				enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
+				enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 4, "Enemy_ClamChowder_Group_TenStraight");
 
-				#endregion
-				break;
 
-			case "Stage_02":
-				#region ステージ２
-				#region レギュラーのバレット系
-				Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
-				Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
-
-				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
-				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
-				#endregion
-
-				#region エフェクトのロード
-				Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");    //プレイヤー爆発
-				Effects_Prefab[1] = Resources.Load<GameObject>("Effects/Attachment/A000");      //プレイヤー登場時に使用するジェット噴射
-				Effects_Prefab[2] = Resources.Load<GameObject>("Effects/Attachment/A002");      //プレイヤーのマズルファイア
-				Effects_Prefab[3] = Resources.Load<GameObject>("Effects/Attachment/A006");      //オプション回収用
-				Effects_Prefab[4] = Resources.Load<GameObject>("Effects/Explosion/E100");       //敵キャラの爆発エフェクト
-				Effects_Prefab[5] = Resources.Load<GameObject>("Effects/Explosion/E201");       //敵キャラコアシールドの破壊エフェクト
-				Effects_Prefab[6] = Resources.Load<GameObject>("Effects/Attachment/A003");      //プレイヤーパワーアップエフェクト
-				Effects_Prefab[7] = Resources.Load<GameObject>("Effects/Explosion/E104");       //中ボス爆発
-				Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");       //バグが起きないようにプレイヤーの爆発を仮置き
-				Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Explosion/E011");      //使ってない（仮にはいってるだけ）
-				Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");      //戦艦型の爆発
-				Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");      //プレイヤーの弾の着弾時のエフェクト
-				Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");          //ボス登場時のエフェクト
-				Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");      //隕石の爆発Effect
-				Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");      //ヒトデ型の出現用
-				Effects_Prefab[15] = Resources.Load<GameObject>("Effects/Attachment/A003_2P");      //2Pパワーアップエフェクト
-				//Effects_Prefab[16] = Resources.Load<GameObject>("Effects/Explosion/E011");      //ミサイルの爆発
-				#endregion
-
-				#region SEのロード
-				audio_se[0] = Resources.Load<AudioClip>("Sound/Teacher_SE/bacura_hit");             //バキュラに当たった時の高い音用
-				audio_se[1] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //隕石の爆発音
-				audio_se[2] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_BulletMode_Change");   //ラピッドとバーストの切り替え
-				audio_se[3] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_Scream");               //叫ぶ声
-				audio_se[4] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Player_Bullet");       //プレイヤーバレット音
-				audio_se[5] = Resources.Load<AudioClip>("Sound/Teacher_SE/menesius_cupcel5 t");     //アイテム取得音(バー移動)
-				audio_se[6] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei");   //アイテム使用パワーアップ音(ステータス変化)
-				audio_se[7] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Bullet_Hit");         //コアシールドヒット音
-				audio_se[8] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Small2");    //敵の爆発音
-				audio_se[9] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_Moderate");  //ボスの爆発音
-				audio_se[10] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_OptionCatch2");           //ドロップしたオプションの回収
-				audio_se[11] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_5(Moyai)");           //モアイの爆発
-				audio_se[12] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //ダブルの声使ってない
-				audio_se[13] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //リップルレーザーの声使ってない
-				audio_se[14] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");          //オプションの声使ってない
-				audio_se[15] = Resources.Load<AudioClip>("Sound/SE/manesius_manesius_kettei_neo");     //フォースフィールド（シールド）使ってない
-				audio_se[16] = Resources.Load<AudioClip>("Sound/Teacher_SE/manesius_manesius_kettei_neo");          //パワーアップの音(使用しない)
-				audio_se[17] = Resources.Load<AudioClip>("Sound/Teacher_SE/gradius_SE_Player_Laser");   //レーザーの発射音
-				audio_se[18] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_1(Small)");     //小型爆発
-				audio_se[19] = Resources.Load<AudioClip>("Sound/SE/gradius_SE_Explosion_2(senkan)");    //戦艦タイプの爆発音
-				audio_se[20] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Self_destruction");      //プレイヤーの死亡時の音
-				audio_se[21] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Player_Flight");         //プレイヤー登場の音
-				audio_se[22] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Explosion_3(ModerateBoss)"); //中ボス用の爆発音
-				audio_se[23] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display");         //無線受信時
-				audio_se[24] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Parmanent");   //無線のボイスの裏で流すよう
-				audio_se[25] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_Subtitles_Display_Close");   //無線終了時
-				audio_se[26] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_BOSS_No_Hit");               //ボスのボディにあたった
-				audio_se[27] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_CoreShield_destruction");    //ボスのコアシールドを壊したとき
-				audio_se[28] = Resources.Load<AudioClip>("Sound/SE/MANESIUS_SE_BOSS_Core_Hit");             //ボスのコアに当たった時
-				#endregion
-
-				#region ボイスのロード
-				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
-				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
-				audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
-				audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
-				audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
-				audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
-				audio_voice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
-				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //前半ボス後更新1
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
-				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
-				#endregion
-
-				#region エフェクトのプーリング化
-				Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");                  //プレイヤーの爆発
-				Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
-				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
-				Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-				Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Enemy_explosion");                   //エネミーの死亡時の爆発
-				Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
-				Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
-				Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
-				Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
-				Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");                       //敵の粒子
-				Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
-				Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
-				Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
-				Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
-				Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
-				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				//Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
-				#endregion
-
-				#region ステージ2個別ロード
-				container_prefab = Resources.Load("Enemy/Container") as GameObject;
-				#endregion
-
-				#region ステージ2個別プーリング化
-				// 2020.01.22 諸岡追加----------------------------------------------------------------
-				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
-																						// 2020.01.22 諸岡追加----------------------------------------------------------------
-				#endregion
+				GameObject Balun_1 = new GameObject("---------------------以上雑魚敵---------------------");
 				#endregion
 				break;
 			default:
