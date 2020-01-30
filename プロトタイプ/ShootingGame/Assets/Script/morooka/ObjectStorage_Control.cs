@@ -152,19 +152,19 @@ public class ObjectStorage_Control : MonoBehaviour
 			{
 				if (Tow_Boss_Data.Is_Dead)
 				{
+					//if(Boss_Frame_Cnt == 0)
+					//{
+					//	Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
+					//}
 					if(Boss_Frame_Cnt == 0)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
-					}
-					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
 					}
-					else if(Boss_Frame_Cnt == 2)
+					else if(Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.BattleShipBullet);
 					}
-					else if(Boss_Frame_Cnt == 3)
+					else if(Boss_Frame_Cnt == 2)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.EnemyBullet);
 					}
