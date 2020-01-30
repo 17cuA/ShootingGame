@@ -7,6 +7,14 @@ using UnityEngine;
 
 public class Enemy_Discharge : MonoBehaviour
 {
+	public enum MyDirection
+	{
+		Up,
+		Down,
+		Left,
+		Right,
+	}
+
 	//public enum SetMoveType
 	//{
 	//	LeftCurveUp_90,
@@ -105,6 +113,19 @@ public class Enemy_Discharge : MonoBehaviour
 		//	createDelayCnt = 0;
 		//}
 	}
+
+	public void SetMyDirection(MyDirection direc)
+	{
+		switch(direc)
+		{
+			case MyDirection.Up: transform.rotation = Quaternion.Euler(0, 0, 0); break;
+			case MyDirection.Down: transform.rotation = Quaternion.Euler(0, 0, 180); break;
+			case MyDirection.Left: transform.rotation = Quaternion.Euler(0, 0, 90); break;
+			case MyDirection.Right: transform.rotation = Quaternion.Euler(0, 0, 270); break;
+
+		}
+	}
+
 	//void SetState(SetMoveType setType)
 	//{
 	//	switch(setType)
