@@ -18,6 +18,7 @@ public class CannonBullet : bullet_status
 
     new void Update()
     {
+		base.Update();
 		transform.position -= transform.right.normalized * shot_speed;
     }
 

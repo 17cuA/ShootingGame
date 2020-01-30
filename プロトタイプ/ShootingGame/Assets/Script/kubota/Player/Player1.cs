@@ -82,7 +82,7 @@ public class Player1 : character_status
 	public bool Is_Resporn_End;//オプションが終わったかどうかを見るため
 	//-----------------------------------------------------------------------
 	public ParticleSystem[] effect_mazle_fire = new ParticleSystem[5];  //マズルファイアのエフェクト（unity側の動き）
-	private int effect_num = 0;     //何番目のマズルフラッシュが稼働するかの
+	public int effect_num = 0;     //何番目のマズルフラッシュが稼働するかの
 	private float min_speed;        //初期の速度を保存しておくよう変数
 	//復活時のエフェクト用変数-------------------------------------
 	private int cnt;                        // マテリアルを切り替えるに使用する

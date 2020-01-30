@@ -32,7 +32,7 @@ public class ObjectStorage_Control : MonoBehaviour
 	private bool Is_Direct_End { get; set; }		// 直置きオブジェクトの削除
 	private bool Pooling_End { get; set; }		// プーリングしたものの終了
 
-	private string[] direct_placement = new string[6]
+	private string[] direct_placement = new string[7]
 	{
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
 		"Enemy_ClamChowder_Group_TenStraight(Clone)",
@@ -40,6 +40,7 @@ public class ObjectStorage_Control : MonoBehaviour
 		"Enemy_ClamChowder_Group_DownSevenDiagonal(Clone)",
 		"Enemy_Star_Fish_Spowner(Clone)",
 		"Enemy_ClamChowder_Group_ThreeStraight(Clone)",
+		"BattleshipType_Enemy(Clone)",
 	};
 
 	private List<Object_Pooling> Before_The_Last_Boss { set; get; }	// ラスボス前削除セット
@@ -103,10 +104,6 @@ public class ObjectStorage_Control : MonoBehaviour
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.SmallBeam_Bullet_E);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.UfoType_Enemy);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.ClamChowderType_Enemy);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BeelzebubType_Enemy);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BattleShipType_Enemy);
 				//----------------------------- エネミーセット ---------------------------------------
 			}
 			else
