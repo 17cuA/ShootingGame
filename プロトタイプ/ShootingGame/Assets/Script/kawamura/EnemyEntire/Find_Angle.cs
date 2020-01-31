@@ -20,7 +20,7 @@ public class Find_Angle : MonoBehaviour
 	public float player2_DefPosTotal;
 
 	public bool imasuyo = false;
-	public bool isPlayer1Active=true;
+	public bool isPlayer1Active = true;
 	public bool isPlayer2Active = true;
 	public bool isAimForPlayer1 = true;
 	public bool isAimForPlayer2 = false;
@@ -63,7 +63,7 @@ public class Find_Angle : MonoBehaviour
 				}
 			}
 		}
-		if(player2Obj)
+		if (player2Obj)
 		{
 			if (isPlayer2Active)
 			{
@@ -85,23 +85,42 @@ public class Find_Angle : MonoBehaviour
 		//二人プレイのとき狙いを変える
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
-			//プレイヤー1がプレイヤー2より遠いとき
-			if (player1_DefPosTotal > player2_DefPosTotal)
+			//どちらのプレイヤーも生きているとき
+			if (isPlayer1Active && isPlayer2Active)
 			{
-				//近い方であるプレイヤー2を狙う
+				//2つのプレイヤーの距離を見て狙いを変える
+				//プレイヤー1がプレイヤー2より遠いとき
+				if (player1_DefPosTotal > player2_DefPosTotal)
+				{
+					//近い方であるプレイヤー2を狙う
+					isAimForPlayer1 = false;
+					isAimForPlayer2 = true;
+				}
+				//プレイヤー2がプレイヤー1より遠いとき
+				else if (player2_DefPosTotal > player1_DefPosTotal)
+				{
+					//近い方であるプレイヤー1を狙う
+					isAimForPlayer1 = true;
+					isAimForPlayer2 = false;
+				}
+			}
+			//プレイヤー１が死んでいたら
+			else if (!isPlayer1Active)
+			{
+				//狙いをPlayer2に
 				isAimForPlayer1 = false;
 				isAimForPlayer2 = true;
 			}
-			//プレイヤー2がプレイヤー1より遠いとき
-			else if (player2_DefPosTotal > player1_DefPosTotal)
+			//プレイヤー2が死んでいたら
+			else if (!isAimForPlayer2)
 			{
-				//近い方であるプレイヤー1を狙う
+				//狙いをプレイヤー1に
 				isAimForPlayer1 = true;
 				isAimForPlayer2 = false;
 			}
 		}
 		//一人プレイのときはプレイヤー1を狙う
-		else if(Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+		else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
 		{
 			isAimForPlayer1 = true;
 		}
@@ -133,12 +152,12 @@ public class Find_Angle : MonoBehaviour
 	//角度を求める関数
 	void DegreeCalculation()
 	{
-		if(isAimForPlayer1)
+		if (isAimForPlayer1)
 		{
 			//座標の差を入れる
 			dif = playerPos - myPos;
 		}
-		else if(isAimForPlayer2)
+		else if (isAimForPlayer2)
 		{
 			dif = player2Pos - myPos;
 		}
