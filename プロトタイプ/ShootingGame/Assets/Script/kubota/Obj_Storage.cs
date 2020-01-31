@@ -236,6 +236,23 @@ public class Obj_Storage : MonoBehaviour
 				DeleteOnceGos();
 			}
 		}
+
+
+		if (to.name == "GameClear")
+		{
+			if (Player != null)
+			{
+				DeleteOnceGos();
+			}
+		}
+
+		if (to.name == "Caution")
+		{
+			if (Player != null)
+			{
+				DeleteOnceGos();
+			}
+		}
 	}
 
 	private void CreateOnceGos()
