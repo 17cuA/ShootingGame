@@ -15,6 +15,7 @@ public class Final_Boss : MonoBehaviour
 	private float moveTimer;
 	private Vector3 startMovePos;
 	[SerializeField] private bool isMove = false;
+	[SerializeField] private bool isFindPlayer = false;
 
 
 	private void Awake()
@@ -29,26 +30,35 @@ public class Final_Boss : MonoBehaviour
 			var cols = Physics.OverlapSphere(this.transform.position, focusRadius, 1 << LayerMask.NameToLayer("Player"));
 			if (cols != null)
 			{
+				var findCut = 0;
 				for (var i = 0; i < cols.Length; ++i)
 				{
 					if (cols[i].name == "Player")
 					{
 						focusOnPosQueue.Enqueue(cols[i].transform.position);
-						Debug.Log(cols[i].transform.position);
+						isFindPlayer = true;
 					}
+					else
+						findCut++;
+				}
+				if(findCut == cols.Length)
+				{
+					isFindPlayer = false;
 				}
 			}
-			else
+
+			if(!isFindPlayer)
 			{
 				var target = GameObject.Find("Player");
-				if(target != null)
+				if (target != null)
 				{
 					var angle = Vector3.Angle(Vector3.right, target.transform.position - this.transform.position);
 					Vector3 newFocusOnPos = Vector3.zero;
+					if ((target.transform.position - this.transform.position).y < 0)
+						angle = 360 - angle;
 					newFocusOnPos.x = transform.position.x + focusRadius * Mathf.Cos(angle * Mathf.Deg2Rad);
 					newFocusOnPos.y = transform.position.y + focusRadius * Mathf.Sin(angle * Mathf.Deg2Rad);
 					focusOnPosQueue.Enqueue(newFocusOnPos);
-					Debug.Log(newFocusOnPos);
 				}
 			}
 			timer = 0f;
