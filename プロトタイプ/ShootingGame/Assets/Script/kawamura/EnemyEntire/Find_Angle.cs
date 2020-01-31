@@ -85,17 +85,36 @@ public class Find_Angle : MonoBehaviour
 		//二人プレイのとき狙いを変える
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 		{
-			//プレイヤー1がプレイヤー2より遠いとき
-			if (player1_DefPosTotal > player2_DefPosTotal)
+			//どちらのプレイヤーも生きているとき
+			if (isPlayer1Active && isPlayer2Active)
 			{
-				//近い方であるプレイヤー2を狙う
+				//2つのプレイヤーの距離を見て狙いを変える
+				//プレイヤー1がプレイヤー2より遠いとき
+				if (player1_DefPosTotal > player2_DefPosTotal)
+				{
+					//近い方であるプレイヤー2を狙う
+					isAimForPlayer1 = false;
+					isAimForPlayer2 = true;
+				}
+				//プレイヤー2がプレイヤー1より遠いとき
+				else if (player2_DefPosTotal > player1_DefPosTotal)
+				{
+					//近い方であるプレイヤー1を狙う
+					isAimForPlayer1 = true;
+					isAimForPlayer2 = false;
+				}
+			}
+			//プレイヤー１が死んでいたら
+			else if (!isPlayer1Active)
+			{
+				//狙いをPlayer2に
 				isAimForPlayer1 = false;
 				isAimForPlayer2 = true;
 			}
-			//プレイヤー2がプレイヤー1より遠いとき
-			else if (player2_DefPosTotal > player1_DefPosTotal)
+			//プレイヤー2が死んでいたら
+			else if (!isAimForPlayer2)
 			{
-				//近い方であるプレイヤー1を狙う
+				//狙いをプレイヤー1に
 				isAimForPlayer1 = true;
 				isAimForPlayer2 = false;
 			}
