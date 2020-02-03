@@ -8,10 +8,11 @@ using UnityEngine;
 public class EnemyCreate_TimeLine : MonoBehaviour
 {
 	public GameObject dischargeObj;
+	public GameObject followGroundObj;
 	public GameObject saveObj;
-	public GameObject saveObj2;
 	public GameObject mapObj;
 	public Enemy_Discharge saveDischarge_Script;
+	public FollowGround3 saveFollowGrownd_Script;
 
 	public enum CreateEnemyType
 	{
@@ -26,6 +27,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		Discharge_Down_Right180,						//排出右向き180度カーブした
 		Discharge_UpAndDown_LeftCurve90,		//排出上下左カーブ
 		Discharge_UpAndDown_RightCurve90,	//排出上下右カーブ
+		FollowGround_Left,
+		FollowGround_Right,
 	}
 
 	public enum CreatePos
@@ -72,6 +75,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	void ResouceUpload()
 	{
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
+		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
 	}
 
 	void CreatePosUpload()
@@ -142,6 +146,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				//上下右カーブ
 				case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
 					enemyInformation[i].enemyName = "上下右カーブ";
+					break;
+
+				//上下右カーブ
+				case CreateEnemyType.FollowGround_Left:
+					enemyInformation[i].enemyName = "地面に沿う敵左進み";
+					break;
+
+				//上下右カーブ
+				case CreateEnemyType.FollowGround_Right:
+					enemyInformation[i].enemyName = "地面に沿う敵右進み";
 					break;
 
 				default:
@@ -313,6 +327,29 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				saveObj = null;
 				saveDischarge_Script = null;
 				createNum++;
+				break;
+
+			case CreateEnemyType.FollowGround_Left:
+				saveObj = Instantiate(followGroundObj, pos, transform.rotation);
+				//saveObj.transform.parent = mapObj.transform;
+				saveFollowGrownd_Script = saveObj.GetComponent<FollowGround3>();
+				saveFollowGrownd_Script.SetDirection(FollowGround3.DirectionState.Left);
+
+				saveObj = null;
+				saveFollowGrownd_Script = null;
+				createNum++;
+				break;
+
+			case CreateEnemyType.FollowGround_Right:
+				saveObj = Instantiate(followGroundObj, pos, transform.rotation);
+				//saveObj.transform.parent = mapObj.transform;
+				saveFollowGrownd_Script = saveObj.GetComponent<FollowGround3>();
+				saveFollowGrownd_Script.SetDirection(FollowGround3.DirectionState.Right);
+
+				saveObj = null;
+				saveFollowGrownd_Script = null;
+				createNum++;
+
 				break;
 
 			default:

@@ -125,6 +125,12 @@ public class FollowGround3 : MonoBehaviour
 	}
 
 	//----------------ここから関数----------------
+
+	public void SetDirection(DirectionState direc)
+	{
+		direcState = direc;
+	}
+
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		cccc = true;
