@@ -16,15 +16,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public enum CreateEnemyType
 	{
 		None,
-		Discharge_LeftCurveUp90,                    //排出の上向き左90度カープ
-		Discharge_RightCurveUp90,               //排出の上向き右90度カープ
-		Discharge_LeftCurveDown90,          //排出の上向き左90度カープ
-		Discharge_RightCurveDown90,			//排出の上向き右90度カープ
-		Discharge_Up_Left180,				//排出左向き
-		Discharge_Up_Right180,				//
-		Discharge_Down_Left180,			//
-		Discharge_Down_Right180,			//
-		Discharge_UpAndDown,				//
+		Discharge_LeftCurveUp90,						 //排出の上向き左90度カープ
+		Discharge_RightCurveUp90,					//排出の上向き右90度カープ
+		Discharge_LeftCurveDown90,					//排出の下向き左90度カープ
+		Discharge_RightCurveDown90,				//排出の下向き右90度カープ
+		Discharge_Up_Left180,							//排出左向き180度カーブ上
+		Discharge_Down_Left180,						//排出左向き180度カーブ下
+		Discharge_Up_Right180,							//排出右向き180度カーブ上
+		Discharge_Down_Right180,						//排出右向き180度カーブした
+		Discharge_UpAndDown_LeftCurve90,		//排出上下左カーブ
+		Discharge_UpAndDown_RightCurve90,	//排出上下右カーブ
 	}
 
 	public enum CreatePos
@@ -43,6 +44,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		public string enemyName;
 		public CreateEnemyType enemyType;
 		public CreatePos createPos;
+		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
 		public Vector3 manualVector;					//手打ちで出したい位置を入力できる
 	}
 
@@ -57,7 +59,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 		ResouceUpload();
 		CreatePosUpload();
-
+		EnemyNameSet();
 		createNum = 1;
 		
     }
@@ -79,6 +81,77 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	}
 
+	void EnemyNameSet()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			switch(enemyInformation[i].enemyType)
+			{
+				//なし
+				case CreateEnemyType.None:
+					enemyInformation[i].enemyName = "なし";
+					break;
+
+				//上向き90度左カーブ
+				case CreateEnemyType.Discharge_LeftCurveUp90:
+					enemyInformation[i].enemyName = "上向き90度左カーブ";
+
+					break;
+
+				//上向き90度右カーブ
+				case CreateEnemyType.Discharge_RightCurveUp90:
+					enemyInformation[i].enemyName = "上向き90度右カーブ";
+					break;
+
+				//下向き90度左カーブ
+				case CreateEnemyType.Discharge_LeftCurveDown90:
+					enemyInformation[i].enemyName = "下向き90度左カーブ";
+					break;
+
+				//下向き90度右カーブ
+				case CreateEnemyType.Discharge_RightCurveDown90:
+					enemyInformation[i].enemyName = "下向き90度右カーブ";
+					break;
+
+				//左向き180度カーブ上
+				case CreateEnemyType.Discharge_Up_Left180:
+					enemyInformation[i].enemyName = "左向き180度カーブ上";
+
+					break;
+
+				//左向き180度カーブ下
+				case CreateEnemyType.Discharge_Down_Left180:
+					enemyInformation[i].enemyName = "左向き180度カーブ下";
+					break;
+
+				//右向き180度カーブ上
+				case CreateEnemyType.Discharge_Up_Right180:
+					enemyInformation[i].enemyName = "右向き180度カーブ上";
+					break;
+
+				//右向き180度カーブ下
+				case CreateEnemyType.Discharge_Down_Right180:
+					enemyInformation[i].enemyName = "右向き180度カーブ下";
+					break;
+
+				//上下左カーブ
+				case CreateEnemyType.Discharge_UpAndDown_LeftCurve90:
+					enemyInformation[i].enemyName = "上下左カーブ";
+					break;
+
+				//上下右カーブ
+				case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
+					enemyInformation[i].enemyName = "上下右カーブ";
+					break;
+
+				default:
+					enemyInformation[i].enemyName = "不明";
+					break;
+
+			}
+		}
+	}
+
 	public void EnemyCreate()
 	{
 		Vector3 pos = Vector3.zero;
@@ -93,11 +166,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 		switch(enemyInformation[createNum].enemyType)
 		{
+			//なし
 			case CreateEnemyType.None:
 				createNum++;
 				break;
 
+			//上向き90度左カーブ
 			case CreateEnemyType.Discharge_LeftCurveUp90:
+
 				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
 				saveObj.transform.parent = mapObj.transform;
 				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
@@ -109,6 +185,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//上向き90度右カーブ
 			case CreateEnemyType.Discharge_RightCurveUp90:
 				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
 				saveObj.transform.parent = mapObj.transform;
@@ -121,6 +198,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//下向き90度左カーブ
 			case CreateEnemyType.Discharge_LeftCurveDown90:
 				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
 				saveObj.transform.parent = mapObj.transform;
@@ -133,6 +211,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//下向き90度右カーブ
 			case CreateEnemyType.Discharge_RightCurveDown90:
 				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
 				saveObj.transform.parent = mapObj.transform;
@@ -145,6 +224,99 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//左向き180度カーブ上
+			case CreateEnemyType.Discharge_Up_Left180:
+				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Left);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCueveUp_180;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+
+				break;
+
+			//左向き180度カーブ下
+			case CreateEnemyType.Discharge_Down_Left180:
+				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Left);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCueveDown_180;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+				break;
+
+			//右向き180度カーブ上
+			case CreateEnemyType.Discharge_Up_Right180:
+				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Right);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.LeftCueveUp_180;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+				break;
+
+			//右向き180度カーブ下
+			case CreateEnemyType.Discharge_Down_Right180:
+				saveObj = Instantiate(dischargeObj, pos, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Right);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.LeftCueveDown_180;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+				break;
+
+			//上下左カーブ
+			case CreateEnemyType.Discharge_UpAndDown_LeftCurve90:
+				saveObj = Instantiate(dischargeObj, dischargePos_Under.position, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Up);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.LeftCurveUp_90;
+
+				saveObj = Instantiate(dischargeObj, dischargePos_Top.position, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Down);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.LeftCurveDown_90;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+				break;
+
+			//上下右カーブ
+			case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
+				saveObj = Instantiate(dischargeObj, dischargePos_Under.position, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Up);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCurveUp_90;
+
+				saveObj = Instantiate(dischargeObj, dischargePos_Top.position, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Down);
+				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCurveDown_90;
+
+				saveObj = null;
+				saveDischarge_Script = null;
+				createNum++;
+				break;
+
+			default:
+				break;
 		}
 	}
 }
