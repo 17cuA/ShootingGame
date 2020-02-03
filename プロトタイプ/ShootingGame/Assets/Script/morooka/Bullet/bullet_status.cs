@@ -16,9 +16,8 @@ public class bullet_status : MonoBehaviour
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
 	[SerializeField]
-	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
-    public Player1 P1 { get; private set; }		// プレイヤー1の情報
-    public Player2 P2 { get; private set; }		// プレイヤー2の情報
+    public Player1 P1 { get; set; }		// プレイヤー1の情報
+    public Player2 P2 { get; set; }		// プレイヤー2の情報
     public Bit_Shot bShot { get; set; }			// ビットンの情報
 	public int Player_Number { get; set; }		// どのプレイヤーの弾か
 
@@ -42,7 +41,6 @@ public class bullet_status : MonoBehaviour
 	}
 	protected void Start()
 	{
-		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
 
 		switch (Bullet_Type)
