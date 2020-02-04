@@ -5,26 +5,24 @@ using UnityEngine;
 public class BulletOperation : MonoBehaviour
 {
 	private List<Player_Bullet> PlayerBullet;
-	private List<Enemy_Bullet> EnemyBullet;
-	private List<Beam_Bullet> BeamBullet;
-	private List<CannonBullet> CannonBullet;
+	private List<bullet_status> OperationTarget;
 
 	void Start()
     {
 		#region リストに追加
 		PlayerBullet = new List<Player_Bullet>();
-		EnemyBullet = new List<Enemy_Bullet>();
-		BeamBullet = new List<Beam_Bullet>();
-		CannonBullet = new List<CannonBullet>();
+		OperationTarget = new List<bullet_status>();
 
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
-		EnemyBullet.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
-		BeamBullet.AddRange(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetComponentsInChildren<Beam_Bullet>(true));
-		CannonBullet.AddRange(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetComponentsInChildren<CannonBullet>(true));
+
+		OperationTarget.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
+		OperationTarget.AddRange(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetComponentsInChildren<Beam_Bullet>(true));
+		OperationTarget.AddRange(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetComponentsInChildren<CannonBullet>(true));
 		#endregion
+		
 		#region プレイヤーの弾
 		foreach (var Bullet in PlayerBullet)
 		{
@@ -55,17 +53,14 @@ public class BulletOperation : MonoBehaviour
 			Bullet.transform.gameObject.tag = "Player_Bullet";
 		}
 		#endregion
-		#region エネミーの弾
-		foreach(var Bullet in EnemyBullet)
-		{
-			Bullet.gameObject.tag = "Enemy_Bullet";
-		}
-		#endregion
 	}
 
 	void Update()
 	{
-		// プレイヤー弾のupdate
+		// 使用中弾リスト
+		var useBulletList = new List<bullet_status>();
+
+		// プレイヤー弾の画面外処理
 		foreach (var Bullet in PlayerBullet)
 		{
 			if (Bullet.transform.gameObject.activeSelf)
@@ -96,11 +91,13 @@ public class BulletOperation : MonoBehaviour
 					continue;
 				}
 
-				Vector3 temp_Pos = Bullet.transform.right.normalized * Bullet.shot_speed;
-				Bullet.transform.position += temp_Pos;
+				// 使用中弾リストに追加
+				useBulletList.Add(Bullet);
 			}
 		}
-		foreach (var Bullet in EnemyBullet)
+
+		// その他弾の画面外処理
+		foreach (var Bullet in OperationTarget)
 		{
 			if (Bullet.transform.gameObject.activeSelf)
 			{
@@ -112,6 +109,17 @@ public class BulletOperation : MonoBehaviour
 					Bullet.gameObject.SetActive(false);
 					continue;
 				}
+
+				// 使用中弾リストに追加
+				useBulletList.Add(Bullet);
+			}
+		}
+
+		// 使用中の弾の移動
+		foreach(var Bullet in useBulletList)
+		{
+			if (Bullet.transform.gameObject.activeSelf)
+			{
 				Vector3 temp_Pos = Bullet.transform.right.normalized * Bullet.shot_speed;
 				Bullet.transform.position += temp_Pos;
 			}

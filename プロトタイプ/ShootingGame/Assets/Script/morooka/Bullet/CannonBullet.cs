@@ -11,17 +11,6 @@ using UnityEngine;
 public class CannonBullet : bullet_status
 {
 	public GameObject Person_Who_Shot { get; set; }		// 撃った大砲の情報
-	new void Start()
-    {
-		base.Start();
-    }
-
-    new void Update()
-    {
-		base.Update();
-		transform.position -= transform.right.normalized * shot_speed;
-    }
-
 	new private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject != Person_Who_Shot)
