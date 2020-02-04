@@ -51,11 +51,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		public Vector3 manualVector;					//手打ちで出したい位置を入力できる
 	}
 
+	public int createNum;                   //次に出す順番の数
+	public string nextGroupName;        //次に出す敵の名前
+
 	[Header("配列の[１]番目から出します")]
 	public EnemyInformation[] enemyInformation;
 
-	public int createNum;					//次に出す順番の数
-	public string nextGroupName;		//次に出す敵の名前
 
 	void Start()
     {
@@ -349,11 +350,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				saveObj = null;
 				saveFollowGrownd_Script = null;
 				createNum++;
-
 				break;
 
 			default:
 				break;
 		}
+
+		nextGroupName = enemyInformation[createNum].enemyName;
 	}
 }
