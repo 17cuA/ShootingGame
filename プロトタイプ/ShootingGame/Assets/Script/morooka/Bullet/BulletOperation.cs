@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class BulletOperation : MonoBehaviour
 {
+	static public BulletOperation BP { get; set; }
+
 	private List<Player_Bullet> PlayerBullet;
 	private List<bullet_status> OperationTarget;
 
+	private int BulletMax_Enemy_Bullet;
+	private int BulletMax_Beam_Bullet;
+	private int BulletMax_CannonBullet;
+
 	void Start()
     {
+		BP = GetComponent<BulletOperation>();
+
 		#region リストに追加
 		PlayerBullet = new List<Player_Bullet>();
 		OperationTarget = new List<bullet_status>();
@@ -21,8 +29,12 @@ public class BulletOperation : MonoBehaviour
 		OperationTarget.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
 		OperationTarget.AddRange(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetComponentsInChildren<Beam_Bullet>(true));
 		OperationTarget.AddRange(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetComponentsInChildren<CannonBullet>(true));
+
+		BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
+		BulletMax_Beam_Bullet = Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount;
+		BulletMax_CannonBullet = Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount;
 		#endregion
-		
+
 		#region プレイヤーの弾
 		foreach (var Bullet in PlayerBullet)
 		{
@@ -88,11 +100,12 @@ public class BulletOperation : MonoBehaviour
 					}
 					// 非アクティブ化
 					Bullet.gameObject.SetActive(false);
-					continue;
 				}
-
-				// 使用中弾リストに追加
-				useBulletList.Add(Bullet);
+				else
+				{
+					// 使用中弾リストに追加
+					useBulletList.Add(Bullet);
+				}
 			}
 		}
 
@@ -107,11 +120,12 @@ public class BulletOperation : MonoBehaviour
 				{
 					// 非アクティブ化
 					Bullet.gameObject.SetActive(false);
-					continue;
 				}
-
-				// 使用中弾リストに追加
-				useBulletList.Add(Bullet);
+				else
+				{
+					// 使用中弾リストに追加
+					useBulletList.Add(Bullet);
+				}
 			}
 		}
 
@@ -123,6 +137,39 @@ public class BulletOperation : MonoBehaviour
 				Vector3 temp_Pos = Bullet.transform.right.normalized * Bullet.shot_speed;
 				Bullet.transform.position += temp_Pos;
 			}
+		}
+
+		if (OperationTarget.Count < BulletMax_Enemy_Bullet+ BulletMax_Beam_Bullet+ BulletMax_CannonBullet) return;
+
+		if(BulletMax_Enemy_Bullet > Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount)
+		{
+			for(int i = BulletMax_Enemy_Bullet; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
+			{
+				OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
+			}
+		}
+		if(BulletMax_Beam_Bullet > Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount)
+		{
+			for(int i = BulletMax_Beam_Bullet; i < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount; i++)
+			{
+				OperationTarget.Add(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
+			}
+		}
+		if(BulletMax_CannonBullet > Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount)
+		{
+			for(int i = BulletMax_CannonBullet; i < Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount; i++)
+			{
+				OperationTarget.Add(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
+			}
+		}
+	}
+
+	 public void DuplicateRemoval_OperationTarget(ref Object_Pooling poo)
+	{
+		var obj = poo.Get_Parent_Obj();
+		foreach(var State in obj.transform.GetComponentsInChildren<bullet_status>(true))
+		{
+			OperationTarget.Remove(State);
 		}
 	}
 }

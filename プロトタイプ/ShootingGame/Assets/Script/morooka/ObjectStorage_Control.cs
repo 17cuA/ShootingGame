@@ -155,14 +155,17 @@ public class ObjectStorage_Control : MonoBehaviour
 					//}
 					if(Boss_Frame_Cnt == 0)
 					{
+						BulletOperation.BP.DuplicateRemoval_OperationTarget(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
 					}
 					else if(Boss_Frame_Cnt == 1)
 					{
+						BulletOperation.BP.DuplicateRemoval_OperationTarget(ref Obj_Storage.Storage_Data.BattleShipBullet);
 						Des_Obj_B(ref Obj_Storage.Storage_Data.BattleShipBullet);
 					}
 					else if(Boss_Frame_Cnt == 2)
 					{
+						BulletOperation.BP.DuplicateRemoval_OperationTarget(ref Obj_Storage.Storage_Data.EnemyBullet);
 						Des_Obj_B(ref Obj_Storage.Storage_Data.EnemyBullet);
 					}
 				}
