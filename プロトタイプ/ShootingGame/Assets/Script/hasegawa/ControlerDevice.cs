@@ -130,7 +130,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		return _GetButton(_instance, judgButton) || Input.GetButton(buttonName);
+		if (Input.GetButton(buttonName)) { return true; }
+		if (_GetButton(_instance, judgButton)) { return true; }
+		return false;
 	}
 	public static bool GetButton(eCode judgButton = eCode.ePad_None, ePadNumber padNumber = ePadNumber.eNone)
 	{
@@ -140,9 +142,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		bool unko = _GetButton(_instance, (int)judgButton);
-		unko = Input.GetButton(buttonName);
-		return _GetButton(_instance, (int)judgButton) || Input.GetButton(buttonName);
+		if (Input.GetButton(buttonName)) { return true; }
+		if (_GetButton(_instance, (int)judgButton)) { return true; }
+		return false;
 	}
 
 	// 指定したボタンが押されたかの判定
@@ -154,7 +156,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		return _GetButtonDown(_instance, judgButton) || Input.GetButtonDown(buttonName);
+		if (Input.GetButtonDown(buttonName)) { return true; }
+		if (_GetButtonDown(_instance, judgButton)) { return true; }
+		return false;
 	}
 	public static bool GetButtonDown(eCode judgButton = eCode.ePad_None, ePadNumber padNumber = ePadNumber.eNone)
 	{
@@ -164,7 +168,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		return _GetButtonDown(_instance, (int)judgButton) || Input.GetButtonDown(buttonName);
+		if (Input.GetButtonDown(buttonName)) { return true; }
+		if (_GetButtonDown(_instance, (int)judgButton)) { return true; }
+		return false;
 	}
 
 	// 指定したボタンが放されたかの判定
@@ -176,7 +182,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		return _GetButtonUp(_instance, judgButton) || Input.GetButtonUp(buttonName);
+		if (Input.GetButtonUp(buttonName)) { return true; }
+		if (_GetButtonUp(_instance, judgButton)) { return true; }
+		return false;
 	}
 	public static bool GetButtonUp(eCode judgButton = eCode.ePad_None, ePadNumber padNumber = ePadNumber.eNone)
 	{
@@ -186,7 +194,9 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		return _GetButtonUp(_instance, (int)judgButton) || Input.GetButtonUp(buttonName);
+		if (Input.GetButtonUp(buttonName)) { return true; }
+		if (_GetButtonUp(_instance, (int)judgButton)) { return true; }
+		return false;
 	}
 
 	// 左トリガーの判定
@@ -219,7 +229,6 @@ public static class ControlerDevice
 			return new Vector2(0.0f, 0.0f);
 		}
 		GetGamePadState((long)padNumber);
-		Input.GetAxis("unchi");
 		return _GetLeftAxis(_instance);
 	}
 

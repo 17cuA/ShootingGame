@@ -24,8 +24,8 @@ public class InputManager
 	Dictionary<string, eCode> settingButtonNameMap = new Dictionary<string, eCode>();									// ボタンの再設定をするときの一時変数
 	int settingButtonNum = 0;                                                                                           // 設定しているボタンの要素番号
 	eCode previousInputButtonName = eCode.ePad_None;																				// 前フレームに入力を受けていたボタンの名前
-	public Dictionary<string, string> Button { get { return old_reflectButtonNameMap; } }
-	public Dictionary<string, eCode> newButton { get { return reflectButtonNameMap; } }
+	public Dictionary<string, string> oldButton { get { return old_reflectButtonNameMap; } }
+	public Dictionary<string, eCode> Button { get { return reflectButtonNameMap; } }
 	[SerializeField, Tooltip("設定時に表示するフォント")] Font textFont;													// 設定時に表示するテキストのフォント
 	[SerializeField, Tooltip("表示するフォントのX座標")] float textPositionX = 0;											// 表示するテキストのx座標
 	Text inputInfoText;
