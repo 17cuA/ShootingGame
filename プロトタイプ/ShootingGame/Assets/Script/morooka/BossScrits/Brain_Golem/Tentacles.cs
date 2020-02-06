@@ -5,6 +5,7 @@
 // 触手の基底クラス
 //----------------------------------------------------------------------------------------------
 // 2020/01/22　アニメーションの再生、再生時間、再生順序の設定
+// 2020/02/06　本体への追従
 //----------------------------------------------------------------------------------------------
 
 using System.Collections;
@@ -28,6 +29,7 @@ public class Tentacles : MonoBehaviour
 	[SerializeField, Tooltip("Aの待機状態の維持時間")] private float aWaitTime;
 	[SerializeField, Tooltip("Bの待機状態の維持時間")] private float bWaitTime;
 	[SerializeField, Tooltip("ボーンの先頭")] private GameObject bone;
+	[SerializeField, Tooltip("追従したいオブジェクト")] private GameObject parent_Obj;
 
 	protected Animation A_Animation { get; set; }				// アニメーションアセット
 	protected List<string> AnimName { get; set; }				// アニメーションの名前
@@ -64,6 +66,11 @@ public class Tentacles : MonoBehaviour
 		}
 		NowTarget = Player1;
 		Is_Attack = false;
+
+		if (parent_Obj != null)
+		{
+			transform.parent.parent = parent_Obj.transform;
+		}
 	}
 
 	protected void Update()
@@ -92,6 +99,12 @@ public class Tentacles : MonoBehaviour
 			{
 				ChangeAnimation(Action.eB_WAIT);
 			}
+		}
+
+		if (parent_Obj != null)
+		{
+			var temp = VectorChange_3To2(transform.parent.position - Vector3.zero);
+			transform.parent.right = temp;
 		}
 	}
 

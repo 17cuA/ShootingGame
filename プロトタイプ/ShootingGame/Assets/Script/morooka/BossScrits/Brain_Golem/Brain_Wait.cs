@@ -22,6 +22,8 @@ public class Brain_Wait : character_status
 
 	private bool Is_Laser { get; set; }
 	protected int ActionStep { get; set; }                              // 攻撃手順指示番号
+	private float DeathTime_Cnt { get; set; }		// 死ぬ時間カウンター
+	private float DeathTime_Max { get; set; }		// 死ぬ時間
 
 	new private void Start()
     {
@@ -30,12 +32,21 @@ public class Brain_Wait : character_status
 			obj.gameObject.SetActive(false);
 		}
 		Is_Active = false;
+		Is_Laser = false;
 		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
 		ActionStep = 0;
 	}
 
     new private void Update()
     {
+		#region 自動死亡時間
+		DeathTime_Cnt += Time.deltaTime;
+		if (DeathTime_Max < DeathTime_Cnt)
+		{
+			waitLoopTrigger.Trigger = true;
+		}
+		#endregion
+
 		#region 起動状態(仮)確認
 		if (!Is_Active)
 		{
@@ -70,7 +81,10 @@ public class Brain_Wait : character_status
 			// パーティクル終了時
 			else if (ActionStep == 1)
 			{
-				ActionStep++;
+				if (!FaceAnimation.IsPlaying("Open"))
+				{
+					ActionStep++;
+				}
 			}
 			// 口閉じる
 			else if (ActionStep == 2)
@@ -80,7 +94,7 @@ public class Brain_Wait : character_status
 			}
 			else if (ActionStep == 3)
 			{
-				if (FaceAnimation.IsPlaying("Close"))
+				if (!FaceAnimation.IsPlaying("Close"))
 				{
 					ActionStep = 0;
 					Is_Laser = false;
