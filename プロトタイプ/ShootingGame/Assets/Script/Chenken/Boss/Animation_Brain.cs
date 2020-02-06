@@ -45,7 +45,7 @@ public class Animation_Brain : MonoBehaviour
 		intervalScaleMax = this.transform.localScale.x;
 		intervalScaleMin = intervalScaleMax * intervalWaveScaleIndex;
 
-		this.transform.localScale = new Vector3(waveScaleMin, waveScaleMin, waveScaleMin);
+		this.transform.localScale = new Vector3(waveScaleMin, this.transform.localScale.y, this.transform.localScale.z);
 	}
 
 	private void Update()
@@ -55,10 +55,8 @@ public class Animation_Brain : MonoBehaviour
 			if (startWaveTimer <= startWaveTime)
 			{
 				var x = Mathf.Lerp(waveScaleMin, intervalScaleMin, startWaveTimer / startWaveTime);
-				var y = Mathf.Lerp(waveScaleMin, intervalScaleMin, startWaveTimer / startWaveTime);
-				var z = Mathf.Lerp(waveScaleMin, intervalScaleMin, startWaveTimer / startWaveTime);
 
-				this.transform.localScale = new Vector3(x, y, z);
+				this.transform.localScale = new Vector3(x, this.transform.localScale.y, this.transform.localScale.z);
 				startWaveTimer += Time.deltaTime;
 			}
 			else
@@ -68,10 +66,8 @@ public class Animation_Brain : MonoBehaviour
 					if (waveIntervalTimer <= waveInterval)
 					{
 						var x = Mathf.Lerp(intervalScaleMin, intervalScaleMax, waveIntervalTimer / waveInterval);
-						var y = Mathf.Lerp(intervalScaleMin, intervalScaleMax, waveIntervalTimer / waveInterval);
-						var z = Mathf.Lerp(intervalScaleMin, intervalScaleMax, waveIntervalTimer / waveInterval);
 
-						this.transform.localScale = new Vector3(x, y, z);
+						this.transform.localScale = new Vector3(x, this.transform.localScale.y, this.transform.localScale.z);
 						waveIntervalTimer += Time.deltaTime;
 					}
 					else
@@ -86,10 +82,8 @@ public class Animation_Brain : MonoBehaviour
 					if (waveIntervalTimer <= waveInterval)
 					{
 						var x = Mathf.Lerp(intervalScaleMax, intervalScaleMin, waveIntervalTimer / waveInterval);
-						var y = Mathf.Lerp(intervalScaleMax, intervalScaleMin, waveIntervalTimer / waveInterval);
-						var z = Mathf.Lerp(intervalScaleMax, intervalScaleMin, waveIntervalTimer / waveInterval);
 
-						this.transform.localScale = new Vector3(x, y, z);
+						this.transform.localScale = new Vector3(x, this.transform.localScale.y, this.transform.localScale.z);
 						waveIntervalTimer += Time.deltaTime;
 					}
 					else
@@ -111,10 +105,8 @@ public class Animation_Brain : MonoBehaviour
 			if (endWaveTimer <= endWaveTime)
 			{
 				var x = Mathf.Lerp(intervalScaleMin, waveScaleMin, endWaveTimer / endWaveTime);
-				var y = Mathf.Lerp(intervalScaleMin, waveScaleMin, endWaveTimer / endWaveTime);
-				var z = Mathf.Lerp(intervalScaleMin, waveScaleMin, endWaveTimer / endWaveTime);
 
-				this.transform.localScale = new Vector3(x, y, z);
+				this.transform.localScale = new Vector3(x, this.transform.localScale.y, this.transform.localScale.z);
 				endWaveTimer += Time.deltaTime;
 			}
 			else
