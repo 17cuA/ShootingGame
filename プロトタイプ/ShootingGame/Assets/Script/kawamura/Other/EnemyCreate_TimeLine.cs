@@ -1,5 +1,5 @@
 ﻿//作成：川村良太
-//タイムラインで関数を呼び出して敵を出す
+//タイムラインで関数を呼び出して敵を順に出す
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +7,12 @@ using UnityEngine;
 
 public class EnemyCreate_TimeLine : MonoBehaviour
 {
+	#region 敵オブジェクト
 	public GameObject dischargeObj;
 	public GameObject followGroundObj;
+	public GameObject taihoObj;
+	#endregion
+
 	public GameObject saveObj;
 	public GameObject mapObj;
 	public Enemy_Discharge saveDischarge_Script;
@@ -29,6 +33,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		Discharge_UpAndDown_RightCurve90,	//排出上下右カーブ
 		FollowGround_Left,
 		FollowGround_Right,
+		Taiho_Upward,										//上向き大砲
+		Taiho_Downward,									//下向き大砲
 	}
 
 	public enum CreatePos
@@ -36,10 +42,15 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		None,
 		Discharge_Top,
 		Discharge_Under,
+		Taiho_Top,
+		Taiho_Under,
+
 	}
 
 	public Transform dischargePos_Top;
 	public Transform dischargePos_Under;
+	public Transform taihoPos_Top;
+	public Transform taihoPos_Under;
 
 	[System.Serializable]
 	public struct EnemyInformation
@@ -77,12 +88,15 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	{
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
+		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
 	}
 
 	void CreatePosUpload()
 	{
 		dischargePos_Top = GameObject.Find("DischargePos_Top").transform;
 		dischargePos_Under = GameObject.Find("DischargePos_Under").transform;
+		taihoPos_Top = GameObject.Find("TaihoPos_Top").transform;
+		taihoPos_Under = GameObject.Find("TaihoPos_Under").transform;
 
 	}
 
@@ -149,13 +163,23 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 					enemyInformation[i].enemyName = "上下右カーブ";
 					break;
 
-				//上下右カーブ
+				//地面に沿う敵左進み
 				case CreateEnemyType.FollowGround_Left:
 					enemyInformation[i].enemyName = "地面に沿う敵左進み";
 					break;
 
-				//上下右カーブ
+				//地面に沿う敵右進み
 				case CreateEnemyType.FollowGround_Right:
+					enemyInformation[i].enemyName = "地面に沿う敵右進み";
+					break;
+
+				//上向き大砲
+				case CreateEnemyType.Taiho_Upward:
+					enemyInformation[i].enemyName = "地面に沿う敵右進み";
+					break;
+
+				//下向き大砲
+				case CreateEnemyType.Taiho_Downward:
 					enemyInformation[i].enemyName = "地面に沿う敵右進み";
 					break;
 
@@ -176,10 +200,11 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			case CreatePos.None : pos = enemyInformation[createNum].manualVector; break;
 			case CreatePos.Discharge_Top : pos = dischargePos_Top.position; break;
 			case CreatePos.Discharge_Under : pos = dischargePos_Under.position; break;
-
+			case CreatePos.Taiho_Top:pos = taihoPos_Top.position; break;
+			case CreatePos.Taiho_Under: pos = taihoPos_Under.position; break;
 		}
 
-		switch(enemyInformation[createNum].enemyType)
+		switch (enemyInformation[createNum].enemyType)
 		{
 			//なし
 			case CreateEnemyType.None:
@@ -330,6 +355,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//地面沿う敵左進み
 			case CreateEnemyType.FollowGround_Left:
 				saveObj = Instantiate(followGroundObj, pos, transform.rotation);
 				//saveObj.transform.parent = mapObj.transform;
@@ -341,6 +367,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//地面を這う敵右進み
 			case CreateEnemyType.FollowGround_Right:
 				saveObj = Instantiate(followGroundObj, pos, transform.rotation);
 				//saveObj.transform.parent = mapObj.transform;
@@ -349,6 +376,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 				saveObj = null;
 				saveFollowGrownd_Script = null;
+				createNum++;
+				break;
+
+			//上向き大砲
+			case CreateEnemyType.Taiho_Upward:
+				saveObj = Instantiate(taihoObj, pos, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
+				createNum++;
+				break;
+
+			//下向き大砲
+			case CreateEnemyType.Taiho_Downward:
+				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 180));
+				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
 				createNum++;
 				break;
 
