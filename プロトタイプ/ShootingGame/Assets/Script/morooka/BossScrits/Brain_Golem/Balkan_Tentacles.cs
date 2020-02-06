@@ -90,6 +90,4 @@ public class Balkan_Tentacles : Tentacles
 		Timer = 0.0f;
 		Is_Attack = false;
 	}
-
-
 }
