@@ -35,6 +35,7 @@ public class Brain_Wait : character_status
 		Is_Laser = false;
 		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
 		ActionStep = 0;
+		DeathTime_Max = 60.0f * 3.0f;
 	}
 
     new private void Update()
