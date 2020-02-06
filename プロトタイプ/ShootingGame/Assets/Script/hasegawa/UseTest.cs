@@ -27,17 +27,17 @@ public class UseTest : MonoBehaviour
 		if (isInputSetting) { return; }
 		string displayText = "";
 		Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 350f, 0f);
-		if (ControlerDevice.GetButton(inputManager.newButton["Button_1"]))
+		if (ControlerDevice.GetButton(inputManager.newButton["Shot"], inputManager.PadNumber))
 		{
 			displayText += "Input Button 1\n";
 			displayAreaSize.height += 60f;
 		}
-		if (ControlerDevice.GetButton(inputManager.newButton["Button_2"]))
+		if (ControlerDevice.GetButton(inputManager.newButton["Multiple"], inputManager.PadNumber))
 		{
 			displayText += "Input Button 2\n";
 			displayAreaSize.height += 60f;
 		}
-		if (ControlerDevice.GetButton(inputManager.newButton["Button_3"]))
+		if (ControlerDevice.GetButton(inputManager.newButton["Item"], inputManager.PadNumber))
 		{
 			displayText += "Input Button 3";
 			displayAreaSize.height += 60f;

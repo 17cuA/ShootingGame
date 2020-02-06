@@ -14,6 +14,7 @@ using UnityEngine.UI;
 public class InputManager
 {
 	[SerializeField, Tooltip("コントローラの番号")] ePadNumber padNumber = ePadNumber.eNone;
+	public ePadNumber PadNumber { get { return padNumber; } }
 	[SerializeField, Tooltip("Unity側で設定するボタン名のリスト")] List<eCode> defaultButtonNameList = new List<eCode>();	// uinty側で設定するボタンの名前のリスト
 	[SerializeField, Tooltip("実際に使用する名前のリスト")] List<string> useButtonNameList = new List<string>();				// スクリプト側で使用するボタン名のリスト
 	[SerializeField, Tooltip("確定させるまでの時間")] float decisionTime = 5f;												// 決定するまでの時間
