@@ -35,6 +35,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		FollowGround_Right,
 		Taiho_Upward,										//上向き大砲
 		Taiho_Downward,									//下向き大砲
+		Taiho_UpAndDown,								//大砲上下
 	}
 
 	public enum CreatePos
@@ -175,12 +176,17 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 				//上向き大砲
 				case CreateEnemyType.Taiho_Upward:
-					enemyInformation[i].enemyName = "地面に沿う敵右進み";
+					enemyInformation[i].enemyName = "大砲上向き";
 					break;
 
 				//下向き大砲
 				case CreateEnemyType.Taiho_Downward:
-					enemyInformation[i].enemyName = "地面に沿う敵右進み";
+					enemyInformation[i].enemyName = "大砲下向き";
+					break;
+
+				//大砲上下
+				case CreateEnemyType.Taiho_UpAndDown:
+					enemyInformation[i].enemyName = "大砲上下";
 					break;
 
 				default:
@@ -391,6 +397,18 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			case CreateEnemyType.Taiho_Downward:
 				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 180));
 				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
+				createNum++;
+				break;
+
+			//上下大砲
+			case CreateEnemyType.Taiho_UpAndDown:
+				saveObj = Instantiate(taihoObj, taihoPos_Under.position, transform.rotation);
+				saveObj.transform.parent = mapObj.transform;
+
+				saveObj = Instantiate(taihoObj, taihoPos_Top.position, Quaternion.Euler(0, 0, 180));
+				saveObj.transform.parent = mapObj.transform;
+
 				saveObj = null;
 				createNum++;
 				break;
