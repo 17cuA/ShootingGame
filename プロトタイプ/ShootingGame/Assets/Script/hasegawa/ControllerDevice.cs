@@ -269,6 +269,7 @@ public static class ControllerDevice
 	/// <returns></returns>
 	public static float GetAxis(string axisName = "", ePadNumber padNumber = ePadNumber.eNone)
 	{
+		controllerNames = Input.GetJoystickNames();
 		bool judge = controllerNames.Length > (int)padNumber;
 		if (judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") { return Input.GetAxis(axisName); }
 

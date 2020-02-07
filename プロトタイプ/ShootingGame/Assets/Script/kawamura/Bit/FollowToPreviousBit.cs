@@ -287,7 +287,7 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				if (isFollow1P)
 				{
-					if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+					if ((ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1) != 0) || (ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1) != 0))
 					{
 						isMove = true;
 					}
@@ -320,7 +320,7 @@ public class FollowToPreviousBit : MonoBehaviour
 					//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
 					{
 						isMove = false;
-						if ((Input.GetAxis("P2_Horizontal") != 0) || (Input.GetAxis("P2_Vertical") != 0))
+						if ((ControllerDevice.GetAxis("P2_Horizontal", ePadNumber.ePlayer2) != 0) || (ControllerDevice.GetAxis("P2_Vertical", ePadNumber.ePlayer2) != 0))
 						{
 							isMove = true;
 						}

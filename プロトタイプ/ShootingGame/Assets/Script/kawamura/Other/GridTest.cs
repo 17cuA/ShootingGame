@@ -41,8 +41,8 @@ public class GridTest : MonoBehaviour
 	// ② 入力に応じて移動後の位置を算出
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		prevPos = target;
 

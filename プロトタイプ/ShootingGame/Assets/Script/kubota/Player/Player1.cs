@@ -327,8 +327,8 @@ public class Player1 : character_status
 	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -424,8 +424,8 @@ public class Player1 : character_status
 	//コントローラーの操作　使ってない
 	private void Player_Move()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;

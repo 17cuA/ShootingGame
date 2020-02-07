@@ -315,8 +315,8 @@ public class Player2 : character_status
 	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("P2_Horizontal");            //x軸の入力
-		y = Input.GetAxis("P2_Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("P2_Horizontal", ePadNumber.ePlayer2);            //x軸の入力
+		y = ControllerDevice.GetAxis("P2_Vertical", ePadNumber.ePlayer2);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;

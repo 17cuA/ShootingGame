@@ -103,8 +103,8 @@ public class FollowGround3 : MonoBehaviour
 		//////
 		// 平面に投影したいベクトルを作成
 		Vector3 inputVector = Vector3.zero;
-		inputVector.x = Input.GetAxis("Horizontal");
-		inputVector.z = Input.GetAxis("Vertical");
+		inputVector.x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);
+		inputVector.z = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);
 
 		// 平面に沿ったベクトルを計算
 		onPlane = Vector3.ProjectOnPlane(inputVector, normalVector);
