@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Brain_Parts : character_status
 {
-	private void Update()
+	new private void Update()
 	{
-		// HPが0のとき
-		if (hp < 1)
+		base.Update();
+		if(Died_Judgment())
 		{
-			Died_Judgment();
-			enabled = false;
+			foreach(var render in object_material)
+			{
+				render.enabled = false;
+			}
 		}
 	}
 }
