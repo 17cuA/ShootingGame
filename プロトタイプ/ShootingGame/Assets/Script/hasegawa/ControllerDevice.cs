@@ -270,10 +270,10 @@ public static class ControllerDevice
 	public static float GetAxis(string axisName = "", ePadNumber padNumber = ePadNumber.eNone)
 	{
 		bool judge = controllerNames.Length > (int)padNumber;
-		if (judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") { return Input.GetAxis(padNumber == ePadNumber.ePlayer2 ? "P2_" + axisName : axisName); }
+		if (judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") { return Input.GetAxis(axisName); }
 
-		if (axisName == "Horizontal") { return GetLeftAxis(padNumber).x; }
-		if (axisName == "Vertical") { return GetLeftAxis(padNumber).y; }
+		if (axisName == "Horizontal" || axisName == "P2_Horizontal") { return GetLeftAxis(padNumber).x; }
+		if (axisName == "Vertical" || axisName == "P2_Vertical") { return GetLeftAxis(padNumber).y; }
 		Debug.LogError("名前が違うヨ☆");
 		return 0f;
 	}
