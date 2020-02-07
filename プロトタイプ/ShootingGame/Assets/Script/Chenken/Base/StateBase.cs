@@ -4,6 +4,7 @@ using UnityEngine;
 
 public delegate void StateCallBack();
 public enum StateType {WAIT, DEBUT, MOVE, STOP, ADVANCE_AND_BACK, ESCAPE, DEATH}
+public enum LastBossStateType { DEBUT,WAIT, NORMAL,ANGER,CRAZY,DEATH }
 public class StateBase<T> where T : struct
 {
 	public StateCallBack EnterCallBack    { get; set;}

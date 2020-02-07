@@ -10,7 +10,7 @@ public class Enemy_DestroyParts : character_status
     {
 		if (base.hp < 1)
 		{
-			DebugManager.OperationDebug("中ボス「シールド」破壊！", "GM");
+			//DebugManager.OperationDebug("中ボス「シールド」破壊！", "GM");
 
 			base.Died_Judgment();
 			////
