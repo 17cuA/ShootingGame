@@ -134,7 +134,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl1.Is_Resporn)
 				{
-					if (ControlerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -146,7 +146,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						defPos = new Vector3(0, 0, 0);
 						savePos = transform.position;
 					}
-					else if (ControlerDevice.GetButton(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -177,7 +177,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl2.Is_Resporn)
 				{
-					if (ControlerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -190,7 +190,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						savePos = transform.position;
 
 					}
-					else if (ControlerDevice.GetButton(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}

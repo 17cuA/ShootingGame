@@ -297,7 +297,7 @@ public class Player1 : character_status
 				Bullet_Create();
 
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || ControlerDevice.GetButton(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
+				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButton(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();
@@ -499,7 +499,7 @@ public class Player1 : character_status
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (ControlerDevice.GetButtonDown(inputManager.Manager.Button["ShotSwitch"], ePadNumber.ePlayer1))
+		if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["ShotSwitch"], ePadNumber.ePlayer1))
 		{
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
@@ -512,7 +512,7 @@ public class Player1 : character_status
 			if (Shot_Delay > Shot_DelayMax)
 			{
 				//単発の弾の発射
-				if (ControlerDevice.GetButtonDown(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
+				if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
 					switch (bullet_Type)
@@ -546,14 +546,14 @@ public class Player1 : character_status
 		else
 		{
 			//ボタンを押すのをやめたら弾が出るのが止まるように
-			if (ControlerDevice.GetButtonUp(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
+			if (ControllerDevice.GetButtonUp(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = false;
 				shoot_number = 0;
 				return;
 			}
 			//発射ボタンを押したら弾が出続けるようにする
-			else if (ControlerDevice.GetButton(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
+			else if (ControllerDevice.GetButton(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = true;
 			}

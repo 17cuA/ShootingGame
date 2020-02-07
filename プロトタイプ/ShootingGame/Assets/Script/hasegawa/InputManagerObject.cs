@@ -57,21 +57,32 @@ public class InputManagerObject : MonoBehaviour
 			demoMovieControl.IsStopDemoMovie = IsInputSetting;
 		}
 	}
-	//void OnGUI()
-	//{
-	//	if (IsInputSetting) { return; }
-	//	string displayText = "";
-	//	Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
-	//	foreach(string key in inputManager.Button.Keys)
-	//	{
-	//		if (Input.GetButton(inputManager.Button[key]))
-	//		{
-	//			displayText += "Input " + key + "\n";
-	//			displayAreaSize.height += 60f;
-	//		}
-	//	}
-	//	if (displayText == "") { return; }
-	//	GUI.TextField(displayAreaSize, displayText);
-	//	GUI.skin.textField.fontSize = 50;
-	//}
+	void OnGUI()
+	{
+		if (IsInputSetting) { return; }
+		string displayText = "";
+		Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
+		foreach (string key in inputManager.Button.Keys)
+		{
+			if (ControllerDevice.GetButton(inputManager.Button[key], inputManager.PadNumber))
+			{
+				displayText += "Input " + key + "\n";
+				displayAreaSize.height += 60f;
+			}
+		}
+		Vector2 input = new Vector2(ControllerDevice.GetAxis("Horizontal", inputManager.PadNumber), ControllerDevice.GetAxis("Vertical", inputManager.PadNumber));
+		if (input.x != 0f)
+		{
+			displayText += "Axis X : " + input.x + "\n";
+			displayAreaSize.height += 60f;
+		}
+		if (input.y != 0f)
+		{
+			displayText += "Axis Y : " + input.y + "\n";
+			displayAreaSize.height += 60f;
+		}
+		if (displayText == "") { return; }
+		GUI.TextField(displayAreaSize, displayText);
+		GUI.skin.textField.fontSize = 50;
+	}
 }

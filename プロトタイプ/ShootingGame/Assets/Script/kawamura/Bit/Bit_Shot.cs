@@ -105,20 +105,20 @@ public class Bit_Shot : MonoBehaviour
 					//プレイヤーがレーザー状態の時
 					laser_Obj.SetActive(true);
 					//発射ボタンが離されたら
-					if (ControlerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Space))
+					if (ControllerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Space))
 					{
 						//レーザーストップ
 						//laser_Obj.SetActive(false);
 					}
 					//発射ボタンが押されている間
-					else if (ControlerDevice.GetButton(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
+					else if (ControllerDevice.GetButton(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 					{
 						//レーザーを出す
 						//laser_Obj.SetActive(true);
 						//レーザー時のミサイル発射の処理
 						if (pl1.activeMissile && missileDelayCnt > pl1.missile_dilay_max)
 						{
-							if (ControlerDevice.GetButton(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
+							if (ControllerDevice.GetButton(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 							{
 								Missile_Fire();
 							}
@@ -140,20 +140,20 @@ public class Bit_Shot : MonoBehaviour
 					//プレイヤーがレーザー状態の時
 					laser_Obj.SetActive(true);
 					//発射ボタンが離されたら
-					if (ControlerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Space))
+					if (ControllerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Space))
 					{
 						//レーザーストップ
 						//laser_Obj.SetActive(false);
 					}
 					//発射ボタンが押されている間
-					else if (ControlerDevice.GetButton(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Space))
+					else if (ControllerDevice.GetButton(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Space))
 					{
 						//レーザーを出す
 						//laser_Obj.SetActive(true);
 						//レーザー時のミサイル発射の処理
 						if (pl2.activeMissile && missileDelayCnt > pl2.missile_dilay_max)
 						{
-							if (ControlerDevice.GetButton(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Space))
+							if (ControllerDevice.GetButton(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Space))
 							{
 								Missile_Fire();
 							}
@@ -198,7 +198,7 @@ public class Bit_Shot : MonoBehaviour
 				if (shot_Delay > Shot_DelayMax)
 				{
 
-					if (ControlerDevice.GetButtonDown(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
+					if (ControllerDevice.GetButtonDown(pl1.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
 					{
 						shot_Delay = 0;
 						switch (pl1.bullet_Type)
@@ -305,7 +305,7 @@ public class Bit_Shot : MonoBehaviour
 			{
 				if (shot_Delay > Shot_DelayMax)
 				{
-					if (ControlerDevice.GetButtonDown(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKeyDown(KeyCode.Space))
+					if (ControllerDevice.GetButtonDown(pl2.InputManager.Manager.Button["Shot"], ePadNumber.ePlayer2) || Input.GetKeyDown(KeyCode.Space))
 					{
 						//if (pl2.Is_Burst)
 						//{

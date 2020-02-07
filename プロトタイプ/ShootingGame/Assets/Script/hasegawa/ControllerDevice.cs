@@ -49,7 +49,7 @@ public enum ePadNumber
 	eNone,
 }
 
-public static class ControlerDevice
+public static class ControllerDevice
 {
 	[DllImport("DllXInput", EntryPoint = "InputJudg_Create")]
 	private static extern IntPtr _Create();
@@ -82,6 +82,7 @@ public static class ControlerDevice
 	private static extern Vector2 _GetRightAxis(IntPtr instance);
 
 	private static IntPtr _instance = _Create();
+	private static string[] controllerNames;
 
 	// 外部クラスの作成
 	//public ControlerDevice()
@@ -115,7 +116,7 @@ public static class ControlerDevice
 		{
 			return 0;
 		}
-
+		Debug.Log(_GetGamePadState(_instance, padNum));
 		if (1 != _GetGamePadState(_instance, padNum)) return 0;
 
 		return 1;
@@ -130,7 +131,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		if (Input.GetButton(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButton(buttonName)) { return true; }
 		if (_GetButton(_instance, judgButton)) { return true; }
 		return false;
 	}
@@ -142,7 +146,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		if (Input.GetButton(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButton(buttonName)) { return true; }
 		if (_GetButton(_instance, (int)judgButton)) { return true; }
 		return false;
 	}
@@ -156,7 +163,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		if (Input.GetButtonDown(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(buttonName)) { return true; }
 		if (_GetButtonDown(_instance, judgButton)) { return true; }
 		return false;
 	}
@@ -168,7 +178,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		if (Input.GetButtonDown(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(buttonName)) { return true; }
 		if (_GetButtonDown(_instance, (int)judgButton)) { return true; }
 		return false;
 	}
@@ -182,7 +195,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName((eCode)judgButton, padNumber);
-		if (Input.GetButtonUp(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonUp(buttonName)) { return true; }
 		if (_GetButtonUp(_instance, judgButton)) { return true; }
 		return false;
 	}
@@ -194,7 +210,10 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		string buttonName = CodeToButtonName(judgButton, padNumber);
-		if (Input.GetButtonUp(buttonName)) { return true; }
+		controllerNames = Input.GetJoystickNames();
+		bool judge = controllerNames.Length > (int)padNumber;
+
+		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonUp(buttonName)) { return true; }
 		if (_GetButtonUp(_instance, (int)judgButton)) { return true; }
 		return false;
 	}
@@ -241,6 +260,22 @@ public static class ControlerDevice
 		}
 		GetGamePadState((long)padNumber);
 		return _GetRightAxis(_instance);
+	}
+
+	/// <summary>
+	/// 機能的にはGetAxisRaw
+	/// </summary>
+	/// <param name="axisName"></param>
+	/// <returns></returns>
+	public static float GetAxis(string axisName = "", ePadNumber padNumber = ePadNumber.eNone)
+	{
+		bool judge = controllerNames.Length > (int)padNumber;
+		if (judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") { return Input.GetAxis(padNumber == ePadNumber.ePlayer2 ? "P2_" + axisName : axisName); }
+
+		if (axisName == "Horizontal") { return GetLeftAxis(padNumber).x; }
+		if (axisName == "Vertical") { return GetLeftAxis(padNumber).y; }
+		Debug.LogError("名前が違うヨ☆");
+		return 0f;
 	}
 
 	static string CodeToButtonName(eCode code = eCode.ePad_None, ePadNumber padNum = ePadNumber.eNone)

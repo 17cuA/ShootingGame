@@ -83,19 +83,19 @@ public class InputManager
 				continue;
 			}
 			// 入力を受けていたら名前を一時保存する
-			if (ControlerDevice.GetButton(defaultButtonNameList[i], padNumber) && !isInput)
+			if (ControllerDevice.GetButton(defaultButtonNameList[i], padNumber) && !isInput)
 			{
 				inputButtonName = defaultButtonNameList[i];
 				isInput = true;
 			}
 			// 同時押しされていたら解除
-			else if (ControlerDevice.GetButton(defaultButtonNameList[i], padNumber) && isInput)
+			else if (ControllerDevice.GetButton(defaultButtonNameList[i], padNumber) && isInput)
 			{
 				inputButtonName = eCode.ePad_None;
 				break;
 			}
 			// ボタンが上げられたらスキップする
-			else if (ControlerDevice.GetButtonUp(defaultButtonNameList[i], padNumber))
+			else if (ControllerDevice.GetButtonUp(defaultButtonNameList[i], padNumber))
 			{
 				inputButtonName = eCode.ePad_None;
 				continue;
