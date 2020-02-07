@@ -21,21 +21,23 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public enum CreateEnemyType
 	{
 		None,
-		Discharge_LeftCurveUp90,						 //排出の上向き左90度カープ
-		Discharge_RightCurveUp90,					//排出の上向き右90度カープ
-		Discharge_LeftCurveDown90,					//排出の下向き左90度カープ
-		Discharge_RightCurveDown90,				//排出の下向き右90度カープ
-		Discharge_Up_Left180,							//排出左向き180度カーブ上
-		Discharge_Down_Left180,						//排出左向き180度カーブ下
-		Discharge_Up_Right180,							//排出右向き180度カーブ上
-		Discharge_Down_Right180,						//排出右向き180度カーブした
-		Discharge_UpAndDown_LeftCurve90,		//排出上下左カーブ
-		Discharge_UpAndDown_RightCurve90,	//排出上下右カーブ
+		Discharge_LeftCurveUp90,                         //排出の上向き左90度カープ
+		Discharge_RightCurveUp90,                   //排出の上向き右90度カープ
+		Discharge_LeftCurveDown90,                  //排出の下向き左90度カープ
+		Discharge_RightCurveDown90,             //排出の下向き右90度カープ
+		Discharge_Up_Left180,                           //排出左向き180度カーブ上
+		Discharge_Down_Left180,                     //排出左向き180度カーブ下
+		Discharge_Up_Right180,                          //排出右向き180度カーブ上
+		Discharge_Down_Right180,                        //排出右向き180度カーブした
+		Discharge_UpAndDown_LeftCurve90,        //排出上下左カーブ
+		Discharge_UpAndDown_RightCurve90,   //排出上下右カーブ
 		FollowGround_Left,
 		FollowGround_Right,
-		Taiho_Upward,										//上向き大砲
-		Taiho_Downward,									//下向き大砲
-		Taiho_UpAndDown,								//大砲上下
+		Taiho_Upward,                                       //上向き大砲
+		Taiho_Downward,                                 //下向き大砲
+		Taiho_Left,                                             //左向き大砲
+		Taiho_Right,                                            //右向き大砲
+		Taiho_UpAndDown,                                //大砲上下
 	}
 
 	public enum CreatePos
@@ -60,7 +62,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		public CreateEnemyType enemyType;
 		public CreatePos createPos;
 		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
-		public Vector3 manualVector;					//手打ちで出したい位置を入力できる
+		public Vector3 manualVector;                    //手打ちで出したい位置を入力できる
 	}
 
 	public int createNum;                   //次に出す順番の数
@@ -71,19 +73,19 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 
 	void Start()
-    {
+	{
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 		ResouceUpload();
 		CreatePosUpload();
 		EnemyNameSet();
 		createNum = 1;
-		
-    }
 
-    void Update()
-    {
-        
-    }
+	}
+
+	void Update()
+	{
+
+	}
 
 	void ResouceUpload()
 	{
@@ -105,7 +107,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			switch(enemyInformation[i].enemyType)
+			switch (enemyInformation[i].enemyType)
 			{
 				//なし
 				case CreateEnemyType.None:
@@ -184,6 +186,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 					enemyInformation[i].enemyName = "大砲下向き";
 					break;
 
+				//下向き大砲
+				case CreateEnemyType.Taiho_Left:
+					enemyInformation[i].enemyName = "大砲左向き";
+					break;
+
+				//下向き大砲
+				case CreateEnemyType.Taiho_Right:
+					enemyInformation[i].enemyName = "大砲右向き";
+					break;
+
 				//大砲上下
 				case CreateEnemyType.Taiho_UpAndDown:
 					enemyInformation[i].enemyName = "大砲上下";
@@ -201,12 +213,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	{
 		Vector3 pos = Vector3.zero;
 
-		switch(enemyInformation[createNum].createPos)
+		switch (enemyInformation[createNum].createPos)
 		{
-			case CreatePos.None : pos = enemyInformation[createNum].manualVector; break;
-			case CreatePos.Discharge_Top : pos = dischargePos_Top.position; break;
-			case CreatePos.Discharge_Under : pos = dischargePos_Under.position; break;
-			case CreatePos.Taiho_Top:pos = taihoPos_Top.position; break;
+			case CreatePos.None: pos = enemyInformation[createNum].manualVector; break;
+			case CreatePos.Discharge_Top: pos = dischargePos_Top.position; break;
+			case CreatePos.Discharge_Under: pos = dischargePos_Under.position; break;
+			case CreatePos.Taiho_Top: pos = taihoPos_Top.position; break;
 			case CreatePos.Taiho_Under: pos = taihoPos_Under.position; break;
 		}
 
@@ -396,6 +408,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			//下向き大砲
 			case CreateEnemyType.Taiho_Downward:
 				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 180));
+				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
+				createNum++;
+				break;
+
+			//下向き大砲
+			case CreateEnemyType.Taiho_Left:
+				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 90));
+				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
+				createNum++;
+				break;
+
+			//下向き大砲
+			case CreateEnemyType.Taiho_Right:
+				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 270));
 				saveObj.transform.parent = mapObj.transform;
 				saveObj = null;
 				createNum++;
