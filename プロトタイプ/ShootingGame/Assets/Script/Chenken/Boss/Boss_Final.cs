@@ -8,9 +8,9 @@ public class Boss_Final : character_status
 	public LastBossStateType stateType;
 
 	[Header("プレイヤーを中心にし、円を描く動き")]
-	public float freeMoveSpd;
-	public float freeMoveRadius;
-	public float freeDistanceLimit;
+	public float updateTime = 1;
+	private float updateTimer;
+	public float delta;
 
 	[Header("攻撃関連")]
 	public float bulletShotTime;
@@ -23,6 +23,7 @@ public class Boss_Final : character_status
 	[SerializeField] private bool canUseLaser = false;
 	[SerializeField] private bool canUseEyeLaser = false;
 	[SerializeField] private bool canUseFullBulletPower = false;
+
 
 	private StateManager<LastBossStateType> stateManager;
 	[SerializeField] private BoxCollider brainDamageBox;
@@ -47,13 +48,13 @@ public class Boss_Final : character_status
 
 	private void Init()
 	{
-		//===== ラストボス　自走装置　確認 =====
+		//===== ラストボス　ステートマシン　確認 =====
 		stateManager = new StateManager<LastBossStateType>();
 
 		//===== ラストボス　当たり判定領域確認 =====
-		brainDamageBox = transform.Find("Brain").GetComponent<BoxCollider>();
-		eyes    = transform.Find("Eye_L").GetComponent<Enemy_DestroyParts>();
-		battery = transform.Find("houshin").GetComponent<Enemy_DestroyParts>();
+		brainDamageBox = transform.GetChild(0).Find("Brain").GetComponent<BoxCollider>();
+		eyes    = transform.GetChild(0).Find("Eye_L").GetComponent<Enemy_DestroyParts>();
+		battery = transform.GetChild(0).Find("houshin").GetComponent<Enemy_DestroyParts>();
 
 		//===== ラストボス　動力装置確認 =====
 		rigidbody = GetComponent<Rigidbody>();
@@ -84,6 +85,7 @@ public class Boss_Final : character_status
 
 		base.Start(); 
 		stateManager.Start(LastBossStateType.DEBUT);
+
 	}
 
 	#region 便利用関数
@@ -113,6 +115,13 @@ public class Boss_Final : character_status
 		{
 			stateManager.Update();
 			stateType = stateManager.Current.StateType;
+
+			if(stateType != LastBossStateType.DEBUT && stateType != LastBossStateType.WAIT && stateType != LastBossStateType.DEATH)
+			{
+				//自由移動
+				FreeMove();
+			}
+			
 		}
 		else
 		{
@@ -124,6 +133,28 @@ public class Boss_Final : character_status
 		}
 
 		base.Update();
+	}
+
+	private void FreeMove()
+	{
+		if (atkTarget == null)
+			return;
+		if (updateTimer <= updateTime)
+		{
+			var targetPos = atkTarget.transform.position;
+			var bossPos = this.transform.position;
+			var midPoint = (targetPos + bossPos) / 2;
+			var radius = Vector3.Distance(midPoint, bossPos);
+
+
+			var angle = Mathf.Atan((bossPos - midPoint).y / (bossPos - midPoint).x) * Mathf.Rad2Deg;
+			var x = midPoint.x + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
+			var y = midPoint.y + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
+			this.transform.position = new Vector3(x, y, transform.position.z);
+
+			updateTimer += Time.deltaTime;
+			
+		}
 	}
 
 	#region ===== IN DEBUT STATE =====
@@ -158,7 +189,11 @@ public class Boss_Final : character_status
 	
 	private void Wait_Update()
 	{
-
+		if (stateManager.Current.IsDone)
+		{
+			stateManager.ChangeState(LastBossStateType.NORMAL);
+			return;
+		}
 	}
 
 	private void Wait_Exit()
