@@ -18,7 +18,7 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
-	//[SerializeField, Tooltip("タイムラインストッパー")] private 
+	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
 
 	private bool Is_Active { get; set; }
 	WaitLoopTrigger waitLoopTrigger = null;
@@ -81,6 +81,7 @@ public class Brain_Wait : character_status
 			}
 		}
 
+		#region レーザー
 		// レーザーの攻撃
 		if (Is_Laser)
 		{
@@ -98,13 +99,21 @@ public class Brain_Wait : character_status
 					ActionStep++;
 				}
 			}
-			// 口閉じる
 			else if (ActionStep == 2)
 			{
-				FaceAnimation.Play("Close");
+				lasear.SetActive(true);
 				ActionStep++;
 			}
+			// 口閉じる
 			else if (ActionStep == 3)
+			{
+				if (!lasear.activeSelf)
+				{
+					FaceAnimation.Play("Close");
+					ActionStep++;
+				}
+			}
+			else if (ActionStep == 4)
 			{
 				if (!FaceAnimation.IsPlaying("Close"))
 				{
@@ -114,7 +123,8 @@ public class Brain_Wait : character_status
 				}
 			}
 		}
-    }
+		#endregion
+	}
 
 	private bool Is_PartsNotAlive()
 	{
