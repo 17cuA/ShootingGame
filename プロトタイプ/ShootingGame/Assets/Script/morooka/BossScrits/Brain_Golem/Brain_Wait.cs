@@ -49,7 +49,7 @@ public class Brain_Wait : character_status
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 285.25f;
+				playable_Map.time = 285.0f;
 				playable_Map.Play();
 			}
 		}
@@ -76,7 +76,7 @@ public class Brain_Wait : character_status
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 285.25f;
+				playable_Map.time = 285.0f;
 				playable_Map.Play();
 			}
 		}

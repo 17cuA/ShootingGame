@@ -47,7 +47,7 @@ public class Shutte_Move : MonoBehaviour
 	{
 		if (Physics.BoxCast(transform.position, boxSize, -(float)mode * transform.right, out hit, Quaternion.identity, rayLength))
 		{
-			if (hit.transform.tag != "Wall")
+			if (hit.transform.tag != "Wall" && hit.transform.tag != "Enemy")
 			{
 				Is_Move = true;
 			}
