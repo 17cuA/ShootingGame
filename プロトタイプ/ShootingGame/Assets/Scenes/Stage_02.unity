@@ -7320,7 +7320,7 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[1].enemyType
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7345,7 +7345,7 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[1].createPos
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7481,6 +7481,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyInformation.Array.data[8].manualVector.y
       value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: enemyInformation.Array.data[1].enemyRota.z
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8, type: 3}
