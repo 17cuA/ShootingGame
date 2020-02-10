@@ -57,6 +57,10 @@ public class InputManagerObject : MonoBehaviour
 			demoMovieControl.IsStopDemoMovie = IsInputSetting;
 		}
 	}
+	void LateUpdate()
+	{
+		ControllerDevice.Update();
+	}
 	//void OnGUI()
 	//{
 	//	if (IsInputSetting) { return; }

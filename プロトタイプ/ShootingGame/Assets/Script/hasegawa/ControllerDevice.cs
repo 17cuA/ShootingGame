@@ -85,6 +85,9 @@ public static class ControllerDevice
 	private static string[] controllerNames;
 	private static string codeToButtonName_ret = "";
 
+	private static int[] nowTimeButtons = new int[4] { 0x00, 0x00, 0x00, 0x00 };
+	private static int[] lastTimeButtons = new int[4] { 0x00, 0x00, 0x00, 0x00 };
+
 	// 外部クラスの作成
 	//public ControlerDevice()
 	//{
@@ -165,6 +168,8 @@ public static class ControllerDevice
 		bool judge = controllerNames.Length > (int)padNumber;
 
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(CodeToButtonName((eCode)judgButton, padNumber))) { return true; }
+
+		if ((lastTimeButtons[(int)padNumber] & judgButton) == 0 && (nowTimeButtons[(int)padNumber] & judgButton) == judgButton) { return true; }
 		if (_GetButtonDown(_instance, judgButton)) { return true; }
 		return false;
 	}
@@ -179,7 +184,13 @@ public static class ControllerDevice
 		bool judge = controllerNames.Length > (int)padNumber;
 
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(CodeToButtonName(judgButton, padNumber))) { return true; }
+
+		if ((lastTimeButtons[(int)padNumber] & (int)judgButton) == 0 && (nowTimeButtons[(int)padNumber] & (int)judgButton) == (int)judgButton) { return true; }
 		if (_GetButtonDown(_instance, (int)judgButton)) { return true; }
+		return false;
+	}
+	private static bool GetButtonDown()
+	{
 		return false;
 	}
 
@@ -195,6 +206,8 @@ public static class ControllerDevice
 		bool judge = controllerNames.Length > (int)padNumber;
 
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonUp(CodeToButtonName((eCode)judgButton, padNumber))) { return true; }
+
+		if ((lastTimeButtons[(int)padNumber] & judgButton) == judgButton && (nowTimeButtons[(int)padNumber] & judgButton) == 0) { return true; }
 		if (_GetButtonUp(_instance, judgButton)) { return true; }
 		return false;
 	}
@@ -209,6 +222,8 @@ public static class ControllerDevice
 		bool judge = controllerNames.Length > (int)padNumber;
 
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonUp(CodeToButtonName(judgButton, padNumber))) { return true; }
+
+		if ((lastTimeButtons[(int)padNumber] & (int)judgButton) == (int)judgButton && (nowTimeButtons[(int)padNumber] & (int)judgButton) == 0) { return true; }
 		if (_GetButtonUp(_instance, (int)judgButton)) { return true; }
 		return false;
 	}
@@ -272,6 +287,29 @@ public static class ControllerDevice
 		if (axisName == "Vertical" || axisName == "P2_Vertical") { return GetLeftAxis(padNumber).y; }
 		Debug.LogError("名前が違うヨ☆");
 		return 0f;
+	}
+
+	/// <summary>
+	/// LateUpdateでよべ💩
+	/// </summary>
+	public static void Update()
+	{
+		foreach (ePadNumber pn in Enum.GetValues(typeof(ePadNumber)))
+		{
+			_GetGamePadState(_instance, (long)pn);
+			lastTimeButtons[(int)pn] = nowTimeButtons[(int)pn];
+			foreach (eCode code in Enum.GetValues(typeof(eCode)))
+			{
+				if (_GetButton(_instance, (int)code))
+				{
+					nowTimeButtons[(int)pn] |= (int)code;
+				}
+				else
+				{
+					nowTimeButtons[(int)pn] &= ~(int)code;
+				}
+			}
+		}
 	}
 
 	static string CodeToButtonName(eCode code = eCode.ePad_None, ePadNumber padNum = ePadNumber.eNone)
