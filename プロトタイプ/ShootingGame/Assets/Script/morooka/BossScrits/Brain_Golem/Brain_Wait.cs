@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Brain_Wait : character_status
 {
@@ -16,6 +17,8 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("触手のパーツ_バルカン")] private List<Brain_Parts> balkanTentacles;
 	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
+	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
+	//[SerializeField, Tooltip("タイムラインストッパー")] private 
 
 	private bool Is_Active { get; set; }
 	WaitLoopTrigger waitLoopTrigger = null;
@@ -23,11 +26,11 @@ public class Brain_Wait : character_status
 	private bool Is_Laser { get; set; }
 	protected int ActionStep { get; set; }                              // 攻撃手順指示番号
 	private float DeathTime_Cnt { get; set; }		// 死ぬ時間カウンター
-	private float DeathTime_Max { get; set; }		// 死ぬ時間
+	private float DeathTime_Max { get; set; }       // 死ぬ時間
 
 	new private void Start()
-    {
-		foreach(Transform obj in transform)
+	{
+		foreach (Transform obj in transform)
 		{
 			obj.gameObject.SetActive(false);
 		}
@@ -35,6 +38,7 @@ public class Brain_Wait : character_status
 		Is_Laser = false;
 		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
 		ActionStep = 0;
+		DeathTime_Max = 60.0f * 3.0f;
 	}
 
     new private void Update()
@@ -43,7 +47,11 @@ public class Brain_Wait : character_status
 		DeathTime_Cnt += Time.deltaTime;
 		if (DeathTime_Max < DeathTime_Cnt)
 		{
-			waitLoopTrigger.Trigger = true;
+			if (playable_Map.state == PlayState.Paused)
+			{
+				playable_Map.time = 285.0f;
+				playable_Map.Play();
+			}
 		}
 		#endregion
 
@@ -66,11 +74,15 @@ public class Brain_Wait : character_status
 		#endregion
 		if (Is_PartsNotAlive())
 		{
-			waitLoopTrigger.Trigger = true;
+			if (playable_Map.state == PlayState.Paused)
+			{
+				playable_Map.time = 285.0f;
+				playable_Map.Play();
+			}
 		}
 
 		// レーザーの攻撃
-		if(Is_Laser)
+		if (Is_Laser)
 		{
 			// 口開く、エネルギー溜めパーティクル再生
 			if (ActionStep == 0)
@@ -106,23 +118,26 @@ public class Brain_Wait : character_status
 
 	private bool Is_PartsNotAlive()
 	{
-		// パーツがすべて死んでいたとき
-		if(damagedParts.Count == 0)
-		{
-			// 死亡判定
-			return true;
-		}
+		bool flag = false;
 
 		// 生存パーツリストの確認
 		foreach(var parts in damagedParts)
 		{
-			if(parts.hp < 0)
+			if(parts.Is_Dead)
 			{
-				damagedParts.Remove(parts);
+				continue;
+			}
+			if(parts.hp > 0)
+			{
+				flag = false;
+			}
+			else
+			{
+				flag = true;
+				parts.Died_Process();
 			}
 		}
-
-		return false;
+		return flag;
 	}
 
 	new private void OnTriggerEnter(Collider other)

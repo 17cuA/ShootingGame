@@ -21,13 +21,16 @@ public class Stage_Movement : MonoBehaviour
 	private Quaternion PreviousFrameRotation { get; set; }			// 前の角度
 	private Quaternion NowFrameRotation { get; set; }					// 今の角度
 
-	private PlayableDirector Director { get; set; }				// デバッグ用プレイアブルディレクター
+	private PlayableDirector Director { get; set; }             // デバッグ用プレイアブルディレクター
+
+	[Tooltip("タイムラインの停止指示")]public bool Is_TimelinePause;
 
 	private void Start()
     {
 		PreviousFramePosition = NowFramePosition = transform.position;
 		Director = GetComponent<PlayableDirector>();
-    }
+		Is_TimelinePause = false;
+	}
 
 	private void LateUpdate()
 	{
@@ -35,5 +38,12 @@ public class Stage_Movement : MonoBehaviour
 
 		MovingDistance = NowFramePosition - PreviousFramePosition;
 		RotationAmount = Quaternion.Euler(NowFrameRotation.eulerAngles - PreviousFrameRotation.eulerAngles);
+
+		// タイムラインの停止
+		if(Is_TimelinePause)
+		{
+			Director.Pause();
+			Is_TimelinePause = false;
+		}
 	}
 }
