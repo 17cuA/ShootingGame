@@ -7,7 +7,7 @@ public class Brain_Parts : character_status
 	new private void Update()
 	{
 		base.Update();
-		if(Died_Judgment())
+		if(Is_Dead)
 		{
 			foreach(var render in object_material)
 			{

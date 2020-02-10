@@ -47,8 +47,11 @@ public class Brain_Wait : character_status
 		DeathTime_Cnt += Time.deltaTime;
 		if (DeathTime_Max < DeathTime_Cnt)
 		{
-			waitLoopTrigger.Trigger = true;
-			playable_Map.Play();
+			if (playable_Map.state == PlayState.Paused)
+			{
+				playable_Map.time = 285.25f;
+				playable_Map.Play();
+			}
 		}
 		#endregion
 
@@ -71,8 +74,11 @@ public class Brain_Wait : character_status
 		#endregion
 		if (Is_PartsNotAlive())
 		{
-			waitLoopTrigger.Trigger = true;
-			playable_Map.Play();
+			if (playable_Map.state == PlayState.Paused)
+			{
+				playable_Map.time = 285.25f;
+				playable_Map.Play();
+			}
 		}
 
 		// レーザーの攻撃
@@ -112,7 +118,7 @@ public class Brain_Wait : character_status
 
 	private bool Is_PartsNotAlive()
 	{
-		bool flag = true;
+		bool flag = false;
 
 		// 生存パーツリストの確認
 		foreach(var parts in damagedParts)
@@ -121,9 +127,13 @@ public class Brain_Wait : character_status
 			{
 				continue;
 			}
-			if(parts.hp < 0)
+			if(parts.hp > 0)
 			{
 				flag = false;
+			}
+			else
+			{
+				flag = true;
 				parts.Died_Process();
 			}
 		}
