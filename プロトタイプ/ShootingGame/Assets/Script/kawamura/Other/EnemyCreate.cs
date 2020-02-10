@@ -689,7 +689,7 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-		if (SceneManager.GetActiveScene().name == "State_01")
+		if (SceneManager.GetActiveScene().name == "Stage_01")
 		{
 			CreateEnemyGroup_01();
 		}
