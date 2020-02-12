@@ -17,61 +17,108 @@ public class Balkan_Tentacles : Tentacles
 	[SerializeField, Tooltip("攻撃マズル")] private GameObject muzzle;
 	[SerializeField, Tooltip("攻撃時の弾の数")] private int[] numberOfBullets;
 
+	private string Play_AnimationName;
+
 	new private void Start()
 	{
 		base.Start();
+		Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
 	}
 	new private void Update()
 	{
-		base.Update();
+		if (parent_Obj != null)
+		{
+			var temp = VectorChange_3To2(transform.parent.position - Vector3.zero);
+			transform.parent.right = temp;
+		}
 
 		if (Is_Attack)
 		{
-			Vector3 targetPos = new Vector3();
 			if (ActionStep == 0)
 			{
-				targetPos = NowTarget.transform.position - BaseBone.transform.position;
-				Vector3 temp = new Vector3(targetPos.y, -targetPos.x, 0.0f);
-				targetPos = temp;
+				// ターゲットが一番上
+				if (Is_TargetPosTop())
+				{
+					// 自身が一番下
+					if(Is_BaseBonePosBottom())
+					{
+						Play_AnimationName = AnimName[(int)Action.eB_TRANSITION];
+						A_Animation.Play(Play_AnimationName);
+					}
+					// 自身が中央
+					else if(Is_BaseBonePosMiddle())
+					{
+						Play_AnimationName = AnimName[(int)Action.eA_WAIT];
+						A_Animation.Play(Play_AnimationName);
+					}
+					// つまり同ライン
+					else
+					{
+						ActionStep++;
+					}
+				}
+				// ターゲットが中央
+				else if(Is_TargetPosMiddle())
+				{
+					// 自身が一番下
+					if (Is_BaseBonePosBottom())
+					{
+						Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
+						A_Animation.Play(Play_AnimationName);
+					}
+					// 自身が一番上
+					else if (Is_BaseBoonPosTop())
+					{
+						Play_AnimationName = AnimName[(int)Action.eA_WAIT];
+						A_Animation.Rewind(Play_AnimationName);
+					}
+					// つまり同ライン
+					else
+					{
+						ActionStep++;
+					}
+				}
+				// ターゲットが一番下
+				else if(Is_TargetPosMiddle())
+				{
+					// 自身が中央
+					if (Is_BaseBonePosBottom())
+					{
+						Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
+						A_Animation.Rewind(Play_AnimationName);
+					}
+					// 自身が一番上
+					else if (Is_BaseBoonPosTop())
+					{
+						Play_AnimationName = AnimName[(int)Action.eB_TRANSITION];
+						A_Animation.Rewind(Play_AnimationName);
+					}
+					// つまり同ライン
+					else
+					{
+						ActionStep++;
+					}
+				}
 				ActionStep++;
+			}
+			else if (ActionStep == 1)
+			{
+				// 移動終了時
+				if(!A_Animation.IsPlaying(Play_AnimationName))
+				{
+					ActionStep++;
+				}
 			}
 			else if (ActionStep == 2)
 			{
-				// ターゲットの向きに向ける
-				BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
-				if (targetPos == BaseBone.transform.right)
-				{
-					targetPos = new Vector3(-targetPos.x, -targetPos.y, 0.0f);
-					ActionStep++;
-				}
-			}
-			else if (ActionStep == 3)
-			{
-				BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
-				if (targetPos == BaseBone.transform.right)
-				{
-					targetPos = Vector3.zero;
+				var obj =  Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, muzzle.transform.right);
+				var pos = obj.transform.position;
+				pos.z = 0.0f;
+				obj.transform.position = pos;
 
-					// プレイヤー2がいるとき
-					if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
-					{
-						// 違うプレイヤーが生きていればターゲット変更
-						if (NowTarget == Player1 && Player2.activeSelf) NowTarget = Player2;
-						if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
-					}
-
-					ActionStep++;
-				}
-				else if(ActionStep == 4)
-				{
-					BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, targetPos, Time.deltaTime);
-					if(targetPos == BaseBone.transform.right)
-					{
-						Timer = 0.0f;
-						Is_Attack = false;
-						ActionStep = 0;
-					}
-				}
+				Timer = 0.0f;
+				ActionStep = 0;
+				Is_Attack = false;
 			}
 		}
 		else
@@ -81,13 +128,29 @@ public class Balkan_Tentacles : Tentacles
 		}
 	}
 
-	/// <summary>
-	/// 攻撃
-	/// </summary>
-	private void Attack(Vector3 targetPos)
+	private bool Is_TargetPosTop()
 	{
-		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, targetPos);
-		Timer = 0.0f;
-		Is_Attack = false;
+		return NowTarget.transform.position.y > 2.0f;
 	}
+	private bool Is_TargetPosMiddle()
+	{
+		return NowTarget.transform.position.y <= 2.0f && NowTarget.transform.position.y >= -2.0f;
+	}
+	private bool Is_TargetPosBottom()
+	{
+		return NowTarget.transform.position.y < -2.0f;
+	}
+	private bool Is_BaseBoonPosTop()
+	{
+		return BaseBone.transform.position.y > 2.0f;
+	}
+	private bool Is_BaseBonePosMiddle()
+	{
+		return BaseBone.transform.position.y <= 2.0f && NowTarget.transform.position.y >= -2.0f;
+	}
+	private bool Is_BaseBonePosBottom()
+	{
+		return BaseBone.transform.position.y < -2.0f;
+	}
+
 }
