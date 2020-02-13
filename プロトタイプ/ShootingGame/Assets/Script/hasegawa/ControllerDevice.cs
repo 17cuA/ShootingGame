@@ -120,7 +120,6 @@ public static class ControllerDevice
 		{
 			return 0;
 		}
-		Debug.Log(_GetGamePadState(_instance, padNum));
 		if (1 != _GetGamePadState(_instance, padNum)) return 0;
 
 		return 1;
@@ -170,7 +169,7 @@ public static class ControllerDevice
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(CodeToButtonName((eCode)judgButton, padNumber))) { return true; }
 
 		if ((lastTimeButtons[(int)padNumber] & judgButton) == 0 && (nowTimeButtons[(int)padNumber] & judgButton) == judgButton) { return true; }
-		if (_GetButtonDown(_instance, judgButton)) { return true; }
+		//if (_GetButtonDown(_instance, judgButton)) { return true; }
 		return false;
 	}
 	public static bool GetButtonDown(eCode judgButton = eCode.ePad_None, ePadNumber padNumber = ePadNumber.eNone)
@@ -186,7 +185,7 @@ public static class ControllerDevice
 		if ((judge && controllerNames[(int)padNumber] != "Controller (Gamepad F310)") && Input.GetButtonDown(CodeToButtonName(judgButton, padNumber))) { return true; }
 
 		if ((lastTimeButtons[(int)padNumber] & (int)judgButton) == 0 && (nowTimeButtons[(int)padNumber] & (int)judgButton) == (int)judgButton) { return true; }
-		if (_GetButtonDown(_instance, (int)judgButton)) { return true; }
+		//if (_GetButtonDown(_instance, (int)judgButton)) { return true; }
 		return false;
 	}
 	private static bool GetButtonDown()
