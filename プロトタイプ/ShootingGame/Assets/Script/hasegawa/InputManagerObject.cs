@@ -22,6 +22,8 @@ public class InputManagerObject : MonoBehaviour
 	[SerializeField] Vector2 debugAreaPosition;
 	DemoMovieControl demoMovieControl;
 
+	static ControllerDeviceUpdater controllerDeviceUpdater;
+
 	void Start()
 	{
 		bool findSame = false;
@@ -40,6 +42,13 @@ public class InputManagerObject : MonoBehaviour
 		}
 		inputManager.Init();
 		DontDestroyOnLoad(gameObject);
+
+		if (controllerDeviceUpdater == null)
+		{
+			GameObject updaterObject = new GameObject("ControllerDeviceUpdater");
+			controllerDeviceUpdater = updaterObject.AddComponent<ControllerDeviceUpdater>();
+			DontDestroyOnLoad(updaterObject);
+		}
 	}
 
 	void Update()
@@ -56,10 +65,6 @@ public class InputManagerObject : MonoBehaviour
 			IsInputSetting = !inputManager.SettingButton();
 			demoMovieControl.IsStopDemoMovie = IsInputSetting;
 		}
-	}
-	void LateUpdate()
-	{
-		ControllerDevice.Update();
 	}
 	//void OnGUI()
 	//{
