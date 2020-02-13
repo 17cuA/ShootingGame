@@ -121,4 +121,22 @@ public class Tentacles : MonoBehaviour
 	{
 		return new Vector2(temp.x, temp.y);
 	}
+	/// <summary>
+	/// アニメーション再生
+	/// </summary>
+	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
+	protected void AnimationPlay( string Play_AnimationName )
+	{
+		A_Animation[Play_AnimationName].speed = 1.0f;
+		A_Animation.Play(Play_AnimationName);
+	}
+	/// <summary>
+	/// アニメーション逆再生
+	/// </summary>
+	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
+	protected void AnimationReversePlay(string Play_AnimationName)
+	{
+		A_Animation[Play_AnimationName].speed = -1.0f;
+		A_Animation.Play(Play_AnimationName);
+	}
 }
