@@ -19,21 +19,37 @@ public class Balkan_Tentacles : Tentacles
 		eMIDOLLE,
 		eBOTTOM,
 	}
+	private delegate void HorizontalGoal_Operator();
+
 	[SerializeField, Tooltip("攻撃ディレイ")] private float attackDelay;
 	[SerializeField, Tooltip("攻撃マズル")] private GameObject muzzle;
+	[SerializeField, Tooltip("弾撃つ間隔")] private int shootingInterval_Max;
 	[SerializeField, Tooltip("攻撃時の弾の数")] private int[] numberOfBullets;
 
 	private string Play_AnimationName;
 	private GameObject horizontalGoal;
 	private POSITIOH_NAME nowPosName;
+	private int shootingInterval_Cnt;
+	private int numberOfBullets_Cnt;
+	private int numberOfBullets_Index;
+	HorizontalGoal_Operator[] horizontalGoal_Operators;
+	private int horizontalGoal_Operators_Index;
 	new private void Start()
 	{
 		base.Start();
 		Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
 		horizontalGoal = new GameObject();
 		horizontalGoal.transform.position = BaseBone.transform.position;
-
 		nowPosName = POSITIOH_NAME.eMIDOLLE;
+		shootingInterval_Cnt = 0;
+		numberOfBullets_Cnt = 0;
+		numberOfBullets_Index = 0;
+		horizontalGoal_Operators_Index = 0;
+		horizontalGoal_Operators = new HorizontalGoal_Operator[2]
+		{
+			new HorizontalGoal_Operator(HorizontalGoal_KeepHorizontal),
+			new HorizontalGoal_Operator(HorizontalGoal_SinMove),
+		};
 	}
 	new private void Update()
 	{
@@ -47,6 +63,7 @@ public class Balkan_Tentacles : Tentacles
 		{
 			if (ActionStep == 0)
 			{
+				#region ターゲット位置参照、移動先決定
 				// ターゲットが一番上
 				if (Is_TargetPosTop())
 				{
@@ -66,28 +83,9 @@ public class Balkan_Tentacles : Tentacles
 						default:
 							break;
 					}
-
-					nowPosName = POSITIOH_NAME.eTOP;
-					//// つまり同ライン
-					//if (Is_BaseBoonPosTop())
-					//{
-					//	ActionStep++;
-					//}
-					//// 自身が中央
-					//else if(Is_BaseBonePosMiddle())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eA_WAIT];
-					//	AnimationPlay(Play_AnimationName);
-					//}
-					//// 自身が一番下
-					//else if (Is_BaseBonePosBottom())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eB_TRANSITION];
-					//	AnimationPlay(Play_AnimationName);
-					//}
 				}
 				// ターゲットが中央
-				else if(Is_TargetPosMiddle())
+				else if (Is_TargetPosMiddle())
 				{
 					switch (nowPosName)
 					{
@@ -105,28 +103,9 @@ public class Balkan_Tentacles : Tentacles
 						default:
 							break;
 					}
-
-					nowPosName = POSITIOH_NAME.eMIDOLLE;
-					//// 自身が一番上
-					//if (Is_BaseBoonPosTop())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eA_WAIT];
-					//	AnimationReversePlay(Play_AnimationName);
-					//}
-					//// つまり同ライン
-					//else if (Is_BaseBonePosMiddle())
-					//{
-					//	ActionStep++;
-					//}
-					//// 自身が一番下
-					//else if (Is_BaseBonePosBottom())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
-					//	AnimationPlay(Play_AnimationName);
-					//}
 				}
 				// ターゲットが一番下
-				else if(Is_TargetPosBottom())
+				else if (Is_TargetPosBottom())
 				{
 					switch (nowPosName)
 					{
@@ -135,7 +114,7 @@ public class Balkan_Tentacles : Tentacles
 							AnimationReversePlay(Play_AnimationName);
 							break;
 						case POSITIOH_NAME.eMIDOLLE:
-							Play_AnimationName = AnimName[(int)Action.eA_WAIT];
+							Play_AnimationName = AnimName[(int)Action.eA_TRANSITION];
 							AnimationReversePlay(Play_AnimationName);
 							break;
 						case POSITIOH_NAME.eBOTTOM:
@@ -144,43 +123,58 @@ public class Balkan_Tentacles : Tentacles
 						default:
 							break;
 					}
-					nowPosName = POSITIOH_NAME.eBOTTOM;
-					//nowPosName = POSITIOH_NAME.eMIDOLLE;
-					//// 自身が一番上
-					//if (Is_BaseBoonPosTop())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eB_TRANSITION];
-					//	AnimationReversePlay(Play_AnimationName);
-					//}
-					//// 自分が中心
-					//else if (Is_BaseBonePosMiddle())
-					//{
-					//	Play_AnimationName = AnimName[(int)Action.eA_WAIT];
-					//	AnimationReversePlay(Play_AnimationName);
-					//}
-					//// つまり同ライン
-					//else if (Is_BaseBonePosBottom())
-					//{
-					//	ActionStep++;
-					//}
 				}
+				#endregion
+				if (Play_AnimationName == AnimName[(int)Action.eA_TRANSITION]) nowPosName = A_Animation[Play_AnimationName].speed > 0.0 ? POSITIOH_NAME.eMIDOLLE : POSITIOH_NAME.eBOTTOM;
+				else if (Play_AnimationName == AnimName[(int)Action.eA_WAIT]) nowPosName = A_Animation[Play_AnimationName].speed > 0.0 ? POSITIOH_NAME.eTOP : POSITIOH_NAME.eMIDOLLE;
+				else if (Play_AnimationName == AnimName[(int)Action.eB_TRANSITION]) nowPosName = A_Animation[Play_AnimationName].speed > 0.0 ? POSITIOH_NAME.eTOP : POSITIOH_NAME.eBOTTOM;
 				ActionStep++;
 			}
 			else if (ActionStep == 1)
 			{
+				HorizontalGoal_KeepHorizontal();
+
 				// 移動終了時
-				if(!A_Animation.IsPlaying(Play_AnimationName))
+				if (!A_Animation.IsPlaying(Play_AnimationName))
 				{
 					ActionStep++;
 				}
 			}
 			else if (ActionStep == 2)
 			{
-				var obj =  Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle.transform.position, -muzzle.transform.right);
-				var pos = obj.transform.position;
-				pos.z = 0.0f;
-				obj.transform.position = pos;
+				if (shootingInterval_Cnt > shootingInterval_Max)
+				{
+					var obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, muzzle.transform.position, -muzzle.transform.right);
+					var pos = obj.transform.position;
+					pos.z = 0.0f;
+					obj.transform.position = pos;
+					numberOfBullets_Cnt++;
+					shootingInterval_Cnt = 0;
+				}
 
+				horizontalGoal_Operators[horizontalGoal_Operators_Index]();
+
+				shootingInterval_Cnt++;
+				if (numberOfBullets_Cnt > numberOfBullets[numberOfBullets_Index])
+				{
+					ActionStep++;
+				}
+			}
+			else if(ActionStep == 3)
+			{ 
+				// ターゲット変更
+				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+				{
+					if (NowTarget == Player1 && Player2.activeSelf) NowTarget = Player2;
+					if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
+				}
+
+				if (numberOfBullets_Index == numberOfBullets.Length - 1) numberOfBullets_Index = 0;
+				else numberOfBullets_Index++;
+				if (horizontalGoal_Operators_Index == horizontalGoal_Operators.Length - 1) horizontalGoal_Operators_Index = 0;
+				else horizontalGoal_Operators_Index++;
+
+				 numberOfBullets_Cnt = 0;
 				Timer = 0.0f;
 				ActionStep = 0;
 				Is_Attack = false;
@@ -188,17 +182,13 @@ public class Balkan_Tentacles : Tentacles
 		}
 		else
 		{
-			Timer += Time.deltaTime;
+			#region マズルの向き調整
+			HorizontalGoal_KeepHorizontal();
+			#endregion
+
+						Timer += Time.deltaTime;
 			if (attackDelay < Timer) Is_Attack = true;
 		}
-
-		#region
-		var tempPos = BaseBone.transform.position;
-		tempPos.x = -2.0f;
-		horizontalGoal.transform.position = tempPos;
-		tempPos = BaseBone.transform.position - horizontalGoal.transform.position;
-		BaseBone.transform.right = tempPos;
-		#endregion
 	}
 
 	private bool Is_TargetPosTop()
@@ -213,18 +203,24 @@ public class Balkan_Tentacles : Tentacles
 	{
 		return NowTarget.transform.position.y < -2.0f;
 	}
-	private bool Is_BaseBoonPosTop()
-	{
-		return BaseBone.transform.position.y > 2.0f;
-	}
-	private bool Is_BaseBonePosMiddle()
-	{
-		return BaseBone.transform.position.y <= 2.0f && BaseBone.transform.position.y >= -2.0f;
-	}
-	private bool Is_BaseBonePosBottom()
-	{
-		return BaseBone.transform.position.y < -2.0f;
-	}
 
-
+	// 水平目標のSin移動
+	private void HorizontalGoal_SinMove()
+	{
+		var tempPos = BaseBone.transform.position;
+		tempPos.x = -2.0f;
+		tempPos.y += 4.0f * Mathf.Sin(Time.time * 2.0f); 
+		horizontalGoal.transform.position = tempPos;
+		tempPos = BaseBone.transform.position - horizontalGoal.transform.position;
+		BaseBone.transform.right = tempPos;
+	}
+	// 水平目標の水平維持
+	private void HorizontalGoal_KeepHorizontal()
+	{
+		var tempPos = BaseBone.transform.position;
+		tempPos.x = -2.0f;
+		horizontalGoal.transform.position = tempPos;
+		tempPos = BaseBone.transform.position - horizontalGoal.transform.position;
+		BaseBone.transform.right = Vector3.MoveTowards(BaseBone.transform.right, tempPos, Time.deltaTime * 10.0f);
+	}
 }

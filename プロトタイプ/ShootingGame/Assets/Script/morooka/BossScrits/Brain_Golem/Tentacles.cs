@@ -39,6 +39,7 @@ public class Tentacles : MonoBehaviour
 	protected GameObject Player2 { get; set; }					// プレイヤー2の情報格納
 	protected GameObject NowTarget { get; set; }				// 今のターゲット
 	protected GameObject BaseBone { get; private set; }		// 先端を動かすボーン
+	protected AnimationState AnimState { get; set; }
 
 	public bool Is_Attack { get; protected set; }                        // 攻撃しているかどうか
 
@@ -49,7 +50,9 @@ public class Tentacles : MonoBehaviour
 		AnimName = new List<string>() { "A_Transition", "A_Wait", "B_Transition", "B_Wait" };
 		A_Animation = GetComponent<Animation>();
 
-		for(GameObject tempObj = bone; tempObj.transform.childCount != 0; )
+		//AnimState =new AnimationState( A_Animation);
+
+		for (GameObject tempObj = bone; tempObj.transform.childCount != 0; )
 		{ 
 			if(tempObj.name == "Bone011")
 			{
@@ -127,6 +130,9 @@ public class Tentacles : MonoBehaviour
 	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
 	protected void AnimationPlay( string Play_AnimationName )
 	{
+		//A_Animation[Play_AnimationName].speed = 1.0f;
+		//A_Animation.Play(Play_AnimationName);
+
 		A_Animation[Play_AnimationName].speed = 1.0f;
 		A_Animation.Play(Play_AnimationName);
 	}
@@ -136,6 +142,10 @@ public class Tentacles : MonoBehaviour
 	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
 	protected void AnimationReversePlay(string Play_AnimationName)
 	{
+		//A_Animation[Play_AnimationName].speed = -60.0f;
+		//A_Animation.Play(Play_AnimationName);
+
+		A_Animation[Play_AnimationName].time = A_Animation[Play_AnimationName].clip.length;
 		A_Animation[Play_AnimationName].speed = -1.0f;
 		A_Animation.Play(Play_AnimationName);
 	}
