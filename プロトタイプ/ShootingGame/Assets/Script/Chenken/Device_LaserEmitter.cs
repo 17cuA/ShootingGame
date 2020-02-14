@@ -14,7 +14,7 @@ class Device_LaserEmitter : MonoBehaviour
 
 	[Header("Fireボタン/キー　設定")]
 	public KeyCode firekey;
-	public string fireButtonName;
+	public eCode fireButtonName;
 	InputManagerObject inputManager1P;
 	InputManagerObject inputManager2P;
 
@@ -271,7 +271,7 @@ class Device_LaserEmitter : MonoBehaviour
 		else
 		{
 			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
-			if (Input.GetButtonDown(fireButtonName) || Input.GetKeyDown(firekey))
+			if (ControllerDevice.GetButtonDown(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyDown(firekey))
 			{
 			    this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 
@@ -282,7 +282,7 @@ class Device_LaserEmitter : MonoBehaviour
 				isEnd = false;
 			}
 
-			if (Input.GetButton(fireButtonName) || Input.GetKey(firekey))
+			if (ControllerDevice.GetButton(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKey(firekey))
 			{
 				if (launchDevice.CurrentGenerator == null)
 				{
@@ -318,7 +318,7 @@ class Device_LaserEmitter : MonoBehaviour
                 }
 			}
 
-			if (Input.GetButtonUp(fireButtonName) || Input.GetKeyUp(firekey))
+			if (ControllerDevice.GetButtonUp(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyUp(firekey))
 			{
 				if (launchDevice.CurrentGenerator != null)
 				{

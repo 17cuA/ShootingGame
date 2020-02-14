@@ -36,7 +36,7 @@ public class Helper_SceneTranslation : MonoBehaviour
 		{
 			if(!DMC.IsPlayingMovie && !isSettingConfig)
 			{
-				if (Input.GetButtonDown("A") || Input.GetButtonDown("P2_A"))
+				if (ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer1) || ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer2))
 				{
 					audioSource?.PlayOneShot(audioClip);
 					DMC.IsStopDemoMovie = true;
@@ -47,13 +47,13 @@ public class Helper_SceneTranslation : MonoBehaviour
 		}
 		else if(Set_Step==1 && !isSettingConfig)
 		{
-			if (Input.GetButtonDown("A") || Input.GetButtonDown("P2_A"))
+			if (ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer1) || ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer2))
 			{
 				Set_Step++;
 				if (Decision.isPlaying) Decision.Stop();
 				Decision.PlayOneShot(Decision_SE);
 			}
-			else if(Input.GetButtonDown("B") || Input.GetButtonDown("P2_B"))
+			else if(ControllerDevice.GetButtonDown(eCode.ePad_b, ePadNumber.ePlayer1) || ControllerDevice.GetButtonDown(eCode.ePad_b, ePadNumber.ePlayer2))
 			{
 				Set_Step--;
 				DMC.IsStopDemoMovie = false;
