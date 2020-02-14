@@ -27,7 +27,7 @@ public class Shutte_Move : MonoBehaviour
 	private RaycastHit hit;
 
 	private Vector3 target;
-	private float speed;
+	public float speed;
 
 	private Vector3 Open_TargetPos { get; set; }		// 開いているときのポジション
 	private Vector3 Close_TargetPos { get; set; }		// 閉じているときのポジション
@@ -35,7 +35,7 @@ public class Shutte_Move : MonoBehaviour
 	new private void Start()
 	{
 		//----------------------------------------------------------------
-		speed = 0.01f;
+		speed = 0.015f;
 		target = new Vector3(0.0f, 0.0f, 7.1f);
 		//----------------------------------------------------------------
 
