@@ -66,10 +66,10 @@ public class InputManager
 			Canvas anyCanvas = GameObject.FindObjectOfType<Canvas>();
 			inputInfoText = new GameObject("InputInfo").AddComponent<Text>();
 			inputInfoText.rectTransform.SetParent(anyCanvas.transform);
-			inputInfoText.rectTransform.localPosition = new Vector2(textPositionX / (3840f /Screen.width) , 0f);
+			inputInfoText.rectTransform.localPosition = new Vector2(textPositionX, 0f);
 			inputInfoText.font = textFont;
-			inputInfoText.fontSize = 50;
-			inputInfoText.rectTransform.sizeDelta = new Vector2(Screen.width, 1080f);
+			inputInfoText.fontSize = 50 / (int)(3840f / Screen.width);
+			inputInfoText.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
 		}
 		bool isComplete = false;
 		bool isInput = false;
