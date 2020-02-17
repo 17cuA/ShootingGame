@@ -2688,11 +2688,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2235868538954718953, guid: c644b435daa4fd64e8b41276bae9876b,
-        type: 3}
-      propertyPath: m_SceneBindings.Array.data[3].value
-      value: 
-      objectReference: {fileID: 927029349}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c644b435daa4fd64e8b41276bae9876b, type: 3}
 --- !u!1001 &742886087
@@ -2869,12 +2864,6 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6223543701217059861, guid: c5511831683274044a5c606ce4ac0f63,
     type: 3}
   m_PrefabInstance: {fileID: 344868039637971821}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &927029349 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1695395215889059093, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1695395214678848199}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &933599427
 GameObject:
@@ -7045,28 +7034,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
+      propertyPath: stringggggg.m_list.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: enemyRota.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
       propertyPath: enemyInformation.Array.data[0].enemyType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[1].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[2].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[3].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[4].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7081,22 +7080,22 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[1].manualVector.x
-      value: 21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[1].manualVector.y
-      value: -3.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[2].manualVector.x
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[2].manualVector.y
-      value: 3.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7116,22 +7115,22 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[3].manualVector.x
-      value: 21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[3].manualVector.y
-      value: -3.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[4].manualVector.x
-      value: -21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[4].manualVector.y
-      value: 3.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7146,17 +7145,17 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[5].manualVector.x
-      value: -21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[5].manualVector.y
-      value: 3.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[6].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7166,17 +7165,17 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[6].manualVector.x
-      value: -21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[6].manualVector.y
-      value: 3.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[7].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7186,17 +7185,17 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[7].manualVector.x
-      value: -21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[7].manualVector.y
-      value: 3.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[8].enemyType
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
@@ -7206,12 +7205,42 @@ PrefabInstance:
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[8].manualVector.x
-      value: -21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
         type: 3}
       propertyPath: enemyInformation.Array.data[8].manualVector.y
-      value: 3.2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: enemyInformation.Array.data[1].enemyRota.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: stringggggg.m_list.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: stringggggg.m_list.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: createNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: enemyRota.Array.data[4].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695395215889059092, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8,
+        type: 3}
+      propertyPath: enemyRota.Array.data[5].x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dca61c8c6e3f6a49af9a0fc69b6bde8, type: 3}
