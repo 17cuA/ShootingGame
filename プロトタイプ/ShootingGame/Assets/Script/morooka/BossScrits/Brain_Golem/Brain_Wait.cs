@@ -8,6 +8,7 @@
 //----------------------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -27,11 +28,14 @@ public class Brain_Wait : character_status
 	protected int ActionStep { get; set; }                              // 攻撃手順指示番号
 	private float DeathTime_Cnt { get; set; }		// 死ぬ時間カウンター
 	private float DeathTime_Max { get; set; }       // 死ぬ時間
+	private List<Collider> colliders { get; set; }		// コライダー軍
 
 	new private void Start()
 	{
 		foreach (Transform obj in transform)
 		{
+			colliders.Add(obj.GetComponent<Collider>());
+			colliders.Last();
 			obj.gameObject.SetActive(false);
 		}
 		Is_Active = false;
