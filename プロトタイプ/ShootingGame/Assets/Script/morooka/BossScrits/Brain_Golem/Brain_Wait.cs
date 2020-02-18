@@ -15,8 +15,7 @@ using UnityEngine.Playables;
 public class Brain_Wait : character_status
 {
 	[SerializeField, Tooltip("ダメージ受けるパーツ")] private List<Brain_Parts> damagedParts;
-	[SerializeField, Tooltip("触手のパーツ_バルカン")] private List<Brain_Parts> balkanTentacles;
-	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
+	[SerializeField, Tooltip("触手のパーツ")] private List<Tentacles> tentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
 	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
@@ -32,10 +31,19 @@ public class Brain_Wait : character_status
 
 	new private void Start()
 	{
+		colliders = new List<Collider>();
+		foreach(var tenp in tentacles)
+		{
+			tenp.enabled = false;
+		}
 		foreach (Transform obj in transform)
 		{
-			colliders.Add(obj.GetComponent<Collider>());
-			colliders.Last();
+			Collider col = obj.GetComponent<Collider>();
+			if (col != null)
+			{
+				colliders.Add(col);
+				colliders.Last().enabled = false;
+			}
 			obj.gameObject.SetActive(false);
 		}
 		Is_Active = false;
@@ -47,6 +55,36 @@ public class Brain_Wait : character_status
 
     new private void Update()
     {
+		#region 起動状態(仮)確認
+		if (!Is_Active)
+		{
+			// 画面内に入る少し前で
+			if (transform.position.x < 20.0f)
+			{
+				// 起動
+				foreach (Transform obj in transform)
+				{
+					obj.gameObject.SetActive(true);
+				}
+
+				if(playable_Map.state == PlayState.Paused)
+				{
+					foreach(var col in colliders)
+					{
+						col.enabled = true;
+					}
+					foreach (var tenp in tentacles)
+					{
+						tenp.enabled = true;
+					}
+					Is_Active = true;
+				}
+			}
+
+			return;
+		}
+		#endregion
+
 		#region 自動死亡時間
 		DeathTime_Cnt += Time.deltaTime;
 		if (DeathTime_Max < DeathTime_Cnt)
@@ -59,29 +97,21 @@ public class Brain_Wait : character_status
 		}
 		#endregion
 
-		#region 起動状態(仮)確認
-		if (!Is_Active)
+		// パーツが死んでいるとき
+		if (!Is_PartsAlive())
 		{
-			if (transform.position.x < 10.0f)
-			{
-				foreach (Transform obj in transform)
-				{
-					obj.gameObject.SetActive(true);
-				}
-				Is_Active = true;
-			}
-			else
-			{
-				return;
-			}
-		}
-		#endregion
-		if (Is_PartsNotAlive())
-		{
+			// 管理しているタイムラインがポーズ状態のとき
 			if (playable_Map.state == PlayState.Paused)
 			{
+				// タイムラインの再生時間を指定後、再生
 				playable_Map.time = 285.0f;
 				playable_Map.Play();
+
+				// コライダーを止める
+				foreach(var col in colliders)
+				{
+					col.enabled = false;
+				}
 			}
 		}
 
@@ -130,7 +160,11 @@ public class Brain_Wait : character_status
 		#endregion
 	}
 
-	private bool Is_PartsNotAlive()
+	/// <summary>
+	/// パーツが生きているのか確認
+	/// </summary>
+	/// <returns> 生きていれば true </returns>
+	private bool Is_PartsAlive()
 	{
 		bool flag = false;
 
@@ -143,11 +177,10 @@ public class Brain_Wait : character_status
 			}
 			if(parts.hp > 0)
 			{
-				flag = false;
+				flag = true;
 			}
 			else
 			{
-				flag = true;
 				parts.Died_Process();
 			}
 		}
