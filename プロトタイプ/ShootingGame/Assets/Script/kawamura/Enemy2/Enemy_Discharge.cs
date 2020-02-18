@@ -13,7 +13,10 @@ public class Enemy_Discharge : MonoBehaviour
 		Down,
 		Left,
 		Right,
+		Free,
 	}
+
+	public MyDirection myDirection;
 
 	//public enum SetMoveType
 	//{
@@ -73,10 +76,21 @@ public class Enemy_Discharge : MonoBehaviour
 						{
 							//オブジェクト生成（のちにプーリング）
 							GameObject saveObj = Instantiate(createObj, transform.position, createRotation);
-							//子供にする
-							saveObj.transform.parent = transform;
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
+
+							if (myDirection==Enemy_Discharge.MyDirection.Free)
+							{
+								discharged_Script.isRotaReset = false;
+								saveObj.transform.rotation = transform.rotation;
+
+							}
+							else
+							{
+								discharged_Script.isRotaReset = true;
+							}
+							//子供にする
+							//saveObj.transform.parent = transform;
 							//動きの種類を設定
 							discharged_Script.moveType = setMoveType;
 							//SetState(setMoveType);
@@ -122,8 +136,9 @@ public class Enemy_Discharge : MonoBehaviour
 			case MyDirection.Down: transform.rotation = Quaternion.Euler(0, 0, 180); break;
 			case MyDirection.Left: transform.rotation = Quaternion.Euler(0, 0, 90); break;
 			case MyDirection.Right: transform.rotation = Quaternion.Euler(0, 0, 270); break;
-
+			case MyDirection.Free: break;
 		}
+		myDirection = direc;
 	}
 
 	//void SetState(SetMoveType setType)

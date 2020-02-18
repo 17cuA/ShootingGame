@@ -71,6 +71,7 @@ MonoBehaviour:
   XMoveTimeCnt180: 0
   speedStateCnt: 0
   once: 1
+  isRotaReset: 1
 --- !u!114 &286457611182061565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_Name
-      value: ClamChowderType_Enemy
+      value: DischargedModel
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a24900a0490784d4b9b1396066b319a9, type: 3}
       propertyPath: m_LocalPosition.x

@@ -63,7 +63,7 @@ public class Enemy_Discharged : MonoBehaviour
 	//ここから180度カーブ用
 	[Header("入力用　180Xスピード")]
 	public float speedX180;
-	[Header("入力用　	180最大Xスピード")]
+	[Header("入力用　180最大Xスピード")]
 	public float speedXMax180;
 	public float defaultSpeedX180;
 	[Header("入力用　180Xスピードの増減値")]
@@ -84,9 +84,8 @@ public class Enemy_Discharged : MonoBehaviour
 
 	//ここまで180度カーブ用
 
-	public bool once = true;		//一回だけ行う処理用
-
-
+	public bool once = true;        //一回だけ行う処理用
+	public bool isRotaReset = true;
 
 	void Start()
 	{
@@ -121,13 +120,32 @@ public class Enemy_Discharged : MonoBehaviour
 			//動きの種類でモデルの向きを変える
 			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.LeftCueveDown_180)
 			{
-				modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
-				transform.rotation = Quaternion.Euler(0, 0, 0);
+				if(isRotaReset)
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+					transform.rotation = Quaternion.Euler(0, 0, 0);
+				}
+				else
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+					transform.rotation = Quaternion.Euler(0, 180, 0);
+
+				}
 			}
 			else if (moveType == Enemy_Discharged.MoveType.RightCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCueveUp_180 || moveType == Enemy_Discharged.MoveType.RightCurveDown_90 || moveType == Enemy_Discharged.MoveType.RightCueveDown_180)
 			{
-				modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
-				transform.rotation = Quaternion.Euler(0, 180, 0);
+				if(isRotaReset)
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
+					transform.rotation = Quaternion.Euler(0, 180, 0);
+				}
+				else
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+					//transform.rotation = Quaternion.Euler(0, 180, transform.rotation.z);
+
+				}
+
 			}
 
 			//上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
