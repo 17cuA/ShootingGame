@@ -19,38 +19,42 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
 	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
+	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
 
-	private bool Is_Active { get; set; }
-	WaitLoopTrigger waitLoopTrigger = null;
-
-	private bool Is_Laser { get; set; }
-	protected int ActionStep { get; set; }                              // 攻撃手順指示番号
-	private float DeathTime_Cnt { get; set; }		// 死ぬ時間カウンター
-	private float DeathTime_Max { get; set; }       // 死ぬ時間
-	private List<Collider> colliders { get; set; }		// コライダー軍
+	private bool Is_Active { get; set; }									// 行動可能か
+	private bool Is_Laser { get; set; }									// レーザーを撃てるか
+	protected int ActionStep { get; set; }								// 攻撃手順指示番号
+	private float DeathTime_Cnt { get; set; }							// 死ぬ時間カウンター
+	private float DeathTime_Max { get; set; }						// 死ぬ時間
+	private List<Collider> colliders { get; set; }						// コライダー軍
+	private List<Transform> All_Transforms { get; set; }		// 自分、子供、孫含めたトランスフォーム
+	private float lasearinterval_Cnt { get; set; }						// レーザーのインターバル計測
 
 	new private void Start()
 	{
-		colliders = new List<Collider>();
 		foreach(var tenp in tentacles)
 		{
 			tenp.enabled = false;
 		}
-		foreach (Transform obj in transform)
+
+		colliders = new List<Collider>(transform.GetComponentsInChildren<Collider>(false));
+		foreach(Collider col in colliders)
 		{
-			Collider col = obj.GetComponent<Collider>();
-			if (col != null)
-			{
-				colliders.Add(col);
-				colliders.Last().enabled = false;
-			}
+			col.enabled = false;
+		}
+
+ 		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
+		All_Transforms.Remove(transform);
+		foreach (Transform obj in All_Transforms)
+		{
 			obj.gameObject.SetActive(false);
 		}
+
 		Is_Active = false;
 		Is_Laser = false;
-		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
 		ActionStep = 0;
 		DeathTime_Max = 60.0f * 3.0f;
+		lasearinterval_Cnt = 0.0f;
 	}
 
     new private void Update()
@@ -62,17 +66,19 @@ public class Brain_Wait : character_status
 			if (transform.position.x < 20.0f)
 			{
 				// 起動
-				foreach (Transform obj in transform)
+				foreach (Transform obj in All_Transforms)
 				{
 					obj.gameObject.SetActive(true);
 				}
 
 				if(playable_Map.state == PlayState.Paused)
 				{
+					// コライダーの起動
 					foreach(var col in colliders)
 					{
 						col.enabled = true;
 					}
+					// 触手の起動
 					foreach (var tenp in tentacles)
 					{
 						tenp.enabled = true;
@@ -97,6 +103,7 @@ public class Brain_Wait : character_status
 		}
 		#endregion
 
+		#region パーツの死亡確認とボスの破壊確認
 		// パーツが死んでいるとき
 		if (!Is_PartsAlive())
 		{
@@ -108,14 +115,27 @@ public class Brain_Wait : character_status
 				playable_Map.Play();
 
 				// コライダーを止める
-				foreach(var col in colliders)
+				foreach (var col in colliders)
 				{
 					col.enabled = false;
 				}
+				// 触手の攻撃終了
+				foreach (var temp in tentacles)
+				{
+					temp.enabled = false;
+				}
+			}
+
+			// 画面外
+			if (transform.position.x < -20.0f)
+			{
+				Destroy(gameObject);
 			}
 		}
+			#endregion
 
 		#region レーザー
+			lasearinterval_Cnt += Time.deltaTime;
 		// レーザーの攻撃
 		if (Is_Laser)
 		{
@@ -128,11 +148,13 @@ public class Brain_Wait : character_status
 			// パーティクル終了時
 			else if (ActionStep == 1)
 			{
+				// 口開くアニメーションが終わったとき
 				if (!FaceAnimation.IsPlaying("Open"))
 				{
 					ActionStep++;
 				}
 			}
+			// レーザー撃ちだし
 			else if (ActionStep == 2)
 			{
 				lasear.SetActive(true);
@@ -141,6 +163,7 @@ public class Brain_Wait : character_status
 			// 口閉じる
 			else if (ActionStep == 3)
 			{
+				// レーザーが起動しなくなったとき
 				if (!lasear.activeSelf)
 				{
 					FaceAnimation.Play("Close");
@@ -154,6 +177,7 @@ public class Brain_Wait : character_status
 					ActionStep = 0;
 					Is_Laser = false;
 					GetComponent<Collider>().enabled = true;
+					lasearinterval_Cnt = 0.0f;
 				}
 			}
 		}
@@ -171,16 +195,20 @@ public class Brain_Wait : character_status
 		// 生存パーツリストの確認
 		foreach(var parts in damagedParts)
 		{
+			// パーツが死んでいるとき
 			if(parts.Is_Dead)
 			{
 				continue;
 			}
+			// パーツのHPが0以上のとき
 			if(parts.hp > 0)
 			{
 				flag = true;
 			}
+			// パーツがHP0のとき
 			else
 			{
+				// 死亡判定
 				parts.Died_Process();
 			}
 		}
@@ -189,7 +217,7 @@ public class Brain_Wait : character_status
 
 	new private void OnTriggerEnter(Collider other)
 	{
-		if(!Is_Laser && other.tag == "Player")
+		if(!Is_Laser && other.tag == "Player" && lasearinterval_Cnt > lasearInterval_Max)
 		{
 			Is_Laser = true;
 			GetComponent<Collider>().enabled = false;
