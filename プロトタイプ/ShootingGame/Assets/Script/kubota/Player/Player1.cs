@@ -297,7 +297,7 @@ public class Player1 : character_status
 				Bullet_Create();
 
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButton(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
+				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();
