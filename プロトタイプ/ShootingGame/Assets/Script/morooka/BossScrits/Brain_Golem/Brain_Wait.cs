@@ -97,7 +97,7 @@ public class Brain_Wait : character_status
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 285.0f;
+				playable_Map.time = 289.3f;
 				playable_Map.Play();
 			}
 		}
@@ -111,7 +111,7 @@ public class Brain_Wait : character_status
 			if (playable_Map.state == PlayState.Paused)
 			{
 				// タイムラインの再生時間を指定後、再生
-				playable_Map.time = 285.0f;
+				playable_Map.time = 289.3f;
 				playable_Map.Play();
 
 				// コライダーを止める

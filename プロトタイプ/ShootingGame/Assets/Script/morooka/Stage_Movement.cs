@@ -34,7 +34,7 @@ public class Stage_Movement : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 253.06;
+		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 270.0;
 
 		MovingDistance = NowFramePosition - PreviousFramePosition;
 		RotationAmount = Quaternion.Euler(NowFrameRotation.eulerAngles - PreviousFrameRotation.eulerAngles);
