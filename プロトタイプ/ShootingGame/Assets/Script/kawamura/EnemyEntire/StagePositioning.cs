@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//ステージ2の移動した分だけ移動する（ステージの子供にしない場合）
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

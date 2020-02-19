@@ -12,11 +12,17 @@ public class Enemy_Battery : character_status
 		base.Start();
     }
 
-    void Update()
+    new void Update()
     {
 		if (hp < 1)
 		{
 			Died_Process();
 		}
+		else if (transform.position.x < -21)
+		{
+			gameObject.SetActive(false);
+		}
+
+		base.Update();
     }
 }

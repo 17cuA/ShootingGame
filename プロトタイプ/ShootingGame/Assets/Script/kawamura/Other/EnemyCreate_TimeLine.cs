@@ -18,28 +18,31 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public Enemy_Discharge saveDischarge_Script;
 	public FollowGround3 saveFollowGrownd_Script;
 
+	//作る敵
 	public enum CreateEnemyType
 	{
 		None,
-		Discharge_LeftCurveUp90,                         //排出の上向き左90度カープ
+		Discharge_LeftCurveUp90,                    //排出の上向き左90度カープ
 		Discharge_RightCurveUp90,                   //排出の上向き右90度カープ
 		Discharge_LeftCurveDown90,                  //排出の下向き左90度カープ
-		Discharge_RightCurveDown90,             //排出の下向き右90度カープ
-		Discharge_Up_Left180,                           //排出左向き180度カーブ上
+		Discharge_RightCurveDown90,                 //排出の下向き右90度カープ
+		Discharge_Up_Left180,                       //排出左向き180度カーブ上
 		Discharge_Down_Left180,                     //排出左向き180度カーブ下
-		Discharge_Up_Right180,                          //排出右向き180度カーブ上
-		Discharge_Down_Right180,                        //排出右向き180度カーブした
-		Discharge_UpAndDown_LeftCurve90,        //排出上下左カーブ
-		Discharge_UpAndDown_RightCurve90,   //排出上下右カーブ
+		Discharge_Up_Right180,                      //排出右向き180度カーブ上
+		Discharge_Down_Right180,                    //排出右向き180度カーブした
+		Discharge_UpAndDown_LeftCurve90,            //排出上下左カーブ
+		Discharge_UpAndDown_RightCurve90,           //排出上下右カーブ
 		FollowGround_Left,
 		FollowGround_Right,
-		Taiho_Upward,                                       //上向き大砲
-		Taiho_Downward,                                 //下向き大砲
-		Taiho_Left,                                             //左向き大砲
-		Taiho_Right,                                            //右向き大砲
-		Taiho_UpAndDown,                                //大砲上下
+		Taiho_Upward,                               //上向き大砲
+		Taiho_Downward,                             //下向き大砲
+		Taiho_Left,                                 //左向き大砲
+		Taiho_Right,                                //右向き大砲
+		Taiho_Free,                                 //自分で角度を指定する大砲
+		Taiho_UpAndDown,                            //大砲上下
 	}
 
+	//作る位置
 	public enum CreatePos
 	{
 		None,
@@ -55,6 +58,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public Transform taihoPos_Top;
 	public Transform taihoPos_Under;
 
+	public Quaternion enemyRota;
+
 	[System.Serializable]
 	public struct EnemyInformation
 	{
@@ -63,13 +68,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		public CreatePos createPos;
 		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
 		public Vector3 manualVector;                    //手打ちで出したい位置を入力できる
+		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
+		public Vector3 enemyRota;
+
 	}
+	public EnemyInformation[] enemyInformation = new EnemyInformation[5];
 
 	public int createNum;                   //次に出す順番の数
 	public string nextGroupName;        //次に出す敵の名前
-
-	[Header("配列の[１]番目から出します")]
-	public EnemyInformation[] enemyInformation;
 
 
 	void Start()
@@ -81,6 +87,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		createNum = 1;
 
 	}
+
 
 	void Update()
 	{
@@ -212,6 +219,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public void EnemyCreate()
 	{
 		Vector3 pos = Vector3.zero;
+
 
 		switch (enemyInformation[createNum].createPos)
 		{
@@ -429,6 +437,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+			//角度指定大砲
+			case CreateEnemyType.Taiho_Free:
+				saveObj = Instantiate(taihoObj, pos, transform.rotation);
+				//saveObj.transform.0f, 90f, 0f));
+				saveObj.transform.parent = mapObj.transform;
+				saveObj = null;
+				createNum++;
+				break;
+
+
 			//上下大砲
 			case CreateEnemyType.Taiho_UpAndDown:
 				saveObj = Instantiate(taihoObj, taihoPos_Under.position, transform.rotation);
@@ -448,3 +466,4 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		nextGroupName = enemyInformation[createNum].enemyName;
 	}
 }
+

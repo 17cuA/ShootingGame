@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1695395215889059091}
   - component: {fileID: 1695395215889059092}
+  - component: {fileID: 927029350}
   m_Layer: 0
   m_Name: CreateEnemy2
   m_TagString: Untagged
@@ -44,32 +45,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dischargeObj: {fileID: 0}
+  followGroundObj: {fileID: 0}
+  taihoObj: {fileID: 0}
   saveObj: {fileID: 0}
-  saveObj2: {fileID: 0}
   mapObj: {fileID: 0}
   saveDischarge_Script: {fileID: 0}
+  saveFollowGrownd_Script: {fileID: 0}
   dischargePos_Top: {fileID: 0}
   dischargePos_Under: {fileID: 0}
-  enemyInformation:
-  - enemyName: 
-    enemyType: 1
-    createPos: 2
-    manualVector: {x: 0, y: 0, z: 0}
-  - enemyName: 
-    enemyType: 1
-    createPos: 2
-    manualVector: {x: 0, y: 0, z: 0}
-  - enemyName: 
-    enemyType: 1
-    createPos: 2
-    manualVector: {x: 0, y: 0, z: 0}
-  - enemyName: 
-    enemyType: 1
-    createPos: 2
-    manualVector: {x: 0, y: 0, z: 0}
-  - enemyName: 
-    enemyType: 1
-    createPos: 2
-    manualVector: {x: 0, y: 0, z: 0}
+  taihoPos_Top: {fileID: 0}
+  taihoPos_Under: {fileID: 0}
+  enemyRota: {x: 0, y: 0, z: 0, w: 0}
   createNum: 0
   nextGroupName: 
+  enemyInformation:
+  - enemyName: 
+    enemyType: 0
+    createPos: 0
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 17
+    createPos: 3
+    manualVector: {x: 21, y: -3.4, z: 0}
+    enemyRota: {x: 0, y: 0, z: 45, w: 0}
+  - enemyName: 
+    enemyType: 15
+    createPos: 0
+    manualVector: {x: -15, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 21, y: -3.4, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -21, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 9
+    createPos: 0
+    manualVector: {x: -21, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -21, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -21, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -21, y: 3.2, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+--- !u!320 &927029350
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695395215889059093}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 6acc0b00b2435854d816dc744d9bff1b, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114849557655326482, guid: 6acc0b00b2435854d816dc744d9bff1b, type: 2}
+    value: {fileID: 1695395215889059093}
+  m_ExposedReferences:
+    m_References: []

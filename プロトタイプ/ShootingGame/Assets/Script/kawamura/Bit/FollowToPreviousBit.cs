@@ -192,7 +192,7 @@ public class FollowToPreviousBit : MonoBehaviour
 				}
 				if (!pl1.Is_Resporn)
 				{
-					if (Input.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -204,7 +204,7 @@ public class FollowToPreviousBit : MonoBehaviour
 						savePos = transform.position;
 						pos = previousBitObj.transform.position;
 					}
-					else if (Input.GetButton(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -235,7 +235,7 @@ public class FollowToPreviousBit : MonoBehaviour
 
 				if (!pl2.Is_Resporn)
 				{
-					if (Input.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -247,7 +247,7 @@ public class FollowToPreviousBit : MonoBehaviour
 						savePos = transform.position;
 						pos = previousBitObj.transform.position;
 					}
-					else if (Input.GetButton(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -287,7 +287,7 @@ public class FollowToPreviousBit : MonoBehaviour
 			{
 				if (isFollow1P)
 				{
-					if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+					if ((ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1) != 0) || (ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1) != 0))
 					{
 						isMove = true;
 					}
@@ -320,7 +320,7 @@ public class FollowToPreviousBit : MonoBehaviour
 					//if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
 					{
 						isMove = false;
-						if ((Input.GetAxis("P2_Horizontal") != 0) || (Input.GetAxis("P2_Vertical") != 0))
+						if ((ControllerDevice.GetAxis("P2_Horizontal", ePadNumber.ePlayer2) != 0) || (ControllerDevice.GetAxis("P2_Vertical", ePadNumber.ePlayer2) != 0))
 						{
 							isMove = true;
 						}

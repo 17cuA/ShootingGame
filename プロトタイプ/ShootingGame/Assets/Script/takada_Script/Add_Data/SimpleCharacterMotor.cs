@@ -58,8 +58,8 @@ public class SimpleCharacterMotor : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            var x = Input.GetAxis("Horizontal");
-            var z = Input.GetAxis("Vertical");
+            var x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);
+            var z = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);
             var run = Input.GetKey(KeyCode.LeftShift);
 
             var translation = new Vector3(x, 0, z);
