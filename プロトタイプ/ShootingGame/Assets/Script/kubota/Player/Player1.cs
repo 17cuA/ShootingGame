@@ -297,7 +297,7 @@ public class Player1 : character_status
 				Bullet_Create();
 
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton(inputManager.Manager.Button["Item"]))
+				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButton(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();
@@ -327,8 +327,8 @@ public class Player1 : character_status
 	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -424,8 +424,8 @@ public class Player1 : character_status
 	//コントローラーの操作　使ってない
 	private void Player_Move()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -499,7 +499,7 @@ public class Player1 : character_status
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (Input.GetButtonDown(inputManager.Manager.Button["ShotSwitch"]))
+		if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["ShotSwitch"], ePadNumber.ePlayer1))
 		{
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
@@ -512,7 +512,7 @@ public class Player1 : character_status
 			if (Shot_Delay > Shot_DelayMax)
 			{
 				//単発の弾の発射
-				if (Input.GetButtonDown(inputManager.Manager.Button["Shot"]) || Input.GetKeyDown(KeyCode.Space))
+				if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
 					switch (bullet_Type)
@@ -546,14 +546,14 @@ public class Player1 : character_status
 		else
 		{
 			//ボタンを押すのをやめたら弾が出るのが止まるように
-			if (Input.GetButtonUp(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			if (ControllerDevice.GetButtonUp(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = false;
 				shoot_number = 0;
 				return;
 			}
 			//発射ボタンを押したら弾が出続けるようにする
-			else if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			else if (ControllerDevice.GetButton(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = true;
 			}

@@ -22,6 +22,8 @@ public class InputManagerObject : MonoBehaviour
 	[SerializeField] Vector2 debugAreaPosition;
 	DemoMovieControl demoMovieControl;
 
+	static ControllerDeviceUpdater controllerDeviceUpdater;
+
 	void Start()
 	{
 		bool findSame = false;
@@ -40,6 +42,13 @@ public class InputManagerObject : MonoBehaviour
 		}
 		inputManager.Init();
 		DontDestroyOnLoad(gameObject);
+
+		if (controllerDeviceUpdater == null)
+		{
+			GameObject updaterObject = new GameObject("ControllerDeviceUpdater");
+			controllerDeviceUpdater = updaterObject.AddComponent<ControllerDeviceUpdater>();
+			DontDestroyOnLoad(updaterObject);
+		}
 	}
 
 	void Update()
@@ -62,13 +71,24 @@ public class InputManagerObject : MonoBehaviour
 	//	if (IsInputSetting) { return; }
 	//	string displayText = "";
 	//	Rect displayAreaSize = new Rect(debugAreaPosition.x, debugAreaPosition.y, 500f, 0f);
-	//	foreach(string key in inputManager.Button.Keys)
+	//	foreach (string key in inputManager.Button.Keys)
 	//	{
-	//		if (Input.GetButton(inputManager.Button[key]))
+	//		if (ControllerDevice.GetButton(inputManager.Button[key], inputManager.PadNumber))
 	//		{
 	//			displayText += "Input " + key + "\n";
 	//			displayAreaSize.height += 60f;
 	//		}
+	//	}
+	//	Vector2 input = new Vector2(ControllerDevice.GetAxis("Horizontal", inputManager.PadNumber), ControllerDevice.GetAxis("Vertical", inputManager.PadNumber));
+	//	if (input.x != 0f)
+	//	{
+	//		displayText += "Axis X : " + input.x + "\n";
+	//		displayAreaSize.height += 60f;
+	//	}
+	//	if (input.y != 0f)
+	//	{
+	//		displayText += "Axis Y : " + input.y + "\n";
+	//		displayAreaSize.height += 60f;
 	//	}
 	//	if (displayText == "") { return; }
 	//	GUI.TextField(displayAreaSize, displayText);

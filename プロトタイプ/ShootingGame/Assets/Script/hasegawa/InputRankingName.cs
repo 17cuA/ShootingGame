@@ -62,19 +62,24 @@ public class InputRankingName
 	string cancelButtonName = "Fire2";									// ひとつ前に戻るボタンの名前
 	KeyCode decisionKeyCode = KeyCode.None;								// 決定するキーの名前
 	KeyCode cancelKeyCode = KeyCode.None;								// ひとつ前に戻るボタンの名前
+	eCode dicisionCode = eCode.ePad_None;								// 決定するボタンの名前
+	eCode cancelCode = eCode.ePad_None;									// ひとつ前に戻るボタンの名前
+	ePadNumber padNumber = ePadNumber.eNone;							// ゲームパッドの番号
 	public bool IsDecision { get { return selectPos >= kNameLength; } }	// 決定されたかどうか
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public InputRankingName(string selectAxisName, string defaultName = "UFO")
+	/// <param name="padNum">コントローラの番号</param>
+	public InputRankingName(string selectAxisName, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		for (int i = 0; i < kNameLength; ++i)
 		{
 			name[i] = defaultName[i];
 		}
 		this.selectAxisName = selectAxisName;
+		padNumber = padNum;
 	}
 	/// <summary>
 	/// コンストラクタ
@@ -83,7 +88,8 @@ public class InputRankingName
 	/// <param name="decisionButtonName">決定するボタンの名前</param>
 	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public InputRankingName(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO")
+	/// <param name="padNum">コントローラの番号</param>
+	public InputRankingName(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		for (int i = 0; i < kNameLength; ++i)
 		{
@@ -92,6 +98,7 @@ public class InputRankingName
 		this.selectAxisName = selectAxisName;
 		this.decisionButtonName = decisionButtonName;
 		this.cancelButtonName = cancelButtonName;
+		padNumber = padNum;
 	}
 	/// <summary>
 	/// コンストラクタ
@@ -100,7 +107,8 @@ public class InputRankingName
 	/// <param name="decisionKeyCode">決定するキーの名前</param>
 	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public InputRankingName(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO")
+	/// <param name="padNum">コントローラの番号</param>
+	public InputRankingName(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		for (int i = 0; i < kNameLength; ++i)
 		{
@@ -109,6 +117,26 @@ public class InputRankingName
 		this.selectAxisName = selectAxisName;
 		this.decisionKeyCode = decisionKeyCode;
 		this.cancelKeyCode = cancelKeyCode;
+		padNumber = padNum;
+	}
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="dicisionCode">決定するボタンの名前</param>
+	/// <param name="cancelCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	/// <param name="padNum">コントローラの番号</param>
+	public InputRankingName(string selectAxisName, eCode dicisionCode, eCode cancelCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
+	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.dicisionCode = dicisionCode;
+		this.cancelCode = cancelCode;
+		padNumber = padNum;
 	}
 	/// <summary>
 	/// コンストラクタ
@@ -119,7 +147,7 @@ public class InputRankingName
 	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
 	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public InputRankingName(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO")
+	public InputRankingName(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		for (int i = 0; i < kNameLength; ++i)
 		{
@@ -130,6 +158,7 @@ public class InputRankingName
 		this.decisionKeyCode = decisionKeyCode;
 		this.cancelButtonName = cancelButtonName;
 		this.cancelKeyCode = cancelKeyCode;
+		padNumber = padNum;
 	}
 
 	/// <summary>
@@ -137,7 +166,7 @@ public class InputRankingName
 	/// </summary>
 	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public void Init(string selectAxisName, string defaultName = "UFO")
+	public void Init(string selectAxisName, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		nameImageList = new List<Image>(kNameLength);
 		name = new char[kNameLength];
@@ -146,8 +175,8 @@ public class InputRankingName
 			name[i] = defaultName[i];
 		}
 		this.selectAxisName = selectAxisName;
+		padNumber = padNum;
 	}
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -155,7 +184,7 @@ public class InputRankingName
 	/// <param name="decisionButtonName">決定するボタンの名前</param>
 	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public void Init(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO")
+	public void Init(string selectAxisName, string decisionButtonName, string cancelButtonName, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		nameImageList = new List<Image>(kNameLength);
 		name = new char[kNameLength];
@@ -166,8 +195,8 @@ public class InputRankingName
 		this.selectAxisName = selectAxisName;
 		this.decisionButtonName = decisionButtonName;
 		this.cancelButtonName = cancelButtonName;
+		padNumber = padNum;
 	}
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -175,7 +204,7 @@ public class InputRankingName
 	/// <param name="decisionKeyCode">決定するキーの名前</param>
 	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public void Init(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO")
+	public void Init(string selectAxisName, KeyCode decisionKeyCode, KeyCode cancelKeyCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		nameImageList = new List<Image>(kNameLength);
 		name = new char[kNameLength];
@@ -186,8 +215,27 @@ public class InputRankingName
 		this.selectAxisName = selectAxisName;
 		this.decisionKeyCode = decisionKeyCode;
 		this.cancelKeyCode = cancelKeyCode;
+		padNumber = padNum;
 	}
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
+	/// <param name="dicisionCode">決定するボタンの名前</param>
+	/// <param name="cancelCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="defaultName">名前の規定値</param>
+	/// <param name="padNum">コントローラの番号</param>
+	public void Init(string selectAxisName, eCode dicisionCode, eCode cancelCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
+	{
+		for (int i = 0; i < kNameLength; ++i)
+		{
+			name[i] = defaultName[i];
+		}
+		this.selectAxisName = selectAxisName;
+		this.dicisionCode = dicisionCode;
+		this.cancelCode = cancelCode;
+		padNumber = padNum;
+	}
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -197,7 +245,7 @@ public class InputRankingName
 	/// <param name="cancelButtonName">ひとつ前に戻るボタンの名前</param>
 	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
-	public void Init(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO")
+	public void Init(string selectAxisName, string decisionButtonName, KeyCode decisionKeyCode, string cancelButtonName, KeyCode cancelKeyCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
 		nameImageList = new List<Image>(kNameLength);
 		name = new char[kNameLength];
@@ -210,6 +258,7 @@ public class InputRankingName
 		this.decisionKeyCode = decisionKeyCode;
 		this.cancelButtonName = cancelButtonName;
 		this.cancelKeyCode = cancelKeyCode;
+		padNumber = padNum;
 	}
 
 	/// <summary>
@@ -234,13 +283,13 @@ public class InputRankingName
 		// 選択されている鵜文字が消えないようにアクティブにする
 		nameImageList[selectPos].enabled = true;
 		// 文字の選択位置を変える
-		if (Input.GetButtonDown(decisionButtonName) || Input.GetKeyDown(decisionKeyCode))
+		if (ControllerDevice.GetButtonDown(dicisionCode, padNumber) || Input.GetKeyDown(decisionKeyCode))
 		{
 			++selectPos;
 			if (Decition.isPlaying) Decition.Stop();
 			Decition.Play();
 		}
-		if (Input.GetKeyDown(cancelKeyCode) || Input.GetButtonDown(cancelButtonName))
+		if (Input.GetKeyDown(cancelKeyCode) || ControllerDevice.GetButtonDown(cancelCode))
 		{
 			--selectPos;
 			if (Return_Sound.isPlaying) Return_Sound.Stop();
@@ -263,7 +312,7 @@ public class InputRankingName
 	{
 		// 選択範囲外であれば処理しない
 		if (selectPos >= kNameLength) { return; }
-		float inputY = Input.GetAxisRaw(selectAxisName);
+		float inputY = ControllerDevice.GetAxis(selectAxisName, padNumber);
 		// 前フレームも入力していたら移動しない
 		if (previousInputY != 0f) { previousInputY = inputY; return; }
 		// 元の文字を保存しておく
