@@ -34,6 +34,8 @@ public class Enemy_Discharge : MonoBehaviour
 	public Enemy_Discharged.MoveType setMoveType;
 
 	public GameObject createObj;
+	public GameObject mapObj;
+
 	Enemy_Discharged discharged_Script;
 
 	Quaternion createRotation;
@@ -55,9 +57,10 @@ public class Enemy_Discharge : MonoBehaviour
 	void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
+		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 	}
 
-    void Update()
+	void Update()
     {
 		if (transform.position.x < 16)
 		{
@@ -90,7 +93,7 @@ public class Enemy_Discharge : MonoBehaviour
 								discharged_Script.isRotaReset = true;
 							}
 							//子供にする
-							//saveObj.transform.parent = transform;
+							saveObj.transform.parent = mapObj.transform;
 							//動きの種類を設定
 							discharged_Script.moveType = setMoveType;
 							//SetState(setMoveType);

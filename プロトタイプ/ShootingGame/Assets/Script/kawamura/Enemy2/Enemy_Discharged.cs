@@ -15,6 +15,8 @@ public class Enemy_Discharged : MonoBehaviour
 		RightCueveUp_180,			//左に出て右曲がりに180度曲がる
 		RightCurveDown_90,			//下に下がって90度左に曲がる
 		RightCueveDown_180,		//左に出て左回りに180度に曲がる
+		FreeLeft90,
+		FreeRight90,
 	}
 	public MoveType moveType;		//動きタイプ変数
 
