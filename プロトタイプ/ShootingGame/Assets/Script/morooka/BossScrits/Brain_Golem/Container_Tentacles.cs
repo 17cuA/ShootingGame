@@ -17,17 +17,18 @@ public class Container_Tentacles : Tentacles
 	[SerializeField, Tooltip("攻撃マズル")] private GameObject muzzle;
 	[SerializeField, Tooltip("弾撃つ間隔")] private int shootingInterval_Max;
 
-	private Vector2 TargetPos { get; set; }					// ターゲットの位置
+	private Vector2 TargetPos { get; set; }                 // ターゲットの位置
+	private int Player_Layer;
 
 	private RaycastHit hitObject;
 	private int shootingInterval_Cnt;
-
 	new private void Start()
 	{
 		base.Start();
 		AnimName.Add("Open");
 		AnimName.Add("Close");
 		shootingInterval_Cnt = 0;
+		Player_Layer = 1 << Obj_Storage.Storage_Data.GetPlayer().layer;
 	}
 
 	new private void Update()
@@ -43,8 +44,8 @@ public class Container_Tentacles : Tentacles
 				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 				// ターゲットに向きを合わせたら
-				Debug.DrawRay(muzzle.transform.position, -muzzle.transform.right * 20.0f, Color.red, 5);
-				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2( -muzzle.transform.right), out hitObject, 20.0f))
+				Debug.DrawRay(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right) * 20.0f, Color.red, 5);
+				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
 				{
 					if (hitObject.transform.tag == "Player")
 					{
