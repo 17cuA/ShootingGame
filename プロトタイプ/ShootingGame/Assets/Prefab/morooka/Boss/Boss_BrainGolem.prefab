@@ -317,7 +317,6 @@ MonoBehaviour:
   FaceAnimation: {fileID: 476287408007259128}
   playable_Map: {fileID: 0}
   lasear: {fileID: 2581265788837192545}
-  colliders: []
 --- !u!65 &476287408007259134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4273,16 +4272,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProtoBoss_Laser
       objectReference: {fileID: 0}
-    - target: {fileID: 4154384986958271898, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986958271898, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 4154384986958271891, guid: ea8e111bbfce1f34f86742defcd5eeaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4337,46 +4326,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986577529826, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384984836974375, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986730745741, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986473178102, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986299834600, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384986135305340, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384985110540716, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154384985095220978, guid: ea8e111bbfce1f34f86742defcd5eeaa,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8e111bbfce1f34f86742defcd5eeaa, type: 3}
