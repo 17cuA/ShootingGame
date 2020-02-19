@@ -19,6 +19,7 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
 	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
+	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
 	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
 
 	private bool Is_Active { get; set; }									// 行動可能か
@@ -32,29 +33,15 @@ public class Brain_Wait : character_status
 
 	new private void Start()
 	{
-		foreach(var tenp in tentacles)
-		{
-			tenp.enabled = false;
-		}
-
 		colliders = new List<Collider>(transform.GetComponentsInChildren<Collider>(false));
-		foreach(Collider col in colliders)
-		{
-			col.enabled = false;
-		}
-
- 		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
+		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
 		All_Transforms.Remove(transform);
-		foreach (Transform obj in All_Transforms)
-		{
-			obj.gameObject.SetActive(false);
-		}
+		Boss_DriveSwitch(false);
+		Is_Laser = true;
 
-		Is_Active = false;
-		Is_Laser = false;
 		ActionStep = 0;
 		DeathTime_Max = 60.0f * 3.0f;
-		lasearinterval_Cnt = 0.0f;
+		lasearinterval_Cnt = lasearInterval_Max;
 	}
 
     new private void Update()
@@ -73,17 +60,7 @@ public class Brain_Wait : character_status
 
 				if(playable_Map.state == PlayState.Paused)
 				{
-					// コライダーの起動
-					foreach(var col in colliders)
-					{
-						col.enabled = true;
-					}
-					// 触手の起動
-					foreach (var tenp in tentacles)
-					{
-						tenp.enabled = true;
-					}
-					Is_Active = true;
+					Boss_DriveSwitch(true);
 				}
 			}
 
@@ -97,8 +74,13 @@ public class Brain_Wait : character_status
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 289.3f;
-				playable_Map.Play();
+				//playable_Map.time = 289.3f;
+				//playable_Map.Play();
+				foreach(var obj in damagedParts)
+				{
+
+				}
+
 			}
 		}
 		#endregion
@@ -114,16 +96,7 @@ public class Brain_Wait : character_status
 				playable_Map.time = 289.3f;
 				playable_Map.Play();
 
-				// コライダーを止める
-				foreach (var col in colliders)
-				{
-					col.enabled = false;
-				}
-				// 触手の攻撃終了
-				foreach (var temp in tentacles)
-				{
-					temp.enabled = false;
-				}
+				Boss_DriveSwitch(false);
 			}
 
 			// 画面外
@@ -132,10 +105,10 @@ public class Brain_Wait : character_status
 				Destroy(gameObject);
 			}
 		}
-			#endregion
+		#endregion
 
 		#region レーザー
-			lasearinterval_Cnt += Time.deltaTime;
+		lasearinterval_Cnt += Time.deltaTime;
 		// レーザーの攻撃
 		if (Is_Laser)
 		{
@@ -143,14 +116,16 @@ public class Brain_Wait : character_status
 			if (ActionStep == 0)
 			{
 				FaceAnimation.Play("Open");
+				lasear_EFPS.gameObject.SetActive(true);
 				ActionStep++;
 			}
 			// パーティクル終了時
 			else if (ActionStep == 1)
 			{
 				// 口開くアニメーションが終わったとき
-				if (!FaceAnimation.IsPlaying("Open"))
+				if (!FaceAnimation.IsPlaying("Open") && lasear_EFPS.Completion_Confirmation())
 				{
+					lasear_EFPS.gameObject.SetActive(false);
 					ActionStep++;
 				}
 			}
@@ -222,5 +197,35 @@ public class Brain_Wait : character_status
 			Is_Laser = true;
 			GetComponent<Collider>().enabled = false;
 		}
+	}
+
+	/// <summary>
+	/// ボスの駆動スイッチ
+	/// </summary>
+	/// <param name="b"> ON OFFの状態 </param>
+	private void Boss_DriveSwitch(bool b)
+	{
+		// 触手
+		foreach (var tenp in tentacles)
+		{
+			tenp.enabled = b;
+		}
+
+		// コライダー
+		foreach (Collider col in colliders)
+		{
+			col.enabled = b;
+		}
+
+		// ゲームオブジェクト
+		foreach (Transform obj in All_Transforms)
+		{
+			obj.gameObject.SetActive(b);
+		}
+
+		// 全体
+		Is_Active = b;
+		// レーザー
+		Is_Laser = b;
 	}
 }

@@ -44,8 +44,8 @@ public class Container_Tentacles : Tentacles
 				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 				// ターゲットに向きを合わせたら
-				Debug.DrawRay(muzzle.transform.position, -muzzle.transform.right * 20.0f, Color.red, 5);
-				if (Physics.Raycast(muzzle.transform.position, -muzzle.transform.right, out hitObject, 20.0f, Player_Layer))
+				Debug.DrawRay(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right) * 20.0f, Color.red, 5);
+				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
 				{
 					if (hitObject.transform.tag == "Player")
 					{
