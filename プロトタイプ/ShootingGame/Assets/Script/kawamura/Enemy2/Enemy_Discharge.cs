@@ -53,7 +53,6 @@ public class Enemy_Discharge : MonoBehaviour
 	public int createDelayMax = 0;
 	public int createDelayCnt = 0;
 
-
 	void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
@@ -93,7 +92,7 @@ public class Enemy_Discharge : MonoBehaviour
 								discharged_Script.isRotaReset = true;
 							}
 							//子供にする
-							saveObj.transform.parent = mapObj.transform;
+							//saveObj.transform.parent = mapObj.transform;
 							//動きの種類を設定
 							discharged_Script.moveType = setMoveType;
 							//SetState(setMoveType);
