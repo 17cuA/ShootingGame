@@ -1938,6 +1938,12 @@ PrefabInstance:
       propertyPath: sinAngleFrameMax
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 4527578406316328788, guid: c48f4a27e716ea2419bdbefa09c21872,
+        type: 3}
+      propertyPath: Parameter
+      value: 
+      objectReference: {fileID: 11400000, guid: 97ade13deba5a5b4da6aa723a3e08507,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48f4a27e716ea2419bdbefa09c21872, type: 3}
 --- !u!1 &560169140 stripped
@@ -7363,7 +7369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2049734555
 Transform:
   m_ObjectHideFlags: 0
