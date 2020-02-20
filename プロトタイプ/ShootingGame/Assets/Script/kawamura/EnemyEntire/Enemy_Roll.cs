@@ -52,15 +52,18 @@ public class Enemy_Roll : MonoBehaviour
 			rotaY_Value = Random.Range(-2f, 2f);
 
 		}
-		rotaX = transform.eulerAngles.x;
-		rotaY = transform.eulerAngles.y;
-		rotaZ = transform.eulerAngles.z;
-		if (myName == "DischargedModel")
+		if (myName != "DischargedModel")
+		{
+			rotaX = transform.eulerAngles.x;
+			rotaY = transform.eulerAngles.y;
+			rotaZ = transform.eulerAngles.z;
+		}
+		else
 		{
 			rotaX = 0;
-
+			
 		}
-    }
+	}
 
     void Update()
     {

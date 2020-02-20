@@ -91,8 +91,9 @@ public class Player2 : character_status
 	public bool Is_Change_Auto;     //ラピッドかオートかを変えるようの判定変数
 	public bool IS_Active;              //完全な無敵状態にするかどうかのもの
 
-	public int Bullet_cnt;          //バレットの発射数をかぞえる変数
+	public int Bullet_cnt;          //バレット数をかぞえる変数
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
+	private int Bullet_Fire_Count;	//バレット発射数のカウント【ダブルの弱体化に使用】
 
 	public bool Is_Burst;      //バースト発射するかどうかの判定
 
@@ -158,6 +159,7 @@ public class Player2 : character_status
 		Is_Change_Auto = true;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
+		Bullet_Fire_Count = 0;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
 		rotation_cnt = 0;
@@ -573,6 +575,9 @@ public class Player2 : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction);
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
 			}
 		}
 		else
@@ -582,6 +587,10 @@ public class Player2 : character_status
 				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction));
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
+
 			}
 		}
 		if (Bullet_cnt_Max != 8)
@@ -594,10 +603,25 @@ public class Player2 : character_status
 	{
 		if (bullet_data.Count < 16)
 		{
-			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction));
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-			Bullet_cnt += 2;
+			if(Bullet_Fire_Count % 3 == 0)
+			{
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction));
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 2;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
+			}
+			else
+			{
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Direction));
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER2_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0,0,45)));
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 2;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
+			}
 		}
 		if (Bullet_cnt_Max != 20)
 		{

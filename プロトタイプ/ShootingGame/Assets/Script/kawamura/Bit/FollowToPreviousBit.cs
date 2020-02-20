@@ -12,8 +12,9 @@ public class FollowToPreviousBit : MonoBehaviour
 	Player2 pl2;
 	GameObject previousBitObj;
 	public GameObject parentObj;
+	public GameObject hunterObj;
 	public string parentName;
-	FollowPositions followParent_Script;    //t4つの追従位置の親スクリプト
+	FollowPositions followParent_Script;    //4つの追従位置の親スクリプト
 	FollowToPlayer_SameMotion firstPos_Script;
 	FollowToPreviousBit followBit_Script;
 
@@ -41,6 +42,8 @@ public class FollowToPreviousBit : MonoBehaviour
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーを取得したらtrue
 	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
+	public bool isStolen = false;
+
 	void Start()
 	{
 		isPlayerLive = false;
@@ -255,7 +258,7 @@ public class FollowToPreviousBit : MonoBehaviour
 			}
 		}
 
-		
+
 		//前のビットの座標と今のビットの座標が違うとき　かつ　位置配列すべてに値が入っていないとき
 		//if (pos != previousBitObj.transform.position && !check)
 		////if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
@@ -281,20 +284,29 @@ public class FollowToPreviousBit : MonoBehaviour
 		//	check = true;
 		//}
 
-		if (!isFreeze)
+		if (!isFreeze && !isStolen)
 		{
 			if (defCheck)
 			{
 				if (isFollow1P)
 				{
-					if ((ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1) != 0) || (ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1) != 0))
+					if (pos == previousBitObj.transform.position)
 					{
-						isMove = true;
+						isMove = false;
+						if ((ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1) != 0) || (ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1) != 0))
+						{
+							isMove = true;
+							//pos = previousBitObj.transform.position;
+						}
+
 					}
 					else
 					{
-						isMove = false;
+						isMove = true;
+						pos = previousBitObj.transform.position;
+
 					}
+
 					//前のビットの座標が動いていないとき
 					//if (pos == previousBitObj.transform.position)
 					////if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
@@ -352,8 +364,28 @@ public class FollowToPreviousBit : MonoBehaviour
 				{
 					cnt = 0;
 				}
-                savePos = transform.position;
-            }
+				savePos = transform.position;
+			}
+		}
+		else if (isStolen)
+		{
+			if (isFollow1P)
+			{
+				if (pos == previousBitObj.transform.position)
+				{
+					isMove = false;
+				}
+				else if (pos != previousBitObj.transform.position)
+				{
+					isMove = true;
+					pos = previousBitObj.transform.position;
+				}
+			}
+			else if (isFollow2P)
+			{
+
+			}
+			transform.position = hunterObj.transform.position;
 		}
 
 		if (isFollow1P)
