@@ -16,10 +16,10 @@ public class Stage_Movement : MonoBehaviour
 	static public Quaternion RotationAmount { get; private set; }
 
 	private Vector3 PreviousFramePosition { get; set; }		// 前の位置
-	private Vector3 NowFramePosition { get; set; }          // 今の位置
+	private Vector3 NowFramePosition { get; set; }			// 今の位置
 
 	private Quaternion PreviousFrameRotation { get; set; }			// 前の角度
-	private Quaternion NowFrameRotation { get; set; }					// 今の角度
+	private Quaternion NowFrameRotation { get; set; }				// 今の角度
 
 	private PlayableDirector Director { get; set; }             // デバッグ用プレイアブルディレクター
 
@@ -34,7 +34,7 @@ public class Stage_Movement : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 253.06;
+		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
 
 		MovingDistance = NowFramePosition - PreviousFramePosition;
 		RotationAmount = Quaternion.Euler(NowFrameRotation.eulerAngles - PreviousFrameRotation.eulerAngles);

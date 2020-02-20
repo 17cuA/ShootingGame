@@ -55,6 +55,11 @@ public class Enemy_Roll : MonoBehaviour
 		rotaX = transform.eulerAngles.x;
 		rotaY = transform.eulerAngles.y;
 		rotaZ = transform.eulerAngles.z;
+		if (myName == "DischargedModel")
+		{
+			rotaX = 0;
+
+		}
     }
 
     void Update()

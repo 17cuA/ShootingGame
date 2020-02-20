@@ -16,21 +16,20 @@ public class bullet_status : MonoBehaviour
 	public float attack_damage;//ダメージの変数
 	public Vector3 Travelling_Direction;    //自分の向き
 	[SerializeField]
-	private Renderer Bullet_Renderer = null; // 判定したいオブジェクトのrendererへの参照
-    public Player1 P1 { get; private set; }		// プレイヤー1の情報
-    public Player2 P2 { get; private set; }		// プレイヤー2の情報
-    public Bit_Shot bShot { get; set; }			// ビットンの情報
-	public int Player_Number { get; set; }		// どのプレイヤーの弾か
+	public Player1 P1 { get; set; }     // プレイヤー1の情報
+	public Player2 P2 { get; set; }     // プレイヤー2の情報
+	public Bit_Shot bShot { get; set; }         // ビットンの情報
+	public int Player_Number { get; set; }      // どのプレイヤーの弾か
 
 	// どのオブジェクトの弾かの識別用
 	public enum Type
 	{
-		None,					// なし
-		Player1,					// プレイヤー1
-		Player2,					// プレイヤー2
-		Player1_Option,		// プレイヤー1ビットン
-		Player2_Option,		// プレイヤー2ビットン
-		Enemy,					// エネミー
+		None,                   // なし
+		Player1,                    // プレイヤー1
+		Player2,                    // プレイヤー2
+		Player1_Option,     // プレイヤー1ビットン
+		Player2_Option,     // プレイヤー2ビットン
+		Enemy,                  // エネミー
 	}
 
 	public Type Bullet_Type;        //各キャラクターの弾かどうかを判定する変数
@@ -42,7 +41,6 @@ public class bullet_status : MonoBehaviour
 	}
 	protected void Start()
 	{
-		if(Bullet_Renderer == null) Bullet_Renderer = GetComponent<Renderer>();
 		Travelling_Direction = transform.right;
 
 		switch (Bullet_Type)
@@ -56,13 +54,13 @@ public class bullet_status : MonoBehaviour
 				Player_Number = 2;
 				break;
 			case Type.Player1_Option:
-                bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
-                Player_Number = 1;
-                break;
+				bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+				Player_Number = 1;
+				break;
 			case Type.Player2_Option:
-                bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
-                Player_Number = 2;
-                break;
+				bShot = Obj_Storage.Storage_Data.GetOption().GetComponent<Bit_Shot>();
+				Player_Number = 2;
+				break;
 			case Type.Enemy:
 				break;
 			case Type.None:
@@ -76,7 +74,7 @@ public class bullet_status : MonoBehaviour
 	{
 		// 画面外に出たとき
 		if (transform.position.x >= 18.5f || transform.position.x <= -18.5f
-			|| transform.position.y >= 6f || transform.position.y <= -6f)
+			|| transform.position.y >= 7.5f || transform.position.y <= -7.5f)
 		{
 			// プレイヤー、ビットンの弾のとき
 			// 各カウンターの減少
@@ -91,12 +89,12 @@ public class bullet_status : MonoBehaviour
 						if (P2.Bullet_cnt > 0) P2.Bullet_cnt--;
 						break;
 					case Type.Player1_Option:
-                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-                        break;
-                    case Type.Player2_Option:
-                        if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
-                        break;
-                    case Type.Enemy:
+						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+						break;
+					case Type.Player2_Option:
+						if (bShot.Bullet_cnt > 0) bShot.Bullet_cnt--;
+						break;
+					case Type.Enemy:
 						break;
 					case Type.None:
 						break;
@@ -112,22 +110,22 @@ public class bullet_status : MonoBehaviour
 
 	protected void OnTriggerEnter(Collider col)
 	{
-        //それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
-        if (gameObject.tag == "Enemy_Bullet" && (col.gameObject.name == "Enemy_Meteor_One" || col.gameObject.name == "Enemy_Meteor_Two" || col.gameObject.name == "Enemy_Meteor_Three" || col.gameObject.name == "Enemy_Meteor_four" || col.gameObject.name == "Enemy_Meteor_Five"))
-        {
-            gameObject.SetActive(false);
-        }
+		//それぞれのキャラクタの弾が敵とプレイヤーにあたっても消えないようにするための処理
+		if (gameObject.tag == "Enemy_Bullet" && (col.gameObject.name == "Enemy_Meteor_One" || col.gameObject.name == "Enemy_Meteor_Two" || col.gameObject.name == "Enemy_Meteor_Three" || col.gameObject.name == "Enemy_Meteor_four" || col.gameObject.name == "Enemy_Meteor_Five"))
+		{
+			gameObject.SetActive(false);
+		}
 		// 自身がエネミーの弾で、プレイヤーに衝突したとき
-        else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
-        {
-            gameObject.SetActive(false);
-            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            effect.transform.position = gameObject.transform.position;
-            particle.Play();
-        }
+		else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
+		{
+			gameObject.SetActive(false);
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+		}
 		// 自身がプレイヤーの弾で、ヴァキュラに当たったとき
-		else if(gameObject.tag == "Player_Bullet " && col.name == "Bacula")
+		else if (gameObject.tag == "Player_Bullet " && col.name == "Bacula")
 		{
 			character_status obj = col.GetComponent<character_status>();
 			if (obj != null)
@@ -143,27 +141,27 @@ public class bullet_status : MonoBehaviour
 		}
 		// 自身がプレイヤーの弾で、エネミー
 		else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
-        {
-            character_status obj = col.GetComponent<character_status>();
-            if (obj != null)
-            {
-                obj.Opponent = Player_Number;
-            }
-            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            effect.transform.position = gameObject.transform.position;
-            particle.Play();
+		{
+			character_status obj = col.GetComponent<character_status>();
+			if (obj != null)
+			{
+				obj.Opponent = Player_Number;
+			}
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
 			Player_Bullet_Des();
 			gameObject.SetActive(false);
-        }
-        else if (col.gameObject.tag == "Boss_Gard")
-        {
-            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            effect.transform.position = gameObject.transform.position;
-            particle.Play();
-            gameObject.SetActive(false);
-        }
+		}
+		else if (col.gameObject.tag == "Boss_Gard")
+		{
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+			gameObject.SetActive(false);
+		}
 	}
 
 	/// <summary>

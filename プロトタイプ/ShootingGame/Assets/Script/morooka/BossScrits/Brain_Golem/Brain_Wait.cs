@@ -15,77 +15,113 @@ using UnityEngine.Playables;
 public class Brain_Wait : character_status
 {
 	[SerializeField, Tooltip("ダメージ受けるパーツ")] private List<Brain_Parts> damagedParts;
-	[SerializeField, Tooltip("触手のパーツ_バルカン")] private List<Brain_Parts> balkanTentacles;
-	[SerializeField, Tooltip("触手のパーツ_コンテナ")] private List<Brain_Parts> containerTentacles;
+	[SerializeField, Tooltip("触手のパーツ")] private List<Tentacles> tentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
 	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
+	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
+	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
 
-	private bool Is_Active { get; set; }
-	WaitLoopTrigger waitLoopTrigger = null;
-
-	private bool Is_Laser { get; set; }
-	protected int ActionStep { get; set; }                              // 攻撃手順指示番号
-	private float DeathTime_Cnt { get; set; }		// 死ぬ時間カウンター
-	private float DeathTime_Max { get; set; }       // 死ぬ時間
-	private List<Collider> colliders { get; set; }		// コライダー軍
+	private bool Is_Active { get; set; }									// 行動可能か
+	private bool Is_Laser { get; set; }									// レーザーを撃てるか
+	protected int ActionStep { get; set; }								// 攻撃手順指示番号
+	private float DeathTime_Cnt { get; set; }							// 死ぬ時間カウンター
+	private float DeathTime_Max { get; set; }						// 死ぬ時間
+	private List<Collider> colliders { get; set; }						// コライダー軍
+	private List<Transform> All_Transforms { get; set; }		// 自分、子供、孫含めたトランスフォーム
+	private float lasearinterval_Cnt { get; set; }						// レーザーのインターバル計測
 
 	new private void Start()
 	{
-		foreach (Transform obj in transform)
-		{
-			colliders.Add(obj.GetComponent<Collider>());
-			colliders.Last();
-			obj.gameObject.SetActive(false);
-		}
-		Is_Active = false;
-		Is_Laser = false;
-		waitLoopTrigger = FindObjectOfType<WaitLoopTrigger>();
+		colliders = new List<Collider>(transform.GetComponentsInChildren<Collider>(false));
+		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
+		All_Transforms.Remove(transform);
+		Boss_DriveSwitch(false);
+		Is_Laser = true;
+
 		ActionStep = 0;
 		DeathTime_Max = 60.0f * 3.0f;
+		lasearinterval_Cnt = lasearInterval_Max;
 	}
 
     new private void Update()
     {
+		#region 起動状態(仮)確認
+		if (!Is_Active)
+		{
+			// 画面内に入る少し前で
+			if (transform.position.x < 20.0f)
+			{
+				// 起動
+				foreach (Transform obj in All_Transforms)
+				{
+					obj.gameObject.SetActive(true);
+				}
+
+				if(playable_Map.state == PlayState.Paused)
+				{
+					Boss_DriveSwitch(true);
+				}
+			}
+
+			return;
+		}
+		#endregion
+
 		#region 自動死亡時間
 		DeathTime_Cnt += Time.deltaTime;
 		if (DeathTime_Max < DeathTime_Cnt)
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 285.0f;
-				playable_Map.Play();
+				// パーツ破壊
+				foreach(var damage in damagedParts)
+				{
+					if (damage.Is_Dead)
+					{
+						continue;
+					}
+					damage.Died_Process();
+				}
 			}
 		}
 		#endregion
 
-		#region 起動状態(仮)確認
-		if (!Is_Active)
+		#region パーツの死亡確認とボスの破壊確認
+		// パーツが死んでいるとき
+		if (!Is_PartsAlive())
 		{
-			if (transform.position.x < 10.0f)
-			{
-				foreach (Transform obj in transform)
-				{
-					obj.gameObject.SetActive(true);
-				}
-				Is_Active = true;
-			}
-			else
-			{
-				return;
-			}
-		}
-		#endregion
-		if (Is_PartsNotAlive())
-		{
+			// 管理しているタイムラインがポーズ状態のとき
 			if (playable_Map.state == PlayState.Paused)
 			{
-				playable_Map.time = 285.0f;
+				SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+				{
+					Game_Master.MY.Score_Addition(Parameter.Get_Score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				}
+				else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+				{
+					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				}
+
+				// タイムラインの再生時間を指定後、再生
+				playable_Map.time = 289.3f;
 				playable_Map.Play();
+			
+				Boss_DriveSwitch(false);
+			}
+
+			// 画面外
+			if (transform.position.x < -20.0f)
+			{
+				Destroy(gameObject);
 			}
 		}
+		#endregion
 
 		#region レーザー
+		lasearinterval_Cnt += Time.deltaTime;
 		// レーザーの攻撃
 		if (Is_Laser)
 		{
@@ -93,16 +129,20 @@ public class Brain_Wait : character_status
 			if (ActionStep == 0)
 			{
 				FaceAnimation.Play("Open");
+				lasear_EFPS.gameObject.SetActive(true);
 				ActionStep++;
 			}
 			// パーティクル終了時
 			else if (ActionStep == 1)
 			{
-				if (!FaceAnimation.IsPlaying("Open"))
+				// 口開くアニメーションが終わったとき
+				if (!FaceAnimation.IsPlaying("Open") && lasear_EFPS.Completion_Confirmation())
 				{
+					lasear_EFPS.gameObject.SetActive(false);
 					ActionStep++;
 				}
 			}
+			// レーザー撃ちだし
 			else if (ActionStep == 2)
 			{
 				lasear.SetActive(true);
@@ -111,6 +151,7 @@ public class Brain_Wait : character_status
 			// 口閉じる
 			else if (ActionStep == 3)
 			{
+				// レーザーが起動しなくなったとき
 				if (!lasear.activeSelf)
 				{
 					FaceAnimation.Play("Close");
@@ -124,30 +165,38 @@ public class Brain_Wait : character_status
 					ActionStep = 0;
 					Is_Laser = false;
 					GetComponent<Collider>().enabled = true;
+					lasearinterval_Cnt = 0.0f;
 				}
 			}
 		}
 		#endregion
 	}
 
-	private bool Is_PartsNotAlive()
+	/// <summary>
+	/// パーツが生きているのか確認
+	/// </summary>
+	/// <returns> 生きていれば true </returns>
+	private bool Is_PartsAlive()
 	{
 		bool flag = false;
 
 		// 生存パーツリストの確認
 		foreach(var parts in damagedParts)
 		{
+			// パーツが死んでいるとき
 			if(parts.Is_Dead)
 			{
 				continue;
 			}
+			// パーツのHPが0以上のとき
 			if(parts.hp > 0)
 			{
-				flag = false;
+				flag = true;
 			}
+			// パーツがHP0のとき
 			else
 			{
-				flag = true;
+				// 死亡判定
 				parts.Died_Process();
 			}
 		}
@@ -156,10 +205,40 @@ public class Brain_Wait : character_status
 
 	new private void OnTriggerEnter(Collider other)
 	{
-		if(!Is_Laser && other.tag == "Player")
+		if(!Is_Laser && other.tag == "Player" && lasearinterval_Cnt > lasearInterval_Max)
 		{
 			Is_Laser = true;
 			GetComponent<Collider>().enabled = false;
 		}
+	}
+
+	/// <summary>
+	/// ボスの駆動スイッチ
+	/// </summary>
+	/// <param name="b"> ON OFFの状態 </param>
+	private void Boss_DriveSwitch(bool b)
+	{
+		// 触手
+		foreach (var tenp in tentacles)
+		{
+			tenp.enabled = b;
+		}
+
+		// コライダー
+		foreach (Collider col in colliders)
+		{
+			col.enabled = b;
+		}
+
+		// ゲームオブジェクト
+		foreach (Transform obj in All_Transforms)
+		{
+			obj.gameObject.SetActive(b);
+		}
+
+		// 全体
+		Is_Active = b;
+		// レーザー
+		Is_Laser = b;
 	}
 }
