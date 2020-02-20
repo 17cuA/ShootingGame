@@ -186,7 +186,7 @@ public class Balkan_Tentacles : Tentacles
 		{
 			if(bunbun)
 			{
-					A_Animation.CrossFade(AnimName[(int)Action.eB_WAIT], 5.0f);
+				A_Animation.CrossFade(AnimName[(int)Action.eB_WAIT], 5.0f);
 			}
 			else
 			{

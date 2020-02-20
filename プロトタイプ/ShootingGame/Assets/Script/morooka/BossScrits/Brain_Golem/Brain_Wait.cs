@@ -74,13 +74,15 @@ public class Brain_Wait : character_status
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
-				//playable_Map.time = 289.3f;
-				//playable_Map.Play();
-				foreach(var obj in damagedParts)
+				// パーツ破壊
+				foreach(var damage in damagedParts)
 				{
-
+					if (damage.Is_Dead)
+					{
+						continue;
+					}
+					damage.Died_Process();
 				}
-
 			}
 		}
 		#endregion
@@ -92,10 +94,21 @@ public class Brain_Wait : character_status
 			// 管理しているタイムラインがポーズ状態のとき
 			if (playable_Map.state == PlayState.Paused)
 			{
+				SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
+				{
+					Game_Master.MY.Score_Addition(Parameter.Get_Score, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+				}
+				else if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+				{
+					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
+					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
+				}
+
 				// タイムラインの再生時間を指定後、再生
 				playable_Map.time = 289.3f;
 				playable_Map.Play();
-
+			
 				Boss_DriveSwitch(false);
 			}
 
