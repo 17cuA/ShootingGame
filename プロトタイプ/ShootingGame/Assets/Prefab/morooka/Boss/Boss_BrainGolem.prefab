@@ -2332,7 +2332,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100004, guid: 12d891ef3628dfd4b98abb24889bbba8, type: 3}
+  - {fileID: 2100000, guid: 0d73f012297603d429f84753befc93bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3686,11 +3686,11 @@ Animation:
   m_GameObject: {fileID: 7940646533702498721}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 7e74554fd66812a4a98783a65224d92b, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: 7e74554fd66812a4a98783a65224d92b, type: 2}
-  - {fileID: 7400000, guid: b8081d2329095ae44a28285bafc56e5a, type: 2}
-  - {fileID: 7400000, guid: 35c062c95f60fe24293adcf559edea1d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 7400000, guid: 773fb9167c189434c8b9ce50e63d78f9, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
@@ -4350,16 +4350,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4773733797837273994}
     m_Modifications:
-    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
-        type: 3}
-      propertyPath: m_Name
-      value: BrainBoss_LaserCharge
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7273127656386946430, guid: 2ae68852e58656b42b912f496fe7b8e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4413,6 +4403,16 @@ PrefabInstance:
     - target: {fileID: 7273127656386946430, guid: 2ae68852e58656b42b912f496fe7b8e6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrainBoss_LaserCharge
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7463838380801185547, guid: 2ae68852e58656b42b912f496fe7b8e6,
