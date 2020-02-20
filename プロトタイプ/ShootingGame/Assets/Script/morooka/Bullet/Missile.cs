@@ -22,13 +22,12 @@ public class Missile : bullet_status
 	private float ray_length;       // レイの長さ
 	private RaycastHit hit_mesh;            // 衝突したオブジェクトのメッシュ(コライダーの一部)の情報
 
-	[SerializeField, Tooltip("爆発")] public ParticleSystem Bomb_EF;        // 爆発エフェクト
-
 	private int Act_Step { get; set; }                  // 行動の変更用
 	private int Running_Flame { get; set; }             // 起動している間のフレーム
 	public Vector3 Ray_Direction { get; set; }          // レイの向き
-	public float Length_On_Landing { get; set; }		// 落下時のレイの長さ
-	public float Length_On_Gliding {get; set;}			// 滑空時のレイの長さ
+	public float Length_On_Landing { get; set; }        // 落下時のレイの長さ
+	public float Length_On_Gliding { get; set; }            // 滑空時のレイの長さ
+	private bool Is_Hit { get; set; }                               // ものに当たったとき
 
 	private new void Start()
 	{
@@ -38,6 +37,7 @@ public class Missile : bullet_status
 		Length_On_Landing = ray_length;
 		Length_On_Gliding = ray_length * 3.0f;
 		Tag_Change("Player_Bullet");
+		Is_Hit = false;
 	}
 
 	private new void Update()
@@ -106,7 +106,7 @@ public class Missile : bullet_status
 		transform.right = new Vector2(mesh_normal.y, mesh_normal.x);
 		float inner_product = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
 		// 内閣の計算---------------------------------------------------------------------------------------------
-　
+
 		// 内角が0以下のとき
 		if (inner_product < 0)
 		{
@@ -130,18 +130,29 @@ public class Missile : bullet_status
 		return y_di;
 	}
 
+	new private void OnTriggerEnter(Collider col)
+	{
+		Is_Hit = true;
+		base.OnTriggerEnter(col);
+	}
+
 	private void OnDisable()
 	{
-		//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-		if (Obj_Storage.Storage_Data.Effects[16] != null)
+		if (Is_Hit)
 		{
-			GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+			if (Obj_Storage.Storage_Data.Effects[16] != null)
+			{
+				GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 
-			//爆発の位置をランダムに変更
-			effect.transform.position = transform.position;
-			/*********************************************************/
-			particle.Play();
+				//爆発の位置をランダムに変更
+				effect.transform.position = transform.position;
+				/*********************************************************/
+				particle.Play();
+			}
+
+			Is_Hit = false;
 		}
 	}
 }
