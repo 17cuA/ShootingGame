@@ -1015,7 +1015,47 @@ public class Bit_Formation_3 : MonoBehaviour
 				isborn = true;                  //出現時処理できるように
 				followPosObj = null;            //追従オブジェクト参照をなくす
 				pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
+
 				gameObject.SetActive(false);    //オブジェクトをオフにする
+
+			}
+		}
+
+		//オプションハンターに当たった時
+		if (!isDead && col.gameObject.tag == "Hunter")
+		{
+			//自分が何番目のオプションか見る
+			switch(option_OrdinalNum)
+			{
+				case 1:
+					FtoPlayer.isStolen = true;
+					break;
+
+				case 2:
+					if (!FtoPlayer.isStolen)
+					{
+						FtoPBit_Second.isStolen = true;
+						FtoPBit_Second.hunterObj = col.gameObject;
+					}
+					break;
+
+				case 3:
+					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen)
+					{
+						FtoPBit_Third.isStolen = true;
+						FtoPBit_Third.hunterObj = col.gameObject;
+
+					}
+					break;
+
+				case 4:
+					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen && !FtoPBit_Third.isStolen)
+					{
+						FtoPBit_Fourth.isStolen = true;
+						FtoPBit_Fourth.hunterObj = col.gameObject;
+
+					}
+					break;
 
 			}
 		}
