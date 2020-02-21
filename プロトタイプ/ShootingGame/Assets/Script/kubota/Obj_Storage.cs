@@ -443,28 +443,28 @@ public class Obj_Storage : MonoBehaviour
 				#region エフェクトのプーリング化
 				Effects[0] = new Object_Pooling(Effects_Prefab[0], 1, "Player_explosion");                  //プレイヤーの爆発
 				Effects[1] = new Object_Pooling(Effects_Prefab[1], 1, "Player_injection_Appearance");       //プレイヤーが登場するときのジェット噴射
-				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ
+				Effects[2] = new Object_Pooling(Effects_Prefab[2], 1, "Player_Fire");                       //プレイヤーのマズルフラッシュ(使用していない)
 				Effects[3] = new Object_Pooling(Effects_Prefab[3], 1, "Player_Bullet");                     //プレイヤーの弾（使用してない）
-				Effects[4] = new Object_Pooling(Effects_Prefab[4], 1, "Enemy_explosion");                   //エネミーの死亡時の爆発
+				Effects[4] = new Object_Pooling(Effects_Prefab[4], 29, "Enemy_explosion");                   //エネミーの死亡時の爆発
 				Effects[5] = new Object_Pooling(Effects_Prefab[5], 1, "Enemy_Core_Sheld_explosion");        //エネミーの中ボス以上のコアシールドの爆発エフェクト
-				Effects[6] = new Object_Pooling(Effects_Prefab[6], 1, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
+				Effects[6] = new Object_Pooling(Effects_Prefab[6], 12, "Player_PowerUP");                    //プレイヤーのパワーアップ時のエフェクト
 				Effects[7] = new Object_Pooling(Effects_Prefab[7], 1, "Boss_explosion");                    //ボス死亡時のエフェクト
 				Effects[8] = new Object_Pooling(Effects_Prefab[8], 1, "Player_PowerUP_Bullet");             //プレイヤーのパワーアップした弾（使用してない）
 				Effects[9] = new Object_Pooling(Effects_Prefab[9], 1, "Enemy_Grain");                       //敵の粒子
 				Effects[10] = new Object_Pooling(Effects_Prefab[10], 1, "Battleship_explosion");            //戦艦の爆発
-				Effects[11] = new Object_Pooling(Effects_Prefab[11], 1, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
+				Effects[11] = new Object_Pooling(Effects_Prefab[11], 87, "Player_Bullet_impact");            //プレイヤーの弾の着弾時のエフェクト
 				Effects[12] = new Object_Pooling(Effects_Prefab[12], 1, "Boss_Appearance");                 //ボス登場時のエフェクト
 				Effects[13] = new Object_Pooling(Effects_Prefab[13], 1, "Meteor_explosion");                    //隕石爆発Effect
-				Effects[14] = new Object_Pooling(Effects_Prefab[14], 1, "Boss_Bullet2");                    //ボスの弾その２
+				Effects[14] = new Object_Pooling(Effects_Prefab[14], 3, "Boss_Bullet2");                    //ボスの弾その２
 				Effects[15] = new Object_Pooling(Effects_Prefab[15], 1, "P2_Powerup");                    //2Pパワーアップエフェクト
-				Effects[16] = new Object_Pooling(Effects_Prefab[16], 1, "Missile_explosion");       // ミサイルの爆発
+				Effects[16] = new Object_Pooling(Effects_Prefab[16], 15, "Missile_explosion");       // ミサイルの爆発
 				#endregion
 
 				Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 				Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
-				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
-				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
-				SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 20, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
+				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 88, "Enemy_Bullet");          //エネミーのバレットを生成
+				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 42, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+				SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 42, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 				ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
@@ -476,7 +476,7 @@ public class Obj_Storage : MonoBehaviour
 				Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 				Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
 				One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 20, "One_Boss_Laser");
-				One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 20, "One_Boss_BousndBullet");
+				One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 156, "One_Boss_BousndBullet");
 				Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab, 20, "Two_Boss_Laser");
 
 				Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");

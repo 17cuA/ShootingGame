@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_StagBeetle
       objectReference: {fileID: 0}
+    - target: {fileID: 3776511289223898296, guid: c48f4a27e716ea2419bdbefa09c21872,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3903185025552049353, guid: c48f4a27e716ea2419bdbefa09c21872,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7706,7 +7711,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 47
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1312326746
 Camera:
