@@ -59,7 +59,7 @@ public class BattleshipType_Battery : character_status
 	public GameObject Attack_Instruction_Receiving()
 	{
 
-		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eBATTLESHIP_ENEMY_PREFAB, transform.position, transform.right);
+		GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eBATTLESHIP_ENEMY_PREFAB, transform.position, -transform.right);
 		CannonBullet ns = obj.GetComponent<CannonBullet>();
 		ns.Person_Who_Shot = gameObject;
 		return obj;
