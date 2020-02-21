@@ -23,6 +23,9 @@ public class UI_PowerUp : MonoBehaviour
 	public int start;
 	public int end;
 
+	private InputManagerObject inputManagerP1;
+	private InputManagerObject inputManagerP2;
+
 	public static bool isSetting = false;
 
 	private void Awake()
@@ -72,6 +75,15 @@ public class UI_PowerUp : MonoBehaviour
 				isSetting = true;
 			}
 		}
+
+		if (!inputManagerP1)
+		{
+			inputManagerP1 = GameObject.Find("InputManager_1P").GetComponent<InputManagerObject>();
+		}
+		if (!inputManagerP2)
+		{
+			inputManagerP2 = GameObject.Find("InputManager_2P").GetComponent<InputManagerObject>();
+		}
 	}
 	private void Update()
 	{
@@ -83,7 +95,7 @@ public class UI_PowerUp : MonoBehaviour
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
-				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire2")) && currentPower.CanUpgrade)
+				if (((Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManagerP1.Manager.Button["Item"], ePadNumber.ePlayer1))) && currentPower.CanUpgrade)
 				{
 					if (UIeffect.isPlaying)
 						UIeffect.Stop();
@@ -164,7 +176,7 @@ public class UI_PowerUp : MonoBehaviour
 			//現在選択パワー存在
 			if (currentPower != null && ((int)currentPower.Type >= start && (int)currentPower.Type < end || (int)currentPower.Type == addtional))
 			{
-				if ((Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("P2_Fire2")) && currentPower.CanUpgrade)
+				if ((Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManagerP2.Manager.Button["Item"], ePadNumber.ePlayer2)) && currentPower.CanUpgrade)
 				{
 					if (UIeffect.isPlaying)
 						UIeffect.Stop();

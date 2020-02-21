@@ -227,7 +227,6 @@ public class ObjectStorage_Control : MonoBehaviour
 						GameObject obj = GameObject.Find(s);
 						if (obj != null)
 						{
-							//Debug.Log(" obj.name");
 							Destroy(obj);
 						}
 					}
@@ -275,49 +274,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					Normal_Frame_Cnt = 0;
 					Is_Processed_Normal = true;
 				}
-				//if (Normal_Frame_Cnt == 0)          { Des_Obj(ref Obj_Storage.Storage_Data.enemy_UFO_Group); }
-				//else if (Normal_Frame_Cnt == 1)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_UFO_Group_NoneShot); }
-				//else if (Normal_Frame_Cnt == 2)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Top); }
-				//else if (Normal_Frame_Cnt == 3)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Two_Under); }
-				//else if (Normal_Frame_Cnt == 4)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyUp); }
-				//else if (Normal_Frame_Cnt == 5)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TwoWaveOnlyDown); }
-				//else if (Normal_Frame_Cnt == 6)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three); }
-				//else if (Normal_Frame_Cnt == 7)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Three_Item); }
-				//else if (Normal_Frame_Cnt == 8)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp); }
-				//else if (Normal_Frame_Cnt == 9)   { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown); }
-				//else if (Normal_Frame_Cnt == 10) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item); }
-				//else if (Normal_Frame_Cnt == 11) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item); }
-				//else if (Normal_Frame_Cnt == 12) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four); }
-				//else if (Normal_Frame_Cnt == 13) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Four_NoItem); }
-				//else if (Normal_Frame_Cnt == 14) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Five); }
-				//else if (Normal_Frame_Cnt == 15) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Five_NoItem); }
-				//else if (Normal_Frame_Cnt == 16) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Seven); }
-				//else if (Normal_Frame_Cnt == 17) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_Straight); }
-				//else if (Normal_Frame_Cnt == 18) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide); }
-				//else if (Normal_Frame_Cnt == 19) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beelzebub_Group_FourWide_Item); }
-				//else if (Normal_Frame_Cnt == 20) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_BeetleGroup); }
-				//else if (Normal_Frame_Cnt == 21) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_BeetleGroup_Three); }
-				//else if (Normal_Frame_Cnt == 22) { Des_Obj(ref Obj_Storage.Storage_Data.boundMeteors); }
-				//else if (Normal_Frame_Cnt == 23) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Bacula_Sixteen); }
-				//else if (Normal_Frame_Cnt == 24) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Bacula_FourOnly); }
-				//else if (Normal_Frame_Cnt == 25) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle); }
-				//else if (Normal_Frame_Cnt == 26) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_FourTriangle_NoItem); }
-				//else if (Normal_Frame_Cnt == 27) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beelzebub_Group_EightNormal_Item); }
-				//else if (Normal_Frame_Cnt == 28) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_UFO_Group_Five); }
-				//else if (Normal_Frame_Cnt == 29) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_Beetle_Group_Seven); }
-				//else if (Normal_Frame_Cnt == 30) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_SevenStraight); }
-				//else if (Normal_Frame_Cnt == 31) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_SixStraight); }
-				//else if (Normal_Frame_Cnt == 32) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_UpSevenDiagonal); }
-				//else if (Normal_Frame_Cnt == 33) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_DownSevenDiagonal); }
-				//else if (Normal_Frame_Cnt == 34) { Des_Obj(ref Obj_Storage.Storage_Data.enemy_ClamChowder_Group_TenStraight); }
-				//else if (Normal_Frame_Cnt == 35) { Des_Obj(ref Obj_Storage.Storage_Data.SmallBeam_Bullet_E); }
-				//else if (Normal_Frame_Cnt == 36) { Des_Obj(ref Obj_Storage.Storage_Data.UfoType_Enemy); }
-				//else if (Normal_Frame_Cnt == 37) { Des_Obj(ref Obj_Storage.Storage_Data.ClamChowderType_Enemy); }
-				//else if (Normal_Frame_Cnt == 38) { Des_Obj(ref Obj_Storage.Storage_Data.OctopusType_Enemy); }
-				//else if (Normal_Frame_Cnt == 39) { Des_Obj(ref Obj_Storage.Storage_Data.BeelzebubType_Enemy); }
-				//else if (Normal_Frame_Cnt == 40) { Des_Obj(ref Obj_Storage.Storage_Data.BattleShipType_Enemy);
-				//Is_Processed_Normal = true;
-				//}
 			}
 			#endregion
 		}
