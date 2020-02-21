@@ -41,6 +41,7 @@ public class Object_Pooling
 		obj_name = name;
 		//プレハブを保存
 		prefab = Create_obj;
+		Debug_Script.GetPooling(z);
 	}
 	//リストをすべて返す関数
 	public List<GameObject> Get_Obj()
@@ -80,7 +81,7 @@ public class Object_Pooling
 		gameObject.name = name;         //名前の変更
 		gameObject.transform.parent = Parent_Obj.transform;//生成してある親オブジェクトの子供にする
 		gameObject.SetActive(Is_Active);    //活動するかどうかの変更
-		obj.Add(gameObject);                                            // 生成をした値を配列に入れる
+		obj.Add(gameObject);    // 生成をした値を配列に入れる
 		return gameObject;
 	}
 
