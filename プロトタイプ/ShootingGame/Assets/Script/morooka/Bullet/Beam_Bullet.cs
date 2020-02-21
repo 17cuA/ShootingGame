@@ -8,14 +8,4 @@ using UnityEngine;
 
 public class Beam_Bullet : bullet_status
 {
-	private new void Start()
-    {
-		base.Start();
-	}
-
-	private new void Update()
-    {
-		base.Update();
-		Moving_To_Facing();
-    }
 }

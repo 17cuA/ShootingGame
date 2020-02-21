@@ -34,6 +34,7 @@ public class Balkan_Tentacles : Tentacles
 	private int numberOfBullets_Index;
 	HorizontalGoal_Operator[] horizontalGoal_Operators;
 	private int horizontalGoal_Operators_Index;
+
 	new private void Start()
 	{
 		base.Start();
@@ -160,8 +161,8 @@ public class Balkan_Tentacles : Tentacles
 					ActionStep++;
 				}
 			}
-			else if(ActionStep == 3)
-			{ 
+			else if (ActionStep == 3)
+			{
 				// ターゲット変更
 				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 				{
@@ -174,7 +175,7 @@ public class Balkan_Tentacles : Tentacles
 				if (horizontalGoal_Operators_Index == horizontalGoal_Operators.Length - 1) horizontalGoal_Operators_Index = 0;
 				else horizontalGoal_Operators_Index++;
 
-				 numberOfBullets_Cnt = 0;
+				numberOfBullets_Cnt = 0;
 				Timer = 0.0f;
 				ActionStep = 0;
 				Is_Attack = false;
@@ -186,7 +187,7 @@ public class Balkan_Tentacles : Tentacles
 			HorizontalGoal_KeepHorizontal();
 			#endregion
 
-						Timer += Time.deltaTime;
+			Timer += Time.deltaTime;
 			if (attackDelay < Timer) Is_Attack = true;
 		}
 	}
@@ -209,7 +210,7 @@ public class Balkan_Tentacles : Tentacles
 	{
 		var tempPos = BaseBone.transform.position;
 		tempPos.x = -2.0f;
-		tempPos.y += 4.0f * Mathf.Sin(Time.time * 2.0f); 
+		tempPos.y += 7.0f * Mathf.Sin(Time.time * 2.0f);
 		horizontalGoal.transform.position = tempPos;
 		tempPos = BaseBone.transform.position - horizontalGoal.transform.position;
 		BaseBone.transform.right = tempPos;

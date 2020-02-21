@@ -33,7 +33,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
-	public bool isResetPos;			//リスポーン終了時に位置をリセットしたかどうか
+	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
+	public bool isStolen = false;
 	void Start()
 	{
 		isPlayerLive = false;

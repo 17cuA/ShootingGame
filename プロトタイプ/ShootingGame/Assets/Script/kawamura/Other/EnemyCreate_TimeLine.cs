@@ -22,6 +22,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public enum CreateEnemyType
 	{
 		None,
+		Discharge_Free,								//自分で向き指定するもの
 		Discharge_LeftCurveUp90,                    //排出の上向き左90度カープ
 		Discharge_RightCurveUp90,                   //排出の上向き右90度カープ
 		Discharge_LeftCurveDown90,                  //排出の下向き左90度カープ
@@ -53,6 +54,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	}
 
+	[Header("Discharge_Freeにしたときに使います")]
+	public Enemy_Discharged.MoveType freeMoveType;
 	public Transform dischargePos_Top;
 	public Transform dischargePos_Under;
 	public Transform taihoPos_Top;
@@ -119,6 +122,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				//なし
 				case CreateEnemyType.None:
 					enemyInformation[i].enemyName = "なし";
+					break;
+
+				//上向き90度左カーブ
+				case CreateEnemyType.Discharge_Free:
+					enemyInformation[i].enemyName = "指定排出";
+
 					break;
 
 				//上向き90度左カーブ
@@ -234,6 +243,20 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		{
 			//なし
 			case CreateEnemyType.None:
+				createNum++;
+				break;
+
+
+			//指定排出
+			case CreateEnemyType.Discharge_Free:
+				saveObj = Instantiate(dischargeObj, pos, enemyRota);
+				saveObj.transform.parent = mapObj.transform;
+				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
+				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Free);
+				saveDischarge_Script.setMoveType = freeMoveType;
+
+				saveObj = null;
+				saveDischarge_Script = null;
 				createNum++;
 				break;
 
