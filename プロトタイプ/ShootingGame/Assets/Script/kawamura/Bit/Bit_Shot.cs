@@ -97,8 +97,8 @@ public class Bit_Shot : MonoBehaviour
 		//	laser_Obj.SetActive(false);
 		//}
 
-		//死んでないくて打てる状態なら
-		if (!bf.isDead && isShot)
+		//死んでないくて盗まれていなくて打てる状態なら
+		if ((!bf.isDead && !bf.isStolen) && isShot)
 		{
 			if (bf.bState == Bit_Formation_3.BitState.Player1)
 			{
