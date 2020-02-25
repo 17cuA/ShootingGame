@@ -8,6 +8,34 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class Wireless_sinario : MonoBehaviour
 {
+	public enum Sinario_No
+	{
+		Curtain_up,                         //開戦時
+		First_half_boss_before,             //前半ボス前
+		First_falf_boss_after,              //前半ボス後
+		Middle_Boss,						//一面でいうところの🗿
+		Second_half_boss_before,            //後半ボス前
+		Second_half_boss_after              //後半ボス後
+	}
+
+
+
+
+	[System.Serializable]
+	public struct Story
+	{
+		public string name;
+		public List<string> Sinario;
+		public Sinario_No No;
+
+		public Story(string Name):this()
+		{
+			this.name = Name;
+		}
+
+	}
+
+	private List<Story> StoryGroups = new List<Story>();
 	//文字の表示に使っている変数たち--------------------------------------------------------
 	[SerializeField] private string[] scenarios;          // 無線セリフ、上から順に基本流れていく次のセリフにいく(unity側の設定)
 	[SerializeField] private string[] Curtain_up;
@@ -31,15 +59,6 @@ public class Wireless_sinario : MonoBehaviour
 	private int frame = 0;                   // フレーム管理するためのフレームカウント用の変数
 	public static bool Is_using_wireless;       //外部scriptから変更するためにつかう
 	//-------------------------------------------------------------------------------
-	public enum Sinario_No
-	{
-		Curtain_up,                         //開戦時
-		First_half_boss_before,             //前半ボス前
-		First_falf_boss_after,              //前半ボス後
-		Middle_Boss,						//一面でいうところの🗿
-		Second_half_boss_before,            //後半ボス前
-		Second_half_boss_after              //後半ボス後
-	}
 	public int No;          //どの無線の状態なのか
 	// 文字の表示が完了しているかどうか
 	public bool IsCompleteDisplayText
@@ -61,6 +80,12 @@ public class Wireless_sinario : MonoBehaviour
 	public AudioSource audiosource;         //無線受信時の音などを鳴らすよう
 	private int soundcnt;
 	int Start_cnt;
+
+
+
+
+
+
 	void Start()
 	{
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
