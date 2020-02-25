@@ -901,6 +901,7 @@ public class Player1 : character_status
 		{
 			invincible = true;         //無敵状態にするかどうかの処理
 			invincible_time = 0;        //無敵時間のカウントする用の変数の初期化
+			target = direction;
 			Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
 			Is_Animation = true;
 			Is_Resporn = true;                      //復活用の処理を行う
