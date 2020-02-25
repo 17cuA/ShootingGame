@@ -10,6 +10,7 @@ public class Boss_Final : character_status
 	[Header("プレイヤーを中心にし、円を描く動き")]
 	public float updateTime = 1;
 	private float updateTimer;
+	public float angle;
 	public float delta;
 
 	[Header("攻撃関連")]
@@ -33,6 +34,9 @@ public class Boss_Final : character_status
 	private new Rigidbody rigidbody;
 
 	private Transform atkTarget;
+	public Transform controllerPos;
+	public Transform controllerPosStart;
+	public Transform controllerPosEnd;
 
 	[Header("ステート関連")]
 	public float debutDuration;
@@ -139,22 +143,16 @@ public class Boss_Final : character_status
 	{
 		if (atkTarget == null)
 			return;
-		if (updateTimer <= updateTime)
+
+		if(updateTimer <= updateTime)
 		{
-			var targetPos = atkTarget.transform.position;
-			var bossPos = this.transform.position;
-			var midPoint = (targetPos + bossPos) / 2;
-			var radius = Vector3.Distance(midPoint, bossPos);
+			var pos = (1 - updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPosStart.position + 2 * (updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPos.position + (updateTimer / updateTime) * (updateTimer / updateTime) * controllerPosEnd.position;
 
-
-			var angle = Mathf.Atan((bossPos - midPoint).y / (bossPos - midPoint).x) * Mathf.Rad2Deg;
-			var x = midPoint.x + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
-			var y = midPoint.y + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
-			this.transform.position = new Vector3(x, y, transform.position.z);
+			transform.position = pos;
 
 			updateTimer += Time.deltaTime;
-			
 		}
+
 	}
 
 	#region ===== IN DEBUT STATE =====
