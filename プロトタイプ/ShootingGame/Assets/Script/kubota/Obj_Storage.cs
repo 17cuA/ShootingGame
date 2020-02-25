@@ -282,13 +282,13 @@ public class Obj_Storage : MonoBehaviour
 		Player_Missile2 = Resources.Load("Bullet/Player_Missile2") as GameObject;
 		Item_Prefab = Resources.Load("Item/Item_Test") as GameObject;
 
-		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 5, "Player1_Bullet");         //プレイヤーのバレットを生成
-		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 5, "Player2_Bullet");
-		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 10, "Option_Bullet_1P");
-		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 10, "Option_Bullet_2P");
-		PlayerMissile = new Object_Pooling(Player_Missile1, 4, "Player_Missile");        //プレイヤーのミサイルの生成
-		PlayerMissile2 = new Object_Pooling(Player_Missile2, 4, "Player_Missile2");      //プレイヤー２のミサイルの生成
-		PowerUP_Item = new Object_Pooling(Item_Prefab, 10, "PowerUP_Item");
+		PlayerBullet = new Object_Pooling(Bullet_Prefab_P, 17, "Player1_Bullet");         //プレイヤーのバレットを生成
+		Player2Bullet = new Object_Pooling(BulletPrefab_P2, 17, "Player2_Bullet");
+		P1_OptionBullet = new Object_Pooling(BulletPrefab_Option_P1, 84, "Option_Bullet_1P");
+		P2_OptionBullet = new Object_Pooling(BulletPrefab_Option_P2, 84, "Option_Bullet_2P");
+		PlayerMissile = new Object_Pooling(Player_Missile1, 15, "Player_Missile");        //プレイヤーのミサイルの生成
+		PlayerMissile2 = new Object_Pooling(Player_Missile2, 15, "Player_Missile2");      //プレイヤー２のミサイルの生成
+		PowerUP_Item = new Object_Pooling(Item_Prefab, 19, "PowerUP_Item");
 
 		#endregion
 		switch (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
@@ -463,7 +463,7 @@ public class Obj_Storage : MonoBehaviour
 				Boss_1 = new Object_Pooling(Boss1_Prefab, 1, "One_Boss");                              //ステージ1のボス生成
 				Boss_2 = new Object_Pooling(Boss2_Prefab, 1, "Two_Boss");                               //ステージ2のボス生成
 				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 88, "Enemy_Bullet");          //エネミーのバレットを生成
-				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 42, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 12, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
 				SmallBeam_Bullet_E = new Object_Pooling(SmallBeam_Bullet_E_Prefab, 42, "Enemy_SmallBeam_Bullet");      // エネミーの小さいビーム型バレットを生成
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
@@ -480,21 +480,21 @@ public class Obj_Storage : MonoBehaviour
 				Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab, 20, "Two_Boss_Laser");
 
 				Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");
-				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 2, "Moai_Mini_Group");
-				Moai_Bullet = new Object_Pooling(Moai_Bullet_Prefab, 10, "Moai_Prefab");
-				Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 10, "Moai_Eye_Laser");
-				Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 10, "Moai_Mouth_Laser");
+				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 21, "Moai_Mini_Group");
+				Moai_Bullet = new Object_Pooling(Moai_Bullet_Prefab, 15, "Moai_Prefab");
+				Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 72, "Moai_Eye_Laser");
+				Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 22, "Moai_Mouth_Laser");
 
 				//敵キャラのプーリング化-------------------------------------------------------------------------------
-				enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 1, "enemy_UFO_Group");
-				enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 2, "enemy_UFO_Group_NoneShot");
-				enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 1, "enemy_ClamChowder_Group_Two_Top");
-				enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 1, "enemy_ClamChowder_Group_Two_Under");
-				enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
-				enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
+				enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 10, "enemy_UFO_Group");
+				enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 4, "enemy_UFO_Group_NoneShot");
+				enemy_ClamChowder_Group_Two_Top = new Object_Pooling(enemy_ClamChowder_Group_Two_Top_prefab, 2, "enemy_ClamChowder_Group_Two_Top");
+				enemy_ClamChowder_Group_Two_Under = new Object_Pooling(enemy_ClamChowder_Group_Two_Under_prefab, 2, "enemy_ClamChowder_Group_Two_Under");
+				enemy_ClamChowder_Group_TwoWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab, 3, "enemy_ClamChowder_Group_TwoWaveOnlyUp");
+				enemy_ClamChowder_Group_TwoWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab, 3, "enemy_ClamChowder_Group_TwoWaveOnlyDown");
 				//enemy_MiddleBoss_Father = new Object_Pooling(enemy_MiddleBoss_Father_prefab, 1, "enemy_MiddleBoss_Father");
 				enemy_ClamChowder_Group_Three = new Object_Pooling(enemy_ClamChowder_Group_Three_prefab, 1, "enemy_ClamChowder_Group_Three");
-				enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 1, "enemy_ClamChowder_Group_Three_Item");
+				enemy_ClamChowder_Group_Three_Item = new Object_Pooling(enemy_ClamChowder_Group_Three_Item_prefab, 2, "enemy_ClamChowder_Group_Three_Item");
 				enemy_ClamChowder_Group_ThreeWaveOnlyUp = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp");
 				enemy_ClamChowder_Group_ThreeWaveOnlyDown = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyDown");
 				enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item = new Object_Pooling(enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab, 1, "enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item");
@@ -502,14 +502,14 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_Group_Four = new Object_Pooling(enemy_ClamChowder_Group_Four_prefab, 1, "enemy_ClamChowder_Group_Four");
 				enemy_ClamChowder_Group_Four_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Four_NoItem_prefab, 1, "enemy_ClamChowder_Group_Four_NoItem");
 				enemy_ClamChowder_Group_Five = new Object_Pooling(enemy_ClamChowder_Group_Five_prefab, 1, "enemy_ClamChowder_Group_Five");
-				enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 1, "enemy_ClamChowder_Group_Five_NoItem");
-				enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 1, "enemy_ClamChowder_Group_Seven");
+				enemy_ClamChowder_Group_Five_NoItem = new Object_Pooling(enemy_ClamChowder_Group_Five_NoItem_prefab, 3, "enemy_ClamChowder_Group_Five_NoItem");
+				enemy_ClamChowder_Group_Seven = new Object_Pooling(enemy_ClamChowder_Group_Seven_prefab, 2, "enemy_ClamChowder_Group_Seven");
 				enemy_ClamChowder_Group_Straight = new Object_Pooling(enemy_ClamChowder_Group_Straight_prefab, 1, "enemy_ClamChowder_Group_Straight");
 				enemy_Beelzebub_Group_FourWide = new Object_Pooling(enemy_Beelzebub_Group_FourWide_prefab, 2, "enemy_Beelzebub_Group_FourWide");
 				enemy_Beelzebub_Group_FourWide_Item = new Object_Pooling(enemy_Beelzebub_Group_FourWide_Item_prefab, 2, "enemy_Beelzebub_Group_FourWide_Item");
 				enemy_BeetleGroup = new Object_Pooling(enemy_BeetleGroup_prefab, 1, "enemy_BeetleGroup");
 				enemy_BeetleGroup_Three = new Object_Pooling(enemy_BeetleGroup_Three_prefab, 1, "enemy_BeetleGroup_Three");
-				boundMeteors = new Object_Pooling(boundMeteors_prefab, 2, "boundMeteors");
+				boundMeteors = new Object_Pooling(boundMeteors_prefab, 3, "boundMeteors");
 				enemy_Bacula_Sixteen = new Object_Pooling(enemy_Bacula_Sixteen_prefab, 1, "enemy_Bacula_Sixteen");
 				enemy_Bacula_FourOnly = new Object_Pooling(enemy_Bacula_FourOnly_prefab, 1, "enemy_Bacula_FourOnly");
 				//9月13日追加
@@ -522,7 +522,7 @@ public class Obj_Storage : MonoBehaviour
 				enemy_ClamChowder_Group_SixStraight = new Object_Pooling(enemy_ClamChowder_Group_SixStraight_prefab, 2, "enemy_ClamChowder_Group_SixStraight");
 				enemy_ClamChowder_Group_UpSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_UpSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_UpSevenDiagonal");
 				enemy_ClamChowder_Group_DownSevenDiagonal = new Object_Pooling(enemy_ClamChowder_Group_DownSevenDiagonal_prefab, 2, "Enemy_ClamChowder_Group_DownSevenDiagonal");
-				enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 2, "Enemy_ClamChowder_Group_TenStraight");
+				enemy_ClamChowder_Group_TenStraight = new Object_Pooling(enemy_ClamChowder_Group_TenStraight_prefab, 6, "Enemy_ClamChowder_Group_TenStraight");
 
 				#endregion
 				break;

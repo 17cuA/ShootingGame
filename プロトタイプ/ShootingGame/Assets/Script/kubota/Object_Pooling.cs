@@ -41,7 +41,6 @@ public class Object_Pooling
 		obj_name = name;
 		//プレハブを保存
 		prefab = Create_obj;
-		Debug_Script.GetPooling(z);
 	}
 	//リストをすべて返す関数
 	public List<GameObject> Get_Obj()
