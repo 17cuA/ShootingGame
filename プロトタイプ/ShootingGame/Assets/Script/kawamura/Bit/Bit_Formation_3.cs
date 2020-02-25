@@ -80,26 +80,19 @@ public class Bit_Formation_3 : MonoBehaviour
 	//bool isScaleInc = false;
 	//bool isScaleDec = false;
 	//bool isPlayerDieCheck;					
-	public bool isborn = true;                  //オプションが出現したときupdateで一回だけ行う処理用
-	public bool isDead = false;                 //プレイヤーが死んで回収されるまでtrue、回収されたらfalse
-	public bool isCollection = false;                   //回収されたときに使う
-
+	public bool isborn = true;						//オプションが出現したときupdateで一回だけ行う処理用
+	public bool isDead = false;						//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
+	public bool isCollection = false;				//回収されたときに使う
+	public bool isStolen;								//盗まれた状態
 	bool isCircle = false;
 	public bool isFixed = false;
 	public bool isMove = false;
 
-
-
 	void Start()
 	{
-		isborn = true;                  //出現時の処理をするように
-										//isScaleDec = true;
-		defaultSpeed = 20;              //死んだときの初速設定
-		speed = defaultSpeed;           //初速を代入
-										//値を設定
-										//state_Num = 0;				//状態の判別番号
-
-		//bState = BitState.Follow;		//状態の初期設定
+		isborn = true;						//出現時の処理をするように
+		defaultSpeed = 20;					//死んだときの初速設定
+		speed = defaultSpeed;			//初速を代入
 
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
@@ -325,7 +318,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 		else if (bState == BitState.Player2)
 		{
-			if (Input.GetKeyDown(KeyCode.I) || pl2.Dead_Check())
+			if ((Input.GetKeyDown(KeyCode.I) || pl2.Dead_Check()) && !isStolen)
 			{
 				//死んだ判定true
 				isDead = true;
@@ -356,6 +349,9 @@ public class Bit_Formation_3 : MonoBehaviour
 				}
 			}
 		}
+
+		//盗まれている状態かチェック
+		StolenCheck();
 
 		//死んでいたら
 		if (isDead)
@@ -1011,14 +1007,58 @@ public class Bit_Formation_3 : MonoBehaviour
 			}
 			else if (col.gameObject.name == "WallLeft")
 			{
-				isDead = false;                 //死んでいる判定false
-				isborn = true;                  //出現時処理できるように
-				followPosObj = null;            //追従オブジェクト参照をなくす
-				pl1.bitIndex--;                 //ゲームに出ているオプション総数カウントを減らす
+				isDead = false;						//死んでいる判定false
+				isborn = true;						//出現時処理できるように
+				followPosObj = null;				//追従オブジェクト参照をなくす
+				pl1.bitIndex--;						//ゲームに出ているオプション総数カウントを減らす
 
-				gameObject.SetActive(false);    //オブジェクトをオフにする
+				gameObject.SetActive(false);		//オブジェクトをオフにする
 
 			}
+		}
+
+		//右の画面外壁に当たったとき（盗まれた後に当たったとき用）
+		if (col.gameObject.tag == "WallRight")
+		{
+			if (isStolen)
+			{
+				isborn = true;
+
+				followPosObj = null;                //追従オブジェクト参照をなくす
+				pl1.bitIndex--;                     //ゲームに出ているオプション総数カウントを減らす
+				gameObject.SetActive(false);        //オブジェクトをオフにする
+
+			}
+			//自分が何番目のオプションか見る
+			switch (option_OrdinalNum)
+			{
+				case 1:
+					//FtoPlayer.isStolen = true;
+					break;
+
+				case 2:
+					if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
+					{
+
+					}
+					break;
+
+				case 3:
+					if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
+					{
+
+					}
+					break;
+
+				case 4:
+					if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
+					{
+
+					}
+					break;
+
+			}
+
 		}
 
 		//オプションハンターに当たった時
@@ -1028,13 +1068,14 @@ public class Bit_Formation_3 : MonoBehaviour
 			switch(option_OrdinalNum)
 			{
 				case 1:
-					FtoPlayer.isStolen = true;
+					//FtoPlayer.isStolen = true;
 					break;
 
 				case 2:
 					if (!FtoPlayer.isStolen)
 					{
 						FtoPBit_Second.isStolen = true;
+						isStolen = true;
 						FtoPBit_Second.hunterObj = col.gameObject;
 					}
 					break;
@@ -1043,6 +1084,7 @@ public class Bit_Formation_3 : MonoBehaviour
 					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen)
 					{
 						FtoPBit_Third.isStolen = true;
+						isStolen = true;
 						FtoPBit_Third.hunterObj = col.gameObject;
 
 					}
@@ -1052,12 +1094,46 @@ public class Bit_Formation_3 : MonoBehaviour
 					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen && !FtoPBit_Third.isStolen)
 					{
 						FtoPBit_Fourth.isStolen = true;
+						isStolen = true;
 						FtoPBit_Fourth.hunterObj = col.gameObject;
 
 					}
 					break;
 
 			}
+		}
+	}
+
+	//盗まれている状態かチェックする
+	void StolenCheck()
+	{
+		//自分が何番目のオプションか見る
+		switch (option_OrdinalNum)
+		{
+			case 1:
+				FtoPlayer.isStolen = true;
+				break;
+
+			case 2:
+				if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
+				{
+					isStolen = true;
+				}
+				break;
+
+			case 3:
+				if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
+				{
+					isStolen = true;
+				}
+				break;
+
+			case 4:
+				if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
+				{
+					isStolen = true;
+				}
+				break;
 		}
 	}
 }
