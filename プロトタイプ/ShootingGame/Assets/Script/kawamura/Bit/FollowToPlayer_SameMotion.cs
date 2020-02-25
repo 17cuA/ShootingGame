@@ -34,7 +34,8 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
 	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
-	public bool isStolen = false;
+	public bool isStolen = false;                       //自身がハンターに当たるとtrue
+	public bool isStolen_Previous = false;
 	void Start()
 	{
 		isPlayerLive = false;
