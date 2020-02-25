@@ -80,7 +80,7 @@ public class Object_Pooling
 		gameObject.name = name;         //名前の変更
 		gameObject.transform.parent = Parent_Obj.transform;//生成してある親オブジェクトの子供にする
 		gameObject.SetActive(Is_Active);    //活動するかどうかの変更
-		obj.Add(gameObject);                                            // 生成をした値を配列に入れる
+		obj.Add(gameObject);    // 生成をした値を配列に入れる
 		return gameObject;
 	}
 
