@@ -15,6 +15,8 @@ public class Enemy_Discharged : MonoBehaviour
 		RightCueveUp_180,			//左に出て右曲がりに180度曲がる
 		RightCurveDown_90,			//下に下がって90度左に曲がる
 		RightCueveDown_180,		//左に出て左回りに180度に曲がる
+		FreeLeft90,
+		FreeRight90,
 	}
 	public MoveType moveType;		//動きタイプ変数
 
@@ -31,7 +33,8 @@ public class Enemy_Discharged : MonoBehaviour
 	public MoveState moveState;
 	public MoveState saveMoveState;
 
-	public GameObject modelObj;			//モデルオブジェクト（主に左右の動きで向きを変えるのに使う）
+	public GameObject modelObj;         //モデルオブジェクト（主に左右の動きで向きを変えるのに使う）
+	Enemy_Roll roll_Script;
 
 	Vector3 velocity;
 
@@ -63,7 +66,7 @@ public class Enemy_Discharged : MonoBehaviour
 	//ここから180度カーブ用
 	[Header("入力用　180Xスピード")]
 	public float speedX180;
-	[Header("入力用　	180最大Xスピード")]
+	[Header("入力用　180最大Xスピード")]
 	public float speedXMax180;
 	public float defaultSpeedX180;
 	[Header("入力用　180Xスピードの増減値")]
@@ -84,14 +87,14 @@ public class Enemy_Discharged : MonoBehaviour
 
 	//ここまで180度カーブ用
 
-	public bool once = true;		//一回だけ行う処理用
-
-
+	public bool once = true;        //一回だけ行う処理用
+	public bool isRotaReset = true;
 
 	void Start()
 	{
 		//モデル取得
-		modelObj = transform.GetChild(0).gameObject;		
+		modelObj = transform.GetChild(0).gameObject;
+		roll_Script = modelObj.GetComponent<Enemy_Roll>();
 
 		defaultSpeedX = speedX;
 		defaultSpeedY = speedY;
@@ -119,16 +122,44 @@ public class Enemy_Discharged : MonoBehaviour
 			}
 
 			//動きの種類でモデルの向きを変える
-			if (moveType == Enemy_Discharged.MoveType.LeftCurveUp_90 || moveType == Enemy_Discharged.MoveType.LeftCueveUp_180 || moveType == Enemy_Discharged.MoveType.LeftCurveDown_90 || moveType == Enemy_Discharged.MoveType.LeftCueveDown_180)
+			if (moveType == MoveType.LeftCurveUp_90 || moveType == MoveType.LeftCueveUp_180 || moveType == MoveType.LeftCurveDown_90 || moveType == MoveType.LeftCueveDown_180)
 			{
-				modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
-				transform.rotation = Quaternion.Euler(0, 0, 0);
+				if (isRotaReset)
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+					transform.rotation = Quaternion.Euler(0, 0, 0);
+				}
+				else
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+					transform.rotation = Quaternion.Euler(0, 180, 0);
+
+				}
 			}
-			else if (moveType == Enemy_Discharged.MoveType.RightCurveUp_90 || moveType == Enemy_Discharged.MoveType.RightCueveUp_180 || moveType == Enemy_Discharged.MoveType.RightCurveDown_90 || moveType == Enemy_Discharged.MoveType.RightCueveDown_180)
+			else if (moveType == MoveType.RightCurveUp_90 || moveType == MoveType.RightCueveUp_180 || moveType == MoveType.RightCurveDown_90 || moveType == MoveType.RightCueveDown_180)
 			{
-				modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
-				transform.rotation = Quaternion.Euler(0, 180, 0);
+				if (isRotaReset)
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
+					transform.rotation = Quaternion.Euler(0, 180, 0);
+				}
+				else
+				{
+					modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+					//transform.rotation = Quaternion.Euler(0, 180, transform.rotation.z);
+
+				}
 			}
+			else if (moveType == MoveType.FreeLeft90)
+			{
+				
+			}
+			else if (moveType == MoveType.FreeRight90)
+			{
+				modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+				roll_Script.rotaY = 90;
+			}
+
 
 			//上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
 			if (moveState == MoveState.UpYMove && speedY < 0)
@@ -172,6 +203,65 @@ public class Enemy_Discharged : MonoBehaviour
 		//動きのタイプを見る
 		switch(moveType)
 		{
+			//90度左に曲がる
+			case MoveType.FreeLeft90:
+				//上に上がる状態なら
+				if (moveState == MoveState.UpYMove)
+				{
+					//上に上がっている時間を数える
+					YMoveTimeCnt += Time.deltaTime;
+					//上がる最大時間を超えたら
+					if (YMoveTimeCnt > YMoveTimeMax)
+					{
+						//状態を変える（曲がる動きの状態へ）
+						moveState = MoveState.MiddleMove;
+					}
+				}
+				//曲がる動きの状態なら
+				else if (moveState == MoveState.MiddleMove)
+				{
+					//Xスピードの変化が終わっていないなら
+					if (!isSpeedXCangeEnd)
+					{
+						//マイナス方向へのスピードを増やす
+						speedX -= changeSpeedX_value;
+						//マイナス方向補スピード最大値を超えたら
+						if (speedX < -speedXMax)
+						{
+							//Xスピード変化終わり判定
+							isSpeedXCangeEnd = true;
+							//スピードを最大値にする
+							speedX = -speedXMax;
+						}
+					}
+					//Yスピードの変化が終わっていないなら
+					if (!isSpeedYCangeEnd)
+					{
+						//yスピードを減らす
+						speedY -= changeSpeedX_value;
+						//Yスピードが0より小さくなったら
+						if (speedY < 0)
+						{
+							//Yスピード変化終わり判定
+							isSpeedYCangeEnd = true;
+							//Yスピードを0に直す
+							speedY = 0;
+						}
+					}
+					//XスピードとYスピードどちらの変化も終わっていたら
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						//動きの状態を左移動状態にする
+						moveState = MoveState.LeftXMove;
+					}
+				}
+				//移動
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+
+				break;
+
+
 			//90度左に曲がる
 			case MoveType.LeftCurveUp_90:
 				//上に上がる状態なら
@@ -406,6 +496,47 @@ public class Enemy_Discharged : MonoBehaviour
 				gameObject.transform.position += velocity * Time.deltaTime;
 
 				break;
+
+			case MoveType.FreeRight90:
+				if (moveState == MoveState.UpYMove)
+				{
+					YMoveTimeCnt += Time.deltaTime;
+					if (YMoveTimeCnt > YMoveTimeMax)
+					{
+						moveState = MoveState.MiddleMove;
+					}
+				}
+				else if (moveState == MoveState.MiddleMove)
+				{
+					if (!isSpeedXCangeEnd)
+					{
+						speedX -= changeSpeedX_value;
+						if (speedX < -speedXMax)
+						{
+							isSpeedXCangeEnd = true;
+							speedX = -speedXMax;
+						}
+					}
+
+					if (!isSpeedYCangeEnd)
+					{
+						speedY -= changeSpeedX_value;
+						if (speedY < 0)
+						{
+							isSpeedYCangeEnd = true;
+							speedY = 0;
+						}
+					}
+
+					if (isSpeedXCangeEnd && isSpeedYCangeEnd)
+					{
+						moveState = MoveState.LeftXMove;
+					}
+				}
+				velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+				gameObject.transform.position += velocity * Time.deltaTime;
+				break;
+
 
 			case MoveType.RightCurveUp_90:
 				if (moveState == MoveState.UpYMove)

@@ -55,7 +55,7 @@ public class EffectStatusController : MonoBehaviour
 	void ControllerInputProcess()
 	{
 		//入力量取得
-		inputAmount = Input.GetAxis("Horizontal");
+		inputAmount = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);
 
 		//右入力
 		if (0 < inputAmount)

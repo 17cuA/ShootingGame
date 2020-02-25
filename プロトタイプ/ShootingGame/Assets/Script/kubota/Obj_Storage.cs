@@ -22,14 +22,17 @@ public class Obj_Storage : MonoBehaviour
 
 	#region 敵関係のプレハブ
 
+	#region 全体を通して出る敵
+	private GameObject Bullet_Prefab_E;                         //エネミーの弾のPrefab情報
+	private GameObject UfoType_Enemy_Prefab;                    //UFO型エネミーのプレハブ
+	#endregion
+
 	#region ステージ1
 	private GameObject Boss1_Prefab;							//ステージ１のボスのプレハブ
 	private GameObject Boss2_Prefab;							//ステージ2のボスのプレハブ
-	private GameObject Bullet_Prefab_E;							//エネミーの弾のPrefab情報
 	private GameObject Bullet_Prefab_BattleShip;				//バトルシップタイプの弾のPrefab情報
 	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
-	private GameObject UfoType_Enemy_Prefab;                    //UFO型エネミーのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;			//貝型エネミーのプレハブ
 	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;				//ハエ型エネミーのプレハブ
@@ -270,7 +273,7 @@ public class Obj_Storage : MonoBehaviour
 
 	private void CreateSceneChangeGos()
 	{
-		#region Playerの弾等
+		#region Playerの弾等必須事項
 		Bullet_Prefab_P = Resources.Load("Bullet/Player_Bullet_1P") as GameObject;
 		BulletPrefab_P2 = Resources.Load("Bullet/Player_Bullet_2P") as GameObject;
 		BulletPrefab_Option_P1 = Resources.Load("Bullet/Option_Bullet_1P") as GameObject;
@@ -646,6 +649,7 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 				#endregion
 				break;
+
 			default:
 				break;
 		}

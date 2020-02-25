@@ -39,12 +39,12 @@ public class Helper_TitleSceneBGMAdjuster : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetButtonDown("A") || Input.GetButtonDown("P2_A") && SceneManager.GetActiveScene().name == "Title")
+		if(ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer1) || ControllerDevice.GetButtonDown(eCode.ePad_a, ePadNumber.ePlayer2) && SceneManager.GetActiveScene().name == "Title")
 		{
 			enterCount++;
 		}
 
-		if(Input.GetButtonDown("B") || Input.GetButtonDown("P2_B") && SceneManager.GetActiveScene().name == "Title")
+		if(ControllerDevice.GetButtonDown(eCode.ePad_b, ePadNumber.ePlayer1) || ControllerDevice.GetButtonDown(eCode.ePad_b, ePadNumber.ePlayer2) && SceneManager.GetActiveScene().name == "Title")
 		{
 			enterCount--;
 		}

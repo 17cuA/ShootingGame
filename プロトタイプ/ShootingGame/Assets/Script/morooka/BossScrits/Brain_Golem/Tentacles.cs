@@ -5,6 +5,7 @@
 // 触手の基底クラス
 //----------------------------------------------------------------------------------------------
 // 2020/01/22　アニメーションの再生、再生時間、再生順序の設定
+// 2020/02/06　本体への追従
 //----------------------------------------------------------------------------------------------
 
 using System.Collections;
@@ -16,7 +17,7 @@ public class Tentacles : MonoBehaviour
 	/// <summary>
 	/// アニメーションの行動
 	/// </summary>
-	enum Action
+	public enum Action
 	{
 		eA_TRANSITION,		//	A状態に移行アニメ
 		eA_WAIT,					//	A状態
@@ -28,6 +29,7 @@ public class Tentacles : MonoBehaviour
 	[SerializeField, Tooltip("Aの待機状態の維持時間")] private float aWaitTime;
 	[SerializeField, Tooltip("Bの待機状態の維持時間")] private float bWaitTime;
 	[SerializeField, Tooltip("ボーンの先頭")] private GameObject bone;
+	[SerializeField, Tooltip("追従したいオブジェクト")] protected GameObject parent_Obj;
 
 	protected Animation A_Animation { get; set; }				// アニメーションアセット
 	protected List<string> AnimName { get; set; }				// アニメーションの名前
@@ -37,6 +39,7 @@ public class Tentacles : MonoBehaviour
 	protected GameObject Player2 { get; set; }					// プレイヤー2の情報格納
 	protected GameObject NowTarget { get; set; }				// 今のターゲット
 	protected GameObject BaseBone { get; private set; }		// 先端を動かすボーン
+	protected AnimationState AnimState { get; set; }
 
 	public bool Is_Attack { get; protected set; }                        // 攻撃しているかどうか
 
@@ -47,7 +50,9 @@ public class Tentacles : MonoBehaviour
 		AnimName = new List<string>() { "A_Transition", "A_Wait", "B_Transition", "B_Wait" };
 		A_Animation = GetComponent<Animation>();
 
-		for(GameObject tempObj = bone; tempObj.transform.childCount != 0; )
+		//AnimState =new AnimationState( A_Animation);
+
+		for (GameObject tempObj = bone; tempObj.transform.childCount != 0; )
 		{ 
 			if(tempObj.name == "Bone011")
 			{
@@ -64,6 +69,11 @@ public class Tentacles : MonoBehaviour
 		}
 		NowTarget = Player1;
 		Is_Attack = false;
+
+		if (parent_Obj != null)
+		{
+			transform.parent.parent = parent_Obj.transform;
+		}
 	}
 
 	protected void Update()
@@ -113,5 +123,30 @@ public class Tentacles : MonoBehaviour
 	protected Vector2 VectorChange_3To2(Vector3 temp)
 	{
 		return new Vector2(temp.x, temp.y);
+	}
+	/// <summary>
+	/// アニメーション再生
+	/// </summary>
+	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
+	protected void AnimationPlay( string Play_AnimationName )
+	{
+		//A_Animation[Play_AnimationName].speed = 1.0f;
+		//A_Animation.Play(Play_AnimationName);
+
+		A_Animation[Play_AnimationName].speed = 1.0f;
+		A_Animation.Play(Play_AnimationName);
+	}
+	/// <summary>
+	/// アニメーション逆再生
+	/// </summary>
+	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
+	protected void AnimationReversePlay(string Play_AnimationName)
+	{
+		//A_Animation[Play_AnimationName].speed = -60.0f;
+		//A_Animation.Play(Play_AnimationName);
+
+		A_Animation[Play_AnimationName].time = A_Animation[Play_AnimationName].clip.length;
+		A_Animation[Play_AnimationName].speed = -1.0f;
+		A_Animation.Play(Play_AnimationName);
 	}
 }

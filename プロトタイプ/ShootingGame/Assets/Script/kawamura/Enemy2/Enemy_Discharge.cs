@@ -7,6 +7,17 @@ using UnityEngine;
 
 public class Enemy_Discharge : MonoBehaviour
 {
+	public enum MyDirection
+	{
+		Up,
+		Down,
+		Left,
+		Right,
+		Free,
+	}
+
+	public MyDirection myDirection;
+
 	//public enum SetMoveType
 	//{
 	//	LeftCurveUp_90,
@@ -23,6 +34,8 @@ public class Enemy_Discharge : MonoBehaviour
 	public Enemy_Discharged.MoveType setMoveType;
 
 	public GameObject createObj;
+	public GameObject mapObj;
+
 	Enemy_Discharged discharged_Script;
 
 	Quaternion createRotation;
@@ -40,13 +53,13 @@ public class Enemy_Discharge : MonoBehaviour
 	public int createDelayMax = 0;
 	public int createDelayCnt = 0;
 
-
 	void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
+		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 	}
 
-    void Update()
+	void Update()
     {
 		if (transform.position.x < 16)
 		{
@@ -65,10 +78,21 @@ public class Enemy_Discharge : MonoBehaviour
 						{
 							//オブジェクト生成（のちにプーリング）
 							GameObject saveObj = Instantiate(createObj, transform.position, createRotation);
-							//子供にする
-							saveObj.transform.parent = transform;
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
+
+							if (myDirection==Enemy_Discharge.MyDirection.Free)
+							{
+								discharged_Script.isRotaReset = false;
+								saveObj.transform.rotation = transform.rotation;
+
+							}
+							else
+							{
+								discharged_Script.isRotaReset = true;
+							}
+							//子供にする
+							//saveObj.transform.parent = mapObj.transform;
 							//動きの種類を設定
 							discharged_Script.moveType = setMoveType;
 							//SetState(setMoveType);
@@ -105,6 +129,20 @@ public class Enemy_Discharge : MonoBehaviour
 		//	createDelayCnt = 0;
 		//}
 	}
+
+	public void SetMyDirection(MyDirection direc)
+	{
+		switch(direc)
+		{
+			case MyDirection.Up: transform.rotation = Quaternion.Euler(0, 0, 0); break;
+			case MyDirection.Down: transform.rotation = Quaternion.Euler(0, 0, 180); break;
+			case MyDirection.Left: transform.rotation = Quaternion.Euler(0, 0, 90); break;
+			case MyDirection.Right: transform.rotation = Quaternion.Euler(0, 0, 270); break;
+			case MyDirection.Free: break;
+		}
+		myDirection = direc;
+	}
+
 	//void SetState(SetMoveType setType)
 	//{
 	//	switch(setType)

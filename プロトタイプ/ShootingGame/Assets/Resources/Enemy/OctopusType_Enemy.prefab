@@ -134,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 5480790076448762995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 2883902023524209877}
   - {fileID: 9097322865040941911}
@@ -159,10 +159,9 @@ MonoBehaviour:
   hp: 10000
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 0}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 0
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -177,7 +176,7 @@ MonoBehaviour:
   namenamename: 
   flomtCollieder: {fileID: 2203046244748941581}
   downCollieder: {fileID: 239045551418678127}
-  jumpPower: 10
+  jumpPower: 5
   horizontalMovementSpeed: 4
   fallSpeed: 0.1
   bottomDirection: -1
@@ -209,7 +208,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5480790076448762995}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

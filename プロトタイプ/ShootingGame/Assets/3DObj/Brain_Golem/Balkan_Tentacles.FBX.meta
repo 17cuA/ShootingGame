@@ -75,8 +75,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
-      human bone 'LeftUpperLeg' not found\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -96,7 +95,7 @@ ModelImporter:
       name: A_Transition
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 180
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -123,8 +122,8 @@ ModelImporter:
     - serializedVersion: 16
       name: A_Wait
       takeName: Take 001
-      firstFrame: 201
-      lastFrame: 740
+      firstFrame: 101
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -151,8 +150,8 @@ ModelImporter:
     - serializedVersion: 16
       name: B_Transition
       takeName: Take 001
-      firstFrame: 801
-      lastFrame: 980
+      firstFrame: 201
+      lastFrame: 320
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -179,8 +178,8 @@ ModelImporter:
     - serializedVersion: 16
       name: B_Wait
       takeName: Take 001
-      firstFrame: 1001
-      lastFrame: 1540
+      firstFrame: 750
+      lastFrame: 750
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

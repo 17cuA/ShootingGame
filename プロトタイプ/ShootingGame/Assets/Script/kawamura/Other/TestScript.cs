@@ -44,8 +44,8 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		xxx += Input.GetAxis("Horizontal");
-		zzz += Input.GetAxis("Vertical");
+		xxx += ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);
+		zzz += ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);
 		yyy = Terrain.activeTerrain.SampleHeight(transform.position) + 2.0f;
 
 		transform.position = new Vector3(xxx, yyy, zzz);

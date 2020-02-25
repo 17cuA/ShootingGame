@@ -286,13 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager:
-    defaultButtonNameList:
-    - A
-    - B
-    - RB
-    - Y
-    - X
-    - LB
+    padNumber: 0
+    defaultButtonNameList: 001000000020000000020000008000000040000000010000
     useButtonNameList:
     - Shot
     - Item
@@ -2649,13 +2644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager:
-    defaultButtonNameList:
-    - P2_A
-    - P2_B
-    - P2_RB
-    - P2_Y
-    - P2_X
-    - P2_LB
+    padNumber: 1
+    defaultButtonNameList: 001000000020000000020000008000000040000000010000
     useButtonNameList:
     - Shot
     - Item

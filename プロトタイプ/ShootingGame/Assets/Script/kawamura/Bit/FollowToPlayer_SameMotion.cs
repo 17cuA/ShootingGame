@@ -33,7 +33,9 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isPlayerLive;       //プレイヤーオブジェクトを取得しているかどうか
-	public bool isResetPos;			//リスポーン終了時に位置をリセットしたかどうか
+	public bool isResetPos;         //リスポーン終了時に位置をリセットしたかどうか
+	public bool isStolen = false;                       //自身がハンターに当たるとtrue
+	public bool isStolen_Previous = false;
 	void Start()
 	{
 		isPlayerLive = false;
@@ -134,7 +136,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl1.Is_Resporn)
 				{
-					if (Input.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -146,7 +148,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						defPos = new Vector3(0, 0, 0);
 						savePos = transform.position;
 					}
-					else if (Input.GetButton(pl1.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl1.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -177,7 +179,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				}
 				if (!pl2.Is_Resporn)
 				{
-					if (Input.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKeyUp(KeyCode.Y))
+					if (ControllerDevice.GetButtonUp(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKeyUp(KeyCode.Y))
 					{
 						isFreeze = false;
 						defPos = transform.position - savePos;
@@ -190,7 +192,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 						savePos = transform.position;
 
 					}
-					else if (Input.GetButton(pl2.InputManager.Manager.Button["Multiple"]) || Input.GetKey(KeyCode.Y))
+					else if (ControllerDevice.GetButton(pl2.InputManager.Manager.Button["Multiple"], ePadNumber.ePlayer2) || Input.GetKey(KeyCode.Y))
 					{
 						isFreeze = true;
 					}
@@ -206,7 +208,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				{
 					//プレイヤーの座標が動いていないとき
 					//if (pos == playerObj.transform.position)
-					if ((Input.GetAxis("Horizontal") == 0) && (Input.GetAxis("Vertical") == 0))
+					if ((ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1) == 0) && (ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1) == 0))
 					{
 						isMove = false;
 					}
@@ -222,7 +224,7 @@ public class FollowToPlayer_SameMotion : MonoBehaviour
 				{
 					//プレイヤーの座標が動いていないとき
 					//if (pos == playerObj.transform.position)
-					if ((Input.GetAxis("P2_Horizontal") == 0) && (Input.GetAxis("P2_Vertical") == 0))
+					if ((ControllerDevice.GetAxis("P2_Horizontal", ePadNumber.ePlayer2) == 0) && (ControllerDevice.GetAxis("P2_Vertical", ePadNumber.ePlayer2) == 0))
 					{
 						isMove = false;
 					}

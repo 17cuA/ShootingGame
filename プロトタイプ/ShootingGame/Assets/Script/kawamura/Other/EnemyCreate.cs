@@ -689,14 +689,8 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-		if (SceneManager.GetActiveScene().name == "State_01")
-		{
-			CreateEnemyGroup_01();
-		}
-		if (SceneManager.GetActiveScene().name == "State_02")
-		{
-			CreateEnemyGroup_02();
-		}
+		//敵作成関数
+		CreateEnemyGroup_01();
 
 	}
 

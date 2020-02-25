@@ -94,6 +94,7 @@ public class Player1 : character_status
 
 	public int Bullet_cnt;          //バレットの発射数をかぞえる変数
 	private int Bullet_cnt_Max;     //バレットの発射数の最大値を入れる変数
+	private int Bullet_Fire_Count;
 
 	public bool Is_Burst;      //バースト発射するかどうかの判定
 
@@ -163,6 +164,7 @@ public class Player1 : character_status
 		Is_Change_Auto = true;
 		IS_Active = true;
 		Bullet_cnt_Max = 10;
+		Bullet_Fire_Count = 0;
 		target = direction;
 		//リスポーンに使う初期化--------------------------
 		rotation_cnt = 0;
@@ -297,7 +299,7 @@ public class Player1 : character_status
 				Bullet_Create();
 
 				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || Input.GetButton(inputManager.Manager.Button["Item"]))
+				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();
@@ -327,8 +329,8 @@ public class Player1 : character_status
 	//ぐりっとの動きに合わせた計算
 	void SetTargetPosition()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -424,8 +426,8 @@ public class Player1 : character_status
 	//コントローラーの操作　使ってない
 	private void Player_Move()
 	{
-		x = Input.GetAxis("Horizontal");            //x軸の入力
-		y = Input.GetAxis("Vertical");              //y軸の入力
+		x = ControllerDevice.GetAxis("Horizontal", ePadNumber.ePlayer1);            //x軸の入力
+		y = ControllerDevice.GetAxis("Vertical", ePadNumber.ePlayer1);              //y軸の入力
 
 		//プレイヤーの移動に上下左右制限を設ける
 		if (transform.position.y >= 4.5f && y > 0) y = 0;
@@ -499,7 +501,7 @@ public class Player1 : character_status
 	//弾の発射
 	public void Bullet_Create()
 	{
-		if (Input.GetButtonDown(inputManager.Manager.Button["ShotSwitch"]))
+		if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["ShotSwitch"], ePadNumber.ePlayer1))
 		{
 			Is_Change_Auto = !Is_Change_Auto;
 			SE_Manager.SE_Obj.weapon_Change(Obj_Storage.Storage_Data.audio_se[2]);
@@ -512,7 +514,7 @@ public class Player1 : character_status
 			if (Shot_Delay > Shot_DelayMax)
 			{
 				//単発の弾の発射
-				if (Input.GetButtonDown(inputManager.Manager.Button["Shot"]) || Input.GetKeyDown(KeyCode.Space))
+				if (ControllerDevice.GetButtonDown(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKeyDown(KeyCode.Space))
 				{
 					Shot_Delay = 0;
 					switch (bullet_Type)
@@ -546,14 +548,14 @@ public class Player1 : character_status
 		else
 		{
 			//ボタンを押すのをやめたら弾が出るのが止まるように
-			if (Input.GetButtonUp(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			if (ControllerDevice.GetButtonUp(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = false;
 				shoot_number = 0;
 				return;
 			}
 			//発射ボタンを押したら弾が出続けるようにする
-			else if (Input.GetButton(inputManager.Manager.Button["Shot"]) || Input.GetKey(KeyCode.Space))
+			else if (ControllerDevice.GetButton(inputManager.Manager.Button["Shot"], ePadNumber.ePlayer1) || Input.GetKey(KeyCode.Space))
 			{
 				Is_Burst = true;
 			}
@@ -623,6 +625,9 @@ public class Player1 : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction);
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
 			}
 		}
 		else
@@ -633,6 +638,10 @@ public class Player1 : character_status
 				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
 				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
 				Bullet_cnt += 1;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+					Bullet_Fire_Count = 0;
+
 			}
 		}
 		if (Bullet_cnt_Max != 8)
@@ -646,11 +655,34 @@ public class Player1 : character_status
 		//シングルの倍の値まで連続で撃てるように
 		if (bullet_data.Count < 16)
 		{
-			//弾の起動とSEを鳴らす
-			bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
-			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
-			SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
-			Bullet_cnt += 2;
+			if (Bullet_Fire_Count % 3 == 0)
+			{
+				//弾の起動とSEを鳴らす
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 1;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+				{
+					Bullet_Fire_Count = 0;
+				}
+			}
+			else
+			{
+				//弾の起動とSEを鳴らす
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Direction));
+				bullet_data.Add(Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45)));
+				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePLAYER_BULLET, shot_Mazle.transform.position, Quaternion.Euler(0, 0, 45));
+				SE_Manager.SE_Obj.SE_Active(Obj_Storage.Storage_Data.audio_se[4]);
+				Bullet_cnt += 2;
+				Bullet_Fire_Count++;
+				if (Bullet_Fire_Count > 5)
+				{
+					Bullet_Fire_Count = 0;
+				}
+
+			}
+
 		}
 		if (Bullet_cnt_Max != 20)
 		{
