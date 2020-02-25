@@ -214,7 +214,7 @@ public class Obj_Storage : MonoBehaviour
 		else
 		{
 			//Destroy(gameObject);
-			UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+			//UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
 
 		}
 	}
@@ -252,6 +252,10 @@ public class Obj_Storage : MonoBehaviour
 		}
 
 		if(to.name == "GameOver")
+		{
+			DeleteOnceGos();
+		}
+		if(to.name == "GameClear")
 		{
 			DeleteOnceGos();
 		}
