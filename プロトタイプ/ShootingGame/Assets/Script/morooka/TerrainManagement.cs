@@ -56,7 +56,8 @@ public class TerrainManagement : MonoBehaviour
 		}
 	}
 }
-[SerializePrivateVariables]
+
+[System.Serializable]
 public class ConfirmationInObjectCamera
 {
 	public string ObjectName;				// オブジェクトの名前

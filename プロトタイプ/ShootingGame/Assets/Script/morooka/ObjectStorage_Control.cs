@@ -144,10 +144,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					// レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
 					{
-						//Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_Laser);
-					}
-					else if (Boss_Frame_Cnt == 2)
-					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_1);
 						Boss_Frame_Cnt = 0;
 					}
@@ -159,25 +155,21 @@ public class ObjectStorage_Control : MonoBehaviour
 				if (Tow_Boss_Data.Is_Dead)
 				{
 					// レーザーの削除
-					if (Boss_Frame_Cnt == 0)
-					{
-						//Des_Obj_B(ref Obj_Storage.Storage_Data.Two_Boss_Laser);
-					}
-					else if(Boss_Frame_Cnt == 1)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
-					}
-					else if(Boss_Frame_Cnt == 2)
-					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
-					}
-					else if(Boss_Frame_Cnt == 3)
+					if(Boss_Frame_Cnt == 0)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.BattleShipBullet);
 					}
-					else if(Boss_Frame_Cnt == 4)
+					else if(Boss_Frame_Cnt == 1)
+					{
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Beam_Bullet_E);
+					}
+					else if(Boss_Frame_Cnt == 2)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.EnemyBullet);
+					}
+					else if(Boss_Frame_Cnt == 3)
+					{
+						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_2);
 					}
 				}
 			}

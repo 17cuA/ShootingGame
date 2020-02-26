@@ -1576,6 +1576,7 @@ Transform:
   - {fileID: 9105963645753790501}
   - {fileID: 1804201413006674688}
   - {fileID: 8174441636460197383}
+  - {fileID: 6935779248852477413}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8630,11 +8631,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionInCamera:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - ObjectName: PartsA1_v2.2
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsA3_v2.2
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: vPartsB_v2.2
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsBShutter_v2.1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Road
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsD1_v2.1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Main
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: ShutterFrameTop
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: ShutterFrameUnder
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: TopCircle
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: TopShutter
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: UnderCircle
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: UnderShutter
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsD2_Left_v2.1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsD2_Right_v2.1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Left
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Right
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsE_v2.1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder 1
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder 2
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder 3
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder 4
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Cylinder 5
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: Room
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
+  - ObjectName: PartsF2_v1.2
+    positionInCamera: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8193342615625383650
 GameObject:
   m_ObjectHideFlags: 0
@@ -9690,6 +9738,77 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 83.48842, y: 0.2, z: 1}
   m_Center: {x: -0.7557907, y: 0, z: 0}
+--- !u!1001 &6935779248852877157
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9105963645121877197}
+    m_Modifications:
+    - target: {fileID: 100000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_Name
+      value: Stage02Wall_v1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd0433ad5f498e84a846d5506005066f, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f77ff03df2917614989e50b5bb739614, type: 3}
+--- !u!4 &6935779248852477413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: f77ff03df2917614989e50b5bb739614,
+    type: 3}
+  m_PrefabInstance: {fileID: 6935779248852877157}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7856160322004683381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10329,6 +10448,14 @@ PrefabInstance:
     - target: {fileID: 100202, guid: 01e731e1abbc9c647b134cf68188f4c8, type: 3}
       propertyPath: m_Name
       value: PartsD2_Left_v2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100206, guid: 01e731e1abbc9c647b134cf68188f4c8, type: 3}
+      propertyPath: m_Name
+      value: PartsD2_Right_v2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100208, guid: 01e731e1abbc9c647b134cf68188f4c8, type: 3}
+      propertyPath: m_Name
+      value: PartsD2_Right_v2.1
       objectReference: {fileID: 0}
     - target: {fileID: 100212, guid: 01e731e1abbc9c647b134cf68188f4c8, type: 3}
       propertyPath: m_Name
