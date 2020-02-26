@@ -70,7 +70,7 @@ public class Brain_Wait : character_status
 
 		#region 自動死亡時間
 		DeathTime_Cnt += Time.deltaTime;
-		if (DeathTime_Max < DeathTime_Cnt)
+		if (DeathTime_Max < DeathTime_Cnt || Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.H))
 		{
 			if (playable_Map.state == PlayState.Paused)
 			{
@@ -106,7 +106,7 @@ public class Brain_Wait : character_status
 				}
 
 				// タイムラインの再生時間を指定後、再生
-				playable_Map.time = 289.3f;
+				playable_Map.time = 324.3f;
 				playable_Map.Play();
 			
 				Boss_DriveSwitch(false);

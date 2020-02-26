@@ -9479,6 +9479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playTime: 9
   elapsedTime: 0
+  isLoop: 0
   xDirectionCoordinateChangeStatus:
     colliderSize:
       serializedVersion: 2
@@ -9541,9 +9542,9 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 40
-        outSlope: 40
+        value: 5
+        inSlope: 35
+        outSlope: 35
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
@@ -9586,7 +9587,7 @@ MonoBehaviour:
         outWeight: 0.994957
       - serializedVersion: 3
         time: 9
-        value: 0
+        value: 5
         inSlope: -40.071217
         outSlope: -40.071217
         tangentMode: 0

@@ -40,9 +40,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Star_Fish_Enemy_Prefab;					//ヒトデ型のエネミーのプレハブ
 	private GameObject Boss_Middle_Prefab;						//中ボスのプレハブ
 	private GameObject Laser_Line_Prefab;						//レーザーのプレハブ
-	private GameObject One_Boss_Laser_Prefab;					//ボス1のレーザープレハブ
 	private GameObject One_Boss_BousndBullet_Prefab;			//ボス1のバウンド弾プレハブ
-	private GameObject Two_Boss_Laser_Prefab;					//ボス２のレーザープレハブ
 	private GameObject Moai_Prefab;								//モアイのプレハブ
 	private GameObject Moai_Mini_Group_Prefab;					//小さいモアイグループのプレハブ
 	private GameObject Moai_Bullet_Prefab;						//モアイのバレットのプレハブ
@@ -95,9 +93,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling PowerUP_Item;
 	public Object_Pooling Boss_Middle;
 	public Object_Pooling Laser_Line;
-	public Object_Pooling One_Boss_Laser;
 	public Object_Pooling One_Boss_BousndBullet;
-	public Object_Pooling Two_Boss_Laser;                       //２ボスのレーザー、プーリング
 	public Object_Pooling Moai;                       //モアイ
 	public Object_Pooling Moai_Mini_Group;                       //小さいモアイの群れ
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
@@ -307,16 +303,14 @@ public class Obj_Storage : MonoBehaviour
 				SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
 				UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 				ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
-				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
+				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject;
 				BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 				BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
 
 				Boss_Middle_Prefab = Resources.Load("Enemy/Enemy_MiddleBoss_Father") as GameObject;     //中ボス
 				Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
-				One_Boss_Laser_Prefab = Resources.Load("Bullet/One_Boss_LaserLine") as GameObject;
 				One_Boss_BousndBullet_Prefab = Resources.Load("Bullet/One_Boss_BousndBullet") as GameObject;
-				Two_Boss_Laser_Prefab = Resources.Load("Bullet/Two_Boss_Laser") as GameObject;       //２ボスレーザー用のプレハブ修正
 
 				Moai_Prefab = Resources.Load("Boss/Enemy_Moai") as GameObject;          //モアイのロード
 				Moai_Mini_Group_Prefab = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;          //モアイの群れのロード
@@ -479,9 +473,7 @@ public class Obj_Storage : MonoBehaviour
 
 				Boss_Middle = new Object_Pooling(Boss_Middle_Prefab, 1, "Middle_Boss");
 				Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
-				One_Boss_Laser = new Object_Pooling(One_Boss_Laser_Prefab, 20, "One_Boss_Laser");
 				One_Boss_BousndBullet = new Object_Pooling(One_Boss_BousndBullet_Prefab, 156, "One_Boss_BousndBullet");
-				Two_Boss_Laser = new Object_Pooling(Two_Boss_Laser_Prefab, 20, "Two_Boss_Laser");
 
 				Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");
 				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 21, "Moai_Mini_Group");
@@ -644,11 +636,15 @@ public class Obj_Storage : MonoBehaviour
 
 				#region ステージ2個別ロード
 				container_prefab = Resources.Load("Enemy/Container") as GameObject;
+				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
+
 				#endregion
 
 				#region ステージ2個別プーリング化
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
 				#endregion
