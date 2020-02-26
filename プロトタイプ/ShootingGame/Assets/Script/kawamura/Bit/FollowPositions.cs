@@ -18,6 +18,7 @@ public class FollowPositions : MonoBehaviour
 	public string myName;
 
 	public int resetPosCnt;
+	public int stolenCnt;
 
 	bool check = false;
 	public bool isFreeze = false;
@@ -26,6 +27,9 @@ public class FollowPositions : MonoBehaviour
 	public bool isFollow1P;
 	public bool isFollow2P;
 	public bool isResetPosEnd;
+	public bool isCircle = false;
+	public bool isFixed = false;
+
 	private void Awake()
 	{
 		
@@ -34,6 +38,7 @@ public class FollowPositions : MonoBehaviour
     {
 		isResetPosEnd = false;
 		resetPosCnt = 0;
+		stolenCnt = 0;
 		myName = gameObject.name;
 
 		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -80,6 +85,25 @@ public class FollowPositions : MonoBehaviour
 					pos = playerObj.transform.position;
 					savePos = playerObj.transform.position;
 				}
+			}
+		}
+
+		if(Input.GetButtonDown("LB"))
+		{
+			if (isCircle)
+			{
+				isCircle = false;
+				isFixed = true;
+			}
+			else if (isFixed)
+			{
+				isFixed = false;
+				isCircle = false;
+			}
+			else
+			{
+				isCircle = true;
+				isFixed = false;
 			}
 		}
 

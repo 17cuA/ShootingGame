@@ -52,6 +52,8 @@ public class Enemy_Moai_Attack : MonoBehaviour
 	//レーザー---------------------------------------
 	[SerializeField, Tooltip("エネルギーため用のパーティクル用")] private Boss_One_A111[] supply;
 	[SerializeField, Tooltip("レーザーの発射位置")] private GameObject[] laser_muzzle;
+	//public ParticleSystem[] moaiLaser;
+	public GameObject[] moaiLaser;
 
 	public int Attack_Step;
 	private bool Is_Attack_Now
@@ -228,8 +230,12 @@ public class Enemy_Moai_Attack : MonoBehaviour
 
 				if (laserTimeCnt < 8)
 				{
-					LaserCreate();
-					EyeLaserCreate();
+					//LaserCreate();
+					//EyeLaserCreate();
+					moaiLaser[0].SetActive(true);
+					moaiLaser[1].SetActive(true);
+					moaiLaser[2].SetActive(true);
+
 					if (laserTimeCnt > 4.5f)
 					{
 						if (LaserEndOnce)
@@ -248,17 +254,6 @@ public class Enemy_Moai_Attack : MonoBehaviour
 					isLaserEnd = true;
 				}
 
-				//if (isLaserEnd)
-				//{
-				//	if (LaserEndOnce)
-				//	{
-				//		audioSource.clip = laserEnd;
-				//		audioSource.Stop();
-				//		audioSource.loop = false;
-				//		audioSource.Play();
-				//		LaserEndOnce = false;
-				//	}
-				//}
 
 				laserTimeCnt += Time.deltaTime;
 				if (laserTimeCnt > 10)
