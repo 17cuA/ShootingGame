@@ -318,11 +318,14 @@ public class Player1 : character_status
 			Collider.enabled = false;
 		}
 
-		for (int i = 0; i < bullet_data.Count; i++)
+		if(bullet_data.Count != 0)
 		{
-			if (!bullet_data[i].activeSelf)
+			for (int i = 0; i < bullet_data.Count; i++)
 			{
-				bullet_data.RemoveAt(i);
+				if (!bullet_data[i].activeSelf)
+				{
+					bullet_data.RemoveAt(i);
+				}
 			}
 		}
 

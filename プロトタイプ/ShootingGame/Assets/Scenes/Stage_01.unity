@@ -1230,6 +1230,11 @@ PrefabInstance:
       propertyPath: enemyGroups.Array.data[1].isItem
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1990893988371133139, guid: cf63f313ba88a8949b8b25f0c77a26ba,
+        type: 3}
+      propertyPath: enemyGroups.Array.data[1].enemyGroupName
+      value: "\u5186\u76E4\u4E0A10"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf63f313ba88a8949b8b25f0c77a26ba, type: 3}
 --- !u!1 &72411933 stripped
@@ -16101,11 +16106,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: scenarios.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: Moai_before.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: audiosource
@@ -16141,7 +16150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: scenarios.Array.data[0]
-      value: "\u30D1\u30A4\u30ED\u30C3\u30C8\u300CHQ.\u306A\u3001\u306A\u3093\u3060\u30A2\u30EC\u306F\uFF1F\u300D"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: Moai.Array.data[1]
@@ -16155,6 +16164,18 @@ PrefabInstance:
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: Moai_before.Array.data[1]
       value: "HQ\u300C\u672A\u78BA\u8A8D\u6575\u6027\u5B58\u5728\u78BA\u8A8D\u3002\u3042\u308C...\u30E2\u3001\u30E2\u30E4\u30A4...\u6483\u7834\u3057\u308D\uFF01\u300D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[1].No
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[2].No
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[3].No
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4801235332332514354, guid: c7b6ad37d00e9d54b9099d625f6aed47,
         type: 3}
