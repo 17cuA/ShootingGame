@@ -126,13 +126,14 @@ public class Player1 : character_status
 		///////////////////////
 		P1_PowerManager.Instance.AddCheckFunction(P1_PowerManager.Power.PowerType.SHIELD, () => { return Get_Shield() <= 1; }, () => { activeShield = false; shield_Effect.Stop(); });
 
-		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
-		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
-		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
 	}
 
 	new void Start()
 	{
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+		UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChange;
+		//-----------------------------------------------11.25 陳　追加　--------------------------------------------------------------
+
 		base.Start();
 		//各種値の初期化とアタッチされているコンポーネントの情報を取得
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
@@ -904,6 +905,7 @@ public class Player1 : character_status
 			Obj_Storage.Storage_Data.GetPlayer().transform.position = new Vector3(-12, 0, -20);
 			Is_Animation = true;
 			Is_Resporn = true;                      //復活用の処理を行う
+			Is_Resporn_End = false;
 
 			for(var i = 0; i < Obj_Storage.Storage_Data.Option.Get_Obj().Count; ++i)
 			{
@@ -918,6 +920,8 @@ public class Player1 : character_status
 					}
 				}
 			}
+
+			Debug.Log(target);
 		}
 	}
 

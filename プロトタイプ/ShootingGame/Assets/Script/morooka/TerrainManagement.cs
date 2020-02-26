@@ -5,27 +5,41 @@ using UnityEngine;
 public class TerrainManagement : MonoBehaviour
 {
 	private List<Transform> transformsList { get; set; }		// 子どもトランスフォームの保存
+	private List<Renderer> renderers { get; set; }
 
 	private void Awake()
 	{
-		transformsList = new List<Transform>();
-		GetTransforms();
+		//transformsList = new List<Transform>();
+		renderers = new List<Renderer>(transform.GetComponentsInChildren<MeshRenderer>(true));
+		//GetTransforms();
 	}
 
     void Update()
     {
-		foreach(var temp in transformsList)
+		//foreach(var temp in transformsList)
+		//{
+		//	// 範囲内のとき
+		//	if (temp.position.x < 30.0f && temp.position.x > -30.0f
+		//		&& temp.position.y < 10.0f && temp.position.y > -10.0f)
+		//	{
+		//		temp.gameObject.SetActive(true);
+		//	}
+		//	// それ以外のとき
+		//	else
+		//	{
+		//		temp.gameObject.SetActive(false);
+		//	}
+		//}
+
+		foreach(Renderer ren in renderers )
 		{
-			// 範囲内のとき
-			if (temp.position.x < 30.0f && temp.position.x > -30.0f
-				&& temp.position.y < 10.0f && temp.position.y > -10.0f)
+			if(!ren.isVisible)
 			{
-				temp.gameObject.SetActive(true);
+				ren.enabled = false;
 			}
-			// それ以外のとき
-			else
+			else if(ren.isVisible)
 			{
-				temp.gameObject.SetActive(false);
+				ren.enabled = true;
 			}
 		}
 	}

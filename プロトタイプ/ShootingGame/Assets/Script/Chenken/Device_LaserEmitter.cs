@@ -207,7 +207,6 @@ class Device_LaserEmitter : MonoBehaviour
 		}
 		else if (parentObj.name == "Player(Clone)")
 		{
-
 			fireButtonName = inputManager1P.Manager.Button["Shot"];
 			isOption = false;
 		}
@@ -216,7 +215,6 @@ class Device_LaserEmitter : MonoBehaviour
 			fireButtonName = inputManager2P.Manager.Button["Shot"];
 			isOption = false;
 		}
-
 	}
 
     private void OnDisable()
@@ -239,7 +237,7 @@ class Device_LaserEmitter : MonoBehaviour
     }
     private void Update()
 	{
-
+		Debug.Log(fireButtonName);
 		var launchDevice = emitterLaunchCore.currentLaunchDevice;
 		if (isOption)
 		{
@@ -271,7 +269,7 @@ class Device_LaserEmitter : MonoBehaviour
 		else
 		{
 			//-----------------------------------------------------------------入力 検索----------------------------------------------------------------------
-			if (ControllerDevice.GetButtonDown(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyDown(firekey))
+			if (ControllerDevice.GetButtonDown(fireButtonName, (parentObj.name == "Player" || (parentObj.name == "Option" && bf.bState == Bit_Formation_3.BitState.Player1)) ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyDown(firekey))
 			{
 			    this.emitterLaunchCore.GenerateLine(straightLaserShotSpeed, straightLaserWidth, straightLaserMaterial, straightLaserNodeMax);
 
@@ -282,7 +280,7 @@ class Device_LaserEmitter : MonoBehaviour
 				isEnd = false;
 			}
 
-			if (ControllerDevice.GetButton(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKey(firekey))
+			if (ControllerDevice.GetButton(fireButtonName, (parentObj.name == "Player" || (parentObj.name == "Option" && bf.bState == Bit_Formation_3.BitState.Player1)) ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKey(firekey))
 			{
 				if (launchDevice.CurrentGenerator == null)
 				{
@@ -318,7 +316,7 @@ class Device_LaserEmitter : MonoBehaviour
                 }
 			}
 
-			if (ControllerDevice.GetButtonUp(fireButtonName, bf.bState == Bit_Formation_3.BitState.Player1 ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyUp(firekey))
+			if (ControllerDevice.GetButtonUp(fireButtonName, (parentObj.name == "Player" || (parentObj.name == "Option" && bf.bState == Bit_Formation_3.BitState.Player1)) ? ePadNumber.ePlayer1 : ePadNumber.ePlayer2) || Input.GetKeyUp(firekey))
 			{
 				if (launchDevice.CurrentGenerator != null)
 				{

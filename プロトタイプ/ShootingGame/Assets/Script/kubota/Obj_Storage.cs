@@ -210,7 +210,7 @@ public class Obj_Storage : MonoBehaviour
 		else
 		{
 			//Destroy(gameObject);
-			UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
+			//UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
 
 		}
 	}
@@ -248,6 +248,10 @@ public class Obj_Storage : MonoBehaviour
 		}
 
 		if(to.name == "GameOver")
+		{
+			DeleteOnceGos();
+		}
+		if(to.name == "GameClear")
 		{
 			DeleteOnceGos();
 		}
@@ -299,7 +303,7 @@ public class Obj_Storage : MonoBehaviour
 				SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
 				UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 				ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
-				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject; ;
+				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject;
 				BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 				BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
@@ -632,11 +636,15 @@ public class Obj_Storage : MonoBehaviour
 
 				#region ステージ2個別ロード
 				container_prefab = Resources.Load("Enemy/Container") as GameObject;
+				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
+
 				#endregion
 
 				#region ステージ2個別プーリング化
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
 				#endregion
