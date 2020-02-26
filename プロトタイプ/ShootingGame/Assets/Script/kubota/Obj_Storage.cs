@@ -644,11 +644,15 @@ public class Obj_Storage : MonoBehaviour
 
 				#region ステージ2個別ロード
 				container_prefab = Resources.Load("Enemy/Container") as GameObject;
+				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
+
 				#endregion
 
 				#region ステージ2個別プーリング化
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+
 				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
 				#endregion
