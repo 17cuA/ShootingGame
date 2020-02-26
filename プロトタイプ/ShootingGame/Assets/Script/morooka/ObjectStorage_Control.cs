@@ -144,7 +144,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					// レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
 					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_Laser);
+						//Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_Laser);
 					}
 					else if (Boss_Frame_Cnt == 2)
 					{
@@ -161,7 +161,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					// レーザーの削除
 					if (Boss_Frame_Cnt == 0)
 					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Two_Boss_Laser);
+						//Des_Obj_B(ref Obj_Storage.Storage_Data.Two_Boss_Laser);
 					}
 					else if(Boss_Frame_Cnt == 1)
 					{
