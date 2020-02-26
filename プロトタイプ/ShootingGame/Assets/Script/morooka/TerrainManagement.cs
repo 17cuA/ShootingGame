@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class TerrainManagement : MonoBehaviour
 {
+	public ConfirmationInObjectCamera[] positionInCamera;
 	private List<Transform> transformsList { get; set; }		// 子どもトランスフォームの保存
 	private List<Renderer> renderers { get; set; }
 
 	private void Awake()
 	{
-		//transformsList = new List<Transform>();
-		renderers = new List<Renderer>(transform.GetComponentsInChildren<MeshRenderer>(true));
-		//GetTransforms();
+		transformsList = new List<Transform>();
+		//renderers = new List<Renderer>(transform.GetComponentsInChildren<MeshRenderer>(true));
+		GetTransforms();
 	}
 
     void Update()
     {
-		//foreach(var temp in transformsList)
-		//{
-		//	// 範囲内のとき
-		//	if (temp.position.x < 30.0f && temp.position.x > -30.0f
-		//		&& temp.position.y < 10.0f && temp.position.y > -10.0f)
-		//	{
-		//		temp.gameObject.SetActive(true);
-		//	}
-		//	// それ以外のとき
-		//	else
-		//	{
-		//		temp.gameObject.SetActive(false);
-		//	}
-		//}
-
-		foreach(Renderer ren in renderers )
+		foreach (var temp in transformsList)
 		{
-			if(!ren.isVisible)
+			// 範囲内のとき
+			if (temp.position.x < 30.0f && temp.position.x > -30.0f
+				&& temp.position.y < 10.0f && temp.position.y > -10.0f)
 			{
-				ren.enabled = false;
+				temp.gameObject.SetActive(true);
 			}
-			else if(ren.isVisible)
+			// それ以外のとき
+			else
 			{
-				ren.enabled = true;
+				temp.gameObject.SetActive(false);
 			}
 		}
+
+		//foreach (Renderer ren in renderers )
+		//{
+		//	if(!ren.isVisible)
+		//	{
+		//		ren.enabled = false;
+		//	}
+		//	else if(ren.isVisible)
+		//	{
+		//		ren.enabled = true;
+		//	}
+		//}
 	}
 
 	/// <summary>
@@ -54,4 +55,10 @@ public class TerrainManagement : MonoBehaviour
 			transformsList.Add(temp);
 		}
 	}
+}
+[SerializePrivateVariables]
+public class ConfirmationInObjectCamera
+{
+	public string ObjectName;				// オブジェクトの名前
+	public Vector4 positionInCamera;		// カメラ内に入るポジション保存
 }
