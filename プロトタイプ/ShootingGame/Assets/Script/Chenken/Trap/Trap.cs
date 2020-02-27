@@ -10,7 +10,8 @@ public class Trap : MonoBehaviour
     [Range(1,10f)]public float friction = 0.05f;
     [Range(0.1f,0.5f)]public float theltaLimit = 0.5f;
     [Range(2f,25f)]public float force = 5;
-    [Range(0.5f,2f)] public float invaildTime = 0.25f;
+	[Range(2f, 15f)] public float afterForce = 3f;
+    [Range(0.005f,0.5f)] public float invaildTime = 0.25f;
     private bool canHit = true;
     private float invaildTimer;
     private Vector3 rotateAxis;
@@ -18,22 +19,19 @@ public class Trap : MonoBehaviour
 
     public bool isStepOne = false;
     public bool isStepTwo = false;
-    public bool isHit = false;
+    private bool isHit = false;
+	public bool hasHitOnce = false;
+
+	[Header("位置設定")]
+	public bool isTop = false;
 
     private void Start()
     {
-        rotateAxis = Vector3.Cross (movePoint.position - midPoint.position, Vector3.down);
-    }
+		rotateAxis = (isTop) ? Vector3.Cross (movePoint.position - midPoint.position, Vector3.down) : Vector3.Cross(movePoint.position - midPoint.position, Vector3.up); 
+	}
 
     private void Update()
-    {
-      
-        if (Input.GetMouseButtonDown(0) && canHit)
-        {
-            isHit = true;
-            canHit = false;
-        }
-
+    {  
         if (!canHit)
         {
             invaildTimer += Time.deltaTime;
@@ -47,7 +45,9 @@ public class Trap : MonoBehaviour
         if(isHit)
         {
             float r = Vector3.Distance(midPoint.position,movePoint.position);
-            w = force / r;
+			w = !hasHitOnce ? force / r : afterForce / r; ;
+			if (hasHitOnce == false)
+				hasHitOnce = true;
             isStepOne = true;
             isStepTwo = false;
             isHit = false;
@@ -59,11 +59,11 @@ public class Trap : MonoBehaviour
              float r = Vector3.Distance(midPoint.position,movePoint.position);
             w -= (gravity - friction) / r * Time.deltaTime;
             float thelta = w * Time.deltaTime * 180f / Mathf.PI;
-            transform.RotateAround(midPoint.position,Vector3.forward,thelta);
-            if(w <= 0.1f)
+			transform.RotateAround(midPoint.position, transform.up, thelta);
+			if (w <= 0.1f)
             {
-                 rotateAxis = Vector3.Cross (movePoint.position - midPoint.position, Vector3.down);
-                isStepTwo = true;
+				rotateAxis = (isTop) ? Vector3.Cross(movePoint.position - midPoint.position, Vector3.down) : Vector3.Cross(movePoint.position - midPoint.position, Vector3.up); ;
+				isStepTwo = true;
                 isStepOne = false;
             }
         }
@@ -71,8 +71,8 @@ public class Trap : MonoBehaviour
         {
              float r = Vector3.Distance(midPoint.position,movePoint.position);
              float l = Vector3.Distance(new Vector3(midPoint.position.x,movePoint.position.y,midPoint.position.z),movePoint.position);
-             Vector3 axis = Vector3.Cross(movePoint.position - midPoint.position,Vector3.down);
-             if(Vector3.Dot(axis,rotateAxis) < 0)
+			 Vector3 axis = (isTop) ? Vector3.Cross(movePoint.position - midPoint.position, Vector3.down) : Vector3.Cross(movePoint.position - midPoint.position, Vector3.up);
+			if (Vector3.Dot(axis,rotateAxis) < 0)
              {
                  l *= -1;
              }
@@ -81,18 +81,31 @@ public class Trap : MonoBehaviour
              w += alpha * Time.deltaTime;
              float thelta = w * Time.deltaTime * 180f / Mathf.PI;
              transform.RotateAround(midPoint.position,rotateAxis,thelta);
-             if(Mathf.Abs(thelta) <= theltaLimit)
+			if (Mathf.Abs(thelta) <= theltaLimit)
              {
-                 rotateAxis = Vector3.Cross (movePoint.position - midPoint.position, Vector3.down);
-                 if(Mathf.Abs(l) <= 0.5f)
+				rotateAxis = (isTop) ? Vector3.Cross(movePoint.position - midPoint.position, Vector3.down) : Vector3.Cross(movePoint.position - midPoint.position, Vector3.up); ;
+				if (Mathf.Abs(l) <= 0.5f)
                  {
                      rotateAxis = Vector3.zero;
                      isStepTwo = false;
                      w = 0;
+					 hasHitOnce = false;
                      Debug.Log("Over");
                  }
              }
         }
 
     }
+
+	private void OnTriggerEnter(Collider col)
+	{
+		if(col.name == "TestBullet(Clone)")
+		{
+			if (canHit)
+			{
+				isHit = true;
+				canHit = false;
+			}
+		}
+	}
 }
