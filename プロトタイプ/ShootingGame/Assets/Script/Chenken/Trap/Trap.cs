@@ -17,6 +17,9 @@ public class Trap : MonoBehaviour
     private Vector3 rotateAxis;
     private float w;
 
+	[Header("判定検索名")]
+	public List<string> checkName = new List<string>();
+
     public bool isStepOne = false;
     public bool isStepTwo = false;
     private bool isHit = false;
@@ -99,12 +102,15 @@ public class Trap : MonoBehaviour
 
 	private void OnTriggerEnter(Collider col)
 	{
-		if(col.name == "TestBullet(Clone)")
+		for(var i = 0; i < checkName.Count; ++i)
 		{
-			if (canHit)
+			if (col.name == checkName[i])
 			{
-				isHit = true;
-				canHit = false;
+				if (canHit)
+				{
+					isHit = true;
+					canHit = false;
+				}
 			}
 		}
 	}
