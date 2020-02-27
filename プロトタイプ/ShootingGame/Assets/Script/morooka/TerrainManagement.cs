@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using UnityEngine;
+using DebugLog.FileManager;
 
 public class TerrainManagement : MonoBehaviour
 {
- 	public struct OriginalVector4
+	public struct OriginalVector4
 	{
 		public float in_x;
 		public float in_y;
@@ -21,111 +22,64 @@ public class TerrainManagement : MonoBehaviour
 		{
 			out_x = valum;
 		}
+		public void set_inY(float valum)
+		{
+			in_y = valum;
+		}
+		public void set_outY(float valum)
+		{
+			out_y = valum;
+		}
 	}
 
 	public ConfirmationInObjectCamera[] positionInCamera;
-	private Dictionary<string, OriginalVector4> stradadada;
 
-	private List<Transform> transformsList { get; set; }		// 子どもトランスフォームの保存
+	private List<Transform> transformsList { get; set; }        // 子どもトランスフォームの保存
 	private List<Renderer> renderers { get; set; }
+	private List<RenderMonitoring> rm { get; set; }
 
 	private void Awake()
 	{
-		transformsList = new List<Transform>();
 		renderers = new List<Renderer>(transform.GetComponentsInChildren<MeshRenderer>(true));
-		stradadada = new Dictionary<string, OriginalVector4>();
-		foreach (var g in positionInCamera)
-		{
-			stradadada.Add(g.ObjectName, g.positionInCamera);
-		}
-
-		GetTransforms();
-	}
-
-    void Update()
-    {
-		//foreach (var temp in transformsList)
-		//{
-		//	// 範囲内のとき
-		//	if (temp.position.x < 30.0f && temp.position.x > -30.0f
-		//		&& temp.position.y < 10.0f && temp.position.y > -10.0f)
-		//	{
-		//		temp.gameObject.SetActive(true);
-		//	}
-		//	// それ以外のとき
-		//	else
-		//	{
-		//		temp.gameObject.SetActive(false);
-		//	}
-		//}
-
+		rm = new List<RenderMonitoring>();
 		foreach (Renderer ren in renderers)
 		{
-			if (!ren.isVisible)
-			{
-				if(stradadada[ren.name].out_x > ren.transform.position.x)
-				{
-
-					stradadada[ren.name].set_outX(ren.transform.position.x);
-				}
-			}
-			else if (ren.isVisible)
-			{
-			}
+			rm.Add(ren.gameObject.AddComponent<RenderMonitoring>());
 		}
 	}
-
 	private void OnDestroy()
 	{
-		LogSave(stradadada);
-	}
-
-	/// <summary>
-	/// 子どもトランスフォームの取得
-	/// </summary>
-	void GetTransforms()
-	{
-		foreach(Transform temp in transform)
+		Dictionary<string, OriginalVector4> so = new Dictionary<string, OriginalVector4>();
+		foreach(var rmTemp in rm)
 		{
-			transformsList.Add(temp);
+			if(so.ContainsKey(rmTemp.name))
+			{
+				if (so[rmTemp.name].in_x < rmTemp.v4.in_x) so[rmTemp.name].set_inX(rmTemp.v4.in_x);
+				if (so[rmTemp.name].in_y < rmTemp.v4.in_y) so[rmTemp.name].set_inY(rmTemp.v4.in_y);
+				if (so[rmTemp.name].out_x > rmTemp.v4.out_x) so[rmTemp.name].set_outX(rmTemp.v4.out_x);
+				if (so[rmTemp.name].out_y > rmTemp.v4.out_y) so[rmTemp.name].set_outY(rmTemp.v4.out_y);
+			}
 		}
-	}
 
-	public void LogSave(Dictionary<string, OriginalVector4> object_str)
-	{
-		// ファイル書き出し
-		// 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
-		// 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
-		StreamWriter sw = new StreamWriter(@"Debug.csv", true, Encoding.GetEncoding("Shift_JIS"));
-		// ヘッダー出力
-		string[] s1 = { "オブジェクト名", "in_x", "in_y","out_x","out_y" };
-		string s2 = string.Join(",", s1);
-		sw.WriteLine(s2);
-		// データ出力
-		for (int i = 0; i < positionInCamera.Length; i++)
+		List<string[]> st = new List<string[]>();
+		foreach(var fsda in so)
 		{
-			string[] str = { positionInCamera[i].ObjectName, object_str[positionInCamera[i].ObjectName].in_x.ToString(),
-				object_str[positionInCamera[i].ObjectName].in_y.ToString(),
-				object_str[positionInCamera[i].ObjectName].out_x.ToString(),
-				object_str[positionInCamera[i].ObjectName].out_y.ToString() };
-			string str2 = string.Join(",", str);
-			sw.WriteLine(str2);
+			st.Add(new string[5] {fsda.Key, fsda.Value.in_x.ToString(), fsda.Value.in_y.ToString(), fsda.Value.out_x.ToString(), fsda.Value.out_y.ToString() });
 		}
-		// StreamWriterを閉じる
-		sw.Close();
 
-		// ファイル読み込み
-		// 引数説明：第1引数→ファイル読込先, 第2引数→エンコード
-		StreamReader sr = new StreamReader(@"Debug.csv", Encoding.GetEncoding("Shift_JIS"));
-		string line;
-		// 行がnullじゃない間(つまり次の行がある場合は)、処理をする
-		while ((line = sr.ReadLine()) != null)
+		string[,] st1 = new string[st.Count, st[0].Length];
+
+		for(int i = 0; i < st.Count; i++)
 		{
-			// コンソールに出力
-			Debug.Log(line);
+			for(int j = 0; j< st[i].Length; j++)
+			{
+				st1[i, j] = st[i][j];
+			}
 		}
-		// StreamReaderを閉じる
-		sr.Close();
+
+		string[] st2 = new string [5] {"名前", "in_x", "in_y", "out_x", "out_y" };
+
+		Debug_CSV.LogSave("Debug.csv", st2, st1, false);
 	}
 }
 
@@ -133,5 +87,5 @@ public class TerrainManagement : MonoBehaviour
 public class ConfirmationInObjectCamera
 {
 	public string ObjectName;				// オブジェクトの名前
-	public TerrainManagement.OriginalVector4 positionInCamera;		// カメラ内に入るポジション保存
+	public TerrainManagement.OriginalVector4 positionInCamera;      // カメラ内に入るポジション保存
 }
