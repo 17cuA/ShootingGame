@@ -7,6 +7,7 @@ public class HunterFollow : MonoBehaviour
 	public GameObject previousObj;			//ひとつ前の追従位置
 	public GameObject parentObj;
 	public GameObject hunterObj;
+	public OptionHunter hunter_Script;
 	public string parentName;
 	FollowPositions followParent_Script;    //4つの追従位置の親スクリプト
 	public FollowToPreviousBit followBit_Script;
@@ -28,6 +29,7 @@ public class HunterFollow : MonoBehaviour
 	public bool hasOption = false;
 	public bool isStolen = false;                       //自身がハンターに当たるとtrue
 	public bool isStolen_Previous = false;
+	public bool isSet = true;
 
 	void Start()
 	{
@@ -48,6 +50,7 @@ public class HunterFollow : MonoBehaviour
 	{
 		childCnt = this.transform.childCount;
 
+		//前の追従位置が動いているか
 		if (check)
 		{
 			if (pos == previousObj.transform.position)
@@ -88,7 +91,40 @@ public class HunterFollow : MonoBehaviour
 				cnt = 0;
 			}
 		}
-		
+
+		//ハンターが盗んでいたら
+		if (hunter_Script.isHunt && isSet)
+		{
+			//盗んだ数をみる
+			switch(hunter_Script.huntNum)
+			{
+				//1個盗んでたら
+				case 1:
+					//何もしない
+					break;
+
+				//2個
+				case 2:
+				//盗んだ場所をスイッチで書いて
+
+					//自分が2つ目の盗み追従位置だったら
+					if (myNumber == 2)
+					{
+
+					}
+					break;
+
+				//3個
+				case 3:
+
+					break;
+
+				//4個
+				case 4:
+
+					break;
+			}
+		}
 
 		if (myNumber == 2)
 		{
