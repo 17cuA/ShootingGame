@@ -412,6 +412,19 @@ public class Bit_Formation_3 : MonoBehaviour
 		//盗まれている状態かチェック
 		StolenCheck();
 
+		//盗まれた時の処理
+		if (isStolen)
+		{
+			if (bState == BitState.Player1)
+			{
+
+			}
+			else if (bState == BitState.Player2)
+			{
+
+			}
+		}
+
 		//死んでいたら
 		if (isDead)
 		{
@@ -1139,7 +1152,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				case 1:
 					FtoPlayer.isStolen = true;
-					
+					target = col.gameObject;
 					break;
 
 				case 2:
@@ -1148,6 +1161,7 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Second.isStolen = true;
 						isStolen = true;
 						FtoPBit_Second.hunterObj = col.gameObject;
+						target = col.gameObject;
 					}
 					break;
 
@@ -1157,7 +1171,7 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Third.isStolen = true;
 						isStolen = true;
 						FtoPBit_Third.hunterObj = col.gameObject;
-
+						target = col.gameObject;
 					}
 					break;
 
@@ -1167,10 +1181,10 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Fourth.isStolen = true;
 						isStolen = true;
 						FtoPBit_Fourth.hunterObj = col.gameObject;
+						target = col.gameObject;
 
 					}
 					break;
-
 			}
 		}
 	}
