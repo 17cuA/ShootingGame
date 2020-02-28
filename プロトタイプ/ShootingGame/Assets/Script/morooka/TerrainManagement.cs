@@ -7,79 +7,39 @@ using DebugLog.FileManager;
 
 public class TerrainManagement : MonoBehaviour
 {
-	public struct OriginalVector4
-	{
-		public float in_x;
-		public float in_y;
-		public float out_x;
-		public float out_y;
-
-		public void set_inX(float valum)
-		{
-			in_x = valum;
-		}
-		public void set_outX(float valum)
-		{
-			out_x = valum;
-		}
-		public void set_inY(float valum)
-		{
-			in_y = valum;
-		}
-		public void set_outY(float valum)
-		{
-			out_y = valum;
-		}
-	}
-
 	public ConfirmationInObjectCamera[] positionInCamera;
-
+	Dictionary<string, Vector2> ForJudgment;
 	private List<Transform> transformsList { get; set; }        // 子どもトランスフォームの保存
-	private List<Renderer> renderers { get; set; }
-	private List<RenderMonitoring> rm { get; set; }
-
 	private void Awake()
 	{
-		renderers = new List<Renderer>(transform.GetComponentsInChildren<MeshRenderer>(true));
-		rm = new List<RenderMonitoring>();
-		foreach (Renderer ren in renderers)
+		Renderer[] r = transform.GetComponentsInChildren<Renderer>();
+		transformsList = new List<Transform>();
+		foreach(var tt in r)
 		{
-			rm.Add(ren.gameObject.AddComponent<RenderMonitoring>());
+			transformsList.Add(tt.transform);
+		}
+
+		ForJudgment = new Dictionary<string, Vector2>();
+		foreach(var pc in positionInCamera)
+		{
+			ForJudgment.Add(pc.ObjectName, pc.positionInCamera);
 		}
 	}
-	private void OnDestroy()
+
+	private void Update()
 	{
-		Dictionary<string, OriginalVector4> so = new Dictionary<string, OriginalVector4>();
-		foreach(var rmTemp in rm)
+		foreach(Transform temp in transformsList)
 		{
-			if(so.ContainsKey(rmTemp.name))
+			if(temp.position.x <= ForJudgment[temp.name].x+5.0f && temp.position.y <= ForJudgment[temp.name].y+5.0f 
+				&& temp.position.x >= -ForJudgment[temp.name].x-5.0f && temp.position.y >= -ForJudgment[temp.name].y-5.0f)
 			{
-				if (so[rmTemp.name].in_x < rmTemp.v4.in_x) so[rmTemp.name].set_inX(rmTemp.v4.in_x);
-				if (so[rmTemp.name].in_y < rmTemp.v4.in_y) so[rmTemp.name].set_inY(rmTemp.v4.in_y);
-				if (so[rmTemp.name].out_x > rmTemp.v4.out_x) so[rmTemp.name].set_outX(rmTemp.v4.out_x);
-				if (so[rmTemp.name].out_y > rmTemp.v4.out_y) so[rmTemp.name].set_outY(rmTemp.v4.out_y);
+				temp.gameObject.SetActive(true);
+			}
+			else
+			{
+				temp.gameObject.SetActive(false);
 			}
 		}
-
-		List<string[]> st = new List<string[]>();
-		foreach(var fsda in so)
-		{
-			st.Add(new string[5] {fsda.Key, fsda.Value.in_x.ToString(), fsda.Value.in_y.ToString(), fsda.Value.out_x.ToString(), fsda.Value.out_y.ToString() });
-		}
-
-		string[,] st1 = new string[st.Count, st[0].Length];
-
-		for(int i = 0; i < st.Count; i++)
-		{
-			for(int j = 0; j< st[i].Length; j++)
-			{
-				st1[i, j] = st[i][j];
-			}
-		}
-
-		string[] st2 = new string [5] {"名前", "in_x", "in_y", "out_x", "out_y" };
-
-		Debug_CSV.LogSave("Debug.csv", st2, st1, false);
 	}
 }
 
@@ -87,5 +47,5 @@ public class TerrainManagement : MonoBehaviour
 public class ConfirmationInObjectCamera
 {
 	public string ObjectName;				// オブジェクトの名前
-	public TerrainManagement.OriginalVector4 positionInCamera;      // カメラ内に入るポジション保存
+	public Vector2 positionInCamera;      // カメラ内に入るポジション保存
 }
