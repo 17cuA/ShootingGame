@@ -142,9 +142,6 @@ public class Tentacles : MonoBehaviour
 	/// <param name="Play_AnimationName"> 再生したいアニメの名前 </param>
 	protected void AnimationReversePlay(string Play_AnimationName)
 	{
-		//A_Animation[Play_AnimationName].speed = -60.0f;
-		//A_Animation.Play(Play_AnimationName);
-
 		A_Animation[Play_AnimationName].time = A_Animation[Play_AnimationName].clip.length;
 		A_Animation[Play_AnimationName].speed = -1.0f;
 		A_Animation.Play(Play_AnimationName);
