@@ -48,6 +48,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
 	public Player1 pl1;                                //プレイヤースクリプト情報
 	public Player2 pl2;
+	FollowPositions followPositions_Script;			//4つの追従位置の親のスクリプト
 	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
@@ -97,8 +98,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		os = particleObj.GetComponent<Option_Scale>();
 		renderer = gameObject.GetComponent<Renderer>();         //レンダラー取得
 
-		circlePosObjects = new GameObject[4];
-		fixedPosObjects = new GameObject[4];
+		//circlePosObjects = new GameObject[4];
+		//fixedPosObjects = new GameObject[4];
+
 
 		////4つの追従位置とそれぞれのスクリプト取得
 		//followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
@@ -146,7 +148,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 			//for (int i = 0; i < 4; i++)
 			//{
-			//	switch(i)
+			//	switch (i)
 			//	{
 			//		case 0:
 			//			circlePosObjects[i] = GameObject.Find("CirclePos_1");
@@ -189,15 +191,94 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			SetFollowPos();             //追従位置設定
 			option_Particle.Play();     //オプションの見た目パーティクルを起動
-			isborn = false;             //生成時処理をしないようにする
+			isborn = false;             //この生成時処理をしないようにする
 			b_Shot.isShot = true;
 		}
+
+		//フォーメーション切り替え🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		//if (Input.GetButtonDown("LB"))
+		//{
+		//これはコメントアウトしといて
+		//if (followPositions_Script.isCircle)
+		//{
+		//	isMove = true;
+		//	target = followPosObj;
+		//	target = fixedPosObjects[option_OrdinalNum - 1];
+
+		//}
+		//else if (followPositions_Script.isFixed)
+		//{
+		//	isMove = true;
+		//	target = followPosObj;
+		//	transform.rotation = Quaternion.Euler(0, 0, 0);
+
+		//}
+		//else
+		//{
+		//	isMove = true;
+		//	target = circlePosObjects[option_OrdinalNum - 1]
+		//}
+		//ここまでコメントアウトしといて
+
+		//オンならオフに
+		//	if (isCircle)
+		//	{
+
+		//		isCircle = false;
+		//		isFixed = true;
+		//		isMove = true;
+		//		target = followPosObj;
+		//		target = fixedPosObjects[option_OrdinalNum - 1];
+
+		//	}
+		//	else if (isFixed)
+		//	{
+		//		isFixed = false;
+		//		isCircle = false;
+		//		isMove = true;
+		//		target = followPosObj;
+		//		transform.rotation = Quaternion.Euler(0, 0, 0);
+		//	}
+		//	else
+		//	{
+		//		isCircle = true;
+		//		isMove = true;
+
+		//		target = circlePosObjects[option_OrdinalNum - 1];
+
+		//	}
+		//}
+
+		//if (isMove && !isDead)
+		//{
+		//	float step = moveSpeed * Time.deltaTime;
+
+		//	transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+		//	if (transform.position == target.transform.position)
+		//	{
+		//		isMove = false;
+		//		step = 0;
+		//	}
+		//}
+
+		//if (isCircle && !isMove && !isDead)
+		//{
+		//	transform.position = target.transform.position;
+		//}
+
+		//if (isFixed && !isMove && !isDead)
+		//{
+		//	transform.position = target.transform.position;
+		//}
+
+		//フォーメーション切り替え🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
 		//追従位置を取得していtたらその位置にする
 		if (followPosObj && !isCircle && !isFixed && !isMove)
 		{
 			transform.position = followPosObj.transform.position;
 		}
+
 
 		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 		//if (Input.GetKeyDown(KeyCode.C))
@@ -230,10 +311,6 @@ public class Bit_Formation_3 : MonoBehaviour
 		//	}
 		//}
 
-		//if (isCircle && !isMove && !isDead)
-		//{
-		//	transform.position = target.transform.position;
-		//}
 		//円移動🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
 		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
@@ -258,24 +335,6 @@ public class Bit_Formation_3 : MonoBehaviour
 		//	}
 		//}
 
-		//if (isMove && !isDead)
-		//{
-		//	float step = moveSpeed * Time.deltaTime;
-
-		//	transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-		//	if (transform.position == target.transform.position)
-		//	{
-		//		isMove = false;
-		//		//transform.rotation = Quaternion.Euler(target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z);
-		//		//transform.eulerAngles += target.transform.eulerAngles;
-		//		step = 0;
-		//	}
-		//}
-
-		//if (isFixed && !isMove && !isDead)
-		//{
-		//	transform.position = target.transform.position;
-		//}
 		//固定位置🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
 
 
@@ -395,6 +454,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (playerNum == 1)
 		{
 			bState = BitState.Player1;
+
+			followPositions_Script = GameObject.Find("Four_FollowPos_1P").GetComponent<FollowPositions>();
+
 			//4つの追従位置とそれぞれのスクリプト取得
 			followPosFirstObj = GameObject.Find("FollowPosFirst_1P");
 			FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
@@ -412,6 +474,9 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (playerNum == 2)
 		{
 			bState = BitState.Player2;
+
+			followPositions_Script = GameObject.Find("Four_FollowPos_2P").GetComponent<FollowPositions>();
+
 			//4つの追従位置とそれぞれのスクリプト取得
 			followPosFirstObj = GameObject.Find("FollowPosFirst_2P");
 			FtoPlayer = followPosFirstObj.GetComponent<FollowToPlayer_SameMotion>();
@@ -576,7 +641,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			if (col.gameObject.name == "Player")
 			{
 				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
-				Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
+				//Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 
 				int i = 0;
 				while (i < pl1.Maltiple_Catch.Length)
@@ -603,19 +668,19 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
-						//if (isCircle)
-						//{
-						//	target = circlePosObjects[option_OrdinalNum - 1];
-						//	transform.position = target.transform.position;
-						//	transform.rotation = Quaternion.Euler(0, 0, 0);
-						//}
-						//else if (isFixed)
-						//{
-						//	target = fixedPosObjects[option_OrdinalNum - 1];
-						//	transform.position = target.transform.position;
-						//	transform.rotation = target.transform.rotation;
-						//}
-					
+						if (isCircle)
+						{
+							//target = circlePosObjects[option_OrdinalNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = Quaternion.Euler(0, 0, 0);
+						}
+						else if (isFixed)
+						{
+							//target = fixedPosObjects[option_OrdinalNum - 1];
+							transform.position = target.transform.position;
+							transform.rotation = target.transform.rotation;
+						}
+
 						target = followPosObj;
 						transform.position = followPosObj.transform.position;
 						transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -638,13 +703,13 @@ public class Bit_Formation_3 : MonoBehaviour
 						followPosObj = followPosSecondObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[option_OrdinalNum - 1];
+							//target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[option_OrdinalNum - 1];
+							//target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -710,13 +775,13 @@ public class Bit_Formation_3 : MonoBehaviour
 						followPosObj = followPosFourthObj;
 						if (isCircle)
 						{
-							target = circlePosObjects[option_OrdinalNum - 1];
+							//target = circlePosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = Quaternion.Euler(0, 0, 0);
 						}
 						else if (isFixed)
 						{
-							target = fixedPosObjects[option_OrdinalNum - 1];
+							//target = fixedPosObjects[option_OrdinalNum - 1];
 							transform.position = target.transform.position;
 							transform.rotation = target.transform.rotation;
 						}
@@ -828,7 +893,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				//option_Particle.Stop();
 				b_Shot.isShot = true;
 				SE_Manager.SE_Obj.Maltiple_Catch_SE(Obj_Storage.Storage_Data.audio_se[10]);
-				Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
+				//Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);
 
 				int i = 0;
 				while (i < pl2.Maltiple_Catch.Length)
@@ -1005,6 +1070,7 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				}
 			}
+			//🔲🔲🔲🔲🔲🔲🔲🔲🔲　死亡処理　🔲🔲🔲🔲🔲🔲🔲🔲🔲
 			else if (col.gameObject.name == "WallLeft")
 			{
 				isDead = false;						//死んでいる判定false
@@ -1025,7 +1091,11 @@ public class Bit_Formation_3 : MonoBehaviour
 				isborn = true;
 
 				followPosObj = null;                //追従オブジェクト参照をなくす
-				pl1.bitIndex--;                     //ゲームに出ているオプション総数カウントを減らす
+
+				if (option_OrdinalNum == 4)
+				{
+
+				}
 				gameObject.SetActive(false);        //オブジェクトをオフにする
 
 			}
@@ -1068,7 +1138,8 @@ public class Bit_Formation_3 : MonoBehaviour
 			switch(option_OrdinalNum)
 			{
 				case 1:
-					//FtoPlayer.isStolen = true;
+					FtoPlayer.isStolen = true;
+					
 					break;
 
 				case 2:
@@ -1111,7 +1182,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		switch (option_OrdinalNum)
 		{
 			case 1:
-				FtoPlayer.isStolen = true;
+				//FtoPlayer.isStolen = true;
 				break;
 
 			case 2:
