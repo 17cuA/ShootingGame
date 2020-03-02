@@ -48,6 +48,9 @@ ModelImporter:
     100084: END
     100086: END_L
     100088: END_R
+    100090: CoreCase
+    100092: Cylinder
+    100094: Dummy
     400000: Base
     400002: Bone012
     400004: Bone013
@@ -93,11 +96,17 @@ ModelImporter:
     400084: END
     400086: END_L
     400088: END_R
+    400090: CoreCase
+    400092: Cylinder
+    400094: Dummy
     2100000: No Name
     2100002: 07 - Default
     2100004: 01 - Default
     2100006: 02 - Default
     2100008: 03 - Default
+    2100010: 05 - Default
+    2100012: 04 - Default
+    2100014: 08 - Default
     2300000: Base
     2300002: Cable
     2300004: Case
@@ -118,6 +127,8 @@ ModelImporter:
     4300010: Core
     4300012: Case_R
     4300014: Case_L
+    4300016: Cylinder
+    4300018: CoreCase
     7400000: A_Transition
     7400002: A_Wait
     7400004: B_Wait
@@ -133,6 +144,8 @@ ModelImporter:
     13700010: Case_R
     13700012: Core
     13700014: Core 1
+    13700016: CoreCase
+    13700018: Cylinder
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -353,7 +366,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.001
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
