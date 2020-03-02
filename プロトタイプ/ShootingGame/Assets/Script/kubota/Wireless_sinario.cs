@@ -199,31 +199,31 @@ public class Wireless_sinario : MonoBehaviour
 					{
 						case Sinario_No.Curtain_up:
 							//開戦時
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[0].Voice[0]);
 							break;
 						case Sinario_No.First_half_boss_before:
 							//前半ボス前
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[1]);
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[1].Voice[0]);
 							break;
 						case Sinario_No.First_falf_boss_after:
 							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[22]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[23]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[2].Voice[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[2].Voice[1]);
 							break;
 						case Sinario_No.Middle_Boss:
 							//モアイの音声
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[3].Voice[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[3].Voice[1]);
 							break;
 						case Sinario_No.Second_half_boss_before:
 							//後半ボス前
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[4].Voice[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[4].Voice[1]);
 							break;
 						case Sinario_No.Second_half_boss_after:
 							//後半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[6]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[5].Voice[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.VoiceGroups[5].Voice[1]);
 							break;
 						default:
 							break;
