@@ -104,47 +104,47 @@ public class Obj_Storage : MonoBehaviour
 
 
     //仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
-    public GameObject enemy_UFO_Group_prefab;
-    public GameObject enemy_UFO_Group_NoneShot_prefab;
-    public GameObject enemy_ClamChowder_Group_Two_Top_prefab;
-    public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab;
-    public GameObject enemy_ClamChowder_Group_Three_prefab;
-    public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_Four_prefab;
-    public GameObject enemy_ClamChowder_Group_Four_NoItem_prefab;
-    public GameObject enemy_ClamChowder_Group_Five_prefab;
-    public GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
-    public GameObject enemy_ClamChowder_Group_Seven_prefab;
+    private GameObject enemy_UFO_Group_prefab;
+    private GameObject enemy_UFO_Group_NoneShot_prefab;
+    private GameObject enemy_ClamChowder_Group_Two_Top_prefab;
+    private GameObject enemy_ClamChowder_Group_Two_Under_prefab;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab;
+    private GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab;
+    private GameObject enemy_ClamChowder_Group_Three_prefab;
+    private GameObject enemy_ClamChowder_Group_Three_Item_prefab;
+    private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
+    private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
+    private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
+    private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
+    private GameObject enemy_ClamChowder_Group_Four_prefab;
+    private GameObject enemy_ClamChowder_Group_Four_NoItem_prefab;
+    private GameObject enemy_ClamChowder_Group_Five_prefab;
+    private GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
+    private GameObject enemy_ClamChowder_Group_Seven_prefab;
     //public GameObject enemy_MiddleBoss_Father_prefab;
-    public GameObject enemy_ClamChowder_Group_Straight_prefab;
-    public GameObject enemy_Beelzebub_Group_FourWide_prefab;
-    public GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
-    public GameObject enemy_BeetleGroup_prefab;
-    public GameObject enemy_BeetleGroup_Three_prefab;
-    public GameObject boundMeteors_prefab;
-    public GameObject enemy_Bacula_Sixteen_prefab;
-    public GameObject enemy_Bacula_FourOnly_prefab;
+    private GameObject enemy_ClamChowder_Group_Straight_prefab;
+    private GameObject enemy_Beelzebub_Group_FourWide_prefab;
+    private GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
+    private GameObject enemy_BeetleGroup_prefab;
+    private GameObject enemy_BeetleGroup_Three_prefab;
+    private GameObject boundMeteors_prefab;
+    private GameObject enemy_Bacula_Sixteen_prefab;
+    private GameObject enemy_Bacula_FourOnly_prefab;
     //9月13日追加
-    public GameObject enemy_ClamChowder_FourTriangle_prefab;
-    public GameObject enemy_ClamChowder_FourTriangle_NoItem_prefab;
-    public GameObject enemy_Beelzebub_Group_EightNormal_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_TwelveStraight_prefab;
-    public GameObject enemy_UFO_Group_Five_prefab;
-    public GameObject enemy_Beetle_Group_Seven_prefab;
-    public GameObject enemy_ClamChowder_Group_SevenStraight_prefab;
-    public GameObject enemy_ClamChowder_Group_SixStraight_prefab;
-    public GameObject enemy_ClamChowder_Group_UpSevenDiagonal_prefab;
-    public GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
-    public GameObject enemy_ClamChowder_Group_TenStraight_prefab;
+    private GameObject enemy_ClamChowder_FourTriangle_prefab;
+    private GameObject enemy_ClamChowder_FourTriangle_NoItem_prefab;
+    private GameObject enemy_Beelzebub_Group_EightNormal_Item_prefab;
+    private GameObject enemy_ClamChowder_Group_TwelveStraight_prefab;
+    private GameObject enemy_UFO_Group_Five_prefab;
+    private GameObject enemy_Beetle_Group_Seven_prefab;
+    private GameObject enemy_ClamChowder_Group_SevenStraight_prefab;
+    private GameObject enemy_ClamChowder_Group_SixStraight_prefab;
+    private GameObject enemy_ClamChowder_Group_UpSevenDiagonal_prefab;
+    private GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
+    private GameObject enemy_ClamChowder_Group_TenStraight_prefab;
 
 	// 2020.01.22 諸岡追加----------------------------------------------------------------
-	public GameObject container_prefab;
+	private GameObject container_prefab;
 	// 2020.01.22 諸岡追加----------------------------------------------------------------
 
     public Object_Pooling enemy_UFO_Group;
