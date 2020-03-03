@@ -30,8 +30,8 @@ public class TerrainManagement : MonoBehaviour
 	{
 		foreach(Transform temp in transformsList)
 		{
-			if(temp.position.x <= ForJudgment[temp.name].x+5.0f && temp.position.y <= ForJudgment[temp.name].y+5.0f 
-				&& temp.position.x >= -ForJudgment[temp.name].x-5.0f && temp.position.y >= -ForJudgment[temp.name].y-5.0f)
+			if(temp.position.x <= ForJudgment[temp.name].x+5.0f && temp.position.y <= ForJudgment[temp.name].y+7.0f 
+				&& temp.position.x >= -ForJudgment[temp.name].x-5.0f && temp.position.y >= -ForJudgment[temp.name].y-7.0f)
 			{
 				temp.gameObject.SetActive(true);
 			}
