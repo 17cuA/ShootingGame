@@ -707,7 +707,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[0]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[12]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//ミサイルをアクティブに
@@ -718,7 +718,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[1]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[13]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//二連をできるように
@@ -730,7 +730,7 @@ public class Player1 : character_status
 		ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[2]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[14]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}
 	//レーザーを打てるように
@@ -743,7 +743,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		particle.Play();
 		//----------------------------------------------------------------------
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[3]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[15]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 		Laser.SetActive(true);
 	}
@@ -760,7 +760,7 @@ public class Player1 : character_status
 		powerup.Play();
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[5]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
@@ -809,7 +809,7 @@ public class Player1 : character_status
 			default:
 				break;
 		}
-		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[4]);     //ボイス
+		Voice_Manager.VOICE_Obj.Maltiple_Active_Voice(Obj_Storage.Storage_Data.audio_voice[16]);     //ボイス
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);               //パワーアップ音
 		//パワーアップエフェクト	
 		GameObject effect = Obj_Storage.Storage_Data.Effects[6].Active_Obj();
@@ -824,7 +824,7 @@ public class Player1 : character_status
 	private void Init_speed()
 	{
 		speed = min_speed;				//速度を初期値に戻す
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[7]);		//パワーアップの音声を流す
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);		//パワーアップの音声を流す
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);				//パワーアップの効果音を流す
 	}	
 	//死亡した時の速度をもとに戻すとき

@@ -61,14 +61,7 @@ public class Obj_Storage : MonoBehaviour
 
 	#region サウンド関係すべて
 	[HideInInspector] public AudioClip[] audio_se = new AudioClip[29];    //ＳＥを読み込むための配列
-	[HideInInspector] public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
-	//無線用のストラクトステージによって中身を変更する
-	[HideInInspector]
-	public struct Wireless_Voice
-	{
-		public List<AudioClip> Voice;
-	}
-	[HideInInspector] public Wireless_Voice[] VoiceGroups = new Wireless_Voice[6];
+	[HideInInspector] public AudioClip[] audio_voice = new AudioClip[24]; //VOICEを読み込むための配列
 	#endregion
 
 	#region オブジェクトプールの変数
@@ -373,14 +366,14 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ボイスのロード
-				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
+				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
+				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
+				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
+				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
 				audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
 				audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
 				audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
@@ -399,18 +392,6 @@ public class Obj_Storage : MonoBehaviour
 				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
 				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
 				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
-
-
-				VoiceGroups[0].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001"));	//無線（ステージ開始時）
-				VoiceGroups[1].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002"));   //１ボス開始時
-				VoiceGroups[2].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015"));   //１ボス後1
-				VoiceGroups[2].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016"));   //１ボス後2
-				VoiceGroups[3].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013"));   //中ボス１
-				VoiceGroups[3].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014"));   //中ボス２
-				VoiceGroups[4].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007"));   //2ボス開始１
-				VoiceGroups[4].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008"));   //②ボス開始２
-				VoiceGroups[5].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002"));   //2ボス後１
-				VoiceGroups[5].Voice.Add(Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002"));   //2ボス後２
 
 				#endregion
 
@@ -603,8 +584,8 @@ public class Obj_Storage : MonoBehaviour
 				#region ボイスのロード
 				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
 				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
+				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
 				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
 				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
 				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
@@ -623,10 +604,8 @@ public class Obj_Storage : MonoBehaviour
 				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
 				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //前半ボス後更新1
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
-				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
+				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
 				#endregion
 
 				#region エフェクトのプーリング化

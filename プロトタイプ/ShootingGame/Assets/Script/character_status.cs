@@ -222,7 +222,7 @@ public class character_status : MonoBehaviour
 					Damege_Process((int)BS.attack_damage);
 				}
 			}
-			if (col.tag == "Enemy")
+			if (col.tag == "Enemy" || col.tag == "Wall")
 			{
 				if (activeShield && shield > 1)
 				{
@@ -233,6 +233,7 @@ public class character_status : MonoBehaviour
 					Damege_Process(3);
 				}
 			}
+
 		}
 		if (tag == "Enemy")
 		{
