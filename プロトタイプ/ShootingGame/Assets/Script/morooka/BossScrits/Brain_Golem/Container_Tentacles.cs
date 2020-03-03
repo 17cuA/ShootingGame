@@ -44,9 +44,11 @@ public class Container_Tentacles : Tentacles
 				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 				// ターゲットに向きを合わせたら
-				Debug.DrawRay(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right) * 20.0f, Color.red, 5);
-				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
+				Debug.DrawRay(VectorChange_3To2(muzzle.transform.position), VectorChange_3To2(- muzzle.transform.right) * 20.0f, Color.red, 5);
+				if (Physics.Raycast(VectorChange_3To2(muzzle.transform.position), VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
 				{
+					print(hitObject.transform.name); 
+
 					if (hitObject.transform.tag == "Player")
 					{
 						ActionStep++;
@@ -59,7 +61,7 @@ public class Container_Tentacles : Tentacles
 				if (!A_Animation.IsPlaying("Open"))
 				{
 					// 攻撃
-					var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, muzzle.transform.forward);
+					var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, VectorChange_3To2(muzzle.transform.position), muzzle.transform.forward);
 					Rigidbody rigidbody = Container.GetComponent<Rigidbody>();
 					rigidbody.velocity = VectorChange_3To2(-TargetPos / 5.0f);
 					ItemBox box = Container.GetComponent<ItemBox>();
@@ -73,7 +75,6 @@ public class Container_Tentacles : Tentacles
 						if (NowTarget == Player2 && Player1.activeSelf) NowTarget = Player1;
 					}
 					ActionStep++;
-					A_Animation.Blend("Close");
 				}
 			}
 			else if(ActionStep == 2)
@@ -90,7 +91,7 @@ public class Container_Tentacles : Tentacles
 					if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(-muzzle.transform.right), out hitObject, 20.0f))
 					{
 						// 攻撃
-						var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, muzzle.transform.forward);
+						var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, VectorChange_3To2(muzzle.transform.position), muzzle.transform.forward);
 						Rigidbody rigidbody = Container.GetComponent<Rigidbody>();
 						rigidbody.velocity = VectorChange_3To2(-TargetPos / 5.0f);
 						ItemBox box = Container.GetComponent<ItemBox>();
@@ -115,7 +116,7 @@ public class Container_Tentacles : Tentacles
 					if (shootingInterval_Cnt > shootingInterval_Max)
 					{
 						// 攻撃
-						var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, muzzle.transform.position, muzzle.transform.forward);
+						var Container = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eCONTAINER, VectorChange_3To2(muzzle.transform.position), muzzle.transform.forward);
 						Rigidbody rigidbody = Container.GetComponent<Rigidbody>();
 						rigidbody.velocity = VectorChange_3To2(-TargetPos / 5.0f);
 						ItemBox box = Container.GetComponent<ItemBox>();
