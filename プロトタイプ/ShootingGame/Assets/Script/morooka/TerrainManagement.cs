@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -14,13 +15,13 @@ public class TerrainManagement : MonoBehaviour
 	{
 		Renderer[] r = transform.GetComponentsInChildren<Renderer>();
 		transformsList = new List<Transform>();
-		foreach(var tt in r)
+		foreach (var tt in r)
 		{
 			transformsList.Add(tt.transform);
 		}
 
 		ForJudgment = new Dictionary<string, Vector2>();
-		foreach(var pc in positionInCamera)
+		foreach (var pc in positionInCamera)
 		{
 			ForJudgment.Add(pc.ObjectName, pc.positionInCamera);
 		}
@@ -28,10 +29,10 @@ public class TerrainManagement : MonoBehaviour
 
 	private void Update()
 	{
-		foreach(Transform temp in transformsList)
+		foreach (Transform temp in transformsList)
 		{
-			if(temp.position.x <= ForJudgment[temp.name].x+5.0f && temp.position.y <= ForJudgment[temp.name].y+7.0f 
-				&& temp.position.x >= -ForJudgment[temp.name].x-5.0f && temp.position.y >= -ForJudgment[temp.name].y-7.0f)
+			if (temp.position.x <= ForJudgment[temp.name].x + 5.0f && temp.position.y <= ForJudgment[temp.name].y + 7.0f
+				&& temp.position.x >= -ForJudgment[temp.name].x - 5.0f && temp.position.y >= -ForJudgment[temp.name].y - 7.0f)
 			{
 				temp.gameObject.SetActive(true);
 			}
