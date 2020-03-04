@@ -9695,6 +9695,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Final_Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 8409805035691127415, guid: 472d4557511d59247bf163bee8c85373,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8409805035691127411, guid: 472d4557511d59247bf163bee8c85373,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9754,7 +9759,8 @@ PrefabInstance:
         type: 3}
       propertyPath: deathBullet
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3978125650749351889, guid: b0f0ca68a4265c942a9ce4e4581305d0,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 472d4557511d59247bf163bee8c85373, type: 3}
 --- !u!1001 &8666286417586913910

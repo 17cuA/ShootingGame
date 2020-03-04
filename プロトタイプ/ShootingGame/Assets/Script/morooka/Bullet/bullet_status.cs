@@ -162,6 +162,16 @@ public class bullet_status : MonoBehaviour
 			particle.Play();
 			gameObject.SetActive(false);
 		}
+		//------------------------------陳　追加----------------------------------
+		//反射レーザー
+		else if (gameObject.tag == "Enemy_Bullet " && col.tag == "Wall" && gameObject.name == "ReflectLaser")
+		{
+			gameObject.SetActive(false);
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+		}
 	}
 
 	/// <summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_ReflectedBullet : MonoBehaviour
+public class Boss_ReflectedBullet : bullet_status
 {
 	public float speed;
 	public Vector3 direction;
@@ -61,5 +61,12 @@ public class Boss_ReflectedBullet : MonoBehaviour
 	
 
 		transform.position += direction * speed * Time.deltaTime;
+	}
+
+	public void Set(Vector3 direction, float angle, bool canReflect = false)
+	{
+		this.direction = direction;
+		this.transform.localEulerAngles = new Vector3(0, 0, angle);
+		isCloseReflect = !canReflect;
 	}
 }

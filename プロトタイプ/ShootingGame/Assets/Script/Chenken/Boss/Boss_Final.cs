@@ -174,41 +174,41 @@ public class Boss_Final : character_status
 	#region ===== IN DEATH STATE =====
 	private void Death_Enter()
 	{
-		var leftTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		leftTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 1, 0);
-		leftTop.transform.localEulerAngles = new Vector3(0, 0, 135f);
+		//var leftTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//leftTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 1, 0);
+		//leftTop.transform.localEulerAngles = new Vector3(0, 0, 135f);
 
-		var rightTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		rightTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 1, 0);
-		rightTop.transform.localEulerAngles = new Vector3(0, 0, 45f);
+		//var rightTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//rightTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 1, 0);
+		//rightTop.transform.localEulerAngles = new Vector3(0, 0, 45f);
 
-		var leftDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		leftDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, -1, 0);
-		leftDown.transform.localEulerAngles = new Vector3(0, 0, 225f);
+		//var leftDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//leftDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, -1, 0);
+		//leftDown.transform.localEulerAngles = new Vector3(0, 0, 225f);
 
-		var rightDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		rightDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, -1, 0);
-		rightDown.transform.localEulerAngles = new Vector3(0, 0, 315f);
+		//var rightDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//rightDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, -1, 0);
+		//rightDown.transform.localEulerAngles = new Vector3(0, 0, 315f);
 
-		var left = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		left.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 0, 0);
-		left.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
-		left.transform.localEulerAngles = new Vector3(0, 0, 180f);
+		//var left = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//left.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 0, 0);
+		//left.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//left.transform.localEulerAngles = new Vector3(0, 0, 180f);
 
-		var right = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		right.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 0, 0);
-		right.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
-		right.transform.localEulerAngles = new Vector3(0, 0, 0);
+		//var right = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//right.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 0, 0);
+		//right.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//right.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-		var top = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		top.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, 1, 0);
-		top.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
-		top.transform.localEulerAngles = new Vector3(0, 0, 90);
+		//var top = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//top.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, 1, 0);
+		//top.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//top.transform.localEulerAngles = new Vector3(0, 0, 90);
 
-		var down = Instantiate(deathBullet, transform.position, Quaternion.identity);
-		down.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, -1, 0);
-		down.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
-		down.transform.localEulerAngles = new Vector3(0, 0, 270);
+		//var down = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//down.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, -1, 0);
+		//down.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//down.transform.localEulerAngles = new Vector3(0, 0, 270);
 
 		Died_Process();
 	}
