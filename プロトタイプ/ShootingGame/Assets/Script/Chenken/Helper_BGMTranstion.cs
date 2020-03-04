@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class Helper_BGMTranstion : MonoBehaviour
 {
+
+	[System.Serializable]
+	public struct BGM
+	{
+		public string name;
+
+		[Header("AudioClip")]
+		public AudioClip BGM_Clip;
+		public BGM(string Name) : this()
+		{
+			this.name = Name;
+		}
+
+	}
+
+	[SerializeField]
+	private List<BGM> BGMGroups = new List<BGM>();
+
 	[SerializeField] private AudioClip startBGMClip;
 	[SerializeField] private AudioClip oneBossBGMClip;
 	[SerializeField] private AudioClip oneBossOverBGMClip;
@@ -26,7 +44,8 @@ public class Helper_BGMTranstion : MonoBehaviour
 	{
 		audioSource = GetComponent<AudioSource>();
 		isFadeIn = true;
-		audioSource.clip = startBGMClip;
+		//audioSource.clip = startBGMClip;
+		audioSource.clip = BGMGroups[0].BGM_Clip;
 		audioSource.volume = fadeInStartVolume;
 	}
 
@@ -55,24 +74,37 @@ public class Helper_BGMTranstion : MonoBehaviour
 				fadeOutTimer = 0;
 				if(currentWirelessNumber == 1)
 				{
-					audioSource.clip = oneBossBGMClip;
+					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
 					isFadeIn = true;
 					audioSource.Play();
 					
 				}
 				else if(currentWirelessNumber == 2)
 				{
-					audioSource.clip = oneBossOverBGMClip;
+					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
+					isFadeIn = true;
+					audioSource.Play();
+				}
+				else if(currentWirelessNumber == 3)
+				{
+					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
 					isFadeIn = true;
 					audioSource.Play();
 				}
 				else if(currentWirelessNumber == 4)
 				{
-					audioSource.clip = twoBossBGMClip;
+					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
 					isFadeIn = true;
 					audioSource.Play();
 				}
-                else
+				else if(currentWirelessNumber == 5)
+				{
+					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
+					isFadeIn = true;
+					audioSource.Play();
+
+				}
+				else
                 {
                     isFadeIn = true;
                 }
