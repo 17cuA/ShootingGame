@@ -368,8 +368,8 @@ public class Obj_Storage : MonoBehaviour
 				#region ボイスのロード
 				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
 				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
+				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
 				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
 				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
 				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
@@ -388,10 +388,10 @@ public class Obj_Storage : MonoBehaviour
 				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
 				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //前半ボス後更新1
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
-				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
+				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
+				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //モアイ後３
+				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //モアイ後４
 
 				#endregion
 

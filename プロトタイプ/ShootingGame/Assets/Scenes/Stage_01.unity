@@ -14813,11 +14813,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[0].Sinario.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[1].Sinario.Array.size
@@ -14833,10 +14833,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[4].Sinario.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[5].Sinario.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].Sinario.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
@@ -14918,11 +14922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[4].name
-      value: "BicCoremk-3\u51FA\u73FE\u6642"
+      value: "\u30E2\u30A2\u30A4\u6483\u7834\u6642"
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[5].name
-      value: "BicCoreMK-3\u7834\u58CA\u6642"
+      value: "BicCoremk-3\u51FA\u73FE\u6642"
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[5].No
@@ -14974,11 +14978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[5].Sinario.Array.data[0]
-      value: "\u30D1\u30A4\u30ED\u30C3\u30C8\u300CHQ!\u6575\u6A5F\u306E\u7834\u58CA\u3092\u78BA\u8A8D\u3002\u300D"
+      value: "\u30D1\u30A4\u30ED\u30C3\u30C8\u300CHQ\uFF01\u6575\u6A5F\u3092\u78BA\u8A8D\u3002\u300D"
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[5].Sinario.Array.data[1]
-      value: "HQ\u300CKY0525\u3002\u4E86\u89E3\u3002\u3088\u304F\u3084\u3063\u305F\u3002\u6B21\u306E\u30A8\u30EA\u30A2\u3078\u8FCE\u3048\uFF01\u300D"
+      value: "HQ\u300CKY0525\u3002\u4E86\u89E3\u3002\u7834\u58CA\u305B\u3088\u3002\u300D"
       objectReference: {fileID: 0}
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[1].UnShouwTimecnt
@@ -15019,6 +15023,42 @@ PrefabInstance:
     - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: StoryGroups.Array.data[0].UnShouwTimecnt
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].name
+      value: "BicCoreMK-3\u7834\u58CA\u6642"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].Sinario.Array.data[0]
+      value: "\u30D1\u30A4\u30ED\u30C3\u30C8\u300CHQ!\u6575\u6A5F\u306E\u7834\u58CA\u3092\u78BA\u8A8D\u3002\u300D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].Sinario.Array.data[1]
+      value: "HQ\u300CKY0525\u3002\u4E86\u89E3\u3002\u3088\u304F\u3084\u3063\u305F\u3002\u6B21\u306E\u30A8\u30EA\u30A2\u3078\u8FCE\u3048\uFF01\u300D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].SinarioFrame
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[6].No
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[4].Sinario.Array.data[2]
+      value: "HQ\u300CKY0525\u3002\u4E86\u89E3\u3002\u7834\u58CA\u305B\u3088\u3002\u300D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[4].Sinario.Array.data[3]
+      value: "HQ\u300CKY0525\u3002\u4E86\u89E3\u3002\u7834\u58CA\u305B\u3088\u3002\u300D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[0].Sinario.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 496807918, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
+      propertyPath: StoryGroups.Array.data[0].Sinario.Array.data[3]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4801235332332514354, guid: c7b6ad37d00e9d54b9099d625f6aed47,
         type: 3}

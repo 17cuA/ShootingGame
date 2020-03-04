@@ -13,7 +13,8 @@ public class Wireless_sinario : MonoBehaviour
 		Curtain_up,                         //開戦時
 		First_half_boss_before,             //前半ボス前
 		First_falf_boss_after,              //前半ボス後
-		Middle_Boss,						//一面でいうところの🗿
+		Middle_Boss_before,					//一面でいうところの🗿
+		Middle_Boss_after,					//中ボス後
 		Second_half_boss_before,            //後半ボス前
 		Second_half_boss_after,              //後半ボス後
 		end
@@ -210,7 +211,7 @@ public class Wireless_sinario : MonoBehaviour
 							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
 							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
 							break;
-						case Sinario_No.Middle_Boss:
+						case Sinario_No.Middle_Boss_before:
 							//モアイの音声
 							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
 							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
