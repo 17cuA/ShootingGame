@@ -183,47 +183,56 @@ public class character_status : MonoBehaviour
 	//自分以外の玉と当たった時にダメージを食らう
 	public void OnTriggerEnter(Collider col)
 	{
+		//プレイヤーと無敵状態の時
 		if (gameObject.tag == "Player" || tag == "Invincible")
 		{
+			//アイテムとの当たり判定
 			if (col.tag == "Item")
 			{
 				var item = col.GetComponent<Item>();
 				if (item.itemType != ItemType.Item_KillAllEnemy)
 				{
+					//オブジェクトの名前がプレイヤーの時
 					if(gameObject.name == "Player")
 					{
-						P1_PowerManager.Instance.Pick();
-						SE_Manager.SE_Obj.SE_Item_Catch();
-						col.gameObject.SetActive(false);
-						Game_Master.MY.Score_Addition(1600, 1);
+						P1_PowerManager.Instance.Pick();	//アイテム取得処理
+						SE_Manager.SE_Obj.SE_Item_Catch();	//アイテム取得SE発動
+						col.gameObject.SetActive(false);	//当たったアイテムを取得済み判定にするためオフに
+						Game_Master.MY.Score_Addition(1600, 1);	//スコアの取得
 					}
+					//それ以外の時
 					else
 					{
-						P2_PowerManager.Instance.Pick();
-						SE_Manager.SE_Obj.SE_Item_Catch();
-						col.gameObject.SetActive(false);
-						Game_Master.MY.Score_Addition(1600, 2);
+						P2_PowerManager.Instance.Pick();	//アイテム取得処理
+						SE_Manager.SE_Obj.SE_Item_Catch();	//アイテム取得SE発動
+						col.gameObject.SetActive(false);    //当たったアイテムを取得済み判定にするためオフに
+						Game_Master.MY.Score_Addition(1600, 2);	//スコアの取得
 
 					}
 				}
 				else
 					PowerManager.Instance.Annihilate();
 			}
+			//敵のバレットに当たった時
 			if (col.tag == "Enemy_Bullet")
 			{
 				bullet_status BS = col.gameObject.GetComponent<bullet_status>();
+				//シールドが稼働している時
 				if(activeShield && shield > 1)
 				{
 					shield--;
 				}
+				//シールド非稼働時
 				else
 				{
 					namenamename = col.gameObject.name;
 					Damege_Process((int)BS.attack_damage);
 				}
 			}
-			if (col.tag == "Enemy")
+			//敵本体と壁に当たった時に死ぬ処理
+			if (col.tag == "Enemy" || col.tag == "Wall")
 			{
+				//シールドが稼働している時
 				if (activeShield && shield > 1)
 				{
 					shield -= 3;
@@ -233,6 +242,7 @@ public class character_status : MonoBehaviour
 					Damege_Process(3);
 				}
 			}
+
 		}
 		if (tag == "Enemy")
 		{

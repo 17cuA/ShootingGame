@@ -15,7 +15,8 @@ public class Wireless_sinario : MonoBehaviour
 		First_falf_boss_after,              //前半ボス後
 		Middle_Boss,						//一面でいうところの🗿
 		Second_half_boss_before,            //後半ボス前
-		Second_half_boss_after              //後半ボス後
+		Second_half_boss_after,              //後半ボス後
+		end
 	}
 
 
@@ -26,8 +27,12 @@ public class Wireless_sinario : MonoBehaviour
 	{
 		public string name;
 		public List<string> Sinario;
-		public Sinario_No No;
 
+		[Header("シナリオを表示しているフレーム")]
+		public int SinarioFrame;
+		[Header("無線を表示している時間")]
+		public float UnShouwTimecnt;
+		public Sinario_No No;
 		public Story(string Name):this()
 		{
 			this.name = Name;
@@ -35,15 +40,10 @@ public class Wireless_sinario : MonoBehaviour
 
 	}
 
+	[SerializeField]
 	private List<Story> StoryGroups = new List<Story>();
+	public Story NowStory;
 	//文字の表示に使っている変数たち--------------------------------------------------------
-	[SerializeField] private string[] scenarios;          // 無線セリフ、上から順に基本流れていく次のセリフにいく(unity側の設定)
-	[SerializeField] private string[] Curtain_up;
-	[SerializeField] private string[] First_half_boss_before;
-	[SerializeField] private string[] First_falf_boss_after;
-	[SerializeField] private string[] Moai_before;				//モアイのシナリオ
-	[SerializeField] private string[] Second_half_boss_before;
-	[SerializeField] private string[] Second_half_boss_after;
 	[SerializeField] Text uiText;                   //uitextへの参照
 
 	[SerializeField]
@@ -72,16 +72,13 @@ public class Wireless_sinario : MonoBehaviour
 
 	private int first_start;            //ゲーム開始時からカウントするためのもの
 	private Color color;        //文字の色を保存しておくようの変数
-	private Color outline;  //テキストの文字のアウトラインを変更する用の変数
-	private Outline outline2;
 
 	private int frameMax;
-	private Sinario_No S_No;
 	public AudioSource audiosource;         //無線受信時の音などを鳴らすよう
 	private int soundcnt;
 	int Start_cnt;
 
-
+	public Sinario_No No_cnt;		//どの無線を鳴らすのかをチェックする用
 
 
 
@@ -89,18 +86,15 @@ public class Wireless_sinario : MonoBehaviour
 	void Start()
 	{
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
-		outline2 = GetComponent<Outline>();
 		frame = 0;
 		first_start = 0;
-		//No = 0;
-		S_No = 0;
 		uiText.text = "";
 		color = uiText.color;
-		outline = outline2.effectColor;
 		SetNext_sinario();
 		frameMax = 180;
 		soundcnt = 0;
 		Start_cnt = 0;
+		No_cnt = 0;
 	}
 
 	void Update()
@@ -109,21 +103,18 @@ public class Wireless_sinario : MonoBehaviour
 		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
 		{
 			uiText.color = color;
-			outline2.effectColor = outline;
 			Worddisplay();
 		}
 		else
 		{
 			uiText.color = Color.clear;
-			outline2.effectColor = Color.clear;
-			//if (outline.IsActive()) outline.enabled = false;
 		}
 		if (/*Input.GetKeyDown(KeyCode.Space) || */Is_using_wireless)
 		{
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			first_start = 0;
 			frame = (int)(frameMax * 0.67f);
-
+			//No_cnt++;
 			Is_using_wireless = false;
 		}
 
@@ -134,13 +125,13 @@ public class Wireless_sinario : MonoBehaviour
 		//プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
 		first_start++;
 		//受信時の音(初回のみ)
-		if (soundcnt == 0 && first_start > 180 /*&& No == 0 */&& S_No == 0)
+		if (soundcnt == 0 && first_start > 180 && No_cnt == 0 /*&& S_No == 0*/)
 		{
 			Sound_Active();
 			soundcnt = 1;
 		}
 		//受信時の音（２回目以降）
-		else if (soundcnt == 0 && first_start > 45 /*&& No != 0 */&& S_No == 0)
+		else if (soundcnt == 0 && first_start > 45 && No_cnt > 0 /*&& S_No == 0*/)
 		{
 			Sound_Active();
 			soundcnt = 1;
@@ -158,8 +149,8 @@ public class Wireless_sinario : MonoBehaviour
 				//無線のモードから通常のモードに治す
 				if (currentLine >= 2)
 				{
-					//No++;
-					S_No++;
+					//S_No++;
+					No_cnt++;
 					SetNext_sinario();
 					uiText.text = "";
 					Sound_Active();
@@ -170,8 +161,7 @@ public class Wireless_sinario : MonoBehaviour
 			//デバック用
 			if (Input.GetKeyDown(KeyCode.Alpha0))
 			{
-				//No++;
-				S_No++;
+				No_cnt++;
 				SetNext_sinario();
 				Voice_Manager.VOICE_Obj.Sinario_Stop();
 				uiText.text = "";
@@ -193,9 +183,9 @@ public class Wireless_sinario : MonoBehaviour
 				if (currentLine == 2)
 				{
 					isShowOver = true;
-					unShowTimer = Time.time + unShowTime;
+					unShowTimer = Time.time + NowStory.UnShouwTimecnt;
 				}
-				if (currentLine < scenarios.Length && frame > frameMax || Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)
+				if (currentLine < NowStory.Sinario.Count /*scenarios.Length*/ && frame > frameMax || Input.GetKeyDown(KeyCode.Alpha0) /*|| Input.GetButtonDown("P2_Fire1")*/)
 				{
 					frame = 0;
 					SetNextLine();
@@ -205,12 +195,7 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				if (currentLine > 0)
 				{
-					/*if (No == 0)
-					{
-						//開戦時
-						Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
-					}*/
-					switch (S_No)
+					switch (No_cnt)
 					{
 						case Sinario_No.Curtain_up:
 							//開戦時
@@ -222,8 +207,8 @@ public class Wireless_sinario : MonoBehaviour
 							break;
 						case Sinario_No.First_falf_boss_after:
 							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[22]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[23]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
 							break;
 						case Sinario_No.Middle_Boss:
 							//モアイの音声
@@ -243,34 +228,7 @@ public class Wireless_sinario : MonoBehaviour
 						default:
 							break;
 					}
-					 //各配列に対応したように鳴らす
-					/*switch (No)
-					{
-						case 1:
-							//前半ボス前
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[1]);
-							break;
-						case 2:
-							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[22]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[23]);
-							break;
-						case 3:
-							//モアイの音声
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
-							break;
-						case 4:
-							//後半ボス前
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
-							break;
-						case 5:
-							//後半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[6]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
-							break;
-					}*/
+
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha0) )
 				{
@@ -291,9 +249,9 @@ public class Wireless_sinario : MonoBehaviour
 	//次に表示する文字を確認
 	void SetNextLine()
 	{
-		if (currentLine < scenarios.Length)
+		if (currentLine < NowStory.Sinario.Count)
 		{
-			currentText = scenarios[currentLine];
+			currentText = NowStory.Sinario[currentLine];
 		}
 		timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
 		timeElapsed = Time.time;
@@ -310,84 +268,7 @@ public class Wireless_sinario : MonoBehaviour
 	//表示するシナリオを変更する
 	void SetNext_sinario()
 	{
-		switch (S_No)
-		{
-			case Sinario_No.Curtain_up:
-				//開戦時
-				scenarios = Curtain_up;
-				frameMax = 180;
-				break;
-			case Sinario_No.First_half_boss_before:
-				//前半ボス前
-				scenarios = First_half_boss_before;
-				frameMax = 240;
-				unShowTime = 4f;
-				break;
-			case Sinario_No.First_falf_boss_after:
-				//前半ボス後
-				scenarios = First_falf_boss_after;
-				frameMax = 240;
-				unShowTime = 5f;
-				break;
-			case Sinario_No.Middle_Boss:
-				//モアイ
-				scenarios = Moai_before;
-				frameMax = 240;
-				unShowTime = 5.5f;
-				break;
-			case Sinario_No.Second_half_boss_before:
-				//後半ボス前
-				scenarios = Second_half_boss_before;
-				frameMax = 240;
-				break;
-			case Sinario_No.Second_half_boss_after:
-				//後半ボス後
-				scenarios = Second_half_boss_after;
-				frameMax = 240;
-				break;
-			default:
-				break;
-		}
-		 //ゲーム開始から幾つめの文章を出すのか
-		/*switch (No)
-		{
-			case 0:
-				//開戦時
-				scenarios = Curtain_up;
-				frameMax = 180;
-				break;
-			case 1:
-				//前半ボス前
-				scenarios = First_half_boss_before;
-				frameMax = 240;
-				unShowTime = 4f;
-				break;
-			case 2:
-				//前半ボス後
-				scenarios = First_falf_boss_after;
-				frameMax = 240;
-				unShowTime = 5f;
-				break;
-			case 3:
-				//モアイ
-				scenarios = Moai_before;
-				frameMax = 240;
-				unShowTime = 5.5f;
-
-				break;
-			case 4:
-				//後半ボス前
-				scenarios = Second_half_boss_before;
-				frameMax = 240;
-				break;
-			case 5:
-				//後半ボス後
-				scenarios = Second_half_boss_after;
-				frameMax = 240;
-				break;
-			default:
-				break;
-		}*/
+		NowStory = Search_Story();
 	}
 	/// <summary>
 	/// 無線が鳴った時に裏で鳴らすやつ
@@ -431,5 +312,22 @@ public class Wireless_sinario : MonoBehaviour
 		frame = 0;
 		uiText.text = "";	//無線の表示で何も移さないようにするため
 
+	}
+	/// <summary>
+	/// リストの中から選ばれたStoryを取り出す
+	/// </summary>
+	/// <returns></returns>
+	Story Search_Story()
+	{
+		Story temporary = new Story();
+		foreach (Story story in StoryGroups)
+		{
+			if(No_cnt == story.No)
+			{
+				temporary = story;
+				break;
+			}
+		}
+		return temporary;
 	}
 }
