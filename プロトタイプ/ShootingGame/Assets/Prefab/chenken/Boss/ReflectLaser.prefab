@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3978125650749351892}
   - component: {fileID: 3978125650749351894}
   - component: {fileID: 3978125650749351895}
+  - component: {fileID: 2303569698635072825}
   m_Layer: 0
   m_Name: ReflectLaser
   m_TagString: Untagged
@@ -145,3 +146,17 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!136 &2303569698635072825
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3978125650749351889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 0.32
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
