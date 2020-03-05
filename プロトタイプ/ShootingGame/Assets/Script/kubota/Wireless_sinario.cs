@@ -181,7 +181,7 @@ public class Wireless_sinario : MonoBehaviour
 			//文字の表示が完了してるならクリック時に次の行を表示する
 			if (IsCompleteDisplayText)
 			{
-				if (currentLine == 2)
+				if (currentLine == NowStory.Sinario.Count)
 				{
 					isShowOver = true;
 					unShowTimer = Time.time + NowStory.UnShouwTimecnt;
@@ -215,6 +215,9 @@ public class Wireless_sinario : MonoBehaviour
 							//モアイの音声
 							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
 							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
+							break;
+						case Sinario_No.Middle_Boss_after:
+
 							break;
 						case Sinario_No.Second_half_boss_before:
 							//後半ボス前
