@@ -68,7 +68,11 @@ public class character_status : MonoBehaviour
 		self_material = new Material[object_material.Length];
         defaultColor = new Vector4[object_material.Length];
 		for (int i = 0; i < self_material.Length; i++) self_material[i] = object_material[i].material;
-        for (int i = 0; i < defaultColor.Length; i++) defaultColor[i] = object_material[i].material.color;
+		for (int i = 0; i < defaultColor.Length; i++)
+		{	
+			if (object_material[i].material.HasProperty("_Color"))
+				defaultColor[i] = object_material[i].material.color;
+		}
 
 		framecnt = 0;
 		check = false;

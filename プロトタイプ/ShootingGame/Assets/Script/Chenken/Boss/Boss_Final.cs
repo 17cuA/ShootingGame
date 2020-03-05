@@ -17,6 +17,8 @@ public class Boss_Final : character_status
 	private BoxCollider body;
 
 	private new Rigidbody rigidbody;
+	public ParticleSystem explosionEffect;
+	public ParticleSystem blackSmokeEffect;
 
 
 	[Header("ステート関連")]
@@ -50,7 +52,7 @@ public class Boss_Final : character_status
 		GenerateNewState(stateManager, debutDuration, LastBossStateType.DEBUT, Debut_Enter, Debut_Update, Debut_Exit);
 		GenerateNewState(stateManager, waitDuration, LastBossStateType.WAIT, Wait_Enter, Wait_Update, Wait_Enter);
 		GenerateNewState(stateManager, normalDuration, LastBossStateType.NORMAL, Normal_Enter, Normal_Update, Normal_Exit);
-		GenerateNewState(stateManager, 5f, LastBossStateType.DEATH, Death_Enter, Death_Update, Death_Exit);
+		GenerateNewState(stateManager, 13f, LastBossStateType.DEATH, Death_Enter, Death_Update, Death_Exit);
 	}
 
 
@@ -158,7 +160,7 @@ public class Boss_Final : character_status
 
 	private void Normal_Update()
 	{
-		if(base.hp <= 0)
+		if(hp < 1)
 		{
 			stateManager.ChangeState(LastBossStateType.DEATH);
 			return;
@@ -210,12 +212,42 @@ public class Boss_Final : character_status
 		//down.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
 		//down.transform.localEulerAngles = new Vector3(0, 0, 270);
 
-		Died_Process();
+		var changeTransfrom = transform.GetChild(0);
+		for (var i = 0; i < changeTransfrom.childCount; ++i)
+		{
+			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");
+		}
+
+		explosionEffect.gameObject.SetActive(true);
+		blackSmokeEffect.gameObject.SetActive(true);
+		body.enabled = false;
+
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+		GetComponent<Floating>().enabled = false;
 	}
 
 	private void Death_Update()
 	{
+		var y = Mathf.Lerp(0, -30f, (stateManager.Current.Duration - stateManager.Current.Timer) / stateManager.Current.Duration);
+		var z = Mathf.Lerp(0, -20f, (stateManager.Current.Duration - stateManager.Current.Timer) / stateManager.Current.Duration);
 
+		transform.localEulerAngles = new Vector3(0, y, z);
+
+		transform.position += speed * 0.1f * Time.deltaTime * Vector3.down;
+
+		if (stateManager.Current.Timer <= 7f)
+		{
+			if(body.transform.GetChild(0).gameObject.activeSelf)
+				body.transform.GetChild(0).gameObject.SetActive(false);
+		}
+		if (stateManager.Current.IsDone)
+		{
+			Is_Dead = true;
+			Reset_Status();
+			this.gameObject.SetActive(false);
+			explosionEffect.gameObject.SetActive(false);
+		}
 	}
 
 	private void Death_Exit()
