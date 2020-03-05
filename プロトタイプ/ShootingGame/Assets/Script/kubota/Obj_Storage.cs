@@ -61,7 +61,16 @@ public class Obj_Storage : MonoBehaviour
 
 	#region サウンド関係すべて
 	[HideInInspector] public AudioClip[] audio_se = new AudioClip[29];    //ＳＥを読み込むための配列
-	[HideInInspector] public AudioClip[] audio_voice = new AudioClip[24]; //VOICEを読み込むための配列
+	[HideInInspector] public AudioClip[] PowerUpVoice = new AudioClip[8]; //VOICEを読み込むための配列
+
+	[HideInInspector] public AudioClip[] First_Wireless;
+	[HideInInspector] public AudioClip[] Boss1Before_Wireless;
+	[HideInInspector] public AudioClip[] Boss1After_Wireless;
+	[HideInInspector] public AudioClip[] MiddleBossBefore_Wireless;
+	[HideInInspector] public AudioClip[] MiddleBossAfter_Wireless;
+	[HideInInspector] public AudioClip[] Boss2Before_Wireless;
+	[HideInInspector] public AudioClip[] Boss2After_Wireless;
+
 	#endregion
 
 	#region オブジェクトプールの変数
@@ -366,33 +375,35 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ボイスのロード
-				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
-				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
-				audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
-				audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
-				audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
-				audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
-				audio_voice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
-				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //前半ボス後更新1
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
-				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
+				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
+				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
+				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
+				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
+				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
+				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
+				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 
+				First_Wireless = new AudioClip[1];
+				Boss1Before_Wireless = new AudioClip[1];
+				Boss1After_Wireless = new AudioClip[2];
+				MiddleBossBefore_Wireless = new AudioClip[2];
+				MiddleBossAfter_Wireless = new AudioClip[2];
+				Boss2Before_Wireless = new AudioClip[2];
+				Boss2After_Wireless = new AudioClip[2];
+
+				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
+				Boss1Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				Boss1After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				Boss1After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
+				MiddleBossBefore_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
+				MiddleBossBefore_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
+				MiddleBossAfter_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
+				MiddleBossAfter_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
+				Boss2Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				Boss2Before_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				Boss2After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				Boss2After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
 				#endregion
 
 				enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
@@ -582,30 +593,31 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ボイスのロード
-				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
-				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				audio_voice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
-				audio_voice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
-				audio_voice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
-				audio_voice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
-				audio_voice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
-				audio_voice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				audio_voice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				audio_voice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				audio_voice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				audio_voice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				audio_voice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				audio_voice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
-				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
+				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
+				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
+				PowerUpVoice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
+				PowerUpVoice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
+				PowerUpVoice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
+				PowerUpVoice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
+				PowerUpVoice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
+				PowerUpVoice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
+				PowerUpVoice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
+				PowerUpVoice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
+				PowerUpVoice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
+				PowerUpVoice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
+				PowerUpVoice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
+				PowerUpVoice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
+				PowerUpVoice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
+				PowerUpVoice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
+				PowerUpVoice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
+				PowerUpVoice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+
 				#endregion
 
 				#region エフェクトのプーリング化
