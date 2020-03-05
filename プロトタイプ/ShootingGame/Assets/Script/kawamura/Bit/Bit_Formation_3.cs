@@ -69,7 +69,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	public int option_OrdinalNum;				//オプション自身が何番目の追従位置にいるのかの番号
+	public int option_OrdinalNum;               //オプション自身が何番目の追従位置にいるのかの番号
+	public int huntNum = 0;						//盗まれた数
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -85,7 +86,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	//bool isPlayerDieCheck;					
 	public bool isborn = true;						//オプションが出現したときupdateで一回だけ行う処理用
 	public bool isDead = false;						//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
-	public bool isCollection = false;				//回収されたときに使う
+	public bool isCollection = false;               //回収されたときに使う
+	public bool isFirstStolen = false;
 	public bool isStolen;							//盗まれた状態
 	bool isCircle = false;
 	public bool isFixed = false;
@@ -1165,42 +1167,57 @@ public class Bit_Formation_3 : MonoBehaviour
 		//オプションハンターに当たった時
 		if (!isDead && col.gameObject.tag == "Hunter")
 		{
-			//自分が何番目のオプションか見る
-			switch(option_OrdinalNum)
+			if (col.gameObject.GetComponent<OptionHunter>().isHunt == false)
 			{
-				case 1:
-					FtoPlayer.isStolen = true;
-					
-					break;
+				isFirstStolen = true;
 
-				case 2:
-					if (!FtoPlayer.isStolen)
-					{
-						FtoPBit_Second.isStolen = true;
-						isStolen = true;
-						FtoPBit_Second.hunterObj = col.gameObject;
-					}
-					break;
+				if (bState == Bit_Formation_3.BitState.Player1)
+				{
+					huntNum = pl1.bitIndex - option_OrdinalNum + 1;
+				}
+				else if (bState == Bit_Formation_3.BitState.Player2)
+				{
+					huntNum = pl2.bitIndex - option_OrdinalNum + 1;
+				}
 
-				case 3:
-					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen)
-					{
-						FtoPBit_Third.isStolen = true;
-						isStolen = true;
-						FtoPBit_Third.hunterObj = col.gameObject;
+				//自分が何番目のオプションか見る
+				//switch (option_OrdinalNum)
+				//{
+				//	case 1:
+				//		FtoPlayer.isStolen = true;
 
-					}
-					break;
+				//		break;
 
-				case 4:
-					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen && !FtoPBit_Third.isStolen)
-					{
-						FtoPBit_Fourth.isStolen = true;
-						isStolen = true;
-						FtoPBit_Fourth.hunterObj = col.gameObject;
+				//	case 2:
+				//		if (!FtoPlayer.isStolen)
+				//		{
+				//			FtoPBit_Second.isStolen = true;
+				//			isStolen = true;
+				//			FtoPBit_Second.hunterObj = col.gameObject;
+				//		}
+				//		break;
 
-					}
-					break;
+				//	case 3:
+				//		if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen)
+				//		{
+				//			FtoPBit_Third.isStolen = true;
+				//			isStolen = true;
+				//			FtoPBit_Third.hunterObj = col.gameObject;
+
+				//		}
+				//		break;
+
+				//	case 4:
+				//		if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen && !FtoPBit_Third.isStolen)
+				//		{
+				//			FtoPBit_Fourth.isStolen = true;
+				//			isStolen = true;
+				//			FtoPBit_Fourth.hunterObj = col.gameObject;
+
+				//		}
+				//		break;
+
+				//}
 
 			}
 		}
@@ -1209,33 +1226,38 @@ public class Bit_Formation_3 : MonoBehaviour
 	//盗まれている状態かチェックする
 	void StolenCheck()
 	{
-		//自分が何番目のオプションか見る
-		switch (option_OrdinalNum)
+		if(option_Script.isFirstStolen)
 		{
-			case 1:
-				//FtoPlayer.isStolen = true;
-				break;
+			isStolen = true;
 
-			case 2:
-				if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
-				{
-					isStolen = true;
-				}
-				break;
-
-			case 3:
-				if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
-				{
-					isStolen = true;
-				}
-				break;
-
-			case 4:
-				if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
-				{
-					isStolen = true;
-				}
-				break;
 		}
+		//自分が何番目のオプションか見る
+		//switch (option_OrdinalNum)
+		//{
+		//	case 1:
+		//		//FtoPlayer.isStolen = true;
+		//		break;
+
+		//	case 2:
+		//		if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
+		//		{
+		//			isStolen = true;
+		//		}
+		//		break;
+
+		//	case 3:
+		//		if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
+		//		{
+		//			isStolen = true;
+		//		}
+		//		break;
+
+		//	case 4:
+		//		if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
+		//		{
+		//			isStolen = true;
+		//		}
+		//		break;
+		//}
 	}
 }
