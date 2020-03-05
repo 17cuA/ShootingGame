@@ -695,7 +695,7 @@ public class Player2 : character_status
 		powerup.Play();
 		shield_Effect.Play();
 		//------------------------------------------------------------------------
-		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[25]);
+		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[17]);
 		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 
 	}
@@ -760,6 +760,7 @@ public class Player2 : character_status
 	{
 		speed = min_speed;
 		Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[19]);
+		SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);               //パワーアップの効果音を流す
 
 		//SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 	}

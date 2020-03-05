@@ -61,7 +61,7 @@ public class Obj_Storage : MonoBehaviour
 
 	#region サウンド関係すべて
 	[HideInInspector] public AudioClip[] audio_se = new AudioClip[29];    //ＳＥを読み込むための配列
-	[HideInInspector] public AudioClip[] audio_voice = new AudioClip[26]; //VOICEを読み込むための配列
+	[HideInInspector] public AudioClip[] audio_voice = new AudioClip[24]; //VOICEを読み込むための配列
 	#endregion
 
 	#region オブジェクトプールの変数
@@ -102,52 +102,47 @@ public class Obj_Storage : MonoBehaviour
 
 	#endregion
 
+	#region 敵のロード
+	private GameObject enemy_UFO_Group_prefab;
+	private GameObject enemy_UFO_Group_NoneShot_prefab;
+	private GameObject enemy_ClamChowder_Group_Two_Top_prefab;
+	private GameObject enemy_ClamChowder_Group_Two_Under_prefab;
+	private GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab;
+	private GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab;
+	private GameObject enemy_ClamChowder_Group_Three_prefab;
+	private GameObject enemy_ClamChowder_Group_Three_Item_prefab;
+	private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
+	private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
+	private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
+	private GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
+	private GameObject enemy_ClamChowder_Group_Four_prefab;
+	private GameObject enemy_ClamChowder_Group_Four_NoItem_prefab;
+	private GameObject enemy_ClamChowder_Group_Five_prefab;
+	private GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
+	private GameObject enemy_ClamChowder_Group_Seven_prefab;
+	private GameObject enemy_ClamChowder_Group_Straight_prefab;
+	private GameObject enemy_Beelzebub_Group_FourWide_prefab;
+	private GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
+	private GameObject enemy_BeetleGroup_prefab;
+	private GameObject enemy_BeetleGroup_Three_prefab;
+	private GameObject boundMeteors_prefab;
+	private GameObject enemy_Bacula_Sixteen_prefab;
+	private GameObject enemy_Bacula_FourOnly_prefab;
+	private GameObject enemy_ClamChowder_FourTriangle_prefab;
+	private GameObject enemy_ClamChowder_FourTriangle_NoItem_prefab;
+	private GameObject enemy_Beelzebub_Group_EightNormal_Item_prefab;
+	private GameObject enemy_ClamChowder_Group_TwelveStraight_prefab;
+	private GameObject enemy_UFO_Group_Five_prefab;
+	private GameObject enemy_Beetle_Group_Seven_prefab;
+	private GameObject enemy_ClamChowder_Group_SevenStraight_prefab;
+	private GameObject enemy_ClamChowder_Group_SixStraight_prefab;
+	private GameObject enemy_ClamChowder_Group_UpSevenDiagonal_prefab;
+	private GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
+	private GameObject enemy_ClamChowder_Group_TenStraight_prefab;
+	private GameObject container_prefab;
+	#endregion
 
-    //仮データ置き場（のちにプーリング化を施す）-------------------------------------------------------------
-    public GameObject enemy_UFO_Group_prefab;
-    public GameObject enemy_UFO_Group_NoneShot_prefab;
-    public GameObject enemy_ClamChowder_Group_Two_Top_prefab;
-    public GameObject enemy_ClamChowder_Group_Two_Under_prefab;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyUp_prefab;
-    public GameObject enemy_ClamChowder_Group_TwoWaveOnlyDown_prefab;
-    public GameObject enemy_ClamChowder_Group_Three_prefab;
-    public GameObject enemy_ClamChowder_Group_Three_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_Four_prefab;
-    public GameObject enemy_ClamChowder_Group_Four_NoItem_prefab;
-    public GameObject enemy_ClamChowder_Group_Five_prefab;
-    public GameObject enemy_ClamChowder_Group_Five_NoItem_prefab;
-    public GameObject enemy_ClamChowder_Group_Seven_prefab;
-    //public GameObject enemy_MiddleBoss_Father_prefab;
-    public GameObject enemy_ClamChowder_Group_Straight_prefab;
-    public GameObject enemy_Beelzebub_Group_FourWide_prefab;
-    public GameObject enemy_Beelzebub_Group_FourWide_Item_prefab;
-    public GameObject enemy_BeetleGroup_prefab;
-    public GameObject enemy_BeetleGroup_Three_prefab;
-    public GameObject boundMeteors_prefab;
-    public GameObject enemy_Bacula_Sixteen_prefab;
-    public GameObject enemy_Bacula_FourOnly_prefab;
-    //9月13日追加
-    public GameObject enemy_ClamChowder_FourTriangle_prefab;
-    public GameObject enemy_ClamChowder_FourTriangle_NoItem_prefab;
-    public GameObject enemy_Beelzebub_Group_EightNormal_Item_prefab;
-    public GameObject enemy_ClamChowder_Group_TwelveStraight_prefab;
-    public GameObject enemy_UFO_Group_Five_prefab;
-    public GameObject enemy_Beetle_Group_Seven_prefab;
-    public GameObject enemy_ClamChowder_Group_SevenStraight_prefab;
-    public GameObject enemy_ClamChowder_Group_SixStraight_prefab;
-    public GameObject enemy_ClamChowder_Group_UpSevenDiagonal_prefab;
-    public GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
-    public GameObject enemy_ClamChowder_Group_TenStraight_prefab;
-
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
-	public GameObject container_prefab;
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
-
-    public Object_Pooling enemy_UFO_Group;
+	public Object_Pooling enemy_UFO_Group;
     public Object_Pooling enemy_UFO_Group_NoneShot;
     public Object_Pooling enemy_ClamChowder_Group_Two_Top;
     public Object_Pooling enemy_ClamChowder_Group_Two_Under;
@@ -330,7 +325,7 @@ public class Obj_Storage : MonoBehaviour
 				Effects_Prefab[8] = Resources.Load<GameObject>("Effects/Explosion/E001");       //バグが起きないようにプレイヤーの爆発を仮置き
 				Effects_Prefab[9] = Resources.Load<GameObject>("Effects/Explosion/E011");      //使ってない（仮にはいってるだけ）
 				Effects_Prefab[10] = Resources.Load<GameObject>("Effects/Explosion/E103");      //戦艦型の爆発
-				Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200");      //プレイヤーの弾の着弾時のエフェクト
+				Effects_Prefab[11] = Resources.Load<GameObject>("Effects/Explosion/E200_1P");      //プレイヤーの弾の着弾時のエフェクト
 				Effects_Prefab[12] = Resources.Load<GameObject>("Effects/Other/O001");          //ボス登場時のエフェクト
 				Effects_Prefab[13] = Resources.Load<GameObject>("Effects/Explosion/E206");      //隕石の爆発Effect
 				Effects_Prefab[14] = Resources.Load<GameObject>("Effects/Other/O005");      //ヒトデ型の出現用
@@ -397,6 +392,7 @@ public class Obj_Storage : MonoBehaviour
 				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
 				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
 				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+
 				#endregion
 
 				enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
@@ -588,8 +584,8 @@ public class Obj_Storage : MonoBehaviour
 				#region ボイスのロード
 				audio_voice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
 				audio_voice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_003");        //前半ボス後1
-				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_004");        //前半ぼす後2
+				audio_voice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				audio_voice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
 				audio_voice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
 				audio_voice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
 				audio_voice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
@@ -608,10 +604,8 @@ public class Obj_Storage : MonoBehaviour
 				audio_voice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 				audio_voice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
 				audio_voice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //前半ボス後更新1
-				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //前半ボス後更新２
-				audio_voice[24] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				audio_voice[25] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				audio_voice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
+				audio_voice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
 				#endregion
 
 				#region エフェクトのプーリング化

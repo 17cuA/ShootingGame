@@ -21,6 +21,7 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
 	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
 	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
+	[SerializeField, Tooltip("ボスの目")] GameObject Eyes;
 
 	private bool Is_Active { get; set; }									// 行動可能か
 	private bool Is_Laser { get; set; }									// レーザーを撃てるか
@@ -169,6 +170,13 @@ public class Brain_Wait : character_status
 				}
 			}
 		}
+		#endregion
+
+		#region 目の動き
+		Vector3 p_pos = Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER ? Obj_Storage.Storage_Data.GetPlayer().transform.position : Obj_Storage.Storage_Data.GetPlayer().activeSelf ? Obj_Storage.Storage_Data.GetPlayer().transform.position : Obj_Storage.Storage_Data.GetPlayer2().transform.position;
+		Vector3 tempPos = p_pos - Eyes.transform.position;
+		tempPos.z = 0.0f;
+		Eyes.transform.forward = tempPos;
 		#endregion
 	}
 
