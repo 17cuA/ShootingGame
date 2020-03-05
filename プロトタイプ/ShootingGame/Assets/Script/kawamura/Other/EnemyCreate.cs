@@ -661,13 +661,15 @@ public class EnemyCreate : MonoBehaviour
             }
         }
 
-        if (moai_Script != null)
+		//モアイ撃破🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲🔲
+		if (moai_Script != null)
         {
             if (moai_Script.Is_Dead)
             {
                 if (isMoaiAlive)
                 {
-                    isNowMoai = false;
+					Wireless_sinario.Is_using_wireless = true;
+					isNowMoai = false;
                     isMoaiAlive = false;
                 }
             }

@@ -35,6 +35,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject followPosSecondObj;       //二番目
 	public GameObject followPosThirdObj;        //三番目
 	public GameObject followPosFourthObj;       //四番目
+	public GameObject previousBitObj;			//一つ前のオプションオブジェクト
+	public Bit_Formation_3 option_Script;
 	public GameObject[] circlePosObjects;
 	public GameObject[] fixedPosObjects;
 
@@ -46,9 +48,9 @@ public class Bit_Formation_3 : MonoBehaviour
 	public ParticleSystem option_Particle;      //レーザーのパーティクルを取得するための変数
 
 	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
-	public Player1 pl1;                                //プレイヤースクリプト情報
+	public Player1 pl1;							//プレイヤースクリプト情報
 	public Player2 pl2;
-	FollowPositions followPositions_Script;			//4つの追従位置の親のスクリプト
+	FollowPositions followPositions_Script;		//4つの追従位置の親のスクリプト
 	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
@@ -67,7 +69,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	public int option_OrdinalNum;                      //オプション自身が何番目の追従位置にいるのかの番号
+	public int option_OrdinalNum;				//オプション自身が何番目の追従位置にいるのかの番号
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -84,7 +86,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isborn = true;						//オプションが出現したときupdateで一回だけ行う処理用
 	public bool isDead = false;						//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
 	public bool isCollection = false;				//回収されたときに使う
-	public bool isStolen;								//盗まれた状態
+	public bool isStolen;							//盗まれた状態
 	bool isCircle = false;
 	public bool isFixed = false;
 	public bool isMove = false;
@@ -425,6 +427,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			}
 		}
 
+
 		//死んでいたら
 		if (isDead)
 		{
@@ -512,6 +515,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (!FtoPlayer.hasOption)
 		{
 			option_OrdinalNum = 1;
+			followPositions_Script.firstOption = this.gameObject;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
@@ -545,7 +549,13 @@ public class Bit_Formation_3 : MonoBehaviour
 		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
+			//自分の番号をいれる
 			option_OrdinalNum = 2;
+			//追従位置達の親に自分のオブジェクトをセットする
+			followPositions_Script.secondOption = this.gameObject;
+			//1つ前(1つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.firstOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
@@ -579,6 +589,10 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Third.hasOption)
 		{
 			option_OrdinalNum = 3;
+			followPositions_Script.thirdOption = this.gameObject;
+			//1つ前(2つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.secondOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
@@ -612,6 +626,10 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Fourth.hasOption)
 		{
 			option_OrdinalNum = 4;
+			followPositions_Script.fourthOption = this.gameObject;
+			//1つ前(3つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.thirdOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
@@ -1152,7 +1170,7 @@ public class Bit_Formation_3 : MonoBehaviour
 			{
 				case 1:
 					FtoPlayer.isStolen = true;
-					target = col.gameObject;
+					
 					break;
 
 				case 2:
@@ -1161,7 +1179,6 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Second.isStolen = true;
 						isStolen = true;
 						FtoPBit_Second.hunterObj = col.gameObject;
-						target = col.gameObject;
 					}
 					break;
 
@@ -1171,7 +1188,7 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Third.isStolen = true;
 						isStolen = true;
 						FtoPBit_Third.hunterObj = col.gameObject;
-						target = col.gameObject;
+
 					}
 					break;
 
@@ -1181,10 +1198,10 @@ public class Bit_Formation_3 : MonoBehaviour
 						FtoPBit_Fourth.isStolen = true;
 						isStolen = true;
 						FtoPBit_Fourth.hunterObj = col.gameObject;
-						target = col.gameObject;
 
 					}
 					break;
+
 			}
 		}
 	}

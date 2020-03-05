@@ -8,6 +8,10 @@ using UnityEngine;
 public class FollowPositions : MonoBehaviour
 {
 	GameObject playerObj;
+	public GameObject firstOption;
+	public GameObject secondOption;
+	public GameObject thirdOption;
+	public GameObject fourthOption;
 	public Vector3 pos;
 	public Vector3 defPos;
 	public Vector3 savePos;
@@ -32,10 +36,10 @@ public class FollowPositions : MonoBehaviour
 
 	private void Awake()
 	{
-		
+
 	}
 	void Start()
-    {
+	{
 		isResetPosEnd = false;
 		resetPosCnt = 0;
 		stolenCnt = 0;
@@ -56,11 +60,11 @@ public class FollowPositions : MonoBehaviour
 		{
 			isFollow2P = true;
 		}
-    }
+	}
 
 	void Update()
-    {
-		if(playerObj==null)
+	{
+		if (playerObj == null)
 		{
 			if (isFollow1P)
 			{
@@ -88,7 +92,7 @@ public class FollowPositions : MonoBehaviour
 			}
 		}
 
-		if(Input.GetButtonDown("LB"))
+		if (Input.GetButtonDown("LB"))
 		{
 			if (isCircle)
 			{
@@ -199,7 +203,7 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				pl2.Is_Resporn_End = false;				
+				pl2.Is_Resporn_End = false;
 			}
 			isResetPosEnd = true;
 			isFreeze = false;
