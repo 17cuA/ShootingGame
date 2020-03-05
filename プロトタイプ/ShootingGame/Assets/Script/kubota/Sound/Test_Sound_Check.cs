@@ -44,32 +44,32 @@ public class Test_Sound_Check : MonoBehaviour
 		switch (sound_cnt)
 		{
 			case 12:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt++;
 				break;
 			case 13:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt++;
 				break;
 			case 14:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt++;
 				break;
 			case 15:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt++;
 				break;
 			case 16:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt = 25;
 				break;
 			case 25:
-				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.audio_voice[sound_cnt]);
+				Voice_Manager.VOICE_Obj.Voice_Active(Obj_Storage.Storage_Data.PowerUpVoice[sound_cnt]);
 				SE_Manager.SE_Obj.SE_Active_2(Obj_Storage.Storage_Data.audio_se[16]);
 				sound_cnt = 12;
 

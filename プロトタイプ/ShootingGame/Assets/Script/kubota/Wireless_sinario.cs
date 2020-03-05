@@ -200,34 +200,35 @@ public class Wireless_sinario : MonoBehaviour
 					{
 						case Sinario_No.Curtain_up:
 							//開戦時
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[0]);
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.First_Wireless[0]);
 							break;
 						case Sinario_No.First_half_boss_before:
 							//前半ボス前
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[1]);
+							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1Before_Wireless[0]);
 							break;
 						case Sinario_No.First_falf_boss_after:
 							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[2]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[3]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1After_Wireless[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1After_Wireless[1]);
 							break;
 						case Sinario_No.Middle_Boss_before:
 							//モアイの音声
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[20]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[21]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossBefore_Wireless[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossBefore_Wireless[1]);
 							break;
 						case Sinario_No.Middle_Boss_after:
-
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossAfter_Wireless[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossAfter_Wireless[1]);
 							break;
 						case Sinario_No.Second_half_boss_before:
 							//後半ボス前
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[4]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[5]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2Before_Wireless[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2Before_Wireless[1]);
 							break;
 						case Sinario_No.Second_half_boss_after:
 							//後半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[6]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.audio_voice[7]);
+							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2After_Wireless[0]);
+							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2After_Wireless[1]);
 							break;
 						default:
 							break;
@@ -315,6 +316,10 @@ public class Wireless_sinario : MonoBehaviour
 		currentLine = 0;
 		frame = 0;
 		uiText.text = "";	//無線の表示で何も移さないようにするため
+
+	}
+	void ActiveWirelessVoice(int num)
+	{
 
 	}
 	/// <summary>
