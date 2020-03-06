@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 2800000, guid: c32a9107bd5737a4e96db123a00c9533, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b20ae27dca48534e9e8fde46b3ff42d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
@@ -86,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_NormalMap:
-        m_Texture: {fileID: 2800000, guid: 8a021a7c661b1eb4d8b4ac9d848b090f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3f1b7f23e2c14bc4ebbaf9a650260277, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -122,7 +122,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C2FC8B82: 0.5
+    - Vector1_317D3539: 0.211
+    - Vector1_C2FC8B82: 0.4
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -191,8 +192,8 @@ Material:
     - _MaterialID: 1
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
-    - _NB_MaskMap_Volume: 0.5
-    - _NB_NormalMap_Volume: 1
+    - _NB_MaskMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5
