@@ -4571,12 +4571,12 @@ PrefabInstance:
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000011927783
+      value: 0.0003639194
       objectReference: {fileID: 0}
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000069700385
+      value: -0.000008749268
       objectReference: {fileID: 0}
     - target: {fileID: 9143886380697283094, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
@@ -16239,6 +16239,14 @@ PrefabInstance:
       propertyPath: BGMGroups.Array.data[5].BGM_Clip
       value: 
       objectReference: {fileID: 8300000, guid: 4d4c0982a72193b4db46a6e93757096b, type: 3}
+    - target: {fileID: 538717629, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
+      propertyPath: fadeInTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 538717629, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
+      propertyPath: fadeOutTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
 --- !u!108 &728411571401975832

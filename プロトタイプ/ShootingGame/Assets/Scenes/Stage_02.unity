@@ -5095,6 +5095,18 @@ PrefabInstance:
       propertyPath: BGMGroups.Array.data[0].BGM_Clip
       value: 
       objectReference: {fileID: 8300000, guid: 6eae8df45737ea0449981903c3091c01, type: 3}
+    - target: {fileID: 538717629, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 538717629, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
+      propertyPath: fadeInTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 538717629, guid: c5511831683274044a5c606ce4ac0f63, type: 3}
+      propertyPath: fadeOutTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 344868039040152456, guid: c5511831683274044a5c606ce4ac0f63,
         type: 3}
       propertyPath: m_HDR
@@ -5640,10 +5652,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGMGroups: []
-  startBGMClip: {fileID: 8300000, guid: 6eae8df45737ea0449981903c3091c01, type: 3}
-  oneBossBGMClip: {fileID: 8300000, guid: b096c3fe8efb17a4c88c722b4c436d36, type: 3}
-  oneBossOverBGMClip: {fileID: 8300000, guid: 25ac569df2989a64bb04c6b0126132a9, type: 3}
-  twoBossBGMClip: {fileID: 8300000, guid: 4d4c0982a72193b4db46a6e93757096b, type: 3}
   fadeInStartVolume: 0
   fadeInTime: 3.5
   isFadeIn: 0
