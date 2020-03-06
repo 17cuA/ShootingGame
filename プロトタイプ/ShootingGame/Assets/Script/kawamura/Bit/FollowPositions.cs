@@ -15,6 +15,7 @@ public class FollowPositions : MonoBehaviour
 	public Vector3 pos;
 	public Vector3 defPos;
 	public Vector3 savePos;
+	public GameObject[] huntPos;		//盗まれた時の移動位置を入れる
 
 	Player1 pl1;
 	Player2 pl2;
@@ -60,6 +61,8 @@ public class FollowPositions : MonoBehaviour
 		{
 			isFollow2P = true;
 		}
+		huntPos = new GameObject[4];
+
 	}
 
 	void Update()

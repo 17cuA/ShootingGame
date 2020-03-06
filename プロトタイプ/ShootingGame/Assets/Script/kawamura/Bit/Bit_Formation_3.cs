@@ -70,7 +70,8 @@ public class Bit_Formation_3 : MonoBehaviour
 
 	//int state_Num;							//オプションの状態を変えるための数字		
 	public int option_OrdinalNum;               //オプション自身が何番目の追従位置にいるのかの番号
-	public int huntNum = 0;						//盗まれた数
+	public int huntNum = 0;                     //盗まれた数
+	public int huntMoveNum = 0;					//盗まれた先の位置番号
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -280,7 +281,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		//追従位置を取得していtたらその位置にする
 		if (followPosObj && !isCircle && !isFixed && !isMove)
 		{
-			transform.position = followPosObj.transform.position;
+			//transform.position = followPosObj.transform.position;
+			transform.position = target.transform.position;
 		}
 
 
@@ -361,18 +363,22 @@ public class Bit_Formation_3 : MonoBehaviour
 				{
 					case 1:
 						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
 						break;
 
 					case 2:
 						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
 						break;
 
 					case 3:
 						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
 						break;
 
 					case 4:
 						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
 						break;
 				}
 				//option_OrdinalNum = 0;
@@ -396,37 +402,76 @@ public class Bit_Formation_3 : MonoBehaviour
 				{
 					case 1:
 						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
 						break;
 
 					case 2:
 						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
 						break;
 
 					case 3:
 						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
 						break;
 
 					case 4:
 						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
 						break;
 				}
 			}
 		}
 
 		//盗まれている状態かチェック
-		StolenCheck();
-
-		//盗まれた時の処理
-		if (isStolen)
+		if (!isStolen)
 		{
+			StolenCheck();
+
+		}
+		//盗まれた時の処理
+		else if (isStolen)
+		{
+			target = followPositions_Script.huntPos[huntMoveNum - 1];
+			b_Shot.isShot = false;
+			b_Shot.laser_Obj.SetActive(false);
+			//followPosObj = null;
+
+			switch (option_OrdinalNum)
+			{
+				case 1:
+					FtoPlayer.hasOption = false;
+					break;
+
+				case 2:
+					FtoPBit_Second.hasOption = false;
+					break;
+
+				case 3:
+					FtoPBit_Third.hasOption = false;
+					break;
+
+				case 4:
+					FtoPBit_Fourth.hasOption = false;
+					break;
+			}
+
 			if (bState == BitState.Player1)
 			{
-
+				if (pl1.bitIndex == option_OrdinalNum)
+				{
+					pl1.bitIndex -= huntNum;
+				}
 			}
 			else if (bState == BitState.Player2)
 			{
-
+				if (pl2.bitIndex == option_OrdinalNum)
+				{
+					pl2.bitIndex -= huntNum;
+				}
 			}
+
+
 		}
 
 
@@ -463,6 +508,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		//}
 		//------------------------------------------------
 	}
+	//------------------Updata終わり------------------
+
 
 	//------------------ここから関数------------------
 
@@ -1119,12 +1166,13 @@ public class Bit_Formation_3 : MonoBehaviour
 		//右の画面外壁に当たったとき（盗まれた後に当たったとき用）
 		if (col.gameObject.tag == "WallRight")
 		{
-			if (isStolen)
+			if (isStolen || isFirstStolen)
 			{
 				isborn = true;
 
 				followPosObj = null;                //追従オブジェクト参照をなくす
-
+				isFirstStolen = false;
+				isStolen = false;
 				if (option_OrdinalNum == 4)
 				{
 
@@ -1133,34 +1181,34 @@ public class Bit_Formation_3 : MonoBehaviour
 
 			}
 			//自分が何番目のオプションか見る
-			switch (option_OrdinalNum)
-			{
-				case 1:
-					//FtoPlayer.isStolen = true;
-					break;
+			//switch (option_OrdinalNum)
+			//{
+			//	case 1:
+			//		//FtoPlayer.isStolen = true;
+			//		break;
 
-				case 2:
-					if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
-					{
+			//	case 2:
+			//		if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
+			//		{
 
-					}
-					break;
+			//		}
+			//		break;
 
-				case 3:
-					if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
-					{
+			//	case 3:
+			//		if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
+			//		{
 
-					}
-					break;
+			//		}
+			//		break;
 
-				case 4:
-					if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
-					{
+			//	case 4:
+			//		if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
+			//		{
 
-					}
-					break;
+			//		}
+			//		break;
 
-			}
+			//}
 
 		}
 
@@ -1169,14 +1217,18 @@ public class Bit_Formation_3 : MonoBehaviour
 		{
 			if (col.gameObject.GetComponent<OptionHunter>().isHunt == false)
 			{
+				col.gameObject.GetComponent<OptionHunter>().isHunt = true;
 				isFirstStolen = true;
-
+				huntMoveNum = 1;
+				target = followPositions_Script.huntPos[huntMoveNum - 1];
 				if (bState == Bit_Formation_3.BitState.Player1)
 				{
+					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
 					huntNum = pl1.bitIndex - option_OrdinalNum + 1;
 				}
 				else if (bState == Bit_Formation_3.BitState.Player2)
 				{
+					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
 					huntNum = pl2.bitIndex - option_OrdinalNum + 1;
 				}
 
@@ -1226,10 +1278,25 @@ public class Bit_Formation_3 : MonoBehaviour
 	//盗まれている状態かチェックする
 	void StolenCheck()
 	{
-		if(option_Script.isFirstStolen)
+		if (option_OrdinalNum != 1)
 		{
-			isStolen = true;
+			if (option_Script.isFirstStolen || option_Script.isStolen)
+			{
+				huntNum = option_Script.huntNum;
+				if (bState == Bit_Formation_3.BitState.Player1)
+				{
+					//自分の移動位置＝自分の番号－プレイヤーの所持数＋盗まれた数
+					huntMoveNum = option_OrdinalNum - pl1.bitIndex + huntNum;
+				}
+				else if (bState == Bit_Formation_3.BitState.Player2)
+				{
+					//自分の移動位置＝自分の番号－プレイヤーの所持数＋盗まれた数
+					huntMoveNum = option_OrdinalNum - pl2.bitIndex + huntNum;
 
+				}
+				isStolen = true;
+
+			}
 		}
 		//自分が何番目のオプションか見る
 		//switch (option_OrdinalNum)

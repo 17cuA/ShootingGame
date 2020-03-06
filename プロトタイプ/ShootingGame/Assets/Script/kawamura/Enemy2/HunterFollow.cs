@@ -24,7 +24,9 @@ public class HunterFollow : MonoBehaviour
 	FollowToPreviousBit FtoPBit_Fourth_2P;         //四番目の位置のスクリプト情報P2
 
 	public string parentName;
-	FollowPositions followParent_Script;    //4つの追従位置の親スクリプト
+	public FollowPositions followParent1P_Script;    //4つの追従位置の親スクリプト
+	public FollowPositions followParent2P_Script;    //4つの追従位置の親スクリプト
+
 	public FollowToPreviousBit followBit_Script;
 
 	public Vector3[] previousPos;
@@ -54,10 +56,12 @@ public class HunterFollow : MonoBehaviour
 		parentName = parentObj.name;
 
 		//int cnt = 0;
-		array_Num = 9;
+		array_Num = 20;
 		previousPos = new Vector3[array_Num];
 
 		pos = previousObj.transform.position;
+
+		followParent1P_Script = GameObject.Find("Four_FollowPos_1P").GetComponent<FollowPositions>();
 
 		//追従位置取得
 		followPosFirstObj_1P = GameObject.Find("FollowPosFirst_1P");
@@ -71,16 +75,23 @@ public class HunterFollow : MonoBehaviour
 		followPosFourthObj_1P = GameObject.Find("FollowPosFourth_1P");
 		FtoPBit_Fourth_1P = followPosFourthObj_1P.GetComponent<FollowToPreviousBit>();
 
-		followPosFirstObj_2P = GameObject.Find("FollowPosFirst_2P");
 
-		FtoPBit_Second_2P = followPosSecondObj_2P.GetComponent<FollowToPreviousBit>();
-		followPosSecondObj_2P = GameObject.Find("FollowPosSecond_2P");
+		if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
+		{
+			followParent2P_Script = GameObject.Find("Four_FollowPos_2P").GetComponent<FollowPositions>();
 
-		FtoPBit_Third_2P = followPosThirdObj_2P.GetComponent<FollowToPreviousBit>();
-		followPosThirdObj_2P = GameObject.Find("FollowPosThird_2P");
+			followPosFirstObj_2P = GameObject.Find("FollowPosFirst_2P");
 
-		FtoPBit_Fourth_2P = followPosFourthObj_2P.GetComponent<FollowToPreviousBit>();
-		followPosFourthObj_2P = GameObject.Find("FollowPosFourth_2P");
+			FtoPBit_Second_2P = followPosSecondObj_2P.GetComponent<FollowToPreviousBit>();
+			followPosSecondObj_2P = GameObject.Find("FollowPosSecond_2P");
+
+			FtoPBit_Third_2P = followPosThirdObj_2P.GetComponent<FollowToPreviousBit>();
+			followPosThirdObj_2P = GameObject.Find("FollowPosThird_2P");
+
+			FtoPBit_Fourth_2P = followPosFourthObj_2P.GetComponent<FollowToPreviousBit>();
+			followPosFourthObj_2P = GameObject.Find("FollowPosFourth_2P");
+		}
+
 	}
 
 	void Update()
@@ -130,147 +141,147 @@ public class HunterFollow : MonoBehaviour
 		}
 
 		//ハンターが盗んでいたら
-		if (hunter_Script.isHunt && isSet)
-		{
-			//パターン2
-			//盗んだ場所を見る
-			switch(hunter_Script.huntOptionNum)
-			{
-				//1つ目を盗んでいた時
-				case 1:
-					//盗んだ数を見る
-					switch(hunter_Script.huntNum)
-					{
-						//1個盗んでいたら
-						case 1:
-							//なにもしない
-							break;
+		//if (hunter_Script.isHunt && isSet)
+		//{
+		//	//パターン2
+		//	//盗んだ場所を見る
+		//	switch(hunter_Script.huntOptionNum)
+		//	{
+		//		//1つ目を盗んでいた時
+		//		case 1:
+		//			//盗んだ数を見る
+		//			switch(hunter_Script.huntNum)
+		//			{
+		//				//1個盗んでいたら
+		//				case 1:
+		//					//なにもしない
+		//					break;
 						
-							//2個盗んでいたら
-						case 2:
-							if (myNumber == 2)
-							{
-								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
-								cnt = FtoPBit_Second_1P.cnt;
-							}
+		//					//2個盗んでいたら
+		//				case 2:
+		//					if (myNumber == 2)
+		//					{
+		//						transform.position = followPosSecondObj_1P.transform.position;
+		//						previousPos = FtoPBit_Second_1P.previousBitPos;
+		//						cnt = FtoPBit_Second_1P.cnt;
+		//					}
 
-							break;
+		//					break;
 						
-							//3個盗んでいたら
-						case 3:
-							if (myNumber == 2)
-							{
-								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
-								cnt = FtoPBit_Second_1P.cnt;
-							}
-							else if (myNumber == 3)
-							{
-								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
-								cnt = FtoPBit_Third_1P.cnt;
-							}
+		//					//3個盗んでいたら
+		//				case 3:
+		//					if (myNumber == 2)
+		//					{
+		//						transform.position = followPosSecondObj_1P.transform.position;
+		//						previousPos = FtoPBit_Second_1P.previousBitPos;
+		//						cnt = FtoPBit_Second_1P.cnt;
+		//					}
+		//					else if (myNumber == 3)
+		//					{
+		//						transform.position = followPosThirdObj_1P.transform.position;
+		//						previousPos = FtoPBit_Third_1P.previousBitPos;
+		//						cnt = FtoPBit_Third_1P.cnt;
+		//					}
 
-							break;
+		//					break;
 
-						//4個盗んでいたら
-						case 4:
-							if (myNumber == 2)
-							{
-								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
-								cnt = FtoPBit_Second_1P.cnt;
-							}
-							else if (myNumber == 3)
-							{
-								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
-								cnt = FtoPBit_Third_1P.cnt;
-							}
-							else if(myNumber == 4)
-							{
-								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
-								cnt = FtoPBit_Fourth_1P.cnt;
-							}
+		//				//4個盗んでいたら
+		//				case 4:
+		//					if (myNumber == 2)
+		//					{
+		//						transform.position = followPosSecondObj_1P.transform.position;
+		//						previousPos = FtoPBit_Second_1P.previousBitPos;
+		//						cnt = FtoPBit_Second_1P.cnt;
+		//					}
+		//					else if (myNumber == 3)
+		//					{
+		//						transform.position = followPosThirdObj_1P.transform.position;
+		//						previousPos = FtoPBit_Third_1P.previousBitPos;
+		//						cnt = FtoPBit_Third_1P.cnt;
+		//					}
+		//					else if(myNumber == 4)
+		//					{
+		//						transform.position = followPosFourthObj_1P.transform.position;
+		//						previousPos = FtoPBit_Fourth_1P.previousBitPos;
+		//						cnt = FtoPBit_Fourth_1P.cnt;
+		//					}
 
-							break;
+		//					break;
 
-					}
-					break;
+		//			}
+		//			break;
 
-				//2つ目を盗んでいた時
-				case 2:
-					//盗んだ数を見る
-					switch(hunter_Script.huntNum)
-					{
-						case 1:
-							//何もしない
-							break;
+		//		//2つ目を盗んでいた時
+		//		case 2:
+		//			//盗んだ数を見る
+		//			switch(hunter_Script.huntNum)
+		//			{
+		//				case 1:
+		//					//何もしない
+		//					break;
 						
-						//2個盗んでいたら
-						case 2:
-							if (myNumber == 2)
-							{
-								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
-								cnt = FtoPBit_Third_1P.cnt;
-							}
-							else if (myNumber == 3)
-							{
-								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
-								cnt = FtoPBit_Fourth_1P.cnt;
-							}
+		//				//2個盗んでいたら
+		//				case 2:
+		//					if (myNumber == 2)
+		//					{
+		//						transform.position = followPosThirdObj_1P.transform.position;
+		//						previousPos = FtoPBit_Third_1P.previousBitPos;
+		//						cnt = FtoPBit_Third_1P.cnt;
+		//					}
+		//					else if (myNumber == 3)
+		//					{
+		//						transform.position = followPosFourthObj_1P.transform.position;
+		//						previousPos = FtoPBit_Fourth_1P.previousBitPos;
+		//						cnt = FtoPBit_Fourth_1P.cnt;
+		//					}
 
-							break;
+		//					break;
 
-						//3個盗んでいたら
-						case 3:
-							if (myNumber == 2)
-							{
-								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
-								cnt = FtoPBit_Third_1P.cnt;
-							}
-							else if (myNumber == 3)
-							{
-								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
-								cnt = FtoPBit_Fourth_1P.cnt;
-							}
-							else if (myNumber == 4)
-							{
-								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
-								cnt = FtoPBit_Fourth_1P.cnt;
-							}
-							break;
+		//				//3個盗んでいたら
+		//				case 3:
+		//					if (myNumber == 2)
+		//					{
+		//						transform.position = followPosThirdObj_1P.transform.position;
+		//						previousPos = FtoPBit_Third_1P.previousBitPos;
+		//						cnt = FtoPBit_Third_1P.cnt;
+		//					}
+		//					else if (myNumber == 3)
+		//					{
+		//						transform.position = followPosFourthObj_1P.transform.position;
+		//						previousPos = FtoPBit_Fourth_1P.previousBitPos;
+		//						cnt = FtoPBit_Fourth_1P.cnt;
+		//					}
+		//					else if (myNumber == 4)
+		//					{
+		//						transform.position = followPosFourthObj_1P.transform.position;
+		//						previousPos = FtoPBit_Fourth_1P.previousBitPos;
+		//						cnt = FtoPBit_Fourth_1P.cnt;
+		//					}
+		//					break;
 
-						//4個盗んでいたら
-						case 4:
-							//何もしない
-							break;
+		//				//4個盗んでいたら
+		//				case 4:
+		//					//何もしない
+		//					break;
 
-					}
-					break;
+		//			}
+		//			break;
 
-				//3つ目を盗んでいた時
-				case 3:
-					//2個盗んだ時しか処理しないのでswichじゃない
-					if (hunter_Script.huntNum == 2)
-					{
-						transform.position = followPosFourthObj_1P.transform.position;
-						previousPos = FtoPBit_Fourth_1P.previousBitPos;
-						cnt = FtoPBit_Fourth_1P.cnt;
-					}
-					break;
+		//		//3つ目を盗んでいた時
+		//		case 3:
+		//			//2個盗んだ時しか処理しないのでswichじゃない
+		//			if (hunter_Script.huntNum == 2)
+		//			{
+		//				transform.position = followPosFourthObj_1P.transform.position;
+		//				previousPos = FtoPBit_Fourth_1P.previousBitPos;
+		//				cnt = FtoPBit_Fourth_1P.cnt;
+		//			}
+		//			break;
 
-				case 4:
-					//なにもしない
-					break;
-			}
-		}
+		//		case 4:
+		//			//なにもしない
+		//			break;
+		//	}
+		//}
 	}
 }
