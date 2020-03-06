@@ -399,27 +399,27 @@ public class FollowToPreviousBit : MonoBehaviour
 				savePos = transform.position;
 			}
 		}
-		else if (isStolen)
-		{
-			transform.parent = null;
-			if (isFollow1P)
-			{
-				if (pos == previousBitObj.transform.position)
-				{
-					isMove = false;
-				}
-				else if (pos != previousBitObj.transform.position)
-				{
-					isMove = true;
-					pos = previousBitObj.transform.position;
-				}
-			}
-			else if (isFollow2P)
-			{
+		//else if (isStolen)
+		//{
+		//	transform.parent = null;
+		//	if (isFollow1P)
+		//	{
+		//		if (pos == previousBitObj.transform.position)
+		//		{
+		//			isMove = false;
+		//		}
+		//		else if (pos != previousBitObj.transform.position)
+		//		{
+		//			isMove = true;
+		//			pos = previousBitObj.transform.position;
+		//		}
+		//	}
+		//	else if (isFollow2P)
+		//	{
 
-			}
-			transform.position = hunterObj.transform.position;
-		}
+		//	}
+		//	transform.position = hunterObj.transform.position;
+		//}
 
 		//リスポーン時の位置リセット
 		if (isFollow1P)
@@ -451,22 +451,22 @@ public class FollowToPreviousBit : MonoBehaviour
 			isResetPos = false;
 		}
 
-		if (myNumber == 2)
-		{
-			if (firstPos_Script.isStolen)
-			{
-				isStolen_Previous = true;
-				transform.parent = null;
+		//if (myNumber == 2)
+		//{
+		//	if (firstPos_Script.isStolen)
+		//	{
+		//		isStolen_Previous = true;
+		//		transform.parent = null;
 
-			}
-		}
-		else if (myNumber == 3 || myNumber == 4)
-		{
-			if (followBit_Script.isStolen || followBit_Script.isStolen_Previous)
-			{
-				isStolen_Previous = true;
-				transform.parent = null;
-			}
-		}
+		//	}
+		//}
+		//else if (myNumber == 3 || myNumber == 4)
+		//{
+		//	if (followBit_Script.isStolen || followBit_Script.isStolen_Previous)
+		//	{
+		//		isStolen_Previous = true;
+		//		transform.parent = null;
+		//	}
+		//}
 	}
 }
