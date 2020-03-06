@@ -56,7 +56,7 @@ public class HunterFollow : MonoBehaviour
 		parentName = parentObj.name;
 
 		//int cnt = 0;
-		array_Num = 20;
+		array_Num = 12;
 		previousPos = new Vector3[array_Num];
 
 		pos = previousObj.transform.position;
