@@ -74,11 +74,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9b7e6ed80d5728946933f01a3c197dc0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 26acf0b693f30ea47b668adc919b634e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_MaskMap:
@@ -86,7 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_NormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: daafecf7c3f38bc44a334813fae77b07, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -193,7 +193,7 @@ Material:
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
     - _NB_MaskMap_Volume: 1
-    - _NB_NormalMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5
