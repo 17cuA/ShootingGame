@@ -53,14 +53,14 @@ namespace TextDisplay
 {
 	public class Character_Display
 	{
-        private GameObject controler_obj;		// まとめようオブジェクト
+		private GameObject controler_obj;       // まとめようオブジェクト
 
-        public int Word_Count { set; get; }									// 文字数の保存場所
-		public string Resource_Path { private set; get; }					// 画像のパス
-        public Color Font_Color {private set; get;}                         // 文字の色
-		public List<GameObject> Character_Object { private set; get; }		// 表示用の一文字分の object
-		public List<Image> Display_Characters { private set; get; }			// 表示用の一文字分の Image コンポーネント
-        public bool Enable {private set; get;}                              // 表示するかしないか
+		public int Word_Count { set; get; }                                 // 文字数の保存場所
+		public string Resource_Path { private set; get; }                   // 画像のパス
+		public Color Font_Color { private set; get; }                         // 文字の色
+		public List<GameObject> Character_Object { private set; get; }      // 表示用の一文字分の object
+		public List<Image> Display_Characters { private set; get; }         // 表示用の一文字分の Image コンポーネント
+		public bool Enable { private set; get; }                              // 表示するかしないか
 		private Sprite[] Look { set; get; }                                 // PNGでできたフォントデータの保存場所
 
 		/// <summary>
@@ -68,19 +68,34 @@ namespace TextDisplay
 		/// </summary>
 		/// <param name="n"> 文字数 </param>
 		/// <param name="s"> 文字用画像の保存場所 </param>
+		/// <param name="t"> 全体操作用 </param>
 		/// <param name="v"> 文字の表示場所 </param>
 		public Character_Display(int n, string s, GameObject t, Vector3 v)
 		{
 			Word_Count = n;
 			SetControler(t);
-            controler_obj.transform.localPosition = v;
-            Character_Object = new List<GameObject>();
+			controler_obj.transform.localPosition = v;
+			Character_Object = new List<GameObject>();
 			Display_Characters = new List<Image>();
-            Font_Color = new Color(1.0f,1.0f,1.0f);
+			Font_Color = new Color(1.0f, 1.0f, 1.0f);
 			if (s != "")
 			{
 				Look_Load(s);
 			}
+		}
+		public Character_Display(string dText, string path, GameObject t, Vector3 v)
+		{
+			Word_Count = dText.Length;
+			SetControler(t);
+			controler_obj.transform.localPosition = v;
+			Character_Object = new List<GameObject>();
+			Display_Characters = new List<Image>();
+			Font_Color = new Color(1.0f, 1.0f, 1.0f);
+			if (path != "")
+			{
+				Look_Load(path);
+			}
+			Character_Preference(dText);
 		}
 
 		/// <summary>
@@ -105,23 +120,22 @@ namespace TextDisplay
 				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
-                    Vector2 posTemp = controler_obj.transform.position;
+					Vector2 posTemp = controler_obj.transform.position;
 
-                    for (int i = 0; i < Word_Count; i++)
+					for (int i = 0; i < Word_Count; i++)
 					{
 						Character_Object.Add(new GameObject());
-                        Character_Object[i].AddComponent<Image>();
+						Character_Object[i].AddComponent<Image>();
 						Display_Characters.Add(Character_Object[i].GetComponent<Image>());
-                        Character_Object[i].transform.position = posTemp;
-                        posTemp.x += 100.0f;
-                        Character_Object[i].transform.SetParent(controler_obj.transform);
-                    }
-                }
 
-				for (int i = 0; i < s.Length; i++)
-				{
-					Character_Object[i].name = "Character_" + s[i];
-					Display_Characters[i].sprite = Look[character_search(s[i])];
+						Character_Object[i].name = "Character_" + s[i];
+						Display_Characters[i].sprite = Look[character_search(s[i])];
+						Display_Characters[i].color = Font_Color;
+						Character_Object[i].transform.position = posTemp;
+						posTemp.x = s[i] == '\n' ? controler_obj.transform.position.x : 100.0f + posTemp.x;
+						posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
+						Character_Object[i].transform.SetParent(controler_obj.transform);
+					}
 				}
 			}
 			else if (s.Length > Word_Count)
@@ -247,7 +261,7 @@ namespace TextDisplay
 			// object の削除
 			foreach (GameObject obj1 in Character_Object)
 			{
-                MonoBehaviour.Destroy(obj1);
+				MonoBehaviour.Destroy(obj1);
 			}
 			Character_Object.Clear();
 		}
@@ -258,43 +272,43 @@ namespace TextDisplay
 		/// <param name="t"> キャンバスのアタッチされた object の </param>
 		public void SetControler(object t)
 		{
-            controler_obj = (GameObject)t;
-        }
+			controler_obj = (GameObject)t;
+		}
 
-        /// <summary>
-        /// 文字の大きさ替え
-        /// </summary>
-        /// <param name="size"> 各軸のサイズ </param>
-        public void Size_Change(Vector3 size)
-        {
+		/// <summary>
+		/// 文字の大きさ替え
+		/// </summary>
+		/// <param name="size"> 各軸のサイズ </param>
+		public void Size_Change(Vector3 size)
+		{
 			controler_obj.transform.localScale = size;
 		}
 
-        /// <summary>
-        /// 文字の色替え
-        /// </summary>
-        /// <param name="color"> 変更したい色 </param>
-        public void Color_Change(Color color)
-        {
-            Font_Color = color;
-            foreach (Image image in Display_Characters)
-            {
-                image.color = color;
-            }
-        }
+		/// <summary>
+		/// 文字の色替え
+		/// </summary>
+		/// <param name="color"> 変更したい色 </param>
+		public void Color_Change(Color color)
+		{
+			Font_Color = color;
+			foreach (Image image in Display_Characters)
+			{
+				image.color = color;
+			}
+		}
 
-        /// <summary>
-        /// 文字の表示、非表示の設定
-        /// </summary>
-        /// <param name="_enable"> コンポーネントの SetActive と同じ使い方 </param>
-        public void Set_Enable(bool _enable)
-        {
-            Enable = _enable;
-            foreach(Image image in Display_Characters)
-            {
-                image.enabled = _enable;
-            }
-        }
+		/// <summary>
+		/// 文字の表示、非表示の設定
+		/// </summary>
+		/// <param name="_enable"> コンポーネントの SetActive と同じ使い方 </param>
+		public void Set_Enable(bool _enable)
+		{
+			Enable = _enable;
+			foreach (Image image in Display_Characters)
+			{
+				image.enabled = _enable;
+			}
+		}
 
 		/// <summary>
 		/// 中央揃え
@@ -302,10 +316,11 @@ namespace TextDisplay
 		public void Centering()
 		{
 			float MovingDistance = (100.0f * Word_Count) / 2.0f;
-			for(int i = 0; i < Character_Object.Count;i++)
+			for (int i = 0; i < Character_Object.Count; i++)
 			{
 				Vector3 temp = Character_Object[i].transform.localPosition;
 				temp.x -= MovingDistance;
+				temp.y -= MovingDistance;
 
 				Character_Object[i].transform.localPosition = temp;
 			}
@@ -317,6 +332,36 @@ namespace TextDisplay
 		public void Position_Change(Vector3 next_pos)
 		{
 			controler_obj.transform.localPosition = next_pos;
+		}
+
+		public void CharacterSwitching(string s)
+		{
+			Initialization();
+			Character_Object = new List<GameObject>();
+			Display_Characters = new List<Image>();
+			Word_Count = s.Length;
+			controler_obj.name = s;
+			// 初期のとき
+			if (Character_Object.Count == 0)
+			{
+				Vector2 posTemp = controler_obj.transform.position;
+
+				for (int i = 0; i < Word_Count; i++)
+				{
+					Character_Object.Add(new GameObject());
+					Character_Object[i].AddComponent<Image>();
+					Display_Characters.Add(Character_Object[i].GetComponent<Image>());
+
+					Character_Object[i].name = "Character_" + s[i];
+					Display_Characters[i].sprite = Look[character_search(s[i])];
+					Display_Characters[i].color = Font_Color;
+
+					Character_Object[i].transform.position = posTemp;
+					posTemp.x = s[i] == '\n' ? controler_obj.transform.position.x : 100.0f + posTemp.x;
+					posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
+					Character_Object[i].transform.SetParent(controler_obj.transform);
+				}
+			}
 		}
 	}
 }
