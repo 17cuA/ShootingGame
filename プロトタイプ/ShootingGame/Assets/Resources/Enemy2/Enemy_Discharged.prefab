@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 286457610906399925}
   - component: {fileID: 286457610906399924}
+  - component: {fileID: 3463699446354673882}
   m_Layer: 0
   m_Name: Enemy_Discharged
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6251d4fad16764fb163c7b34a0eee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: ed2ba721806cd5742ba60eb4e1763cac, type: 2}
+  speed: 0
+  hp: 1
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  Collider: {fileID: 3463699446354673882}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  Opponent: 0
+  namenamename: 
   moveType: 0
   moveState: 2
   saveMoveState: 0
@@ -72,6 +93,20 @@ MonoBehaviour:
   speedStateCnt: 0
   once: 1
   isRotaReset: 1
+--- !u!136 &3463699446354673882
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286457610906399923}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4000901
+  m_Height: 1.1189404
+  m_Direction: 0
+  m_Center: {x: 0.04995489, y: 0.004757762, z: 0}
 --- !u!114 &286457611182061565
 MonoBehaviour:
   m_ObjectHideFlags: 0

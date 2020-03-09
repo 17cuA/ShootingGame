@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Discharge : MonoBehaviour
+public class Enemy_Discharge : character_status
 {
 	public enum MyDirection
 	{
@@ -53,13 +53,15 @@ public class Enemy_Discharge : MonoBehaviour
 	public int createDelayMax = 0;
 	public int createDelayCnt = 0;
 
-	void Start()
+	new void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
+
+		base.Start();
 	}
 
-	void Update()
+	new void Update()
     {
 		if (transform.position.x < 16)
 		{
@@ -123,6 +125,12 @@ public class Enemy_Discharge : MonoBehaviour
 
 		}
 
+		if (hp < 1)
+		{
+			Died_Process();
+		}
+
+		base.Update();
 		//if (createDelayCnt > createDelayMax)
 		//{
 		//	Instantiate(createObj, transform.position, transform.rotation);

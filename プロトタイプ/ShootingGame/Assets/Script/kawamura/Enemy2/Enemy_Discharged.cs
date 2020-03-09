@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Discharged : MonoBehaviour
+public class Enemy_Discharged : character_status
 {
 	//動きタイプ
 	public enum MoveType
@@ -90,7 +90,7 @@ public class Enemy_Discharged : MonoBehaviour
 	public bool once = true;        //一回だけ行う処理用
 	public bool isRotaReset = true;
 
-	void Start()
+	new void Start()
 	{
 		//モデル取得
 		modelObj = transform.GetChild(0).gameObject;
@@ -104,9 +104,11 @@ public class Enemy_Discharged : MonoBehaviour
 		once = true;
 		isSpeedYCangeEnd = false;
 		isSpeedXCangeEnd = false;
+
+		base.Start();
 	}
 
-	void Update()
+	new void Update()
 	{
 		//一回だけ行う
 		if (once)
@@ -195,7 +197,8 @@ public class Enemy_Discharged : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-			
+
+		base.Update();
 	}
 
 	//スピード変化関数
