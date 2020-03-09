@@ -2290,7 +2290,7 @@ PrefabInstance:
     - target: {fileID: 9143886380697283092, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 651533108548585492, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
@@ -2310,7 +2310,7 @@ PrefabInstance:
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
@@ -2430,12 +2430,12 @@ PrefabInstance:
     - target: {fileID: 9143886381999382331, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143886381999382331, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143886381999382331, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
@@ -3884,7 +3884,7 @@ PrefabInstance:
     - target: {fileID: 1484219840913843283, guid: c7b6ad37d00e9d54b9099d625f6aed47,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1484219840913843287, guid: c7b6ad37d00e9d54b9099d625f6aed47,
         type: 3}
@@ -4011,7 +4011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400576862, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1859160591, guid: c7b6ad37d00e9d54b9099d625f6aed47, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4927,14 +4927,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
+      propertyPath: audio_se.Array.size
+      value: 29
+      objectReference: {fileID: 0}
     - target: {fileID: 276323781233332384, guid: 36b6091bbac56154c89389fa88adf929,
         type: 3}
       propertyPath: EnemyCreate_Data
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1726588924, guid: 36b6091bbac56154c89389fa88adf929, type: 3}
-      propertyPath: audio_se.Array.size
-      value: 29
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b6091bbac56154c89389fa88adf929, type: 3}

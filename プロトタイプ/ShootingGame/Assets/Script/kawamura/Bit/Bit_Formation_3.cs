@@ -424,11 +424,11 @@ public class Bit_Formation_3 : MonoBehaviour
 			}
 		}
 
-		if (isFirstStolen && isStolenSetting)
+		if (isFirstStolen && !isStolenSetting)
 		{
 			target = followPositions_Script.huntPos[huntMoveNum - 1];
 
-			isStolenSetting = false;
+			isStolenSetting = true;
 
 			//switch (option_OrdinalNum)
 			//{

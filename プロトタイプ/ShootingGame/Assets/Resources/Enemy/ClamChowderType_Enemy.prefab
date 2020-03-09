@@ -69,9 +69,9 @@ MonoBehaviour:
   Bullet: {fileID: 2991237390569012986, guid: dd6002a5f2dd5894eaf9b0930a1dc5fa, type: 3}
   parentObj: {fileID: 0}
   myName: 
-  Shot_Delay: 0
+  Shot_DelayCnt: 0
   Shot_Delay_Max: 3.5
-  burst_delay: 0
+  burst_DelayCnt: 0
   burst_Delay_Max: 0
   burst_ShotNum: 0
   burst_Times: 0
@@ -127,9 +127,9 @@ MonoBehaviour:
   Bullet: {fileID: 0}
   parentObj: {fileID: 0}
   myName: 
-  Shot_Delay: 0
+  Shot_DelayCnt: 0
   Shot_Delay_Max: 1.5
-  burst_delay: 0
+  burst_DelayCnt: 0
   burst_Delay_Max: 1
   burst_ShotNum: 0
   burst_Times: 0
@@ -221,10 +221,9 @@ MonoBehaviour:
   hp: 1
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  capsuleCollider: {fileID: 568205021845882238}
+  Collider: {fileID: 0}
   Shot_DelayMax: 0
   Shot_Delay: 0
-  score: 1000
   activeShield: 0
   Remaining: 0
   v_Value: 0
@@ -272,7 +271,7 @@ MonoBehaviour:
   isSlerp: 0
   isNoSlerp: 1
   utsuttemasuyo: 0
-  Died_Attack: 0
+  Died_Attack: 1
   isFromBack: 0
   isBehind: 0
 --- !u!114 &2836861097102442329
@@ -398,6 +397,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5339504298699584438}
     m_Modifications:
+    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
+        type: 3}
+      propertyPath: m_Name
+      value: A100
+      objectReference: {fileID: 0}
     - target: {fileID: 1220375677657393113, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -453,11 +457,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1220375677657393112, guid: 4b0d21f7a21f6774bb4c099e6b3475cf,
-        type: 3}
-      propertyPath: m_Name
-      value: A100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b0d21f7a21f6774bb4c099e6b3475cf, type: 3}
 --- !u!1001 &5339504298699974966
@@ -471,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Bullfight
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 30fdf251b49345a4fb0f6a9aba9b5f80, type: 2}
     - target: {fileID: 400000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -527,10 +530,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 30fdf251b49345a4fb0f6a9aba9b5f80, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12e77bff8eeee444e84b9bcd1ae5ab29, type: 3}
 --- !u!1 &5339504298700009366 stripped

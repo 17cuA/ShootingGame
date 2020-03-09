@@ -60,8 +60,6 @@ MonoBehaviour:
   defeatedEnemyCnt: 0
   notDefeatedEnemyCnt: 0
   myName: 
-  itemTransform: {fileID: 0}
-  itemPos: {x: 0, y: 0, z: 0}
   isDead: 0
   isItemDrop: 1
 --- !u!1001 &2313670052232732733
@@ -151,6 +149,11 @@ PrefabInstance:
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
 --- !u!4 &8850651268947466179 stripped
@@ -229,7 +232,7 @@ PrefabInstance:
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Died_Attack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -255,6 +258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -369,7 +377,7 @@ PrefabInstance:
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Died_Attack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -395,6 +403,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -504,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Died_Attack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -530,6 +543,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -656,6 +674,11 @@ PrefabInstance:
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
@@ -776,6 +799,11 @@ PrefabInstance:
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Shot_Delay_Max
@@ -884,7 +912,7 @@ PrefabInstance:
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Died_Attack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -910,6 +938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -1036,6 +1069,11 @@ PrefabInstance:
       propertyPath: eState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7856f610b44523b45b729783e49c5753, type: 3}
 --- !u!4 &388700875657121134 stripped
@@ -1125,6 +1163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -1234,7 +1277,7 @@ PrefabInstance:
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
       propertyPath: Died_Attack
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
@@ -1260,6 +1303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: eState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541507908318001145, guid: 7856f610b44523b45b729783e49c5753,
+        type: 3}
+      propertyPath: haveItem
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6761423790994251535, guid: 7856f610b44523b45b729783e49c5753,
         type: 3}
