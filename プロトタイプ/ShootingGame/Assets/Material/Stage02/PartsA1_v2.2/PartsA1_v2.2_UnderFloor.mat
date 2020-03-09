@@ -78,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 2800000, guid: 6d2282099a02fa842873f73b4695332e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36986c98431ad4148acc1fd0b20bc8f1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
@@ -86,11 +86,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_MaskMap:
-        m_Texture: {fileID: 2800000, guid: 5837c29af9a9e5941b0fe50e7ca62d95, type: 3}
+        m_Texture: {fileID: 2800000, guid: c15dff4d40179334f9b8992337b42230, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_NormalMap:
-        m_Texture: {fileID: 2800000, guid: 3b0e5129464d75d4da32b2ff34763925, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb620e1aa1fabf14bb725278f61700d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -126,7 +126,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C2FC8B82: 0.5
+    - Boolean_CA2D3FB: 1
+    - Vector1_317D3539: 0.211
+    - Vector1_75E0A484: 0
+    - Vector1_C2FC8B82: 0.4
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -195,8 +198,8 @@ Material:
     - _MaterialID: 1
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
-    - _NB_MaskMap_Volume: 0.5
-    - _NB_NormalMap_Volume: 0.5
+    - _NB_MaskMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5
@@ -242,6 +245,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZWrite: 1
     m_Colors:
+    - Vector2_8778D9EE: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
