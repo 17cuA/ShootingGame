@@ -148,7 +148,7 @@ public class Wireless_sinario : MonoBehaviour
 			if (Time.time >= unShowTimer)
 			{
 				//無線のモードから通常のモードに治す
-				if (currentLine >= 2)
+				if (currentLine >= NowStory.Sinario.Count)
 				{
 					//S_No++;
 					No_cnt++;
