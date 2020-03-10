@@ -162,7 +162,11 @@ public class HunterFollow : MonoBehaviour
 							if (myNumber == 2)
 							{
 								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Second_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Second_1P.previousBitPos;
 								cnt = FtoPBit_Second_1P.cnt;
 							}
 
@@ -173,13 +177,22 @@ public class HunterFollow : MonoBehaviour
 							if (myNumber == 2)
 							{
 								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Second_1P.previousBitPos[i];
+								}
+
+								//previousPos = FtoPBit_Second_1P.previousBitPos;
 								cnt = FtoPBit_Second_1P.cnt;
 							}
 							else if (myNumber == 3)
 							{
 								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Third_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Third_1P.previousBitPos;
 								cnt = FtoPBit_Third_1P.cnt;
 							}
 
@@ -190,19 +203,31 @@ public class HunterFollow : MonoBehaviour
 							if (myNumber == 2)
 							{
 								transform.position = followPosSecondObj_1P.transform.position;
-								previousPos = FtoPBit_Second_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Second_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Second_1P.previousBitPos;
 								cnt = FtoPBit_Second_1P.cnt;
 							}
 							else if (myNumber == 3)
 							{
 								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Third_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Third_1P.previousBitPos;
 								cnt = FtoPBit_Third_1P.cnt;
 							}
 							else if (myNumber == 4)
 							{
 								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Fourth_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Fourth_1P.previousBitPos;
 								cnt = FtoPBit_Fourth_1P.cnt;
 							}
 
@@ -225,13 +250,21 @@ public class HunterFollow : MonoBehaviour
 							if (myNumber == 2)
 							{
 								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Third_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Third_1P.previousBitPos;
 								cnt = FtoPBit_Third_1P.cnt;
 							}
 							else if (myNumber == 3)
 							{
 								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Fourth_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Fourth_1P.previousBitPos;
 								cnt = FtoPBit_Fourth_1P.cnt;
 							}
 
@@ -242,19 +275,31 @@ public class HunterFollow : MonoBehaviour
 							if (myNumber == 2)
 							{
 								transform.position = followPosThirdObj_1P.transform.position;
-								previousPos = FtoPBit_Third_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Third_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Third_1P.previousBitPos;
 								cnt = FtoPBit_Third_1P.cnt;
 							}
 							else if (myNumber == 3)
 							{
 								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Fourth_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Fourth_1P.previousBitPos;
 								cnt = FtoPBit_Fourth_1P.cnt;
 							}
 							else if (myNumber == 4)
 							{
 								transform.position = followPosFourthObj_1P.transform.position;
-								previousPos = FtoPBit_Fourth_1P.previousBitPos;
+								for (int i = 0; i < array_Num; i++)
+								{
+									previousPos[i] = FtoPBit_Fourth_1P.previousBitPos[i];
+								}
+								//previousPos = FtoPBit_Fourth_1P.previousBitPos;
 								cnt = FtoPBit_Fourth_1P.cnt;
 							}
 							break;
@@ -273,7 +318,11 @@ public class HunterFollow : MonoBehaviour
 					if (hunter_Script.huntNum == 2)
 					{
 						transform.position = followPosFourthObj_1P.transform.position;
-						previousPos = FtoPBit_Fourth_1P.previousBitPos;
+						for (int i = 0; i < array_Num; i++)
+						{
+							previousPos[i] = FtoPBit_Fourth_1P.previousBitPos[i];
+						}
+						//previousPos = FtoPBit_Fourth_1P.previousBitPos;
 						cnt = FtoPBit_Fourth_1P.cnt;
 					}
 					break;
@@ -282,6 +331,7 @@ public class HunterFollow : MonoBehaviour
 					//なにもしない
 					break;
 			}
+			isSet = false;
 		}
 	}
 }
