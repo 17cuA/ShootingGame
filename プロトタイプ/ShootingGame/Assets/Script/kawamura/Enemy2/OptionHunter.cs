@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class OptionHunter : MonoBehaviour
 {
-	GameObject optionObj;
-	Player1 player1_Script;
+	public GameObject optionObj;
+	public Player1 player1_Script;
 	Player2 player2_Script;
 	public Bit_Formation_3 option_Script;
 	public FollowPositions followParent1P_Script;    //4つの追従位置の親スクリプト
 	public FollowPositions followParent2P_Script;    //4つの追従位置の親スクリプト
+
+	public Enemy_StagBeetle stagBeetle_Script;
 
 	public GameObject[] huntPosObj;
 
@@ -72,8 +74,11 @@ public class OptionHunter : MonoBehaviour
 
 				}
 			}
+			stagBeetle_Script.eState = Enemy_StagBeetle.State.HUNT;
+			//stagBeetle_Script.speed *= -1;
 			//huntNum = option_Script.option_OrdinalNum;
-			//isHunt = true;
+			isHunt = true;
+			option_Script.isHunterHit = true;
 		}
 	}
 }

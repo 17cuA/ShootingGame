@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
 public class Enemy_Discharged : character_status
 {
@@ -86,6 +87,13 @@ public class Enemy_Discharged : character_status
 	public int speedStateCnt = 0;
 
 	//ここまで180度カーブ用
+
+	//死亡時処理用
+	public Find_Angle fd;						//プレイヤーの方向を向くスクリプト取得用（死亡時攻撃に使う） パブリックで入れて
+	public Quaternion diedAttackRota;			//死んだ時に出す弾の角度範囲
+	public bool Died_Attack = false;
+	[Header("死亡時の弾発射の角度範囲()")]
+	public float diedAttack_RotaValue;
 
 	public bool once = true;        //一回だけ行う処理用
 	public bool isRotaReset = true;
@@ -198,9 +206,38 @@ public class Enemy_Discharged : character_status
 			Destroy(gameObject);
 		}
 
+		if (hp < 1)
+		{
+			if (Died_Attack)
+			{
+				//死亡時攻撃の処理
+				//int bulletSpread = 15;      //角度を広げるための変数
+				//複数発出すよう
+				//for (int i = 0; i < 3; i++)
+				//{
+				//	//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+				//	//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+				//	//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+
+				//	diedAttackRota = Quaternion.Euler(0, 0, angle_Script.degree + bulletSpread);
+
+				//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+				//	bulletSpread -= 15;     //広げる角度を変える
+				//}
+
+				diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
+			}
+
+			once = true;
+			Died_Process();
+		}
+
 		base.Update();
 	}
 
+	//----------------------ここから関数-------------------------
 	//スピード変化関数
 	void SpeedCange()
 	{

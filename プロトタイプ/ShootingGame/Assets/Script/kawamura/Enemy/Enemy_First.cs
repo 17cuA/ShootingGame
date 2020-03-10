@@ -113,17 +113,17 @@ public class Enemy_First : character_status
 			//{
 			//	//死亡時攻撃の処理
 			//	diedAttack_Transform = childObj.transform;
-			//	int rotaaaaa = 30;      //角度を広げるための変数
+			//	int bulletSpread = 30;      //角度を広げるための変数
 			//	//for (int i = 0; i < 5; i++)
 			//	//{
 			//	//	//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
 			//	//	//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
 			//	//	//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
 
-			//	//	//diedAttackRota = Quaternion.Euler(0, 0, fd.degree + rotaaaaa);
+			//	//	//diedAttackRota = Quaternion.Euler(0, 0, fd.degree + bulletSpread);
 
 			//	//	//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
-			//	//	//rotaaaaa -= 15;		//広げる角度を変える
+			//	//	//bulletSpread -= 15;		//広げる角度を変える
 			//	//}
 
 			//	//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
