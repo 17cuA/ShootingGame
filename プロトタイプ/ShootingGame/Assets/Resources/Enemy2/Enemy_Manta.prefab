@@ -242,13 +242,8 @@ MonoBehaviour:
   white_material: {fileID: 0}
   Opponent: 0
   namenamename: 
-  Shot_Mazle:
-  - {fileID: 0}
-  - {fileID: 1859306554}
-  Beam_DelayMax: 0
-  Beam_Bullet: {fileID: 0}
-  Laser_Bullet: {fileID: 0}
-  Beam_Mazle: []
+  animationPlayer: {fileID: 0}
+  boss_one_a111: {fileID: 0}
 --- !u!1 &5949193446808739363
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,15 +559,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1859306555}
     m_Modifications:
-    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
-      propertyPath: m_Name
-      value: Manta_LaserCharge
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804364109606847, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 510804363195435762, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
@@ -629,6 +619,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: m_Name
+      value: Manta_LaserCharge
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 510804363195435773, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: stopAction
@@ -658,11 +658,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804364109606847, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 510804364049507059, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
@@ -726,7 +721,7 @@ PrefabInstance:
     - target: {fileID: 1200566104663934366, guid: db5f2b2ac5d81844ab61180583ba4f94,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1200566104663934357, guid: db5f2b2ac5d81844ab61180583ba4f94,
         type: 3}
