@@ -78,19 +78,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 2800000, guid: ff2d2096d3372c7488c93f733096552f, type: 3}
+        m_Texture: {fileID: 2800000, guid: aca72422213b6c34da3ab5d1c27ce6c1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
-        m_Texture: {fileID: 2800000, guid: c63ed1b3e6a77c040b8a5d1960da66d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1f86820690ddd5942917a943244a1233, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_MaskMap:
-        m_Texture: {fileID: 2800000, guid: 765ffbcf3e8e2504e977c92f62935962, type: 3}
+        m_Texture: {fileID: 2800000, guid: a39a5a549f359a342ada20d360bf2d4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_NormalMap:
-        m_Texture: {fileID: 2800000, guid: 2564f196fef80d740ba847aa004e13b2, type: 3}
+        m_Texture: {fileID: 2800000, guid: e88335f8608dbde4185426050fbcf80d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -126,7 +126,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C2FC8B82: 0.5
+    - Vector1_8C3730B: 0.211
+    - Vector1_C2FC8B82: 0.4
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -195,8 +196,8 @@ Material:
     - _MaterialID: 1
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
-    - _NB_MaskMap_Volume: 0.5
-    - _NB_NormalMap_Volume: 0.52
+    - _NB_MaskMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5

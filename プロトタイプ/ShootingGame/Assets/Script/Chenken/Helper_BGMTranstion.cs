@@ -22,11 +22,6 @@ public class Helper_BGMTranstion : MonoBehaviour
 	[SerializeField]
 	private List<BGM> BGMGroups = new List<BGM>();
 
-	[SerializeField] private AudioClip startBGMClip;
-	[SerializeField] private AudioClip oneBossBGMClip;
-	[SerializeField] private AudioClip oneBossOverBGMClip;
-	[SerializeField] private AudioClip twoBossBGMClip;
-
 	[SerializeField] private float fadeInStartVolume;
 	[SerializeField] private float fadeInTime;
 	private float fadeInTimer;

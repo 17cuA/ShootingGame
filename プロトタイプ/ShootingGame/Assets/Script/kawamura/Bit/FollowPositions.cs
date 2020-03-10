@@ -8,9 +8,14 @@ using UnityEngine;
 public class FollowPositions : MonoBehaviour
 {
 	GameObject playerObj;
+	public GameObject firstOption;
+	public GameObject secondOption;
+	public GameObject thirdOption;
+	public GameObject fourthOption;
 	public Vector3 pos;
 	public Vector3 defPos;
 	public Vector3 savePos;
+	public GameObject[] huntPos;		//盗まれた時の移動位置を入れる
 
 	Player1 pl1;
 	Player2 pl2;
@@ -32,10 +37,10 @@ public class FollowPositions : MonoBehaviour
 
 	private void Awake()
 	{
-		
+
 	}
 	void Start()
-    {
+	{
 		isResetPosEnd = false;
 		resetPosCnt = 0;
 		stolenCnt = 0;
@@ -56,11 +61,13 @@ public class FollowPositions : MonoBehaviour
 		{
 			isFollow2P = true;
 		}
-    }
+		huntPos = new GameObject[4];
+
+	}
 
 	void Update()
-    {
-		if(playerObj==null)
+	{
+		if (playerObj == null)
 		{
 			if (isFollow1P)
 			{
@@ -88,7 +95,7 @@ public class FollowPositions : MonoBehaviour
 			}
 		}
 
-		if(Input.GetButtonDown("LB"))
+		if (Input.GetButtonDown("LB"))
 		{
 			if (isCircle)
 			{
@@ -199,7 +206,7 @@ public class FollowPositions : MonoBehaviour
 			}
 			else if (isFollow2P)
 			{
-				pl2.Is_Resporn_End = false;				
+				pl2.Is_Resporn_End = false;
 			}
 			isResetPosEnd = true;
 			isFreeze = false;

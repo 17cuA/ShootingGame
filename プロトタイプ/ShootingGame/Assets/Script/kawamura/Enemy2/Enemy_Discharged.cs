@@ -127,6 +127,7 @@ public class Enemy_Discharged : MonoBehaviour
 				if (isRotaReset)
 				{
 					modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+					//modelObj.transform.rotation = Quaternion.Euler(0, 0, 0);
 					transform.rotation = Quaternion.Euler(0, 0, 0);
 				}
 				else

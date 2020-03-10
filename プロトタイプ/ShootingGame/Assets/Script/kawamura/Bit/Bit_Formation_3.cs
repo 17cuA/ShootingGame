@@ -35,6 +35,8 @@ public class Bit_Formation_3 : MonoBehaviour
 	public GameObject followPosSecondObj;       //二番目
 	public GameObject followPosThirdObj;        //三番目
 	public GameObject followPosFourthObj;       //四番目
+	public GameObject previousBitObj;			//一つ前のオプションオブジェクト
+	public Bit_Formation_3 option_Script;
 	public GameObject[] circlePosObjects;
 	public GameObject[] fixedPosObjects;
 
@@ -46,9 +48,9 @@ public class Bit_Formation_3 : MonoBehaviour
 	public ParticleSystem option_Particle;      //レーザーのパーティクルを取得するための変数
 
 	Bit_Shot b_Shot;                            //オプションの攻撃スクリプト情報
-	public Player1 pl1;                                //プレイヤースクリプト情報
+	public Player1 pl1;							//プレイヤースクリプト情報
 	public Player2 pl2;
-	FollowPositions followPositions_Script;			//4つの追従位置の親のスクリプト
+	FollowPositions followPositions_Script;		//4つの追従位置の親のスクリプト
 	FollowToPlayer_SameMotion FtoPlayer;        //プレイヤーに一番近い追従位置オブジェクトのスクリプト情報
 	FollowToPreviousBit FtoPBit_Second;         //二番目の位置のスクリプト情報
 	FollowToPreviousBit FtoPBit_Third;          //三番目の位置のスクリプト情報
@@ -67,7 +69,9 @@ public class Bit_Formation_3 : MonoBehaviour
 	int collectDelay;                           //死亡時すぐ取ってしまわないように当たり判定にディレイを持たせる
 
 	//int state_Num;							//オプションの状態を変えるための数字		
-	public int option_OrdinalNum;                      //オプション自身が何番目の追従位置にいるのかの番号
+	public int option_OrdinalNum;               //オプション自身が何番目の追従位置にいるのかの番号
+	public int huntNum = 0;                     //盗まれた数
+	public int huntMoveNum = 0;					//盗まれた先の位置番号
 
 	[SerializeField]
 	string myName;                              //自分の名前を入れる
@@ -83,8 +87,10 @@ public class Bit_Formation_3 : MonoBehaviour
 	//bool isPlayerDieCheck;					
 	public bool isborn = true;						//オプションが出現したときupdateで一回だけ行う処理用
 	public bool isDead = false;						//プレイヤーが死んで回収されるまでtrue、回収されたらfalse
-	public bool isCollection = false;				//回収されたときに使う
-	public bool isStolen;								//盗まれた状態
+	public bool isCollection = false;               //回収されたときに使う
+	public bool isFirstStolen = false;
+	public bool isStolen;                           //盗まれた状態
+	public bool isStolenSetting = false;                  //盗まれたあとの設定をしたかどうか
 	bool isCircle = false;
 	public bool isFixed = false;
 	public bool isMove = false;
@@ -276,7 +282,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		//追従位置を取得していtたらその位置にする
 		if (followPosObj && !isCircle && !isFixed && !isMove)
 		{
-			transform.position = followPosObj.transform.position;
+			//transform.position = followPosObj.transform.position;
+			transform.position = target.transform.position;
 		}
 
 
@@ -357,18 +364,22 @@ public class Bit_Formation_3 : MonoBehaviour
 				{
 					case 1:
 						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
 						break;
 
 					case 2:
 						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
 						break;
 
 					case 3:
 						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
 						break;
 
 					case 4:
 						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
 						break;
 				}
 				//option_OrdinalNum = 0;
@@ -392,25 +403,113 @@ public class Bit_Formation_3 : MonoBehaviour
 				{
 					case 1:
 						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
 						break;
 
 					case 2:
 						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
 						break;
 
 					case 3:
 						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
 						break;
 
 					case 4:
 						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
 						break;
 				}
 			}
 		}
 
+		if (isFirstStolen && !isStolenSetting)
+		{
+			target = followPositions_Script.huntPos[huntMoveNum - 1];
+
+			isStolenSetting = true;
+
+			//switch (option_OrdinalNum)
+			//{
+			//	case 1:
+			//		FtoPlayer.hasOption = false;
+			//		followPositions_Script.firstOption = null;
+			//		break;
+
+			//	case 2:
+			//		FtoPBit_Second.hasOption = false;
+			//		followPositions_Script.secondOption = null;
+			//		break;
+
+			//	case 3:
+			//		FtoPBit_Third.hasOption = false;
+			//		followPositions_Script.thirdOption = null;
+			//		break;
+
+			//	case 4:
+			//		FtoPBit_Fourth.hasOption = false;
+			//		followPositions_Script.fourthOption = null;
+			//		break;
+			//}
+		}
+		//}
 		//盗まれている状態かチェック
-		StolenCheck();
+		if (!isStolen)
+		{
+			StolenCheck();
+		}
+		//盗まれた時の処理
+		else if (isStolen)
+		{
+			if (!isStolenSetting)
+			{
+				target = followPositions_Script.huntPos[huntMoveNum - 1];
+				b_Shot.isShot = false;
+				b_Shot.laser_Obj.SetActive(false);
+				//followPosObj = null;
+
+				switch (option_OrdinalNum)
+				{
+					case 1:
+						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
+						break;
+
+					case 2:
+						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
+						break;
+
+					case 3:
+						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
+						break;
+
+					case 4:
+						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
+						break;
+				}
+
+				if (bState == BitState.Player1)
+				{
+					if (pl1.bitIndex == option_OrdinalNum)
+					{
+						pl1.bitIndex -= huntNum;
+					}
+				}
+				else if (bState == BitState.Player2)
+				{
+					if (pl2.bitIndex == option_OrdinalNum)
+					{
+						pl2.bitIndex -= huntNum;
+					}
+				}
+				isStolenSetting = true;
+			}
+		}
+
 
 		//死んでいたら
 		if (isDead)
@@ -445,6 +544,8 @@ public class Bit_Formation_3 : MonoBehaviour
 		//}
 		//------------------------------------------------
 	}
+	//------------------Updata終わり------------------
+
 
 	//------------------ここから関数------------------
 
@@ -499,6 +600,7 @@ public class Bit_Formation_3 : MonoBehaviour
 		if (!FtoPlayer.hasOption)
 		{
 			option_OrdinalNum = 1;
+			followPositions_Script.firstOption = this.gameObject;
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPlayer.hasOption = true;
 			followPosObj = followPosFirstObj;
@@ -532,7 +634,13 @@ public class Bit_Formation_3 : MonoBehaviour
 		//二番目の追従オブジェクトのオプション所持判定がなかった時
 		else if (!FtoPBit_Second.hasOption)
 		{
+			//自分の番号をいれる
 			option_OrdinalNum = 2;
+			//追従位置達の親に自分のオブジェクトをセットする
+			followPositions_Script.secondOption = this.gameObject;
+			//1つ前(1つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.firstOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Second.hasOption = true;
 			followPosObj = followPosSecondObj;
@@ -566,6 +674,10 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Third.hasOption)
 		{
 			option_OrdinalNum = 3;
+			followPositions_Script.thirdOption = this.gameObject;
+			//1つ前(2つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.secondOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Third.hasOption = true;
 			followPosObj = followPosThirdObj;
@@ -599,6 +711,10 @@ public class Bit_Formation_3 : MonoBehaviour
 		else if (!FtoPBit_Fourth.hasOption)
 		{
 			option_OrdinalNum = 4;
+			followPositions_Script.fourthOption = this.gameObject;
+			//1つ前(3つ目)のオプションとそのスクリプト取得
+			previousBitObj = followPositions_Script.thirdOption;
+			option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
 			//オプションを所持判定をtrue,参照する追従位置オブジェクトを入れる,位置を更新
 			FtoPBit_Fourth.hasOption = true;
 			followPosObj = followPosFourthObj;
@@ -663,11 +779,18 @@ public class Bit_Formation_3 : MonoBehaviour
 					//プレイヤーに一番近い追従位置オブジェクトがオプションを持っていなかったら
 					if (!FtoPlayer.hasOption)
 					{
+						//自分の番号セット
 						option_OrdinalNum = 1;
 						//取得判定true,一番近い位置オブジェクトのオプション所持判定true,参照する追従位置オブジェクト入れる,位置を更新
 						isCollection = true;
 						FtoPlayer.hasOption = true;
 						followPosObj = followPosFirstObj;
+
+						followPositions_Script.firstOption = this.gameObject;
+						//1つ前(1つ目)のオプション情報を消す
+						previousBitObj = null;
+						option_Script = null;
+
 						if (isCircle)
 						{
 							//target = circlePosObjects[option_OrdinalNum - 1];
@@ -701,6 +824,12 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Second.hasOption = true;
 						followPosObj = followPosSecondObj;
+
+						followPositions_Script.secondOption = this.gameObject;
+						//1つ前(1つ目)のオプションとそのスクリプト取得
+						previousBitObj = followPositions_Script.firstOption;
+						option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
+
 						if (isCircle)
 						{
 							//target = circlePosObjects[option_OrdinalNum - 1];
@@ -737,6 +866,12 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Third.hasOption = true;
 						followPosObj = followPosThirdObj;
+
+						followPositions_Script.thirdOption = this.gameObject;
+						//1つ前(1つ目)のオプションとそのスクリプト取得
+						previousBitObj = followPositions_Script.secondOption;
+						option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
+
 						if (isCircle)
 						{
 							target = circlePosObjects[option_OrdinalNum - 1];
@@ -773,6 +908,12 @@ public class Bit_Formation_3 : MonoBehaviour
 						isCollection = true;
 						FtoPBit_Fourth.hasOption = true;
 						followPosObj = followPosFourthObj;
+
+						followPositions_Script.fourthOption = this.gameObject;
+						//1つ前(1つ目)のオプションとそのスクリプト取得
+						previousBitObj = followPositions_Script.thirdOption;
+						option_Script = previousBitObj.GetComponent<Bit_Formation_3>();
+
 						if (isCircle)
 						{
 							//target = circlePosObjects[option_OrdinalNum - 1];
@@ -1084,48 +1225,20 @@ public class Bit_Formation_3 : MonoBehaviour
 		}
 
 		//右の画面外壁に当たったとき（盗まれた後に当たったとき用）
-		if (col.gameObject.tag == "WallRight")
+		if (col.gameObject.name == "WallRight")
 		{
-			if (isStolen)
+			if (isStolen || isFirstStolen)
 			{
 				isborn = true;
 
 				followPosObj = null;                //追従オブジェクト参照をなくす
-
+				isFirstStolen = false;
+				isStolen = false;
 				if (option_OrdinalNum == 4)
 				{
 
 				}
 				gameObject.SetActive(false);        //オブジェクトをオフにする
-
-			}
-			//自分が何番目のオプションか見る
-			switch (option_OrdinalNum)
-			{
-				case 1:
-					//FtoPlayer.isStolen = true;
-					break;
-
-				case 2:
-					if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
-					{
-
-					}
-					break;
-
-				case 3:
-					if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
-					{
-
-					}
-					break;
-
-				case 4:
-					if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
-					{
-
-					}
-					break;
 
 			}
 
@@ -1134,43 +1247,50 @@ public class Bit_Formation_3 : MonoBehaviour
 		//オプションハンターに当たった時
 		if (!isDead && col.gameObject.tag == "Hunter")
 		{
-			//自分が何番目のオプションか見る
-			switch(option_OrdinalNum)
+			if (col.gameObject.GetComponent<OptionHunter>().isHunt == false)
 			{
-				case 1:
-					FtoPlayer.isStolen = true;
-					
-					break;
+				col.gameObject.GetComponent<OptionHunter>().isHunt = true;
+				isFirstStolen = true;
+				b_Shot.isShot = false;
+				b_Shot.laser_Obj.SetActive(false);
 
-				case 2:
-					if (!FtoPlayer.isStolen)
-					{
-						FtoPBit_Second.isStolen = true;
-						isStolen = true;
-						FtoPBit_Second.hunterObj = col.gameObject;
-					}
-					break;
+				huntMoveNum = 1;
 
-				case 3:
-					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen)
-					{
-						FtoPBit_Third.isStolen = true;
-						isStolen = true;
-						FtoPBit_Third.hunterObj = col.gameObject;
+				//target = followPositions_Script.huntPos[huntMoveNum - 1];
+				
+				if (bState == Bit_Formation_3.BitState.Player1)
+				{
+					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+					huntNum = pl1.bitIndex - option_OrdinalNum + 1;
+				}
+				else if (bState == Bit_Formation_3.BitState.Player2)
+				{
+					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+					huntNum = pl2.bitIndex - option_OrdinalNum + 1;
+				}
 
-					}
-					break;
+				switch (option_OrdinalNum)
+				{
+					case 1:
+						FtoPlayer.hasOption = false;
+						followPositions_Script.firstOption = null;
+						break;
 
-				case 4:
-					if (!FtoPlayer.isStolen && !FtoPBit_Second.isStolen && !FtoPBit_Third.isStolen)
-					{
-						FtoPBit_Fourth.isStolen = true;
-						isStolen = true;
-						FtoPBit_Fourth.hunterObj = col.gameObject;
+					case 2:
+						FtoPBit_Second.hasOption = false;
+						followPositions_Script.secondOption = null;
+						break;
 
-					}
-					break;
+					case 3:
+						FtoPBit_Third.hasOption = false;
+						followPositions_Script.thirdOption = null;
+						break;
 
+					case 4:
+						FtoPBit_Fourth.hasOption = false;
+						followPositions_Script.fourthOption = null;
+						break;
+				}
 			}
 		}
 	}
@@ -1178,33 +1298,47 @@ public class Bit_Formation_3 : MonoBehaviour
 	//盗まれている状態かチェックする
 	void StolenCheck()
 	{
-		//自分が何番目のオプションか見る
-		switch (option_OrdinalNum)
+		if (option_OrdinalNum != 1)
 		{
-			case 1:
-				//FtoPlayer.isStolen = true;
-				break;
-
-			case 2:
-				if (FtoPBit_Second.isStolen || FtoPBit_Second.isStolen_Previous)
+			//一つ前のオプションが盗まれている状態だったら
+			if (option_Script.isFirstStolen || option_Script.isStolen)
+			{
+				huntNum = option_Script.huntNum;
+				if (bState == Bit_Formation_3.BitState.Player1)
 				{
-					isStolen = true;
+					//自分の移動位置＝自分の番号－プレイヤーの所持数＋盗まれた数
+					huntMoveNum = option_OrdinalNum - pl1.bitIndex + huntNum;
 				}
-				break;
-
-			case 3:
-				if (FtoPBit_Third.isStolen || FtoPBit_Third.isStolen_Previous)
+				else if (bState == Bit_Formation_3.BitState.Player2)
 				{
-					isStolen = true;
-				}
-				break;
+					//自分の移動位置＝自分の番号－プレイヤーの所持数＋盗まれた数
+					huntMoveNum = option_OrdinalNum - pl2.bitIndex + huntNum;
 
-			case 4:
-				if (FtoPBit_Fourth.isStolen || FtoPBit_Fourth.isStolen_Previous)
-				{
-					isStolen = true;
 				}
-				break;
+
+				//元の追従位置のオプション所持判定をなくす
+				switch (option_OrdinalNum)
+				{
+					case 1:
+						FtoPlayer.hasOption = false;
+						break;
+
+					case 2:
+						FtoPBit_Second.hasOption = false;
+						break;
+
+					case 3:
+						FtoPBit_Third.hasOption = false;
+						break;
+
+					case 4:
+						FtoPBit_Fourth.hasOption = false;
+						break;
+				}
+
+				isStolen = true;
+
+			}
 		}
 	}
 }

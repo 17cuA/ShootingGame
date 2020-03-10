@@ -34,7 +34,6 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;			//貝型エネミーのプレハブ
-	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;				//ハエ型エネミーのプレハブ
 	private GameObject BattleShip_Enemy_Prefab;					//戦艦型エネミーのプレハブ
 	private GameObject Star_Fish_Enemy_Prefab;					//ヒトデ型のエネミーのプレハブ
@@ -49,6 +48,12 @@ public class Obj_Storage : MonoBehaviour
 	#endregion
 
 	#region ステージ2
+	private GameObject Discharge_Prefab;                        //敵を生成する敵のプレハブ
+	private GameObject Discharged_Prefab;                       //↑から生成された敵のプレハブ
+	private GameObject FollowGround_Prefab;                     //地形に沿って動く敵
+	private GameObject StagBeetle_Prefab;                       //オプションハンターの敵のプレハブ
+	private GameObject Cannon_Prefab;                           //壁配置タイプの大砲
+	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
 
 	#endregion
 
@@ -94,7 +99,6 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling SmallBeam_Bullet_E;
 	public Object_Pooling UfoType_Enemy;
 	public Object_Pooling ClamChowderType_Enemy;
-	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling StarFish_Enemy;
@@ -108,6 +112,16 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
 	public Object_Pooling Moai_Eye_Laser;                       //モアイの目のレーザー
 	public Object_Pooling Moai_Mouth_Laser;                       //モアイの口のレーザー
+
+	#region ステージ2
+	public Object_Pooling Discharge_Enemy;			//敵を排出する敵
+	public Object_Pooling Discharged_Enemy;			//排出された敵
+	public Object_Pooling FollowGround_Enemy;		//地形を這って進む敵
+	public Object_Pooling StagBeetle_Enemy;			//オプションハンター
+	public Object_Pooling Cannon_Enemy;				//大砲の敵
+	public Object_Pooling OctopusType_Enemy;		//タコ型の敵
+
+	#endregion
 
 	#endregion
 
@@ -151,49 +165,46 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject container_prefab;
 	#endregion
 
+	#region 敵のプーリング
 	public Object_Pooling enemy_UFO_Group;
-    public Object_Pooling enemy_UFO_Group_NoneShot;
-    public Object_Pooling enemy_ClamChowder_Group_Two_Top;
-    public Object_Pooling enemy_ClamChowder_Group_Two_Under;
-    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyUp;
-    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyDown;
-    public Object_Pooling enemy_ClamChowder_Group_Three;
-    public Object_Pooling enemy_ClamChowder_Group_Three_Item;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
-    public Object_Pooling enemy_ClamChowder_Group_Four;
-    public Object_Pooling enemy_ClamChowder_Group_Four_NoItem;
-    public Object_Pooling enemy_ClamChowder_Group_Five;
-    public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
-    public Object_Pooling enemy_ClamChowder_Group_Seven;
-    //public Object_Pooling enemy_MiddleBoss_Father;
-    public Object_Pooling enemy_ClamChowder_Group_Straight;
-    public Object_Pooling enemy_Beelzebub_Group_FourWide;
-    public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
-    public Object_Pooling enemy_BeetleGroup;
-    public Object_Pooling enemy_BeetleGroup_Three;
-    public Object_Pooling boundMeteors;
-    public Object_Pooling enemy_Bacula_Sixteen;
-    public Object_Pooling enemy_Bacula_FourOnly;
-    //9月13日追加
-    public Object_Pooling enemy_ClamChowder_FourTriangle;
-    public Object_Pooling enemy_ClamChowder_FourTriangle_NoItem;
-    public Object_Pooling enemy_Beelzebub_Group_EightNormal_Item;
-    public Object_Pooling enemy_ClamChowder_Group_TwelveStraight;
-    public Object_Pooling enemy_UFO_Group_Five;
-    public Object_Pooling enemy_Beetle_Group_Seven;
-    public Object_Pooling enemy_ClamChowder_Group_SevenStraight;
-    public Object_Pooling enemy_ClamChowder_Group_SixStraight;
-    public Object_Pooling enemy_ClamChowder_Group_UpSevenDiagonal;
-    public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
-    public Object_Pooling enemy_ClamChowder_Group_TenStraight;
-
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
+	public Object_Pooling enemy_UFO_Group_NoneShot;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Top;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Under;
+	public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyUp;
+	public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyDown;
+	public Object_Pooling enemy_ClamChowder_Group_Three;
+	public Object_Pooling enemy_ClamChowder_Group_Three_Item;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+	public Object_Pooling enemy_ClamChowder_Group_Four;
+	public Object_Pooling enemy_ClamChowder_Group_Four_NoItem;
+	public Object_Pooling enemy_ClamChowder_Group_Five;
+	public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
+	public Object_Pooling enemy_ClamChowder_Group_Seven;
+	public Object_Pooling enemy_ClamChowder_Group_Straight;
+	public Object_Pooling enemy_Beelzebub_Group_FourWide;
+	public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
+	public Object_Pooling enemy_BeetleGroup;
+	public Object_Pooling enemy_BeetleGroup_Three;
+	public Object_Pooling boundMeteors;
+	public Object_Pooling enemy_Bacula_Sixteen;
+	public Object_Pooling enemy_Bacula_FourOnly;
+	public Object_Pooling enemy_ClamChowder_FourTriangle;
+	public Object_Pooling enemy_ClamChowder_FourTriangle_NoItem;
+	public Object_Pooling enemy_Beelzebub_Group_EightNormal_Item;
+	public Object_Pooling enemy_ClamChowder_Group_TwelveStraight;
+	public Object_Pooling enemy_UFO_Group_Five;
+	public Object_Pooling enemy_Beetle_Group_Seven;
+	public Object_Pooling enemy_ClamChowder_Group_SevenStraight;
+	public Object_Pooling enemy_ClamChowder_Group_SixStraight;
+	public Object_Pooling enemy_ClamChowder_Group_UpSevenDiagonal;
+	public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
+	public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 	public Object_Pooling Container;
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
-
+	//public Object_Pooling enemy_Octopas
+	#endregion
 	//----------------------------------------------------------
 
 	private void Awake()
@@ -307,7 +318,6 @@ public class Obj_Storage : MonoBehaviour
 				SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
 				UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 				ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
-				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject;
 				BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 				BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
@@ -473,7 +483,6 @@ public class Obj_Storage : MonoBehaviour
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 				ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
-				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 				BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 				BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 				StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
@@ -641,18 +650,29 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ステージ2個別ロード
-				container_prefab = Resources.Load("Enemy/Container") as GameObject;
-				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
+				container_prefab = Resources.Load("Enemy/Container") as GameObject;		//コンテナ
+				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;	//敵の弾
+				Discharge_Prefab = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;		//敵を排出する敵
+				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;	//↑が出す敵
+				FollowGround_Prefab = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;	//地形に沿って進む敵
+				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;			//壁についている敵
+				OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;	//タコ型の敵
 
 				#endregion
 
 				#region ステージ2個別プーリング化
-				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+				Discharge_Enemy = new Object_Pooling(Discharge_Prefab, 10, "Discharge_Enemy");          //敵を生成する敵の生成
+				Discharged_Enemy = new Object_Pooling(Discharged_Prefab, 20, "Discharged_Enemy");       //排出する敵が出す敵の生成
+				FollowGround_Enemy = new Object_Pooling(FollowGround_Prefab, 30, "FollowGround_Enemy");
+				StagBeetle_Enemy = new Object_Pooling(StagBeetle_Prefab, 10, "StagBeetle_Enemy");
+				Cannon_Enemy = new Object_Pooling(Cannon_Prefab, 10, "Cannon_Enemy");
+				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 
-				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
+
+
 				#endregion
 				break;
 

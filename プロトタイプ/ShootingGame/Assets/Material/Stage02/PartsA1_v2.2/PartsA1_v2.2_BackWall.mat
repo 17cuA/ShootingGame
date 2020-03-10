@@ -78,19 +78,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 2800000, guid: ff2d2096d3372c7488c93f733096552f, type: 3}
+        m_Texture: {fileID: 2800000, guid: aca72422213b6c34da3ab5d1c27ce6c1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
-        m_Texture: {fileID: 2800000, guid: c63ed1b3e6a77c040b8a5d1960da66d4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1f86820690ddd5942917a943244a1233, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_MaskMap:
-        m_Texture: {fileID: 2800000, guid: 765ffbcf3e8e2504e977c92f62935962, type: 3}
+        m_Texture: {fileID: 2800000, guid: a39a5a549f359a342ada20d360bf2d4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_NormalMap:
-        m_Texture: {fileID: 2800000, guid: 2564f196fef80d740ba847aa004e13b2, type: 3}
+        m_Texture: {fileID: 2800000, guid: e88335f8608dbde4185426050fbcf80d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -125,8 +125,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _UnlitColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C2FC8B82: 0.5
+    - Boolean_CA2D3FB: 1
+    - Vector1_317D3539: 1
+    - Vector1_75E0A484: 2.91
+    - Vector1_C2FC8B82: 0.4
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -160,6 +167,7 @@ Material:
     - _DistortionDepthTest: 1
     - _DistortionDstBlend: 1
     - _DistortionEnable: 0
+    - _DistortionOnly: 0
     - _DistortionScale: 1
     - _DistortionSrcBlend: 1
     - _DistortionVectorBias: -1
@@ -195,10 +203,10 @@ Material:
     - _MaterialID: 1
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
-    - _NB_MaskMap_Volume: 0.5
-    - _NB_NormalMap_Volume: 0.52
+    - _NB_MaskMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
-    - _NormalScale: 1
+    - _NormalScale: 1.48
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -211,7 +219,7 @@ Material:
     - _ShiverDirectionality: 0.5
     - _ShiverDrag: 0.2
     - _Smoothness: 0.5
-    - _SmoothnessRemapMax: 1
+    - _SmoothnessRemapMax: 0.26055115
     - _SmoothnessRemapMin: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
@@ -242,6 +250,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZWrite: 1
     m_Colors:
+    - Vector2_8778D9EE: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -257,3 +266,4 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
+    - _UnlitColor: {r: 1, g: 1, b: 1, a: 1}

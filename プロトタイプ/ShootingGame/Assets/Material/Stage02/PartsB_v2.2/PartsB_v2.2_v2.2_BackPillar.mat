@@ -14,7 +14,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    MotionVector: User
   disabledShaderPasses:
   - DistortionVectors
   - TransparentDepthPrepass
@@ -77,11 +78,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cd6bf1a402f169d4ea1ec184d12f4e0a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_Emissive:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d73d8882a6125d449a66bb862d89e137, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NB_MaskMap:
@@ -125,7 +126,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C2FC8B82: 0.5
+    - Vector1_317D3539: 0.211
+    - Vector1_C2FC8B82: 0.4
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -194,8 +196,8 @@ Material:
     - _MaterialID: 1
     - _Metallic: 0
     - _NB_BaseColor_Volume: 1
-    - _NB_MaskMap_Volume: 0.5
-    - _NB_NormalMap_Volume: 0
+    - _NB_MaskMap_Volume: 1
+    - _NB_NormalMap_Volume: 0.8
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _PPDLodThreshold: 5
