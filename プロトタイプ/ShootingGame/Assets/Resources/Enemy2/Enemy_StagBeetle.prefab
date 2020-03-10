@@ -57,6 +57,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed29aa3345aabf448d6e9e75e263c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionObj: {fileID: 0}
+  player1_Script: {fileID: 0}
+  option_Script: {fileID: 0}
+  followParent1P_Script: {fileID: 0}
+  followParent2P_Script: {fileID: 0}
+  stagBeetle_Script: {fileID: 4527578406316328788}
+  huntPosObj:
+  - {fileID: 716332720877419454}
+  - {fileID: 6103012493621415392}
+  - {fileID: 9088253842116778408}
+  - {fileID: 8816820733711614598}
   playerNum: 0
   huntOptionNum: 0
   huntNum: 0
@@ -143,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parameter: {fileID: 11400000, guid: 97ade13deba5a5b4da6aa723a3e08507, type: 2}
-  speed: 0
+  speed: 2
   hp: 18
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
@@ -163,9 +174,10 @@ MonoBehaviour:
   Opponent: 0
   namenamename: 
   eState: 0
-  speedMax: 0
+  speedMax: 3
   speedUpframeMax: 60
   addSpeed: 0
+  decSpeed: 0.05
   isSpeedUp: 0
   sinAngleFrame: 0
   sinAngleFrameMax: 120
@@ -205,7 +217,7 @@ BoxCollider:
   m_GameObject: {fileID: 3776511289223898296}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -265,6 +277,8 @@ MonoBehaviour:
   followPosThirdObj_2P: {fileID: 0}
   followPosFourthObj_2P: {fileID: 0}
   parentName: 
+  followParent1P_Script: {fileID: 0}
+  followParent2P_Script: {fileID: 0}
   followBit_Script: {fileID: 0}
   previousPos: []
   pos: {x: 0, y: 0, z: 0}
@@ -334,6 +348,8 @@ MonoBehaviour:
   followPosThirdObj_2P: {fileID: 0}
   followPosFourthObj_2P: {fileID: 0}
   parentName: 
+  followParent1P_Script: {fileID: 0}
+  followParent2P_Script: {fileID: 0}
   followBit_Script: {fileID: 0}
   previousPos: []
   pos: {x: 0, y: 0, z: 0}
@@ -403,6 +419,8 @@ MonoBehaviour:
   followPosThirdObj_2P: {fileID: 0}
   followPosFourthObj_2P: {fileID: 0}
   parentName: 
+  followParent1P_Script: {fileID: 0}
+  followParent2P_Script: {fileID: 0}
   followBit_Script: {fileID: 0}
   previousPos: []
   pos: {x: 0, y: 0, z: 0}

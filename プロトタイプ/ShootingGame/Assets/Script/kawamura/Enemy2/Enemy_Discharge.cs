@@ -4,8 +4,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StorageReference;
 
-public class Enemy_Discharge : MonoBehaviour
+public class Enemy_Discharge : character_status
 {
 	public enum MyDirection
 	{
@@ -53,14 +54,35 @@ public class Enemy_Discharge : MonoBehaviour
 	public int createDelayMax = 0;
 	public int createDelayCnt = 0;
 
-	void Start()
+	//死亡時処理用
+	Find_Angle fd;                              //プレイヤーの方向を向くスクリプト取得用（死亡時攻撃に使う） パブリックで入れて
+	public Quaternion diedAttackRota;           //死んだ時に出す弾の角度範囲
+	public bool Died_Attack = false;
+	[Header("死亡時の弾発射の角度範囲()")]
+	public float diedAttack_RotaValue;
+
+
+	bool once = true;
+
+	new void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
-		mapObj = GameObject.Find("Stage_02_Map").gameObject;
+		//mapObj = GameObject.Find("Stage_02_Map").gameObject;
+
+		base.Start();
 	}
 
-	void Update()
+	new void Update()
     {
+		if (once)
+		{
+			createGroupCnt = 0;
+			createGroupDelayCnt = 0;
+			createDelayCnt = 0;
+
+			once = false;
+		}
+
 		if (transform.position.x < 16)
 		{
 			//ひとまとまりを出すディレイカウントが最大を超えたら
@@ -123,6 +145,35 @@ public class Enemy_Discharge : MonoBehaviour
 
 		}
 
+		if (hp < 1)
+		{
+			if (Died_Attack)
+			{
+				//死亡時攻撃の処理
+				int bulletSpread = 180;      //角度を広げるための変数
+
+				//複数発出すよう
+				for (int i = 0; i < 7; i++)
+				{
+					//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+					//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+					//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+
+					diedAttackRota = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + bulletSpread);
+
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+					bulletSpread -= 30;     //広げる角度を変える
+				}
+
+				//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
+			}
+			once = true;
+			Died_Process();
+		}
+
+		base.Update();
 		//if (createDelayCnt > createDelayMax)
 		//{
 		//	Instantiate(createObj, transform.position, transform.rotation);

@@ -1242,9 +1242,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7286276924492221317}
   - component: {fileID: 7286276924453669810}
+  - component: {fileID: 5132873679993990113}
   m_Layer: 0
   m_Name: Enemy_Discharge
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1292,10 +1293,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0828ed1d5a608ee4091276a3bc172c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parameter: {fileID: 11400000, guid: 8f01a13660eb6c646bede26c7ae636c1, type: 2}
+  speed: 0
+  hp: 30
+  direction: {x: 0, y: 0, z: 0}
+  setColor: {x: 0, y: 0, z: 0, w: 0}
+  Collider: {fileID: 5132873679993990113}
+  Shot_DelayMax: 0
+  Shot_Delay: 0
+  activeShield: 0
+  Remaining: 0
+  v_Value: 0
+  defaultColor: []
+  childCnt: 0
+  object_material: []
+  isrend: 0
+  Is_Dead: 0
+  self_material: []
+  white_material: {fileID: 0}
+  Opponent: 0
+  namenamename: 
   myDirection: 0
   setMoveType: 0
   createObj: {fileID: 286457610906399923, guid: c8e2960f274da9a40a0c974940e341c2,
     type: 3}
+  mapObj: {fileID: 0}
   createGroupNum: 1
   createGroupCnt: 0
   createNum: 5
@@ -1304,6 +1326,22 @@ MonoBehaviour:
   createGroupDelayCnt: 0
   createDelayMax: 40
   createDelayCnt: 0
+  diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
+  Died_Attack: 1
+  diedAttack_RotaValue: 0
+--- !u!65 &5132873679993990113
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286276924492191717}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6465457, y: 0.48056108, z: 1}
+  m_Center: {x: 0.002181839, y: 0.22446442, z: 0}
 --- !u!1 &7286276924492191719
 GameObject:
   m_ObjectHideFlags: 0

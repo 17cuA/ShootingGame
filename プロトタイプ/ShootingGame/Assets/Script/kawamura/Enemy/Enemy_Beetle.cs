@@ -229,4 +229,5 @@ public class Enemy_Beetle : character_status
         moveY_Max = default_MoveY_Max;
         shot_DelayCnt = 0;
     }
+
 }

@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class EnemyCreate_TimeLine : MonoBehaviour
 {
@@ -77,6 +78,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	}
 	public EnemyInformation[] enemyInformation = new EnemyInformation[5];
 
+	private PlayableDirector Director { get; set; }             // デバッグ用プレイアブルディレクター
+
 	public int createNum;                   //次に出す順番の数
 	public string nextGroupName;        //次に出す敵の名前
 
@@ -88,12 +91,15 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		CreatePosUpload();
 		EnemyNameSet();
 		createNum = 1;
+		Director = GetComponent<PlayableDirector>();
 
 	}
 
 
 	void Update()
 	{
+		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
+		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) Director.time = 58.0;
 
 	}
 

@@ -252,21 +252,28 @@ public class character_status : MonoBehaviour
 				Damege_Process((int)BS.attack_damage);
 				Damege_Effect();
 
-				if(gameObject.name == "Bacula")
+				if (gameObject.name == "Bacula")
 				{
 					SE_Manager.SE_Obj.SE_Baculor(Obj_Storage.Storage_Data.audio_se[0]);
 				}
-				if(gameObject.name == "Shiled_father")
+				if (gameObject.name == "Shiled_father")
 				{
 					SE_Manager.SE_Obj.Boss_Core(Obj_Storage.Storage_Data.audio_se[7]);
 				}
 
 			}
-			else if(col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
+			else if (col.gameObject.name == "Player" || col.gameObject.name == "Player_2")
 			{
 				if (gameObject.name != "Enemy_Moai")
 				{
 					Damege_Process(3);
+				}
+			}
+			else if (col.tag == "Wall")
+			{
+				if (gameObject.name == "Enemy_Beetle")
+				{
+					hp = 0;
 				}
 			}
 		}

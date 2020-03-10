@@ -98,7 +98,7 @@ public class Bit_Shot : MonoBehaviour
 		//}
 
 		//死んでないくて盗まれていなくて打てる状態なら
-		if ((!bf.isDead && !bf.isStolen) && isShot)
+		if ((!bf.isDead && (!bf.isFirstStolen || !bf.isStolen)) && isShot)
 		{
 			if (bf.bState == Bit_Formation_3.BitState.Player1)
 			{
