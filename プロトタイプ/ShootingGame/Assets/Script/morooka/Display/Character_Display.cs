@@ -62,6 +62,7 @@ namespace TextDisplay
 		public List<Image> Display_Characters { private set; get; }         // 表示用の一文字分の Image コンポーネント
 		public bool Enable { private set; get; }                              // 表示するかしないか
 		private Sprite[] Look { set; get; }                                 // PNGでできたフォントデータの保存場所
+		public Vector3 FontSize { get; private set; }
 
 		/// <summary>
 		/// コンストラクタコンストラクタ
@@ -95,6 +96,7 @@ namespace TextDisplay
 			{
 				Look_Load(path);
 			}
+			FontSize = controler_obj.transform.localScale;
 			Character_Preference(dText);
 		}
 
@@ -121,6 +123,7 @@ namespace TextDisplay
 				if (Character_Object.Count == 0)
 				{
 					Vector2 posTemp = controler_obj.transform.position;
+					controler_obj.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
 
 					for (int i = 0; i < Word_Count; i++)
 					{
@@ -136,6 +139,8 @@ namespace TextDisplay
 						posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
 						Character_Object[i].transform.SetParent(controler_obj.transform);
 					}
+
+					controler_obj.transform.localScale = FontSize;
 				}
 			}
 			else if (s.Length > Word_Count)
@@ -282,6 +287,7 @@ namespace TextDisplay
 		public void Size_Change(Vector3 size)
 		{
 			controler_obj.transform.localScale = size;
+			FontSize = controler_obj.transform.localScale;
 		}
 
 		/// <summary>
@@ -320,9 +326,30 @@ namespace TextDisplay
 			{
 				Vector3 temp = Character_Object[i].transform.localPosition;
 				temp.x -= MovingDistance;
-				temp.y -= MovingDistance;
 
 				Character_Object[i].transform.localPosition = temp;
+			}
+		}
+
+		/// <summary>
+		/// 右揃え
+		/// </summary>
+		public void RightAlign()
+		{
+			int lead = 0;
+			for (int i = 1; i < Character_Object.Count;i++)
+			{
+				if(Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
+				{
+					Vector3 temp = new Vector3(0.0f, Character_Object[i - 1].transform.localPosition.y, 0.0f);
+					for (int j = lead; j < i; j++)
+					{
+						Character_Object[j].transform.localPosition = temp;
+						temp.x += 100.0f;
+					}
+
+					lead = i;
+				}
 			}
 		}
 
@@ -345,6 +372,7 @@ namespace TextDisplay
 			if (Character_Object.Count == 0)
 			{
 				Vector2 posTemp = controler_obj.transform.position;
+				controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 				for (int i = 0; i < Word_Count; i++)
 				{
@@ -361,6 +389,8 @@ namespace TextDisplay
 					posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
 					Character_Object[i].transform.SetParent(controler_obj.transform);
 				}
+
+				controler_obj.transform.localScale = FontSize;
 			}
 		}
 	}
