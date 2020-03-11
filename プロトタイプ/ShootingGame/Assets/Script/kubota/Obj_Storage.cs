@@ -120,7 +120,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling StagBeetle_Enemy;			//オプションハンター
 	public Object_Pooling Cannon_Enemy;				//大砲の敵
 	public Object_Pooling OctopusType_Enemy;		//タコ型の敵
-
+	
 	#endregion
 
 	#endregion
@@ -543,10 +543,10 @@ public class Obj_Storage : MonoBehaviour
 				#region ステージ２
 				#region レギュラーのバレット系
 				Bullet_Prefab_E = Resources.Load("Bullet/Enemy_Bullet") as GameObject;
-				Beam_Bullet_E_Prefab = Resources.Load("Bullet/Beam_Bullet") as GameObject;
+				Beam_Bullet_E_Prefab = Resources.Load("Bullet/Bullet_ReflectLaser") as GameObject;		//マンタ型が死んだときに出すレーザー型の弾
 
 				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
-				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 10, "Enemy_Beam_Bullet");      // エネミーのビーム型バレットを生成
+				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 36, "Enemy_Beam_Bullet");      // マンタ型が死んだときに出すレーザー型の弾
 				#endregion
 
 				#region エフェクトのロード

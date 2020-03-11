@@ -250,6 +250,7 @@ public class Wireless_sinario : MonoBehaviour
 					//二面の無線
 					else
 					{
+						if (No_cnt == Sinario_No.Second_half_boss_before) SceneManager.LoadScene("End_roll");
 						switch (No_cnt)
 						{
 							case Sinario_No.Curtain_up:
