@@ -8,6 +8,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class Wireless_sinario : MonoBehaviour
 {
+	public enum Stage_No
+	{
+		Stage1,
+		Stage2,
+	}
+
+	public Stage_No Stage;
+
+
 	public enum Sinario_No
 	{
 		Curtain_up,                         //開戦時
@@ -40,6 +49,7 @@ public class Wireless_sinario : MonoBehaviour
 		}
 
 	}
+
 
 	[SerializeField]
 	private List<Story> StoryGroups = new List<Story>();
@@ -196,42 +206,81 @@ public class Wireless_sinario : MonoBehaviour
 			{
 				if (currentLine > 0)
 				{
-					switch (No_cnt)
+					//1面の無線
+					if(Stage == Stage_No.Stage1)
 					{
-						case Sinario_No.Curtain_up:
-							//開戦時
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.First_Wireless[0]);
-							break;
-						case Sinario_No.First_half_boss_before:
-							//前半ボス前
-							Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1Before_Wireless[0]);
-							break;
-						case Sinario_No.First_falf_boss_after:
-							//前半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1After_Wireless[0]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss1After_Wireless[1]);
-							break;
-						case Sinario_No.Middle_Boss_before:
-							//モアイの音声
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossBefore_Wireless[0]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossBefore_Wireless[1]);
-							break;
-						case Sinario_No.Middle_Boss_after:
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossAfter_Wireless[0]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.MiddleBossAfter_Wireless[1]);
-							break;
-						case Sinario_No.Second_half_boss_before:
-							//後半ボス前
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2Before_Wireless[0]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2Before_Wireless[1]);
-							break;
-						case Sinario_No.Second_half_boss_after:
-							//後半ボス後
-							if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2After_Wireless[0]);
-							else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Boss2After_Wireless[1]);
-							break;
-						default:
-							break;
+						switch (No_cnt)
+						{
+							case Sinario_No.Curtain_up:
+								//開戦時
+								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.First_Wireless[0]);
+								break;
+							case Sinario_No.First_half_boss_before:
+								//前半ボス前
+								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Second_Wireless[0]);
+								break;
+							case Sinario_No.First_falf_boss_after:
+								//前半ボス後
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Third_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Third_Wireless[1]);
+								break;
+							case Sinario_No.Middle_Boss_before:
+								//モアイの音声
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[1]);
+								break;
+							case Sinario_No.Middle_Boss_after:
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Fifth_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Fifth_Wireless[1]);
+								break;
+							case Sinario_No.Second_half_boss_before:
+								//後半ボス前
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Sixth_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Sixth_Wireless[1]);
+								break;
+							case Sinario_No.Second_half_boss_after:
+								//後半ボス後
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Seventh_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Seventh_Wireless[1]);
+								break;
+							default:
+								break;
+						}
+					}
+					//二面の無線
+					else
+					{
+						switch (No_cnt)
+						{
+							case Sinario_No.Curtain_up:
+								//2ステージ開始時
+								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.First_Wireless[0]);
+								break;
+							case Sinario_No.First_half_boss_before:
+								//研究所前
+								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Second_Wireless[0]);
+								break;
+							case Sinario_No.First_falf_boss_after:
+								//ブレイン戦１
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Third_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Third_Wireless[1]);
+								break;
+							case Sinario_No.Middle_Boss_before:
+								//ブレイン戦後
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[1]);
+								else if (currentLine == 3) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[2]);
+
+								break;
+							case Sinario_No.Middle_Boss_after:
+								//ラストブレン撃破後
+								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Fifth_Wireless[0]);
+								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Fifth_Wireless[1]);
+								break;
+							default:
+								break;
+						}
+
 					}
 
 				}

@@ -69,12 +69,12 @@ public class Obj_Storage : MonoBehaviour
 	[HideInInspector] public AudioClip[] PowerUpVoice = new AudioClip[8]; //VOICEを読み込むための配列
 
 	[HideInInspector] public AudioClip[] First_Wireless;
-	[HideInInspector] public AudioClip[] Boss1Before_Wireless;
-	[HideInInspector] public AudioClip[] Boss1After_Wireless;
-	[HideInInspector] public AudioClip[] MiddleBossBefore_Wireless;
-	[HideInInspector] public AudioClip[] MiddleBossAfter_Wireless;
-	[HideInInspector] public AudioClip[] Boss2Before_Wireless;
-	[HideInInspector] public AudioClip[] Boss2After_Wireless;
+	[HideInInspector] public AudioClip[] Second_Wireless;
+	[HideInInspector] public AudioClip[] Third_Wireless;
+	[HideInInspector] public AudioClip[] Forth_Wireless;
+	[HideInInspector] public AudioClip[] Fifth_Wireless;
+	[HideInInspector] public AudioClip[] Sixth_Wireless;
+	[HideInInspector] public AudioClip[] Seventh_Wireless;
 
 	#endregion
 
@@ -395,25 +395,25 @@ public class Obj_Storage : MonoBehaviour
 				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 
 				First_Wireless = new AudioClip[1];
-				Boss1Before_Wireless = new AudioClip[1];
-				Boss1After_Wireless = new AudioClip[2];
-				MiddleBossBefore_Wireless = new AudioClip[2];
-				MiddleBossAfter_Wireless = new AudioClip[2];
-				Boss2Before_Wireless = new AudioClip[2];
-				Boss2After_Wireless = new AudioClip[2];
+				Second_Wireless = new AudioClip[1];
+				Third_Wireless = new AudioClip[2];
+				Forth_Wireless = new AudioClip[2];
+				Fifth_Wireless = new AudioClip[2];
+				Sixth_Wireless = new AudioClip[2];
+				Seventh_Wireless = new AudioClip[2];
 
 				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				Boss1Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				Boss1After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
-				Boss1After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
-				MiddleBossBefore_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				MiddleBossBefore_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				MiddleBossAfter_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
-				MiddleBossAfter_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
-				Boss2Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				Boss2Before_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				Boss2After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				Boss2After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
+				Second_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
+				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
+				Forth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
+				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
+				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
+				Sixth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				Sixth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				Seventh_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				Seventh_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_025");        //後半ボス後2
 				#endregion
 
 				enemy_UFO_Group_prefab = Resources.Load("Enemy/Enemy_UFO_Group") as GameObject;
@@ -612,25 +612,20 @@ public class Obj_Storage : MonoBehaviour
 				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
 
 				First_Wireless = new AudioClip[1];
-				Boss1Before_Wireless = new AudioClip[1];
-				Boss1After_Wireless = new AudioClip[2];
-				MiddleBossBefore_Wireless = new AudioClip[2];
-				MiddleBossAfter_Wireless = new AudioClip[2];
-				Boss2Before_Wireless = new AudioClip[2];
-				Boss2After_Wireless = new AudioClip[2];
+				Second_Wireless = new AudioClip[1];
+				Third_Wireless = new AudioClip[2];
+				Forth_Wireless = new AudioClip[3];
+				Fifth_Wireless = new AudioClip[2];
 
-				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				Boss1Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				Boss1After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
-				Boss1After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
-				MiddleBossBefore_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				MiddleBossBefore_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				MiddleBossAfter_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
-				MiddleBossAfter_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
-				Boss2Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				Boss2Before_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				Boss2After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				Boss2After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
+				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_026");        //開戦時
+				Second_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_027");        //研究所はいる前
+				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //脳みそ戦１
+				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //脳みそ戦２
+				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //脳みそ戦後１
+				Forth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //脳みそ戦後２
+				Forth_Wireless[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //脳みそ戦後３
+				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //ラスト脳みそ
+				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //ラスト脳みそ後1
 
 				#endregion
 
