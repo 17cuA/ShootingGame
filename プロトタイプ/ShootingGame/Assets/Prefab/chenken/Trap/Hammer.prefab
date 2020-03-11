@@ -74,7 +74,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664988652697133813}
-  m_Mesh: {fileID: 4300000, guid: 4901216c3f7ebb3489ebd0f3f870332c, type: 3}
+  m_Mesh: {fileID: 4300000, guid: b958c228a5d8d2f44a06cec7437122e9, type: 3}
 --- !u!23 &1664988652699335733
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4901216c3f7ebb3489ebd0f3f870332c, type: 3}
+  - {fileID: 2100000, guid: 6782d18f208193040aae139b08bda4dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,14 +156,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midPoint: {fileID: 1664988651962634478}
   movePoint: {fileID: 1664988653687902517}
-  gravity: 50
-  friction: 5
+  gravity: 40
+  friction: 4
   theltaLimit: 0.25
-  force: 17
+  force: 16
   afterForce: 9
-  invaildTime: 0.005
+  invaildTime: 0.08
   checkName:
-  - TestBullet(Clone)
+  - Player_Bullet
   isStepOne: 0
   isStepTwo: 0
   hasHitOnce: 0

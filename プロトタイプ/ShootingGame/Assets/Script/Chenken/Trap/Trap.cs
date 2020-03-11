@@ -25,6 +25,7 @@ public class Trap : MonoBehaviour
     private bool isHit = false;
 	public bool hasHitOnce = false;
 
+	private bool isRight = false;
 	[Header("位置設定")]
 	public bool isTop = false;
 
@@ -34,7 +35,9 @@ public class Trap : MonoBehaviour
 	}
 
     private void Update()
-    {  
+    {
+		isRight = movePoint.position.x >= midPoint.position.x;
+
         if (!canHit)
         {
             invaildTimer += Time.deltaTime;
@@ -48,7 +51,7 @@ public class Trap : MonoBehaviour
         if(isHit)
         {
             float r = Vector3.Distance(midPoint.position,movePoint.position);
-			w = !hasHitOnce ? force / r : afterForce / r; ;
+			w = !hasHitOnce ? force / r : afterForce / r;
 			if (hasHitOnce == false)
 				hasHitOnce = true;
             isStepOne = true;
@@ -59,16 +62,16 @@ public class Trap : MonoBehaviour
 
         if(isStepOne)
         {
-             float r = Vector3.Distance(midPoint.position,movePoint.position);
-            w -= (gravity - friction) / r * Time.deltaTime;
-            float thelta = w * Time.deltaTime * 180f / Mathf.PI;
-			transform.RotateAround(midPoint.position, transform.up, thelta);
 			if (w <= 0.1f)
-            {
+			{
 				rotateAxis = (isTop) ? Vector3.Cross(movePoint.position - midPoint.position, Vector3.down) : Vector3.Cross(movePoint.position - midPoint.position, Vector3.up); ;
 				isStepTwo = true;
-                isStepOne = false;
-            }
+				isStepOne = false;
+			}
+			float r = Vector3.Distance(midPoint.position,movePoint.position);
+            w -=  (isRight) ? (gravity - friction) / r * Time.deltaTime : -(gravity - friction) / r * Time.deltaTime;
+            float thelta = w * Time.deltaTime * 180f / Mathf.PI;
+			transform.RotateAround(midPoint.position, transform.up, thelta);
         }
         if (isStepTwo)
         {
@@ -104,7 +107,7 @@ public class Trap : MonoBehaviour
 	{
 		for(var i = 0; i < checkName.Count; ++i)
 		{
-			if (col.name == checkName[i])
+			if (col.tag == checkName[i])
 			{
 				if (canHit)
 				{

@@ -502,7 +502,6 @@ GameObject:
   - component: {fileID: 8303693229618038669}
   - component: {fileID: 8303693229615171503}
   - component: {fileID: 8303693229616137583}
-  - component: {fileID: 8303693229431424802}
   - component: {fileID: 8303693229431424829}
   m_Layer: 0
   m_Name: Brain
@@ -550,7 +549,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100010, guid: 2ed5ecd2720025a47989f7b1a675d1da, type: 3}
+  - {fileID: 2100000, guid: 23fb4519640b78f43a3a70bcdf88b8d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -570,19 +569,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8303693229431424802
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303693229618142125}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.32, y: 2.64, z: 1.45}
-  m_Center: {x: -0.000000007450581, y: -0.5035723, z: 0.89}
 --- !u!114 &8303693229431424829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,8 +596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8303693229618038671}
-  - component: {fileID: 8303693230075335031}
-  - component: {fileID: 8303693230075335028}
   m_Layer: 0
   m_Name: Boss_Brain2
   m_TagString: Untagged
@@ -642,71 +626,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: -90, z: 0}
---- !u!54 &8303693230075335031
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303693229618142127}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &8303693230075335028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303693229618142127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28c25c3f92253c429d5fbce8f240601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Parameter: {fileID: 0}
-  speed: 0
-  hp: 0
-  direction: {x: 0, y: 0, z: 0}
-  setColor: {x: 0, y: 0, z: 0, w: 0}
-  Collider: {fileID: 0}
-  Shot_DelayMax: 0
-  Shot_Delay: 0
-  activeShield: 0
-  Remaining: 0
-  v_Value: 0
-  defaultColor: []
-  childCnt: 0
-  object_material: []
-  isrend: 0
-  Is_Dead: 0
-  self_material: []
-  white_material: {fileID: 0}
-  Opponent: 0
-  namenamename: 
-  stateType: 2
-  freeMoveSpd: 5
-  freeMoveLimitY: 5
-  moveDir: 2
-  bulletShotTime: 0
-  laserShotTime: 0
-  eyeLaserShotTime: 0
-  fullPowerRotateSpd: 0
-  canUseLaser: 0
-  canUseEyeLaser: 0
-  canUseFullBulletPower: 0
-  brainDamageBox: {fileID: 0}
-  debutDuration: 0
-  waitDuration: 0
-  normalDuration: 0
-  angerDuration: 0
-  crazyDuration: 0
 --- !u!1 &8303693229618142141
 GameObject:
   m_ObjectHideFlags: 0
