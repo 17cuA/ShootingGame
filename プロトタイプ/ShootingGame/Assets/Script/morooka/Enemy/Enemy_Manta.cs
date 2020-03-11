@@ -92,6 +92,7 @@ public class Enemy_Manta : character_status
 
 	new private void Update()
 	{
+		base.Update();
 		if (stateManager.Current.StateType != StateType.DEATH)
 		{
 			chargeDevice.Execute();
@@ -226,7 +227,49 @@ public class Enemy_Manta : character_status
 		{
 			if(canShotDeathBullet)
 			{
+				var bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(Vector3.up, 90);
 
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(Vector3.down, 270);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(Vector3.left, 180);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(Vector3.right, 0);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(1,Mathf.Tan(30 * Mathf.Deg2Rad),0).normalized, 30);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(1, Mathf.Tan(60 * Mathf.Deg2Rad), 0).normalized, 60);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(-1, Mathf.Tan(120 * Mathf.Deg2Rad), 0).normalized, 120);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(-1, Mathf.Tan(150 * Mathf.Deg2Rad), 0).normalized, 150);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(-1, Mathf.Tan(210 * Mathf.Deg2Rad), 0).normalized, 210);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(-1, Mathf.Tan(240 * Mathf.Deg2Rad), 0).normalized, 240);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(1, Mathf.Tan(300 * Mathf.Deg2Rad), 0).normalized, 300);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
+				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(1, Mathf.Tan(330 * Mathf.Deg2Rad), 0).normalized, 330);
+				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
 			}
 			canShotDeathBullet = false;
 		}
