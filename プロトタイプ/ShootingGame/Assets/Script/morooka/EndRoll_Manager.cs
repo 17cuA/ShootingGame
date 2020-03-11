@@ -16,8 +16,8 @@ public class EndRoll_Manager : MonoBehaviour
 
 	private void Start()
 	{
-		endRoll_title = new Character_Display(texts[0].title, "morooka/SR", titleObject, titleObject.transform.localPosition);
-		endRoll_menber = new Character_Display(cc(texts[0].member), "morooka/SS", menberObject, menberObject.transform.localPosition);
+		endRoll_title = new Character_Display(0, "morooka/SR", titleObject, titleObject.transform.localPosition);
+		endRoll_menber = new Character_Display(0, "morooka/SS", menberObject, menberObject.transform.localPosition);
 
 		Vector3 size = new Vector3(0.5f, 0.5f, 0.5f);
 		endRoll_title.Size_Change(size);
@@ -88,8 +88,25 @@ public class EndRoll_Manager : MonoBehaviour
 	{
 		endRoll_title.CharacterSwitching(texts[i].title);
 		endRoll_menber.CharacterSwitching(cc(texts[i].member));
-		endRoll_title.Centering();
-		endRoll_menber.RightAlign();
+	}
+
+	public void CharacterStuffing(string s)
+	{
+		if(s == "L" || s == "l")
+		{
+			endRoll_title.LeftAlign();
+			endRoll_menber.LeftAlign();
+		}
+		else if(s == "R" || s == "r")
+		{
+			endRoll_title.RightAlign();
+			endRoll_menber.RightAlign();
+		}
+		else if(s=="C"|| s == "c")
+		{
+			endRoll_title.Centering();
+			endRoll_menber.Centering();
+		}
 	}
 
 	public void Alfa_Processing(int a)

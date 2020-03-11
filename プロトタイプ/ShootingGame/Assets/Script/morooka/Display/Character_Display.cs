@@ -321,22 +321,50 @@ namespace TextDisplay
 		/// </summary>
 		public void Centering()
 		{
-			float MovingDistance = (100.0f * Word_Count) / 2.0f;
-			for (int i = 0; i < Character_Object.Count; i++)
+			int lead = 0;
+			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
 			{
-				Vector3 temp = Character_Object[i].transform.localPosition;
-				temp.x -= MovingDistance;
+				Vector3 temp = new Vector3((Character_Object.Count - lead) * -50.0f, Character_Object[0].transform.localPosition.y, 0.0f);
+				for (int i = 0; i < Character_Object.Count; i++)
+				{
+					Character_Object[i].transform.localPosition = temp;
+					temp.x += 100.0f;
+				}
 
-				Character_Object[i].transform.localPosition = temp;
+				return;
+			}
+			for (int i = 1; i < Character_Object.Count; i++)
+			{
+				if (Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
+				{
+					Vector3 temp = new Vector3((i -lead) * -50.0f, Character_Object[i - 1].transform.localPosition.y, 0.0f);
+					for (int j = lead; j < i; j++)
+					{
+						Character_Object[j].transform.localPosition = temp;
+						temp.x += 100.0f;
+					}
+
+					lead = i;
+				}
 			}
 		}
 
 		/// <summary>
-		/// 右揃え
+		/// 左揃え
 		/// </summary>
-		public void RightAlign()
+		public void LeftAlign()
 		{
 			int lead = 0;
+			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
+			{
+				Vector3 temp = new Vector3(0.0f, Character_Object[0].transform.localPosition.y, 0.0f);
+				for (int i = lead; i < Character_Object.Count; i++)
+				{
+					Character_Object[i].transform.localPosition = temp;
+					temp.x += 100.0f;
+				}
+				return;
+			}
 			for (int i = 1; i < Character_Object.Count;i++)
 			{
 				if(Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
@@ -346,6 +374,38 @@ namespace TextDisplay
 					{
 						Character_Object[j].transform.localPosition = temp;
 						temp.x += 100.0f;
+					}
+
+					lead = i;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 右揃え
+		/// </summary>
+		public void RightAlign()
+		{
+			int lead = 0;
+			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
+			{
+				Vector3 temp = new Vector3(0.0f, Character_Object[0].transform.localPosition.y, 0.0f);
+				for (int i = Character_Object.Count-1; i > 0-1; i--)
+				{
+					Character_Object[i].transform.localPosition = temp;
+					temp.x -= 100.0f;
+				}
+				return;
+			}
+			for (int i = 1; i < Character_Object.Count; i++)
+			{
+				if (Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
+				{
+					Vector3 temp = new Vector3(0.0f, Character_Object[i - 1].transform.localPosition.y, 0.0f);
+					for (int j = i -1; j > lead-1; j--)
+					{
+						Character_Object[j].transform.localPosition = temp;
+						temp.x -= 100.0f;
 					}
 
 					lead = i;
