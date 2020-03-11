@@ -13,6 +13,9 @@ public class Enemy_Manta : character_status
 	[SerializeField] private Animation animationPlayer;
 	[SerializeField] private Boss_One_A111 chargeController;
 	[SerializeField] private GameObject laserColliderController;
+	[SerializeField] private ParticleSystem deathEffect;
+
+	private bool canShotDeathBullet = true;
 
 	public float chargeTime;
 	public float emitterTime;
@@ -76,6 +79,7 @@ public class Enemy_Manta : character_status
 		stateManager.Add(newState);
 
 		hitboxs = GetComponents<BoxCollider>();
+		deathEffect = transform.GetChild(6).GetComponent<ParticleSystem>();
 	}
 
 	new private void Start()
@@ -88,8 +92,12 @@ public class Enemy_Manta : character_status
 
 	new private void Update()
 	{
-		chargeDevice.Execute();
-		emitterDevice.Execute();
+		if (stateManager.Current.StateType != StateType.DEATH)
+		{
+			chargeDevice.Execute();
+			emitterDevice.Execute();
+		}
+
 		stateManager.Update();
 		stateType = stateManager.Current.StateType;
 	}
@@ -140,6 +148,13 @@ public class Enemy_Manta : character_status
 			stateManager.ChangeState(StateType.MOVE);
 			return;
 		}
+
+
+		if (hp < 1)
+		{
+			stateManager.ChangeState(StateType.DEATH);
+			return;
+		}
 	}
 
 	private void Wait_Exit()
@@ -168,7 +183,8 @@ public class Enemy_Manta : character_status
 			return;
 		}
 
-		if(hp < 1)
+
+		if (hp < 1)
 		{
 			stateManager.ChangeState(StateType.DEATH);
 			return;
@@ -186,11 +202,40 @@ public class Enemy_Manta : character_status
 		{
 			hitboxs[i].enabled = false;
 		}
+		deathEffect.gameObject.SetActive(true);
+
+		var changeTransfrom = transform;
+		for (var i = 0; i < changeTransfrom.childCount - 3; ++i)
+		{
+			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");
+		
+		}
 	}
 
 	private void Death_Update()
 	{
+		if(stateManager.Current.Timer <= 4f)
+		{
+			transform.GetChild(0).gameObject.SetActive(false);
+			transform.GetChild(1).gameObject.SetActive(false);
+			transform.GetChild(2).gameObject.SetActive(false);
+			transform.GetChild(3).gameObject.SetActive(false);
+		}
 
+		if(stateManager.Current.Timer <= 3.5f)
+		{
+			if(canShotDeathBullet)
+			{
+
+			}
+			canShotDeathBullet = false;
+		}
+
+		if(stateManager.Current.IsDone)
+		{
+			gameObject.SetActive(false);
+			return;
+		}
 	}
 
 	private void Death_Exit()

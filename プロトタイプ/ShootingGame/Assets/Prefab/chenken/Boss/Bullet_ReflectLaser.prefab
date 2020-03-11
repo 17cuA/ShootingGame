@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3978125650749351895}
   - component: {fileID: 2303569698635072825}
   m_Layer: 0
-  m_Name: ReflectLaser
+  m_Name: Bullet_ReflectLaser
   m_TagString: Enemy_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0c8d13a736294428c7716d82102e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shot_speed: 0
+  attack_damage: 0
+  Travelling_Direction: {x: 0, y: 0, z: 0}
+  Bullet_Type: 0
   speed: 7
   direction: {x: -1, y: 1, z: 0}
   isTouch: 0
