@@ -7,43 +7,24 @@ public class Boss_Final : character_status
 {
 	public LastBossStateType stateType;
 
-	[Header("プレイヤーを中心にし、円を描く動き")]
-	public float updateTime = 1;
-	private float updateTimer;
-	public float angle;
-	public float delta;
 
 	[Header("攻撃関連")]
-	public float bulletShotTime;
-	private float bulletShotTimer;
-	public float laserShotTime;
-	private float laserShotTimer;
-	public float eyeLaserShotTime;
-	private float eyeLaserShotTimer;
-	public float fullPowerRotateSpd;
-	[SerializeField] private bool canUseLaser = false;
-	[SerializeField] private bool canUseEyeLaser = false;
-	[SerializeField] private bool canUseFullBulletPower = false;
-
+	public GameObject deathBullet;
 
 	private StateManager<LastBossStateType> stateManager;
-	[SerializeField] private BoxCollider brainDamageBox;
 	private Enemy_DestroyParts eyes;
 	private Enemy_DestroyParts battery;
+	private BoxCollider body;
 
 	private new Rigidbody rigidbody;
+	public ParticleSystem explosionEffect;
+	public ParticleSystem blackSmokeEffect;
 
-	private Transform atkTarget;
-	public Transform controllerPos;
-	public Transform controllerPosStart;
-	public Transform controllerPosEnd;
 
 	[Header("ステート関連")]
 	public float debutDuration;
 	public float waitDuration;
 	public float normalDuration;
-	public float angerDuration;
-	public float crazyDuration;
 
 	private void Awake()
 	{
@@ -56,9 +37,7 @@ public class Boss_Final : character_status
 		stateManager = new StateManager<LastBossStateType>();
 
 		//===== ラストボス　当たり判定領域確認 =====
-		brainDamageBox = transform.GetChild(0).Find("Brain").GetComponent<BoxCollider>();
-		eyes    = transform.GetChild(0).Find("Eye_L").GetComponent<Enemy_DestroyParts>();
-		battery = transform.GetChild(0).Find("houshin").GetComponent<Enemy_DestroyParts>();
+		body = GetComponent<BoxCollider>();
 
 		//===== ラストボス　動力装置確認 =====
 		rigidbody = GetComponent<Rigidbody>();
@@ -73,20 +52,12 @@ public class Boss_Final : character_status
 		GenerateNewState(stateManager, debutDuration, LastBossStateType.DEBUT, Debut_Enter, Debut_Update, Debut_Exit);
 		GenerateNewState(stateManager, waitDuration, LastBossStateType.WAIT, Wait_Enter, Wait_Update, Wait_Enter);
 		GenerateNewState(stateManager, normalDuration, LastBossStateType.NORMAL, Normal_Enter, Normal_Update, Normal_Exit);
-		GenerateNewState(stateManager, angerDuration, LastBossStateType.ANGER, Anger_Enter, Anger_Update, Anger_Exit);
-		GenerateNewState(stateManager, crazyDuration, LastBossStateType.CRAZY, Crazy_Enter, Crazy_Update, Crazy_Exit);
-		GenerateNewState(stateManager, 5f, LastBossStateType.DEATH, Death_Enter, Death_Update, Death_Exit);
+		GenerateNewState(stateManager, 13f, LastBossStateType.DEATH, Death_Enter, Death_Update, Death_Exit);
 	}
 
 
 	private new void Start()
 	{
-		//=====  プレイヤー確認 =====
-		atkTarget = FindTarget("Player");
-		//=====　確認失敗、プレイヤー2確認開始
-		if (!atkTarget.gameObject.activeSelf)
-			atkTarget = FindTarget("Player_2");
-
 		base.Start(); 
 		stateManager.Start(LastBossStateType.DEBUT);
 
@@ -115,43 +86,26 @@ public class Boss_Final : character_status
 	private new void Update()
 	{
 		//===== ターゲット　発見 =====
-		if(atkTarget.gameObject.activeSelf)
-		{
-			stateManager.Update();
-			stateType = stateManager.Current.StateType;
-
-			if(stateType != LastBossStateType.DEBUT && stateType != LastBossStateType.WAIT && stateType != LastBossStateType.DEATH)
-			{
-				//自由移動
-				FreeMove();
-			}
-			
-		}
-		else
-		{
-			//===== 再びターゲット　探す =====
-			atkTarget = FindTarget("Player");
-			//=====　確認失敗、プレイヤー2確認開始
-			if (!atkTarget.gameObject.activeSelf)
-				atkTarget = FindTarget("Player_2");
-		}
+		
+		stateManager.Update();
+		stateType = stateManager.Current.StateType;
 
 		base.Update();
 	}
 
 	private void FreeMove()
 	{
-		if (atkTarget == null)
-			return;
+		//if (atkTarget == null)
+		//	return;
 
-		if(updateTimer <= updateTime)
-		{
-			var pos = (1 - updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPosStart.position + 2 * (updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPos.position + (updateTimer / updateTime) * (updateTimer / updateTime) * controllerPosEnd.position;
+		//if(updateTimer <= updateTime)
+		//{
+		//	var pos = (1 - updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPosStart.position + 2 * (updateTimer / updateTime) * (1 - updateTimer / updateTime) * controllerPos.position + (updateTimer / updateTime) * (updateTimer / updateTime) * controllerPosEnd.position;
 
-			transform.position = pos;
+		//	transform.position = pos;
 
-			updateTimer += Time.deltaTime;
-		}
+		//	updateTimer += Time.deltaTime;
+		//}
 
 	}
 
@@ -160,10 +114,7 @@ public class Boss_Final : character_status
 	{
 		//===== 出場　当たり判定なしだよーーー ======
 		DebugManager.OperationDebug("ラストボス出場!", "ラストボス");
-
-		eyes.GetComponent<BoxCollider>().enabled = false;
-		battery.GetComponent<BoxCollider>().enabled = false;
-		brainDamageBox.enabled = false;
+		body.enabled = false;
 	}
 
 	private void Debut_Update()
@@ -204,12 +155,16 @@ public class Boss_Final : character_status
 	#region ===== IN NORMAL STATE =====
 	private void Normal_Enter()
 	{
-
+		body.enabled = true;
 	}
 
 	private void Normal_Update()
 	{
-
+		if(hp < 1)
+		{
+			stateManager.ChangeState(LastBossStateType.DEATH);
+			return;
+		}
 	}
 
 	private void Normal_Exit()
@@ -218,49 +173,81 @@ public class Boss_Final : character_status
 	}
 	#endregion
 
-	#region ===== IN ANGER STATE =====
-	private void Anger_Enter()
-	{
-
-	}
-
-	private void Anger_Update()
-	{
-
-	}
-
-	private void Anger_Exit()
-	{
-
-	}
-	#endregion
-
-	#region ===== IN CRAZY STATE =====
-	private void Crazy_Enter()
-	{
-
-	}
-
-	private void Crazy_Update()
-	{
-
-	}
-
-	private void Crazy_Exit()
-	{
-
-	}
-	#endregion
-
 	#region ===== IN DEATH STATE =====
 	private void Death_Enter()
 	{
+		//var leftTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//leftTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 1, 0);
+		//leftTop.transform.localEulerAngles = new Vector3(0, 0, 135f);
 
+		//var rightTop = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//rightTop.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 1, 0);
+		//rightTop.transform.localEulerAngles = new Vector3(0, 0, 45f);
+
+		//var leftDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//leftDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, -1, 0);
+		//leftDown.transform.localEulerAngles = new Vector3(0, 0, 225f);
+
+		//var rightDown = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//rightDown.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, -1, 0);
+		//rightDown.transform.localEulerAngles = new Vector3(0, 0, 315f);
+
+		//var left = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//left.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(-1, 0, 0);
+		//left.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//left.transform.localEulerAngles = new Vector3(0, 0, 180f);
+
+		//var right = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//right.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(1, 0, 0);
+		//right.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//right.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+		//var top = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//top.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, 1, 0);
+		//top.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//top.transform.localEulerAngles = new Vector3(0, 0, 90);
+
+		//var down = Instantiate(deathBullet, transform.position, Quaternion.identity);
+		//down.GetComponent<Boss_ReflectedBullet>().direction = new Vector3(0, -1, 0);
+		//down.GetComponent<Boss_ReflectedBullet>().isCloseReflect = true;
+		//down.transform.localEulerAngles = new Vector3(0, 0, 270);
+
+		var changeTransfrom = transform.GetChild(0);
+		for (var i = 0; i < changeTransfrom.childCount; ++i)
+		{
+			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");
+		}
+
+		explosionEffect.gameObject.SetActive(true);
+		blackSmokeEffect.gameObject.SetActive(true);
+		body.enabled = false;
+
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+		GetComponent<Floating>().enabled = false;
 	}
 
 	private void Death_Update()
 	{
+		var y = Mathf.Lerp(0, -30f, (stateManager.Current.Duration - stateManager.Current.Timer) / stateManager.Current.Duration);
+		var z = Mathf.Lerp(0, -20f, (stateManager.Current.Duration - stateManager.Current.Timer) / stateManager.Current.Duration);
 
+		transform.localEulerAngles = new Vector3(0, y, z);
+
+		transform.position += speed * 0.1f * Time.deltaTime * Vector3.down;
+
+		if (stateManager.Current.Timer <= 7f)
+		{
+			if(body.transform.GetChild(0).gameObject.activeSelf)
+				body.transform.GetChild(0).gameObject.SetActive(false);
+		}
+		if (stateManager.Current.IsDone)
+		{
+			Is_Dead = true;
+			Reset_Status();
+			this.gameObject.SetActive(false);
+			explosionEffect.gameObject.SetActive(false);
+		}
 	}
 
 	private void Death_Exit()
