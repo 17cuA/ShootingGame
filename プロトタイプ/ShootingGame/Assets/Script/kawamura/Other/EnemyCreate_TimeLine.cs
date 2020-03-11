@@ -8,15 +8,17 @@ using UnityEngine.Playables;
 
 public class EnemyCreate_TimeLine : MonoBehaviour
 {
-	#region 敵オブジェクト
+	#region 敵オブジェクト(プーリング前のため)
 	public GameObject dischargeObj;
 	public GameObject followGroundObj;
 	public GameObject taihoObj;
+	public GameObject OctopusObj;
 	#endregion
 
 	public GameObject saveObj;
 	public GameObject mapObj;
 	public Enemy_Discharge saveDischarge_Script;
+	public OctopusType_Enemy saveOctopus_Script;
 	public FollowGround3 saveFollowGrownd_Script;
 
 	//作る敵
@@ -42,6 +44,11 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		Taiho_Right,                                //右向き大砲
 		Taiho_Free,                                 //自分で角度を指定する大砲
 		Taiho_UpAndDown,                            //大砲上下
+		Octopus_UpLeft,								//上向き左移動
+		Octopus_UpRight,							//上向き右移動
+		Octopus_DownLeft,							//下向き左移動
+		Octopus_DownRight,							//下向き右移動
+		OptionHunter,
 	}
 
 	//作る位置
@@ -52,7 +59,6 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		Discharge_Under,
 		Taiho_Top,
 		Taiho_Under,
-
 	}
 
 	[Header("Discharge_Freeにしたときに使います")]
@@ -72,7 +78,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		public CreatePos createPos;
 		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
 		public Vector3 manualVector;                    //手打ちで出したい位置を入力できる
-		[Header("出現位置を自分で指定する時にPosをNoneにして入れる")]
+		[Header("出現向きを自分で指定する敵用")]
 		public Vector3 enemyRota;
 
 	}
@@ -92,7 +98,6 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		EnemyNameSet();
 		createNum = 1;
 		Director = GetComponent<PlayableDirector>();
-
 	}
 
 
@@ -100,6 +105,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
 		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) Director.time = 58.0;
+		if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
+		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 
 	}
 
@@ -108,6 +115,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
 		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
+		OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
 	}
 
 	void CreatePosUpload()
@@ -119,6 +127,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	}
 
+	//出す敵の名前をセット（分かりやすくするためなので敵出現に直接影響はない）
 	void EnemyNameSet()
 	{
 		for (int i = 0; i < 5; i++)
@@ -223,6 +232,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 					enemyInformation[i].enemyName = "大砲上下";
 					break;
 
+				case CreateEnemyType.Octopus_UpLeft:
+					enemyInformation[i].enemyName = "タコ上向き左移動";
+					break;
+
+				case CreateEnemyType.Octopus_UpRight:
+					enemyInformation[i].enemyName = "タコ上向き右移動";
+					break;
+
+				case CreateEnemyType.Octopus_DownLeft:
+					enemyInformation[i].enemyName = "タコ下向き左移動";
+					break;
+
+				case CreateEnemyType.Octopus_DownRight:
+					enemyInformation[i].enemyName = "タコ下向き右移動";
+					break;
+
 				default:
 					enemyInformation[i].enemyName = "不明";
 					break;
@@ -234,7 +259,6 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public void EnemyCreate()
 	{
 		Vector3 pos = Vector3.zero;
-
 
 		switch (enemyInformation[createNum].createPos)
 		{
@@ -486,6 +510,62 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 				saveObj = null;
 				createNum++;
+				break;
+
+			//タコ上向き左移動(斜めの時角度は-27度がいいかも
+			case CreateEnemyType.Octopus_UpLeft:
+				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj.transform.parent = mapObj.transform;
+				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
+				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eUP;
+				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eLEFT;
+
+				saveObj = null;
+				saveOctopus_Script = null;
+				createNum++;
+
+				break;
+
+			//タコ上向き右移動(斜めの時角度は-27度がいいかも
+			case CreateEnemyType.Octopus_UpRight:
+				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj.transform.parent = mapObj.transform;
+				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
+				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eUP;
+				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eRIGHT;
+
+				saveObj = null;
+				saveOctopus_Script = null;
+				createNum++;
+
+				break;
+
+			//タコ下向き左移動(斜めの時角度は153度がいいかも
+			case CreateEnemyType.Octopus_DownLeft:
+				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj.transform.parent = mapObj.transform;
+				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
+				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eDOWN;
+				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eLEFT;
+
+				saveObj = null;
+				saveOctopus_Script = null;
+				createNum++;
+
+				break;
+
+			//タコ下向き右移動(斜めの時角度は153度がいいかも
+			case CreateEnemyType.Octopus_DownRight:
+				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj.transform.parent = mapObj.transform;
+				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
+				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eDOWN;
+				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eRIGHT;
+
+				saveObj = null;
+				saveOctopus_Script = null;
+				createNum++;
+
 				break;
 
 			default:

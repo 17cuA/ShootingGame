@@ -23,6 +23,13 @@ public class OctopusType_Enemy : character_status
 		eDOWN = -1,			// 下はね
 	}
 
+	//左右どちらに動くか
+	public enum DIRECTION_HORIZONTAL
+	{
+		eLEFT,
+		eRIGHT,
+
+	}
 	// アニメーションの種類管理
 	public enum OCTOPUS_ANIMATION
 	{
@@ -39,7 +46,8 @@ public class OctopusType_Enemy : character_status
 	[SerializeField, Tooltip("ジャンプ力")] private float jumpPower;
 	[SerializeField, Tooltip("横移動速度")] private float horizontalMovementSpeed;
 	[SerializeField, Tooltip("落下速度")] private float fallSpeed;
-	[SerializeField, Tooltip("落下向き")] private DIRECTION bottomDirection;
+	[SerializeField, Tooltip("落下向き")] public DIRECTION bottomDirection;
+	[SerializeField, Tooltip("左右移動向き")] public DIRECTION_HORIZONTAL direc_Horizon;
 	[SerializeField, Tooltip("回転速度")] private float rotationalSpeed;
 
 	[Header("攻撃関係")]
@@ -69,17 +77,29 @@ public class OctopusType_Enemy : character_status
     {
 		rigidbody = GetComponent<Rigidbody>();
 
-		switch (bottomDirection)
-		{
-			case DIRECTION.eUP:
-				transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
-				break;
-			case DIRECTION.eDOWN:
-				transform.rotation = Quaternion.identity;
-				break;
-			default:
-				break;
-		}
+		//switch (bottomDirection)
+		//{
+		//	case DIRECTION.eUP:
+		//		transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+		//		break;
+		//	case DIRECTION.eDOWN:
+		//		transform.rotation = Quaternion.identity;
+		//		break;
+		//	default:
+		//		break;
+		//}
+
+		//switch(direc_Horizon)
+		//{
+		//	case DIRECTION_HORIZONTAL.eLEFT:
+		//		transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.eulerAngles.z);
+
+		//		break;
+
+		//	case DIRECTION_HORIZONTAL.eRIGHT:
+		//		transform.rotation = Quaternion.Euler(0.0f, 180.0f, transform.rotation.eulerAngles.z);
+		//		break;
+		//}
 
 		horizontalMovementDirection = Mathf.Sign(transform.right.x);
 
