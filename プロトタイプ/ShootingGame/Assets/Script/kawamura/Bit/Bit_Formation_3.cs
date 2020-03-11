@@ -91,6 +91,7 @@ public class Bit_Formation_3 : MonoBehaviour
 	public bool isFirstStolen = false;
 	public bool isStolen;                           //盗まれた状態
 	public bool isStolenSetting = false;                  //盗まれたあとの設定をしたかどうか
+	public bool isHunterHit = false;				//ハンターに当たったかどうか
 	bool isCircle = false;
 	public bool isFixed = false;
 	public bool isMove = false;
@@ -508,6 +509,12 @@ public class Bit_Formation_3 : MonoBehaviour
 				}
 				isStolenSetting = true;
 			}
+		}
+
+		if (isHunterHit)
+		{
+			aaaa();
+			isHunterHit = false;
 		}
 
 
@@ -1239,60 +1246,58 @@ public class Bit_Formation_3 : MonoBehaviour
 
 				}
 				gameObject.SetActive(false);        //オブジェクトをオフにする
-
 			}
-
 		}
 
 		//オプションハンターに当たった時
-		if (!isDead && col.gameObject.tag == "Hunter")
-		{
-			if (col.gameObject.GetComponent<OptionHunter>().isHunt == false)
-			{
-				col.gameObject.GetComponent<OptionHunter>().isHunt = true;
-				isFirstStolen = true;
-				b_Shot.isShot = false;
-				b_Shot.laser_Obj.SetActive(false);
+		//if (!isDead && col.gameObject.tag == "Hunter")
+		//{
+		//	if (col.gameObject.GetComponent<OptionHunter>().isHunt == false)
+		//	{
+		//		col.gameObject.GetComponent<OptionHunter>().isHunt = true;
+		//		isFirstStolen = true;
+		//		b_Shot.isShot = false;
+		//		b_Shot.laser_Obj.SetActive(false);
 
-				huntMoveNum = 1;
+		//		huntMoveNum = 1;
 
-				//target = followPositions_Script.huntPos[huntMoveNum - 1];
+		//		//target = followPositions_Script.huntPos[huntMoveNum - 1];
 				
-				if (bState == Bit_Formation_3.BitState.Player1)
-				{
-					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
-					huntNum = pl1.bitIndex - option_OrdinalNum + 1;
-				}
-				else if (bState == Bit_Formation_3.BitState.Player2)
-				{
-					//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
-					huntNum = pl2.bitIndex - option_OrdinalNum + 1;
-				}
+		//		if (bState == Bit_Formation_3.BitState.Player1)
+		//		{
+		//			//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+		//			huntNum = pl1.bitIndex - option_OrdinalNum + 1;
+		//		}
+		//		else if (bState == Bit_Formation_3.BitState.Player2)
+		//		{
+		//			//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+		//			huntNum = pl2.bitIndex - option_OrdinalNum + 1;
+		//		}
 
-				switch (option_OrdinalNum)
-				{
-					case 1:
-						FtoPlayer.hasOption = false;
-						followPositions_Script.firstOption = null;
-						break;
+		//		switch (option_OrdinalNum)
+		//		{
+		//			case 1:
+		//				FtoPlayer.hasOption = false;
+		//				followPositions_Script.firstOption = null;
+		//				break;
 
-					case 2:
-						FtoPBit_Second.hasOption = false;
-						followPositions_Script.secondOption = null;
-						break;
+		//			case 2:
+		//				FtoPBit_Second.hasOption = false;
+		//				followPositions_Script.secondOption = null;
+		//				break;
 
-					case 3:
-						FtoPBit_Third.hasOption = false;
-						followPositions_Script.thirdOption = null;
-						break;
+		//			case 3:
+		//				FtoPBit_Third.hasOption = false;
+		//				followPositions_Script.thirdOption = null;
+		//				break;
 
-					case 4:
-						FtoPBit_Fourth.hasOption = false;
-						followPositions_Script.fourthOption = null;
-						break;
-				}
-			}
-		}
+		//			case 4:
+		//				FtoPBit_Fourth.hasOption = false;
+		//				followPositions_Script.fourthOption = null;
+		//				break;
+		//		}
+		//	}
+		//}
 	}
 
 	//盗まれている状態かチェックする
@@ -1339,6 +1344,50 @@ public class Bit_Formation_3 : MonoBehaviour
 				isStolen = true;
 
 			}
+		}
+	}
+	void aaaa()
+	{
+		isFirstStolen = true;
+		b_Shot.isShot = false;
+		b_Shot.laser_Obj.SetActive(false);
+
+		huntMoveNum = 1;
+
+		//target = followPositions_Script.huntPos[huntMoveNum - 1];
+
+		if (bState == Bit_Formation_3.BitState.Player1)
+		{
+			//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+			huntNum = pl1.bitIndex - option_OrdinalNum + 1;
+		}
+		else if (bState == Bit_Formation_3.BitState.Player2)
+		{
+			//盗まれた数＝プレイヤーのオプション所持数ー自分の番号＋1
+			huntNum = pl2.bitIndex - option_OrdinalNum + 1;
+		}
+
+		switch (option_OrdinalNum)
+		{
+			case 1:
+				FtoPlayer.hasOption = false;
+				followPositions_Script.firstOption = null;
+				break;
+
+			case 2:
+				FtoPBit_Second.hasOption = false;
+				followPositions_Script.secondOption = null;
+				break;
+
+			case 3:
+				FtoPBit_Third.hasOption = false;
+				followPositions_Script.thirdOption = null;
+				break;
+
+			case 4:
+				FtoPBit_Fourth.hasOption = false;
+				followPositions_Script.fourthOption = null;
+				break;
 		}
 	}
 }

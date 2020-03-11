@@ -12,12 +12,15 @@ public class Enemy_StagBeetle : character_status
 		SINMOVE,
 		SINMOVETARGET,
 		ATTACK,
+		HUNT,
 	}
 
 	public State eState = State.NONE;
+	private float defaultSpeed;  
 	public float speedMax = 0.0f;
 	public int speedUpframeMax = 60;
 	public float addSpeed = 0.0f;
+	public float decSpeed = 0.0f;
 	public bool isSpeedUp = false;
 	public int sinAngleFrame;
 	public int sinAngleFrameMax = 180;
@@ -39,6 +42,7 @@ public class Enemy_StagBeetle : character_status
 	private new void Start()
 	{
 		speedMax = speed;
+		defaultSpeed = speed;
 		eState = State.STRAIGHT;
 		sinAngleFrame = 0;
 		base.Start();
@@ -109,6 +113,15 @@ public class Enemy_StagBeetle : character_status
 						speed = speedMax;
 						isSpeedUp = false;
 					}
+				}
+				break;
+
+			case State.HUNT:
+				transform.position += new Vector3(-speed / 12.0f, 0.0f, 0.0f);
+				speed -= decSpeed;
+				if (speed <= -speedMax)
+				{
+					speed = -speedMax;
 				}
 				break;
 

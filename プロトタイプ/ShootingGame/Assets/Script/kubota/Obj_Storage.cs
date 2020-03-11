@@ -602,30 +602,35 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ボイスのロード
-				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
-				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
-				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
-				PowerUpVoice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
-				PowerUpVoice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
-				PowerUpVoice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
-				PowerUpVoice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
-				PowerUpVoice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				PowerUpVoice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				PowerUpVoice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				PowerUpVoice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				PowerUpVoice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				PowerUpVoice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				PowerUpVoice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				PowerUpVoice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
-				PowerUpVoice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				PowerUpVoice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				PowerUpVoice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				PowerUpVoice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
+				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
+				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
+				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
+				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
+				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
+				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
+				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
+
+				First_Wireless = new AudioClip[1];
+				Boss1Before_Wireless = new AudioClip[1];
+				Boss1After_Wireless = new AudioClip[2];
+				MiddleBossBefore_Wireless = new AudioClip[2];
+				MiddleBossAfter_Wireless = new AudioClip[2];
+				Boss2Before_Wireless = new AudioClip[2];
+				Boss2After_Wireless = new AudioClip[2];
+
+				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
+				Boss1Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				Boss1After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				Boss1After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
+				MiddleBossBefore_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
+				MiddleBossBefore_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
+				MiddleBossAfter_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
+				MiddleBossAfter_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
+				Boss2Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				Boss2Before_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				Boss2After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				Boss2After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
 
 				#endregion
 
@@ -653,7 +658,8 @@ public class Obj_Storage : MonoBehaviour
 				container_prefab = Resources.Load("Enemy/Container") as GameObject;		//コンテナ
 				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;	//敵の弾
 				Discharge_Prefab = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;		//敵を排出する敵
-				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;	//↑が出す敵
+				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;    //↑が出す敵
+				StagBeetle_Prefab = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;
 				FollowGround_Prefab = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;	//地形に沿って進む敵
 				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;			//壁についている敵
 				OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;	//タコ型の敵
