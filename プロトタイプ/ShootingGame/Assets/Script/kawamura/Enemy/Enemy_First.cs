@@ -109,12 +109,25 @@ public class Enemy_First : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 			}
 
-			//if(Died_Attack)
+			//if (Died_Attack)
 			//{
 			//	//死亡時攻撃の処理
 			//	diedAttack_Transform = childObj.transform;
-			//	diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
-			//	diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+			//	int bulletSpread = 30;      //角度を広げるための変数
+			//	//for (int i = 0; i < 5; i++)
+			//	//{
+			//	//	//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+			//	//	//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+			//	//	//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+
+			//	//	//diedAttackRota = Quaternion.Euler(0, 0, fd.degree + bulletSpread);
+
+			//	//	//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+			//	//	//bulletSpread -= 15;		//広げる角度を変える
+			//	//}
+
+			//	//diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+			//	//diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
 			//	diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
 			//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
@@ -129,6 +142,15 @@ public class Enemy_First : character_status
 				//群に残っている敵がいなくなったとき
 				if (groupManage.remainingEnemiesCnt == 0)
 				{
+					//int rotaaaaa = 30;      //角度を広げるための変数
+					//for (int i = 0; i < 5; i++)
+					//{
+					//	diedAttackRota = Quaternion.Euler(0, 0, fd.degree + rotaaaaa);
+
+					//	Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+					//	rotaaaaa -= 15;     //広げる角度を変える
+					//}
+
 					//倒されずに画面外に出た敵がいなかったとき(すべての敵が倒されたとき)
 					if (groupManage.notDefeatedEnemyCnt == 0 && groupManage.isItemDrop)
 					{

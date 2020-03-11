@@ -34,7 +34,6 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
 	private GameObject ClamChowderType_Enemy_Prefab;			//貝型エネミーのプレハブ
-	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
 	private GameObject BeelzebubType_Enemy_Prefab;				//ハエ型エネミーのプレハブ
 	private GameObject BattleShip_Enemy_Prefab;					//戦艦型エネミーのプレハブ
 	private GameObject Star_Fish_Enemy_Prefab;					//ヒトデ型のエネミーのプレハブ
@@ -49,6 +48,12 @@ public class Obj_Storage : MonoBehaviour
 	#endregion
 
 	#region ステージ2
+	private GameObject Discharge_Prefab;                        //敵を生成する敵のプレハブ
+	private GameObject Discharged_Prefab;                       //↑から生成された敵のプレハブ
+	private GameObject FollowGround_Prefab;                     //地形に沿って動く敵
+	private GameObject StagBeetle_Prefab;                       //オプションハンターの敵のプレハブ
+	private GameObject Cannon_Prefab;                           //壁配置タイプの大砲
+	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
 
 	#endregion
 
@@ -94,7 +99,6 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling SmallBeam_Bullet_E;
 	public Object_Pooling UfoType_Enemy;
 	public Object_Pooling ClamChowderType_Enemy;
-	public Object_Pooling OctopusType_Enemy;
 	public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling StarFish_Enemy;
@@ -108,6 +112,16 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
 	public Object_Pooling Moai_Eye_Laser;                       //モアイの目のレーザー
 	public Object_Pooling Moai_Mouth_Laser;                       //モアイの口のレーザー
+
+	#region ステージ2
+	public Object_Pooling Discharge_Enemy;			//敵を排出する敵
+	public Object_Pooling Discharged_Enemy;			//排出された敵
+	public Object_Pooling FollowGround_Enemy;		//地形を這って進む敵
+	public Object_Pooling StagBeetle_Enemy;			//オプションハンター
+	public Object_Pooling Cannon_Enemy;				//大砲の敵
+	public Object_Pooling OctopusType_Enemy;		//タコ型の敵
+
+	#endregion
 
 	#endregion
 
@@ -151,49 +165,46 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject container_prefab;
 	#endregion
 
+	#region 敵のプーリング
 	public Object_Pooling enemy_UFO_Group;
-    public Object_Pooling enemy_UFO_Group_NoneShot;
-    public Object_Pooling enemy_ClamChowder_Group_Two_Top;
-    public Object_Pooling enemy_ClamChowder_Group_Two_Under;
-    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyUp;
-    public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyDown;
-    public Object_Pooling enemy_ClamChowder_Group_Three;
-    public Object_Pooling enemy_ClamChowder_Group_Three_Item;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
-    public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
-    public Object_Pooling enemy_ClamChowder_Group_Four;
-    public Object_Pooling enemy_ClamChowder_Group_Four_NoItem;
-    public Object_Pooling enemy_ClamChowder_Group_Five;
-    public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
-    public Object_Pooling enemy_ClamChowder_Group_Seven;
-    //public Object_Pooling enemy_MiddleBoss_Father;
-    public Object_Pooling enemy_ClamChowder_Group_Straight;
-    public Object_Pooling enemy_Beelzebub_Group_FourWide;
-    public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
-    public Object_Pooling enemy_BeetleGroup;
-    public Object_Pooling enemy_BeetleGroup_Three;
-    public Object_Pooling boundMeteors;
-    public Object_Pooling enemy_Bacula_Sixteen;
-    public Object_Pooling enemy_Bacula_FourOnly;
-    //9月13日追加
-    public Object_Pooling enemy_ClamChowder_FourTriangle;
-    public Object_Pooling enemy_ClamChowder_FourTriangle_NoItem;
-    public Object_Pooling enemy_Beelzebub_Group_EightNormal_Item;
-    public Object_Pooling enemy_ClamChowder_Group_TwelveStraight;
-    public Object_Pooling enemy_UFO_Group_Five;
-    public Object_Pooling enemy_Beetle_Group_Seven;
-    public Object_Pooling enemy_ClamChowder_Group_SevenStraight;
-    public Object_Pooling enemy_ClamChowder_Group_SixStraight;
-    public Object_Pooling enemy_ClamChowder_Group_UpSevenDiagonal;
-    public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
-    public Object_Pooling enemy_ClamChowder_Group_TenStraight;
-
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
+	public Object_Pooling enemy_UFO_Group_NoneShot;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Top;
+	public Object_Pooling enemy_ClamChowder_Group_Two_Under;
+	public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyUp;
+	public Object_Pooling enemy_ClamChowder_Group_TwoWaveOnlyDown;
+	public Object_Pooling enemy_ClamChowder_Group_Three;
+	public Object_Pooling enemy_ClamChowder_Group_Three_Item;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyUp_Item;
+	public Object_Pooling enemy_ClamChowder_Group_ThreeWaveOnlyDown_Item;
+	public Object_Pooling enemy_ClamChowder_Group_Four;
+	public Object_Pooling enemy_ClamChowder_Group_Four_NoItem;
+	public Object_Pooling enemy_ClamChowder_Group_Five;
+	public Object_Pooling enemy_ClamChowder_Group_Five_NoItem;
+	public Object_Pooling enemy_ClamChowder_Group_Seven;
+	public Object_Pooling enemy_ClamChowder_Group_Straight;
+	public Object_Pooling enemy_Beelzebub_Group_FourWide;
+	public Object_Pooling enemy_Beelzebub_Group_FourWide_Item;
+	public Object_Pooling enemy_BeetleGroup;
+	public Object_Pooling enemy_BeetleGroup_Three;
+	public Object_Pooling boundMeteors;
+	public Object_Pooling enemy_Bacula_Sixteen;
+	public Object_Pooling enemy_Bacula_FourOnly;
+	public Object_Pooling enemy_ClamChowder_FourTriangle;
+	public Object_Pooling enemy_ClamChowder_FourTriangle_NoItem;
+	public Object_Pooling enemy_Beelzebub_Group_EightNormal_Item;
+	public Object_Pooling enemy_ClamChowder_Group_TwelveStraight;
+	public Object_Pooling enemy_UFO_Group_Five;
+	public Object_Pooling enemy_Beetle_Group_Seven;
+	public Object_Pooling enemy_ClamChowder_Group_SevenStraight;
+	public Object_Pooling enemy_ClamChowder_Group_SixStraight;
+	public Object_Pooling enemy_ClamChowder_Group_UpSevenDiagonal;
+	public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
+	public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 	public Object_Pooling Container;
-	// 2020.01.22 諸岡追加----------------------------------------------------------------
-
+	//public Object_Pooling enemy_Octopas
+	#endregion
 	//----------------------------------------------------------
 
 	private void Awake()
@@ -307,7 +318,6 @@ public class Obj_Storage : MonoBehaviour
 				SmallBeam_Bullet_E_Prefab = Resources.Load("Bullet/SmallBeam_Bullet") as GameObject;
 				UfoType_Enemy_Prefab = Resources.Load("Enemy/Enemy_UFO") as GameObject;
 				ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
-				OctopusType_Enemy_Prefab = Resources.Load("Enemy/OctopusType_Enemy") as GameObject;
 				BeelzebubType_Enemy_Prefab = Resources.Load("Enemy/BeelzebubType_Enemy") as GameObject;
 				BattleShip_Enemy_Prefab = Resources.Load("Enemy/BattleshipType_Enemy") as GameObject;
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
@@ -473,7 +483,6 @@ public class Obj_Storage : MonoBehaviour
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 				ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
-				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 				BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 				BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 				StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
@@ -593,30 +602,35 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ボイスのロード
-				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
-				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
-				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
-				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
-				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
-				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
-				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
-				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
-				PowerUpVoice[8] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_009");        //ゲームオーバー
-				PowerUpVoice[9] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_010");        //OK
-				PowerUpVoice[10] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_011");       //アステロイド地帯の説明
-				PowerUpVoice[11] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_012");       //了解（ラジャー）
-				PowerUpVoice[12] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
-				PowerUpVoice[13] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
-				PowerUpVoice[14] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
-				PowerUpVoice[15] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
-				PowerUpVoice[16] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
-				PowerUpVoice[17] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
-				PowerUpVoice[18] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
-				PowerUpVoice[19] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
-				PowerUpVoice[20] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
-				PowerUpVoice[21] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
-				PowerUpVoice[22] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_017");           //了解（落ち着いた感じ）
-				PowerUpVoice[23] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_018");           //敵の自爆
+				PowerUpVoice[0] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_13");           //アイテム使用時のボイス（スピードアップ）
+				PowerUpVoice[1] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_14");           //アイテム使用時のボイス（ミサイル）
+				PowerUpVoice[2] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_15");           //アイテム使用時のボイス（ダブル）
+				PowerUpVoice[3] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_16");           //アイテム使用時のボイス（レーザー）
+				PowerUpVoice[4] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_SE_Option_Multiple");     //アイテム使用時のボイス（オプション）
+				PowerUpVoice[5] = Resources.Load<AudioClip>("Sound/VOICE/gradius_SE_PowerUp_Shield");       //アイテム使用時のボイス（フォースフィールド）
+				PowerUpVoice[6] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_19");               //アイテム使用時のボイス（マックススピード）
+				PowerUpVoice[7] = Resources.Load<AudioClip>("Sound/VOICE/Shooting_Voice_20_initial");       //アイテム使用時のボイス（イニットスピード）
+
+				First_Wireless = new AudioClip[1];
+				Boss1Before_Wireless = new AudioClip[1];
+				Boss1After_Wireless = new AudioClip[2];
+				MiddleBossBefore_Wireless = new AudioClip[2];
+				MiddleBossAfter_Wireless = new AudioClip[2];
+				Boss2Before_Wireless = new AudioClip[2];
+				Boss2After_Wireless = new AudioClip[2];
+
+				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_001");        //開戦時
+				Boss1Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_002");        //前半ボス前
+				Boss1After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //前半ボス後1
+				Boss1After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //前半ぼす後2
+				MiddleBossBefore_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //モアイ1
+				MiddleBossBefore_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //モアイ2
+				MiddleBossAfter_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //モアイ後１
+				MiddleBossAfter_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //モアイ後２
+				Boss2Before_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //後半ボス前1
+				Boss2Before_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_006");        //後半ボス前2
+				Boss2After_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_007");        //後半ボス後1
+				Boss2After_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_008");        //後半ボス後2
 
 				#endregion
 
@@ -641,18 +655,30 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ステージ2個別ロード
-				container_prefab = Resources.Load("Enemy/Container") as GameObject;
-				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;
+				container_prefab = Resources.Load("Enemy/Container") as GameObject;		//コンテナ
+				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;	//敵の弾
+				Discharge_Prefab = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;		//敵を排出する敵
+				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;    //↑が出す敵
+				StagBeetle_Prefab = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;
+				FollowGround_Prefab = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;	//地形に沿って進む敵
+				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;			//壁についている敵
+				OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;	//タコ型の敵
 
 				#endregion
 
 				#region ステージ2個別プーリング化
-				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+				Discharge_Enemy = new Object_Pooling(Discharge_Prefab, 10, "Discharge_Enemy");          //敵を生成する敵の生成
+				Discharged_Enemy = new Object_Pooling(Discharged_Prefab, 20, "Discharged_Enemy");       //排出する敵が出す敵の生成
+				FollowGround_Enemy = new Object_Pooling(FollowGround_Prefab, 30, "FollowGround_Enemy");
+				StagBeetle_Enemy = new Object_Pooling(StagBeetle_Prefab, 10, "StagBeetle_Enemy");
+				Cannon_Enemy = new Object_Pooling(Cannon_Prefab, 10, "Cannon_Enemy");
+				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 1, "OctopusType_Enemy");                               // タコ型エネミーを生成
 
-				// 2020.01.22 諸岡追加----------------------------------------------------------------
 				#endregion
+
+
 				#endregion
 				break;
 
