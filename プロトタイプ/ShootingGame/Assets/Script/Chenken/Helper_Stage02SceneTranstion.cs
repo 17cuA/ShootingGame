@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Helper_Stage02SceneTranstion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private bool canCheck = true;
 
-    // Update is called once per frame
     void Update()
     {
-        
+		if (canCheck)
+		{
+			if (Wireless_sinario.IsFinishWireless())
+			{
+				GameObject.Find("Scene_Manager").GetComponent<Scene_Manager>().Screen_Transition_To_Clear();
+				canCheck = false;
+			}
+		}
     }
 }
