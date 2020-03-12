@@ -164,7 +164,7 @@ public class bullet_status : MonoBehaviour
 		}
 		//------------------------------陳　追加----------------------------------
 		//反射レーザー
-		else if (gameObject.tag == "Enemy_Bullet " && col.tag == "Wall" && gameObject.name == "ReflectLaser")
+		else if (gameObject.tag == "Enemy_Bullet " && col.tag == "Wall" && gameObject.name == "Bullet_ReflectLaser")
 		{
 			gameObject.SetActive(false);
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();

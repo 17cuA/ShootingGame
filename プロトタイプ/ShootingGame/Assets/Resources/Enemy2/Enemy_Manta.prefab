@@ -220,9 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ad888bad6ab9448801f26712ababc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Parameter: {fileID: 0}
+  Parameter: {fileID: 11400000, guid: 5d7ed0d9be21e0e438c07afbb640ae93, type: 2}
   speed: 3
-  hp: 100
+  hp: 250
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
   Collider: {fileID: 0}
@@ -248,8 +248,8 @@ MonoBehaviour:
   chargeController: {fileID: 0}
   laserColliderController: {fileID: 0}
   deathEffect: {fileID: 0}
-  chargeTime: 0
-  emitterTime: 0
+  chargeTime: 1.5
+  emitterTime: 3.8
   chargeDevice:
     chargeTime: 0
   emitterDevice:
@@ -257,11 +257,11 @@ MonoBehaviour:
   isTop: 0
   isMiddle: 0
   isBottom: 0
-  debutDuration: 3
+  debutDuration: 3.5
   waitDuration: 10
   moveDuration: 25
   firstShotDelay: 0.5
-  shotIntervalTime: 3
+  shotIntervalTime: 3.5
   stateType: 1
   hitboxs:
   - {fileID: 0}
@@ -583,10 +583,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1859306555}
     m_Modifications:
-    - target: {fileID: 510804364109606847, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Name
+      value: Manta_LaserCharge
       objectReference: {fileID: 0}
     - target: {fileID: 510804363195435762, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
@@ -643,27 +643,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
-      propertyPath: m_Name
-      value: Manta_LaserCharge
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804363195435775, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804363195435773, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
-      propertyPath: stopAction
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804364109606844, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804364498505493, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 510804364498505493, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804364109606844, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -675,28 +660,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 510804364049507069, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510804364049507069, guid: a1a6e073c027e58419135776223d3faa,
-        type: 3}
       propertyPath: m_LocalPosition.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 510804364049507059, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804363195435773, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: stopAction
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 510804364109606834, guid: a1a6e073c027e58419135776223d3faa,
+    - target: {fileID: 510804363195435773, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804364498505579, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
       propertyPath: stopAction
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 510804364498505579, guid: a1a6e073c027e58419135776223d3faa,
         type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804364109606834, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
       propertyPath: stopAction
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804364109606834, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804364049507059, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: stopAction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 510804364049507059, guid: a1a6e073c027e58419135776223d3faa,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1a6e073c027e58419135776223d3faa, type: 3}
@@ -817,11 +822,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manta_Laser
       objectReference: {fileID: 0}
-    - target: {fileID: 1200566104663934366, guid: db5f2b2ac5d81844ab61180583ba4f94,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1200566104663934357, guid: db5f2b2ac5d81844ab61180583ba4f94,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -875,6 +875,101 @@ PrefabInstance:
     - target: {fileID: 1200566104663934357, guid: db5f2b2ac5d81844ab61180583ba4f94,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934360, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[0].inSlope
+      value: 19.42162
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[0].outSlope
+      value: 19.42162
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[1].value
+      value: 15.537296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[2].value
+      value: 15.537296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[3].value
+      value: 15.537296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[4].value
+      value: 15.537296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[1].time
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[2].time
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[3].time
+      value: 2.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[4].time
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104085991319, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566105058685443, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104494152689, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566105052151239, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566103232375603, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566103237686868, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566103559474948, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566103879643716, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -41,6 +41,8 @@ public class Enemy_Manta : character_status
 	[SerializeField] private BoxCollider[] hitboxs = new BoxCollider[4];
 	private StateManager<StateType> stateManager;
 
+	private GameObject temp;
+
 	private void Awake()
 	{
 		chargeDevice = new ChargeDevice();
@@ -211,11 +213,24 @@ public class Enemy_Manta : character_status
 			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");
 		
 		}
+
+		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
+		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
+		transform.GetChild(5).gameObject.SetActive(false);
+
+		temp = new GameObject("temp");
+		transform.GetChild(4).SetParent(temp.transform);
 	}
 
 	private void Death_Update()
 	{
-		if(stateManager.Current.Timer <= 4f)
+		var x = Mathf.Lerp(90, 120, (stateManager.Current.Duration - stateManager.Current.Timer) / stateManager.Current.Duration);
+
+		transform.localEulerAngles = new Vector3(x, 180, 0);
+
+		transform.position += speed * 0.05f * Time.deltaTime * Vector3.down;
+
+		if (stateManager.Current.Timer <= 4f)
 		{
 			transform.GetChild(0).gameObject.SetActive(false);
 			transform.GetChild(1).gameObject.SetActive(false);
@@ -277,6 +292,7 @@ public class Enemy_Manta : character_status
 		if(stateManager.Current.IsDone)
 		{
 			gameObject.SetActive(false);
+			Destroy(temp);
 			return;
 		}
 	}

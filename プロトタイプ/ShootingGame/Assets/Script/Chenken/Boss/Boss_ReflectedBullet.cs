@@ -17,6 +17,13 @@ public class Boss_ReflectedBullet : bullet_status
 
 	public void Update()
 	{
+		//
+		if (transform.position.x >= 20f || transform.position.x <= -20f
+				   || transform.position.y >= 8 || transform.position.y <= -8f)
+		{
+			gameObject.SetActive(false);
+		}
+
 		if (!isTouch)
 		{
 			if (!isCloseReflect)
@@ -51,7 +58,7 @@ public class Boss_ReflectedBullet : bullet_status
 		}
 		else
 		{
-			touchCoolDownTimer += Time.deltaTime;
+				touchCoolDownTimer += Time.deltaTime;
 			if(touchCoolDownTimer >= touchCoolDownTime)
 			{
 				isTouch = false;
