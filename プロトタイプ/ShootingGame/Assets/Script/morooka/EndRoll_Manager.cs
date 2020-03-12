@@ -148,11 +148,12 @@ public class EndRoll_Manager : MonoBehaviour
 
 	public string cc(string[] members)
 	{
-		string temp = "";
-		foreach(var mem in members)
+		string temp = members[0];
+		for(int i = 1; i < members.Length; i++)
 		{
-			temp +=  mem + '\n' + '\n';
+			temp += '\n' + members[i];
 		}
+
 		return temp;
 	}
 

@@ -23,7 +23,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4123728781734220969}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -32,7 +32,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1253, y: 227}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4123728781792419651
@@ -58,7 +58,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4123728781792419651}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -67,7 +67,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: -1253, y: 127}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4123728782080008999
@@ -80,8 +80,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4123728782080008998}
   - component: {fileID: 4123728782080008997}
-  - component: {fileID: 4012987502592260322}
-  - component: {fileID: 1951303914351321335}
   m_Layer: 5
   m_Name: EndRoll_Manager
   m_TagString: Untagged
@@ -123,9 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texts:
-  - title: DIRECTOR DIRECTOR DIRECTOR
+  - title: DIRECTOR
     member:
-    - ABE TO AOKI
+    - SHOUTA AOKI
     - JOHNNY YAMAZAKI
     paragraph: 0
   - title: DESIGNER
@@ -146,7 +144,7 @@ MonoBehaviour:
     - KEN TIN
     - YUUKI MOROOKA
     paragraph: 0
-  - title: TECHNICIAN
+  - title: DEBUGGER
     member:
     - DAIGO NAKAMURA
     paragraph: 0
@@ -161,7 +159,7 @@ MonoBehaviour:
     paragraph: 0
   - title: SUPPORTER
     member:
-    - TSUBASA SAOU
+    - TSUBASA SATOU
     paragraph: 0
   - title: ' '
     member:
@@ -175,50 +173,12 @@ MonoBehaviour:
     member:
     - THANK YOU KURIHARA TEACHER
     paragraph: 0
+  - title: EFFECT DESIGNER
+    member:
+    - YUKI TAKADA
+    paragraph: 0
   titleObject: {fileID: 4123728781734220969}
   menberObject: {fileID: 4123728781792419651}
---- !u!320 &4012987502592260322
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4123728782080008999}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 114752776131860988, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
-    value: {fileID: 4123728782080008999}
-  - key: {fileID: 114305461567816550, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
-    value: {fileID: 4123728782080008999}
-  - key: {fileID: 114445927234908676, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
-    value: {fileID: 0}
-  m_ExposedReferences:
-    m_References: []
---- !u!95 &1951303914351321335
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4123728782080008999}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4123728782909118853
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +191,8 @@ GameObject:
   - component: {fileID: 4123728782909118849}
   - component: {fileID: 4123728782909118850}
   - component: {fileID: 4123728782909118851}
+  - component: {fileID: 1600301722}
+  - component: {fileID: 1600301721}
   m_Layer: 5
   m_Name: endroll
   m_TagString: Untagged
@@ -250,6 +212,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4123728782080008998}
+  - {fileID: 2732922588772522186}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -318,3 +281,226 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!320 &1600301722
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123728782909118853}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114752776131860988, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
+    value: {fileID: 4123728782080008999}
+  - key: {fileID: 114305461567816550, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
+    value: {fileID: 4123728782080008999}
+  - key: {fileID: 114672319654574124, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114566160878846144, guid: c4d2b919bc2ec34489138034353ef1aa, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!95 &1600301721
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123728782909118853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 614d71d964736c94fbfbbd92d38061d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &5687156837828907867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916246049382259344}
+  m_Layer: 5
+  m_Name: Menber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1916246049382259344
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687156837828907867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2732922588772522186}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1253, y: 127}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7291553726649033247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3537287005062077639}
+  m_Layer: 5
+  m_Name: Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3537287005062077639
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291553726649033247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2732922588772522186}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1253, y: 227}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &8191345272856677934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2732922588772522186}
+  - component: {fileID: 8886852923205014300}
+  m_Layer: 5
+  m_Name: EndRoll_Manager (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2732922588772522186
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8191345272856677934}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3537287005062077639}
+  - {fileID: 1916246049382259344}
+  m_Father: {fileID: 4123728782909118848}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3840, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8886852923205014300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8191345272856677934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0425110ed4553fc4191c6801f542d19b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texts:
+  - title: DIRECTOR
+    member:
+    - SHOUTA AOKI
+    - JOHNNY YAMAZAKI
+    paragraph: 0
+  - title: DESIGNER
+    member:
+    - KENTA YAMAGISHI
+    - MASAKI SHINMIYA
+    - AOI MITUHASHI
+    paragraph: 0
+  - title: PROGRAM ADVISOR
+    member:
+    - YUUTA HASEGAWA
+    paragraph: 0
+  - title: PROGRAMMER
+    member:
+    - TATSUKI KUBOTA WITH MENISCUS
+    - TATSUKI KUBOTA NOT HAVE MENISCUS
+    - RYOUTA KAWAMURA
+    - KEN TIN
+    - YUUKI MOROOKA
+    paragraph: 0
+  - title: DEBUGGER
+    member:
+    - DAIGO NAKAMURA
+    paragraph: 0
+  - title: SOUND
+    member:
+    - KEISUKE KISHINO
+    paragraph: 0
+  - title: ACTER
+    member:
+    - LAY JONATHAN
+    - KEISUKE KISHINO
+    paragraph: 0
+  - title: SUPPORTER
+    member:
+    - TSUBASA SATOU
+    paragraph: 0
+  - title: ' '
+    member:
+    - THANK YOU FOR PLAYING
+    paragraph: 0
+  - title: ' '
+    member:
+    - THANK YOU IT IS GRADIUS
+    paragraph: 0
+  - title: ' '
+    member:
+    - THANK YOU KURIHARA TEACHER
+    paragraph: 0
+  - title: EFFECT DESIGNER
+    member:
+    - YUKI TAKADA
+    paragraph: 0
+  titleObject: {fileID: 7291553726649033247}
+  menberObject: {fileID: 5687156837828907867}

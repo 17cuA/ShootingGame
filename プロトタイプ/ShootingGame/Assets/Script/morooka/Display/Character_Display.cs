@@ -124,20 +124,30 @@ namespace TextDisplay
 				{
 					Vector2 posTemp = controler_obj.transform.position;
 					controler_obj.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+					int Index = 0;
 
 					for (int i = 0; i < Word_Count; i++)
 					{
-						Character_Object.Add(new GameObject());
-						Character_Object[i].AddComponent<Image>();
-						Display_Characters.Add(Character_Object[i].GetComponent<Image>());
+						if (s[i] == '\n')
+						{
+							posTemp.x = controler_obj.transform.position.x;
+							posTemp.y -= 100.0f;
+						}
+						else
+						{
+							Character_Object.Add(new GameObject());
+							Character_Object[Index].AddComponent<Image>();
+							Display_Characters.Add(Character_Object[Index].GetComponent<Image>());
 
-						Character_Object[i].name = "Character_" + s[i];
-						Display_Characters[i].sprite = Look[character_search(s[i])];
-						Display_Characters[i].color = Font_Color;
-						Character_Object[i].transform.position = posTemp;
-						posTemp.x = s[i] == '\n' ? controler_obj.transform.position.x : 100.0f + posTemp.x;
-						posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
-						Character_Object[i].transform.SetParent(controler_obj.transform);
+							Character_Object[Index].name = "Character_" + s[i];
+							Display_Characters[Index].sprite = Look[character_search(s[i])];
+							Display_Characters[Index].color = Font_Color;
+
+							Character_Object[Index].transform.position = posTemp;
+							Character_Object[Index].transform.SetParent(controler_obj.transform);
+
+							Index++;
+						}
 					}
 
 					controler_obj.transform.localScale = FontSize;
@@ -433,21 +443,30 @@ namespace TextDisplay
 			{
 				Vector2 posTemp = controler_obj.transform.position;
 				controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+				int Index = 0;
 
 				for (int i = 0; i < Word_Count; i++)
 				{
-					Character_Object.Add(new GameObject());
-					Character_Object[i].AddComponent<Image>();
-					Display_Characters.Add(Character_Object[i].GetComponent<Image>());
+					if (s[i] == '\n')
+					{
+						posTemp.x = controler_obj.transform.position.x;
+						posTemp.y -= 100.0f;
+					}
+					else
+					{
+						Character_Object.Add(new GameObject());
+						Character_Object[Index].AddComponent<Image>();
+						Display_Characters.Add(Character_Object[Index].GetComponent<Image>());
 
-					Character_Object[i].name = "Character_" + s[i];
-					Display_Characters[i].sprite = Look[character_search(s[i])];
-					Display_Characters[i].color = Font_Color;
+						Character_Object[Index].name = "Character_" + s[i];
+						Display_Characters[Index].sprite = Look[character_search(s[i])];
+						Display_Characters[Index].color = Font_Color;
 
-					Character_Object[i].transform.position = posTemp;
-					posTemp.x = s[i] == '\n' ? controler_obj.transform.position.x : 100.0f + posTemp.x;
-					posTemp.y -= s[i] == '\n' ? 100.0f : 0.0f;
-					Character_Object[i].transform.SetParent(controler_obj.transform);
+						Character_Object[Index].transform.position = posTemp;
+						Character_Object[Index].transform.SetParent(controler_obj.transform);
+
+						Index++;
+					}
 				}
 
 				controler_obj.transform.localScale = FontSize;
