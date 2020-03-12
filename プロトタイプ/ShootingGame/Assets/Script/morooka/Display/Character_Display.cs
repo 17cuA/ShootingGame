@@ -131,7 +131,7 @@ namespace TextDisplay
 						if (s[i] == '\n')
 						{
 							posTemp.x = controler_obj.transform.position.x;
-							posTemp.y -= 100.0f;
+							posTemp.y -= 150.0f;
 						}
 						else
 						{
@@ -146,6 +146,7 @@ namespace TextDisplay
 							Character_Object[Index].transform.position = posTemp;
 							Character_Object[Index].transform.SetParent(controler_obj.transform);
 
+							posTemp.x += 100.0f;
 							Index++;
 						}
 					}
@@ -332,17 +333,6 @@ namespace TextDisplay
 		public void Centering()
 		{
 			int lead = 0;
-			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
-			{
-				Vector3 temp = new Vector3((Character_Object.Count - lead) * -50.0f, Character_Object[0].transform.localPosition.y, 0.0f);
-				for (int i = 0; i < Character_Object.Count; i++)
-				{
-					Character_Object[i].transform.localPosition = temp;
-					temp.x += 100.0f;
-				}
-
-				return;
-			}
 			for (int i = 1; i < Character_Object.Count; i++)
 			{
 				if (Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
@@ -355,6 +345,16 @@ namespace TextDisplay
 					}
 
 					lead = i;
+				}
+			}
+
+			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
+			{
+				Vector3 temp = new Vector3((Character_Object.Count - lead) * -50.0f, Character_Object[Character_Object.Count - 1].transform.localPosition.y, 0.0f);
+				for (int i = lead; i < Character_Object.Count; i++)
+				{
+					Character_Object[i].transform.localPosition = temp;
+					temp.x += 100.0f;
 				}
 			}
 		}
@@ -397,16 +397,6 @@ namespace TextDisplay
 		public void RightAlign()
 		{
 			int lead = 0;
-			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
-			{
-				Vector3 temp = new Vector3(0.0f, Character_Object[0].transform.localPosition.y, 0.0f);
-				for (int i = Character_Object.Count-1; i > 0-1; i--)
-				{
-					Character_Object[i].transform.localPosition = temp;
-					temp.x -= 100.0f;
-				}
-				return;
-			}
 			for (int i = 1; i < Character_Object.Count; i++)
 			{
 				if (Character_Object[i - 1].transform.localPosition.y != Character_Object[i].transform.localPosition.y)
@@ -419,6 +409,15 @@ namespace TextDisplay
 					}
 
 					lead = i;
+				}
+			}
+			if (Character_Object[lead].transform.localPosition.y == Character_Object[Character_Object.Count - 1].transform.localPosition.y)
+			{
+				Vector3 temp = new Vector3(0.0f, Character_Object[lead].transform.localPosition.y, 0.0f);
+				for (int i = Character_Object.Count - 1; i > lead - 1; i--)
+				{
+					Character_Object[i].transform.localPosition = temp;
+					temp.x -= 100.0f;
 				}
 			}
 		}
@@ -450,7 +449,7 @@ namespace TextDisplay
 					if (s[i] == '\n')
 					{
 						posTemp.x = controler_obj.transform.position.x;
-						posTemp.y -= 100.0f;
+						posTemp.y -= 150.0f;
 					}
 					else
 					{
@@ -465,6 +464,7 @@ namespace TextDisplay
 						Character_Object[Index].transform.position = posTemp;
 						Character_Object[Index].transform.SetParent(controler_obj.transform);
 
+						posTemp.x += 100.0f;
 						Index++;
 					}
 				}

@@ -28,61 +28,6 @@ public class EndRoll_Manager : MonoBehaviour
 
 		fluctuationValue = 1.0f / 60.0f;
 	}
-	private void Update()
-	{
-		//if (step == 0)
-		//{
-		//	if(endRoll_title.Font_Color.a  < 1.0f)
-		//	{
-		//		Color c = endRoll_title.Font_Color;
-		//		c.a += fluctuation;
-		//		endRoll_title.Color_Change(c);
-		//		endRoll_menber.Color_Change(c);
-		//	}
-		//	else
-		//	{
-		//		step++;
-		//	}
-		//}
-		//else if(step == 1)
-		//{
-		//	disTime += Time.deltaTime;
-		//	if(disTime >= 3.0f)
-		//	{
-		//		step++;
-		//		disTime = 0.0f;
-		//	}
-		//}
-		//else if( step == 2)
-		//{
-		//	if (endRoll_title.Font_Color.a > 0.0f)
-		//	{
-		//		Color c = endRoll_title.Font_Color;
-		//		c.a -= fluctuation;
-		//		endRoll_title.Color_Change(c);
-		//		endRoll_menber.Color_Change(c);
-		//	}
-		//	else
-		//	{
-		//		index++;
-		//		if(index < texts.Length)
-		//		{
-		//			endRoll_title.CharacterSwitching(texts[index].title);
-		//			endRoll_menber.CharacterSwitching(cc(texts[index].member));
-		//		}
-		//		step++;
-		//	}
-		//}
-		//else if(step == 3)
-		//{
-		//	disTime += Time.deltaTime;
-		//	if(disTime >= 0.5f)
-		//	{
-		//		step = 0;
-		//		disTime = 0.0f;
-		//	}
-		//}
-	}
 
 	public void CharacterSwitching(int i)
 	{
@@ -162,12 +107,6 @@ public class EndRoll_Manager : MonoBehaviour
 [System.Serializable]
 public class EndRoll_StringSet
 {
-	public enum ParagraphJustification
-	{
-		eRightJustified,
-		eLeftJustified,
-	}
 	public string title;
 	public string[] member;
-	public ParagraphJustification paragraph;
 }
