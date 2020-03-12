@@ -114,7 +114,7 @@ public class Wireless_sinario : MonoBehaviour
 		//デバック用（珍さんチェック用）ラスボスの無線
 		if(Input.GetKeyDown(KeyCode.F))
 		{
-			No_cnt = (Sinario_No)StoryGroups.Count - 1;
+			No_cnt = (Sinario_No)StoryGroups.Count - 2;
 			SetNext_sinario();
 			Reset_Value();
 
@@ -376,8 +376,8 @@ public class Wireless_sinario : MonoBehaviour
 		Start_cnt = 0;
 		currentLine = 0;
 		frame = 0;
-		uiText.text = "";	//無線の表示で何も移さないようにするため
-
+		uiText.text = "";   //無線の表示で何も移さないようにするため
+		unShowTimer = 0;
 	}
 	/// <summary>
 	/// リストの中から選ばれたStoryを取り出す
