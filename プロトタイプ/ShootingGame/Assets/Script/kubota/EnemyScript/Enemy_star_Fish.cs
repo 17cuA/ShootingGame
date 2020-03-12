@@ -11,8 +11,12 @@ public class Enemy_star_Fish : character_status
 	public int num = 0;
 	private Vector3 vector;		//単位ベクトルを入れる
     public bool haveItem = false;
-    // Start is called before the first frame update
-    new void Start()
+	//死亡時の弾発射に使用
+	Quaternion deadAttackRotation;
+	float rotaZ;
+
+	// Start is called before the first frame update
+	new void Start()
 	{
         if (gameObject.GetComponent<DropItem>())
         {
@@ -33,6 +37,7 @@ public class Enemy_star_Fish : character_status
             {
                 Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
             }
+			DeadAttack();
             base.Died_Process();
 		}
 		base.Update();
@@ -51,6 +56,19 @@ public class Enemy_star_Fish : character_status
 		Vector3 pos = playerPos - firstPos;
 		//pos.z = 0;
 		return pos.normalized;
+	}
+	/// <summary>
+	/// 死んだときの反撃
+	/// </summary>
+	void DeadAttack()
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			deadAttackRotation = Quaternion.Euler(0, 0, rotaZ);
+			Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, deadAttackRotation);
+			rotaZ += 60;
+		}
+		rotaZ = 0;
 	}
 
 	public void Attack_Target_Decision(int number)
