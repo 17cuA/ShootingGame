@@ -5,8 +5,9 @@ using System.IO;
 
 public class Obj_Storage : MonoBehaviour
 {
-	public static Obj_Storage Storage_Data;	//どこからでも触ることができるようにする変数
+	public static Obj_Storage Storage_Data; //どこからでも触ることができるようにする変数
 
+	public string NowStage_Name;
 	#region プレイヤー関係のプレハブ
 	private GameObject Player_Prefab;                           //プレイヤーのプレハブ
 	private GameObject player_2_Prefab;                         //プレイヤー2のプレハブ
@@ -309,6 +310,10 @@ public class Obj_Storage : MonoBehaviour
 		switch (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
 		{
 			case "Stage_01":
+				#region 現在のステージの名前
+
+				#endregion
+
 				#region ステージ１
 				Boss1_Prefab = Resources.Load("Boss/BigCoreMk2") as GameObject;
 				Boss2_Prefab = Resources.Load("Boss/bick_core_mk3") as GameObject;

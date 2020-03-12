@@ -137,6 +137,7 @@ public class Enemy_Discharged : character_status
 				if (isRotaReset)
 				{
 					modelObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+					roll_Script.rotaY = -90;
 					//modelObj.transform.rotation = Quaternion.Euler(0, 0, 0);
 					transform.rotation = Quaternion.Euler(0, 0, 0);
 				}
@@ -144,7 +145,6 @@ public class Enemy_Discharged : character_status
 				{
 					modelObj.transform.rotation = Quaternion.Euler(0, 90, 0);
 					transform.rotation = Quaternion.Euler(0, 180, 0);
-
 				}
 			}
 			else if (moveType == MoveType.RightCurveUp_90 || moveType == MoveType.RightCueveUp_180 || moveType == MoveType.RightCurveDown_90 || moveType == MoveType.RightCueveDown_180)
@@ -152,6 +152,7 @@ public class Enemy_Discharged : character_status
 				if (isRotaReset)
 				{
 					modelObj.transform.rotation = Quaternion.Euler(0, -270, 0);
+					roll_Script.rotaY = -270;
 					transform.rotation = Quaternion.Euler(0, 180, 0);
 				}
 				else

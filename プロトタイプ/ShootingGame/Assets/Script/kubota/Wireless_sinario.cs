@@ -14,7 +14,7 @@ public class Wireless_sinario : MonoBehaviour
 		Stage2,
 	}
 
-	public Stage_No Stage;
+	public static Stage_No Stage;
 
 
 	public enum Sinario_No
@@ -89,9 +89,9 @@ public class Wireless_sinario : MonoBehaviour
 	private int soundcnt;
 	int Start_cnt;
 
-	public Sinario_No No_cnt;		//どの無線を鳴らすのかをチェックする用
+	public Sinario_No No_cnt;       //どの無線を鳴らすのかをチェックする用
 
-
+	public static bool IsFinish_Wireless;	//一番最後の無線が終わったかどうかの判定用
 
 
 	void Start()
@@ -106,10 +106,20 @@ public class Wireless_sinario : MonoBehaviour
 		soundcnt = 0;
 		Start_cnt = 0;
 		No_cnt = 0;
+		IsFinish_Wireless = false;
 	}
 
 	void Update()
 	{
+		//デバック用（珍さんチェック用）ラスボスの無線
+		if(Input.GetKeyDown(KeyCode.F))
+		{
+			No_cnt = (Sinario_No)StoryGroups.Count - 1;
+			SetNext_sinario();
+			Reset_Value();
+
+		}
+
 		//ゲーム内のモードが無線状態の時
 		if (Game_Master.Management_In_Stage == Game_Master.CONFIGURATION_IN_STAGE.WIRELESS)
 		{
@@ -160,12 +170,13 @@ public class Wireless_sinario : MonoBehaviour
 				//無線のモードから通常のモードに治す
 				if (currentLine >= NowStory.Sinario.Count)
 				{
-					//S_No++;
 					No_cnt++;
 					SetNext_sinario();
 					uiText.text = "";
 					Sound_Active();
 					Reset_Value();
+					if ((int)No_cnt == StoryGroups.Count) IsFinish_Wireless = true;
+
 				}
 				isShowOver = false;
 			}
@@ -368,10 +379,6 @@ public class Wireless_sinario : MonoBehaviour
 		uiText.text = "";	//無線の表示で何も移さないようにするため
 
 	}
-	void ActiveWirelessVoice(int num)
-	{
-
-	}
 	/// <summary>
 	/// リストの中から選ばれたStoryを取り出す
 	/// </summary>
@@ -388,5 +395,14 @@ public class Wireless_sinario : MonoBehaviour
 			}
 		}
 		return temporary;
+	}
+
+	/// <summary>
+	/// 最後の無線が終わったか同課の判定用
+	/// </summary>
+	/// <returns></returns>
+	public static bool IsFinishWireless()
+	{
+		return IsFinish_Wireless;
 	}
 }
