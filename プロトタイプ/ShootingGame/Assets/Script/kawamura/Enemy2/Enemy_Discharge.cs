@@ -67,7 +67,7 @@ public class Enemy_Discharge : character_status
 	new void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
-		//mapObj = GameObject.Find("Stage_02_Map").gameObject;
+		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 
 		base.Start();
 	}
@@ -114,7 +114,7 @@ public class Enemy_Discharge : character_status
 								discharged_Script.isRotaReset = true;
 							}
 							//子供にする
-							//saveObj.transform.parent = mapObj.transform;
+							saveObj.transform.parent = mapObj.transform;
 							//動きの種類を設定
 							discharged_Script.moveType = setMoveType;
 							//SetState(setMoveType);
