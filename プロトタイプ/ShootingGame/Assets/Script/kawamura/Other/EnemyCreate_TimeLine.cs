@@ -105,6 +105,13 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
 		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) Director.time = 58.0;
+		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
+		{
+			Director.time = 75.0;
+			createNum = 9;
+
+		}
+
 		if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 
@@ -514,11 +521,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//タコ上向き左移動(斜めの時角度は-27度がいいかも
 			case CreateEnemyType.Octopus_UpLeft:
-				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj = Instantiate(OctopusObj, pos, Quaternion.Euler(0, enemyRota.y, enemyRota.z));
 				saveObj.transform.parent = mapObj.transform;
 				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
 				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eUP;
 				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eLEFT;
+				saveOctopus_Script.horizontalMovementDirection = -1;
 
 				saveObj = null;
 				saveOctopus_Script = null;
@@ -528,7 +536,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//タコ上向き右移動(斜めの時角度は-27度がいいかも
 			case CreateEnemyType.Octopus_UpRight:
-				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj = Instantiate(OctopusObj, pos, Quaternion.Euler(0, enemyRota.y, enemyRota.z));
 				saveObj.transform.parent = mapObj.transform;
 				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
 				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eUP;
@@ -542,11 +550,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//タコ下向き左移動(斜めの時角度は153度がいいかも
 			case CreateEnemyType.Octopus_DownLeft:
-				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj = Instantiate(OctopusObj, pos, Quaternion.Euler(0, enemyRota.y, enemyRota.z));
 				saveObj.transform.parent = mapObj.transform;
 				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
 				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eDOWN;
 				saveOctopus_Script.direc_Horizon = OctopusType_Enemy.DIRECTION_HORIZONTAL.eLEFT;
+				saveOctopus_Script.horizontalMovementDirection = -1;
 
 				saveObj = null;
 				saveOctopus_Script = null;
@@ -556,7 +565,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//タコ下向き右移動(斜めの時角度は153度がいいかも
 			case CreateEnemyType.Octopus_DownRight:
-				saveObj = Instantiate(OctopusObj, pos, enemyRota);
+				saveObj = Instantiate(OctopusObj, pos, Quaternion.Euler(0, enemyRota.y, enemyRota.z));
 				saveObj.transform.parent = mapObj.transform;
 				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
 				saveOctopus_Script.bottomDirection = OctopusType_Enemy.DIRECTION.eDOWN;
