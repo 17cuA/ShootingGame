@@ -13,6 +13,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public GameObject followGroundObj;
 	public GameObject taihoObj;
 	public GameObject OctopusObj;
+	public GameObject waveEnemyObj;
+	public GameObject walkEnemyObj;
 	#endregion
 
 	public GameObject saveObj;
@@ -117,12 +119,15 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	}
 
+	//リソースのロード
 	void ResouceUpload()
 	{
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
 		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
 		OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
+		walkEnemyObj = Resources.Load("Enemy2/Enemy_Walk") as GameObject;
+		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
 	}
 
 	void CreatePosUpload()
