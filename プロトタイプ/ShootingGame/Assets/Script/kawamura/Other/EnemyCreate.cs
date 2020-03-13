@@ -723,11 +723,6 @@ public class EnemyCreate : MonoBehaviour
 		{
 			if (Input.GetKeyDown(KeyCode.H)) { Scene_Manager.Manager.Screen_Transition_To_Stage_01(); }
 			if (Input.GetKeyDown(KeyCode.J)) { Scene_Manager.Manager.Screen_Transition_To_Stage_02(); }
-			if (Input.GetKeyDown(KeyCode.K)) { Scene_Manager.Manager.Screen_Transition_To_Stage_03(); }
-			if (Input.GetKeyDown(KeyCode.L)) { Scene_Manager.Manager.Screen_Transition_To_Stage_04(); }
-			if (Input.GetKeyDown(KeyCode.B)) { Scene_Manager.Manager.Screen_Transition_To_Stage_05(); }
-			if (Input.GetKeyDown(KeyCode.N)) { Scene_Manager.Manager.Screen_Transition_To_Stage_06(); }
-			if (Input.GetKeyDown(KeyCode.M)) { Scene_Manager.Manager.Screen_Transition_To_Stage_07(); }
 		}
 		else
 		{
@@ -873,26 +868,6 @@ public class EnemyCreate : MonoBehaviour
 
 			case EnemyType.STAGE_02:
 				Scene_Manager.Manager.Screen_Transition_To_Stage_02();
-				break;
-
-			case EnemyType.STAGE_03:
-				Scene_Manager.Manager.Screen_Transition_To_Stage_03();
-				break;
-
-			case EnemyType.STAGE_04:
-				Scene_Manager.Manager.Screen_Transition_To_Stage_04();
-				break;
-
-			case EnemyType.STAGE_05:
-				Scene_Manager.Manager.Screen_Transition_To_Stage_05();
-				break;
-
-			case EnemyType.STAGE_06:
-				Scene_Manager.Manager.Screen_Transition_To_Stage_06();
-				break;
-
-			case EnemyType.STAGE_07:
-				Scene_Manager.Manager.Screen_Transition_To_Stage_07();
 				break;
 
 			case EnemyType.CLAMCHOWDER_GROUP_UPSEVENDIAGONAL:

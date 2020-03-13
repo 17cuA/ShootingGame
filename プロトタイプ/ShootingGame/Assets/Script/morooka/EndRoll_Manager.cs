@@ -26,7 +26,7 @@ public class EndRoll_Manager : MonoBehaviour
 		endRoll_title.Color_Change(new Color(1.0f, 1.0f, 1.0f,0.0f));
 		endRoll_menber.Color_Change(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 
-		fluctuationValue = 1.0f / 60.0f;
+		fluctuationValue = 1.0f / 50.0f;
 	}
 
 	public void CharacterSwitching(int i)
@@ -68,7 +68,7 @@ public class EndRoll_Manager : MonoBehaviour
 
 	public IEnumerator increase_alpha()
 	{
-		for(int i = 0; i < 60; i++)
+		for(int i = 0; i < 50; i++)
 		{
 			Color color = endRoll_title.Font_Color;
 			color.a += fluctuationValue;
@@ -80,7 +80,7 @@ public class EndRoll_Manager : MonoBehaviour
 	}
 	public IEnumerator reduce_alpha()
 	{
-		for(int i = 0; i < 60; i++)
+		for(int i = 0; i < 50; i++)
 		{
 			Color color = endRoll_title.Font_Color;
 			color.a -= fluctuationValue;
