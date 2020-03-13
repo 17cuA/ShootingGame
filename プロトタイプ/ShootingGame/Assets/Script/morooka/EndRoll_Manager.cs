@@ -66,6 +66,10 @@ public class EndRoll_Manager : MonoBehaviour
 		}
 	}
 
+	public void SceneChange_To_Clere()
+	{
+		Scene_Manager.Manager.Screen_Transition_To_Clear();
+	}
 	public IEnumerator increase_alpha()
 	{
 		for(int i = 0; i < 50; i++)
