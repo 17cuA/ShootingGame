@@ -37,8 +37,12 @@ public class Enemy_star_Fish : character_status
             {
                 Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
             }
-			DeadAttack();
-            base.Died_Process();
+			if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().ToString() == "Stage_02")
+			{
+				DeadAttack();
+
+			}
+			base.Died_Process();
 		}
 		base.Update();
 	}

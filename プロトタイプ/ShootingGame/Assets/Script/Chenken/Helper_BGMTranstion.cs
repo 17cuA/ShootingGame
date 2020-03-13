@@ -33,6 +33,7 @@ public class Helper_BGMTranstion : MonoBehaviour
 	[SerializeField] private bool isFadeOut = false;
 
 	private int currentWirelessNumber = 0;
+	public static int WirelessNumber_temp;
 	private AudioSource audioSource;
 
 	private void Awake()
@@ -44,6 +45,11 @@ public class Helper_BGMTranstion : MonoBehaviour
 		audioSource.volume = fadeInStartVolume;
 	}
 
+	private void Start()
+	{
+		currentWirelessNumber = 0;
+		WirelessNumber_temp = 0;
+	}
 	// Update is called once per frame
 	private void Update()
     {
@@ -106,13 +112,22 @@ public class Helper_BGMTranstion : MonoBehaviour
 			}
 		}
 
-		//位置
-		if(Wireless_sinario.Is_using_wireless)
+
+		if(currentWirelessNumber != WirelessNumber_temp)
 		{
-			currentWirelessNumber++;
-			DebugManager.OperationDebug("現在のBGM:" + currentWirelessNumber,"BGM");
+			currentWirelessNumber = WirelessNumber_temp;
+			Debug.Log("鳴らしているBGMの番号：" + currentWirelessNumber);
 			isFadeOut = true;
 		}
+
+
+		//位置
+		//if(Wireless_sinario.Is_using_wireless)
+		//{
+		//	currentWirelessNumber++;
+		//	DebugManager.OperationDebug("現在のBGM:" + currentWirelessNumber,"BGM");
+		//	isFadeOut = true;
+		//}
     }
 
 
