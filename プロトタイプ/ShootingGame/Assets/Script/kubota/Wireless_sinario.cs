@@ -135,6 +135,38 @@ public class Wireless_sinario : MonoBehaviour
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			first_start = 0;
 			frame = (int)(frameMax * 0.67f);
+			if(Stage == Stage_No.Stage1)
+			{
+				//BGM変更用
+				if(Helper_BGMTranstion.WirelessNumber_temp < 6)
+				{
+					Helper_BGMTranstion.WirelessNumber_temp = (int)NowStory.No;
+				}
+			}
+			else if(Stage == Stage_No.Stage2)
+			{
+				switch (NowStory.No)
+				{
+					case Sinario_No.Curtain_up:
+						break;
+					case Sinario_No.First_half_boss_before:
+						break;
+					case Sinario_No.First_falf_boss_after:
+						break;
+					case Sinario_No.Middle_Boss_before:
+						break;
+					case Sinario_No.Middle_Boss_after:
+						break;
+					case Sinario_No.Second_half_boss_before:
+						break;
+					case Sinario_No.Second_half_boss_after:
+						break;
+					case Sinario_No.end:
+						break;
+					default:
+						break;
+				}
+			}
 			//No_cnt++;
 			Is_using_wireless = false;
 		}
