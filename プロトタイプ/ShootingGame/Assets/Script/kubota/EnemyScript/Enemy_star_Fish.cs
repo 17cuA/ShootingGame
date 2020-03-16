@@ -5,8 +5,11 @@ using StorageReference;
 
 public class Enemy_star_Fish : character_status
 {
+
+	public int TargetNumber = 0;		//１Pか２Pを狙うかのチェック用	1が１P、2が２P
+
     GameObject item;
-	public Vector3 playerPos;
+	public GameObject playerPos;
 	public Vector3 firstPos;
 	public int num = 0;
 	private Vector3 vector;		//単位ベクトルを入れる
@@ -15,6 +18,10 @@ public class Enemy_star_Fish : character_status
 	Quaternion deadAttackRotation;
 	float rotaZ;
 
+	private void OnEnable()
+	{
+
+	}
 	// Start is called before the first frame update
 	new void Start()
 	{
@@ -29,7 +36,9 @@ public class Enemy_star_Fish : character_status
 	// Update is called once per frame
 	new void Update()
 	{
-		if (vector == new Vector3(0, 0, 0)) vector = calcPos();		//単位ベクトルの取得 
+		//おそらく単位ベクトルの計算
+		if (vector == new Vector3(0, 0, 0) || playerPos != null) vector = calcPos();     //単位ベクトルの取得 
+
 		transform.position -= vector * speed;
 		if(hp < 1)
 		{
@@ -42,6 +51,7 @@ public class Enemy_star_Fish : character_status
 				DeadAttack();
 
 			}
+			Reset_Value();
 			base.Died_Process();
 		}
 		base.Update();
@@ -57,7 +67,20 @@ public class Enemy_star_Fish : character_status
 	//単位ベクトル計算用
 	Vector3 calcPos()
 	{
-		Vector3 pos = playerPos - firstPos;
+		if (TargetNumber == 1)
+		{
+			playerPos = Obj_Storage.Storage_Data.GetPlayer();
+		}
+		else if (TargetNumber == 2)
+		{
+			playerPos = Obj_Storage.Storage_Data.GetPlayer2();
+		}
+
+		Vector3 PlayerpositionData = playerPos.transform.position;
+		PlayerpositionData.z = 0;
+		Vector3 pos = PlayerpositionData - firstPos;
+		Debug.Log("単位ベクトル：" + pos);
+
 		//pos.z = 0;
 		return pos.normalized;
 	}
@@ -80,4 +103,14 @@ public class Enemy_star_Fish : character_status
 		num = number;
 	}
 
+	/// <summary>
+	/// 各数値の初期化
+	/// </summary>
+	private void Reset_Value()
+	{
+		vector = Vector3.zero;
+		playerPos = null;
+		TargetNumber = 0;
+		Debug.Log("呼ばれたよ");
+	}
 }

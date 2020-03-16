@@ -17,8 +17,6 @@ public class StarFish_Spowner2 : MonoBehaviour
 
 	private GameObject P1_obj;
 	private GameObject P2_obj;
-	private Player1 P1;         //1Pの情報
-	private Player2 P2;           //２Ｐの情報
 
 	// Start is called before the first frame update
 	void Start()
@@ -36,9 +34,6 @@ public class StarFish_Spowner2 : MonoBehaviour
 		Active_Frame = 0;
 		P1_obj = Obj_Storage.Storage_Data.GetPlayer();
 		P2_obj = Obj_Storage.Storage_Data.GetPlayer2();
-		P1 = P1_obj.GetComponent<Player1>();
-		P2 = P2_obj.GetComponent<Player2>();
-
 	}
 
 	// Update is called once per frame
@@ -46,6 +41,7 @@ public class StarFish_Spowner2 : MonoBehaviour
     {
 		if (Active_Frame > Active_Frame_Max)
 		{
+			Active_Frame = 0;
 			gameObject.SetActive(false);
 		}
 		Active_Frame++;
@@ -76,16 +72,11 @@ public class StarFish_Spowner2 : MonoBehaviour
 					//攻撃のターゲットを設定
 					if (attack_type % 2 == 0)
 					{
-						if (!P1_obj.activeSelf) ESF.playerPos = P2.transform.position;
-						else if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
-						else ESF.playerPos = P1.transform.position;
+						ESF.TargetNumber = 1;
 					}
 					else
 					{
-						if (!P2_obj.activeSelf) ESF.playerPos = P1.transform.position;
-						else if (P2.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
-						else ESF.playerPos = P2.transform.position;
-
+						ESF.TargetNumber = 2;
 					}
 					ESF.Attack_Target_Decision(attack_type % 2);
 					attack_type++;
@@ -105,9 +96,8 @@ public class StarFish_Spowner2 : MonoBehaviour
 					Enemy_star_Fish ESF = Obj_Storage.Storage_Data.StarFish_Enemy.Active_Obj().GetComponent<Enemy_star_Fish>();
 					ESF.transform.position = pos[Create_Pos_cnt];
 					ESF.firstPos = ESF.transform.position;
-					if (P1.Is_Resporn) ESF.playerPos = new Vector3(ESF.firstPos.x - 1, ESF.firstPos.y, ESF.firstPos.z);
-					else ESF.playerPos = P1.transform.position; Create_Pos_cnt++;
-
+					ESF.TargetNumber = 1;
+					Create_Pos_cnt++;
 				}
 				frame = 0;
 			}
