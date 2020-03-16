@@ -12,7 +12,7 @@ public class Enemy_Walk : character_status
 	public enum DirectionState
 	{
 		Left,			//左向き
-		Right,		//右向き
+		Right,		    //右向き
 		Roll,			//回転中
 		Stop,			//停止
 	}
@@ -86,32 +86,53 @@ public class Enemy_Walk : character_status
 
     new void Update()
     {
+        //再起動時の処理
 		if (once)
 		{
+            //回転の方向を変える
 			switch(direcState)
 			{
 				case DirectionState.Left:
+                    speedX = -2;
+
 					switch(direction_Vertical)
 					{
 						case Direction_Vertical.Top:
-
+                            if (roll_Script.rotaX_Value < 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
 							break;
 
 						case Direction_Vertical.Under:
-							break;
+                            if (roll_Script.rotaX_Value > 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
+                            break;
 					}
 					break;
 
 				case DirectionState.Right:
+                    speedX = 4;
+
 					switch (direction_Vertical)
 					{
 						case Direction_Vertical.Top:
+                            if (roll_Script.rotaX_Value > 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
 
-							break;
+                            break;
 
 						case Direction_Vertical.Under:
+                            if (roll_Script.rotaX_Value < 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
 
-							break;
+                            break;
 					}
 
 					break;

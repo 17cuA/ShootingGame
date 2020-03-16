@@ -50,8 +50,17 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		Octopus_UpRight,							//上向き右移動
 		Octopus_DownLeft,							//下向き左移動
 		Octopus_DownRight,							//下向き右移動
-		OptionHunter,
-	}
+		OptionHunter,                               //オプションハンター
+        Hitode_Square,                              //4方向からのヒトデ
+        Walk_UpLeft,                                //歩く敵上側左方向移動
+        Walk_UpRight,                               //歩く敵上側右方向移動
+        Walk_DownLeft,                              //歩く敵下側左方向移動
+        Walk_DownRight,                             //歩く敵下側右方向移動
+        Wave_Up,                                    //上下移動（闘牛）
+        Wave_Down,                                  //上下移動（闘牛）
+        Wave_UpAndDown,                             //上下移動の2体縦に同時出し
+        Manta,
+    }
 
 	//作る位置
 	public enum CreatePos
