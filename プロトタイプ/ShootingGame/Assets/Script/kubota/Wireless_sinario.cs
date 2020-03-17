@@ -97,6 +97,14 @@ public class Wireless_sinario : MonoBehaviour
 	void Start()
 	{
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
+		if(SceneManager.GetActiveScene().name == "Stage_01")
+		{
+			Stage = Stage_No.Stage1;
+		}
+		else
+		{
+			Stage = Stage_No.Stage2;
+		}
 		frame = 0;
 		first_start = 0;
 		uiText.text = "";
