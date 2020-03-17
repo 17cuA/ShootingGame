@@ -12,7 +12,7 @@ public class Helper_Stage02SceneTranstion : MonoBehaviour
 		{
 			if (Wireless_sinario.IsFinishWireless())
 			{
-				GameObject.Find("Scene_Manager").GetComponent<Scene_Manager>().Screen_Transition_To_Clear();
+				GameObject.Find("Scene_Manager").GetComponent<Scene_Manager>().Screen_Transition_To_EndRoll();
 				canCheck = false;
 			}
 		}

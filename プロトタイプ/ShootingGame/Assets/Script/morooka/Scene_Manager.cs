@@ -28,6 +28,9 @@ public class Scene_Manager : MonoBehaviour
 		eSTAGE_02,          // 4	(ステージ2シーン)
 		eGAME_OVER,     // 10	(ゲームオーバーシーン)
 		eGAME_CLEAR,        // 11	(ゲームクリアシーン)
+
+        //3-17　チン　追加
+        eEND_ROLL
 	}
 
 	static public Scene_Manager Manager { get; private set; }       // シーンマネージャー自体の保存
@@ -277,6 +280,18 @@ public class Scene_Manager : MonoBehaviour
 
 		Next_Scene = SCENE_NAME.eGAME_CLEAR;
 	}
+
+    //-------------------------------------------
+    //チン　追加 3-17
+    public void Screen_Transition_To_EndRoll()
+	{
+		if (!Is_Fade_Out_Intermediate && Is_Fade_Finished)
+		{
+			Is_Fade_Out_Intermediate = true;
+		}
+		Next_Scene = SCENE_NAME.eEND_ROLL;
+	}
+    //-------------------------------------------
 
 	/// <summary>
 	/// 任意のシーンに移動
