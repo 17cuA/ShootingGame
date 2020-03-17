@@ -13,11 +13,12 @@ public class TerrainManagement : MonoBehaviour
 	private List<Transform> transformsList { get; set; }        // 子どもトランスフォームの保存
 	private void Awake()
 	{
-		Renderer[] r = transform.GetComponentsInChildren<Renderer>();
+		Renderer[] r = transform.GetComponentsInChildren<Renderer>(true);
+
 		transformsList = new List<Transform>();
-		foreach (var tt in r)
+		for(int i = 1; i < r.Length;i++)
 		{
-			transformsList.Add(tt.transform);
+			transformsList.Add(r[i].transform);
 		}
 
 		ForJudgment = new Dictionary<string, Vector2>();
