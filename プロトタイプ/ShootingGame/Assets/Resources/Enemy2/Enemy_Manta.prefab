@@ -248,6 +248,7 @@ MonoBehaviour:
   chargeController: {fileID: 0}
   laserColliderController: {fileID: 0}
   deathEffect: {fileID: 0}
+  mantaType: 0
   chargeTime: 1.5
   emitterTime: 3.8
   chargeDevice:
@@ -931,6 +932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[4].time
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200566104663934361, guid: db5f2b2ac5d81844ab61180583ba4f94,
+        type: 3}
+      propertyPath: zDirectionCoordinateChangeStatus.colliderSize.m_Curve.Array.data[5].time
+      value: 3.490999
       objectReference: {fileID: 0}
     - target: {fileID: 1200566104085991319, guid: db5f2b2ac5d81844ab61180583ba4f94,
         type: 3}

@@ -8,12 +8,19 @@ using StorageReference;
 ///　陳　弄りますー
 /// </summary>
 
+public enum MantaType
+{
+    Move,
+    Stop,
+}
+
 public class Enemy_Manta : character_status
 {
 	[SerializeField] private Animation animationPlayer;
 	[SerializeField] private Boss_One_A111 chargeController;
 	[SerializeField] private GameObject laserColliderController;
 	[SerializeField] private ParticleSystem deathEffect;
+    public MantaType mantaType;
 
 	private bool canShotDeathBullet = true;
 
@@ -172,7 +179,11 @@ public class Enemy_Manta : character_status
 
 	private void Move_Update()
 	{
-		transform.position -= speed / 2f * Vector3.right * Time.deltaTime;
+        if(mantaType == MantaType.Move)
+        { 
+		    transform.position -= speed / 2f * Vector3.right * Time.deltaTime;
+        }
+
 		shotTimer += Time.deltaTime;
 		if(shotTimer >= firstShotDelay)
 		{

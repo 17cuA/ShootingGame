@@ -68,6 +68,7 @@ public class Enemy_star_Fish : character_status
 	Vector3 calcPos()
 	{
 		if (TargetNumber == 1)
+
 		{
 			playerPos = Obj_Storage.Storage_Data.GetPlayer();
 		}
