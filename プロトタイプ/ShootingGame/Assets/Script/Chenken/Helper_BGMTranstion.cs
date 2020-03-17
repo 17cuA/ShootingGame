@@ -102,6 +102,7 @@ public class Helper_BGMTranstion : MonoBehaviour
 				{
 					audioSource.clip = BGMGroups[currentWirelessNumber].BGM_Clip;
 					isFadeIn = true;
+
 					audioSource.Play();
 
 				}
