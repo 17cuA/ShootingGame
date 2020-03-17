@@ -91,8 +91,8 @@ public class Wireless_sinario : MonoBehaviour
 
 	public Sinario_No No_cnt;       //どの無線を鳴らすのかをチェックする用
 
-	public static bool IsFinish_Wireless;	//一番最後の無線が終わったかどうかの判定用
-
+	private static bool IsFinish_Wireless;   //一番最後の無線が終わったかどうかの判定用
+	private static bool IsFinish_BrainWireless;	//ブレイン戦のあとの無線が終わった時にtrueにし、ステージを反転
 
 	void Start()
 	{
@@ -135,6 +135,34 @@ public class Wireless_sinario : MonoBehaviour
 			Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
 			first_start = 0;
 			frame = (int)(frameMax * 0.67f);
+			if(Stage == Stage_No.Stage1)
+			{
+				//BGM変更用
+				if(Helper_BGMTranstion.WirelessNumber_temp < 6)
+				{
+					Helper_BGMTranstion.WirelessNumber_temp = (int)NowStory.No;
+				}
+			}
+			else if(Stage == Stage_No.Stage2)
+			{
+				switch (NowStory.No)
+				{
+					//2ステージの開始時
+					case Sinario_No.Curtain_up:
+						Helper_BGMTranstion.WirelessNumber_temp = 0;
+						break;
+					//ブレイン戦開始時
+					case Sinario_No.First_falf_boss_after:
+						Helper_BGMTranstion.WirelessNumber_temp = 1;
+						break;
+					//ブレイン戦終了時
+					case Sinario_No.Middle_Boss_before:
+						Helper_BGMTranstion.WirelessNumber_temp = 2;
+						break;
+					default:
+						break;
+				}
+			}
 			//No_cnt++;
 			Is_using_wireless = false;
 		}
@@ -170,12 +198,21 @@ public class Wireless_sinario : MonoBehaviour
 				//無線のモードから通常のモードに治す
 				if (currentLine >= NowStory.Sinario.Count)
 				{
+
 					No_cnt++;
 					SetNext_sinario();
 					uiText.text = "";
 					Sound_Active();
 					Reset_Value();
-					if ((int)No_cnt == StoryGroups.Count) IsFinish_Wireless = true;
+
+					if(Stage == Stage_No.Stage2)
+					{
+						//ブレイン戦が終わったどうかの判定用
+						if (No_cnt == Sinario_No.Middle_Boss_after) IsFinish_BrainWireless = true;
+						//最後の無線が終わったかどうかの判定
+						if ((int)No_cnt == StoryGroups.Count) IsFinish_Wireless = true;
+
+					}
 
 				}
 				isShowOver = false;
@@ -398,11 +435,19 @@ public class Wireless_sinario : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 最後の無線が終わったか同課の判定用
+	/// 最後の無線が終わったかどうかの判定用
 	/// </summary>
 	/// <returns></returns>
-	public static bool IsFinishWireless()
+	public static bool IsFinishWireless_Final()
 	{
 		return IsFinish_Wireless;
+	}
+	/// <summary>
+	/// ブレイン戦後の無線が終わったか同課の判定
+	/// </summary>
+	/// <returns></returns>
+	public static bool IsFinishWireless_BrainBattle()
+	{
+		return IsFinish_BrainWireless;
 	}
 }
