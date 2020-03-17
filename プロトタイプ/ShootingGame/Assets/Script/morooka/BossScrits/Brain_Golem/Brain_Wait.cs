@@ -93,7 +93,7 @@ public class Brain_Wait : character_status
 		if (!Is_PartsAlive())
 		{
 			// 管理しているタイムラインがポーズ状態のとき
-			if (playable_Map.state == PlayState.Paused)
+			if (playable_Map.state == PlayState.Paused && playable_Map.time == 324.3)
 			{
 				SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -105,14 +105,14 @@ public class Brain_Wait : character_status
 					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eONE_PLAYER);
 					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 				}
-
-				// タイムラインの再生時間を指定後、再生
-				playable_Map.time = 324.3f;
-				playable_Map.Play();
-			
+				playable_Map.time = 324.3;
 				Boss_DriveSwitch(false);
 			}
-
+			// タイムラインの再生時間を指定後、再生
+			if (Wireless_sinario.IsFinishWireless_BrainBattle())
+			{
+				playable_Map.Play();
+			}
 			// 画面外
 			if (transform.position.x < -20.0f)
 			{
@@ -248,5 +248,6 @@ public class Brain_Wait : character_status
 		Is_Active = b;
 		// レーザー
 		Is_Laser = b;
+		lasear.SetActive(false);
 	}
 }
