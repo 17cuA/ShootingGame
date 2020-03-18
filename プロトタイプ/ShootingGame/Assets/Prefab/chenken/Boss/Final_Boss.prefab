@@ -118,7 +118,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.23, y: 1.91, z: 3.39}
+  m_Size: {x: 2.75, y: 3.08, z: 3.39}
   m_Center: {x: 0, y: 0.55, z: 2.16}
 --- !u!1001 &1613342084346641398
 PrefabInstance:
@@ -127,11 +127,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8409805035691127411}
     m_Modifications:
-    - target: {fileID: 1244825334597854246, guid: d728bec0a5667f440b02036f4968d77e,
-        type: 3}
-      propertyPath: m_Name
-      value: E010
-      objectReference: {fileID: 0}
     - target: {fileID: 1244825334597854247, guid: d728bec0a5667f440b02036f4968d77e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -186,6 +181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244825334597854246, guid: d728bec0a5667f440b02036f4968d77e,
+        type: 3}
+      propertyPath: m_Name
+      value: E010
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d728bec0a5667f440b02036f4968d77e, type: 3}
@@ -299,6 +299,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8303693229616137583, guid: bc6a02b61a0499f4f926ea907dddd6c3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d73f012297603d429f84753befc93bc, type: 2}
     - target: {fileID: 8303693229618038671, guid: bc6a02b61a0499f4f926ea907dddd6c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -354,11 +359,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8303693229616137583, guid: bc6a02b61a0499f4f926ea907dddd6c3,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0d73f012297603d429f84753befc93bc, type: 2}
     - target: {fileID: 8303693229618175243, guid: bc6a02b61a0499f4f926ea907dddd6c3,
         type: 3}
       propertyPath: m_IsTrigger

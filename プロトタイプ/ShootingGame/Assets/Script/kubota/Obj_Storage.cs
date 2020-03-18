@@ -561,6 +561,11 @@ public class Obj_Storage : MonoBehaviour
 
 				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 36, "Enemy_Beam_Bullet");      // マンタ型が死んだときに出すレーザー型の弾
+
+                //3-18陳追加
+                //これが無いとステージ2ではレーザーがバグる
+                Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
+                Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
 				#endregion
 
 				#region エフェクトのロード
