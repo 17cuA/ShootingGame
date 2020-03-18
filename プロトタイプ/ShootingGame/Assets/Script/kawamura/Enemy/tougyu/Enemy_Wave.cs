@@ -118,8 +118,16 @@ public class Enemy_Wave : character_status
 		//sonicBoom.Stop();
 		isSonicPlay = false;
 		defaultPos = transform.localPosition;
+        if (SceneManager.GetActiveScene().name == "Stage_01")
+        {
+            defaultSpeedY = 7.0f;
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage_02")
+        {
+            defaultSpeedY = 4.0f;
+        }
 
-		if (gameObject.GetComponent<DropItem>())
+        if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;

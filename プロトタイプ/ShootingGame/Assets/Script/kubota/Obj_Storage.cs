@@ -34,8 +34,9 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Bullet_Prefab_BattleShip;				//バトルシップタイプの弾のPrefab情報
 	private GameObject Beam_Bullet_E_Prefab;					//エネミーのビーム型バレットのプレハブ
 	private GameObject SmallBeam_Bullet_E_Prefab;               //エネミーの小さいビーム型バレットのプレハブ
-	private GameObject ClamChowderType_Enemy_Prefab;			//貝型エネミーのプレハブ
-	private GameObject BeelzebubType_Enemy_Prefab;				//ハエ型エネミーのプレハブ
+	private GameObject ClamChowderType_Enemy_Prefab;            //貝型エネミーのプレハブ
+    private GameObject ClamChowderType_Enemy_Item_Prefab;            //貝型エネミーのプレハブ
+    private GameObject BeelzebubType_Enemy_Prefab;				//ハエ型エネミーのプレハブ
 	private GameObject BattleShip_Enemy_Prefab;					//戦艦型エネミーのプレハブ
 	private GameObject Star_Fish_Enemy_Prefab;					//ヒトデ型のエネミーのプレハブ
 	private GameObject Boss_Middle_Prefab;						//中ボスのプレハブ
@@ -100,7 +101,8 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling SmallBeam_Bullet_E;
 	public Object_Pooling UfoType_Enemy;
 	public Object_Pooling ClamChowderType_Enemy;
-	public Object_Pooling BeelzebubType_Enemy;
+    public Object_Pooling ClamChowderType_Enemy_Item;
+    public Object_Pooling BeelzebubType_Enemy;
 	public Object_Pooling BattleShipType_Enemy;
 	public Object_Pooling StarFish_Enemy;
 	public Object_Pooling Option;
@@ -492,7 +494,8 @@ public class Obj_Storage : MonoBehaviour
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				UfoType_Enemy = new Object_Pooling(UfoType_Enemy_Prefab, 1, "UfoType_Enemy");       // UFO型エネミーを生成
 				ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 1, "ClamChowderType_Enemy");       // 貝型エネミーを生成
-				BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
+                //ClamChowderType_Enemy_Item = new Object_Pooling(ClamChowderType_Enemy_Item_Prefab, 1, "ClamChowderType_Enemy_Item");       // 貝型エネミーを生成
+                BeelzebubType_Enemy = new Object_Pooling(BeelzebubType_Enemy_Prefab, 1, "BeelzebubType_Enemy");      //	 ハエ型エネミーを生成
 				BattleShipType_Enemy = new Object_Pooling(BattleShip_Enemy_Prefab, 4, "BattleshipType_Enemy");          //戦艦型のエネミーを生成
 				StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 20, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
 
@@ -668,6 +671,7 @@ public class Obj_Storage : MonoBehaviour
 				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;			//壁についている敵
 				OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;    //タコ型の敵
                 ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject; //闘牛
+                ClamChowderType_Enemy_Item_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject; //闘牛アイテム
                 Walk_Prefab = Resources.Load("Enemy2/Enemy_Walk") as GameObject;    //歩く敵
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
 
@@ -683,8 +687,9 @@ public class Obj_Storage : MonoBehaviour
 				StagBeetle_Enemy = new Object_Pooling(StagBeetle_Prefab, 10, "StagBeetle_Enemy");
 				Cannon_Enemy = new Object_Pooling(Cannon_Prefab, 10, "Cannon_Enemy");
 				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 8, "OctopusType_Enemy");                               // タコ型エネミーを生成
-                ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 20, "ClamChowderType_Enemy");       // 貝型エネミーを生成
-				StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 8, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
+                ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 6, "ClamChowderType_Enemy");       // 貝型エネミーを生成
+                ClamChowderType_Enemy_Item = new Object_Pooling(ClamChowderType_Enemy_Item_Prefab, 4, "ClamChowderType_Enemy_Item");       // 貝型エネミーを生成
+                StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 8, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
 
 				#endregion
 

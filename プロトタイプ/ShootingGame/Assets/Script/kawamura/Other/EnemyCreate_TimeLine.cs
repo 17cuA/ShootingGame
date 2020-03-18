@@ -15,7 +15,8 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public GameObject OctopusObj;
     public GameObject hitodeSpownerObj;
     public GameObject waveEnemyObj;
-	public GameObject walkEnemyObj;
+    public GameObject waveEnemyObj_Item;
+    public GameObject walkEnemyObj;
     public GameObject mantaMoveObj;
     public GameObject mantaStopObj;
 	#endregion
@@ -66,6 +67,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Wave_Up,                                    //上下移動（闘牛）
         Wave_Down,                                  //上下移動（闘牛）
         Wave_UpAndDown,                             //上下移動の2体縦に同時出し
+        Wave_UpAndDown_Item,                        //上下移動の アイテム2体縦に同時出し
         Manta_Move,                                 //動くマンタ
         Manta_Stop,                                 //動かないマンタ
     }
@@ -163,6 +165,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         hitodeSpownerObj = Resources.Load("Enemy2/StarFish_Spowner2") as GameObject;
         walkEnemyObj = Resources.Load("Enemy2/Enemy_Walk") as GameObject;
 		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
+        waveEnemyObj_Item = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject;
         mantaMoveObj = Resources.Load("Enemy2/Enemy_MantaGroup_move") as GameObject;
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
 
@@ -821,6 +824,26 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = Instantiate(waveEnemyObj, waveDownPos.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
+                //saveObj.transform.position = waveDownPos.position;
+                saveObj.transform.parent = mapObj.transform;
+                saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
+                saveWave_Script.eState = Enemy_Wave.State.WaveOnlyDown;
+
+                saveObj = null;
+                saveWave_Script = null;
+                createNum++;
+                break;
+
+            case CreateEnemyType.Wave_UpAndDown_Item:
+                saveObj = Instantiate(waveEnemyObj_Item, waveUpPos.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy_Item.Active_Obj();
+                //saveObj.transform.position = waveUpPos.position;
+                saveObj.transform.parent = mapObj.transform;
+                saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
+                saveWave_Script.eState = Enemy_Wave.State.WaveOnlyUp;
+
+                saveObj = Instantiate(waveEnemyObj_Item, waveDownPos.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy_Item.Active_Obj();
                 //saveObj.transform.position = waveDownPos.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
