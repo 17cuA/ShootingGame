@@ -55,7 +55,9 @@ MonoBehaviour:
   walkEnemyObj: {fileID: 0}
   mantaMoveObj: {fileID: 0}
   mantaStopObj: {fileID: 0}
+  mantaOneMoveObj: {fileID: 0}
   ufoGroupObj: {fileID: 0}
+  containerObj: {fileID: 0}
   saveObj: {fileID: 0}
   mapObj: {fileID: 0}
   saveDischarge_Script: {fileID: 0}
@@ -73,6 +75,12 @@ MonoBehaviour:
   waveUpPos: {fileID: 0}
   waveDownPos: {fileID: 0}
   mantaStopPos: {fileID: 0}
+  dischargePos_Top_Left: {fileID: 0}
+  dischargePos_Under_Left: {fileID: 0}
+  taihoPos_Top_Left: {fileID: 0}
+  taihoPos_Under_Left: {fileID: 0}
+  walkPos_Top_Left: {fileID: 0}
+  walkPos_Under_Left: {fileID: 0}
   enemyRota: {x: 0, y: 0, z: 0, w: 0}
   enemyInformation:
   - enemyName: 
@@ -370,8 +378,59 @@ MonoBehaviour:
     createPos: 0
     manualVector: {x: 0, y: 0, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 46
+    createPos: 0
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -11.79, y: -7.36, z: 0}
+    enemyRota: {x: 0, y: 0, z: -113.15}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -11.9, y: -7.31, z: 0}
+    enemyRota: {x: 0, y: 0, z: -113.15}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -12.03, y: -7.25, z: 0}
+    enemyRota: {x: 0, y: 0, z: -113.15}
+  - enemyName: 
+    enemyType: 25
+    createPos: 0
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   createNum: 0
   nextGroupName: 
+  Is_TimelinePause: 0
 --- !u!320 &927029350
 PlayableDirector:
   m_ObjectHideFlags: 0

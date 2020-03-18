@@ -22,6 +22,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public GameObject mantaStopObj;
     public GameObject mantaOneMoveObj;
     public GameObject ufoGroupObj;
+    public GameObject containerObj;
 	#endregion
 
 	public GameObject saveObj;
@@ -83,6 +84,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Taiho_Downward_Item_Left,                        //下向き大砲アイテム
         Taiho_UpAndDown_Item_Left,                       //大砲上下アイテム
         MantaOne,
+        Container,
     }
 
     //作る位置
@@ -225,6 +227,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         mantaOneMoveObj = Resources.Load("Enemy2/Enemy_Manta_move") as GameObject;
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
         ufoGroupObj = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
+        containerObj = Resources.Load("Enemy2/Container_Move") as GameObject;
 
     }
 
@@ -998,6 +1001,11 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = null;
                 createNum++;
+                break;
+
+            case CreateEnemyType.Container:
+                saveObj = Instantiate(containerObj, pos, transform.rotation);
+                saveObj.transform.parent = mapObj.transform;
                 break;
 
             case CreateEnemyType.Wireless:
