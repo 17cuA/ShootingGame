@@ -17,6 +17,9 @@ public class Container_Move : MonoBehaviour
     {
         if(rigidbody.velocity == Vector3.zero)
         {
+            itemBox.self_material[0] = itemBox.object_material[0].material = itemBox.materials[1];
+            itemBox.Is_Excretion = true;
+
             Vector3 temp = Vector3.zero;
             temp.x = -Random.Range(itemBox.speed / 3.0f, itemBox.speed);
             rigidbody.AddForce(temp);
@@ -40,7 +43,7 @@ public class Container_Move : MonoBehaviour
     {
         if(collision.transform.tag == "Wall")
         {
-            itemBox.hp = 0;
+            itemBox.hp -= 1;
         }
     }
 }
