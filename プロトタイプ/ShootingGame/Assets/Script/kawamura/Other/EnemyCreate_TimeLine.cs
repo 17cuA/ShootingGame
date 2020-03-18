@@ -77,10 +77,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Manta_Stop,                                 //動かないマンタ
         UFO_Group,
         Wireless,                                   //無線オン
+        Taiho_UpAndDown_Left,                            //大砲上下
+        Taiho_Upward_Item_Left,                          //上向き大砲アイテム
+        Taiho_Downward_Item_Left,                        //下向き大砲アイテム
+        Taiho_UpAndDown_Item_Left,                       //大砲上下アイテム
     }
 
-	//作る位置
-	public enum CreatePos
+    //作る位置
+    public enum CreatePos
 	{
 		None,
 		Discharge_Top,
@@ -140,8 +144,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public int createNum;                   //次に出す順番の数
 	public string nextGroupName;        //次に出す敵の名前
 
+    //タイムラインを止める
+    public bool Is_TimelinePause;
 
-	void Start()
+    void Start()
 	{
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 		ResouceUpload();
@@ -154,18 +160,18 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
-		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) 
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V))
         {
             Director.time = 58.0;
             createNum = 5;
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
-		{
-			Director.time = 75.0;
-			createNum = 14;
+        {
+            Director.time = 75.0;
+            createNum = 14;
 
-		}
+        }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.X))
         {
             Director.time = 125.0;
@@ -178,14 +184,31 @@ public class EnemyCreate_TimeLine : MonoBehaviour
             createNum = 44;
 
         }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
+        {
+            Director.time = 310.0;
+            createNum = 59;
 
+        }
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 
-	}
+        if (Is_TimelinePause)
+        {
+            Director.Pause();
+            Is_TimelinePause = false;
+        }
 
-	//リソースのロード
-	void ResouceUpload()
+
+    }
+
+    public void TimeLineStop()
+    {
+        Is_TimelinePause = true;
+    }
+
+    //リソースのロード
+    void ResouceUpload()
 	{
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
@@ -536,7 +559,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
                 saveObj = Instantiate(dischargeObj, dischargePos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
-                saveObj.transform.position = dischargePos_Under.position;
+                //saveObj.transform.position = dischargePos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
 				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
 				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Up);
@@ -544,7 +567,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = Instantiate(dischargeObj, dischargePos_Top_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
-                saveObj.transform.position = dischargePos_Top.position;
+                //saveObj.transform.position = dischargePos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
 				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
 				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Down);
@@ -656,6 +679,23 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+            //上下大砲
+            case CreateEnemyType.Taiho_UpAndDown_Left:
+                saveObj = Instantiate(taihoObj, taihoPos_Under_Left.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = Instantiate(taihoObj, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
             //上下大砲アイテム
             case CreateEnemyType.Taiho_UpAndDown_Item:
                 saveObj = Instantiate(taihoObj_Item, taihoPos_Under.position, transform.rotation);
@@ -673,6 +713,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
+            //上下大砲アイテム
+            case CreateEnemyType.Taiho_UpAndDown_Item_Left:
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Under_Left.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
 
             //タコ上向き左移動(斜めの時角度は-27度がいいかも
             case CreateEnemyType.Octopus_UpLeft:
@@ -764,9 +820,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Walk_UpRight:
-                saveObj = Instantiate(walkEnemyObj, walkPos_Top.position, transform.rotation);
+                saveObj = Instantiate(walkEnemyObj, walkPos_Top_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Top.position;
+                //saveObj.transform.position = walkPos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Right;
@@ -792,9 +848,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Walk_DownRight:
-                saveObj = Instantiate(walkEnemyObj, walkPos_Under.position, transform.rotation);
+                saveObj = Instantiate(walkEnemyObj, walkPos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Under.position;
+                //saveObj.transform.position = walkPos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Right;
@@ -935,7 +991,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
             case CreateEnemyType.Wireless:
                 Wireless_sinario.Is_using_wireless = true;
+                createNum++;
                 break;
+
 
             default:
 				break;
