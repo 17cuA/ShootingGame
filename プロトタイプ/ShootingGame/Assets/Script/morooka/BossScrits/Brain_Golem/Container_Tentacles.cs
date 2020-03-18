@@ -44,7 +44,6 @@ public class Container_Tentacles : Tentacles
 				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 				// ターゲットに向きを合わせたら
-				Debug.DrawRay(VectorChange_3To2(muzzle.transform.position), VectorChange_3To2(- muzzle.transform.right) * 20.0f, Color.red, 5);
 				if (Physics.Raycast(VectorChange_3To2(muzzle.transform.position), VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
 				{
 					print(hitObject.transform.name); 
@@ -87,7 +86,6 @@ public class Container_Tentacles : Tentacles
 					BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 					// ターゲットに向きを合わせたら
-					Debug.DrawRay(muzzle.transform.position, -muzzle.transform.right * 20.0f, Color.red, 5);
 					if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(-muzzle.transform.right), out hitObject, 20.0f))
 					{
 						// 攻撃
@@ -109,7 +107,6 @@ public class Container_Tentacles : Tentacles
 				BaseBone.transform.right = Vector2.MoveTowards(BaseBone.transform.right, TargetPos, Time.deltaTime * 3.0f);
 
 				// ターゲットに向きを合わせたら
-				Debug.DrawRay(muzzle.transform.position, -muzzle.transform.right * 20.0f, Color.red, 5);
 				if (Physics.Raycast(muzzle.transform.position, VectorChange_3To2(-muzzle.transform.right), out hitObject, 20.0f))
 				{
 					shootingInterval_Cnt++;

@@ -126,16 +126,6 @@ public class Game_Master : MonoBehaviour
 
     private void Awake()
 	{
-		//if (Name_List == null)
-		//{
-		//	Database_Manager database_ = new Database_Manager("CSV_Folder/Obaject_Name");
-		//	Name_List = new string[database_.Database_Array.GetLength(0)];
-		//	Name_List = database_.goreco(0);
-		//}
-		//if (Boss_Data == null)
-		//{
-		//	Boss_Data = new Database_Manager("Boss/Boss_Data");
-		//}
 		if (MY == null)
 		{
 			MY = GetComponent<Game_Master>();
@@ -152,27 +142,11 @@ public class Game_Master : MonoBehaviour
 				Number_Of_People = PLAYER_NUM.eONE_PLAYER;
 				break;
             case "Stage_01":
-				Debug.Log(Number_Of_People);
                 Stage_Start();
                 break;
             case "Stage_02":
                 Stage_Start();
 				break;
-			case "Stage_03":
-                Stage_Start();
-				break;
-			case "Stage_04":
-                Stage_Start();
-				break;
-			case "Stage_05":
-                Stage_Start();
-				break;
-			case "Stage_06":
-                Stage_Start();
-				break;
-			case "Stage_07":
-                Stage_Start();
-                break;
             case "GameOver":
                 break;
             case "GameClear":
@@ -184,10 +158,6 @@ public class Game_Master : MonoBehaviour
     {
         Frame_Count++;
 
-        //if(Input.GetKeyDown(KeyCode.C))
-        //{
-        //    Management_In_Stage = CONFIGURATION_IN_STAGE.eBOSS_CUT_IN;
-        //}
     }
 
 	/// <summary>
@@ -213,7 +183,6 @@ public class Game_Master : MonoBehaviour
     /// </summary>
     public void Stage_Start()
     {
-        //Management_In_Stage = CONFIGURATION_IN_STAGE.eNORMAL;
         _Display = GameObject.Find("Score_Display").GetComponent<Score_Display>();
 		Is_Completed_For_Warning_Animation = false;
     }
@@ -249,11 +218,6 @@ public class Game_Master : MonoBehaviour
 			player1.GetComponent<Player1>().ResponPreparation(5);
 		}
 	}
-	public void CountDown_Number(int frame)
-	{
-		
-	}
-
 	public void ResetScore()
 	{
 		display_score_1P = 0;
