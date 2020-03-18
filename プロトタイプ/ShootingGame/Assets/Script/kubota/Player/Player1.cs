@@ -820,7 +820,7 @@ public class Player1 : character_status
 		effect.transform.position = gameObject.transform.position;
 		powerup.Play();
 
-		DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player1");
+		//DebugManager.OperationDebug("ビットン生成 " + bitIndex, "Player1");
 
 	}
 	//速度を初期のに戻す

@@ -168,6 +168,7 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject enemy_ClamChowder_Group_DownSevenDiagonal_prefab;
 	private GameObject enemy_ClamChowder_Group_TenStraight_prefab;
 	private GameObject container_prefab;
+    private GameObject containerMove_prefab;
 	#endregion
 
 	#region 敵のプーリング
@@ -208,6 +209,7 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling enemy_ClamChowder_Group_DownSevenDiagonal;
 	public Object_Pooling enemy_ClamChowder_Group_TenStraight;
 	public Object_Pooling Container;
+    public Object_Pooling Container_Move;
 	//public Object_Pooling enemy_Octopas
 	#endregion
 	//----------------------------------------------------------
@@ -667,8 +669,9 @@ public class Obj_Storage : MonoBehaviour
 				#endregion
 
 				#region ステージ2個別ロード
-				container_prefab = Resources.Load("Enemy/Container") as GameObject;		//コンテナ
-				Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;	//敵の弾
+				container_prefab = Resources.Load("Enemy/Container") as GameObject;     //コンテナ
+                containerMove_prefab = Resources.Load("Enemy2/Container_Move") as GameObject;     //コンテナ
+                Bullet_Prefab_BattleShip = Resources.Load("Bullet/CannonBullet") as GameObject;	//敵の弾
 				Discharge_Prefab = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;		//敵を排出する敵
 				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;    //↑が出す敵
 				StagBeetle_Prefab = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;	//オプションハンター
@@ -686,8 +689,9 @@ public class Obj_Storage : MonoBehaviour
                 #endregion
 
                 #region ステージ2個別プーリング化
-                Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
-				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
+                Container = new Object_Pooling(container_prefab, 10, "container");       // アイテムと攻撃をだすコンテナ
+                Container_Move = new Object_Pooling(containerMove_prefab, 20, "container_move");       // アイテムと攻撃をだすコンテナ
+                BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				Discharge_Enemy = new Object_Pooling(Discharge_Prefab, 10, "Discharge_Enemy");          //敵を生成する敵の生成
 				Discharged_Enemy = new Object_Pooling(Discharged_Prefab, 20, "Discharged_Enemy");       //排出する敵が出す敵の生成
 				FollowGround_Enemy = new Object_Pooling(FollowGround_Prefab, 30, "FollowGround_Enemy");

@@ -48,6 +48,5 @@ public class InvisibleJudgment : MonoBehaviour
 	{
 		if (character != null) character.enabled = false;
 		if (monoBehaviour != null) monoBehaviour.enabled = false;
-		Debug.Log(this.name + "停止");
 	}
 }

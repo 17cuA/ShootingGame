@@ -187,7 +187,6 @@ public class One_Boss : character_status
 
 			if (showMark)
 			{
-				Debug.Log("--------------突進表示------------");
 				//-------------------------------------------
 				markIntervalTimer += Time.deltaTime;
 				if (markIntervalTimer >= markIntervalTime && markCount < 3)
