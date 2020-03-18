@@ -142,6 +142,24 @@ public class bullet_status : MonoBehaviour
 		// 自身がプレイヤーの弾で、エネミー
 		else if (gameObject.tag == "Player_Bullet" && col.gameObject.tag == "Enemy")
 		{
+            //3-18陳　追加
+            //ミサイル敵に当たったらエフェクト再生
+            if(gameObject.name == "Player_Missile")
+            {
+             //呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+                if (Obj_Storage.Storage_Data.Effects[16] != null)
+                {
+                    GameObject ef = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+                    ParticleSystem p = ef.GetComponent<ParticleSystem>();
+
+                    //爆発の位置をランダムに変更
+                    ef.transform.position = transform.position;
+                    /*********************************************************/
+                    p.Play();
+                }
+                gameObject.SetActive(false);
+            }
+
 			character_status obj = col.GetComponent<character_status>();
 			if (obj != null)
 			{
@@ -172,6 +190,16 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
 		}
+        //3-18陳　追加
+        //ミサイル以外壁当たったら消す
+        else if(gameObject.name != "Player_Missile" && col.tag == "Wall")
+        {
+            gameObject.SetActive(false);
+			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			effect.transform.position = gameObject.transform.position;
+			particle.Play();
+        }
 	}
 
 	/// <summary>
