@@ -92,10 +92,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Wave_Up,
         Wave_Down,
         Manta_Stop,
-	}
+        Discharge_Top_Left,
+        Discharge_Under_Left,
+        Taiho_Top_Left,
+        Taiho_Under_Left,
+        Walk_Top_Left,
+        Walk_Under_Left,
+    }
 
     //生成位置変数
-	[Header("Discharge_Freeにしたときに使います")]
+    [Header("Discharge_Freeにしたときに使います")]
 	public Enemy_Discharged.MoveType freeMoveType;
 	public Transform dischargePos_Top;
 	public Transform dischargePos_Under;
@@ -106,6 +112,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public Transform waveUpPos;
     public Transform waveDownPos;
     public Transform mantaStopPos;
+    public Transform dischargePos_Top_Left;
+    public Transform dischargePos_Under_Left;
+    public Transform taihoPos_Top_Left;
+    public Transform taihoPos_Under_Left;
+    public Transform walkPos_Top_Left;
+    public Transform walkPos_Under_Left;
 
     public Quaternion enemyRota;
 
@@ -202,6 +214,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         waveUpPos = GameObject.Find("WaveUpPos").transform;
         waveDownPos = GameObject.Find("WaveDownPos").transform;
         mantaStopPos = GameObject.Find("MantaStopPos").transform;
+        dischargePos_Top_Left = GameObject.Find("DischargePos_Top_Left").transform;
+        dischargePos_Under_Left = GameObject.Find("DischargePos_Under_Left").transform;
+        taihoPos_Top_Left = GameObject.Find("TaihoPos_Top_Left").transform;
+        taihoPos_Under_Left = GameObject.Find("TaihoPos_Under_Left").transform;
+        walkPos_Top_Left = GameObject.Find("WalkPos_Top_Left").transform;
+        walkPos_Under_Left = GameObject.Find("WalkPos_Under_Left").transform;
     }
 
     //出す敵の名前をセット（分かりやすくするためなので敵出現に直接影響はない）
@@ -516,7 +534,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//上下右カーブ
 			case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
-                saveObj = Instantiate(dischargeObj, dischargePos_Under.position, transform.rotation);
+                saveObj = Instantiate(dischargeObj, dischargePos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
                 saveObj.transform.position = dischargePos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
@@ -524,7 +542,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Up);
 				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCurveUp_90;
 
-                saveObj = Instantiate(dischargeObj, dischargePos_Top.position, transform.rotation);
+                saveObj = Instantiate(dischargeObj, dischargePos_Top_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
                 saveObj.transform.position = dischargePos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
