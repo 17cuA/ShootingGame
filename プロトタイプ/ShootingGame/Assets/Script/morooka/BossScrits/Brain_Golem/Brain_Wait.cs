@@ -36,11 +36,9 @@ public class Brain_Wait : character_status
 
 	new private void Start()
 	{
-		effect.SetActive(false);
 		colliders = new List<Collider>(transform.GetComponentsInChildren<Collider>(false));
 		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
 		All_Transforms.Remove(transform);
-		All_Transforms.Remove(effect.transform);
 		Boss_DriveSwitch(false);
 		Is_Laser = true;
 
@@ -115,7 +113,7 @@ public class Brain_Wait : character_status
 				}
 				playable_Map.time = 324.3;
 				Is_Dead = true;
-				effect.SetActive(true);
+				Instantiate(effect, transform.position, transform.rotation);
 				Boss_DriveSwitch(false);
 
 				Wireless_sinario.Is_using_wireless = true;
