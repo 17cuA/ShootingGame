@@ -12,6 +12,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public GameObject dischargeObj;
 	public GameObject followGroundObj;
 	public GameObject taihoObj;
+    public GameObject taihoObj_Item;
 	public GameObject OctopusObj;
     public GameObject hitodeSpownerObj;
     public GameObject waveEnemyObj;
@@ -19,6 +20,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public GameObject walkEnemyObj;
     public GameObject mantaMoveObj;
     public GameObject mantaStopObj;
+    public GameObject ufoGroupObj;
 	#endregion
 
 	public GameObject saveObj;
@@ -47,12 +49,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		FollowGround_Left,
 		FollowGround_Right,
 		Taiho_Upward,                               //上向き大砲
-		Taiho_Downward,                             //下向き大砲
-		Taiho_Left,                                 //左向き大砲
+        Taiho_Downward,                             //下向き大砲
+        Taiho_Left,                                 //左向き大砲
 		Taiho_Right,                                //右向き大砲
 		Taiho_Free,                                 //自分で角度を指定する大砲
 		Taiho_UpAndDown,                            //大砲上下
-		Octopus_UpLeft,								//上向き左移動
+        Octopus_UpLeft,								//上向き左移動
 		Octopus_UpRight,							//上向き右移動
 		Octopus_DownLeft,							//下向き左移動
 		Octopus_DownRight,							//下向き右移動
@@ -68,8 +70,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Wave_Down,                                  //上下移動（闘牛）
         Wave_UpAndDown,                             //上下移動の2体縦に同時出し
         Wave_UpAndDown_Item,                        //上下移動の アイテム2体縦に同時出し
+        Taiho_Upward_Item,                          //上向き大砲アイテム
+        Taiho_Downward_Item,                        //下向き大砲アイテム
+        Taiho_UpAndDown_Item,                       //大砲上下アイテム
         Manta_Move,                                 //動くマンタ
         Manta_Stop,                                 //動かないマンタ
+        UFO_Group,
     }
 
 	//作る位置
@@ -140,13 +146,19 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
 		{
 			Director.time = 75.0;
-			createNum = 9;
+			createNum = 14;
 
 		}
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.X))
         {
             Director.time = 125.0;
-            createNum = 16;
+            createNum = 21;
+
+        }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.Z))
+        {
+            Director.time = 178.0;
+            createNum = 44;
 
         }
 
@@ -161,13 +173,15 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
 		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
-		OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
+        taihoObj_Item = Resources.Load("Enemy2/Enemy_Taiho_Item") as GameObject;
+        OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
         hitodeSpownerObj = Resources.Load("Enemy2/StarFish_Spowner2") as GameObject;
         walkEnemyObj = Resources.Load("Enemy2/Enemy_Walk") as GameObject;
 		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
         waveEnemyObj_Item = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject;
         mantaMoveObj = Resources.Load("Enemy2/Enemy_MantaGroup_move") as GameObject;
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
+        ufoGroupObj = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
 
     }
 
@@ -619,8 +633,26 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
-			//タコ上向き左移動(斜めの時角度は-27度がいいかも
-			case CreateEnemyType.Octopus_UpLeft:
+            //上下大砲アイテム
+            case CreateEnemyType.Taiho_UpAndDown_Item:
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Under.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Top.position, Quaternion.Euler(0, 0, 180));
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
+
+            //タコ上向き左移動(斜めの時角度は-27度がいいかも
+            case CreateEnemyType.Octopus_UpLeft:
 				saveObj = Instantiate(OctopusObj, pos, Quaternion.Euler(0, enemyRota.y, enemyRota.z));
                 saveObj.transform.parent = mapObj.transform;
 				saveOctopus_Script = saveObj.GetComponent<OctopusType_Enemy>();
@@ -779,7 +811,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 //saveObj.transform.position = pos;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
-                saveWave_Script.eState = Enemy_Wave.State.WaveOnlyUp;
+                saveWave_Script.eState = Enemy_Wave.State.Straight;
 
                 saveObj = null;
                 saveWave_Script = null;
@@ -856,7 +888,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
             case CreateEnemyType.Manta_Move:
                 saveObj = Instantiate(mantaMoveObj, pos, transform.rotation);
-                saveObj.transform.parent = mapObj.transform;
+                //saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;
                 createNum++;
@@ -864,6 +896,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
             case CreateEnemyType.Manta_Stop:
                 saveObj = Instantiate(mantaStopObj, mantaStopPos.position, transform.rotation);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
+            case CreateEnemyType.UFO_Group:
+                saveObj = Instantiate(ufoGroupObj, pos, transform.rotation);
                 saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;

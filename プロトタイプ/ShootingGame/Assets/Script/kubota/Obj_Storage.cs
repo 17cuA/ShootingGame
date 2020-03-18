@@ -55,7 +55,8 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject FollowGround_Prefab;                     //地形に沿って動く敵
 	private GameObject StagBeetle_Prefab;                       //オプションハンターの敵のプレハブ
 	private GameObject Cannon_Prefab;                           //壁配置タイプの大砲
-	private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
+    private GameObject Cannon_Item_Prefab;                      //壁配置タイプの大砲アイテム
+    private GameObject OctopusType_Enemy_Prefab;                //タコ型エネミーのプレハブ
     private GameObject Walk_Prefab;                             //歩いて弾を出す敵
 	#endregion
 
@@ -121,8 +122,9 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Discharged_Enemy;			//排出された敵
 	public Object_Pooling FollowGround_Enemy;		//地形を這って進む敵
 	public Object_Pooling StagBeetle_Enemy;			//オプションハンター
-	public Object_Pooling Cannon_Enemy;				//大砲の敵
-	public Object_Pooling OctopusType_Enemy;        //タコ型の敵
+	public Object_Pooling Cannon_Enemy;             //大砲の敵
+    public Object_Pooling Cannon_Enemy_Item;        //大砲の敵アイテム
+    public Object_Pooling OctopusType_Enemy;        //タコ型の敵
     public Object_Pooling Walk_Enemy;               //歩く敵
 	#endregion
 
@@ -668,34 +670,38 @@ public class Obj_Storage : MonoBehaviour
 				Discharged_Prefab = Resources.Load("Enemy2/Enemy_Discharged") as GameObject;    //↑が出す敵
 				StagBeetle_Prefab = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;	//オプションハンター
 				FollowGround_Prefab = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;	//地形に沿って進む敵
-				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;			//壁についている敵
-				OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;    //タコ型の敵
+				Cannon_Prefab = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;         //壁についている敵
+                Cannon_Item_Prefab = Resources.Load("Enemy2/Enemy_Taiho_Item") as GameObject;         //壁についている敵
+                OctopusType_Enemy_Prefab = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;    //タコ型の敵
                 ClamChowderType_Enemy_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject; //闘牛
                 ClamChowderType_Enemy_Item_Prefab = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject; //闘牛アイテム
                 Walk_Prefab = Resources.Load("Enemy2/Enemy_Walk") as GameObject;    //歩く敵
 				Star_Fish_Enemy_Prefab = Resources.Load("Enemy/Enemy_hitode_type") as GameObject;       //ヒトデ型の敵のロード
+                enemy_UFO_Group_NoneShot_prefab = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
 
 
-				#endregion
+                #endregion
 
-				#region ステージ2個別プーリング化
-				Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
+                #region ステージ2個別プーリング化
+                Container = new Object_Pooling(container_prefab, 2, "container");       // アイテムと攻撃をだすコンテナ
 				BattleShipBullet = new Object_Pooling(Bullet_Prefab_BattleShip, 20, "BattleShip_Enemy_Bullet"); //戦艦タイプのバレットの生成
 				Discharge_Enemy = new Object_Pooling(Discharge_Prefab, 10, "Discharge_Enemy");          //敵を生成する敵の生成
 				Discharged_Enemy = new Object_Pooling(Discharged_Prefab, 20, "Discharged_Enemy");       //排出する敵が出す敵の生成
 				FollowGround_Enemy = new Object_Pooling(FollowGround_Prefab, 30, "FollowGround_Enemy");
 				StagBeetle_Enemy = new Object_Pooling(StagBeetle_Prefab, 10, "StagBeetle_Enemy");
 				Cannon_Enemy = new Object_Pooling(Cannon_Prefab, 10, "Cannon_Enemy");
-				OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 8, "OctopusType_Enemy");                               // タコ型エネミーを生成
+                Cannon_Enemy_Item = new Object_Pooling(Cannon_Item_Prefab, 4, "Cannon_Enemy_Item");
+                OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 8, "OctopusType_Enemy");                               // タコ型エネミーを生成
                 ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 6, "ClamChowderType_Enemy");       // 貝型エネミーを生成
                 ClamChowderType_Enemy_Item = new Object_Pooling(ClamChowderType_Enemy_Item_Prefab, 4, "ClamChowderType_Enemy_Item");       // 貝型エネミーを生成
                 StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 8, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
+                enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 4, "enemy_UFO_Group_NoneShot");
 
-				#endregion
+                #endregion
 
 
-				#endregion
-				break;
+                #endregion
+                break;
 
 			default:
 				break;
