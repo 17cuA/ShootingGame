@@ -173,14 +173,15 @@ public class Boss_Final : character_status
 
 	private void Normal_Exit()
 	{
-
+	
 	}
 	#endregion
 
 	#region ===== IN DEATH STATE =====
 	private void Death_Enter()
 	{
-		
+		body.enabled = false;
+
 		var changeTransfrom = transform.GetChild(0);
 		for (var i = 0; i < changeTransfrom.childCount; ++i)
 		{
