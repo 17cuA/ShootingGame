@@ -10,9 +10,4 @@ public class Parts_Collider : MonoBehaviour
 
 	public bool Is_HitRayCast { get { return Physics.Raycast(transform.position, transform.up, out hit, RayLength); } }
 	public RaycastHit HitObject { get { return hit; } }
-
-	private void LateUpdate()
-	{
-		Debug.DrawRay(transform.position, transform.up, Color.red, RayLength);
-	}
 }

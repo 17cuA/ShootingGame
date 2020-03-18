@@ -89,19 +89,6 @@ public class OctopusType_Enemy : character_status
 				break;
 		}
 
-		//switch(direc_Horizon)
-		//{
-		//	case DIRECTION_HORIZONTAL.eLEFT:
-		//		transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.eulerAngles.z);
-
-		//		break;
-
-		//	case DIRECTION_HORIZONTAL.eRIGHT:
-		//		transform.rotation = Quaternion.Euler(0.0f, 180.0f, transform.rotation.eulerAngles.z);
-		//		break;
-		//}
-
-		//horizontalMovementDirection = Mathf.Sign(transform.right.x);
 
 		FallingDirection.y = (float)bottomDirection;
 
@@ -121,11 +108,6 @@ public class OctopusType_Enemy : character_status
 
 	new private void Update()
     {
-		//if(!animationAssets.IsPlaying(AnimationName[(int)OCTOPUS_ANIMATION.eCLOSE]))
-		//{
-		//	animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eDEFA]);
-		//}
-
 		// 左右当たり
 		if (flomtCollieder.Is_HitRayCast)
 		{

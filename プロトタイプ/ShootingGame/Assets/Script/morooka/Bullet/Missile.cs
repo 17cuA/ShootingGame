@@ -116,18 +116,6 @@ public class Missile : bullet_status
 		float inner_product = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
 		// 内閣の計算---------------------------------------------------------------------------------------------
 
-		//if(Act_Step == 2)
-		//{
-		//	// 内角が0以下のとき
-		//	if (inner_product <= 0)
-		//	{
-		//		// 自信を消す
-		//		//AddExplosionProcess();
-		//		gameObject.SetActive(false);
-		//	}
-		//}
-		//else
-		//{
 			// 内角が0以下のとき
 			if (inner_product < 0)
 			{
@@ -135,9 +123,6 @@ public class Missile : bullet_status
 				//AddExplosionProcess();
 				gameObject.SetActive(false);
 			}
-
-		//}
-
 	}
 
 	/// <summary>
