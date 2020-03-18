@@ -296,11 +296,15 @@ public class Player1 : character_status
 
 				Move();
 
-				//弾を射出
-				Bullet_Create();
+                if(!Wireless_sinario.isFinalWiless_Active())
+                {
+                    //弾を射出
+                    Bullet_Create();
 
-				//パワーアップ処理
-				if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
+                }
+
+                //パワーアップ処理
+                if (Input.GetKeyDown(KeyCode.X) || ControllerDevice.GetButtonDown(inputManager.Manager.Button["Item"], ePadNumber.ePlayer1))
 				{
 					//アイテムを規定数所持していたらその値と同じものの効果を得る
 					P1_PowerManager.Instance.Upgrade();

@@ -38,7 +38,7 @@ public class BulletOperation : MonoBehaviour
 		BulletMax_Player2_Bullet = Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.childCount;
 		BulletMax_Option1_Bullet = Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.childCount;
 		BulletMax_Option2_Bullet = Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.childCount;
-		BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
+		// BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
 		BulletMax_Beam_Bullet = Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount;
 		BulletMax_CannonBullet = Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount;
 		#endregion
@@ -147,6 +147,12 @@ public class BulletOperation : MonoBehaviour
 			}
 		}
 
+		for(int i = 0; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
+		{
+			Vector3 temp_Pos = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).right.normalized * 0.1f;
+			Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).position += temp_Pos;
+		}
+
 		if (OperationTarget.Count < BulletMax_Enemy_Bullet + BulletMax_Beam_Bullet + BulletMax_CannonBullet) return;
 
 		if (BulletMax_Player1_Bullet < Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.childCount)
@@ -181,14 +187,14 @@ public class BulletOperation : MonoBehaviour
 				BulletMax_Option2_Bullet++;
 			}
 		}
-		if (BulletMax_Enemy_Bullet < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount)
-		{
-			for(int i = BulletMax_Enemy_Bullet; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
-			}
-			BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
-		}
+		// if (BulletMax_Enemy_Bullet < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount)
+		// {
+		// 	for(int i = BulletMax_Enemy_Bullet; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
+		// 	{
+		// 		OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
+		// 	}
+		// 	BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
+		// }
 		if(BulletMax_Beam_Bullet < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount)
 		{
 			for(int i = BulletMax_Beam_Bullet; i < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount; i++)
