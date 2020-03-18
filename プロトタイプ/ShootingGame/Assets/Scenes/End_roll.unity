@@ -747,16 +747,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1810215431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c2d47c668fb82499c8278bb8442de1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f81cba41c7469042a533927583f0ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMGroups: []
+  BGMGroups:
+  - name: bgm
+    BGM_Clip: {fileID: 8300000, guid: 1d29451017e66234aab87338eb269563, type: 3}
   fadeInStartVolume: 0
   fadeInTime: 3
   isFadeIn: 0
   fadeOutOverVolume: 0
   fadeOutTime: 3
   isFadeOut: 0
+  StartFadeoutTime: 60
 --- !u!82 &1810215433
 AudioSource:
   m_ObjectHideFlags: 0
@@ -767,7 +770,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1d29451017e66234aab87338eb269563, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
