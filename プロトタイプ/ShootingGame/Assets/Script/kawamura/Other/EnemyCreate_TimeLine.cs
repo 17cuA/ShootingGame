@@ -20,6 +20,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public GameObject walkEnemyObj;
     public GameObject mantaMoveObj;
     public GameObject mantaStopObj;
+    public GameObject mantaOneMoveObj;
     public GameObject ufoGroupObj;
 	#endregion
 
@@ -81,6 +82,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Taiho_Upward_Item_Left,                          //上向き大砲アイテム
         Taiho_Downward_Item_Left,                        //下向き大砲アイテム
         Taiho_UpAndDown_Item_Left,                       //大砲上下アイテム
+        MantaOne,
     }
 
     //作る位置
@@ -186,7 +188,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
         {
-            Director.time = 310.0;
+            Director.time = 324.0;
             createNum = 59;
 
         }
@@ -220,6 +222,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
         waveEnemyObj_Item = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject;
         mantaMoveObj = Resources.Load("Enemy2/Enemy_MantaGroup_move") as GameObject;
+        mantaOneMoveObj = Resources.Load("Enemy2/Enemy_Manta_move") as GameObject;
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
         ufoGroupObj = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
 
@@ -651,10 +654,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//角度指定大砲
 			case CreateEnemyType.Taiho_Free:
-                saveObj = Instantiate(taihoObj, pos, transform.rotation);
+                saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, enemyInformation[createNum].enemyRota.z));
                 //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
-                saveObj.transform.rotation = Quaternion.Euler(0, 0, enemyRota.z);
+                //saveObj.transform.position = pos;
+                //saveObj.transform.rotation = Quaternion.Euler(0, 0, enemyRota.z);
 
                 saveObj.transform.parent = mapObj.transform;
 				saveObj = null;
@@ -717,12 +720,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
             case CreateEnemyType.Taiho_UpAndDown_Item_Left:
                 saveObj = Instantiate(taihoObj_Item, taihoPos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
-                saveObj.transform.position = taihoPos_Under.position;
+                //saveObj.transform.position = taihoPos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
 
                 saveObj = Instantiate(taihoObj_Item, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
                 //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
-                saveObj.transform.position = taihoPos_Top.position;
+                //saveObj.transform.position = taihoPos_Top.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
                 saveObj.transform.parent = mapObj.transform;
 
@@ -967,6 +970,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
             case CreateEnemyType.Manta_Move:
                 saveObj = Instantiate(mantaMoveObj, pos, transform.rotation);
+                //saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
+            case CreateEnemyType.MantaOne:
+                saveObj = Instantiate(mantaOneMoveObj, pos, transform.rotation);
                 //saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;
