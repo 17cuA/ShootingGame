@@ -200,6 +200,23 @@ public class bullet_status : MonoBehaviour
 			effect.transform.position = gameObject.transform.position;
 			particle.Play();
         }
+        //3-18陳　追加
+        //ミサイル敵弾(moai lingBullet)に当たったらエフェクト再生
+        else if(gameObject.name == "Player_Missile" && col.name == "Moai_Prefab")
+        {
+         //呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+            if (Obj_Storage.Storage_Data.Effects[16] != null)
+            {
+                GameObject ef = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+                ParticleSystem p = ef.GetComponent<ParticleSystem>();
+
+                //爆発の位置をランダムに変更
+                ef.transform.position = transform.position;
+                /*********************************************************/
+                p.Play();
+            }
+            gameObject.SetActive(false);
+        }
 	}
 
 	/// <summary>

@@ -42,11 +42,13 @@ public class Stage_Movement : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A)) Director.time = 310.0;
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
-		MovingDistance = NowFramePosition - PreviousFramePosition;
-		RotationAmount = Quaternion.Euler(NowFrameRotation.eulerAngles - PreviousFrameRotation.eulerAngles);
+		MovingDistance = transform.position - PreviousFramePosition;
+		RotationAmount = Quaternion.Euler(transform.eulerAngles - PreviousFrameRotation.eulerAngles);
 
+		PreviousFramePosition = transform.position;
+		PreviousFrameRotation = transform.rotation;
 		// タイムラインの停止
-		if(Is_TimelinePause)
+		if (Is_TimelinePause)
 		{
 			Director.Pause();
 			Is_TimelinePause = false;
