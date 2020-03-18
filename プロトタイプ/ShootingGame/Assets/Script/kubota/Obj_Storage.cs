@@ -623,18 +623,16 @@ public class Obj_Storage : MonoBehaviour
 				First_Wireless = new AudioClip[1];
 				Second_Wireless = new AudioClip[1];
 				Third_Wireless = new AudioClip[2];
-				Forth_Wireless = new AudioClip[3];
+				Forth_Wireless = new AudioClip[1];
 				Fifth_Wireless = new AudioClip[2];
 
 				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_026");        //開戦時
 				Second_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_027");        //研究所はいる前
-				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //脳みそ戦１
-				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //脳みそ戦２
-				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //脳みそ戦後１
-				Forth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //脳みそ戦後２
-				Forth_Wireless[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //脳みそ戦後３
-				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //ラスト脳みそ
-				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //ラスト脳みそ後1
+				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_028");        //脳みそ戦１
+				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_028.2");        //脳みそ戦２
+				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_030");           //脳みそ戦後１
+				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_031");           //ラスト脳みそ
+				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_032");        //ラスト脳みそ後1
 
 				#endregion
 

@@ -300,7 +300,6 @@ public class Player1 : character_status
                 {
                     //弾を射出
                     Bullet_Create();
-
                 }
 
                 //パワーアップ処理
