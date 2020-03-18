@@ -6,18 +6,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
 
-public class Enemy_Walk : MonoBehaviour
+public class Enemy_Walk : character_status
 {
 	//自分の状態
 	public enum DirectionState
 	{
 		Left,			//左向き
-		Right,		//右向き
+		Right,		    //右向き
 		Roll,			//回転中
 		Stop,			//停止
 	}
 
-	public　DirectionState direcState;		//状態変数
+	public enum Direction_Vertical
+	{
+		Top,
+		Under,
+	}
+	public　DirectionState direcState;        //状態変数
+	public Direction_Vertical direction_Vertical;
 	DirectionState saveDirection;           //状態を一時保存する変数
 
 	GameObject childObj;
@@ -58,12 +64,14 @@ public class Enemy_Walk : MonoBehaviour
 	public Vector3 onPlane;
 	//
 
+	public Enemy_Roll roll_Script;
+
 	public bool isRoll;			//回転中かどうか
 	bool isRollEnd = false;     //回転が終わったかどうか
 	bool isAttack = true;
-	public bool cccc = false;
+	public bool once = true;
 
-	void Start()
+	new void Start()
     {
 		characterController = GetComponent<CharacterController>();
 		childObj = transform.GetChild(0).gameObject;
@@ -72,17 +80,72 @@ public class Enemy_Walk : MonoBehaviour
 		rollDelayCnt = 0;
 		isRoll = false;
 		isAttack = true;
+
+		base.Start();
 	}
 
-    void Update()
+    new void Update()
     {
+        //再起動時の処理
+		if (once)
+		{
+            //回転の方向を変える
+			switch(direcState)
+			{
+				case DirectionState.Left:
+                    speedX = -2;
+
+					switch(direction_Vertical)
+					{
+						case Direction_Vertical.Top:
+                            if (roll_Script.rotaX_Value < 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
+							break;
+
+						case Direction_Vertical.Under:
+                            if (roll_Script.rotaX_Value > 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
+                            break;
+					}
+					break;
+
+				case DirectionState.Right:
+                    speedX = 4;
+
+					switch (direction_Vertical)
+					{
+						case Direction_Vertical.Top:
+                            if (roll_Script.rotaX_Value > 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
+
+                            break;
+
+						case Direction_Vertical.Under:
+                            if (roll_Script.rotaX_Value < 0)
+                            {
+                                roll_Script.rotaX_Value *= -1;
+                            }
+
+                            break;
+					}
+
+					break;
+			}
+
+		}
 		//this.controller.Move(Vector3.MoveTowards(this.transform.position, cameraPosition, delta) - this.transform.position + Physics.gravity);
 		//characterController.Move(velocity * Time.deltaTime);
 		//とりあえずすり抜けをなくす処理
-		if (transform.position.y < -4.15f)
-		{
-			transform.position = new Vector3(transform.position.x, -4.15f, 0);
-		}
+		//if (transform.position.y < -4.15f)
+		//{
+		//	transform.position = new Vector3(transform.position.x, -4.15f, 0);
+		//}
 		//回転が終わった後当たり判定に間を空けるためカウント
 		if (isRollEnd)
 		{
@@ -115,12 +178,13 @@ public class Enemy_Walk : MonoBehaviour
 		//}
 		//動く関数
 		Move();
+
+		base.Update();
 	}
 
 	//----------------ここから関数----------------
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{
-		cccc = true;
 		if (hit.normal.y > 0 && hit.moveDirection.y < 0)
 		{
 			if ((hit.point - lastHitPoint).sqrMagnitude > 0.001f || lastGroundNormal == Vector3.zero)
@@ -146,7 +210,18 @@ public class Enemy_Walk : MonoBehaviour
 		{
 			//左向きの時移動する
 			case DirectionState.Left:
-				velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+				switch(direction_Vertical)
+				{
+					case Direction_Vertical.Top:
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+
+						break;
+
+					case Direction_Vertical.Under:
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+
+						break;
+				}
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				//坂を上り下りできる移動
 				characterController.Move(velocity * Time.deltaTime);
@@ -170,7 +245,18 @@ public class Enemy_Walk : MonoBehaviour
 
 			//右向きの時移動する
 			case DirectionState.Right:
-				velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
+				switch (direction_Vertical)
+				{
+					case Direction_Vertical.Top:
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+
+						break;
+
+					case Direction_Vertical.Under:
+						velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+
+						break;
+				}
 				//gameObject.transform.position += velocity * Time.deltaTime;
 				characterController.Move(velocity * Time.deltaTime);
 				if (characterController.collisionFlags != CollisionFlags.None)

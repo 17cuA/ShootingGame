@@ -18,8 +18,8 @@ public class OptionHunter : MonoBehaviour
 	public int playerNum;			//盗んだプレイヤー
 	public int huntOptionNum;		//盗んだオプションの番号
 	public int huntNum;				//盗んだオプションの数
-	public bool isHunt = false;		//盗んだ判定
-
+	public bool isHunt = false;     //盗んだ判定
+	public bool once = true;
 
 
     void Start()
@@ -43,6 +43,23 @@ public class OptionHunter : MonoBehaviour
 
 	private void OnTriggerEnter(Collider col)
 	{
+		if (once)
+		{
+			playerNum = 0;
+			huntNum = 0;
+			huntOptionNum = 0;
+			isHunt = false;
+			optionObj = null;
+			option_Script = null;
+			for (int i = 0; i < 4; i++)
+			{
+				followParent1P_Script.huntPos[i] = null;
+
+			}
+
+			once = false;
+		}
+
 		//盗んでいなくてオプションに当たった時
 		if (col.gameObject.tag == "Option" && !isHunt)
 		{
