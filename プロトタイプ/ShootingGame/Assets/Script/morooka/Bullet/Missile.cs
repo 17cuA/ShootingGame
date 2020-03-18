@@ -54,9 +54,18 @@ public class Missile : bullet_status
 		{
 			// 自身の向いている方向に移動
 			transform.position += transform.right.normalized * shot_speed;
-			//	自身の下方向にコライダーがあるとき
-			Vector3 vector = transform.position;
-			vector.x += 0.5f;
+			////	自身の下方向にコライダーがあるとき
+			//Vector3 vector = transform.position;
+			//vector.x += 0.5f;
+			if (Physics.Raycast(transform.position, transform.right, out hit_mesh, Length_On_Landing / 2))
+			{
+				if (hit_mesh.transform.gameObject.tag == "Wall")
+				{
+					gameObject.SetActive(false);
+				}
+			}
+
+			transform.position += Stage_Movement.MovingDistance;
 		}
 		// 先端に触れたメッシュ(コライダーの一部)があるとき
 		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, Length_On_Landing))
@@ -107,13 +116,28 @@ public class Missile : bullet_status
 		float inner_product = transform.right.x * Ray_Direction.x + transform.right.y * Ray_Direction.y;
 		// 内閣の計算---------------------------------------------------------------------------------------------
 
-		// 内角が0以下のとき
-		if (inner_product < 0)
-		{
-			// 自信を消す
-			//AddExplosionProcess();
-			gameObject.SetActive(false);
-		}
+		//if(Act_Step == 2)
+		//{
+		//	// 内角が0以下のとき
+		//	if (inner_product <= 0)
+		//	{
+		//		// 自信を消す
+		//		//AddExplosionProcess();
+		//		gameObject.SetActive(false);
+		//	}
+		//}
+		//else
+		//{
+			// 内角が0以下のとき
+			if (inner_product < 0)
+			{
+				// 自信を消す
+				//AddExplosionProcess();
+				gameObject.SetActive(false);
+			}
+
+		//}
+
 	}
 
 	/// <summary>
