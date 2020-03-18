@@ -111,7 +111,7 @@ public class Missile : bullet_status
 		if (inner_product < 0)
 		{
 			// 自信を消す
-			AddExplosionProcess();
+			//AddExplosionProcess();
 			gameObject.SetActive(false);
 		}
 	}
@@ -140,19 +140,19 @@ public class Missile : bullet_status
 	{
 		if (Is_Hit)
 		{
-			//呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
-			if (Obj_Storage.Storage_Data.Effects[16] != null)
-			{
-				GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
-				ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            //呼び出し元オブジェクトの座標で指定IDのパーティクルを生成
+            //if (Obj_Storage.Storage_Data.Effects[16] != null)
+            //{
+            //    GameObject effect = Obj_Storage.Storage_Data.Effects[16].Active_Obj();
+            //    ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 
-				//爆発の位置をランダムに変更
-				effect.transform.position = transform.position;
-				/*********************************************************/
-				particle.Play();
-			}
+            //    //爆発の位置をランダムに変更
+            //    effect.transform.position = transform.position;
+            //    /*********************************************************/
+            //    particle.Play();
+            //}
 
-			Is_Hit = false;
+            Is_Hit = false;
 		}
 	}
 }

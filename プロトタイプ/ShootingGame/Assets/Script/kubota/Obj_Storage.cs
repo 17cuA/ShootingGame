@@ -561,6 +561,11 @@ public class Obj_Storage : MonoBehaviour
 
 				EnemyBullet = new Object_Pooling(Bullet_Prefab_E, 10, "Enemy_Bullet");          //エネミーのバレットを生成
 				Beam_Bullet_E = new Object_Pooling(Beam_Bullet_E_Prefab, 36, "Enemy_Beam_Bullet");      // マンタ型が死んだときに出すレーザー型の弾
+
+                //3-18陳追加
+                //これが無いとステージ2ではレーザーがバグる
+                Laser_Line_Prefab = Resources.Load("Bullet/LaserLine") as GameObject;
+                Laser_Line = new Object_Pooling(Laser_Line_Prefab, 30, "Laser_Line");
 				#endregion
 
 				#region エフェクトのロード
@@ -628,18 +633,16 @@ public class Obj_Storage : MonoBehaviour
 				First_Wireless = new AudioClip[1];
 				Second_Wireless = new AudioClip[1];
 				Third_Wireless = new AudioClip[2];
-				Forth_Wireless = new AudioClip[3];
+				Forth_Wireless = new AudioClip[1];
 				Fifth_Wireless = new AudioClip[2];
 
 				First_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_026");        //開戦時
 				Second_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_027");        //研究所はいる前
-				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");        //脳みそ戦１
-				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");        //脳みそ戦２
-				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_013");           //脳みそ戦後１
-				Forth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_014");           //脳みそ戦後２
-				Forth_Wireless[2] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_015");           //脳みそ戦後３
-				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_016");           //ラスト脳みそ
-				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_005");        //ラスト脳みそ後1
+				Third_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_028");        //脳みそ戦１
+				Third_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_028.2");        //脳みそ戦２
+				Forth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_030");           //脳みそ戦後１
+				Fifth_Wireless[0] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_031");           //ラスト脳みそ
+				Fifth_Wireless[1] = Resources.Load<AudioClip>("Sound/VOICE/MANESIUS_Scenario_032");        //ラスト脳みそ後1
 
 				#endregion
 

@@ -336,10 +336,7 @@ public class Wireless_sinario : MonoBehaviour
 								break;
 							case Sinario_No.Middle_Boss_before:
 								//ブレイン戦後
-								if (currentLine == 1) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[0]);
-								else if (currentLine == 2) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[1]);
-								else if (currentLine == 3) Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[2]);
-
+								Voice_Manager.VOICE_Obj.Sinario_Active(Obj_Storage.Storage_Data.Forth_Wireless[0]);
 								break;
 							case Sinario_No.Middle_Boss_after:
 								//ラストブレン撃破後
