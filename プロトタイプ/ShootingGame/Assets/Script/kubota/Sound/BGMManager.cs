@@ -4,115 +4,84 @@ using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-	AudioSource audiosource1;//ＢＧＭを流しているAudioSource
-	AudioSource audiosource2;//ＢＧＭを流すAudioSource
 
-	public AudioClip First_clip;				//開戦時のＢＧＭ
-	public AudioClip First_Boss_clip;			//最初のボスのＢＧＭ
-	public AudioClip Second_clip;			//ボス語のＢＧＭ
-	public AudioClip Final_Boss_clip;           //最後のボスのＢＧＭ
+	[System.Serializable]
+	public struct BGM
+	{
+		public string name;     //Inspectorでの名前変更用
 
-	public int changecnt;			//交換した回数カウント用
+		[Header("AudioClip")]
+		public AudioClip BGM_Clip;  //BGMを入れる
+		/// <summary>
+		/// インスペクターの名前を変更
+		/// </summary>
+		/// <param name="Name">インスペクターにて変更</param>
+		public BGM(string Name) : this()
+		{
+			this.name = Name;
+		}
 
-	[Range(0, 1)]
-	public float fade_num;             //フェードを行う際に使用
-	private bool Is_fadeout;		//フェードアウトを行うかどうか
-	private bool Is_fadein;         //フェードインを行うかどうか
-	private bool Is_Change;
-    // Start is called before the first frame update
-    void Start()
-    {
-		audiosource1 = GetComponent<AudioSource>();
-		fade_num = 1;
-    }
+	}
+
+	[SerializeField]
+	private List<BGM> BGMGroups = new List<BGM>();
+
+	[SerializeField] private float fadeInStartVolume;
+	[SerializeField] private float fadeInTime;
+	private float fadeInTimer;
+	[SerializeField] private bool isFadeIn = false;
+
+	[SerializeField] private float fadeOutOverVolume;
+	[SerializeField] private float fadeOutTime;
+	private float fadeOutTimer;
+	[SerializeField] private bool isFadeOut = false;
+
+	private AudioSource audioSource;
+	public float StartFadeoutTime;      //フェードアウト開始するまでの時間【単位：秒】
+	private float TimeCnt;				//ふぇーどアウトするまでの時間をカウントするよう
+	private void Awake()
+	{
+		audioSource = GetComponent<AudioSource>();
+		isFadeIn = true;
+		audioSource.clip = BGMGroups[0].BGM_Clip;
+		audioSource.volume = fadeInStartVolume;
+	}
 
 	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
-		//if (Input.GetButtonDown("Fire1"))
-		//{
-		//	audiosource1.Play();
-		//}
-		if(Input.GetButtonDown("Fire2"))
+		TimeCnt += Time.deltaTime;
+
+		if(TimeCnt > StartFadeoutTime)
 		{
-			Is_Change = true;
+			isFadeOut = true;
 		}
-		if(Is_Change)
+		//Fade in / Fade out
+		if (isFadeIn)
 		{
-			active_change();
+			fadeInTimer += Time.deltaTime;
+			audioSource.volume = Mathf.Lerp(fadeInStartVolume, 1.0f, fadeInTimer / fadeInTime);
+			if (fadeInTimer >= fadeInTime)
+			{
+				isFadeIn = false;
+				fadeInTimer = 0;
+			}
 		}
+
+		if (isFadeOut)
+		{
+			fadeOutTimer += Time.deltaTime;
+			audioSource.volume = Mathf.Lerp(1.0f, fadeOutOverVolume, fadeOutTimer / fadeOutTime);
+			if (fadeOutTimer >= fadeOutTime)
+			{
+				isFadeOut = false;
+				fadeOutTimer = 0;
+				audioSource.Stop();
+			}
+		}
+
+
 	}
 
-	void fade_out()
-	{
-		if(!Is_fadeout)
-		{
-			if (fade_num >= 0)
-			{
-				audiosource1.volume = fade_num;
-				fade_num -= 0.05f;
-			}
-			else
-			{
-				Is_fadeout = true;
-				Is_fadein = false;
-			}
-		}
-	}
 
-	void fade_in()
-	{
-		if(!Is_fadein)
-		{
-			if(fade_num <= 1)
-			{
-				audiosource1.volume = fade_num;
-				fade_num += 0.05f;
-
-			}
-			else
-			{
-				changecnt++;
-				Change_BGM();
-				Is_fadein = true;
-				Is_Change = false;
-			}
-		}
-	}
-
-	void Change_BGM()
-	{
-		switch(changecnt)
-		{
-			//ボス戦ように変更
-			case 0:
-				audiosource1.clip = First_Boss_clip;
-				break;
-				//ボス戦後に変更
-			case 1:
-				audiosource1.clip = Second_clip;
-				break;
-				//最後のボスように変更
-			case 2:
-				audiosource1.clip = Final_Boss_clip;
-				break;
-			default:
-				changecnt = 0;
-				break;
-		}
-	}
-	void active_change()
-	{
-		if(Is_Change)
-		{
-			if(!Is_fadeout)
-			{
-				fade_out();
-			}
-			if(!Is_fadein)
-			{
-				fade_in();
-			}
-		}
-	}
 }

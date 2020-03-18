@@ -186,8 +186,8 @@ public class BulletOperation : MonoBehaviour
 			for(int i = BulletMax_Enemy_Bullet; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
 			{
 				OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
-				BulletMax_Enemy_Bullet++;
 			}
+			BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
 		}
 		if(BulletMax_Beam_Bullet < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount)
 		{
