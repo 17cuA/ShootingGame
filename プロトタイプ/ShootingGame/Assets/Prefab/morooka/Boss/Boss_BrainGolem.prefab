@@ -275,6 +275,7 @@ MonoBehaviour:
   lasear_EFPS: {fileID: 3111094592879289975}
   lasearInterval_Max: 5
   Eyes: {fileID: 579317520700451418}
+  effect: {fileID: 5079284522294520236, guid: 8516ec49ce2b1ed43b0b3a1c1611a97a, type: 3}
 --- !u!65 &476287408007259134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1258,12 +1259,12 @@ Animation:
   m_GameObject: {fileID: 2951112217200236257}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: f4af077e75d5f564c86333d901e3cc6c, type: 2}
+  m_Animation: {fileID: 7400000, guid: 736a5c3bbfeb71648bdacc7e2c8b7df0, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 32fb7df5423bd614bbac72db40821e93, type: 2}
-  - {fileID: 7400000, guid: f4af077e75d5f564c86333d901e3cc6c, type: 2}
-  - {fileID: 7400000, guid: b924471e5562fbf4ba7da7442734d727, type: 2}
-  - {fileID: 7400000, guid: 46f1212874c3a954098a73c72e456ea2, type: 2}
+  - {fileID: 7400000, guid: 736a5c3bbfeb71648bdacc7e2c8b7df0, type: 2}
+  - {fileID: 7400000, guid: e7459fa7bbe41534f86b2cdc4f8fc241, type: 2}
+  - {fileID: 7400000, guid: f020a612dc3f26d498f8cc21954eed84, type: 2}
+  - {fileID: 7400000, guid: a11168ac5e396b146b5df3c8e6b7b60b, type: 2}
   - {fileID: 7400000, guid: 25320007d0b18c941b82877d3a34718b, type: 2}
   - {fileID: 7400000, guid: 52a597385101c6146bb949881fb2bf14, type: 2}
   m_WrapMode: 0
@@ -2481,38 +2482,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2283879091272015613}
     m_Modifications:
-    - target: {fileID: 100002, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_Name
-      value: Balkan_Tentacles (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.70588434
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.0754495
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.017237855
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7040863
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -94.71999
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -84.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 91.992
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: adfc112997322c549bb197e06551536c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2569,6 +2538,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.03
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_Name
+      value: Balkan_Tentacles (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: adfc112997322c549bb197e06551536c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -2585,6 +2558,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c2c78b6bfed11014c9b2d4c319889dea, type: 2}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.70588434
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0754495
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.017237855
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7040863
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -94.71999
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -84.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 400032, guid: adfc112997322c549bb197e06551536c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 91.992
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: adfc112997322c549bb197e06551536c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: adfc112997322c549bb197e06551536c, type: 3}
@@ -2747,54 +2748,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 977463267717934574}
     m_Modifications:
-    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Name
-      value: Container_Tentacles
-      objectReference: {fileID: 0}
-    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100034, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100058, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100058, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100060, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100060, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100090, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100092, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 100094, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2850,6 +2803,54 @@ PrefabInstance:
     - target: {fileID: 400040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Name
+      value: Container_Tentacles
+      objectReference: {fileID: 0}
+    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100040, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100090, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100092, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100094, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100058, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100058, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100060, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100060, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: a55068d67f926f04fb2407277cb1fe40, type: 3}
       propertyPath: m_Layer
@@ -3031,6 +3032,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4773733797837273994}
     m_Modifications:
+    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrainBoss_LaserCharge
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7273127656386946430, guid: 2ae68852e58656b42b912f496fe7b8e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3084,16 +3095,6 @@ PrefabInstance:
     - target: {fileID: 7273127656386946430, guid: 2ae68852e58656b42b912f496fe7b8e6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
-        type: 3}
-      propertyPath: m_Name
-      value: BrainBoss_LaserCharge
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442678453541588530, guid: 2ae68852e58656b42b912f496fe7b8e6,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7463838380801185547, guid: 2ae68852e58656b42b912f496fe7b8e6,

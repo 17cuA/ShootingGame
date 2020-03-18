@@ -10127,11 +10127,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9105963645121877197}
     m_Modifications:
-    - target: {fileID: 476287408007259133, guid: 10309c8a429d5824da992b9c60e6dc20,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss_BrainGolem
-      objectReference: {fileID: 0}
     - target: {fileID: 8363043290276086133, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10187,6 +10182,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 476287408007259133, guid: 10309c8a429d5824da992b9c60e6dc20,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss_BrainGolem
+      objectReference: {fileID: 0}
     - target: {fileID: 2951112217200593537, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -10231,27 +10231,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Animation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: 736a5c3bbfeb71648bdacc7e2c8b7df0, type: 2}
     - target: {fileID: 2333857003868787049, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_Animations.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: 736a5c3bbfeb71648bdacc7e2c8b7df0, type: 2}
     - target: {fileID: 2333857003868787049, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_Animations.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: e7459fa7bbe41534f86b2cdc4f8fc241, type: 2}
     - target: {fileID: 2333857003868787049, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_Animations.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: f020a612dc3f26d498f8cc21954eed84, type: 2}
     - target: {fileID: 2333857003868787049, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_Animations.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: a11168ac5e396b146b5df3c8e6b7b60b, type: 2}
     - target: {fileID: 8144985511433283499, guid: 10309c8a429d5824da992b9c60e6dc20,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -10287,11 +10287,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9105963645121877197}
     m_Modifications:
-    - target: {fileID: 3981865127663205154, guid: d438c11b318596648bbf4f60e872a144,
-        type: 3}
-      propertyPath: m_Name
-      value: Walls
-      objectReference: {fileID: 0}
     - target: {fileID: 1599605688218648717, guid: d438c11b318596648bbf4f60e872a144,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10346,6 +10341,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981865127663205154, guid: d438c11b318596648bbf4f60e872a144,
+        type: 3}
+      propertyPath: m_Name
+      value: Walls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d438c11b318596648bbf4f60e872a144, type: 3}

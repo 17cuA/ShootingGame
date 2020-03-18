@@ -122,7 +122,10 @@ public class Enemy_Manta : character_status
 
 	private void Debut_Update()
 	{
-		transform.position -= speed * Vector3.right * Time.deltaTime;
+        if(mantaType == MantaType.Move)
+        {
+            transform.position -= speed * Vector3.right * Time.deltaTime;
+        }
 
 		if (stateManager.Current.IsDone)
 		{
@@ -221,8 +224,7 @@ public class Enemy_Manta : character_status
 		var changeTransfrom = transform;
 		for (var i = 0; i < changeTransfrom.childCount - 3; ++i)
 		{
-			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");
-		
+			changeTransfrom.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Explosion");	
 		}
 
 		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);

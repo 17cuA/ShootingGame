@@ -118,8 +118,16 @@ public class Enemy_Wave : character_status
 		//sonicBoom.Stop();
 		isSonicPlay = false;
 		defaultPos = transform.localPosition;
+        if (SceneManager.GetActiveScene().name == "Stage_01")
+        {
+            defaultSpeedY = 7.0f;
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage_02")
+        {
+            defaultSpeedY = 4.0f;
+        }
 
-		if (gameObject.GetComponent<DropItem>())
+        if (gameObject.GetComponent<DropItem>())
 		{
 			DropItem dItem = gameObject.GetComponent<DropItem>();
 			haveItem = true;
@@ -274,7 +282,21 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は上からし始める
 				case State.WaveOnlyUp:
-					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                    if (SceneManager.GetActiveScene().name == "Stage_01")
+                    {
+                        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                        amplitude = 0.1f;
+                        speedX = 7.5f;
+                        speedZ_Value = 0;
+
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Stage_02")
+                    {
+                        amplitude = 0.05f;
+                        speedX = 2f;
+                        speedZ_Value = 0;
+                    }
+
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY < 0)
@@ -283,17 +305,7 @@ public class Enemy_Wave : character_status
 					}
                     //speedY = defaultSpeedY;
                     speedY = 0;
-                    if (SceneManager.GetActiveScene().name == "Stage_01")
-                    {
-                        amplitude = 0.1f;
-                    }
-                    else if (SceneManager.GetActiveScene().name == "Stage_02")
-                    {
-                        amplitude = 0.05f;
-                    }
-                    speedX = 7.5f;
-					speedZ_Value = 0;
-					isStraight = false;
+                    isStraight = false;
 					isOnlyWave = true;
 					//isWave = true;
 					isAddSpeedY = true;
@@ -305,7 +317,19 @@ public class Enemy_Wave : character_status
 
 				//画面右からきて上下移動は下からし始める
 				case State.WaveOnlyDown:
-					//transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                    if (SceneManager.GetActiveScene().name == "Stage_01")
+                    {
+                        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                        amplitude = -0.1f;
+                        speedX = 7.5f;
+                        speedZ_Value = 0;
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Stage_02")
+                    {
+                        amplitude = -0.05f;
+                        speedX = 2f;
+                        speedZ_Value = 0;
+                    }
 					isWaveStart = true;
 					isBehind = false;
 					if (defaultSpeedY > 0)
@@ -314,17 +338,7 @@ public class Enemy_Wave : character_status
 					}
                     //speedY = defaultSpeedY;
                     speedY = 0;
-                    if (SceneManager.GetActiveScene().name == "Stage_01")
-                    {
-                        amplitude = -0.1f;
-                    }
-                    else if(SceneManager.GetActiveScene().name == "Stage_02")
-                    {
-                        amplitude = -0.05f;
-                    }
-                    speedX = 7.5f;
-					speedZ_Value = 0;
-					isOnlyWave = true;
+                    isOnlyWave = true;
 					//isWave = true;
 					isStraight = false;
 					isSubSpeedY = true;
@@ -466,15 +480,25 @@ public class Enemy_Wave : character_status
 				
 				//直進
 				case State.Straight:
-					transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                    if (SceneManager.GetActiveScene().name == "Stage_01")
+                    {
+                        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                        amplitude = -0.1f;
+                        speedX = 7.5f;
+                        speedZ_Value = 0;
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Stage_02")
+                    {
+                        amplitude = -0.05f;
+                        speedX = 2f;
+                        speedZ_Value = 0;
+                    }
 					isStraight = true;
 					isBehind = false;
-					speedX = 7.5f;
-					amplitude = 0;
-					//hsvCon.val = 1.0f;
-					//hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					//renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
-					HSV_Change();
+                    //hsvCon.val = 1.0f;
+                    //hsvColor = UnityEngine.Color.HSVToRGB(0, 0, 1);
+                    //renderer.material.color = UnityEngine.Color.HSVToRGB(0, 0, 1);
+                    HSV_Change();
 					break;
 
 				//後ろから直進

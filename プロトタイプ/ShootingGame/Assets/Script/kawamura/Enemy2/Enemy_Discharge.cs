@@ -34,6 +34,7 @@ public class Enemy_Discharge : character_status
 
 	public Enemy_Discharged.MoveType setMoveType;
 
+    GameObject saveObj;
 	public GameObject createObj;
 	public GameObject mapObj;
 
@@ -98,8 +99,23 @@ public class Enemy_Discharge : character_status
 						//一体を出すディレイカウントが最大を超えたら
 						if (createDelayCnt > createDelayMax)
 						{
-							//オブジェクト生成（のちにプーリング）
-							GameObject saveObj = Instantiate(createObj, transform.position, createRotation);
+                            ////
+                            //if (Random.Range(1, 5) % 4 == 0)
+                            //{
+                            //    //オブジェクト生成（のちにプーリング）
+                            //    saveObj = Instantiate(createObj, transform.position, createRotation);
+
+                            //}
+                            //else
+                            //{
+                            //    //オブジェクト生成（のちにプーリング）
+                            //    saveObj = Instantiate(createObj, transform.position, createRotation);
+
+                            //}
+                            //オブジェクト生成（のちにプーリング）
+                            saveObj = Instantiate(createObj, transform.position, createRotation);
+                            //saveObj = Obj_Storage.Storage_Data.Discharged_Enemy.Active_Obj();
+                            //saveObj.transform.rotation = Quaternion.Euler(createRotation.x, createRotation.y, createRotation.z);
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
 
@@ -169,7 +185,9 @@ public class Enemy_Discharge : character_status
 				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
 			}
-			once = true;
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
+
+            once = true;
 			Died_Process();
 		}
 
