@@ -111,7 +111,7 @@ public class Missile : bullet_status
 		if (inner_product < 0)
 		{
 			// 自信を消す
-			AddExplosionProcess();
+			//AddExplosionProcess();
 			gameObject.SetActive(false);
 		}
 	}
