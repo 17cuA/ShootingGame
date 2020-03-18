@@ -8,10 +8,14 @@ public class Helper_BGMTranstion : MonoBehaviour
 	[System.Serializable]
 	public struct BGM
 	{
-		public string name;
+		public string name;		//Inspectorでの名前変更用
 
 		[Header("AudioClip")]
-		public AudioClip BGM_Clip;
+		public AudioClip BGM_Clip;	//BGMを入れる
+		/// <summary>
+		/// インスペクターの名前を変更
+		/// </summary>
+		/// <param name="Name">インスペクターにて変更</param>
 		public BGM(string Name) : this()
 		{
 			this.name = Name;
