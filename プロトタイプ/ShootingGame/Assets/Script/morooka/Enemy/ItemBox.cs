@@ -14,7 +14,7 @@ using StorageReference;
 
 public class ItemBox : character_status
 {
-	[SerializeField, Tooltip("マテリアル")] private Material[] materials;
+	[SerializeField, Tooltip("マテリアル")] public Material[] materials;
 
 	private Vector3[] angles = new Vector3[8]
 	{
@@ -30,8 +30,8 @@ public class ItemBox : character_status
 		new Vector3(-5.0f,0.0f,0.0f),		// 09:00
 		new Vector3(-5.0f,5.0f,0.0f),		// 10:30
 	};
-	private bool Is_Excretion;
-	private bool Is_OkStartfanction = true;
+	public bool Is_Excretion;
+	public bool Is_OkStartfanction = true;
 
 	public bool Is_LateralRotation { get; set; }                        // 横回転する？
 
@@ -70,7 +70,7 @@ public class ItemBox : character_status
 		}
 	}
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		if (Is_OkStartfanction)
 		{
