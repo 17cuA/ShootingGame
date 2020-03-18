@@ -53,7 +53,7 @@ public class Wireless_sinario : MonoBehaviour
 
 	[SerializeField]
 	private List<Story> StoryGroups = new List<Story>();
-	public Story NowStory;
+	public static Story NowStory;
 	//文字の表示に使っている変数たち--------------------------------------------------------
 	[SerializeField] Text uiText;                   //uitextへの参照
 
@@ -93,7 +93,7 @@ public class Wireless_sinario : MonoBehaviour
 
 	private static bool IsFinish_Wireless;   //一番最後の無線が終わったかどうかの判定用
 	private static bool IsFinish_BrainWireless;	//ブレイン戦のあとの無線が終わった時にtrueにし、ステージを反転
-
+    private static bool IsFinalWireless_Active;
 	void Start()
 	{
 		Game_Master.Management_In_Stage = Game_Master.CONFIGURATION_IN_STAGE.WIRELESS;
@@ -115,6 +115,7 @@ public class Wireless_sinario : MonoBehaviour
 		Start_cnt = 0;
 		No_cnt = 0;
 		IsFinish_Wireless = false;
+        IsFinalWireless_Active = false;
 	}
 
 	void Update()
@@ -150,10 +151,20 @@ public class Wireless_sinario : MonoBehaviour
 				{
 					Helper_BGMTranstion.WirelessNumber_temp = (int)NowStory.No;
 				}
-			}
-			else if(Stage == Stage_No.Stage2)
+                if (NowStory.No == Sinario_No.Second_half_boss_after)
+                {
+                    IsFinalWireless_Active = true;
+                }
+
+            }
+            else if(Stage == Stage_No.Stage2)
 			{
-				switch (NowStory.No)
+                if (NowStory.No == Sinario_No.Middle_Boss_after)
+                {
+                    IsFinalWireless_Active = true;
+                }
+
+                switch (NowStory.No)
 				{
 					//2ステージの開始時
 					case Sinario_No.Curtain_up:
@@ -179,6 +190,7 @@ public class Wireless_sinario : MonoBehaviour
 	//文字の表示
 	void Worddisplay()
 	{
+
 		//プレイヤーのアニメーションの行動が終わるまで飛ばす-----------------
 		first_start++;
 		//受信時の音(初回のみ)
@@ -458,4 +470,9 @@ public class Wireless_sinario : MonoBehaviour
 	{
 		return IsFinish_BrainWireless;
 	}
+
+    public static bool isFinalWiless_Active()
+    {
+        return IsFinalWireless_Active;
+    }
 }
