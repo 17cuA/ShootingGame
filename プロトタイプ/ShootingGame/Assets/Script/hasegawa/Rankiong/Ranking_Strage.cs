@@ -100,6 +100,10 @@ public class Ranking_Strage : MonoBehaviour
 
 	public void Set_Score(string name, uint score, ref int rank)
 	{
+		if (Strage == null)
+		{
+			Strage = new RankingInformation[Reserve_Number];
+		}
 		Strage[Max_num].name = name;
 		Strage[Max_num].score = score;
 		Strage = Strage_Sort(Strage);

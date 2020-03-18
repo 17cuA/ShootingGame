@@ -271,6 +271,10 @@ public class Obj_Storage : MonoBehaviour
 		{
 			DeleteOnceGos();
 		}
+		if(to.name == "End_roll")
+		{
+			DeleteOnceGos();
+		}
 	}
 
 	private void CreateOnceGos()

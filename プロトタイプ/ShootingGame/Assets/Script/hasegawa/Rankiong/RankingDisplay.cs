@@ -175,6 +175,7 @@ public class RankingDisplay : MonoBehaviour
 			// 表示の変更
 			string displayString = (Ranking_Strage.Strage_Data.Player1Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player1Rank].score.ToString("D10");
 			ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
+			ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Centering();
 			if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eTWO_PLAYER)
 			{
 				ranking2PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Character_Preference(displayString);
@@ -214,7 +215,9 @@ public class RankingDisplay : MonoBehaviour
 			// 表示の変更
 			string displayString = (Ranking_Strage.Strage_Data.Player2Rank + 1).ToString().PadLeft(2) + "___" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].name + "__" + Ranking_Strage.Strage[Ranking_Strage.Strage_Data.Player2Rank].score.ToString("D10");
 			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
+			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Centering();
 			ranking1PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Character_Preference(displayString);
+			ranking1PDisplay[Ranking_Strage.Strage_Data.Player1Rank].Centering();
 			previous2PName = input2PNameClass.Name;
 			ranking2PDisplay[Ranking_Strage.Strage_Data.Player2Rank].Set_Enable(blinkPlayerLineFrame < blinkPLayerLineInvisibleBorder);
 		}
@@ -315,7 +318,7 @@ public class RankingDisplay : MonoBehaviour
 		// 名前入力表示
 		if (Ranking_Strage.Strage_Data.Player1Rank < Ranking_Strage.Max_num)
 		{
-			input1PNameClass.Init("Vertical", "Fire1", KeyCode.Space, "Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+			input1PNameClass.Init("Vertical", eCode.ePad_b, KeyCode.Space, eCode.ePad_a, KeyCode.X, Ranking_Strage.kDefaultName, ePadNumber.ePlayer1);
 			GameObject inputNameParent = new GameObject("InputName");
 			inputNameParent.transform.parent = transform;
 			input1PNamePos.x = -3840f / 2f / 2f + 150f * 3f;
@@ -393,7 +396,7 @@ public class RankingDisplay : MonoBehaviour
 		// 名前入力表示
 		if (Ranking_Strage.Strage_Data.Player2Rank < Ranking_Strage.Max_num)
 		{
-			input2PNameClass.Init("P2_Vertical", "P2_Fire1", KeyCode.Space, "P2_Fire2", KeyCode.X, Ranking_Strage.kDefaultName);
+			input2PNameClass.Init("P2_Vertical", eCode.ePad_b, KeyCode.Space, eCode.ePad_a, KeyCode.X, Ranking_Strage.kDefaultName, ePadNumber.ePlayer2);
 			GameObject inputNameParent = new GameObject("InputName");
 			inputNameParent.transform.parent = transform;
 			input2PNamePos.x = 3840f / 2f / 2f + 150f * 3f;

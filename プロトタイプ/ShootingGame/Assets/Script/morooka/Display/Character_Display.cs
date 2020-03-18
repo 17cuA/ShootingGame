@@ -119,11 +119,12 @@ namespace TextDisplay
 			if (s.Length == Word_Count)
 			{
 				controler_obj.name = s;
+
 				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
 					Vector2 posTemp = controler_obj.transform.position;
-					controler_obj.transform.localScale = new Vector3(1.0f,1.0f,1.0f);
+					controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 					int Index = 0;
 
 					for (int i = 0; i < Word_Count; i++)
@@ -139,6 +140,38 @@ namespace TextDisplay
 							Character_Object[Index].AddComponent<Image>();
 							Display_Characters.Add(Character_Object[Index].GetComponent<Image>());
 
+							Character_Object[Index].name = "Character_" + s[i];
+							Display_Characters[Index].sprite = Look[character_search(s[i])];
+							Display_Characters[Index].color = Font_Color;
+
+							Character_Object[Index].transform.position = posTemp;
+							Character_Object[Index].transform.SetParent(controler_obj.transform);
+
+							posTemp.x += 100.0f;
+							Index++;
+						}
+					}
+
+					controler_obj.transform.localScale = FontSize;
+				}
+				//初期設定以外の文字表示
+				//3-18 陳　修正
+				//End-Roll不具合出る可能性あり
+				else
+				{
+					Vector2 posTemp = controler_obj.transform.position;
+					controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+					int Index = 0;
+
+					for (int i = 0; i < Word_Count; i++)
+					{
+						if (s[i] == '\n')
+						{
+							posTemp.x = controler_obj.transform.position.x;
+							posTemp.y -= 150.0f;
+						}
+						else
+						{
 							Character_Object[Index].name = "Character_" + s[i];
 							Display_Characters[Index].sprite = Look[character_search(s[i])];
 							Display_Characters[Index].color = Font_Color;

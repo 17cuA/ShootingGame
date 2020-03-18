@@ -65,11 +65,11 @@ public class Score_Display : MonoBehaviour
 		}
 	}
 
-    /// <summary>
-    /// 表示数値の設定
-    /// </summary>
-    /// <param name="number_to_display"> 数値 </param>
-    public void Display_Number_Preference_1P(uint number_to_display)
+	/// <summary>
+	/// 表示数値の設定
+	/// </summary>
+	/// <param name="number_to_display"> 数値 </param>
+	public void Display_Number_Preference_1P(uint number_to_display)
     {
         Object_To_Display_1P.Character_Preference(number_to_display.ToString("D10"));
     }
