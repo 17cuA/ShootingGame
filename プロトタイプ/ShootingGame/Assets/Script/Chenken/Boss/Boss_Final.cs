@@ -50,7 +50,7 @@ public class Boss_Final : character_status
 		//=====　狂
 		//=====　死
 		GenerateNewState(stateManager, debutDuration, LastBossStateType.DEBUT, Debut_Enter, Debut_Update, Debut_Exit);
-		GenerateNewState(stateManager, waitDuration, LastBossStateType.WAIT, Wait_Enter, Wait_Update, Wait_Enter);
+		GenerateNewState(stateManager, waitDuration, LastBossStateType.WAIT, Wait_Enter, Wait_Update, Wait_Exit);
 		GenerateNewState(stateManager, normalDuration, LastBossStateType.NORMAL, Normal_Enter, Normal_Update, Normal_Exit);
 		GenerateNewState(stateManager, 13f, LastBossStateType.DEATH, Death_Enter, Death_Update, Death_Exit);
 	}
@@ -115,10 +115,13 @@ public class Boss_Final : character_status
 		//===== 出場　当たり判定なしだよーーー ======
 		DebugManager.OperationDebug("ラストボス出場!", "ラストボス");
 		body.enabled = false;
+		GetComponent<Floating>().enabled = false;
 	}
 
 	private void Debut_Update()
 	{
+		transform.position += Vector3.left * Time.deltaTime * speed;
+
 		if(stateManager.Current.IsDone)
 		{
 			stateManager.ChangeState(LastBossStateType.WAIT);
@@ -128,7 +131,7 @@ public class Boss_Final : character_status
 
 	private void Debut_Exit()
 	{
-
+		
 	}
 	#region ===== IN WAIT STATE =====
 	private void Wait_Enter()
@@ -147,7 +150,8 @@ public class Boss_Final : character_status
 
 	private void Wait_Exit()
 	{
-
+		GetComponent<Floating>().enabled = true;
+		GetComponent<Floating>().Set();
 	}
 	#endregion
 	#endregion

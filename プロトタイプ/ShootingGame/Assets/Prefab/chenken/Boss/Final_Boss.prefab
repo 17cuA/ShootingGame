@@ -90,8 +90,8 @@ MonoBehaviour:
   deathBullet: {fileID: 0}
   explosionEffect: {fileID: 1807989913820301600}
   blackSmokeEffect: {fileID: 6053479274386241265}
-  debutDuration: 0
-  waitDuration: 0
+  debutDuration: 3.5
+  waitDuration: 1
   normalDuration: 0
 --- !u!114 &8409805035691127414
 MonoBehaviour:
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a9a39e80484774cb5a00ad3f807d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perRadian: 0.02
+  perRadian: 1
   radius: 0.5
 --- !u!65 &8409805035691127410
 BoxCollider:
@@ -354,6 +354,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8303693229616137583, guid: bc6a02b61a0499f4f926ea907dddd6c3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d73f012297603d429f84753befc93bc, type: 2}
     - target: {fileID: 8303693229618175243, guid: bc6a02b61a0499f4f926ea907dddd6c3,
         type: 3}
       propertyPath: m_IsTrigger
@@ -439,11 +444,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a44bcf5e3ac34314bb3792950f9251a1, type: 2}
-    - target: {fileID: 8303693229616137583, guid: bc6a02b61a0499f4f926ea907dddd6c3,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0d73f012297603d429f84753befc93bc, type: 2}
     - target: {fileID: 8303693229616137599, guid: bc6a02b61a0499f4f926ea907dddd6c3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

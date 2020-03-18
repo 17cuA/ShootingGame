@@ -3,21 +3,30 @@
 
 public class Floating : MonoBehaviour
 {
-	private float radian = 0;
-	[Range(0.01f,0.03f)] public float perRadian = 0.03f;
+	private float radian = 90;
+	[Range(1f,3f)] public float perRadian = 0.03f;
 	[Range(0.3f,1f)]     public float radius = 0.8f;
-	private Vector3 oldPos; 
-	
+	private Vector3 oldPos;
+	private bool isActive = false;
 
 	private void Start()
 	{
-		oldPos = transform.position; 
+		
 	}
 
 	private void Update()
 	{
-		radian += perRadian;
-		float dy = Mathf.Cos(radian) * radius; 
-		transform.position = oldPos + new Vector3(0, dy, 0);
+		if (isActive)
+		{
+			float dy = Mathf.Cos(radian * Mathf.Deg2Rad) * radius;
+			transform.position = oldPos + new Vector3(0, dy, 0);
+			radian += perRadian;
+		}
+	}
+
+	public void Set()
+	{
+		oldPos = transform.position;
+		isActive = true;
 	}
 }
