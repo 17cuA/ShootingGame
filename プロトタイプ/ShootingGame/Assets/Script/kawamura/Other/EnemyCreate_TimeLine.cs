@@ -31,7 +31,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public Enemy_Walk saveWalk_Script;
     public Enemy_Wave saveWave_Script;
 
-	//作る敵
+	//作る敵と無線
 	public enum CreateEnemyType
 	{
 		None,
@@ -76,6 +76,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Manta_Move,                                 //動くマンタ
         Manta_Stop,                                 //動かないマンタ
         UFO_Group,
+        Wireless,                                   //無線オン
     }
 
 	//作る位置
@@ -142,8 +143,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	void Update()
 	{
 		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
-		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) Director.time = 58.0;
-		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
+		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) 
+        {
+            Director.time = 58.0;
+            createNum = 5;
+        }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
 		{
 			Director.time = 75.0;
 			createNum = 14;
@@ -908,6 +913,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = null;
                 createNum++;
+                break;
+
+            case CreateEnemyType.Wireless:
+                Wireless_sinario.Is_using_wireless = true;
                 break;
 
             default:
