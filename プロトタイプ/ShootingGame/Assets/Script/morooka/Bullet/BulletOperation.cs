@@ -30,7 +30,7 @@ public class BulletOperation : MonoBehaviour
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 
-		OperationTarget.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
+		// OperationTarget.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
 		OperationTarget.AddRange(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetComponentsInChildren<Beam_Bullet>(true));
 		OperationTarget.AddRange(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetComponentsInChildren<CannonBullet>(true));
 
@@ -149,8 +149,19 @@ public class BulletOperation : MonoBehaviour
 
 		for(int i = 0; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
 		{
-			Vector3 temp_Pos = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).right.normalized * 0.1f;
-			Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).position += temp_Pos;
+			GameObject g = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).gameObject;
+			if(g.activeSelf)
+			{
+				if (g.transform.position.x >= 18.5f || g.transform.position.x <= -18.5f
+					|| g.transform.position.y >= 7.5f || g.transform.position.y <= -7.5f)
+				{
+					g.SetActive(false);
+					continue;
+				}
+				Vector3 temp_Pos = g.transform.right.normalized * 0.1f;
+				g.transform.position += temp_Pos;
+
+			}
 		}
 
 		if (OperationTarget.Count < BulletMax_Enemy_Bullet + BulletMax_Beam_Bullet + BulletMax_CannonBullet) return;
