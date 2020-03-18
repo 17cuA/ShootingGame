@@ -22,6 +22,7 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
 	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
 	[SerializeField, Tooltip("ボスの目")] GameObject Eyes;
+	[SerializeField, Tooltip("爆発エフェクト")]GameObject effect;
 
 	private bool Is_Active { get; set; }									// 行動可能か
 	private bool Is_Laser { get; set; }									// レーザーを撃てるか
@@ -30,19 +31,24 @@ public class Brain_Wait : character_status
 	private float DeathTime_Max { get; set; }						// 死ぬ時間
 	private List<Collider> colliders { get; set; }						// コライダー軍
 	private List<Transform> All_Transforms { get; set; }		// 自分、子供、孫含めたトランスフォーム
-	private float lasearinterval_Cnt { get; set; }						// レーザーのインターバル計測
+	private float lasearinterval_Cnt { get; set; }                      // レーザーのインターバル計測
+	private bool oneFlag;
 
 	new private void Start()
 	{
+		effect.SetActive(false);
 		colliders = new List<Collider>(transform.GetComponentsInChildren<Collider>(false));
 		All_Transforms = new List<Transform>(transform.GetComponentsInChildren<Transform>(false));
 		All_Transforms.Remove(transform);
+		All_Transforms.Remove(effect.transform);
 		Boss_DriveSwitch(false);
 		Is_Laser = true;
 
 		ActionStep = 0;
 		DeathTime_Max = 60.0f * 3.0f;
 		lasearinterval_Cnt = lasearInterval_Max;
+		Is_Dead = false;
+		oneFlag = false;
 	}
 
     new private void Update()
@@ -62,6 +68,8 @@ public class Brain_Wait : character_status
 				if(playable_Map.state == PlayState.Paused)
 				{
 					Boss_DriveSwitch(true);
+					// 全体
+					Is_Active = true;
 				}
 			}
 
@@ -93,7 +101,7 @@ public class Brain_Wait : character_status
 		if (!Is_PartsAlive())
 		{
 			// 管理しているタイムラインがポーズ状態のとき
-			if (playable_Map.state == PlayState.Paused && playable_Map.time == 324.3)
+			if (playable_Map.state == PlayState.Paused && !oneFlag)
 			{
 				SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 				if (Game_Master.Number_Of_People == Game_Master.PLAYER_NUM.eONE_PLAYER)
@@ -106,7 +114,12 @@ public class Brain_Wait : character_status
 					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 				}
 				playable_Map.time = 324.3;
+				Is_Dead = true;
+				effect.SetActive(true);
 				Boss_DriveSwitch(false);
+
+				Wireless_sinario.Is_using_wireless = true;
+				oneFlag = true;
 			}
 			// タイムラインの再生時間を指定後、再生
 			if (Wireless_sinario.IsFinishWireless_BrainBattle())
@@ -243,9 +256,6 @@ public class Brain_Wait : character_status
 		{
 			obj.gameObject.SetActive(b);
 		}
-
-		// 全体
-		Is_Active = b;
 		// レーザー
 		Is_Laser = b;
 		lasear.SetActive(false);
