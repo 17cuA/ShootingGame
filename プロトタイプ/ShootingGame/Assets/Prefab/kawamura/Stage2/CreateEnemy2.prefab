@@ -47,63 +47,113 @@ MonoBehaviour:
   dischargeObj: {fileID: 0}
   followGroundObj: {fileID: 0}
   taihoObj: {fileID: 0}
+  OctopusObj: {fileID: 0}
+  hitodeSpownerObj: {fileID: 0}
+  waveEnemyObj: {fileID: 0}
+  walkEnemyObj: {fileID: 0}
+  mantaMoveObj: {fileID: 0}
+  mantaStopObj: {fileID: 0}
   saveObj: {fileID: 0}
   mapObj: {fileID: 0}
   saveDischarge_Script: {fileID: 0}
+  saveOctopus_Script: {fileID: 0}
   saveFollowGrownd_Script: {fileID: 0}
+  saveWalk_Script: {fileID: 0}
+  saveWave_Script: {fileID: 0}
+  freeMoveType: 0
   dischargePos_Top: {fileID: 0}
   dischargePos_Under: {fileID: 0}
   taihoPos_Top: {fileID: 0}
   taihoPos_Under: {fileID: 0}
+  walkPos_Top: {fileID: 0}
+  walkPos_Under: {fileID: 0}
+  waveUpPos: {fileID: 0}
+  waveDownPos: {fileID: 0}
+  mantaStopPos: {fileID: 0}
   enemyRota: {x: 0, y: 0, z: 0, w: 0}
-  createNum: 0
-  nextGroupName: 
   enemyInformation:
   - enemyName: 
     enemyType: 0
     createPos: 0
     manualVector: {x: 0, y: 0, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 17
-    createPos: 3
-    manualVector: {x: 21, y: -3.4, z: 0}
-    enemyRota: {x: 0, y: 0, z: 45, w: 0}
-  - enemyName: 
-    enemyType: 15
+    enemyType: 19
     createPos: 0
-    manualVector: {x: -15, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 18
+    enemyType: 19
     createPos: 0
-    manualVector: {x: 21, y: -3.4, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 18
+    enemyType: 19
     createPos: 0
-    manualVector: {x: -21, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 9
+    enemyType: 19
     createPos: 0
-    manualVector: {x: -21, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 18
+    enemyType: 10
     createPos: 0
-    manualVector: {x: -21, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 18
+    enemyType: 19
     createPos: 0
-    manualVector: {x: -21, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
-    enemyType: 18
+    enemyType: 19
     createPos: 0
-    manualVector: {x: -21, y: 3.2, z: 0}
-    enemyRota: {x: 0, y: 0, z: 0, w: 0}
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 19
+    createPos: 0
+    manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 23
+    createPos: 0
+    manualVector: {x: 5, y: -6, z: 0}
+    enemyRota: {x: 0, y: 180, z: -27}
+  - enemyName: 
+    enemyType: 21
+    createPos: 0
+    manualVector: {x: 20, y: -6.5, z: 0}
+    enemyRota: {x: 0, y: 0, z: 153}
+  - enemyName: 
+    enemyType: 14
+    createPos: 0
+    manualVector: {x: 12.63, y: -9.4, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 14
+    createPos: 0
+    manualVector: {x: 16.4, y: -8.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 14
+    createPos: 0
+    manualVector: {x: -4, y: -11.12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 14
+    createPos: 0
+    manualVector: {x: 0, y: -11.12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 14
+    createPos: 0
+    manualVector: {x: 4, y: -11.12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  createNum: 0
+  nextGroupName: 
 --- !u!320 &927029350
 PlayableDirector:
   m_ObjectHideFlags: 0

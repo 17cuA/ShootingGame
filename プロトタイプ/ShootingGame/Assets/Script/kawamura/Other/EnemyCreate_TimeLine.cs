@@ -141,8 +141,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			createNum = 9;
 
 		}
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.X))
+        {
+            Director.time = 125.0;
+            createNum = 16;
 
-		if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
+        }
+
+        if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 
 	}
@@ -536,30 +542,33 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			//上向き大砲
 			case CreateEnemyType.Taiho_Upward:
 				saveObj = Instantiate(taihoObj, pos, transform.rotation);
-                saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj.transform.position = pos;
 				saveObj.transform.parent = mapObj.transform;
-				saveObj = null;
+
+                saveObj = null;
 				createNum++;
 				break;
 
 			//下向き大砲
 			case CreateEnemyType.Taiho_Downward:
 				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 180));
-                saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
                 saveObj.transform.position = pos;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
                 saveObj.transform.parent = mapObj.transform;
-				saveObj = null;
+
+                saveObj = null;
 				createNum++;
 				break;
 
 			//下向き大砲
 			case CreateEnemyType.Taiho_Left:
                 saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 90));
-                saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+               // saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
                 saveObj.transform.position = pos;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 90);
+
                 saveObj.transform.parent = mapObj.transform;
 				saveObj = null;
 				createNum++;
@@ -568,20 +577,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 			//下向き大砲
 			case CreateEnemyType.Taiho_Right:
 				saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, 270));
-                saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+               // saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
                 saveObj.transform.position = pos;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 270);
                 saveObj.transform.parent = mapObj.transform;
-				saveObj = null;
+
+                saveObj = null;
 				createNum++;
 				break;
 
 			//角度指定大砲
 			case CreateEnemyType.Taiho_Free:
                 saveObj = Instantiate(taihoObj, pos, transform.rotation);
-                saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
                 saveObj.transform.position = pos;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, enemyRota.z);
+
                 saveObj.transform.parent = mapObj.transform;
 				saveObj = null;
 				createNum++;
@@ -597,7 +608,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = Instantiate(taihoObj, taihoPos_Top.position, Quaternion.Euler(0, 0, 180));
                 //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
+                saveObj.transform.position = taihoPos_Top.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
                 saveObj.transform.parent = mapObj.transform;
 
@@ -739,7 +750,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
             case CreateEnemyType.Walk_UpAndDown:
                 saveObj = Instantiate(walkEnemyObj, walkPos_Under.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Under.position;
+                //saveObj.transform.position = walkPos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Left;
@@ -747,7 +758,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
                 saveObj = Instantiate(walkEnemyObj, walkPos_Top.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Top.position;
+                //saveObj.transform.position = walkPos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Left;
@@ -760,9 +771,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 
             case CreateEnemyType.Straight:
-                Instantiate(waveEnemyObj, pos, transform.rotation);
+                saveObj = Instantiate(waveEnemyObj, pos, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
+                //saveObj.transform.position = pos;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
                 saveWave_Script.eState = Enemy_Wave.State.WaveOnlyUp;
@@ -773,9 +784,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Wave_Up:
-                Instantiate(waveEnemyObj, waveUpPos.position, transform.rotation);
+                saveObj = Instantiate(waveEnemyObj, waveUpPos.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
-                saveObj.transform.position = waveUpPos.position;
+                //saveObj.transform.position = waveUpPos.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
                 saveWave_Script.eState = Enemy_Wave.State.WaveOnlyUp;
@@ -787,9 +798,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Wave_Down:
-                Instantiate(waveEnemyObj, waveDownPos.position, transform.rotation);
+                saveObj = Instantiate(waveEnemyObj, waveDownPos.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
-                saveObj.transform.position = waveDownPos.position;
+                //saveObj.transform.position = waveDownPos.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
                 saveWave_Script.eState = Enemy_Wave.State.WaveOnlyDown;
@@ -801,16 +812,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Wave_UpAndDown:
-                Instantiate(waveEnemyObj, walkPos_Top.position, transform.rotation);
+                saveObj = Instantiate(waveEnemyObj, waveUpPos.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
-                saveObj.transform.position = waveUpPos.position;
+                //saveObj.transform.position = waveUpPos.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
                 saveWave_Script.eState = Enemy_Wave.State.WaveOnlyUp;
 
-                Instantiate(waveEnemyObj, waveDownPos.position, transform.rotation);
+                saveObj = Instantiate(waveEnemyObj, waveDownPos.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.ClamChowderType_Enemy.Active_Obj();
-                saveObj.transform.position = waveDownPos.position;
+                //saveObj.transform.position = waveDownPos.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWave_Script = saveObj.GetComponent<Enemy_Wave>();
                 saveWave_Script.eState = Enemy_Wave.State.WaveOnlyDown;

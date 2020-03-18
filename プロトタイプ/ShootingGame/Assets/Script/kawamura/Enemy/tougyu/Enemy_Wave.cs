@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StorageReference;
+using UnityEngine.SceneManagement;
 
 public class Enemy_Wave : character_status
 {
@@ -194,11 +195,11 @@ public class Enemy_Wave : character_status
 			parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();
 		}
-        else
-        {
-            parentObj = GameObject.Find("TemporaryParent");
-            transform.parent = parentObj.transform;
-        }
+        //else
+        //{
+        //    parentObj = GameObject.Find("TemporaryParent");
+        //    transform.parent = parentObj.transform;
+        //}
 
         speedZ = 0;
 		//posX = transform.position.x;
@@ -217,9 +218,12 @@ public class Enemy_Wave : character_status
 		//}
 		if(once)
 		{
-            transform.localPosition = defaultPos;
-			//状態によって値を変える
-			switch(eState)
+            if (SceneManager.GetActiveScene().name == "Stage_01")
+            {
+                transform.localPosition = defaultPos;
+            }
+            //状態によって値を変える
+            switch (eState)
 			{
 
 				//画面左から右へ、後ろからきて上下移動は上からし始める
@@ -279,8 +283,15 @@ public class Enemy_Wave : character_status
 					}
                     //speedY = defaultSpeedY;
                     speedY = 0;
-					amplitude = 0.1f;
-					speedX = 7.5f;
+                    if (SceneManager.GetActiveScene().name == "Stage_01")
+                    {
+                        amplitude = 0.1f;
+                    }
+                    else if (SceneManager.GetActiveScene().name == "Stage_02")
+                    {
+                        amplitude = 0.05f;
+                    }
+                    speedX = 7.5f;
 					speedZ_Value = 0;
 					isStraight = false;
 					isOnlyWave = true;
@@ -303,8 +314,15 @@ public class Enemy_Wave : character_status
 					}
                     //speedY = defaultSpeedY;
                     speedY = 0;
-					amplitude = -0.1f;
-					speedX = 7.5f;
+                    if (SceneManager.GetActiveScene().name == "Stage_01")
+                    {
+                        amplitude = -0.1f;
+                    }
+                    else if(SceneManager.GetActiveScene().name == "Stage_02")
+                    {
+                        amplitude = -0.05f;
+                    }
+                    speedX = 7.5f;
 					speedZ_Value = 0;
 					isOnlyWave = true;
 					//isWave = true;

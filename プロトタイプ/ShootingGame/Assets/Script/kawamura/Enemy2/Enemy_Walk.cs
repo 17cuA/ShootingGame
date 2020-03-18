@@ -179,6 +179,17 @@ public class Enemy_Walk : character_status
 		//動く関数
 		Move();
 
+        if (hp < 1)
+        {
+            once = true;
+            Died_Process();
+        }
+        else if (transform.position.x < -20)
+        {
+            once = true;
+            gameObject.SetActive(false);
+        }
+
 		base.Update();
 	}
 
@@ -213,12 +224,12 @@ public class Enemy_Walk : character_status
 				switch(direction_Vertical)
 				{
 					case Direction_Vertical.Top:
-						velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+						velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 
 						break;
 
 					case Direction_Vertical.Under:
-						velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+						velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
 
 						break;
 				}
@@ -248,12 +259,12 @@ public class Enemy_Walk : character_status
 				switch (direction_Vertical)
 				{
 					case Direction_Vertical.Top:
-						velocity = gameObject.transform.rotation * new Vector3(-speedX, speedY, 0);
+						velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 
 						break;
 
 					case Direction_Vertical.Under:
-						velocity = gameObject.transform.rotation * new Vector3(-speedX, -speedY, 0);
+						velocity = gameObject.transform.rotation * new Vector3(speedX, -speedY, 0);
 
 						break;
 				}
@@ -333,7 +344,7 @@ public class Enemy_Walk : character_status
 	{
 
 		//当たったら
-		if (col.gameObject.tag == "Player")
+		if (col.gameObject.name == "Stage02TableB_v2.0")
 		{
 			if (!isRollEnd && !isRoll)
 			{
