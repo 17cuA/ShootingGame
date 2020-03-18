@@ -218,22 +218,28 @@ public class InputRankingName
 		padNumber = padNum;
 	}
 	/// <summary>
-	/// 
+	/// 初期化
 	/// </summary>
 	/// <param name="selectAxisName">選択に使用する入力軸の名前</param>
 	/// <param name="dicisionCode">決定するボタンの名前</param>
+	/// <param name="decisionKeyCode">決定するキーの名前</param>
 	/// <param name="cancelCode">ひとつ前に戻るボタンの名前</param>
+	/// <param name="cancelKeyCode">ひとつ前に戻るキーの名前</param>
 	/// <param name="defaultName">名前の規定値</param>
 	/// <param name="padNum">コントローラの番号</param>
-	public void Init(string selectAxisName, eCode dicisionCode, eCode cancelCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
+	public void Init(string selectAxisName, eCode dicisionCode, KeyCode decisionKeyCode, eCode cancelCode, KeyCode cancelKeyCode, string defaultName = "UFO", ePadNumber padNum = ePadNumber.eNone)
 	{
+		nameImageList = new List<Image>(kNameLength);
+		name = new char[kNameLength];
 		for (int i = 0; i < kNameLength; ++i)
 		{
 			name[i] = defaultName[i];
 		}
 		this.selectAxisName = selectAxisName;
 		this.dicisionCode = dicisionCode;
+		this.decisionKeyCode = decisionKeyCode;
 		this.cancelCode = cancelCode;
+		this.cancelKeyCode = cancelKeyCode;
 		padNumber = padNum;
 	}
 	/// <summary>
@@ -289,7 +295,7 @@ public class InputRankingName
 			if (Decition.isPlaying) Decition.Stop();
 			Decition.Play();
 		}
-		if (Input.GetKeyDown(cancelKeyCode) || ControllerDevice.GetButtonDown(cancelCode))
+		if (Input.GetKeyDown(cancelKeyCode) || ControllerDevice.GetButtonDown(cancelCode, padNumber))
 		{
 			--selectPos;
 			if (Return_Sound.isPlaying) Return_Sound.Stop();
