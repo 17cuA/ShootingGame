@@ -56,7 +56,7 @@ public class OctopusType_Enemy : character_status
 	[SerializeField, Tooltip("アニメーション")] private Animation animationAssets;
 
 	private Rigidbody rigidbody;								// リジッドボディ
-	private float horizontalMovementDirection;			// 横移動の向き(1で右、-1で左)
+	public float horizontalMovementDirection;			// 横移動の向き(1で右、-1で左)
 	private Vector3 FallingDirection;							// 落下向き
 	private bool Is_Turn;											// 回転するか
 	private bool Is_EndAttackMotion;							// 攻撃モーションが終わったか
@@ -77,17 +77,17 @@ public class OctopusType_Enemy : character_status
     {
 		rigidbody = GetComponent<Rigidbody>();
 
-		//switch (bottomDirection)
-		//{
-		//	case DIRECTION.eUP:
-		//		transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
-		//		break;
-		//	case DIRECTION.eDOWN:
-		//		transform.rotation = Quaternion.identity;
-		//		break;
-		//	default:
-		//		break;
-		//}
+		switch (bottomDirection)
+		{
+			case DIRECTION.eUP:
+				transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+				break;
+			case DIRECTION.eDOWN:
+				transform.rotation = Quaternion.identity;
+				break;
+			default:
+				break;
+		}
 
 		//switch(direc_Horizon)
 		//{
@@ -101,7 +101,7 @@ public class OctopusType_Enemy : character_status
 		//		break;
 		//}
 
-		horizontalMovementDirection = Mathf.Sign(transform.right.x);
+		//horizontalMovementDirection = Mathf.Sign(transform.right.x);
 
 		FallingDirection.y = (float)bottomDirection;
 
@@ -189,34 +189,34 @@ public class OctopusType_Enemy : character_status
 		// ターンするとき
 		else if (Is_Turn)
 		{
-				// 別途総回転量の保存
-				TotalRotation += rotationalSpeed;
-				// 回転
-				transform.Rotate(new Vector3(0.0f, rotationalSpeed, 0.0f));
+			// 別途総回転量の保存
+			TotalRotation += rotationalSpeed;
+			// 回転
+			transform.Rotate(new Vector3(0.0f, rotationalSpeed, 0.0f));
 
-				// 総回転量180以上のとき、攻撃していないとき
-				if (TotalRotation >= 180.0f && !Is_EndAttackMotion)
+			// 総回転量180以上のとき、攻撃していないとき
+			if (TotalRotation >= 180.0f && !Is_EndAttackMotion)
+			{
+				// 撃ちだし
+				foreach (var dir in BulletDirection)
 				{
-					// 撃ちだし
-					foreach (var dir in BulletDirection)
-					{
-						GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, Quaternion.Euler(dir));
-					}
-					Is_EndAttackMotion = true;
+					GameObject obj = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, Quaternion.Euler(dir));
 				}
-				// 総回転量360以上のとき
-				else if (TotalRotation >= 360.0f)
-				{
-					// ベロシティを戻して回転終了
-					rigidbody.velocity = StockVelocity;
-					TotalRotation = 0.0f;
-					NumberJumps = 0;
-
-				// クローズアニメーション再生
-				animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eCLOSE]);
-
-				Is_Turn = false;
-				}
+				Is_EndAttackMotion = true;
 			}
+			// 総回転量360以上のとき
+			else if (TotalRotation >= 360.0f)
+			{
+				// ベロシティを戻して回転終了
+				rigidbody.velocity = StockVelocity;
+				TotalRotation = 0.0f;
+				NumberJumps = 0;
+
+			// クローズアニメーション再生
+			animationAssets.Play(AnimationName[(int)OCTOPUS_ANIMATION.eCLOSE]);
+
+			Is_Turn = false;
+			}
+		}
 	}
 }

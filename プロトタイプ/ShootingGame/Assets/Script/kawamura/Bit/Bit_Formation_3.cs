@@ -1241,6 +1241,7 @@ public class Bit_Formation_3 : MonoBehaviour
 				followPosObj = null;                //追従オブジェクト参照をなくす
 				isFirstStolen = false;
 				isStolen = false;
+				isStolenSetting = false;
 				if (option_OrdinalNum == 4)
 				{
 

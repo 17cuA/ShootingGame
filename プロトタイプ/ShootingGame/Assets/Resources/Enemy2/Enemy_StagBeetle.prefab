@@ -43,7 +43,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5596305, y: 1, z: 1}
+  m_Size: {x: 0.5596305, y: 0.8, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8174007981140725760
 MonoBehaviour:
@@ -72,6 +72,7 @@ MonoBehaviour:
   huntOptionNum: 0
   huntNum: 0
   isHunt: 0
+  once: 1
 --- !u!1 &3465054987170474903
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 3776511289223898296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1217743231165079314}
   - {fileID: 9091782599509741558}
@@ -154,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parameter: {fileID: 11400000, guid: 97ade13deba5a5b4da6aa723a3e08507, type: 2}
-  speed: 2
+  speed: 2.5
   hp: 18
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
@@ -192,6 +193,12 @@ MonoBehaviour:
   thirdOption_DefPosTotal: 0
   fourthOption_DefPosTotal: 0
   targetNum: 0
+  hunter_Script: {fileID: 8174007981140725760}
+  hunterFollow_Script:
+  - {fileID: 5227275622381898906}
+  - {fileID: 854431650301715824}
+  - {fileID: 654690945310762326}
+  once: 1
 --- !u!54 &7515912139655828137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,6 +299,7 @@ MonoBehaviour:
   isStolen: 0
   isStolen_Previous: 0
   isSet: 1
+  once: 1
 --- !u!1 &8816820733711614598
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +371,7 @@ MonoBehaviour:
   isStolen: 0
   isStolen_Previous: 0
   isSet: 1
+  once: 1
 --- !u!1 &9088253842116778408
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +443,7 @@ MonoBehaviour:
   isStolen: 0
   isStolen_Previous: 0
   isSet: 1
+  once: 1
 --- !u!1001 &4194554378279502822
 PrefabInstance:
   m_ObjectHideFlags: 0

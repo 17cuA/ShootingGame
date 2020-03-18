@@ -36,7 +36,10 @@ public class Enemy_StagBeetle : character_status
 	public float fourthOption_DefPosTotal;
 	public int targetNum;
 
+	public OptionHunter hunter_Script;
+	public HunterFollow[] hunterFollow_Script;
 
+	public bool once = true;
 
 	// Start is called before the first frame update
 	private new void Start()
@@ -54,6 +57,16 @@ public class Enemy_StagBeetle : character_status
 		// プレイヤー格納
 		TargetPlayer();
 
+		if (once)
+		{
+
+			speed = defaultSpeed;
+			addSpeed = 0;
+			eState = State.STRAIGHT;
+			sinAngleFrame = 0;
+
+			once = false;
+		}
 		////オプションセット
 		//if (!isOptionSet)
 		//{
@@ -130,13 +143,25 @@ public class Enemy_StagBeetle : character_status
 		}
 
 		HSV_Change();
-		if (hp < 1)
+		//if (hp < 1)
+		//{
+		//	Died_Process();
+		//}
+		if (transform.position.x > 28)
 		{
-			Died_Process();
+			once = true;
+			hunter_Script.once = true;
+			hunter_Script.isHunt = false;
+			for (int i = 0; i < hunterFollow_Script.Length; i++)
+			{
+				hunterFollow_Script[i].once = true;
+			}
+			gameObject.SetActive(false);
 		}
-		if (transform.localPosition.x < -35)
+		else if (transform.position.x < -22)
 		{
-			Destroy(this.gameObject);
+			once = true;
+			gameObject.SetActive(false);
 		}
 		base.Update();
 	}

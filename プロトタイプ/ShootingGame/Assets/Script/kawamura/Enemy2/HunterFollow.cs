@@ -46,7 +46,8 @@ public class HunterFollow : MonoBehaviour
 	public bool hasOption = false;
 	public bool isStolen = false;                       //自身がハンターに当たるとtrue
 	public bool isStolen_Previous = false;
-	public bool isSet = true;			//盗んだ時にポジションを入れる判定
+	public bool isSet = true;           //盗んだ時にポジションを入れる判定
+	public bool once = true;
 
 	void Start()
 	{
@@ -96,7 +97,16 @@ public class HunterFollow : MonoBehaviour
 
 	void Update()
 	{
+		if (once)
+		{
+			cnt = 0;
+			isSet = true;
+			once = false;
+		}
+
 		childCnt = this.transform.childCount;
+
+		
 
 		//前の追従位置が動いているか
 		if (check)

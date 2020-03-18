@@ -36,6 +36,7 @@ public class Stage_Movement : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
 		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) Director.time = 58.0;
+		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C)) Director.time = 75.0;
 		if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 		MovingDistance = NowFramePosition - PreviousFramePosition;
