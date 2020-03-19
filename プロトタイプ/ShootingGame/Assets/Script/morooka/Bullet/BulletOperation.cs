@@ -7,15 +7,9 @@ public class BulletOperation : MonoBehaviour
 	static public BulletOperation BP { get; set; }
 
 	private List<Player_Bullet> PlayerBullet;
-	private List<bullet_status> OperationTarget;
 
-	private int BulletMax_Player1_Bullet;
-	private int BulletMax_Player2_Bullet;
-	private int BulletMax_Option1_Bullet;
-	private int BulletMax_Option2_Bullet;
-	private int BulletMax_Enemy_Bullet;
-	private int BulletMax_Beam_Bullet;
-	private int BulletMax_CannonBullet;
+	private List<GameObject> OperationTarget;
+	private Dictionary<string, float> bulletSpeed;
 
 	void Start()
     {
@@ -23,24 +17,21 @@ public class BulletOperation : MonoBehaviour
 
 		#region リストに追加
 		PlayerBullet = new List<Player_Bullet>();
-		OperationTarget = new List<bullet_status>();
+		OperationTarget = new List<GameObject>();
+		bulletSpeed = new Dictionary<string, float>();
+
+		bulletSpeed.Add("Enemy_Beam_Bullet", 0.3f);
+		bulletSpeed.Add("Enemy_Bullet", 0.1f);
+		bulletSpeed.Add("BattleShip_Enemy_Bullet", 0.1f);
 
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 		PlayerBullet.AddRange(Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Player_Bullet>(true));
 
-		// OperationTarget.AddRange(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetComponentsInChildren<Enemy_Bullet>(true));
-		OperationTarget.AddRange(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetComponentsInChildren<Beam_Bullet>(true));
-		OperationTarget.AddRange(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetComponentsInChildren<CannonBullet>(true));
-
-		BulletMax_Player1_Bullet = Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.childCount;
-		BulletMax_Player2_Bullet = Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.childCount;
-		BulletMax_Option1_Bullet = Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.childCount;
-		BulletMax_Option2_Bullet = Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.childCount;
-		// BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
-		BulletMax_Beam_Bullet = Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount;
-		BulletMax_CannonBullet = Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount;
+		OperationTarget.Add(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj());
+		OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj());
+		OperationTarget.Add(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj());
 		#endregion
 
 		#region プレイヤーの弾
@@ -77,9 +68,6 @@ public class BulletOperation : MonoBehaviour
 
 	void LateUpdate()
 	{
-		// 使用中弾リスト
-		var useBulletList = new List<bullet_status>();
-
 		// プレイヤー弾の画面外処理
 		foreach (var Bullet in PlayerBullet)
 		{
@@ -111,125 +99,40 @@ public class BulletOperation : MonoBehaviour
 				}
 				else
 				{
-					// 使用中弾リストに追加
-					useBulletList.Add(Bullet);
+					Vector3 temp = Bullet.transform.right.normalized * 0.45f;
+					Bullet.transform.position += temp;
 				}
 			}
 		}
 
-		// その他弾の画面外処理
-		foreach (var Bullet in OperationTarget)
+		// エネミーの弾挙動
+		for(int i = 0; i < OperationTarget.Count;i++)
 		{
-			if (Bullet.transform.gameObject.activeSelf)
+			if(OperationTarget[i] == null)
 			{
-				// 画面外に出たとき
-				if (Bullet.transform.position.x >= 18.5f || Bullet.transform.position.x <= -18.5f
-					|| Bullet.transform.position.y >= 7.5f || Bullet.transform.position.y <= -7.5f)
-				{
-					// 非アクティブ化
-					Bullet.gameObject.SetActive(false);
+				OperationTarget.Remove(OperationTarget[i]);
+				continue;
+			}
+
+			for(int j = 0; j < OperationTarget[i].transform.childCount;j++)
+			{
+				GameObject g = OperationTarget[i].transform.GetChild(j).gameObject;
+				if (g.activeSelf)
+                {
+                    if (g.transform.position.x >= 18.5f || g.transform.position.x <= -18.5f
+						 || g.transform.position.y >= 7.5f || g.transform.position.y <= -7.5f)
+                    {
+						// 非アクティブ化
+						g.gameObject.SetActive(false);
+					}
+					else
+					{
+						Vector3 temp_Pos = g.transform.right.normalized * bulletSpeed[g.name];
+						g.transform.position += temp_Pos;
+
+					}
 				}
-				else
-				{
-					// 使用中弾リストに追加
-					useBulletList.Add(Bullet);
-				}
-			}
-		}
-
-		// 使用中の弾の移動
-		foreach(var Bullet in useBulletList)
-		{
-			if (Bullet.transform.gameObject.activeSelf)
-			{
-				Vector3 temp_Pos = Bullet.transform.right.normalized * Bullet.shot_speed;
-				Bullet.transform.position += temp_Pos;
-			}
-		}
-
-		for(int i = 0; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
-		{
-			GameObject g = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).gameObject;
-			if(g.activeSelf)
-			{
-				if (g.transform.position.x >= 18.5f || g.transform.position.x <= -18.5f
-					|| g.transform.position.y >= 7.5f || g.transform.position.y <= -7.5f)
-				{
-					g.SetActive(false);
-					continue;
-				}
-				Vector3 temp_Pos = g.transform.right.normalized * 0.1f;
-				g.transform.position += temp_Pos;
-
-			}
-		}
-
-		if (OperationTarget.Count < BulletMax_Enemy_Bullet + BulletMax_Beam_Bullet + BulletMax_CannonBullet) return;
-
-		if (BulletMax_Player1_Bullet < Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.childCount)
-		{
-			for (int i = BulletMax_Player1_Bullet; i < Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				PlayerBullet.Add(Obj_Storage.Storage_Data.PlayerBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<Player_Bullet>());
-				BulletMax_Player1_Bullet++;
-			}
-		}
-		if (BulletMax_Player2_Bullet < Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.childCount)
-		{
-			for(int i = BulletMax_Player2_Bullet; i < Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				PlayerBullet.Add(Obj_Storage.Storage_Data.Player2Bullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<Player_Bullet>());
-				BulletMax_Player2_Bullet++;
-			}
-		}
-		if (BulletMax_Option1_Bullet < Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.childCount)
-		{
-			for (int i = BulletMax_Option1_Bullet; i < Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				PlayerBullet.Add(Obj_Storage.Storage_Data.P1_OptionBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<Player_Bullet>());
-				BulletMax_Option1_Bullet++;
-			}
-		}
-		if (BulletMax_Option2_Bullet < Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.childCount)
-		{
-			for(int i = BulletMax_Option2_Bullet; i < Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				PlayerBullet.Add(Obj_Storage.Storage_Data.P2_OptionBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<Player_Bullet>());
-				BulletMax_Option2_Bullet++;
-			}
-		}
-		// if (BulletMax_Enemy_Bullet < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount)
-		// {
-		// 	for(int i = BulletMax_Enemy_Bullet; i < Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount; i++)
-		// 	{
-		// 		OperationTarget.Add(Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
-		// 	}
-		// 	BulletMax_Enemy_Bullet = Obj_Storage.Storage_Data.EnemyBullet.Get_Parent_Obj().transform.childCount;
-		// }
-		if(BulletMax_Beam_Bullet < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount)
-		{
-			for(int i = BulletMax_Beam_Bullet; i < Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.childCount; i++)
-			{
-				OperationTarget.Add(Obj_Storage.Storage_Data.Beam_Bullet_E.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
-				BulletMax_Beam_Bullet++;
-			}
-		}
-		if(BulletMax_CannonBullet < Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount)
-		{
-			for(int i = BulletMax_CannonBullet; i < Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.childCount; i++)
-			{
-				OperationTarget.Add(Obj_Storage.Storage_Data.BattleShipBullet.Get_Parent_Obj().transform.GetChild(i).GetComponent<bullet_status>());
-				BulletMax_CannonBullet++;
-			}
-		}
-	}
-
-	 public void DuplicateRemoval_OperationTarget(ref Object_Pooling poo)
-	{
-		var obj = poo.Get_Parent_Obj();
-		foreach(var State in obj.transform.GetComponentsInChildren<bullet_status>(true))
-		{
-			OperationTarget.Remove(State);
+            }
 		}
 	}
 }
