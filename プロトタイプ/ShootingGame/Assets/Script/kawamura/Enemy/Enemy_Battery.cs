@@ -11,6 +11,7 @@ public class Enemy_Battery : character_status
     public GameObject defaultParentObj;
 	public CannonAngle angle_Script;            //プレイヤーの方向を向くスクリプト取得用（死亡時攻撃に使う） パブリックで入れて
 	public Quaternion diedAttackRota;           //死んだ時に出す弾の角度範囲
+    public GameObject itemCreatePos;
 	public bool Died_Attack = false;
 
 	public bool haveItem = false;
@@ -36,7 +37,7 @@ public class Enemy_Battery : character_status
 
 					diedAttackRota = Quaternion.Euler(0, 0, angle_Script.degree + bulletSpread);
 
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+                    Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, itemCreatePos.transform.position, diedAttackRota);
 					bulletSpread -= 15;     //広げる角度を変える
 				}
 
@@ -47,7 +48,7 @@ public class Enemy_Battery : character_status
 
 			if (haveItem)
 			{
-				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
+				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, itemCreatePos.transform.position, transform.rotation);
 			}
             gameObject.transform.parent = defaultParentObj.transform;
             Died_Process();

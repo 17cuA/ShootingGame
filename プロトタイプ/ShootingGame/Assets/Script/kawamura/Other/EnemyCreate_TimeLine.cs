@@ -170,7 +170,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V))
         {
             Director.time = 58.0;
-            createNum = 5;
+            createNum = 6;
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
         {
@@ -634,6 +634,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
                 saveObj.transform.position = pos;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
 				saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;
@@ -700,6 +701,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
                 saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
                 //saveObj = Instantiate(taihoObj, taihoPos_Top.position, Quaternion.Euler(0, 0, 180));
@@ -721,6 +723,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
                 saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
                 //saveObj = Instantiate(taihoObj, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
@@ -742,6 +745,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
                 saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
                 //saveObj = Instantiate(taihoObj_Item, taihoPos_Top.position, Quaternion.Euler(0, 0, 180));
@@ -763,6 +767,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
                 saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
                 //saveObj = Instantiate(taihoObj_Item, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));

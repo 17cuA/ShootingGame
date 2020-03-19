@@ -692,6 +692,7 @@ public class Obj_Storage : MonoBehaviour
                 OctopusType_Enemy = new Object_Pooling(OctopusType_Enemy_Prefab, 8, "OctopusType_Enemy");                               // タコ型エネミーを生成
                 ClamChowderType_Enemy = new Object_Pooling(ClamChowderType_Enemy_Prefab, 6, "ClamChowderType_Enemy");       // 貝型エネミーを生成
                 ClamChowderType_Enemy_Item = new Object_Pooling(ClamChowderType_Enemy_Item_Prefab, 4, "ClamChowderType_Enemy_Item");       // 貝型エネミーを生成
+                Walk_Enemy = new Object_Pooling(Walk_Prefab, 6, "Walk_Enemy");
                 StarFish_Enemy = new Object_Pooling(Star_Fish_Enemy_Prefab, 8, "Star_Fish_Enemy");             //ヒトデ型エネミーを生成
                 enemy_UFO_Group_NoneShot = new Object_Pooling(enemy_UFO_Group_NoneShot_prefab, 4, "enemy_UFO_Group_NoneShot");
 

@@ -38,6 +38,7 @@ public class Enemy_Discharge : character_status
     GameObject saveObj;
 	public GameObject createObj;
 	public GameObject mapObj;
+    Vector3 createPos;
 
 	Enemy_Discharged discharged_Script;
 
@@ -69,6 +70,7 @@ public class Enemy_Discharge : character_status
 	new void Start()
     {
 		createRotation = Quaternion.Euler(0, 0, 0);
+        
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 
 		base.Start();
@@ -116,6 +118,20 @@ public class Enemy_Discharge : character_status
                             //オブジェクト生成（のちにプーリング）
                             //saveObj = Instantiate(createObj, transform.position, createRotation);
                             saveObj = Obj_Storage.Storage_Data.Discharged_Enemy.Active_Obj();
+                            if (myDirection == MyDirection.Up)
+                            {
+                                saveObj.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, 0);
+
+                            }
+                            else if (myDirection == MyDirection.Up)
+                            {
+                                saveObj.transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, 0);
+
+                            }
+
+                            saveObj.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
+                            saveObj.transform.position = this.transform.position;
                             saveObj.transform.rotation = Quaternion.Euler(createRotation.x, createRotation.y, createRotation.z);
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
