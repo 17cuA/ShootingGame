@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1179736824157581977}
   - component: {fileID: 1179736824157581983}
   - component: {fileID: 1179736824157581980}
-  - component: {fileID: 1204035717}
   - component: {fileID: 7449718612787486891}
+  - component: {fileID: 1204035717}
   m_Layer: 0
   m_Name: Enemy_Walk
   m_TagString: Enemy
@@ -116,7 +116,7 @@ MonoBehaviour:
   hp: 0
   direction: {x: 0, y: 0, z: 0}
   setColor: {x: 0, y: 0, z: 0, w: 0}
-  Collider: {fileID: 0}
+  Collider: {fileID: 7449718612787486891}
   Shot_DelayMax: 0
   Shot_Delay: 0
   activeShield: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   namenamename: 
   direcState: 0
   direction_Vertical: 0
+  defaultParentObj: {fileID: 0}
   speedXMax: 0
   speedX: -2
   speedYMax: 0
@@ -152,6 +153,19 @@ MonoBehaviour:
   roll_Script: {fileID: 8393989278956184496}
   isRoll: 0
   once: 1
+--- !u!135 &7449718612787486891
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179736824157581981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.42
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &1204035717
 CharacterController:
   m_ObjectHideFlags: 0
@@ -169,19 +183,6 @@ CharacterController:
   m_StepOffset: 0
   m_SkinWidth: 0.028
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &7449718612787486891
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179736824157581981}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1179736825521883757
 GameObject:

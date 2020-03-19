@@ -24,6 +24,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public GameObject mantaOneMoveObj;
     public GameObject ufoGroupObj;
     public GameObject containerObj;
+    public GameObject finalBossObj;
 	#endregion
 
 	public GameObject saveObj;
@@ -87,6 +88,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Taiho_UpAndDown_Item_Left,                       //大砲上下アイテム
         MantaOne,
         Container,
+        FINALBOSS,
     }
 
     //作る位置
@@ -242,7 +244,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
         ufoGroupObj = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
         containerObj = Resources.Load("Enemy2/Container_Move") as GameObject;
-
+        finalBossObj = Resources.Load("Boss/Final_Boss") as GameObject;
     }
 
     //ポジションの取得
@@ -1090,6 +1092,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
+            case CreateEnemyType.FINALBOSS:
+                saveObj = Instantiate(finalBossObj, pos, transform.rotation);
+
+                saveObj = null;
+                createNum++;
+                break;
 
             default:
 				break;

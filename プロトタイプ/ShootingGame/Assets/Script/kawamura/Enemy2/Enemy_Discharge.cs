@@ -123,15 +123,12 @@ public class Enemy_Discharge : character_status
                                 saveObj.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, 0);
 
                             }
-                            else if (myDirection == MyDirection.Up)
+                            else if (myDirection == MyDirection.Down)
                             {
                                 saveObj.transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, 0);
 
                             }
 
-                            saveObj.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-
-                            saveObj.transform.position = this.transform.position;
                             saveObj.transform.rotation = Quaternion.Euler(createRotation.x, createRotation.y, createRotation.z);
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
@@ -155,9 +152,13 @@ public class Enemy_Discharge : character_status
 
 							//一体を出すディレイカウントリセット
 							createDelayCnt = 0;
-							//出した数カウント加算
-							createCnt++;
-						}
+                            //出した数カウント加算
+                            createCnt++;
+                            saveObj = null;
+                            discharged_Script = null;
+    
+
+                        }
 					}
 					//出した数カウントが出す数と同じになったら
 					if (createCnt == createNum)
