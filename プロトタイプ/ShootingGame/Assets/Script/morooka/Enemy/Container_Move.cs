@@ -21,7 +21,8 @@ public class Container_Move : MonoBehaviour
             itemBox.Is_Excretion = true;
 
             Vector3 temp = Vector3.zero;
-            temp.x = -Random.Range(itemBox.speed / 3.0f, itemBox.speed);
+            temp.x = Random.Range(240, itemBox.speed);
+            //temp.x = -itemBox.speed;
             rigidbody.AddForce(temp);
         }
 

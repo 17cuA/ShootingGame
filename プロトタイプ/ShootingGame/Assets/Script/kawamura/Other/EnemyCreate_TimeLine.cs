@@ -14,6 +14,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public GameObject taihoObj;
     public GameObject taihoObj_Item;
 	public GameObject OctopusObj;
+    public GameObject hunterObj;
     public GameObject hitodeSpownerObj;
     public GameObject waveEnemyObj;
     public GameObject waveEnemyObj_Item;
@@ -185,13 +186,19 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.Z))
         {
             Director.time = 178.0;
-            createNum = 44;
+            createNum = 45;
 
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
         {
             Director.time = 324.0;
-            createNum = 59;
+            createNum = 60;
+
+        }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.S))
+        {
+            Director.time = 369.0;
+            createNum = 65;
 
         }
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
@@ -219,6 +226,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
         taihoObj_Item = Resources.Load("Enemy2/Enemy_Taiho_Item") as GameObject;
         OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
+        hunterObj = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;
         hitodeSpownerObj = Resources.Load("Enemy2/StarFish_Spowner2") as GameObject;
         walkEnemyObj = Resources.Load("Enemy2/Enemy_Walk") as GameObject;
 		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
@@ -795,9 +803,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				break;
 
             case CreateEnemyType.OptionHunter:
-                saveObj = Obj_Storage.Storage_Data.StagBeetle_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
-                saveObj.transform.parent = mapObj.transform;
+                saveObj = Instantiate(hunterObj, pos, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.StagBeetle_Enemy.Active_Obj();
+                //saveObj.transform.position = pos;
+                //saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;
                 createNum++;
@@ -1006,6 +1015,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
             case CreateEnemyType.Container:
                 saveObj = Instantiate(containerObj, pos, transform.rotation);
                 saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
                 break;
 
             case CreateEnemyType.Wireless:

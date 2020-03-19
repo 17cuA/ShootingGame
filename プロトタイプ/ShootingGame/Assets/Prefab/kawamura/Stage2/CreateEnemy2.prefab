@@ -49,6 +49,7 @@ MonoBehaviour:
   taihoObj: {fileID: 0}
   taihoObj_Item: {fileID: 0}
   OctopusObj: {fileID: 0}
+  hunterObj: {fileID: 0}
   hitodeSpownerObj: {fileID: 0}
   waveEnemyObj: {fileID: 0}
   waveEnemyObj_Item: {fileID: 0}
@@ -222,6 +223,11 @@ MonoBehaviour:
     enemyType: 35
     createPos: 0
     manualVector: {x: 0, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 24
+    createPos: 0
+    manualVector: {x: 19, y: 0, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
     enemyType: 22
@@ -406,7 +412,7 @@ MonoBehaviour:
   - enemyName: 
     enemyType: 48
     createPos: 0
-    manualVector: {x: 21.5, y: 2.3, z: 0}
+    manualVector: {x: 21.5, y: 0, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
     enemyType: 48
@@ -428,6 +434,151 @@ MonoBehaviour:
     createPos: 0
     manualVector: {x: 21.5, y: -2.3, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: 0, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 48
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 38
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 19
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 38
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 19
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 38
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 19
+    createPos: 0
+    manualVector: {x: 21.5, y: -2.3, z: 0}
+    enemyRota: {x: 0, y: 0, z: 0}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: -10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: -90}
+  - enemyName: 
+    enemyType: 18
+    createPos: 0
+    manualVector: {x: 10.5, y: 12, z: 0}
+    enemyRota: {x: 0, y: 0, z: 90}
   createNum: 0
   nextGroupName: 
   Is_TimelinePause: 0
