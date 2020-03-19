@@ -484,7 +484,7 @@ namespace TextDisplay
 			// 初期のとき
 			if (Character_Object.Count == 0)
 			{
-				Vector2 posTemp = controler_obj.transform.position;
+				Vector2 posTemp = Vector3.zero;
 				controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				int Index = 0;
 
