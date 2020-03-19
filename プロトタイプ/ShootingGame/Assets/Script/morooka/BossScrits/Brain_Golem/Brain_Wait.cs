@@ -18,7 +18,7 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("触手のパーツ")] private List<Tentacles> tentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
-    [SerializeField, Tooltip("エネミータイムライン制御")] private PlayableDirector playable_Create;
+    [SerializeField, Tooltip("エネミータイムライン制御")] public PlayableDirector playable_Create;
     [SerializeField, Tooltip("レーザー")] private GameObject lasear;
 	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
 	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
