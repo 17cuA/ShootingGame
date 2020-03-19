@@ -687,9 +687,7 @@ public class Player1 : character_status
 				{
 					Bullet_Fire_Count = 0;
 				}
-
 			}
-
 		}
 		if (Bullet_cnt_Max != 20)
 		{
