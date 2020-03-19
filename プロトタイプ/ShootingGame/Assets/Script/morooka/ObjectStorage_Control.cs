@@ -105,9 +105,9 @@ public class ObjectStorage_Control : MonoBehaviour
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.SmallBeam_Bullet_E);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.UfoType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.ClamChowderType_Enemy);
-				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.OctopusType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BeelzebubType_Enemy);
 				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.BattleShipType_Enemy);
+				Before_The_Last_Boss.Add(Obj_Storage.Storage_Data.StarFish_Enemy);
 				//----------------------------- エネミーセット ---------------------------------------
 			}
 			else
@@ -141,8 +141,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.One_Boss_BousndBullet);
 					}
-					// レーザーの削除
-					else if (Boss_Frame_Cnt == 1)
+										else if (Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Boss_1);
 						Boss_Frame_Cnt = 0;
@@ -184,22 +183,12 @@ public class ObjectStorage_Control : MonoBehaviour
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Bullet);
 					}
-					// 目レーザーの削除
-					else if (Boss_Frame_Cnt == 1)
-					{
-						//Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Eye_Laser);
-					}
 					// モアイミニの削除
-					else if (Boss_Frame_Cnt == 2)
+					else if (Boss_Frame_Cnt == 1)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mini_Group);
 					}
-					// 口レーザーの削除
-					else if (Boss_Frame_Cnt == 3)
-					{
-						//Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mouth_Laser);
-					}
-					else if(Boss_Frame_Cnt == 4)
+					else if(Boss_Frame_Cnt == 2)
 					{
 						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai);
 						Boss_Frame_Cnt = 0;
@@ -233,8 +222,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					Destroy(Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj()[i]);
 					Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
-
-				Normal_Frame_Cnt++;
 
 				if(wireless_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
 				{

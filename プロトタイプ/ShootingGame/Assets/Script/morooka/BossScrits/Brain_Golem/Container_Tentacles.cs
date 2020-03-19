@@ -46,8 +46,6 @@ public class Container_Tentacles : Tentacles
 				// ターゲットに向きを合わせたら
 				if (Physics.Raycast(VectorChange_3To2(muzzle.transform.position), VectorChange_3To2(- muzzle.transform.right), out hitObject, 20.0f))
 				{
-					print(hitObject.transform.name); 
-
 					if (hitObject.transform.tag == "Player")
 					{
 						ActionStep++;
