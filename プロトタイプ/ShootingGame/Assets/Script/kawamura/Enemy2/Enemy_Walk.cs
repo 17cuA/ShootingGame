@@ -26,6 +26,7 @@ public class Enemy_Walk : character_status
 	public Direction_Vertical direction_Vertical;
 	DirectionState saveDirection;           //状態を一時保存する変数
 
+    GameObject defaultParentObj;
 	GameObject childObj;
 	Vector3 velocity;
 
@@ -182,16 +183,19 @@ public class Enemy_Walk : character_status
         if (hp < 1)
         {
             once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
             Died_Process();
         }
         else if (transform.position.x < -23)
         {
             once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
             gameObject.SetActive(false);
         }
         else if (transform.position.x > 23)
         {
             once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
             gameObject.SetActive(false);
         }
 

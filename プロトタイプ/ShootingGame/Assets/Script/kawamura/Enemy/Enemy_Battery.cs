@@ -8,6 +8,7 @@ using StorageReference;
 
 public class Enemy_Battery : character_status
 {
+    public GameObject defaultParentObj;
 	public CannonAngle angle_Script;            //プレイヤーの方向を向くスクリプト取得用（死亡時攻撃に使う） パブリックで入れて
 	public Quaternion diedAttackRota;           //死んだ時に出す弾の角度範囲
 	public bool Died_Attack = false;
@@ -48,14 +49,17 @@ public class Enemy_Battery : character_status
 			{
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, transform.rotation);
 			}
-			Died_Process();
+            gameObject.transform.parent = defaultParentObj.transform;
+            Died_Process();
 		}
 		else if (transform.position.x < -23)
 		{
-			gameObject.SetActive(false);
+            gameObject.transform.parent = defaultParentObj.transform;
+            gameObject.SetActive(false);
 		}
         else if (transform.position.x > 23)
         {
+            gameObject.transform.parent = defaultParentObj.transform;
             gameObject.SetActive(false);
         }
 
