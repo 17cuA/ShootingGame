@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5642523677934929136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6, y: -0, z: 0}
+  m_LocalPosition: {x: 1.84, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4593988444785955613}
@@ -182,7 +182,7 @@ MonoBehaviour:
   parentObj: {fileID: 0}
   myName: 
   Shot_DelayCnt: 0
-  Shot_Delay_Max: 4
+  Shot_Delay_Max: 2.3
   burst_DelayCnt: 0
   burst_Delay_Max: 0
   burst_ShotNum: 1
@@ -190,7 +190,7 @@ MonoBehaviour:
   burst_Num: 0
   burst_Shot_Cnt: 0
   isShot: 1
-  isBurst: 0
+  isBurst: 1
   once: 0
 --- !u!1 &7864227340880215825
 GameObject:
