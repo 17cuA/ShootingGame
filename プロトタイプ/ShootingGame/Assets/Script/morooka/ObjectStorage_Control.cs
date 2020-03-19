@@ -223,8 +223,6 @@ public class ObjectStorage_Control : MonoBehaviour
 					Obj_Storage.Storage_Data.Effects[wireless_Frame_Cnt].Get_Obj().RemoveAt(i);
 				}
 
-				Normal_Frame_Cnt++;
-
 				if(wireless_Frame_Cnt == Obj_Storage.Storage_Data.Effects.Length - 1)
 				{
 					wireless_Frame_Cnt = 0;
