@@ -198,7 +198,7 @@ public class Enemy_Wave : character_status
 		fd = childObj_Angle.GetComponent<Find_Angle>();
 		fd_Rush = childObj_Angle.GetComponent<Find_Angle>();
 
-		if (transform.parent)
+        if (transform.parent && SceneManager.GetActiveScene().name == "Stage_01")
 		{
 			parentObj = transform.parent.gameObject;
 			groupManage = parentObj.GetComponent<EnemyGroupManage>();

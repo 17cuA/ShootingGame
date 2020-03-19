@@ -14,13 +14,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public GameObject taihoObj;
     public GameObject taihoObj_Item;
 	public GameObject OctopusObj;
+    public GameObject hunterObj;
     public GameObject hitodeSpownerObj;
     public GameObject waveEnemyObj;
     public GameObject waveEnemyObj_Item;
     public GameObject walkEnemyObj;
     public GameObject mantaMoveObj;
     public GameObject mantaStopObj;
+    public GameObject mantaOneMoveObj;
     public GameObject ufoGroupObj;
+    public GameObject containerObj;
 	#endregion
 
 	public GameObject saveObj;
@@ -77,10 +80,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Manta_Stop,                                 //動かないマンタ
         UFO_Group,
         Wireless,                                   //無線オン
+        Taiho_UpAndDown_Left,                            //大砲上下
+        Taiho_Upward_Item_Left,                          //上向き大砲アイテム
+        Taiho_Downward_Item_Left,                        //下向き大砲アイテム
+        Taiho_UpAndDown_Item_Left,                       //大砲上下アイテム
+        MantaOne,
+        Container,
     }
 
-	//作る位置
-	public enum CreatePos
+    //作る位置
+    public enum CreatePos
 	{
 		None,
 		Discharge_Top,
@@ -92,10 +101,16 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         Wave_Up,
         Wave_Down,
         Manta_Stop,
-	}
+        Discharge_Top_Left,
+        Discharge_Under_Left,
+        Taiho_Top_Left,
+        Taiho_Under_Left,
+        Walk_Top_Left,
+        Walk_Under_Left,
+    }
 
     //生成位置変数
-	[Header("Discharge_Freeにしたときに使います")]
+    [Header("Discharge_Freeにしたときに使います")]
 	public Enemy_Discharged.MoveType freeMoveType;
 	public Transform dischargePos_Top;
 	public Transform dischargePos_Under;
@@ -106,6 +121,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public Transform waveUpPos;
     public Transform waveDownPos;
     public Transform mantaStopPos;
+    public Transform dischargePos_Top_Left;
+    public Transform dischargePos_Under_Left;
+    public Transform taihoPos_Top_Left;
+    public Transform taihoPos_Under_Left;
+    public Transform walkPos_Top_Left;
+    public Transform walkPos_Under_Left;
 
     public Quaternion enemyRota;
 
@@ -128,8 +149,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 	public int createNum;                   //次に出す順番の数
 	public string nextGroupName;        //次に出す敵の名前
 
+    //タイムラインを止める
+    public bool Is_TimelinePause;
 
-	void Start()
+    void Start()
 	{
 		mapObj = GameObject.Find("Stage_02_Map").gameObject;
 		ResouceUpload();
@@ -142,18 +165,18 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
-		else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V)) 
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.B)) Director.time = 260.0;
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.V))
         {
             Director.time = 58.0;
             createNum = 5;
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
-		{
-			Director.time = 75.0;
-			createNum = 14;
+        {
+            Director.time = 75.0;
+            createNum = 14;
 
-		}
+        }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.X))
         {
             Director.time = 125.0;
@@ -163,30 +186,56 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.Z))
         {
             Director.time = 178.0;
-            createNum = 44;
+            createNum = 45;
 
         }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
+        {
+            Director.time = 324.0;
+            createNum = 60;
 
+        }
+        else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.S))
+        {
+            Director.time = 369.0;
+            createNum = 65;
+
+        }
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
 		else if (Input.GetKey(KeyCode.Backslash)) Director.time -= 1.0;
 
-	}
+        if (Is_TimelinePause)
+        {
+            Director.Pause();
+            Is_TimelinePause = false;
+        }
 
-	//リソースのロード
-	void ResouceUpload()
+
+    }
+
+    public void TimeLineStop()
+    {
+        Is_TimelinePause = true;
+    }
+
+    //リソースのロード
+    void ResouceUpload()
 	{
 		dischargeObj = Resources.Load("Enemy2/Enemy_Discharge") as GameObject;
 		followGroundObj = Resources.Load("Enemy2/Enemy_FollowGround") as GameObject;
 		taihoObj = Resources.Load("Enemy2/Enemy_Taiho") as GameObject;
         taihoObj_Item = Resources.Load("Enemy2/Enemy_Taiho_Item") as GameObject;
         OctopusObj = Resources.Load("Enemy2/OctopusType_Enemy") as GameObject;
+        hunterObj = Resources.Load("Enemy2/Enemy_StagBeetle") as GameObject;
         hitodeSpownerObj = Resources.Load("Enemy2/StarFish_Spowner2") as GameObject;
         walkEnemyObj = Resources.Load("Enemy2/Enemy_Walk") as GameObject;
 		waveEnemyObj = Resources.Load("Enemy/ClamChowderType_Enemy") as GameObject;
         waveEnemyObj_Item = Resources.Load("Enemy/ClamChowderType_Enemy_Item") as GameObject;
         mantaMoveObj = Resources.Load("Enemy2/Enemy_MantaGroup_move") as GameObject;
+        mantaOneMoveObj = Resources.Load("Enemy2/Enemy_Manta_move") as GameObject;
         mantaStopObj = Resources.Load("Enemy2/Enemy_MantaGroup_Stop") as GameObject;
         ufoGroupObj = Resources.Load("Enemy/Enemy_UFO_Group_NoneShot") as GameObject;
+        containerObj = Resources.Load("Enemy2/Container_Move") as GameObject;
 
     }
 
@@ -202,6 +251,12 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         waveUpPos = GameObject.Find("WaveUpPos").transform;
         waveDownPos = GameObject.Find("WaveDownPos").transform;
         mantaStopPos = GameObject.Find("MantaStopPos").transform;
+        dischargePos_Top_Left = GameObject.Find("DischargePos_Top_Left").transform;
+        dischargePos_Under_Left = GameObject.Find("DischargePos_Under_Left").transform;
+        taihoPos_Top_Left = GameObject.Find("TaihoPos_Top_Left").transform;
+        taihoPos_Under_Left = GameObject.Find("TaihoPos_Under_Left").transform;
+        walkPos_Top_Left = GameObject.Find("WalkPos_Top_Left").transform;
+        walkPos_Under_Left = GameObject.Find("WalkPos_Under_Left").transform;
     }
 
     //出す敵の名前をセット（分かりやすくするためなので敵出現に直接影響はない）
@@ -516,17 +571,17 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//上下右カーブ
 			case CreateEnemyType.Discharge_UpAndDown_RightCurve90:
-                saveObj = Instantiate(dischargeObj, dischargePos_Under.position, transform.rotation);
+                saveObj = Instantiate(dischargeObj, dischargePos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
-                saveObj.transform.position = dischargePos_Under.position;
+                //saveObj.transform.position = dischargePos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
 				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
 				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Up);
 				saveDischarge_Script.setMoveType = Enemy_Discharged.MoveType.RightCurveUp_90;
 
-                saveObj = Instantiate(dischargeObj, dischargePos_Top.position, transform.rotation);
+                saveObj = Instantiate(dischargeObj, dischargePos_Top_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Discharge_Enemy.Active_Obj();
-                saveObj.transform.position = dischargePos_Top.position;
+                //saveObj.transform.position = dischargePos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
 				saveDischarge_Script = saveObj.GetComponent<Enemy_Discharge>();
 				saveDischarge_Script.SetMyDirection(Enemy_Discharge.MyDirection.Down);
@@ -610,10 +665,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 
 			//角度指定大砲
 			case CreateEnemyType.Taiho_Free:
-                saveObj = Instantiate(taihoObj, pos, transform.rotation);
+                saveObj = Instantiate(taihoObj, pos, Quaternion.Euler(0, 0, enemyInformation[createNum].enemyRota.z));
                 //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
-                saveObj.transform.rotation = Quaternion.Euler(0, 0, enemyRota.z);
+                //saveObj.transform.position = pos;
+                //saveObj.transform.rotation = Quaternion.Euler(0, 0, enemyRota.z);
 
                 saveObj.transform.parent = mapObj.transform;
 				saveObj = null;
@@ -638,6 +693,23 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				createNum++;
 				break;
 
+            //上下大砲
+            case CreateEnemyType.Taiho_UpAndDown_Left:
+                saveObj = Instantiate(taihoObj, taihoPos_Under_Left.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = Instantiate(taihoObj, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy.Active_Obj();
+                //saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
             //上下大砲アイテム
             case CreateEnemyType.Taiho_UpAndDown_Item:
                 saveObj = Instantiate(taihoObj_Item, taihoPos_Under.position, transform.rotation);
@@ -655,6 +727,22 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
+            //上下大砲アイテム
+            case CreateEnemyType.Taiho_UpAndDown_Item_Left:
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Under_Left.position, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                //saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = Instantiate(taihoObj_Item, taihoPos_Top_Left.position, Quaternion.Euler(0, 0, 180));
+                //saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
+                //saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
 
             //タコ上向き左移動(斜めの時角度は-27度がいいかも
             case CreateEnemyType.Octopus_UpLeft:
@@ -715,9 +803,10 @@ public class EnemyCreate_TimeLine : MonoBehaviour
 				break;
 
             case CreateEnemyType.OptionHunter:
-                saveObj = Obj_Storage.Storage_Data.StagBeetle_Enemy.Active_Obj();
-                saveObj.transform.position = pos;
-                saveObj.transform.parent = mapObj.transform;
+                saveObj = Instantiate(hunterObj, pos, transform.rotation);
+                //saveObj = Obj_Storage.Storage_Data.StagBeetle_Enemy.Active_Obj();
+                //saveObj.transform.position = pos;
+                //saveObj.transform.parent = mapObj.transform;
 
                 saveObj = null;
                 createNum++;
@@ -746,9 +835,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Walk_UpRight:
-                saveObj = Instantiate(walkEnemyObj, walkPos_Top.position, transform.rotation);
+                saveObj = Instantiate(walkEnemyObj, walkPos_Top_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Top.position;
+                //saveObj.transform.position = walkPos_Top.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Right;
@@ -774,9 +863,9 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 break;
 
             case CreateEnemyType.Walk_DownRight:
-                saveObj = Instantiate(walkEnemyObj, walkPos_Under.position, transform.rotation);
+                saveObj = Instantiate(walkEnemyObj, walkPos_Under_Left.position, transform.rotation);
                 //saveObj = Obj_Storage.Storage_Data.Walk_Enemy.Active_Obj();
-                saveObj.transform.position = walkPos_Under.position;
+                //saveObj.transform.position = walkPos_Under.position;
                 saveObj.transform.parent = mapObj.transform;
                 saveWalk_Script = saveObj.GetComponent<Enemy_Walk>();
                 saveWalk_Script.direcState = Enemy_Walk.DirectionState.Right;
@@ -899,6 +988,14 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
+            case CreateEnemyType.MantaOne:
+                saveObj = Instantiate(mantaOneMoveObj, pos, transform.rotation);
+                //saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
             case CreateEnemyType.Manta_Stop:
                 saveObj = Instantiate(mantaStopObj, mantaStopPos.position, transform.rotation);
                 saveObj.transform.parent = mapObj.transform;
@@ -915,9 +1012,19 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
+            case CreateEnemyType.Container:
+                saveObj = Instantiate(containerObj, pos, transform.rotation);
+                saveObj.transform.parent = mapObj.transform;
+
+                saveObj = null;
+                createNum++;
+                break;
+
             case CreateEnemyType.Wireless:
                 Wireless_sinario.Is_using_wireless = true;
+                createNum++;
                 break;
+
 
             default:
 				break;

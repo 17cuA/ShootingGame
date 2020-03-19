@@ -50,13 +50,17 @@ public class Enemy_Battery : character_status
 			}
 			Died_Process();
 		}
-		else if (transform.position.x < -21)
+		else if (transform.position.x < -23)
 		{
 			gameObject.SetActive(false);
 		}
+        else if (transform.position.x > 23)
+        {
+            gameObject.SetActive(false);
+        }
 
 
-		base.Update();
+        base.Update();
     }
 
 	private void Reset()

@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class Container_Move : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private ItemBox itemBox;
+    private Rigidbody rigidbody;
+    public Vector3 rotationalSpeed;
+
     void Start()
     {
-        
+        itemBox.Is_LateralRotation = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        
+        if(rigidbody.velocity == Vector3.zero)
+        {
+            itemBox.self_material[0] = itemBox.object_material[0].material = itemBox.materials[1];
+            itemBox.Is_Excretion = true;
+
+            Vector3 temp = Vector3.zero;
+            temp.x = Random.Range(240, itemBox.speed);
+            //temp.x = -itemBox.speed;
+            rigidbody.AddForce(temp);
+        }
+
+        transform.Rotate(rotationalSpeed);
+    }
+
+    private void OnEnable()
+    {
+        if(itemBox == null && rigidbody == null)
+        {
+            itemBox = GetComponent<ItemBox>();
+            rigidbody = GetComponent<Rigidbody>();
+        }
+        rigidbody.velocity = Vector3.zero;
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Wall")
+        {
+            itemBox.hp -= 1;
+        }
     }
 }

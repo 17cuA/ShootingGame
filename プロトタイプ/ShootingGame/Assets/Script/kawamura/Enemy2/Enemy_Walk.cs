@@ -114,7 +114,7 @@ public class Enemy_Walk : character_status
 					break;
 
 				case DirectionState.Right:
-                    speedX = 4;
+                    speedX = 1;
 
 					switch (direction_Vertical)
 					{
@@ -184,13 +184,18 @@ public class Enemy_Walk : character_status
             once = true;
             Died_Process();
         }
-        else if (transform.position.x < -20)
+        else if (transform.position.x < -23)
+        {
+            once = true;
+            gameObject.SetActive(false);
+        }
+        else if (transform.position.x > 23)
         {
             once = true;
             gameObject.SetActive(false);
         }
 
-		base.Update();
+        base.Update();
 	}
 
 	//----------------ここから関数----------------

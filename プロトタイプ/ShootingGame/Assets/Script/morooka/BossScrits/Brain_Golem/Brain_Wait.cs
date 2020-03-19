@@ -18,7 +18,8 @@ public class Brain_Wait : character_status
 	[SerializeField, Tooltip("触手のパーツ")] private List<Tentacles> tentacles;
 	[SerializeField, Tooltip("顔のアニメーション")] private Animation FaceAnimation;
 	[SerializeField, Tooltip("タイムライン制御")] private PlayableDirector playable_Map;
-	[SerializeField, Tooltip("レーザー")] private GameObject lasear;
+    [SerializeField, Tooltip("エネミータイムライン制御")] private PlayableDirector playable_Create;
+    [SerializeField, Tooltip("レーザー")] private GameObject lasear;
 	[SerializeField, Tooltip("レーザーのためエフェクト")] private Boss_One_A111 lasear_EFPS;
 	[SerializeField, Tooltip("レーザーのインターバル時間")] private float lasearInterval_Max;
 	[SerializeField, Tooltip("ボスの目")] GameObject Eyes;
@@ -112,6 +113,7 @@ public class Brain_Wait : character_status
 					Game_Master.MY.Score_Addition(Parameter.Get_Score / 2, (int)Game_Master.PLAYER_NUM.eTWO_PLAYER);
 				}
 				playable_Map.time = 324.3;
+                playable_Create.time = 324.3;
 				Is_Dead = true;
 				Instantiate(effect, transform.position, transform.rotation);
 				Boss_DriveSwitch(false);
@@ -123,6 +125,7 @@ public class Brain_Wait : character_status
 			if (Wireless_sinario.IsFinishWireless_BrainBattle())
 			{
 				playable_Map.Play();
+                playable_Create.Play();
 			}
 			// 画面外
 			if (transform.position.x < -20.0f)

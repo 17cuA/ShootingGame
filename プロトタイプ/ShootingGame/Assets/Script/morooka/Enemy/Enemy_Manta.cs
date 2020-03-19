@@ -108,6 +108,11 @@ public class Enemy_Manta : character_status
 			emitterDevice.Execute();
 		}
 
+        if(gameObject.name== "Enemy_Manta_Fast")
+        {
+            speed = 7;
+        }
+
 		stateManager.Update();
 		stateType = stateManager.Current.StateType;
 	}
