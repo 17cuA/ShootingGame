@@ -173,9 +173,11 @@ public class Enemy_Discharged : character_status
 				roll_Script.rotaY = 90;
 			}
 
+            speedX = defaultSpeedX;
+            speedY = defaultSpeedY;
 
-			//上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
-			if (moveState == MoveState.UpYMove && speedY < 0)
+            //上下の移動のスピードを決める（プラスマイナスがあっていなかったら変える）
+            if (moveState == MoveState.UpYMove && speedY < 0)
 			{
 				speedY *= -1;
 			}
@@ -184,8 +186,8 @@ public class Enemy_Discharged : character_status
 				speedY *= -1;
 			}
 
-			defaultSpeedX = speedX;
-			defaultSpeedY = speedY;
+            //defaultSpeedX = speedX;
+            //defaultSpeedY = speedY;
 			XMoveTimeCnt = 0;
 			YMoveTimeCnt = 0;
 
