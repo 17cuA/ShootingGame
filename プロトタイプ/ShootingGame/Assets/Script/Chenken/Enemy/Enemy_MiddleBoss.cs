@@ -472,7 +472,6 @@ public class Enemy_MiddleBoss : character_status
 		Game_Master.MY.Score_Addition(Parameter.Get_Score, Opponent);
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 
-		Debug.Log(transform.localEulerAngles);
 		//爆発位置調整
 		if (rotateCount % 2 == 1)
 		{

@@ -926,8 +926,6 @@ public class Player1 : character_status
 					}
 				}
 			}
-
-			Debug.Log(target);
 		}
 	}
 

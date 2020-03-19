@@ -121,7 +121,6 @@ public class Helper_BGMTranstion : MonoBehaviour
 		if(currentWirelessNumber != WirelessNumber_temp)
 		{
 			currentWirelessNumber = WirelessNumber_temp;
-			Debug.Log("鳴らしているBGMの番号：" + currentWirelessNumber);
 			isFadeOut = true;
 		}
 
