@@ -303,8 +303,9 @@ public class Enemy_Manta : character_status
 				bullet = Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BEAM, transform.position, Vector3.zero);
 				bullet.GetComponent<Boss_ReflectedBullet>().Set(new Vector3(1, Mathf.Tan(330 * Mathf.Deg2Rad), 0).normalized, 330);
 				bullet.GetComponent<Boss_ReflectedBullet>().speed *= Mathf.Cos(30 * Mathf.Deg2Rad);
+
+                canShotDeathBullet = false;
 			}
-			canShotDeathBullet = false;
 		}
 
 		if(stateManager.Current.IsDone)
