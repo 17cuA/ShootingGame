@@ -114,11 +114,12 @@ public class Enemy_Discharge : character_status
 
                             //}
                             //オブジェクト生成（のちにプーリング）
-                            saveObj = Instantiate(createObj, transform.position, createRotation);
-                            //saveObj = Obj_Storage.Storage_Data.Discharged_Enemy.Active_Obj();
-                            //saveObj.transform.rotation = Quaternion.Euler(createRotation.x, createRotation.y, createRotation.z);
+                            //saveObj = Instantiate(createObj, transform.position, createRotation);
+                            saveObj = Obj_Storage.Storage_Data.Discharged_Enemy.Active_Obj();
+                            saveObj.transform.rotation = Quaternion.Euler(createRotation.x, createRotation.y, createRotation.z);
 							//スクリプト取得
 							discharged_Script = saveObj.GetComponent<Enemy_Discharged>();
+                            discharged_Script.defaultParentObj = saveObj.transform.parent.gameObject;
 
 							if (myDirection==Enemy_Discharge.MyDirection.Free)
 							{

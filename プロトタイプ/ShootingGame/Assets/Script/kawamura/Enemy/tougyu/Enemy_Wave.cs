@@ -26,6 +26,7 @@ public class Enemy_Wave : character_status
 	}
 	public State eState;
 
+    public GameObject defaultParentObj;
 	GameObject childObj;        //子供入れる
 	public GameObject childObj_Shot;
 	public GameObject childObj_Angle;
@@ -849,20 +850,20 @@ public class Enemy_Wave : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
 
 			}
-			//if(Died_Attack)
-			//{
-			//	for (int i = 0; i < 3; i++)
-			//	{
-			//		diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
-			//		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+            //if(Died_Attack)
+            //{
+            //	for (int i = 0; i < 3; i++)
+            //	{
+            //		diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+            //		Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
-			//	}
-			//	//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
-			//	//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+            //	}
+            //	//diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+            //	//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
-			//}
+            //}
 
-			if (parentObj)
+            if (parentObj && SceneManager.GetActiveScene().name == "Stage_01")
 			{
                 if(parentObj.name!= "TemporaryParent")
                 {
@@ -888,7 +889,12 @@ public class Enemy_Wave : character_status
 				    }
                 }
             }
-			Enemy_Reset();
+            else if(SceneManager.GetActiveScene().name == "Stage_02")
+            {
+                gameObject.transform.parent = defaultParentObj.transform;
+
+            }
+            Enemy_Reset();
 			//Reset_Status();
 			Died_Process();
 		}
@@ -1012,11 +1018,23 @@ public class Enemy_Wave : character_status
             }
             else if (col.gameObject.name == "WallLeft")
 			{
-				groupManage.notDefeatedEnemyCnt++;
-				groupManage.remainingEnemiesCnt -= 1;
-				gameObject.SetActive(false);
-			}
-		}
+                if (SceneManager.GetActiveScene().name == "Stage_01")
+                {
+                    groupManage.notDefeatedEnemyCnt++;
+                    groupManage.remainingEnemiesCnt -= 1;
+                    gameObject.SetActive(false);
+
+                }
+                if (SceneManager.GetActiveScene().name == "Stage_02")
+                {
+                    gameObject.transform.parent = defaultParentObj.transform;
+                    Enemy_Reset();
+                    gameObject.SetActive(false);
+
+                }
+
+            }
+        }
 		else if(isBehind)
 		{
             if(eState==State.BackRush)

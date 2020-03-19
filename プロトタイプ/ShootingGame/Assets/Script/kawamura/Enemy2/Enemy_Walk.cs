@@ -26,7 +26,7 @@ public class Enemy_Walk : character_status
 	public Direction_Vertical direction_Vertical;
 	DirectionState saveDirection;           //状態を一時保存する変数
 
-    GameObject defaultParentObj;
+    public GameObject defaultParentObj;
 	GameObject childObj;
 	Vector3 velocity;
 
