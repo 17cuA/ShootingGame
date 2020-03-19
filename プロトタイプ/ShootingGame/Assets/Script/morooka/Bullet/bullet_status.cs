@@ -198,6 +198,8 @@ public class bullet_status : MonoBehaviour
 			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
 			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
 			effect.transform.position = gameObject.transform.position;
+
+            Player_Bullet_Des();
 			particle.Play();
         }
         //3-18陳　追加
