@@ -50,7 +50,7 @@ public class Score_Display : MonoBehaviour
 	{
 		// 1P------------------------------
 		Score_1P = new GameObject();
-		Score_1P.transform.SetParent(transform);
+		Score_1P.transform.parent =transform;
 		Object_To_Display_1P = new Character_Display(10, font_path, Score_1P, position);
 		Object_To_Display_1P.Character_Preference(Game_Master.display_score_1P.ToString("D10"));
 		Object_To_Display_1P.Size_Change(new Vector3(font_size, font_size, font_size));
@@ -58,7 +58,7 @@ public class Score_Display : MonoBehaviour
 		{
 			// 2P------------------------------
 			Score_2P = new GameObject();
-			Score_2P.transform.SetParent(transform);
+			Score_2P.transform.parent =transform;
 			Object_To_Display_2P = new Character_Display(10, font_path_2, Score_2P, position_2);
 			Object_To_Display_2P.Character_Preference(Game_Master.display_score_2P.ToString("D10"));
 			Object_To_Display_2P.Size_Change(new Vector3(font_size_2, font_size_2, font_size_2));

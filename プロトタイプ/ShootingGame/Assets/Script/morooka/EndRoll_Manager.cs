@@ -31,6 +31,12 @@ public class EndRoll_Manager : MonoBehaviour
 
 	public void CharacterSwitching(int i)
 	{
+		//endRoll_title.Character_Reset(texts[i].title.Length);
+		//endRoll_menber.Character_Reset(cc(texts[i].member).Length);
+
+		//endRoll_title.Character_Preference(texts[i].title);
+		//endRoll_menber.Character_Preference(cc(texts[i].member));
+
 		endRoll_title.CharacterSwitching(texts[i].title);
 		endRoll_menber.CharacterSwitching(cc(texts[i].member));
 	}
