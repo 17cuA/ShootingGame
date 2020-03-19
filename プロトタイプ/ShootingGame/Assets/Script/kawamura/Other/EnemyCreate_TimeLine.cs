@@ -192,13 +192,13 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
         {
             Director.time = 324.0;
-            createNum = 60;
+            createNum = 59;
 
         }
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.S))
         {
             Director.time = 369.0;
-            createNum = 65;
+            createNum = 64;
 
         }
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
@@ -216,6 +216,11 @@ public class EnemyCreate_TimeLine : MonoBehaviour
     public void TimeLineStop()
     {
         Is_TimelinePause = true;
+    }
+
+    public void WirelessOn()
+    {
+        Wireless_sinario.Is_using_wireless = true;
     }
 
     //リソースのロード

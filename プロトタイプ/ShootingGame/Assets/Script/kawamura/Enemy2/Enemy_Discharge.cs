@@ -34,6 +34,7 @@ public class Enemy_Discharge : character_status
 
 	public Enemy_Discharged.MoveType setMoveType;
 
+    public GameObject defaultParentObj;
     GameObject saveObj;
 	public GameObject createObj;
 	public GameObject mapObj;
@@ -188,10 +189,23 @@ public class Enemy_Discharge : character_status
             Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
 
             once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
 			Died_Process();
 		}
+        else if (transform.position.x < -23)
+        {
+            once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
+            gameObject.SetActive(false);
+        }
+        else if (transform.position.x > 23)
+        {
+            once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
+            gameObject.SetActive(false);
+        }
 
-		base.Update();
+        base.Update();
 		//if (createDelayCnt > createDelayMax)
 		//{
 		//	Instantiate(createObj, transform.position, transform.rotation);

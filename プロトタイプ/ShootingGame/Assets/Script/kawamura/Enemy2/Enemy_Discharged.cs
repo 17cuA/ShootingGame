@@ -34,6 +34,7 @@ public class Enemy_Discharged : character_status
 	public MoveState moveState;
 	public MoveState saveMoveState;
 
+    public GameObject defaultParentObj;
 	public GameObject modelObj;         //モデルオブジェクト（主に左右の動きで向きを変えるのに使う）
 	Enemy_Roll roll_Script;
 
@@ -232,10 +233,23 @@ public class Enemy_Discharged : character_status
 			}
 
 			once = true;
-			Died_Process();
+            gameObject.transform.parent = defaultParentObj.transform;
+            Died_Process();
 		}
+        else if (transform.position.x < -23)
+        {
+            once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
+            gameObject.SetActive(false);
+        }
+        else if (transform.position.x > 23)
+        {
+            once = true;
+            gameObject.transform.parent = defaultParentObj.transform;
+            gameObject.SetActive(false);
+        }
 
-		base.Update();
+        base.Update();
 	}
 
 	//----------------------ここから関数-------------------------
