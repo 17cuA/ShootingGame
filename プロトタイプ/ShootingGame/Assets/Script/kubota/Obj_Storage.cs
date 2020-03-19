@@ -45,8 +45,6 @@ public class Obj_Storage : MonoBehaviour
 	private GameObject Moai_Prefab;								//モアイのプレハブ
 	private GameObject Moai_Mini_Group_Prefab;					//小さいモアイグループのプレハブ
 	private GameObject Moai_Bullet_Prefab;						//モアイのバレットのプレハブ
-	private GameObject Moai_Eye_Laser_Prefab;					//モアイの目のレーザーのプレハブ
-	private GameObject Moai_Mouth_Laser_Prefab;                 //モアイの口のレーザーのプレハブ
 	#endregion
 
 	#region ステージ2
@@ -114,9 +112,6 @@ public class Obj_Storage : MonoBehaviour
 	public Object_Pooling Moai;                       //モアイ
 	public Object_Pooling Moai_Mini_Group;                       //小さいモアイの群れ
 	public Object_Pooling Moai_Bullet;                       //モアイの弾
-	public Object_Pooling Moai_Eye_Laser;                       //モアイの目のレーザー
-	public Object_Pooling Moai_Mouth_Laser;                       //モアイの口のレーザー
-
 	#region ステージ2
 	public Object_Pooling Discharge_Enemy;			//敵を排出する敵
 	public Object_Pooling Discharged_Enemy;			//排出された敵
@@ -344,8 +339,6 @@ public class Obj_Storage : MonoBehaviour
 				Moai_Prefab = Resources.Load("Boss/Enemy_Moai") as GameObject;          //モアイのロード
 				Moai_Mini_Group_Prefab = Resources.Load("Enemy/Enemy_Moai_MiniGroup") as GameObject;          //モアイの群れのロード
 				Moai_Bullet_Prefab = Resources.Load("Bullet/Enemy_RingBullet") as GameObject;          //モアイの弾ロード
-				Moai_Eye_Laser_Prefab = Resources.Load("Bullet/Moai_EyeLaser") as GameObject;          //モアイの目の光線ロード
-				Moai_Mouth_Laser_Prefab = Resources.Load("Bullet/Moai_MouthLaser") as GameObject;          //モアイの口からのビームロード
 
 				#region エフェクトのロード
 				Effects_Prefab[0] = Resources.Load<GameObject>("Effects/Explosion/E001_1P");    //プレイヤー爆発
@@ -510,8 +503,6 @@ public class Obj_Storage : MonoBehaviour
 				Moai = new Object_Pooling(Moai_Prefab, 1, "Moai");
 				Moai_Mini_Group = new Object_Pooling(Moai_Mini_Group_Prefab, 21, "Moai_Mini_Group");
 				Moai_Bullet = new Object_Pooling(Moai_Bullet_Prefab, 15, "Moai_Prefab");
-				Moai_Eye_Laser = new Object_Pooling(Moai_Eye_Laser_Prefab, 72, "Moai_Eye_Laser");
-				Moai_Mouth_Laser = new Object_Pooling(Moai_Mouth_Laser_Prefab, 22, "Moai_Mouth_Laser");
 
 				//敵キャラのプーリング化-------------------------------------------------------------------------------
 				enemy_UFO_Group = new Object_Pooling(enemy_UFO_Group_prefab, 10, "enemy_UFO_Group");
