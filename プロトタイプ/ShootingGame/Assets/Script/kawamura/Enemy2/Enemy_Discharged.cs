@@ -195,20 +195,16 @@ public class Enemy_Discharged : character_status
 			speedY180 = 0;
 			XMoveTimeCnt180 = 0;
 			speedStateCnt = 0;
+            isSpeedYCangeEnd = false;
+            isSpeedXCangeEnd = false;
 
-			once = false;
+            once = false;
 		}
 
 		//velocity = gameObject.transform.rotation * new Vector3(speedX, speedY, 0);
 		//gameObject.transform.position += velocity * Time.deltaTime;
 
 		SpeedCange();
-
-		//画面外左で消す
-		if (transform.position.x < -20)
-		{
-			Destroy(gameObject);
-		}
 
 		if (hp < 1)
 		{

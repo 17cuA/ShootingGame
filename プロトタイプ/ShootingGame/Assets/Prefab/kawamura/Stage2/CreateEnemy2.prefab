@@ -59,6 +59,7 @@ MonoBehaviour:
   mantaOneMoveObj: {fileID: 0}
   ufoGroupObj: {fileID: 0}
   containerObj: {fileID: 0}
+  finalBossObj: {fileID: 0}
   saveObj: {fileID: 0}
   mapObj: {fileID: 0}
   saveDischarge_Script: {fileID: 0}
@@ -164,6 +165,16 @@ MonoBehaviour:
     enemyType: 21
     createPos: 0
     manualVector: {x: 20, y: -6.5, z: 0}
+    enemyRota: {x: 0, y: 180, z: -27}
+  - enemyName: 
+    enemyType: 23
+    createPos: 0
+    manualVector: {x: 5, y: -6, z: 0}
+    enemyRota: {x: 0, y: 180, z: -27}
+  - enemyName: 
+    enemyType: 21
+    createPos: 0
+    manualVector: {x: 20, y: -6.5, z: 0}
     enemyRota: {x: 0, y: 0, z: 153}
   - enemyName: 
     enemyType: 14
@@ -178,17 +189,17 @@ MonoBehaviour:
   - enemyName: 
     enemyType: 14
     createPos: 0
-    manualVector: {x: -5.02, y: -11.13, z: 0}
+    manualVector: {x: -4, y: -11.13, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
     enemyType: 14
     createPos: 0
-    manualVector: {x: -0.88, y: -11.1, z: 0}
+    manualVector: {x: 0, y: -11.1, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
     enemyType: 14
     createPos: 0
-    manualVector: {x: 2.95, y: -11.02, z: 0}
+    manualVector: {x: 4, y: -11.02, z: 0}
     enemyRota: {x: 0, y: 0, z: 0}
   - enemyName: 
     enemyType: 30
@@ -575,6 +586,11 @@ MonoBehaviour:
     createPos: 0
     manualVector: {x: 10.5, y: 12, z: 0}
     enemyRota: {x: 0, y: 0, z: 90}
+  - enemyName: 
+    enemyType: 49
+    createPos: 0
+    manualVector: {x: 21, y: 0, z: -2.3}
+    enemyRota: {x: 0, y: 0, z: 0}
   createNum: 0
   nextGroupName: 
   Is_TimelinePause: 0

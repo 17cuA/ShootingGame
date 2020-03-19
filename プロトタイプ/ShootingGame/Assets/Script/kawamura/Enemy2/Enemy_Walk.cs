@@ -349,24 +349,24 @@ public class Enemy_Walk : character_status
 		}
 	}
 
-	private void OnTriggerEnter(Collider col)
-	{
+	//private void OnTriggerEnter(Collider col)
+	//{
 
-		//当たったら
-		if (col.gameObject.name == "Stage02TableB_v2.0")
-		{
-			if (!isRollEnd && !isRoll)
-			{
-				saveDirection = direcState;
-				direcState = DirectionState.Roll;
-				isRoll = true;
-			}
-		}
+	//	//当たったら
+	//	if (col.gameObject.name == "Stage02TableB_v2.0")
+	//	{
+	//		if (!isRollEnd && !isRoll)
+	//		{
+	//			saveDirection = direcState;
+	//			direcState = DirectionState.Roll;
+	//			isRoll = true;
+	//		}
+	//	}
 
-	}
-	private void OnCollisionStay(Collision collision)
-	{
-		// 衝突した面の、接触した点における法線を取得
-		normalVector = collision.contacts[0].normal;
-	}
+	//}
+	//private void OnCollisionStay(Collision collision)
+	//{
+	//	// 衝突した面の、接触した点における法線を取得
+	//	normalVector = collision.contacts[0].normal;
+	//}
 }
