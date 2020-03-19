@@ -104,10 +104,13 @@ public class OctopusType_Enemy : character_status
 		}
 
 		AnimationType = OCTOPUS_ANIMATION.eDEFA;
+
+		base.Start();
 	}
 
 	new private void Update()
     {
+		base.Update();
 		// 左右当たり
 		if (flomtCollieder.Is_HitRayCast)
 		{

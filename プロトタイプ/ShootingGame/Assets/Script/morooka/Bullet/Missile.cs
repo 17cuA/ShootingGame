@@ -53,7 +53,7 @@ public class Missile : bullet_status
 		else if (Act_Step == 2)
 		{
 			// 自身の向いている方向に移動
-			transform.position += transform.right.normalized * shot_speed;
+			transform.position += (transform.right.normalized * shot_speed) * 2.0f + Stage_Movement.MovingDistance;
 			////	自身の下方向にコライダーがあるとき
 			//Vector3 vector = transform.position;
 			//vector.x += 0.5f;
@@ -64,8 +64,6 @@ public class Missile : bullet_status
 					gameObject.SetActive(false);
 				}
 			}
-
-			transform.position += Stage_Movement.MovingDistance;
 		}
 		// 先端に触れたメッシュ(コライダーの一部)があるとき
 		if (Physics.Raycast(transform.position, Ray_Direction, out hit_mesh, Length_On_Landing))
