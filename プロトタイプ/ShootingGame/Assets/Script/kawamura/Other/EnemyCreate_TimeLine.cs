@@ -746,7 +746,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
-                saveObj.transform.position = taihoPos_Under_Left.position;
+                saveObj.transform.position = taihoPos_Under.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
@@ -754,7 +754,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
-                saveObj.transform.position = taihoPos_Top_Left.position;
+                saveObj.transform.position = taihoPos_Top.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
                 saveObj.transform.parent = mapObj.transform;
 
@@ -762,13 +762,13 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 createNum++;
                 break;
 
-            //上下大砲アイテム
+            //上下大砲アイテム　左側
             case CreateEnemyType.Taiho_UpAndDown_Item_Left:
                 //saveObj = Instantiate(taihoObj_Item, taihoPos_Under_Left.position, transform.rotation);
                 saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
-                saveObj.transform.position = taihoPos_Under.position;
+                saveObj.transform.position = taihoPos_Under_Left.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                 saveObj.transform.parent = mapObj.transform;
 
@@ -776,7 +776,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
                 saveObj = Obj_Storage.Storage_Data.Cannon_Enemy_Item.Active_Obj();
                 saveTaiho_Script = saveObj.GetComponent<Enemy_Battery>();
                 saveTaiho_Script.defaultParentObj = saveObj.transform.parent.gameObject;
-                saveObj.transform.position = taihoPos_Top.position;
+                saveObj.transform.position = taihoPos_Top_Left.position;
                 saveObj.transform.rotation = Quaternion.Euler(0, 0, 180);
                 saveObj.transform.parent = mapObj.transform;
 

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6342059655318004651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6513689100943433443}
+  m_Layer: 0
+  m_Name: CreatePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6513689100943433443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6342059655318004651}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 0.3703704, y: 0.4, z: 0.3703704}
+  m_Children: []
+  m_Father: {fileID: 7286276924492221317}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7286276924492191617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,6 +1308,7 @@ Transform:
   - {fileID: 7286276924492221371}
   - {fileID: 7286276924492221369}
   - {fileID: 7286276924492221319}
+  - {fileID: 6513689100943433443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1315,6 +1346,8 @@ MonoBehaviour:
   namenamename: 
   myDirection: 0
   setMoveType: 0
+  defaultParentObj: {fileID: 0}
+  createPosObj: {fileID: 6342059655318004651}
   createObj: {fileID: 286457610906399923, guid: c8e2960f274da9a40a0c974940e341c2,
     type: 3}
   mapObj: {fileID: 0}

@@ -28,6 +28,7 @@ public class CannonAngle : MonoBehaviour
     public bool isPlus;
     public bool isMinus;
     public bool isRotaChange;
+    public bool once = true;
 
     private void Awake()
     {
@@ -68,6 +69,34 @@ public class CannonAngle : MonoBehaviour
 
     void Update()
     {
+        if (once)
+        {
+            //最初の角度を見て保存
+            transform.localRotation = Quaternion.Euler(0, 0, 90);
+            standardDegree = transform.eulerAngles.z;
+            myRotaZ = transform.eulerAngles.z;
+            //最大の角度設定
+            standardDig_high = standardDegree + 90.0f;
+            if (standardDig_high > 360)
+            {
+                isPlus = true;
+                isMinus = false;
+            }
+            ////角度を直す
+            //if (standardDig_high > 360)
+            //{
+            //    standardDig_high -= 360.0f;
+            //}
+
+            //最小の角度設定
+            standardDig_low = standardDegree - 90.0f;
+            if (standardDig_low < 0)
+            {
+                isMinus = true;
+                isPlus = false;
+            }
+            once = false;
+        }
         //プレイヤー（向く対象）情報が入っていなくて、プレイヤーが生きていたら
         if (playerObj == null && isPlayerActive)
         {

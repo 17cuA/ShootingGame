@@ -35,6 +35,7 @@ public class Enemy_Discharge : character_status
 	public Enemy_Discharged.MoveType setMoveType;
 
     public GameObject defaultParentObj;
+    public GameObject createPosObj;
     GameObject saveObj;
 	public GameObject createObj;
 	public GameObject mapObj;
@@ -196,7 +197,7 @@ public class Enemy_Discharge : character_status
 
 					diedAttackRota = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + bulletSpread);
 
-					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+					Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, createPosObj.transform.position, diedAttackRota);
 					bulletSpread -= 30;     //広げる角度を変える
 				}
 
@@ -204,7 +205,7 @@ public class Enemy_Discharge : character_status
 				//Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
 
 			}
-            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, this.transform.position, Quaternion.identity);
+            Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, createPosObj.transform.position, Quaternion.identity);
 
             once = true;
             gameObject.transform.parent = defaultParentObj.transform;

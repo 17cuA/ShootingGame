@@ -51,16 +51,19 @@ public class Enemy_Battery : character_status
 				Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.ePOWERUP_ITEM, itemCreatePos.transform.position, transform.rotation);
 			}
             gameObject.transform.parent = defaultParentObj.transform;
+            angle_Script.once = true;
             Died_Process();
 		}
 		else if (transform.position.x < -23)
 		{
             gameObject.transform.parent = defaultParentObj.transform;
+            angle_Script.once = true;
             gameObject.SetActive(false);
 		}
         else if (transform.position.x > 23)
         {
             gameObject.transform.parent = defaultParentObj.transform;
+            angle_Script.once = true;
             gameObject.SetActive(false);
         }
 
