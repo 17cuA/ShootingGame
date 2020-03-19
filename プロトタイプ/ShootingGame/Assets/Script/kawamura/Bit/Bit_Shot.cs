@@ -131,7 +131,11 @@ public class Bit_Shot : MonoBehaviour
 				{
 					laser_Obj.SetActive(false);
 				}
-				Bullet_Create();
+                if (!Wireless_sinario.isFinalWiless_Active())
+                {
+                    //弾を射出
+                    Bullet_Create();
+                }
 
 				shot_Delay++;
 			}
@@ -166,9 +170,13 @@ public class Bit_Shot : MonoBehaviour
 				{
 					laser_Obj.SetActive(false);
 				}
-				Bullet_Create();
+                if (!Wireless_sinario.isFinalWiless_Active())
+                {
+                    //弾を射出
+                    Bullet_Create();
+                }
 
-				shot_Delay++;
+                shot_Delay++;
 
 			}
 		}
