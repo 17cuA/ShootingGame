@@ -34,6 +34,7 @@ public class Brain_Wait : character_status
 	private List<Transform> All_Transforms { get; set; }		// 自分、子供、孫含めたトランスフォーム
 	private float lasearinterval_Cnt { get; set; }                      // レーザーのインターバル計測
 	private bool oneFlag;
+	GameObject efectobj;
 
 	new private void Start()
 	{
@@ -115,7 +116,8 @@ public class Brain_Wait : character_status
 				playable_Map.time = 324.3;
                 playable_Create.time = 324.3;
 				Is_Dead = true;
-				Instantiate(effect, transform.position, transform.rotation);
+				efectobj = Instantiate(effect, transform.position, transform.rotation);
+				efectobj.transform.parent = transform.parent;
 				Boss_DriveSwitch(false);
 
 				Wireless_sinario.Is_using_wireless = true;
@@ -131,6 +133,7 @@ public class Brain_Wait : character_status
 			if (transform.position.x < -20.0f)
 			{
 				Destroy(gameObject);
+				Destroy(efectobj);
 			}
 		}
 		#endregion
