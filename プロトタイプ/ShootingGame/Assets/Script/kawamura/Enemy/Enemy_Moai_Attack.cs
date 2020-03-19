@@ -305,7 +305,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
 			//saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
 			//saveObj = null;
 
-            saveObj = Obj_Storage.Storage_Data.Moai_Mouth_Laser.Active_Obj();
+           // saveObj = Obj_Storage.Storage_Data.Moai_Mouth_Laser.Active_Obj();
             saveObj.transform.position = laserPos[0].transform.position;
             saveObj.transform.parent = laserPos[0].transform;
             saveObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -322,7 +322,7 @@ public class Enemy_Moai_Attack : MonoBehaviour
 		{
 			for (int i = 0; i < 2; i++)
 			{
-                saveObj = Obj_Storage.Storage_Data.Moai_Eye_Laser.Active_Obj();
+               // saveObj = Obj_Storage.Storage_Data.Moai_Eye_Laser.Active_Obj();
 				saveObj.transform.position = laserPos[i + 1].transform.position;
 				saveObj.transform.parent = laserPos[i + 1].transform;
 				//saveObj.transform.parent = parentObj.transform;

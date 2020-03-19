@@ -187,7 +187,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					// 目レーザーの削除
 					else if (Boss_Frame_Cnt == 1)
 					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Eye_Laser);
+						//Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Eye_Laser);
 					}
 					// モアイミニの削除
 					else if (Boss_Frame_Cnt == 2)
@@ -197,7 +197,7 @@ public class ObjectStorage_Control : MonoBehaviour
 					// 口レーザーの削除
 					else if (Boss_Frame_Cnt == 3)
 					{
-						Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mouth_Laser);
+						//Des_Obj_B(ref Obj_Storage.Storage_Data.Moai_Mouth_Laser);
 					}
 					else if(Boss_Frame_Cnt == 4)
 					{

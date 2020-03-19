@@ -28,14 +28,14 @@ public class Moai_Laser : MonoBehaviour
             {
                 GameObject obj = gameObject;
 
-                Obj_Storage.Storage_Data.Moai_Mouth_Laser.Set_Parent_Obj(ref obj);
+                //Obj_Storage.Storage_Data.Moai_Mouth_Laser.Set_Parent_Obj(ref obj);
 
             }
             else if(myName == "Moai_Eye_Laser")
             {
                 GameObject obj = gameObject;
 
-                Obj_Storage.Storage_Data.Moai_Eye_Laser.Set_Parent_Obj(ref obj);
+               // Obj_Storage.Storage_Data.Moai_Eye_Laser.Set_Parent_Obj(ref obj);
 
             }
 			gameObject.SetActive(false);

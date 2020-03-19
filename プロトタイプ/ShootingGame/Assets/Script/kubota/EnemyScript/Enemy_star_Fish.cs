@@ -17,11 +17,6 @@ public class Enemy_star_Fish : character_status
 	//死亡時の弾発射に使用
 	Quaternion deadAttackRotation;
 	float rotaZ;
-
-	private void OnEnable()
-	{
-
-	}
 	// Start is called before the first frame update
 	new void Start()
 	{
@@ -80,7 +75,6 @@ public class Enemy_star_Fish : character_status
 		Vector3 PlayerpositionData = playerPos.transform.position;
 		PlayerpositionData.z = 0;
 		Vector3 pos = PlayerpositionData - firstPos;
-		Debug.Log("単位ベクトル：" + pos);
 
 		//pos.z = 0;
 		return pos.normalized;
@@ -112,6 +106,5 @@ public class Enemy_star_Fish : character_status
 		vector = Vector3.zero;
 		playerPos = null;
 		TargetNumber = 0;
-		Debug.Log("呼ばれたよ");
 	}
 }
