@@ -236,8 +236,16 @@ public class Enemy_Manta : character_status
 		SE_Manager.SE_Obj.SE_Explosion(Obj_Storage.Storage_Data.audio_se[22]);
 		transform.GetChild(5).gameObject.SetActive(false);
 
-		temp = new GameObject("temp");
-		transform.GetChild(4).SetParent(temp.transform);
+
+        if(transform.GetChild(4).GetChild(0).GetComponent<BoxCollider>().size.z > 1)
+        {
+            temp = new GameObject("temp");
+		    transform.GetChild(4).SetParent(temp.transform);
+        }
+        else
+        {
+            transform.GetChild(4).GetChild(0).GetComponent<BoxCollider>().enabled = false;
+        }
 	}
 
 	private void Death_Update()
@@ -247,6 +255,15 @@ public class Enemy_Manta : character_status
 		transform.localEulerAngles = new Vector3(x, 180, 0);
 
 		transform.position += speed * 0.05f * Time.deltaTime * Vector3.down;
+
+        if(temp != null)
+        {
+            if( temp.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().time >= 3.5)
+            {
+                Destroy(temp);
+            }
+               
+        }
 
 		if (stateManager.Current.Timer <= 4f)
 		{
@@ -311,7 +328,6 @@ public class Enemy_Manta : character_status
 		if(stateManager.Current.IsDone)
 		{
 			gameObject.SetActive(false);
-			Destroy(temp);
 			return;
 		}
 	}
