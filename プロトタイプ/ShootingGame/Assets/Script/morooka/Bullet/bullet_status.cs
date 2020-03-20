@@ -195,12 +195,12 @@ public class bullet_status : MonoBehaviour
         else if(gameObject.name != "Player_Missile" && col.tag == "Wall")
         {
             gameObject.SetActive(false);
-            GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-            ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-            effect.transform.position = gameObject.transform.position;
+            //GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+            //ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            //effect.transform.position = gameObject.transform.position;
 
             Player_Bullet_Des();
-            particle.Play();
+            //particle.Play();
         }
         //3-18陳　追加
         //ミサイル敵弾(moai lingBullet)に当たったらエフェクト再生
