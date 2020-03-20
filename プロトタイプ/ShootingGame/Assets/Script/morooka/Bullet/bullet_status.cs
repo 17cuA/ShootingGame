@@ -119,10 +119,10 @@ public class bullet_status : MonoBehaviour
 		else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
 		{
 			gameObject.SetActive(false);
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
+			//GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			//ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			//effect.transform.position = gameObject.transform.position;
+			//particle.Play();
 		}
 		// 自身がプレイヤーの弾で、ヴァキュラに当たったとき
 		else if (gameObject.tag == "Player_Bullet " && col.name == "Bacula")
@@ -185,22 +185,22 @@ public class bullet_status : MonoBehaviour
 		else if (gameObject.tag == "Enemy_Bullet " && col.tag == "Wall" && gameObject.name == "Bullet_ReflectLaser")
 		{
 			gameObject.SetActive(false);
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
+			//GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			//ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			//effect.transform.position = gameObject.transform.position;
+			//particle.Play();
 		}
         //3-18陳　追加
         //ミサイル以外壁当たったら消す
         else if(gameObject.name != "Player_Missile" && col.tag == "Wall")
         {
             gameObject.SetActive(false);
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
+            //GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+            //ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+            //effect.transform.position = gameObject.transform.position;
 
             Player_Bullet_Des();
-			particle.Play();
+            //particle.Play();
         }
         //3-18陳　追加
         //ミサイル敵弾(moai lingBullet)に当たったらエフェクト再生

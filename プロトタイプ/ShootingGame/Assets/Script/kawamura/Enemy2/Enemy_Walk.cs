@@ -63,14 +63,17 @@ public class Enemy_Walk : character_status
 	//
 	Vector3 normalVector = Vector3.zero;
 	public Vector3 onPlane;
-	//
+    //
 
+    public Find_Angle angleScript;
 	public Enemy_Roll roll_Script;
+    public Quaternion diedAttackRota;           //死んだ時に出す弾の角度範囲
 
-	public bool isRoll;			//回転中かどうか
+    public bool isRoll;			//回転中かどうか
 	bool isRollEnd = false;     //回転が終わったかどうか
 	bool isAttack = true;
-	public bool once = true;
+    public bool Died_Attack = false;
+    public bool once = true;
 
 	new void Start()
     {
@@ -182,6 +185,27 @@ public class Enemy_Walk : character_status
 
         if (hp < 1)
         {
+            if (Died_Attack)
+            {
+                //死亡時攻撃の処理
+                int bulletSpread = 15;      //角度を広げるための変数
+                for (int i = 0; i < 3; i++)
+                {
+                    //diedAttack_RotaZ = Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue);
+                    //diedAttack_Transform.rotation = Quaternion.Euler(0, 0, diedAttack_RotaZ);
+                    //diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+
+                    diedAttackRota = Quaternion.Euler(0, 0, angleScript.degree + bulletSpread);
+
+                    Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.transform.position, diedAttackRota);
+                    bulletSpread -= 15;     //広げる角度を変える
+                }
+
+                //diedAttackRota = Quaternion.Euler(0, 0, Random.Range(fd.degree - diedAttack_RotaValue, fd.degree + diedAttack_RotaValue));
+                //Object_Instantiation.Object_Reboot(Game_Master.OBJECT_NAME.eENEMY_BULLET, transform.position, diedAttackRota);
+
+            }
+
             once = true;
             gameObject.transform.parent = defaultParentObj.transform;
             Died_Process();

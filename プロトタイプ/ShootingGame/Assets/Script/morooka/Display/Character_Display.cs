@@ -123,7 +123,7 @@ namespace TextDisplay
 				// 初期のとき
 				if (Character_Object.Count == 0)
 				{
-					Vector2 posTemp = controler_obj.transform.position;
+					Vector2 posTemp = Vector3.zero;
 					controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 					int Index = 0;
 
@@ -131,7 +131,7 @@ namespace TextDisplay
 					{
 						if (s[i] == '\n')
 						{
-							posTemp.x = controler_obj.transform.position.x;
+							posTemp.x = 0.0f;
 							posTemp.y -= 150.0f;
 						}
 						else
@@ -144,8 +144,9 @@ namespace TextDisplay
 							Display_Characters[Index].sprite = Look[character_search(s[i])];
 							Display_Characters[Index].color = Font_Color;
 
-							Character_Object[Index].transform.position = posTemp;
 							Character_Object[Index].transform.SetParent(controler_obj.transform);
+							Character_Object[Index].transform.localPosition = posTemp;
+							Character_Object[Index].transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 							posTemp.x += 100.0f;
 							Index++;
@@ -159,7 +160,7 @@ namespace TextDisplay
 				//End-Roll不具合出る可能性あり
 				else
 				{
-					Vector2 posTemp = controler_obj.transform.position;
+					Vector2 posTemp = Vector3.zero;
 					controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 					int Index = 0;
 
@@ -167,7 +168,7 @@ namespace TextDisplay
 					{
 						if (s[i] == '\n')
 						{
-							posTemp.x = controler_obj.transform.position.x;
+							posTemp.x = 0.0f;
 							posTemp.y -= 150.0f;
 						}
 						else
@@ -176,8 +177,9 @@ namespace TextDisplay
 							Display_Characters[Index].sprite = Look[character_search(s[i])];
 							Display_Characters[Index].color = Font_Color;
 
-							Character_Object[Index].transform.position = posTemp;
 							Character_Object[Index].transform.SetParent(controler_obj.transform);
+							Character_Object[Index].transform.localPosition = posTemp;
+							Character_Object[Index].transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 							posTemp.x += 100.0f;
 							Index++;
@@ -297,6 +299,15 @@ namespace TextDisplay
 			Initialization();
 			Word_Count = n;
 			Look_Load(s);
+		}
+		/// <summary>
+		/// 文字数、フォントのリセット
+		/// </summary>
+		/// <param name="n"> 文字数 </param>
+		public void Character_Reset(int n)
+		{
+			Initialization();
+			Word_Count = n;
 		}
 
 		/// <summary>
@@ -473,7 +484,7 @@ namespace TextDisplay
 			// 初期のとき
 			if (Character_Object.Count == 0)
 			{
-				Vector2 posTemp = controler_obj.transform.position;
+				Vector2 posTemp = Vector3.zero;
 				controler_obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				int Index = 0;
 
@@ -481,7 +492,7 @@ namespace TextDisplay
 				{
 					if (s[i] == '\n')
 					{
-						posTemp.x = controler_obj.transform.position.x;
+						posTemp.x = 0.0f;
 						posTemp.y -= 150.0f;
 					}
 					else
@@ -494,8 +505,9 @@ namespace TextDisplay
 						Display_Characters[Index].sprite = Look[character_search(s[i])];
 						Display_Characters[Index].color = Font_Color;
 
-						Character_Object[Index].transform.position = posTemp;
 						Character_Object[Index].transform.SetParent(controler_obj.transform);
+						Character_Object[Index].transform.localPosition = posTemp;
+						Character_Object[Index].transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 						posTemp.x += 100.0f;
 						Index++;

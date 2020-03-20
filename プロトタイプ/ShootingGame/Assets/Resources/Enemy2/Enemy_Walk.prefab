@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1179736824157581980}
   - component: {fileID: 7449718612787486891}
   - component: {fileID: 1204035717}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Walk
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -150,8 +150,11 @@ MonoBehaviour:
   lastHitPoint: {x: Infinity, y: 0, z: 0}
   groundAngle: 0
   onPlane: {x: 0, y: 0, z: 0}
+  angleScript: {fileID: 1179736825521883759}
   roll_Script: {fileID: 8393989278956184496}
+  diedAttackRota: {x: 0, y: 0, z: 0, w: 0}
   isRoll: 0
+  Died_Attack: 0
   once: 1
 --- !u!135 &7449718612787486891
 SphereCollider:
@@ -194,8 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1179736825521883756}
   - component: {fileID: 1179736825521883759}
-  - component: {fileID: 1179736825521883758}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,32 +240,6 @@ MonoBehaviour:
   isAimForPlayer1: 1
   isAimForPlayer2: 0
   degree: 0
---- !u!114 &1179736825521883758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179736825521883757}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12ad652da65740408f0adb3077c8702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 0}
-  parentObj: {fileID: 0}
-  myName: 
-  Shot_DelayCnt: 0
-  Shot_Delay_Max: 2
-  burst_DelayCnt: 0
-  burst_Delay_Max: 0
-  burst_ShotNum: 1
-  burst_Times: 10
-  burst_Num: 0
-  burst_Shot_Cnt: 0
-  isShot: 1
-  isBurst: 0
-  once: 0
 --- !u!114 &8393989278956184496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +271,18 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_Name
       value: Enemy_Enben_type
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 67339522a00baf544afdf131912828cc, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 67339522a00baf544afdf131912828cc, type: 3}
       propertyPath: m_LocalPosition.x
