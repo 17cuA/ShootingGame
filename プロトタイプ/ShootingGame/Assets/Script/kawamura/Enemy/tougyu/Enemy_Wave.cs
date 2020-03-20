@@ -125,7 +125,7 @@ public class Enemy_Wave : character_status
         }
         else if (SceneManager.GetActiveScene().name == "Stage_02")
         {
-            defaultSpeedY = 4.0f;
+            defaultSpeedY = 5.5f;
         }
 
         if (gameObject.GetComponent<DropItem>())

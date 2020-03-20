@@ -201,7 +201,7 @@ public class EnemyCreate_TimeLine : MonoBehaviour
         else if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.S))
         {
             Director.time = 369.0;
-            createNum = 66;
+            createNum = 63;
 
         }
         if (Input.GetKey(KeyCode.Slash)) Director.time += 1.0;
