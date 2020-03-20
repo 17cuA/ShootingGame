@@ -119,10 +119,10 @@ public class bullet_status : MonoBehaviour
 		else if ((gameObject.tag == "Enemy_Bullet" && col.gameObject.tag == "Player"))
 		{
 			gameObject.SetActive(false);
-			GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
-			ParticleSystem particle = effect.GetComponent<ParticleSystem>();
-			effect.transform.position = gameObject.transform.position;
-			particle.Play();
+			//GameObject effect = Obj_Storage.Storage_Data.Effects[11].Active_Obj();
+			//ParticleSystem particle = effect.GetComponent<ParticleSystem>();
+			//effect.transform.position = gameObject.transform.position;
+			//particle.Play();
 		}
 		// 自身がプレイヤーの弾で、ヴァキュラに当たったとき
 		else if (gameObject.tag == "Player_Bullet " && col.name == "Bacula")

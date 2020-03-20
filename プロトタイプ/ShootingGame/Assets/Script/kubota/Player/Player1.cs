@@ -139,7 +139,6 @@ public class Player1 : character_status
 		shot_Mazle = gameObject.transform.Find("Bullet_Fire").gameObject;
 		vector3 = Vector3.zero;
 		Direction = transform.rotation;
-		hp = 1;
 		//-----------------------------------------------------------------
 		bullet_Type = Bullet_Type.Single;   //初期状態をsingleに
 		direction = transform.position;
