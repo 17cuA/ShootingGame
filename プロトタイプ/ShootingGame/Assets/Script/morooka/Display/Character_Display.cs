@@ -131,7 +131,7 @@ namespace TextDisplay
 					{
 						if (s[i] == '\n')
 						{
-							posTemp.x = controler_obj.transform.position.x;
+							posTemp.x = 0.0f;
 							posTemp.y -= 150.0f;
 						}
 						else
@@ -168,7 +168,7 @@ namespace TextDisplay
 					{
 						if (s[i] == '\n')
 						{
-							posTemp.x = controler_obj.transform.position.x;
+							posTemp.x = 0.0f;
 							posTemp.y -= 150.0f;
 						}
 						else
@@ -492,7 +492,7 @@ namespace TextDisplay
 				{
 					if (s[i] == '\n')
 					{
-						posTemp.x = controler_obj.transform.position.x;
+						posTemp.x = 0.0f;
 						posTemp.y -= 150.0f;
 					}
 					else
