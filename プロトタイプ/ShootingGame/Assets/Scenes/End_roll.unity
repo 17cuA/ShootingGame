@@ -781,3 +781,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4123728783663208559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123728783663208552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f81cba41c7469042a533927583f0ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMGroups:
+  - name: ;;;
+    BGM_Clip: {fileID: 8300000, guid: 1d29451017e66234aab87338eb269563, type: 3}
+  fadeInStartVolume: 0
+  fadeInTime: 3
+  isFadeIn: 1
+  fadeOutOverVolume: 0
+  fadeOutTime: 3
+  isFadeOut: 0
+  StartFadeoutTime: 60
