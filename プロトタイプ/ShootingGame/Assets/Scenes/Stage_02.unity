@@ -2132,6 +2132,21 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 46
       objectReference: {fileID: 0}
+    - target: {fileID: 1636322280893867189, guid: c644b435daa4fd64e8b41276bae9876b,
+        type: 3}
+      propertyPath: deletTransform.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636322280893867189, guid: c644b435daa4fd64e8b41276bae9876b,
+        type: 3}
+      propertyPath: deletTransform.Array.data[0]
+      value: 
+      objectReference: {fileID: 656680398}
+    - target: {fileID: 1636322280893867189, guid: c644b435daa4fd64e8b41276bae9876b,
+        type: 3}
+      propertyPath: deletTransform.Array.data[1]
+      value: 
+      objectReference: {fileID: 1257215886}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c644b435daa4fd64e8b41276bae9876b, type: 3}
 --- !u!23 &656680396 stripped
@@ -2143,6 +2158,12 @@ MeshRenderer:
 --- !u!4 &656680397 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3118582655385148754, guid: c644b435daa4fd64e8b41276bae9876b,
+    type: 3}
+  m_PrefabInstance: {fileID: 656680395}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &656680398 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3118582655385148326, guid: c644b435daa4fd64e8b41276bae9876b,
     type: 3}
   m_PrefabInstance: {fileID: 656680395}
   m_PrefabAsset: {fileID: 0}
@@ -2530,12 +2551,12 @@ PrefabInstance:
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00007967098
+      value: 0.0000113350625
       objectReference: {fileID: 0}
     - target: {fileID: 7152062024438163668, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000011059006
+      value: -0.000030533698
       objectReference: {fileID: 0}
     - target: {fileID: 9143886380697283094, guid: ac6a0bd888ac5f9458953721fe349a12,
         type: 3}
@@ -2755,6 +2776,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 395cbf53366bd5e41a4949d2ac2642b6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8659155ccbe69d8458ec752743582baa, type: 3}
+--- !u!4 &1257215886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 8659155ccbe69d8458ec752743582baa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1257215885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1312326746
 Camera:
   m_ObjectHideFlags: 0

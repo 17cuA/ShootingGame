@@ -11,6 +11,9 @@ public class TerrainManagement : MonoBehaviour
 	public ConfirmationInObjectCamera[] positionInCamera;
 	Dictionary<string, Vector2> ForJudgment;
 	private List<Transform> transformsList { get; set; }        // 子どもトランスフォームの保存
+
+	public Transform[] deletTransform;
+
 	private void Awake()
 	{
 		Renderer[] r = transform.GetComponentsInChildren<Renderer>(true);
@@ -19,6 +22,11 @@ public class TerrainManagement : MonoBehaviour
 		for(int i = 1; i < r.Length;i++)
 		{
 			transformsList.Add(r[i].transform);
+		}
+
+		for(int i = 0; i < deletTransform.Length; i++)
+		{
+			transformsList.Remove(deletTransform[i]);
 		}
 
 		ForJudgment = new Dictionary<string, Vector2>();
